@@ -1,0 +1,2799 @@
+%%AmSTeX
+\input amstex
+\input amsppt.sty
+
+%\documentstyle{amsppt}
+
+\magnification=\magstep1
+\NoPageNumbers
+\nopagenumbers
+\pagewidth{5.4in}
+
+
+\def \emph#1{\underbar{#1}}
+\def \Prob{\operatorname{Prob}}
+\def \count{\operatorname{count}}
+\def \NIL{\operatorname{NIL}}
+\def \otec{\operatorname{otec}}
+\def \list{\operatorname{list}}
+\def \Prv{\operatorname{Prv}}
+\def \Nasl{\operatorname{Nasl}}
+\def \levy{\operatorname{levy}}
+\def \pravy{\operatorname{pravy}}
+\def \bratr{\operatorname{bratr}}
+\def \Prst{\operatorname{Prst}}
+\def \key{\operatorname{key}}
+\def \hloubka{\operatorname{hloubka}}
+\input lhead
+
+\heading
+Uspo\v r\'adan\'y slovn\'\i kov\'y probl\'em
+\endheading
+
+\flushpar Jedn\'a se o roz\v s\'\i\v ren\'\i\ z\'akladn\'\i ho slovn\'\i kov\'eho probl\'emu. Je 
+d\'ano tot\'aln\v e uspo\v r\'adan\'e univerzum $U$ (tj. pro ka\v zd\'e dva 
+r\accent23uzn\'e prvky $u,v\in U$ plat\'\i\ bu\v d $u<v$ nebo $v<
+u$). C\'\i lem 
+je reprezentovat 
+mno\v zinu $S\subseteq U$ a navrhnout algoritmy pro tyto operace:\newline 
+{\bf MEMBER}, {\bf INSERT}, {\bf DELETE\newline 
+MIN} -- nalezne nejmen\v s\'\i\ prvek v $S$,\newline 
+{\bf MAX} -- nalezne nejv\v et\v s\'\i\ prvek v $S$,\newline 
+$\bold S\bold P\bold L\bold I\bold T(x)$ -- zkonstruuje reprezentace dvou mno\v zin 
+$S_1=\{s\in S\mid s<x\}$ a $S_2=\{s\in S\mid s>x\}$ a ozn\'am\'\i , zda 
+$x\in S$,\newline 
+{\bf JOIN} -- pou\v z\'\i vaj\'\i\ se dv\v e verze t\'eto operace:\newline 
+$\bold J\bold O\bold I\bold N\bold 2(S_1,S_2)$ -- jsou d\'any reprezentace mno\v zin $
+S_1$ a $S_2$, kter\'e 
+spl\v nuj\'\i\ $\max S_1<\min S_2$, vytvo\v r\'\i\ se reprezentace mno\v ziny 
+$S=S_1\cup S_2$,\newline 
+$\bold J\bold O\bold I\bold N\bold 3(S_1,x,S_2)$ -- jsou d\'any reprezentace mno\v zin $
+S_1$ a $S_2$ a 
+prvek $x\in U$ tak, \v ze je spln\v eno $\max S_1<x<\min S_2$, vytvo\v r\'\i\ 
+se reprezentace mno\v ziny $S=S_1\cup \{x\}\cup S_2$.
+\smallskip
+
+\flushpar Je vid\v et, \v ze operace {\bf JOIN2} a {\bf JOIN3} lze pomoc\'\i\ ope\-rac\'\i\ 
+{\bf INSERT} a {\bf DELETE} p\v rev\'est jednu na druhou. Proto \v casto budeme 
+popisovat pro danou strukturu jen jednu z nich. 
+Ob\v cas se tak\'e pou\v z\'\i v\'a operace\newline 
+$\bold o\bold r\bold d(k)$ -- p\v redpok\'ad\'ame, \v ze $k\le |S
+|$, a operace nalezne $k$-t\'y 
+nejmen\v s\'\i\ prvek v $S$.\newline 
+Z\v rejm\v e operace {\bf MIN} a {\bf MAX} jsou speci\'aln\'\i m p\v r\'\i padem 
+ope\-race {\bf ord$(k)$}, 
+p\v resn\v e {\bf MIN} je operace $\bold o\bold r\bold d(1)$ a {\bf MAX} je operace $
+\bold o\bold r\bold d(|S|)$.
+
+
+\heading
+$(a,b)$-stromy
+\endheading
+
+\flushpar D\accent23ule\v zitou datovou strukturou vhodnou pro 
+\v re\v sen\'\i\ uspo\v r\'a\-dan\'e\-ho slovn\'\i\-ko\-v\'e\-ho probl\'emu jsou 
+$(a,b)$-stromy. Tuto datovou strukturu lze pou\v z\'\i t pro intern\'\i\ i 
+pro extern\'\i\ pam\v e\v t. Je to struktura zalo\v zen\'a na stromech. 
+Nejobecn\v ej\v s\'\i\ grafov\'a defini\-ce $(a,b)$-stromu je:\newline 
+Nech\v t $1\le a<b$ jsou kladn\'a p\v rirozen\'a \v c\'\i sla. Pak ko\v renov\'y 
+strom $(T,t)$ se naz\'yv\'a $(a,b)$-\emph{strom}, kdy\v z 
+\roster
+\item
+kdy\v z $v$ je vnit\v rn\'\i\ vrchol stromu $T$ r\accent23uzn\'y od 
+ko\v rene $t$, pak m\'a alespo\v n $a$ a nejv\'y\v se $b$ syn\accent23u;
+\item
+v\v sechny cesty z ko\v rene do libovoln\'eho listu maj\'\i\ 
+stejnou d\'elku.
+\endroster
+Tato definice je p\v r\'\i li\v s obecn\'a a pro datov\'e struktury se 
+nehod\'\i . Proto pou\v z\'\i v\'ame jej\'\i\ speci\'aln\'\i\ p\v r\'\i pad. Datov\'a 
+struktura $(a,b)$-strom je definov\'ana jen na t\v echto stromech: 
+Nech\v t $a$ a $b$ jsou p\v rirozen\'a \v c\'\i sla takov\'a, \v ze $
+2\le a$ a 
+$2a-1\le b$. Pak ko\v renov\'y 
+strom $(T,t)$ nazveme $(a,b)$-\emph{strom}, kdy\v z plat\'\i\ 
+\roster
+\item
+ka\v zd\'y vnit\v rn\'\i\ vrchol $v$ stromu $T$ r\accent23uzn\'y od 
+ko\v rene $t$ m\'a alespo\v n $a$ a nejv\'y\v se $b$ syn\accent23u;
+\item
+ko\v ren je bu\v d list nebo m\'a alespo\v n dva syny a nejv\'y\v se $
+b$ 
+syn\accent23u;
+\item
+v\v sechny cesty z ko\v rene do libovoln\'eho listu maj\'\i\ 
+stejnou d\'elku.
+\endroster
+\medskip
+
+\flushpar V\'yhody na\v sich $(a,b)$-strom\accent23u:\newline 
+Kdy\v z m\'a $(a,b)$-strom \emph{v\'y\v sku} $h>0$ (tj. d\'elka ka\v zd\'e 
+cesty z ko\v rene do libovoln\'eho listu je $h$), pak 
+strom m\'a alespo\v n $2a^{h-1}$ list\accent23u a nejv\'y\v se $b^
+h$ 
+list\accent23u.
+
+
+\proclaim{Tvrzen\'\i}M\v ejme p\v rirozen\'a \v c\'\i sla $a$ a $
+b$ takov\'a, 
+\v ze $a\ge 2$ a $b\ge 2a-1$. Pak pro ka\v zd\'e kladn\'e p\v rirozen\'e 
+\v c\'\i slo $n$ existuje $(a,b)$-strom, kter\'y m\'a p\v resn\v e $
+n$ 
+list\accent23u. Kdy\v z $(a,b)$-strom m\'a p\v resn\v e $n$ 
+list\accent23u, pak v\'y\v ska stromu je nejv\'y\v se $1+\log_a(\frac 
+n2)$ a 
+je alespo\v n $\log_bn$. Tedy v\'y\v ska stromu je $O(\log n)$.
+\endproclaim
+
+
+\flushpar M\v ejme ko\v renov\'y strom $(T,t)$ takov\'y, \v ze pro ka\v zd\'y 
+vnit\v rn\'\i\ vrchol $v$ plat\'\i :\newline 
+kdy\v z $v$ m\'a $\rho (v)$ syn\accent23u, pak jsou o\v c\'\i slov\'any od $
+1$ do 
+$\rho (v)$. \v Rekne\-me, \v ze vrchol $v$ je v \emph{hloubce} $h$, kdy\v z 
+cesta z ko\v rene $t$ do $v$ m\'a d\'elku $h$. Mno\v zina v\v sech 
+vrchol\accent23u v hloubce $h$ se naz\'yv\'a $h$-\emph{t\'a} 
+\emph{hladina}. \emph{Lexikografick\'e} \emph{uspo\v r\'ad\'an\'\i} 
+na $h$-t\'e hladin\v e je definov\'ano rekurzivn\v e:\newline 
+\newline 
+$v\le w$, pr\'av\v e kdy\v z bu\v d $\otec(v)<\otec(w)$ nebo 
+$\otec(v)=\otec(w)$ a kdy\v z $v$ je $i$-t\'y syn $\otec(v)$ a $w$ je 
+$j$-t\'y syn $\otec(v),$ pak $i\le j$.  
+\medskip
+
+\flushpar P\v redpokl\'ad\'ame, \v ze v $(a,b)$-stromu  
+synov\'e ka\v zd\'eho vnit\v rn\'\i ho vrcholu jsou uspo\v r\'ad\'any. Listy 
+tvo\v r\'\i\ hladinu $h$, kde $h$ je hloub\-ka $(a,b)$-stromu, a je na nich 
+definov\'ano lexikografick\'e uspo\v r\'a\-d\'a\-n\'\i .
+\medskip
+
+\flushpar M\v ejme line\'arn\v e uspo\v r\'adan\'e univerzum $U$ a 
+mno\v zinu $S\subseteq U$.  Pak $(a,b)$-strom $(T,t)$ 
+\emph{reprezentuje} mno\v zinu $S$, kdy\v z m\'a p\v resn\v e $|S
+|$ 
+list\accent23u a je d\'an izomorfismus mezi lexikografick\'ym uspo\v r\'a\-d\'a\-n\'\i m 
+list\accent23u stromu $T$ a uspo\v r\'adanou mno\v zinou $S$ 
+(tj.  bijekce $\key:\list(T)@>>>S$, kter\'a pro $s,t\in S$ 
+spl\v nuje $s\le t$ v $U$, pr\'av\v e kdy\v z $\key^{-1}(s)\le\key^{
+-1}(t)$ v 
+lexikografick\'em uspo\v r\'ad\'an\'\i\ na mno\v zin\v e list\accent23u 
+stromu $T$).  
+\medskip
+
+\flushpar Struktura vnit\v rn\'\i ch vrchol\accent23u 
+$(a,b)$-stromu $(T,t)$ reprezentuj\'\i c\'\i\-ho mno\v zinu 
+$S\subseteq U$:\newline 
+$\rho (v)$ -- po\v cet syn\accent23u vrcholu $v$,\newline 
+$S_v(1..\rho (v))$ -- pole ukazatel\accent23u na syny vrcholu $v$ takov\'e, 
+\v ze $S_v(i)$ je $i$-t\'y syn vrcholu $v$ pro 
+$i=1,2\dots,\rho (v)$,\newline 
+$H_v(1..\rho (v)-1)$ -- pole prvk\accent23u z $U$ takov\'e, \v ze $
+H_v(i)$ 
+je nejv\v et\v s\'\i\ prvek z $S$ reprezentovan\'y v podstromu 
+$i$-t\'eho syna vrcholu $v$ (alternativa: $H_v(i)$ je prvek z $U$ 
+takov\'y, \v ze nejv\v et\v s\'\i\ prvek reprezentovan\'y v podstromu $
+i$-t\'eho 
+syna vrcholu $v$ je men\v s\'\i\ nebo roven $H_v(i)$ a to je men\v s\'\i\  
+ne\v z nejmen\v s\'\i\ prvek reprezentovan\'y v podstromu $(i+1)$-n\'\i ho 
+syna vrcholu $v$).
+\medskip
+
+\flushpar Struktura list\accent23u:\newline 
+listu $v$ je p\v ri\v razen prvek $\key(v)\in S$.
+\medskip
+
+\flushpar N\v ekdy je ve struktu\v re ka\v zd\'eho vrcholu $v$ 
+$(a,b)$-stromu r\accent23uzn\'eho od ko\v rene je\v st\v e ukazatel 
+$\otec(v)$ na otce vrcholu $v$.
+\medskip
+
+\flushpar Kdy\v z $H_v(i)$ jsou prvky z reprezentovan\'e 
+mno\v ziny, pak pro ka\v zd\'y prvek $s\in S$ krom\v e nejv\v et\v s\'\i ho 
+existuje pr\'av\v e jeden vnit\v r\-n\'\i\ vrchol $v$ $(a,b)$-stromu 
+a jedno $i$, \v ze $H_v(i)=s$, a nejv\v et\v s\'\i\ prvek v $S$ nen\'\i\ prvek 
+$H_v$ pro \v z\'adn\'y vrchol $v$. Tento fakt se pou\v z\'\i v\'a p\v ri 
+implementaci, kde se vynech\'avaj\'\i\ listy. Prvky z $S$ jsou 
+reprezentov\'any v pol\'\i ch $H_v$ vnit\v r\-n\'\i ch vrchol\accent23u 
+stromu 
+a nejv\v et\v s\'\i\ prvek je ulo\v zen zvl\'a\v s\v t nebo je k mno\v zin\v e $S$ p\v rid\'an 
+form\'aln\'\i\ nejv\v et\v s\'\i\ prvek (a ten je pak "ulo\v zen" zvl\'a\v s\v t). Je to prostorov\v e 
+efektivn\v ej\v s\'\i\ reprezentace mno\v ziny $S$, ale je technicky 
+nep\v rehledn\'a. Proto p\v ri pr\'aci s $(a,b)$-stromy pou\v z\'\i v\'am 
+verzi s listy.
+\medskip
+
+\flushpar Nyn\'\i\ uvedeme algoritmy pro $(a,b)$-stromy.
+
+\subhead 
+Algoritmy
+\endsubhead
+
+\flushpar Pomocn\'y algoritmus
+\bigskip
+
+{\bf Vyhledej$(x)$\newline 
+$t:=$}ko\v ren stromu $T$, $w:=NIL$\newline 
+{\bf while} $t$ nen\'\i\ list {\bf do}\newline 
+\phantom{---}$i:=1$\newline 
+\phantom{---}{\bf while} $H_t(i)<x$ a $i<\rho (t)$ {\bf do} $i:=i+1$ {\bf enddo}\newline 
+\phantom{---}{\bf if} $H_t(i)=x$ {\bf then} $w:=t$ {\bf endif}\newline 
+$t:=S_t(i)$ {\bf enddo V\'ystup}: $t$ a $w$.
+\medskip
+
+{\bf MEMBER$(x)$\newline 
+Vyhledej$(x)$\newline 
+if} $\key(t)=x$ {\bf then V\'ystup}: $x\in S$ {\bf else V\'ystup}: $x\notin S$ {\bf endif
+\medskip
+
+INSERT$(x)$\newline
+Vyhledej$(x)$\newline 
+if} $\key(t)\ne x$ {\bf then}\newline 
+\phantom{---}vytvo\v r nov\'y list $t'$, $\key(t'):=x$, $u:=\otec(t)$\newline 
+\phantom{---}{\bf if} $\key(t)<x$ {\bf then}\newline 
+(koment\'a\v r: $x>\max S$)\newline 
+\phantom{------}$S_u(\rho (u)+1):=t'$, $H_u(\rho (u)):=\key(t)$, $\rho (u):=\rho 
+(u)+1$\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}najdi $i$, \v ze $S_u(i)=t$\newline 
+\phantom{------}$S_u(\rho (u)+1):=S(\rho (u))$, $j:=\rho (u)-1$\newline 
+\phantom{------}{\bf while} $j\ge i$ {\bf do\newline 
+\phantom{---------}$S_u(j+1):=S_u(j)$}, $H_u(j+1):=H_u(j)$, $j:=j-1$\newline 
+\phantom{------}{\bf enddo\newline 
+\phantom{------}$S_u(i):=t'$}, $H_u(i):=x$, $\rho (u):=\rho (u)+1$\newline 
+\phantom{---}{\bf endif}\newline 
+\phantom{---}$t:=u$\newline 
+\phantom{---}{\bf while} $\rho (t)>b$ {\bf do \v St\v epen\'\i$(t)$ enddo\newline 
+endif}
+\medskip
+
+{\bf \v St\v epen\'\i$(t)$\newline 
+if} $t$ je ko\v ren stromu {\bf then}\newline 
+\phantom{---}vytvo\v r nov\'y ko\v ren $u$ s jedin\'ym synem $t$\newline 
+{\bf endif}\newline 
+$u:=\otec(t)$, najdi $i$, \v ze $S_u(i)=t$,\newline 
+vytvo\v r nov\'y vnit\v rn\'\i\ vrchol $t'$, $j:=1$\newline 
+{\bf while} $j<\lfloor\frac {b+1}2\rfloor$ {\bf do}\newline 
+\phantom{---}$S_{t'}(j):=S_t(j+\lceil\frac {b+1}2\rceil )$, $H_{t'}(j):=H_t(j+\lceil\frac {b+1}2\rceil)$, $j:=j+1$\newline 
+{\bf enddo\newline 
+$S_{t'}(\lfloor\frac {b+1}2\rfloor ):=S_t(b+1)$}, $\rho (t):=\lceil\frac {
+b+1}2\rceil$, $\rho (t'):=\lfloor\frac {b+1}2\rfloor$,\newline 
+{\bf if} $i<\rho (u)$ {\bf then} $S_u(\rho (u)+1):=S_u(\rho (u))$ {\bf endif\newline}
+$j:=\rho (u)-1$, $\rho (u):=\rho (u)+1$,\newline 
+{\bf while} $j>i$ {\bf do}\newline 
+\phantom{---}$S_u(j+1):=S_u(j)$, $H_u(j+1):=H_u(j)$, $j:=j-1$\newline 
+{\bf enddo\newline 
+$S_u(i+1):=t'$}, $H_u(i+1):=H_u(i)$, $H_u(i):=H_t(\rho (t))$, 
+$t:=u$
+\medskip
+
+{\bf DELETE$(x)$\newline 
+Vyhledej$(x)$\newline 
+if} $\key(t)=x$ {\bf then}\newline 
+\phantom{---}$u:=\otec(t)$, najdi $i$, \v ze $S_u(i)=t$, a $j$, \v ze $H_w(j)=x$, $k:=i$\newline 
+\phantom{---}{\bf if} $w\ne u$ a $w\ne NIL$ {\bf then} $H_w(j):=H_u(\rho (u)-1)$ {\bf endif}\newline 
+\phantom{---}{\bf while} $k<\rho (u)-1$ {\bf do}\newline 
+\phantom{------}$H_u(k):=H_u(k+1)$, $S_u(k):=S_u(k+1)$, $k:=k+1$ \newline 
+\phantom{---}{\bf enddo}\newline 
+\phantom{---}{\bf if} $i\ne\rho(u)$ {\bf then} $S_u(\rho (u)-1):=S_u(\rho (u))$ {\bf endif}\newline
+\phantom{---}$\rho (u):=\rho (u)-1$, odstra\v n $t$, $t:=u$ \newline 
+\phantom{---}{\bf while} $\rho (t)<a$ a $t$ nen\'\i\ ko\v ren {\bf do}\newline 
+\phantom{------}$y$ je bezprost\v redn\'\i\ bratr $t$\newline 
+\phantom{------}{\bf if} $\rho (y)=a$ {\bf then Spojen\'\i$(t,y)$ else P\v resun$
+(t,y)$ endif}\newline 
+\phantom{---}{\bf enddo\newline 
+endif}
+\medskip
+
+{\bf Spojen\'\i$(t,y)$\newline 
+$u:=\otec(t)$}, najdi $i$, \v ze $S_u(i)=t$, $j:=1$\newline 
+{\bf if} $S_u(i-1)=y$ {\bf then} vym\v e\v n $t$ a $y$, $i:=i-1$ {\bf endif\newline 
+while} $j<\rho (y)$ {\bf do}\newline 
+\phantom{---}$S_t(\rho (t)+j):=S_y(j)$, $H_t(\rho (t)+j):=H_y(j)$, $j:=j+1$\newline 
+{\bf enddo}\newline 
+$H_t(\rho (t)):=H_u(i)$, $S_t(\rho (t)+\rho (y)):=S_y(\rho (y))$, $
+\rho (t):=\rho (t)+\rho (y)$, odstra\v n $y$\newline 
+{\bf while} $i<\rho (u)-1$ {\bf do}\newline 
+\phantom{---}$S_u(i+1):=S_u(i+2)$, $H_u(i):=H_u(i+1)$, $i:=i+1$\newline 
+{\bf enddo}\newline 
+$\rho (u):=\rho (u)-1$\newline 
+{\bf if} $u$ je ko\v ren a $\rho (u)=1$ {\bf then}\newline 
+\phantom{---}odstra\v n $u$\newline 
+{\bf else}\newline 
+\phantom{---}$t:=u$\newline 
+{\bf endif}
+\medskip
+
+{\bf P\v resun$(t,y)$\newline 
+$u:=\otec(t)$}, najdi $i$ takov\'e, \v ze $S_u(i)=t$\newline 
+{\bf if} $S_u(i+1)=y$ {\bf then}\newline 
+\phantom{---}$S_t(\rho (t)+1):=S_y(1)$, $H_t(\rho (t)):=H_u(i)$,\newline 
+\phantom{---}$H_u(i):=H_y(1)$, $j:=1$\newline 
+\phantom{---}{\bf while} $j<\rho (y)-1$ {\bf do}\newline 
+\phantom{------}$S_y(j):=S_y(j+1)$, $H_y(j):=H_y(j+1)$, $j:=j+1$\newline 
+\phantom{---}{\bf enddo}\newline 
+\phantom{---}$S_y(\rho (y)-1):=S_y(\rho (y))$, $\rho (t):=\rho (t)+1$, $\rho 
+(y):=\rho (y)-1$\newline 
+{\bf else}\newline
+\phantom{---}$S_t(\rho (t)+1):=S_t(\rho (t))$, $j:=\rho (t)-1$\newline 
+\phantom{---}{\bf while} $j>0$ {\bf do}\newline 
+\phantom{------}$S_t(j+1):=S_t(j)$, $H_t(j+1):=H_t(j)$, $j:=j-1$\newline 
+\phantom{---}{\bf enddo}\newline 
+\phantom{---}$\rho (t):=\rho (t)+1$, $S_t(1):=S_y(\rho (y))$, $H_t(1):=H_u(i-
+1)$,\newline 
+\phantom{---}$H_u(i-1):=H_y(\rho (y)-1)$, $\rho (y):=\rho (y)-1$\newline 
+{\bf endif}
+\medskip
+
+{\bf MIN\newline 
+$t:=$}ko\v ren stromu\newline 
+{\bf while} $t$ nen\'\i\ list {\bf do} $t:=S_t(1)$ {\bf enddo}\newline 
+$\key(t)$ je nejmen\v s\'\i\ prvek $S$
+\medskip
+
+{\bf MAX\newline 
+$t:=$}ko\v ren stromu\newline 
+{\bf while} $t$ nen\'\i\ list {\bf do} $t:=S_t(\rho (t))$ {\bf enddo}\newline 
+$\key(t)$ je nejv\v et\v s\'\i\ prvek $S$
+\medskip
+
+{\bf JOIN2$(T_1,T_2)$}\newline
+P\v redpoklad $T_i$ je $(a,b)$-strom reprezentuj\'\i c\'\i\ 
+mno\v zinu $S_i$ pro $i=1,2$, kter\'e spl\v nuj\'\i\ $\max S_1<\min 
+S_2$ 
+(tento p\v redpoklad je siln\v ej\v s\'\i\ ne\v z po\v zadavek, \v ze $
+S_1$ a 
+$S_2$ jsou disjunktn\'\i , ale algoritmus nekontroluje jeho spln\v en\'\i )\newline 
+{\bf if} v\'y\v ska $T_1$ je v\v et\v s\'\i\ nebo rovna v\'y\v sce $T_2$ {\bf then}\newline 
+\phantom{---}$t:=$ko\v ren $T_1$, $k:=v(T_1)-v(T_2)$\newline 
+\phantom{---}{\bf while} $k>0$ {\bf do} $t:=S_t(\rho (t))$, $k:=k-1$ {\bf enddo}\newline \phantom{---}{\bf Spojen\'\i$(t,$}ko\v ren $T_2)$, $t:=\otec(t)$\newline 
+\phantom{---}{\bf while} $\rho (t)>b$ {\bf do \v St\v epen\'\i$(t)$ enddo\newline 
+else}\newline 
+\phantom{---}$t:=$ko\v ren $T_2$, $k:=v(T_2)-v(T_1)$ \newline 
+\phantom{---}{\bf while} $k>0$ {\bf do} $t:=S_t(1)$, $k:=k-1$ {\bf enddo}\newline \phantom{---}{\bf Spojen\'\i$(t,$}ko\v ren $T_1)$, $t:=\otec(t)$\newline 
+\phantom{---}{\bf while} $\rho (t)>b$ {\bf do \v St\v epen\'\i$(t)$ enddo\newline 
+endif}
+\medskip
+
+{\bf SPLIT$(T,x)$\newline 
+$Z_1$}, $Z_2$ pr\'azdn\'e z\'asobn\'\i ky, $t:=$ko\v ren $T$\newline 
+{\bf while} $t$ nen\'\i\ list {\bf do}\newline
+\phantom{---}$i:=1$\newline 
+\phantom{---}{\bf while} $H_t(i)<x$ a $i<\rho (t)$ {\bf do} $i:=i+1$ {\bf enddo}\newline \phantom{---}$t:=S_t(i)$\newline 
+\phantom{---}{\bf if} $i=2$ {\bf then} vlo\v z podstrom vrcholu $S_t(1)$ do $Z_1$ 
+{\bf endif}\newline 
+\phantom{---}{\bf if} $i>2$ {\bf then}\newline 
+\phantom{------}vytvo\v r nov\'y vrchol $t_1$, $\rho (t_1)=i-1$,\newline 
+\phantom{------}{\bf for every} $j=1,2,\dots,i-2$ {\bf do}\newline 
+\phantom{---------}$S_{t_1}(j):=S_t(j)$, $H_{t_1}(j):=H_t(j)$\newline 
+\phantom{------}{\bf enddo}\newline 
+\phantom{------}$S_{t_1}(i-1):=S_t(i-1)$, vlo\v z podstrom vrcholu $t_1$ do $Z_1$\newline 
+\phantom{---}{\bf endif}\newline 
+\phantom{---}{\bf if} $i=\rho (t)-1$ {\bf then}\newline 
+\phantom{------}vlo\v z podstrom $S_t(\rho (t))$ do $Z_2$ 
+\phantom{---}{\bf endif}\newline 
+\phantom{---}{\bf if} $i<\rho (t)-1$ {\bf then}\newline 
+\phantom{------}vytvo\v r nov\'y vrchol $t_2$, $\rho (t_2):=\rho (t)-i$\newline 
+\phantom{------}{\bf for every} $j=1,2,\dots,\rho (t)-i-1$ {\bf do}\newline 
+\phantom{---------}$S_{t_2}(j):=S_t(i+j)$, $H_{t_2}(j):=H_t(i+j)$\newline 
+\phantom{------}{\bf enddo}\newline 
+\phantom{------}$S_{t_2}(\rho (t)-i):=S_t(\rho (t))$, vlo\v z podstrom $t_2$ do $Z_2$ \newline 
+\phantom{---}{\bf endif\newline 
+enddo\newline 
+if} $\key(t)=x$ {\bf then}\newline 
+\phantom{---}{\bf V\'ystup}: $x\in S$\newline 
+{\bf else}\newline 
+\phantom{---}{\bf V\'ystup}: $x\notin S$\newline 
+\phantom{---}{\bf if} $\key(t)<x$ {\bf then}\newline 
+\phantom{------}vlo\v z podstrom vrcholu $t$ do $Z_1$\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}vlo\v z podstrom vrcholu $t$ do $Z_2$\newline 
+\phantom{---}{\bf endif\newline 
+endif}\newline 
+$T_1:=\text{ vrchol }Z_1$, odstra\v n $T_1$ ze $Z_1$\newline 
+{\bf while} $Z_1\ne\emptyset$ {\bf do}\newline 
+\phantom{---}$T':=$vrchol $Z_1$, odstra\v n $T'$ ze $Z_1$, $T_1:=${\bf JOIN}$(T',T_1)$\newline enddo\newline 
+$T_2:=\text{ vrchol }Z_2$, odstra\v n $T_2$ ze $Z_2$\newline 
+{\bf while} $Z_2\ne\emptyset$ {\bf do}\newline 
+$T':=\text{ vrchol }Z_2$, odstra\v n $T'$ ze $Z_2$, $T_2:=${\bf JOIN$(T_2,T')$\newline 
+enddo}
+\medskip
+
+\flushpar Pozn\'amky k algoritm\accent23um. \newline 
+Odkaz na otce vrcholu: bu\v d je v ka\v zd\'em vrcholu $v$ 
+stromu $T$ p\v r\'\i mo odkaz na $\otec(v)$, nebo se v procedu\v re 
+{\bf Vyhledej} vkl\'ada\-j\'\i\ vrcholy do z\'asobn\'\i ku a $\otec
+(v)$ 
+je vrchol v z\'asobn\'\i ku p\v red vrcholem $v$.
+\smallskip
+
+\flushpar P\v ri operaci {\bf SPLIT} se z\'asobn\'\i ky pou\v z\'\i vaj\'\i\ 
+jednopr\accent23uchodov\v e -- nejprve se napln\'\i\ a v t\'eto \v c\'asti 
+algoritmu se nepou\v zije operace {\bf pop}, pak se vypr\'azdn\'\i\ a v t\'eto 
+f\'azi se nepou\v z\'\i v\'a operace {\bf push}. V okam\v ziku, kdy\v z jsou 
+z\'asobn\'\i ky napln\v en\'e, plat\'\i :
+\roster
+\item"{}"
+v z\'asobn\'\i c\'\i ch jsou ulo\v zeny $(a,b)$-stromy reprezentuj\'\i c\'\i\ 
+podmno\v ziny $S$;
+\item"{}" 
+kdy\v z $(a,b)$-stromy $T_i$ a $T_{i+1}$ reprezentuj\'\i\ mno\v ziny $S_
+i$ a $S_{i+1}$ a jsou v z\'a\-sobn\'\i ku $Z_1$ (nebo $Z_2$) a strom $T_{i+1}$ n\'asleduje 
+po stromu $T_{i}$, pak plat\'\i\ $\max S_i<\min S_{i+1}<x$ (nebo 
+$\min S_i>\max S_{i+1}>x$) a v\'y\v ska $T_i$ je v\v et\v s\'\i\ nebo 
+rovna v\'y\v sce $T_{i+1}$;
+\item"{}"
+kdy\v z $T_i$ a $T_{i+1}$ jsou dva po sob\v e n\'asleduj\'\i c\'\i\ $
+(a,b)$-stromy v 
+z\'asobn\'\i ku $Z_j$ pro $j=1,2$, kter\'e maj\'\i\ stejnou v\'y\v sku, pak 
+n\'asleduj\'\i c\'\i\ strom v z\'asobn\'\i ku $Z_j$ m\'a ost\v re men\v s\'\i\ v\'y\v sku.
+\endroster
+\flushpar Toto plyne z prvn\'\i\ f\'aze algoritmu operace {\bf SPLIT} a zaji\v s\v tuje 
+korektnost druh\'e f\'aze algoritmu. 
+\medskip
+
+\flushpar D\'ale si v\v simn\v eme, \v ze podprocedury {\bf \v St\v epen\'\i }, {\bf Spojen\'\i} a {\bf P\v re\-sun }
+vy\v zaduj\'\i\ \v cas $O(1)$, a proto algoritmy pro operace {\bf MEMBER}, 
+{\bf INSERT}, {\bf DELETE}, {\bf MIN}, {\bf MAX}, {\bf JOIN2} a pro prvn\'\i\ f\'azi algoritmu 
+{\bf SPLIT} vy\v zaduj\'\i\ \v cas $O(1)$ pro pr\'aci v dan\'e hladin\v e.  Proto\v ze 
+hladin je nejv\'y\v se $\log_a|S|$, m\accent23u\v zeme shrnout: 
+
+
+\proclaim{V\v eta}Algoritmy pro operace {\bf MEMBER}, {\bf INSERT}, 
+{\bf DE\-LETE}, {\bf MIN}, {\bf MAX}, {\bf JOIN2} a {\bf SPLIT} v $
+(a,b)$-stromech vy\-\v zaduj\'\i\ 
+v nejhor\v s\'\i m p\v r\'\i pad\v e \v cas $O(\log_a|S|)$, kde $
+S$ je 
+re\-pre\-zen\-tovan\'a mno\v zina.  
+\endproclaim
+
+
+\flushpar Je t\v reba je\v st\v e odhadnout spot\v rebovan\'y \v cas ve druh\'e f\'azi 
+algoritmu pro operaci {\bf SPLIT}. Nejprve si v\v simn\v eme, \v ze 
+algoritmus {\bf JOIN2$(T_1,T_2)$} vy\v zaduje ve skute\v cnosti jen \v cas 
+rovn\'y 
+$O(\text{\rm rozd\'\i l v\'y\v sek strom\accent23u }T_1\text{\rm \ a }
+T_2)$. Kdy\v z po napln\v en\'\i\ 
+z\'asobn\'\i k $Z_j$ pro $j=1,2$ obsahuje stromy $U_1,U_2,\dots,U_
+k$ v tomto 
+po\v rad\'\i , pak $k\le 2\log_a|S|$ a vypr\'azdn\v en\'\i\ z\'asobn\'\i ku $
+Z_j$ 
+vy\v zaduje 
+\v cas $O(\sum_{i=1}^{k-1}(u_i-u_{i+1}+1)=O(u_1+k)$, kde $u_i$ je v\'y\v ska stromu $
+U_i$ pro 
+$i=1,2,\dots,k$. Proto\v ze v\'y\v ska stromu $U_1$ je nejv\'y\v se rovna v\'y\v sce 
+stromu $T$, dost\'av\'ame, \v ze druh\'a f\'aze algoritmu {\bf SPLIT} vy\v zaduje 
+\v cas $O(\log_a|S|)$ a d\accent23ukaz je kompletn\'\i . 
+\medskip
+
+\flushpar Nyn\'\i\ pop\'\i\v seme algoritmus pro operaci {\bf ord$
+(k)$}. Tato 
+operace se \v casto naz\'yv\'a $k$-t\'a po\v r\'adko\-v\'a statistika
+Tato operace nen\'\i\ podporov\'ana navr\v zenou 
+strukturou, pro jej\'\i\ efektivn\'\i\ implementaci mus\'\i me 
+roz\v s\'\i\v rit strukturu vnit\v rn\'\i ho vrcholu $v$ o pole\newline 
+$P_v(1..\rho (v)-1)$, kde $P_v(i)$ je po\v cet prvk\accent23u $S$ reprezentovan\'ych 
+v podstromu $i$-t\'eho syna vrcholu $v$.
+\smallskip
+ 
+\flushpar Udr\v zovat pole $P_v$ v aktu\'aln\'\i m stavu znamen\'a p\v ri \'usp\v e\v sn\'em 
+pro\-veden\'\i\ aktualiza\v cn\'\i\ operace proj\'\i t cestu z vrcholu do ko\v re\-ne 
+a aktualizovat pole $P$. Uvedeme algoritmus pro 
+naleze\-n\'\i\ $k$-t\'e po\v r\'adkov\'e statistiky.
+\medskip
+
+{\bf ord$(k)$\newline 
+if} $k>|S|$ {\bf then} neexistuje $k$-t\'y nejmen\v s\'\i\ prvek, konec 
+{\bf endif\newline 
+$t:=$}ko\v ren stromu\newline 
+{\bf while} $t$ nen\'\i\ list {\bf do}\newline 
+\phantom{---}$i:=1$\newline 
+\phantom{---}{\bf while} $k>P_t(i)$ a $i<\rho (t)$ {\bf do}\newline 
+\phantom{------}$k:=k-P_t(i)$, $i:=i+1$\newline 
+\phantom{---}{\bf enddo}\newline 
+\phantom{---}$t:=S_t(i)$\newline 
+{\bf enddo}\newline 
+$\key(t)$ je hledan\'y $k$-t\'y nejmen\v s\'\i\ prvek
+\bigskip
+
+\flushpar Invariant algoritmu: V ka\v zd\'em okam\v ziku plat\'\i , 
+\v ze p\accent23uvodn\'\i\ $k$ se rovn\'a aktu\'aln\'\i\ $k+$po\v cet prvk\accent23u z 
+$S$, kter\'e jsou v podstromech vrchol\accent23u stromu, kter\'e v 
+lexikografick\'em uspo\v r\'ad\'an\'\i\ p\v redch\'azej\'\i\ $i$-t\'emu synu 
+vrcholu $t$. Korektnost algoritmu plyne z tohoto 
+invariantu.
+
+
+\proclaim{V\v eta}Algoritmy pro operace {\bf MEMBER}, {\bf INSERT}, 
+{\bf DE\-LETE}, {\bf MIN}, {\bf MAX}, {\bf SPLIT}, {\bf JOIN2} a {\bf ord$
+(k)$} pro v\v sechna $k$ v 
+roz\v s\'\i\v ren\'e struktu\v re $(a,b)$-stromu vy\-\v za\-duj\'\i\ v 
+nejhor\v s\'\i m p\v r\'\i\-pa\-d\v e \v cas $O(\log|S|)$, kde $S$ je reprezentovan\'a 
+mno\v zina.  
+\endproclaim
+
+
+\flushpar $(a,b)$-stromy se pou\v z\'\i vaj\'\i\ jak v intern\'\i\ tak v 
+extern\'\i\ pam\v eti. Jak\'e hodnoty $a$ a $b$ je vhodn\'e 
+pou\v z\'\i vat?\newline 
+Pro intern\'\i\ pam\v e\v t jsou doporu\v cen\'e hodnoty $a=2$, $
+b=4$ 
+nebo $a=3$ a $b=6$.\newline 
+Pro extern\'\i\ pam\v e\v t jsou doporu\v cen\'e hodnoty $a\approx 
+100$, 
+$b=2a$.
+\medskip
+
+\flushpar Kdy\v z je mno\v zina reprezentovan\'a $(a,b)$-stromem 
+ulo\v zena na serveru a m\'a k n\'\i\ p\v r\'\i stup v\'\i ce 
+u\v zivatel\accent23u, vznik\'a probl\'em s aktualiza\v cn\'\i mi 
+operacemi. Tyto operace m\v en\'\i\ strukturu $(a,b)$-stromu a 
+v d\accent23usledku toho se v n\v em jin\'y u\v zivatel 
+m\accent23u\v ze ztratit. Tento probl\'em se d\'a  
+\v re\v sit tak, \v ze p\v ri aktu\-aliza\v cn\'\i ch operac\'\i ch 
+se uzav\v re cel\'y strom.
+\medskip 
+
+\flushpar Nev\'yhoda: ostatn\'\i\ u\v zivatel\'e  
+do n\v eho nemaj\'\i\ p\v r\'\i stup a nemohou pracovat. Tzv. paraleln\'\i\ 
+implementace operac\'\i\ {\bf INSERT} a {\bf DELETE} nab\'\i z\'\i\ jin\'e, 
+efektivn\v ej\v s\'\i\ \v re\v sen\'\i .
+\medskip
+
+\flushpar P\v redpoklad: $b\ge 2a$. \newline 
+P\v ri operaci {\bf INSERT} jsou ve vyhled\'avac\'\i\ f\'azi v\v zdy 
+uzav\v reny vrcholy $t$, $\otec(t)$ a synov\'e vrcholu $t$. 
+Algoritmus zjist\'\i , ve kter\'em synu vrcholu $t$ m\'a 
+pokra\v covat, a pak, kdy\v z $\rho (t)=b$, provede {\bf \v St\v epen\'\i\ }
+(proto je nutn\v e $b\ge 2a$, abychom po t\'eto ope\-raci m\v eli 
+zase $(a,b)$-strom). V algoritmu pak odpadne vyva\-\v zo\-vac\'\i\ 
+\v c\'ast (tj. {\bf \v St\v epen\'\i} p\v ri cest\v e vzh\accent23uru ke 
+ko\v reni).
+\medskip
+
+\flushpar P\v ri operaci {\bf DELETE} jsou ve vyhled\'avac\'\i\ f\'azi uzav\v reny 
+vrcholy $t$, $\otec(t)$, bezprost\v redn\'\i\ bratr $y$ vrcholu $
+t$ a 
+jejich synov\'e. 
+Kdy\v z $\rho (t)=a$, pak po najiti vrcholu, kde se bude 
+pokra\v covat, se provede bu\v d {\bf P\v resun} (kdy\v z $\rho (
+y)>a$) nebo 
+{\bf Spojen\'\i} (kdy\v z $\rho (y)=a$). Stejn\v e jako p\v ri operaci 
+{\bf INSERT} se vynech\'a vyva\-\v zo\-vac\'\i\ \v c\'ast 
+uzav\'\i raj\'\i c\'\i\ p\accent23uvodn\'\i\ algoritmus.
+\medskip
+
+\flushpar Tato \'uprava vy\v zaduje sice v\'\i ce {\bf \v St\v epen\'\i }, {\bf Spojen\'\i} a
+{\bf P\v resun\accent23u}, ale asymptoticky vych\'az\'\i\ \v cas stejn\'y 
+(jen je v\v et\v s\'\i\ multiplikativn\'\i\ konstanta). Doporu\v cen\'e 
+hodnoty $a$ a $b$ jsou $a\approx 100$ a $b=2a+2$ p\v ri ulo\v zen\'\i\ na serveru 
+v extern\'\i\ pam\v eti, ve vnit\v rn\'\i\ pam\v eti 
+se doporu\v cuje $a=2$, $b=6$.
+\medskip
+
+\flushpar Operace {\bf JOIN2} lze tak\'e paralelizovat, ale operaci {\bf SPLIT  }
+paralelizovat nelze.
+\medskip
+
+\flushpar$(a,b)$-stromy d\'avaj\'\i\ tak\'e zaj\'\i mav\'e aplikace pro 
+t\v r\'\i dic\'\i\ 
+algoritmy. Pou\v zit\'\i\ $(a,b)$-strom\accent23u pro set\v r\'\i d\v en\'\i\ 
+n\'ahodn\'e posloupnosti nen\'\i\ vhodn\'e, re\v zie na udr\v zov\'an\'\i\ 
+struktury $(a,b)$-stromu vede k tomu, \v ze multiplikativn\'\i\ 
+konstanta by byla o hodn\v e v\v et\v s\'\i\ ne\v z u klasick\'ych 
+t\v r\'\i dic\'\i ch algoritm\accent23u. Tak\'e ulo\v zen\'\i\ $(
+a,b)$-stromu 
+vy\v zaduje v\'\i ce pam\v eti ne\v z je pot\v reba pro klasick\'e 
+algoritmy. Situace se podstatn\v e zm\v en\'\i , kdy\v z vstupn\'\i\ 
+posloupnost je p\v red\-t\v r\'\i\-d\v en\'a a je ji t\v reba jen dot\v r\'\i dit. 
+Klasick\'e algoritmy v\v et\v sinou nejsou schopn\'e vyu\v z\'\i t faktu, \v ze 
+posloupnost je p\v redt\v r\'\i d\v en\'a, a jejich \v casov\'a n\'aro\v cnost je 
+prakticky stejn\'a (n\v ekdy i hor\v s\'\i ) jako u n\'ahodn\'e 
+posloupnosti. Na rozd\'\i l od nich algoritmus $A$-{\bf sort }
+zalo\v zen\'y na $(a,b)$-stromech je schopen p\v redt\v r\'\i d\v enost 
+vyu\v z\'\i t a m\'a na p\v redt\v r\'\i d\v en\'ych posloupnostech lep\v s\'\i\ 
+v\'ysledky ne\v z klasick\'e algoritmy.
+\medskip
+
+\flushpar Modifikace $(a,b)$-strom\accent23u pro algoritmus 
+$A$-{\bf sort}. M\'ame $(a,b)$-strom reprezentuj\'\i c\'\i\ vstupn\'\i\ 
+posloupnost, je d\'an ukazatel $\Prv$ na prvn\'\i\ list, listy 
+$(a,b)$-stromu jsou propojeny do seznamu v rostouc\'\i m 
+lexikografick\'em po\v rad\'\i\ (ukazatel na n\'asleduj\'\i c\'\i\ prvek je 
+$\Nasl$) a je d\'ana cesta z prvn\'\i ho listu do ko\v rene (to 
+znamen\'a, \v ze na cest\v e z prvn\'\i ho listu do ko\v rene zn\'ame 
+pro ka\v zd\'y vrchol $v$ jeho otce). Nyn\'\i\ uvedeme algoritmus 
+$A$-{\bf sort}. 
+\bigskip
+
+$A$-{\bf sort$(x_1,x_2,\dots,x_n)$\newline 
+$i:=n-1$}, vytvo\v r jednoprvkovy strom s vrcholem $t$\newline 
+$\key(t):=x_n$, $\Prv:=t$\newline 
+{\bf while} $i\ge 1$ {\bf do $A$-Insert$(x_i)$}, $i:=i-1$ {\bf enddo}\newline 
+$y_1:=\key(\Prv)$\newline 
+{\bf while} $i\le n$ {\bf do\newline 
+\phantom{---}$y_i:=\key(t)$}, $i:=i+1$, $t:=\Nasl(t)$\newline 
+{\bf enddo\newline 
+V\'ystup}: $(y_1,y_2,\dots,y_n)$ set\v r\'\i d\v en\'a posloupnost $
+(x_1,x_2,\dots,x_n)$
+\medskip
+
+$A$-{\bf Insert$(x)$\newline 
+$t:=\Prv$\newline
+while} $t\ne\text{\rm ko\v ren }T$ a $H_t(1)<x$ {\bf do $t:=\otec(t)$ enddo\newline 
+while} $t\ne\text{\rm list}$ {\bf do}\newline 
+\phantom{---}$i:=1$\newline 
+\phantom{---}{\bf while} $H_t(i)<x$ a $i<\rho (t)$ {\bf do} $i:=i+1$ {\bf enddo}\newline 
+\phantom{---}{\bf if} $i>1$ {\bf then} $v:=S_t(i-1)$ {\bf else} $v:=S_t(\rho (t))$ {\bf endif}\newline 
+\phantom{---}$t:=S_t(i)$\newline 
+{\bf enddo\newline 
+if} $\key(t)\ne x$ {\bf then\newline }
+\phantom{---}vytvo\v r nov\'y list $t'$, $\key(t')=x$,\newline
+\phantom{---}{\bf if} $t$ je ko\v ren {\bf then}\newline 
+\phantom{------}vytvo\v r nov\'y ko\v ren $u$, $\rho (u):=2$\newline 
+\phantom{------}{\bf if} $\key(t)>x$ {\bf then}\newline 
+\phantom{---------}$H_u(1):=x,$ $S_u(1):=t'$, $S_u(2):=t$,\newline
+\phantom{---------}$\Prv:=t'$, $\Nasl(t'):=t$, $\Nasl(t):=NIL$\newline 
+\phantom{------}{\bf else}\newline 
+\phantom{---------}$H_u(1):=\key(t)$, $S_u(1):=t$, $S_u(2):=t'$\newline
+\phantom{---------}$\Prv:=t$, $\Nasl(t):=t'$, $\Nasl(t'):=NIL$\newline 
+\phantom{------}{\bf endif}\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}$u:=\otec(t)$\newline 
+\phantom{------}{\bf if} $\key(t)<x$ {\bf then}\newline  
+(koment\'a\v r: $x>\max S$)\newline 
+\phantom{---------}$S_u(\rho (u)+1):=t'$, $H_u(\rho(u)):=\key(t)$, $\rho(u):=\rho(u)+1$\newline 
+\phantom{---------}$\Nasl(t):=t'$, $\Nasl(t'):=NIL$\newline 
+\phantom{------}{\bf else}\newline 
+\phantom{---------}najdi $i$, \v ze $S_u(i)=t$, $S_u(\rho(u)+1):=S(\rho(u))$,\newline 
+\phantom{---------}$j:=\rho (u)-1$, $\Nasl(v):=t'$, $\Nasl(t'):=t$\newline 
+\phantom{---------}{\bf while} $j\ge i$ {\bf do\newline 
+\phantom{------------}$S_u(j+1):=S_u(j)$}, $H_u(j+1):=H_u(j)$, $j:=j-1$\newline 
+\phantom{---------}{\bf enddo}\newline 
+\phantom{---------}$S_u(i):=t'$, $H_u(i):=x$, $\rho (u):=\rho (u)+1$,\newline 
+\phantom{---------}{\bf if} $t=\Prv$ {\bf then} $\Prv:=t'$ {\bf endif}\newline 
+\phantom{------}{\bf endif}\newline 
+\phantom{------}$t:=u$\newline 
+\phantom{------}{\bf while} $\rho (t)>b$ {\bf do \v St\v epen\'\i$(t)$ enddo}\newline 
+\phantom{---}{\bf endif\newline 
+endif}
+\medskip
+
+\flushpar Korektnost algoritmu plyne z faktu, \v ze $\key$ je 
+izomorfismus uspo\-\v r\'a\-d\'an\'\i\ a seznam list\accent23u je v 
+rostouc\'\i m po\v rad\'\i . Proto\v ze $v$ je v\v zdy bez\-prost\-\v redn\'\i\ 
+p\v redch\accent23udce $t$, je seznam korektn\v e definov\'an. 
+U\-ka\-zatel $\otec(t)$ je d\'an na cest\v e z vrcholu $\Prv$ do 
+ko\v rene, pro ostatn\'\i\ vrcholy se \v re\v s\'\i\ stejn\'ym 
+zp\accent23usobem jako pro $(a,b)$-stromy.
+\medskip
+
+\flushpar Slo\v zitost algoritmu: Algoritmus $A$-{\bf sort} vy\v zaduje v\'\i ce 
+\v casu i v\'\i ce pam\v eti ne\v z klasick\'e t\v r\'\i dic\'\i\ algoritmy, ale jejich 
+asymptotick\'a slo\v zitost je stejn\'a. Jeho v\'yhoda je v pou\v zit\'\i\ 
+na p\v red\-t\v r\'\i\-d\v en\'e posloupnosti. M\v ejme posloupnost $
+(x_1,x_2,\dots,x_n)$ 
+prvk\accent23u z to\-t\'aln\v e uspo\v r\'adan\'eho univerza $U$ a definujme 
+$$F=|\{(i,j)\mid i<j,\,x_j<x_i\}|.$$
+Z\v rejm\v e $F=0$, pr\'av\v e kdy\v z posloupnost 
+$(x_1,x_2,\dots,x_n)$ je set\v r\'\i\-d\v en\'a. D\'ale $0\le F\le\binom 
+n2$ a $F=\binom n2$, pr\'av\v e 
+kdy\v z je posloupnost $(x_1,x_2,\dots,x_n)$ klesaj\'\i c\'\i . To vede k tomu 
+br\'at $F$ jako m\'\i ru p\v redt\v r\'\i d\v enosti posloupnosti. Spo\v c\'\i t\'ame 
+slo\v zitost algoritmu $A$-{\bf sort} v z\'avislosti na $n$ a $F$
+\medskip
+
+\flushpar Z\v rejm\v e algoritmus $A$-{\bf sort v} nejhor\v s\'\i m p\v r\'\i pad\v e vy\v zaduje \v cas, 
+kter\'y pot\v rebuje $A$-{\bf Insert}, plus $O(n)$.  Algoritmus $
+A$-{\bf Insert$(x)$ }
+vy\v zaduje \v cas pot\v rebn\'y na nalezen\'\i\ m\'\i sta, kam vlo\v zit $
+x$, plus 
+$O(\text{\rm po\v cet vol\'an\'\i\ {\bf \v St\v epen\'\i}})$.  Proto\v ze ka\v zd\'y b\v eh procedury 
+{\bf \v St\v e\-pen\'\i} vytvo\v ril jeden vnit\v rn\'\i\ vrchol $
+(a,b)$-stromu a proto\v ze $a\ge 2$ 
+a $(a,b)$-strom po skon\v cen\'\i\ vol\'an\'\i\ $A$-{\bf Insert} m\'a $
+n$ list\accent23u, 
+je vnit\v rn\'\i ch vrchol\accent23u $(a,b)$-stromu $<n$.  Proto v\v sechny 
+b\v ehy procedury $A$-{\bf Insert} vy\v zaduj\'\i\ \v cas na nalezen\'\i\ m\'\i st 
+jednotliv\'ych prvk\accent23u plus $O(n)$.  Kdy\v z procedura 
+$A$-{\bf Insert$(x)$} p\v ri hled\'an\'\i\ m\'\i sta pro prvek $x$ skon\v cila ve v\'y\v sce $
+h$ 
+(tj.  prvn\'\i\ cyklus se $h$-kr\'at opakoval), pak nalezen\'\i\ m\'\i sta pro 
+prvek $x$ vy\v zadovalo \v cas $O(h)$.  V\v sechny prvky reprezentovan\'e 
+$(a,b)$-stromem pod prvn\'\i m vrcholem ve v\'y\v sce $h-1$ jsou men\v s\'\i\ 
+ne\v z $x$ a je jich alespo\v n $a^{h-1}$.  Kdy\v z $x=x_i$, pak po\v cet 
+prvk\accent23u reprezentovan\'ych $(a,b)$-stromem p\v ri b\v ehu 
+procedury $A$-{\bf Insert$(x)$}, kter\'e jsou men\v s\'\i\ ne\v z $
+x$, je po\v cet $j$ takov\'ych, \v ze $i<j$ a $x_j<x_i$.
+Ozna\v cme $f_i$ tento po\v cet. Pak plat\'\i\ 
+$$a^{h-1}\le f_i\implies h-1\le\log_af_i\implies h\in O(\log f_i).$$
+\medskip
+
+\flushpar Proto v nejhor\v s\'\i m p\v r\'\i pad\v e \v cas pot\v rebn\'y pro nalezen\'\i\ 
+pozice $x_i$ je $O(\log f_i)$. Odtud plyne, \v ze \v cas algoritmu pot\v rebn\'y k 
+b\v ehu algoritmu $A$-{\bf sort} je 
+$$O((\sum_{i=1}^n\log f_i)+n).$$
+\medskip
+
+\flushpar Z\v rejm\v e $\sum_{i=1}^nf_i=F$ a nyn\'\i\ vyu\v zijeme toho, \v ze geometrick\'y 
+pr\accent23um\v er je v\v zdy men\v s\'\i\ nebo roven aritmetick\'emu 
+pr\accent23um\v eru, a odtud dost\'av\'ame 
+$$\align\sum_{i=1}^n\log f_i=&\log\prod_{i=1}^nf_i=n\log(\prod_{i
+=1}^nf_i)^{\frac 1n}\le\\
+&n\log\frac {\sum_{i=1}^nf_i}n=n\log\frac Fn.\endalign$$
+
+
+\proclaim{V\v eta}Algoritmus $A$-{\bf sort} na set\v r\'\i d\v en\'\i\ $
+n$-\v clenn\'e 
+posloupnosti vy\v zaduje v nejhor\v s\'\i m p\v r\'\i pad\v e \v cas 
+$O(n+n\log\frac Fn)$, kde $F$ je m\'\i ra set\v r\'\i d\v enosti vstupn\'\i\ 
+posloupnosti.
+\endproclaim
+
+
+\flushpar Zhodnocen\'\i : Proto\v ze $A$-{\bf sort} nepou\v z\'\i v\'a operaci 
+{\bf DELETE}, doporu\v cuje se pou\v z\'\i t $(2,3)$-stromy. Kdy\v z se 
+budou t\v r\'\i dit posloupnosti s m\'\i rou $F\le n\log n$, pak 
+algoritmus $A$-{\bf sort} bude pot\v re\-bo\-vat v nejhor\v s\'\i m p\v r\'\i pad\v e 
+\v cas $O(n\log\log n)$. Mehlhorn a Tsa\-kalidis dok\'azali, \v ze kdy\v z 
+$F\le 0.02n^{1.57}$, pak algoritmus $A$-{\bf sort} je rychlej\v s\'\i\ ne\v z 
+algoritmus {\bf Quicksort}.
+
+\subhead
+Propojen\'e stromy s prstem
+\endsubhead
+
+\flushpar\emph{Hladinov\v e} \emph{propojen\'y} $(a,b)$-\emph{strom} \emph{s} 
+\emph{prstem} je $(a,b)$-strom, kde struktura vnit\v rn\'\i ho 
+vrcholu r\accent23uzn\'eho od ko\v rene je 
+roz\v s\'\i\v rena (proti klasick\'emu $(a,b)$-stromu) o 
+ukazatele:\newline 
+$\otec(v)$, $\levy(v)$, $\pravy(v)$, kde\newline 
+$\levy(v)$ ukazuje na nejv\v et\v s\'\i\ vrchol (v lexikografic\-k\'em 
+uspo\v r\'a\-d\'a\-n\'\i ) ve stejn\'e hladin\v e jako $v$, kter\'y je men\v s\'\i\ ne\v z 
+$v$ (kdy\v z neexistuje, tak je to $NIL$),\newline 
+$\pravy(v)$ ukazuje na nejmen\v s\'\i\ vrchol (v lexikografic\-k\'em 
+uspo\v r\'a\-d\'a\-n\'\i ) ve stejn\'e hladin\v e jako $v$, kter\'y je v\v et\v s\'\i\ ne\v z 
+$v$ (kdy\v z ne\-existuje, tak je to $NIL$).\newline 
+Nav\'\i c je d\'an ukazatel 
+$\Prst$ na n\v ekter\'y list. 
+\medskip
+
+\flushpar Zde se li\v s\'\i\ hlavn\v e vyhled\'av\'an\'\i , kter\'e je zobecn\v en\'\i m 
+postupu $A$-{\bf sortu}. Za\v c\'\i n\'ame od listu $p$, na kter\'y ukazuje 
+$\Prst$. Kdy\v z $x$ je men\v s\'\i\ ne\v z prvek reprezentovan\'y t\'\i mto 
+listem, pak se pokra\v cuje v jeho otci $v$, a kdy\v z $p$ 
+byl $i$-t\'y syn $v$, tak se pomoc\'\i\ pole $H_v$ zji\v s\v tuje, zda $
+x$ 
+nem\'a b\'yt reprezentov\'an v podstromu jeho $j$-t\'eho syna pro 
+$j<i$. Kdy\v z ne, pokra\v cuje se  ukazatelem $\levy(v)$. 
+Kdy\v z $x$ nen\'\i\ reprezentov\'an ani v jeho podstromu, 
+tak se cel\'y postup opakuje o hladinu v\'y\v s (zkoum\'a se otec vrcholu). 
+Kdy\v z $x$ je v\v et\v s\'\i\ ne\v z prvek reprezentovan\'y listem $
+p$, 
+je postup zrcadlov\v e obr\'acen\'y. Kdy\v z se nalezne 
+vrchol, v jeho\v z podstromu m\'a $x$ le\v zet, pak se aplikuje od 
+tohoto vrcholu (m\'\i sto od ko\v rene) procedura {\bf Vyhledej}.
+\newpage
+
+\flushpar Struktura krom\v e operac\'\i\ uspo\v r\'adan\'eho 
+slovn\'\i kov\'eho prob\-l\'e\-mu 
+je\v st\v e pou\v z\'\i v\'a p\v ridanou ope\-raci {\bf PRST$(x)$}, kter\'a nastav\'\i\ ukazatel 
+$\Prst$ na list, kter\'y reprezentuje nejmen\v s\'\i\ prvek v\v et\v s\'\i\ 
+nebo rovn\'y $x$ (pokud $x>\max S$, tak ukazatel $\Prst$ bude 
+ukazovat na nejv\v et\v s\'\i\ list). Operace provedou vyhled\'an\'\i\ a 
+pak pokra\v cuj\'\i\ klasick\'ym zp\accent23usobem.
+\medskip
+
+\flushpar Pou\v zit\'\i : Tato struktura je velmi v\'yhodn\'a pro 
+\'ulohy, kde v\v zdy skupina po sob\v e jdouc\'\i ch ope\-rac\'\i\  
+pracuje v bl\'\i zk\'em okol\'\i\ n\v eja\-k\'e\-ho $x\in U$. Pak 
+vyhled\'an\'\i\ prvku je rychlej\v s\'\i\ ne\v z v klasick\'em 
+$(a,b)$-stromu, viz $A$-{\bf sort}.
+\medskip
+
+\flushpar Vyva\v zovac\'\i\ operace {\bf \v St\v epen\'\i , Spojov\'an\'\i , P\v resun }
+vy\v zaduj\'\i\ \v cas $O(1)$, ale ve skute\v cnosti jsou nejpomalej\v s\'\i\ 
+\v c\'ast\'\i\ 
+algoritm\accent23u pro operace {\bf INSERT} a {\bf DELETE}.  Omezen\'\i\ 
+jejich po\v ctu vedlo k men\v s\'\i\ slo\v zitosti algoritmu $A$-{\bf sort}.  To motivovalo anal\'yzu 
+jejich pou\v zit\'\i .\newline 
+Libovoln\'y b\v eh algoritmu {\bf INSERT }
+vol\'a podproceduru {\bf \v St\v epe\-n\'\i} nejv\'y\v se $\log(|
+S|)$-kr\'at a libovoln\'y b\v eh 
+algoritmu  {\bf DELETE} m\accent23u\-\v ze nejv\'y\v se $\log(|S|
+)$-kr\'at zavolat podproceduru 
+{\bf Spojen\'\i\ }
+a nejv\'y\v se jednou podproceduru {\bf P\v resun}.  V obecn\'em 
+p\v r\'\i pad\v e tyto od\-ha\-dy nejdou zlep\v sit.  Pro vhodn\'y typ 
+$(a,b)$-stromu v\v sak amortizovan\'y po\v cet vyva\v zovac\'\i ch 
+ope\-rac\'\i\ (za\v c\'\i n\'ame-li s  
+p\accent23u\-vod\-n\v e pr\'az\-dn\'ym stromem) je konstantn\'\i .
+\medskip
+
+\flushpar Pro pevn\'e $a$ a $b$ ozna\v cme 
+$$c=\min\{\min\{2a-1,\lceil\frac {b+1}2\rceil \}-a,b-\max\{2a-1,\lfloor\frac {
+b+1}2\rfloor \}\}.$$
+P\v ripom\'\i n\'ame, \v ze \emph{v\'y\v ska} \emph{vrcholu} v ko\v renov\'em strom\v e je 
+maxim\'aln\'\i\ d\'elka cesty z n\v eho do n\v ekter\'eho listu.
+\medskip
+
+\proclaim{V\v eta}Nech\v t $b\ge 2a$ a $a\ge 2$. Nech\v t $\Cal P$ je 
+posloupnost $n$ operac\'\i\ {\bf INSERT} a {\bf DELETE}, aplikujme ji na 
+pr\'azdn\'y $(a,b)$-strom. Ozna\v cme\newline 
+$St_h$ -- po\v cet {\bf \v St\v epen\'\i} ve v\'y\v sce $h$ p\v ri aplikaci $
+\Cal P$, $St=\sum_hSt_h$;\newline 
+$Sp_h$-- po\v cet {\bf Spojen\'\i} ve v\'y\v sce $h$ p\v ri aplikaci $
+\Cal P$, 
+$Sp=\sum_hSp_h$;\newline 
+$P_h$ -- po\v cet {\bf P\v resun\accent23u} ve v\'y\v sce $h$ p\v ri aplikaci $
+\Cal P$, 
+$P=\sum_hP_h$.\newline 
+Pak plat\'\i
+\roster
+\item
+$$P\le n\quad \text{\rm a}\quad (2c-1)St+cSp\le n+c+\frac {c(n-2)}{a+c-1};$$
+\item
+$$St_h+Sp_h+P_h\le\frac {2(c+2)n}{(c+1)^h}.$$
+\endroster
+\endproclaim
+
+
+\flushpar Z definice plyne, \v ze $c\ge 1$, a proto\v ze $a\ge 2$, z 1) dostaneme
+$$St+Sp\le\frac nc+1+\frac {n-2}a\le n+1+\frac {n-2}2\le\frac {3n}
+2.$$
+Amortizovan\'y po\v cet vyva\v zovac\'\i ch operac\'\i\ spl\v nuje tedy 
+$$\frac {P+St+Sp}n\le\frac 52.$$
+\medskip
+
+\flushpar D\accent23ukaz je zalo\v zen na bankovn\'\i m principu -- 
+navrhneme kvantitativn\'\i\ ohodnocen\'\i\ $(a,b)$-stromu, 
+nalezneme jeho horn\'\i\ odhad a pop\'\i\v seme, jak 
+toto ohodnocen\'\i\ mohou zm\v enit vyva\v zo\-vac\'\i\ ope\-race. Srovn\'an\'\i\ 
+t\v echto odhad\accent23u d\'a po\v zadovan\'y v\'ysledek.
+\medskip
+
+\flushpar M\v ejme $(a,b)$-strom $T$, pro vnit\v rn\'\i\ vrchol 
+$v$ r\accent23uzn\'y od ko\v rene definuj\-me 
+$b(v)=\min\{\rho (v)-a,b-\rho (v),c\}$, pro 
+ko\v ren $r$ definuj\-me $b(r)=\min\{\rho (r)-2,b-\rho (r),c\}$. 
+\medskip
+
+\proclaim{Pozorov\'an\'\i}Pro vnit\v rn\'\i\ vrchol stromu $v$  
+r\accent23uzn\'y od ko\v rene plat\'\i
+\roster
+\item
+$b(v)\le c$;
+\item
+kdy\v z $\rho (v)=a$ nebo $\rho (v)=b$, pak $b(v)=0$;
+\item
+kdy\v z $\rho (v)=a-1$ nebo $\rho (v)=b+1$, pak $b(v)=-1$;
+\item
+kdy\v z $\rho (v)=2a-1$, pak $b(v)=c$;
+\item
+Kdy\v z $v'$ a $v^{\prime\prime}$ jsou dva r\accent23uzn\'e vrcholy stromu 
+r\accent23uzn\'e od ko\v rene takov\'e, \v ze $\rho (v')=\lceil\frac {
+b+1}2\rceil$ a 
+$\rho (v^{\prime\prime})=\lfloor\frac {b+1}2\rfloor$, pak $b(v')+
+b(v^{\prime\prime})\ge 2c-1$;
+\item
+pro ko\v ren $r$ plat\'\i\ $b(r)\le c$.
+\endroster
+\endproclaim
+
+\flushpar Strom $(T,r)$ ohodnot\'\i me 
+$$\align b_h(T)=&\sum \{b(v)\mid v\ne r\text{\rm\ vnit\v rn\'\i\ vrchol stromu }\text{\rm\ ve v\'y\v sce }
+h\}\\
+b(T)=&\sum_{h=1}^{\infty}b_h(T)+b(r).\endalign$$
+\v Rekneme, \v ze $(T,r,v)$ je \emph{parci\'aln\'\i} 
+$(a,b)$-\emph{strom}, kdy\v z $r$ je ko\v ren stromu, $v$ je vnit\v rn\'\i\ 
+vrchol $T$ a plat\'\i :
+\roster
+\item"{}"
+kdy\v z $v\ne r$, pak $a-1\le\rho (v)\le b+1$ a $2\le\rho (r)\le 
+b$;
+\item"{}"
+kdy\v z $v=r$, pak $2\le\rho (r)\le b+1$;
+\item"{}"
+kdy\v z $t$ je vnit\v rn\'\i\ vrchol $T$ r\accent23uzn\'y od $v$ a $
+r$, pak 
+$$a\le\rho (t)\le b;$$
+\item"{}"
+v\v sechny cesty z ko\v rene $r$ do n\v ejak\'eho listu maj\'\i\ stejnou 
+d\'elku.
+\endroster
+\medskip
+
+\flushpar Nyn\'\i\ rozlo\v z\'\i me operace {\bf INSERT} a {\bf DELETE} do 
+jednotliv\'ych akc\'\i\ se stromem a vy\v set\v r\'\i\-me vliv t\v echto 
+akc\'\i\ na jeho ohodnocen\'\i . D\accent23ukazy lemmat jsou 
+zalo\v zen\'e na n\'asleduj\'\i c\'\i m pozorov\'an\'\i
+\medskip
+
+\proclaim{Pozorov\'an\'\i}M\v ejme dva stromy $T$ a $T'$, kter\'e maj\'\i\ 
+stejnou mno\v zinu vrchol\accent23u ve v\'y\v sce $h$. Pak plat\'\i :
+\roster
+\item
+kdy\v z ka\v zd\'y vrchol ve v\'y\v sce $h$ m\'a stejn\'y po\v cet syn\accent23u 
+v obou stromech, pak $b_h(T)=b_h(T')$;
+\item
+kdy\v z v\v sechny vrcholy ve v\'y\v sce $h$ a\v z na jeden vrchol maj\'\i\ stejn\'y 
+po\v cet syn\accent23u v obou stromech a po\v cet syn\accent23u u zby\-l\'e\-ho vrcholu se ve stromech $
+T$ a $T'$ li\v s\'\i\ nejv\'y\v se o $1$, pak $b_h(T)\ge b_h(T')-
+1$.
+\endroster
+\endproclaim
+
+\proclaim{Lemma 1}Kdy\v z $(T,r)$ je $(a,b)$-strom a kdy\v z strom $
+T'$ 
+vznikne z $T$ p\v rid\'an\'\i m/ubr\'an\'\i m jednoho syna vrcholu $
+v$ 
+ve v\'y\v sce $1$ (tj. p\v rid\'avan\'y/ub\'\i ran\'y syn je list), pak 
+$(T',r,v)$ je parci\'aln\'\i\ $(a,b)$-strom a plat\'\i\ 
+$$\align b_1(T')\ge&b_1(T)-1\quad\text{\rm a }b_h(T')=b_h(T)\text{\rm\ pro }
+h>1;\\
+b(T')\ge&b(T)-1.\endalign$$
+\endproclaim
+
+
+\proclaim{Lemma 2}Nech\v t $(T,r,v)$ je parci\'aln\'\i\ $(a,b)$-strom, 
+$\rho (v)=b+1$ a $v$ je ve v\'y\v sce $l\ge 1$. Kdy\v z $T'$ vznikne z $
+T$ 
+operac\'\i\ {\bf \v St\v epen\'\i$(v)$}, pak $(T',r,\otec(v))$ je parci\'aln\'\i\ 
+$(a,b)$-strom a plat\'\i :  
+$$\align b_l(T')\ge&b_l(T)+2c,\text{\rm\ }b_{l+1}(T')\ge b_{l+1}(
+T)-1\\
+b_h(T')=&b_h(T)\text{\rm\ pro }h\ne l,l+1;\quad b(T')\ge b(T)+2c-
+1.\endalign$$
+\endproclaim
+
+\proclaim{Lemma 3}Nech\v t $(T,r,v)$ je parci\'aln\'\i\ $(a,b)$-strom, 
+$\rho (v)=a-1$, $v$ je ve v\'y\v sce $l\ge 1$ a $y$ je bezprost\v redn\'\i\ bratr $v$ takov\'y \v ze $\rho(y)=a$. Kdy\v z $T'$ vznikne z $T$ operac\'\i\ {\bf Spojen\'\i$(v,y)$}, pak $(T',r,\otec(v))$ je parci\'aln\'\i\ $(a,b)$-strom a 
+plat\'\i :  
+$$\align b_l(T')\ge&b_l(T)+c+1,\text{\rm\ }b_{l+1}(T')\ge b_{l+1}
+(T)-1\\
+b_h(T')=&b_h(T)\text{\rm\ pro }h\ne l,l+1;\quad b(T')\ge b(T)+c.\endalign$$
+\endproclaim
+
+
+\proclaim{Lemma 4} Nech\v t $(T,r,v)$ je parci\'aln\'\i\ $(a,b)$-strom, 
+$\rho (v)=a-1$, $v$ je v\'y\v sce $l\ge 1$ a $y$ je bezprost\v redn\'\i\ bratr $v$ takov\'y, \v ze $\rho(y)>a$. 
+Kdy\v z $T'$ vznikne z $T$ operac\'\i\ {\bf P\v resun$(v,y)$}, 
+pak $(T',r)$ je $(a,b)$-strom a plat\'\i :  
+$$b_l(T')\ge b_l(T)\text{\rm\ a }b_h(T')=b_h(T)\text{\rm\ pro }h\ne 
+l;\quad b(T')\ge b(T).$$
+\endproclaim
+
+
+\flushpar Ozna\v cme $T_k$ $(a,b)$-strom vznikl\'y proveden\'\i m posloupnosti 
+$\Cal P$ na pr\'azdn\'y $(a,b)$-strom. Se\v cten\'\i m p\v redchoz\'\i ch 
+v\'ysledk\accent23u dost\'a\-v\'ame
+\medskip
+
+\proclaim{D\accent23usledek 5}Kdy\v z polo\v z\'\i me 
+$$\gather St_0+Sp_0=\text{\rm po\v cet list\accent23u v }T_k\le n
+,\quad\text{\rm pak}\\
+b_h(T_k)\ge 2cSt_h+(c+1)Sp_h-St_{h-1}-Sp_{h-1}\text{\rm\ pro }h\ge 
+1.\endgather$$
+D\'ale $b(T_k)\ge (2c-1)St+cSp-n$, kde $n$ je d\'elka posloupnosti $
+\Cal P$.
+\endproclaim
+
+\flushpar Prvn\'\i\ v\'yraz uprav\'\i me (vyu\v z\'\i v\'ame, \v ze $
+c\ge 1$):
+$$\align St_h+Sp_h\le&\frac {b_h(T_k)}{c+1}+\frac {St_{h-1}+Sp_{h
+-1}}{c+1}\le\\
+&\frac {b_h(T_k)}{c+1}+\frac {b_{h-1}(T_k)}{(c+1)^2}+\frac {St_{h
+-2}+Sp_{h-2}}{(c+1)^2}\le\dots\le\\
+&\sum_{i=0}^{h-1}\frac {b_{h-i}(T_k)}{(c+1)^{i+1}}+\frac n{(c+1)^
+h}=\\
+&\frac n{(c+1)^h}+\sum_{l=1}^hb_l(T_k)\frac {(c+1)^l}{(c+1)^{h+1}}
+.\endalign$$
+\medskip
+
+\flushpar Nyn\'\i\ odhadneme shora $b(T_k)$.
+\medskip
+
+\proclaim{Lemma 6}Kdy\v z $T$ je $(a,b)$-strom s $m$ listy, pak 
+$0\le b(T)\le c+(m-2)\frac c{a+c-1}$.
+\endproclaim
+
+\demo{D\accent23ukaz}Pro $0\le j<c$ ozna\v cme $m_j$ po\v cet 
+vnit\v rn\'\i ch vrchol\accent23u r\accent23uzn\'ych od ko\v rene, 
+kter\'e maj\'\i\ p\v resn\v e $a+j$ syn\accent23u, a $m_c$ ozna\v cme 
+po\v cet vnit\v rn\'\i ch vrchol\accent23u r\accent23uzn\'ych od 
+ko\v rene, kter\'e maj\'\i\ alespo\v n $a+c$ syn\accent23u. Kdy\v z 
+vrchol $v$ m\'a $a+j$ syn\accent23u, pak $b_T(v)\le j$ a pro 
+ka\v zd\'y vnit\v rn\'\i\ vrchol $v$ plat\'\i\ $b_T(v)\le c$. Tedy 
+$b(T)\le c+\sum_{j=0}^cjm_j$. Z vlastnost\'\i\ strom\accent23u plyne 
+$$\align2+\sum_{j=0}^c(a+j)m_j\le&\sum \{\rho (v)\mid v\text{\rm\ je vnit\v rn\'\i\ vrchol }
+T\}=\\
+&m+\sum_{j=0}^cm_j.\endalign$$
+Odtud plyne
+$$\sum_{j=0}^c(a+j-1)m_j\le m-2.$$
+Proto\v ze $\frac j{a+j-1}\le\frac c{a+c-1}$ pro ka\v zd\'e $j$ takov\'e, \v ze $
+0\le j\le c$, 
+dost\'av\'ame
+$$\align b(T)\le&c+\sum_{j=0}^cjm_j=c+\sum_{j=0}^c\frac j{a+j-1}(
+a+j-1)m_j\le\\
+&c+\frac c{a+c-1}(m-2)\endalign$$
+a lemma je dok\'az\'ano. \qed
+\enddemo
+
+
+\flushpar Nyn\'\i\ dok\'a\v zeme tvrzen\'\i\ (1) V\v ety. Proto\v ze ka\v zd\'a operace 
+{\bf DE\-LETE} pou\v zije nejv\'y\v se jednu operaci {\bf P\v resun} (a operace 
+{\bf INSERT} operaci {\bf P\v resun} nepou\v z\'\i v\'a) dost\'av\'ame, \v ze 
+$$P\le\text{\rm po\v cet operac\'\i\ {\bf DELETE}}\le n$$
+a prvn\'\i\ nerovnost plat\'\i . 
+Abychom dok\'azali druhou nerovnost, spoj\'\i me druh\'e 
+tvrzen\'\i\ v D\accent23usledku 5 a Lemma 6 ($T_k$ m\'a nejv\'y\v se 
+$n$ list\accent23u) 
+$$(2c-1)St+cSp-n\le b(T_k)\le c+(n-2)\frac c{a+c-1}$$
+Odtud plyne po\v zadovan\'a nerovnost a (1) je dok\'az\'ano.
+\medskip
+
+\flushpar D\accent23ukaz (2) vyu\v zije n\'asleduj\'\i c\'\i\ odhad.
+\medskip
+
+\proclaim{Lemma 7}Pro ka\v zd\'e $h\ge 1$ a pro ka\v zd\'y 
+$(a,b)$-strom $T$ s $m$ listy plat\'\i\ 
+$$\sum_{l=1}^hb_l(T)(c+1)^l\le (c+1)m.$$
+\endproclaim
+
+\demo{D\accent23ukaz}Pro $0\le j<c$ a pro libovoln\'e $h$ 
+ozna\v cme $m_j(h)$ po\v cet vrchol\accent23u ve v\'y\v sce $h$ 
+r\accent23uzn\'ych od ko\v rene, kter\'e maj\'\i\ p\v resn\v e $a
++j$ 
+syn\accent23u, a $m_c(h)$ po\v cet vrchol\accent23u ve v\'y\v sce $
+h$ 
+r\accent23uzn\'ych od ko\v rene, kter\'e maj\'\i\ alespo\v n $a+c$ 
+syn\accent23u. Pak m\'ame
+$$\align b_h(T)\le&\sum_{j=0}^cjm_j(h)\text{\rm},\\
+\sum_{j=0}^c(a+j)m_j(h)\le&\sum_{j=0}^cm_j(h-1)\text{\rm\ pro ka\v zd\'e }
+h\ge 1,\endalign$$
+kde dodefinov\'av\'ame $\sum_{j=0}^cm_j(0)=m$. Tyto vztahy 
+pou\v zijeme v n\'asleduj\'\i c\'\i m odhadu. Plat\'\i\ 
+$$\align\sum_{l=1}^hb_l(T)&(c+1)^l\le\sum_{l=1}^h\big[(c+1)^l\big
+(\sum_{j=0}^cjm_j(l)\big)\big]\le\\
+&\sum_{l=1}^h\big[(c+1)^l\big(\sum_{j=0}^cm_j(l-1)-a\sum_{j=0}^cm_
+j(l)\big)\big]=\\
+&(c+1)\sum_{j=0}^cm_j(0)-(c+1)^ha\sum_{j=0}^cm_j(h)+\\
+&\quad\sum_{l=1}^{h-1}(c+1)^{l+1}\big(\sum_{j=0}^cm_j(l)-\frac a{
+c+1}\sum_{j=0}^cm_j(l)\big)\le\\
+&(c+1)m,\endalign$$
+kde rovnost jsme z\'\i skali p\v rerovn\'an\'\i m s\v c\'\i tanc\accent23u 
+tak, aby v\'yrazy $\sum_{j=0}^cm_j(l)$ byly u sebe, a posledn\'\i\ 
+nerovnost plyne z toho, \v ze $\frac a{c+1}\ge 1$, a tedy druh\'y s\v c\'\i tanec 
+v p\v redchoz\'\i m v\'yrazu nen\'\i\ kladn\'y. \qed
+\enddemo
+ 
+\flushpar Zkombinujeme odhad $St_h+Sp_h$ s Lemmatem 7 a 
+dostaneme
+$$\align St_h+Sp_h\le&\frac n{(c+1)^h}+\sum_{l=1}^hb_l(T_k)\frac {
+(c+1)^l}{(c+1)^{h+1}}\le\\
+&\frac n{(c+1)^h}+\frac {n(c+1)}{(c+1)^{h+1}}=\frac {2n}{(c+1)^h}
+.\endalign$$
+Proto\v ze $P_h\le Sp_{h-1}-Sp_h\le St_{h-1}+Sp_{h-1}\le\frac {2n}{
+(c+1)^{h-1}}$ 
+dost\'av\'ame, \v ze 
+$$\align St_h+Sp_h+P_h\le&\frac {2n}{(c+1)^h}+\frac {2n}{(c+1)^{h
+-1}}=\frac {2n+2n(c+1)}{(c+1)^h}=\\
+&\frac {2n(c+2)}{(c+1)^h}\endalign$$
+a d\accent23ukaz (2) ve V\v et\v e je hotov.
+\medskip
+
+\flushpar V\v eta vysv\v etluje, pro\v c jsou doporu\v cen\'e hodnoty $
+b\ge 2a$ -- 
+pak je po\v cet vyva\v zovac\'\i ch ope\-rac\'\i\ b\v ehem posloupnosti 
+operac\'\i\ {\bf INSERT} a {\bf DELETE} line\'arn\'\i\ vzhledem k d\'elce 
+t\'eto posloupnosti. Pro $b=2a-1$ lze lehce nal\'ezt 
+posloupnost operac\'\i\ {\bf INSERT} a {\bf DELETE} o d\'elce $n$ takovou, 
+\v ze jej\'\i\ aplikace na pr\'azdn\'y $(a,b)$-strom vy\v zaduje po\v cet 
+vyva\v zovac\'\i ch operac\'\i\ \'u\-m\v ern\'y $n\log n$ (pro ka\v zd\'e 
+dostate\v cn\v e velk\'e $n$). Podobn\'a v\v eta plat\'\i\ i pro paraleln\'\i\ 
+implementaci $(a,b)$-strom\accent23u, ale plat\'\i\ za 
+p\v redpokladu $b\ge 2a+2$. Pro $b=2a$ nebo $b=2a+1$ lze 
+nal\'ezt posloupnost, kter\'a je protip\v r\'\i kladem. Proto se 
+doporu\v cuje hodnota $b=2a+2$ pro paraleln\'\i\ implementaci 
+$(a,b)$-stromu. Pro propojen\'e $(a,b)$-stromy plat\'\i\ siln\v ej\v s\'\i\ 
+verze.
+
+\proclaim{V\v eta}P\v redpokl\'adejme, \v ze $b\ge 2a$ a $a\ge 2$. M\v ejme 
+hladinov\v e propojen\'y $(a,b)$-strom s prstem $T$, kter\'y reprezentuje 
+$n$-prvkovou mno\v zinu. Pak posloupnost $\Cal P$ operac\'\i\ {\bf MEMBER},
+{\bf INSERT}, {\bf DELETE} a {\bf PRST} aplikovan\'a na $T$ vy\v zaduje \v cas 
+$$O(\log(n)+\text{\rm\ \v cas na vyhled\'an\'\i\ prvk\accent23u})
+.$$
+\endproclaim
+
+
+\flushpar Vysv\v etlen\'\i : Za\v c\'\i n\'ame v libovoln\'em 
+propojen\'em $(a,b)$-stro\-m\v e $T$, proto jeho struktura 
+m\accent23u\v ze b\'yt nev\'yhodn\'a pro danou pos\-loupnost operac\'\i\ $
+\Cal P$. 
+Abychom se dostali do vhodn\'eho re\v zimu, m\accent23u\v ze 
+b\'yt t\v reba a\v z $\log(n)$ vyva\v zovac\'\i ch operac\'\i . \v Cas na 
+vy\-hled\'av\'a\-n\'\i\ nem\accent23u\v zeme ovlivnit, ten mus\'\i\ 
+ovlivnit u\v zivatel.
+\medskip
+
+\flushpar Aplikace: anal\'yza hladinov\v e propojen\'ych strom\accent23u s prstem 
+u\-mo\v z\-nila n\'avrh algoritmu, kter\'y pro dv\v e mno\v ziny $
+S_1$ a $S_2$ 
+repre\-zentovan\'e propojen\'ymi $(a,b)$-stromy, kde $b\ge 2a$ a 
+$a\ge 2$, 
+zkonstruuje propojen\'y $(a,b)$-strom reprezentuj\'\i c\'\i\ mno\v zinu 
+$S_1\cup S_2$ (nebo mno\v zinu $\Delta (S_1,S_2)=(S_1\setminus S_
+2)\cup (S_2\setminus S_1)$ nebo 
+$S_1\cap S_2$ nebo $S_1\setminus S_2$) v \v case $O(\log\binom {n
++m}m)$, kde 
+$n=\max\{|S_1|,|S_2|\}$ a $m=\min\{|S_1|,|S_2|\}$. Detaily budou v letn\'\i m 
+semestru.
+\medskip
+
+\flushpar Vyva\v zov\'an\'\i\ p\v ri operaci {\bf INSERT} lze prov\'ad\v et 
+tak, \v ze operace {\bf \v St\v epen\'\i$(t)$} se provede, jen kdy\v z oba 
+brat\v ri vrcholu $t$ maj\'\i\ $b$ syn\accent23u. Jinak se prov\'ad\'\i\ 
+operace {\bf P\v resun}. Nev\'\i m o \v z\'adn\'em seri\'ozn\'\i m pokusu tyto 
+alternativy porovnat.   
+\medskip
+
+\heading
+Vyhled\'av\'an\'\i\ v uspo\v r\'adan\'em poli
+\endheading
+
+\flushpar Zad\'an\'\i\ \'ulohy: M\'ame podmno\v zinu $S$ line\'arn\v e 
+uspo\v r\'adan\'eho univerza a $S$ je ulo\v zena v poli 
+$A[1..|S|]$ tak, \v ze pro $i<j$ je $A(i)<A(j)$. Pro dan\'e $x\in 
+U$ 
+m\'ame zjistit, zda $x\in S$ (operace {\bf MEMBER$(x)$}).
+\medskip
+
+\flushpar\v Re\v sen\'\i :  Pokud $x<A(1)$ nebo $A(|S|)<x$, pak $
+x$ 
+nen\'\i\ prvkem $S$.  V opa\v cn\'em p\v r\'\i pad\v e bu\v d $x=
+A(1)$ nebo 
+$x=A(|S|)$ nebo m\'ame dv\v e hodnoty $d$ 
+a $h$ takov\'e, \v ze $1\le d<d+1<h\le |S|$ a $A(d)<x<A(h)$.  Pak 
+najdeme $n$ takov\'e, \v ze $d<n<h$, a dotazem 
+zjist\'\i me, zda $x=A(n)$ (pak kon\v c\'\i me a $x\in S$) nebo 
+$x<A(n)$ (pak polo\v z\'\i me $h=n$) nebo $x>A(n)$ (pak 
+polo\v z\'\i me $d=n$) a proces opakujeme.  Kon\v c\'\i me, kdy\v z 
+$d+1\ge h$, pak $x\notin S$. Na za\v c\'atku polo\v z\'\i me $d=1$ a $
+h=|S|$.
+Form\'aln\'\i\ z\'apis algoritmu:
+\bigskip
+
+{\bf MEMBER$(x)$\newline 
+if} $x=A(1)$ {\bf then}\newline 
+\phantom{---}{\bf V\'ystup}: $x\in S$ stop\newline 
+{\bf else}\newline 
+\phantom{---}{\bf if} $x<A(1)$ {\bf then}\newline 
+\phantom{------}{\bf V\'ystup}: $x\notin S$ stop\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}$d=1$\newline 
+\phantom{---}{\bf endif\newline
+\bf endif\newline 
+if} $x=A(|S|)$ {\bf then}\newline 
+\phantom{---}{\bf V\'ystup}: $x\in S$ stop\newline 
+{\bf else}\newline 
+\phantom{---}{\bf if} $x>A(|S|)$ {\bf then}\newline 
+\phantom{------}{\bf V\'ystup}: $x\notin S$ stop\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}$h=|S|$\newline 
+\phantom{---}{\bf endif\newline
+endif\newline 
+while} $d+1<h$ {\bf do}\newline 
+\phantom{---}$n:=\text{{\bf next}}(d,h)$\newline 
+\phantom{---}{\bf if} $\bold x=A(n)$ {\bf then}\newline 
+\phantom{------}{\bf V\'ystup}: $\bold x\in S$ stop\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}{\bf if} $x<A(n)$ {\bf then} $h:=n$ {\bf else} $d:=n$ {\bf endif}\newline 
+\phantom{---}{\bf endif\newline 
+enddo\newline 
+V\'ystup}: $x\notin S$ stop
+\medskip
+
+\flushpar V tomto metaalgoritmu je {\bf next$(d,h)$} funkce, kter\'a 
+nalezne hodnotu $n$ takovou, \v ze $d<n<h$. Korektnost plyne 
+z pozorov\'an\'\i , \v ze kdy\v z $d+1=h$, pak $A(d)<x<A(h)$ 
+implikuje, \v ze neexistuje $i$ takov\'e, \v ze $x=A(i)$, a tedy 
+$x\notin S$. Efektivita algoritmu z\'ale\v z\'\i\ na fukci {\bf next}. 
+Zpracov\'an\'\i\ dotazu vy\v zaduje \v cas $O(1)$ a po\v cet 
+dotaz\accent23u je 
+po\v cet vol\'an\'\i\ funkce {\bf next}. 
+\medskip
+
+\flushpar Un\'arn\'\i\ vyhled\'av\'an\'\i : {\bf next$(d,h)=d+1$}, pak ka\v zd\'y 
+dotaz zv\v et\v s\'\i\ $d$ o $1$, a tedy nejv\v et\v s\'\i\ po\v cet 
+dotaz\accent23u je $|S|$. Algoritmus v nej\-hor\v s\'\i m p\v r\'\i pad\v e 
+vy\v zaduje \v cas $O(|S|)$ a o\v cek\'avan\'y po\v cet dotaz\accent23u p\v ri 
+rovnom\v ern\'em rozlo\v zen\'\i\ mno\v ziny $S$ a prvku $x$ je $\frac {
+|S|}2$ 
+(tedy o\v cek\'avan\'y \v cas je $O(|S|)$). 
+\medskip
+
+\flushpar Pozn\'amka: Du\'aln\'\i\ p\v r\'\i stup je, kdy\v z 
+{\bf next$(d,h)=h-1$}, v\'ysled\-ky se nezm\v en\'\i . P\v ri aplikac\'\i ch je 
+n\v ekdy v\'yhodn\'e pou\v z\'\i t funkci {\bf next$(d,h)=\min\{d
++c,h-1\}$}, 
+kde $c$ je n\v ejak\'a konstanta (pak krok nen\'\i\ $1$, ale $c$). Jak 
+uvid\'\i me pozd\v eji, jsou situace, kdy je v\'yhodn\'e  
+takov\'eto un\'arn\'\i\ vyhled\'av\'an\'\i\ pou\v z\'\i t.
+\medskip
+
+\flushpar Bin\'arn\'\i\ vyhled\'av\'an\'\i : {\bf next$(d,h)=\lceil\frac {
+d+h}2\rceil$}, pak 
+ka\v zd\'y dotaz zmen\v s\'\i\ rozd\'\i l $h-d$ p\v ribli\v zn\v e na polovinu. 
+Po\v cet dotaz\accent23u je nejv\'y\v se $3+\log(|S|-2)$, 
+algoritmus tedy v 
+nejhor\v s\'\i m p\v r\'\i pad\v e vy\v zaduje \v cas $O(\log|S|)$ a  
+o\v cek\'avan\'y \v cas p\v ri rovnom\v ern\'em roz\-lo\v zen\'\i\ mno\v ziny $
+S$ a 
+$x\in U$ je tak\'e $O(\log|S|)$.
+\medskip
+
+\flushpar Interpola\v cn\'\i\ vyhled\'av\'an\'\i : 
+{\bf next$(d,h)=d+\lceil\frac {x-A(d)}{A(h)-A(d)}(h-d)\rceil$}. V nejhor\v s\'\i m p\v r\'\i pad\v e 
+mus\'\i me polo\v zit v\'\i ce ne\v z $\frac {|S|}2$ dotaz\accent23u, a proto \v cas 
+v nejhor\v s\'\i m p\v r\'\i pad\v e je $O(|S|)$, ale p\v ri rovnom\v ern\'em 
+roz\-lo\v zen\'\i\ mno\v ziny $S$ a $x\in U$ je o\v cek\'avan\'y \v cas 
+$O(\log\log|S|)$. To je zalo\v zeno na faktu, \v ze hodnota {\bf next }
+z\'avis\'\i\ i na velikosti $x$. Kdy\v z $x$ je velk\'e, tak hodnota 
+{\bf next} je posunuta do v\v et\v s\'\i ch hodnot, kdy\v z $x$ je mal\'e, 
+pak je posunuta do men\v s\'\i ch hodnot.
+\medskip
+
+\flushpar Pozn\'amka: Kdy\v z rozlo\v zen\'\i\ prvk\accent23u nen\'\i\ 
+rovnom\v ern\'e, ale je zn\'a\-m\'e, pak podle toho m\accent23u\v zeme  
+upravit funkci {\bf next} a o\v cek\'avan\'y \v cas algoritmu se 
+nezm\v en\'\i .
+\medskip
+
+\flushpar Pro n\'asleduj\'\i c\'\i\ funkci {\bf next} bude 
+jednodu\v s\v s\'\i\ spo\v c\'\i tat o\v cek\'ava\-n\'y po\v cet dotaz\accent23u ne\v z 
+pro interpola\v cn\'\i\ vyhled\'av\'an\'\i , ale v\'ysledek je 
+asymptoticky stejn\'y.
+
+\subhead
+Zobecn\v en\'e kvadratick\'e vyhled\'av\'an\'\i
+\endsubhead
+
+\flushpar Funkce {\bf next }
+je zde definov\'ana slo\v zit\v ej\v s\'\i\ procedurou, jej\'\i\v z v\'y\-sle\-dek 
+z\'avis\'\i\ i na p\v redcho\-z\'\i ch situac\'\i ch a na v\'ysledku dotazu.
+Procedura zad\'av\'a dotazy v bloc\'\i ch. Prvn\'\i\ dotaz v bloku je 
+interpola\v cn\'\i\ a procedura p\v ritom zjist\'\i\ velikost kroku a 
+zda $x$ je men\v s\'\i\ nebo v\v et\v s\'\i\ ne\v z prvn\'\i\ dotaz v bloku.  
+Pak st\v r\'\i d\'a un\'arn\'\i\ a bin\'arn\'\i\ vy\-hled\'av\'an\'\i . Blok kon\v c\'\i , 
+kdy\v z rozd\'\i l mezi $h$ a $d$ je nejv\'y\v se velikost 
+kroku. Krok v n\'asleduj\'\i c\'\i m bloku klesne 
+p\v ribli\v zn\v e na odmoc\-ninu velikosti kroku v tomto bloku. 
+Procedura pou\v z\'\i v\'a boolsk\'e pro\-m\v enn\'e $blok$, $typ$, $
+smer$. 
+Prom\v enn\'a $blok$ je inicializov\'ana hodnotou $false$ a ur\v cuje, 
+zda se dotaz zad\'av\'a v r\'amci stejn\'eho bloku nebo nikoliv. 
+Prom\v enn\'a $typ$ ur\v cuje, zda p\v r\'\i\v st\'\i\ dotaz je un\'arn\'\i\ (kdy\v z 
+$typ=true$) nebo bin\'arn\'\i . Prom\v enn\'a $smer$ ur\v cuje, zda 
+dotazy jsou men\v s\'\i\ ne\v z prvn\'\i\ dotaz v bloku ($smer=tr
+ue$) 
+nebo v\v et\v s\'\i . D\'ale procedura pou\v z\'\i v\'a prom\v ennou $
+krok$ 
+typu integer, kter\'a obsahuje velikost kroku v r\'amci 
+bloku. Hodnoty t\v echto pro\-m\v en\-n\'ych se p\v red\'avaj\'\i\ z jednoho 
+vol\'an\'\i\ procedury do dal\v s\'\i ho vol\'an\'\i\ (tj. jsou to 
+glob\'aln\'\i\ prom\v enn\'e, kter\'e se neinicializuj\'\i\ vol\'an\'\i m 
+procedury {\bf next}). 
+\medskip
+
+{\bf next$(d,h)$\newline 
+if} $blok$ {\bf then}\newline 
+\phantom{---}{\bf if} $typ$ {\bf then}\newline 
+\phantom{------}{\bf if} $smer$ {\bf then}\newline 
+\phantom{---------}{\bf next}$(d,h):=h-krok$\newline 
+\phantom{---------}{\bf if} $A(\text{{\bf next}}(d,h))<x$ {\bf then}\newline
+\phantom{------------}$blok:=false$\newline 
+\phantom{---------}{\bf endif}\newline 
+\phantom{------}{\bf else}\newline 
+\phantom{---------}{\bf next}$(d,h):=d+krok$\newline 
+\phantom{---------}{\bf if} $A(\text{{\bf next}}(d,h))>x$ {\bf then}\newline \phantom{------------}$blok:=false$\newline 
+\phantom{---------}{\bf endif}\newline 
+\phantom{------}{\bf endif}\newline 
+\phantom{------}$typ:=false$\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}{\bf if} $\min\{h-\lceil\frac {d+h}2\rceil ,\lceil\frac {d+h}2\rceil-d\}<krok$ {\bf then}\newline 
+\phantom{---------}$blok:=false$\newline 
+\phantom{------}{\bf endif}\newline 
+\phantom{------}{\bf next}$(d,h):=\lceil\frac {d+h}2\rceil$, $typ:=true$\newline 
+\phantom{---}{\bf endif\newline 
+else}\newline 
+\phantom{---}$krok:=\lfloor\sqrt {h-d}\rfloor$, 
+{\bf next$(d,h):=d+\lceil\frac {x-A(d)}{A(h)-A(d)}(h-d)\rceil$},\newline 
+\phantom{---}{\bf if} $A(\text{{\bf next}}(d,h))>x$ {\bf then}\newline 
+\phantom{------}$smer:=true$\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}$smer:=false$\newline 
+\phantom{---}{\bf endif}\newline 
+\phantom{---}$typ:=true$, $blok:=true$\newline 
+{\bf endif}
+\bigskip
+
+\flushpar Po dvou dotazech klesne $h-d$ bu\v d pod $\sqrt {h-d}$ nebo pod 
+$\frac {h+d}2$. Proto procedura v nejhor\v s\'\i m p\v r\'\i pad\v e pou\v zije 
+nejv\'y\v se $8+2\log(|S|-1)+2\log\log|S|$ dotaz\accent23u, a tedy v nejhor\v s\'\i m 
+p\v r\'\i pad\v e vy\v zaduje \v cas $O(\log|S|)$.
+\medskip
+
+\flushpar Nyn\'\i\ spo\v c\'\i t\'ame o\v cek\'avan\'y po\v cet dotaz\accent23u 
+b\v ehem jednoho bloku za p\v redpokladu rovnom\v er\-n\'eho rozd\v elen\'\i\ dat. Nech\v t $p_i$ je prav\-d\v e\-podobnost, \v ze 
+v r\'amci bloku se polo\v z\'\i\ ales\-po\v n $i$ dotaz\accent23u. Pak 
+o\v cek\'avan\'y po\v cet dotaz\accent23u v r\'amci bloku je 
+$$E(C)=\sum_{i\ge 1}i(p_i-p_{i+1})=\sum_{i\ge 1}p_i.$$
+Nyn\'\i\ odhadneme $p_i$.  Ozna\v cme $n+d$ argument prvn\'\i ho dotazu 
+(interpola\v cn\'\i\ vyhled\'avan\'\i ) v r\'amci bloku a nech\v t $
+krok=k$ 
+v r\'amci bloku.  Ozna\v cme $X=|\{i\mid i>d,\,A(i)\le x\}|$ na 
+za\v c\'atku bloku, pak $X$ je n\'ahodn\'a prom\v enn\'a z\'avisl\'a na 
+argumentu ope\-race a bloku.  Kdy\v z se v bloku polo\v z\'\i\ 
+alespo\v n $i$ dotaz\accent23u pro $i>2$, pak $|X-n|\ge\lfloor\frac {
+i-2}2\rfloor k$, 
+proto\v ze ka\v zd\'y un\'arn\'\i\ dotaz, jeho\v z polo\v zen\'\i\  
+nezm\v en\'\i\ blok, nalezne dal\v s\'\i ch $k$ hodnot $i$ v rozd\'\i lu $|X-n|$. 
+Tedy 
+$$p_i\le\Prob(|X-n|\ge\lfloor\frac {i-2}2\rfloor k).$$
+Pou\v zijeme \v Ceby\v sevovu nerovnost pro n\'ahodnou 
+prom\v en\-nou $X$. Kdy\v z $Y$ je n\'ahodn\'a prom\v enn\'a s o\v cek\'avanou 
+(st\v redn\'\i ) hodnotou $\mu$ a rozptylem $\sigma^2$, pak \v Ceby\v sevova 
+nerovnost \v r\'\i k\'a, \v ze 
+$$\Prob(|Y-\mu |\ge t)\le\frac {\sigma^2}{t^2}\qquad\text{\rm pro ka\v zd\'e }
+t>0.$$
+\medskip
+
+\flushpar Uva\v zujme okam\v zik, kdy jsme na za\v c\'atku n\v ejak\'eho 
+bloku. Pro\-to\v ze $S$ je vybran\'a s rovno\-m\v er\-n\'ym rozd\v elen\'\i m, je 
+pravd\v epodob\-nost, \v ze $A(i)<x$ pro $d<i<h$, rovna 
+$p=\frac {x-A(d)}{A(h)-A(d)}$, a pak pravd\v epodobnost, \v ze 
+$X=j$, je $\binom {h-d}jp^j(1-p)^{h-d-j}$. To znamen\'a, \v ze $X$ je n\'ahodn\'a 
+veli\v cina s binomick\'ym rozd\v elen\'\i m s rozsahem $d-h$ a pravd\v epodobnost\'\i\ $p$, a tedy jej\'\i\ o\v cek\'avan\'a 
+hodnota je
+$$\mu =\sum_{j=0}^{h-d}j\binom {h-d}jp^j(1-p)^{h-d-j}=p(h-d)$$
+a rozptyl m\'a hodnotu 
+$$\sigma^2=\sum_{j=0}^{h-d}(j-\mu )^2\binom {h-d}jp^j(1-p)^{h-d-j}
+=p(1-p)(h-d).$$
+Kdy\v z si uv\v edom\'\i me, \v ze $k=\lfloor\sqrt {h-d}\rfloor$ a $
+n=p(h-d)$, pak dost\'av\'ame
+$$\align p_i,p_{i+1}\le&\Prob(|X-n|\ge\lfloor\frac {i-2}2\rfloor k 
+)\le\frac {4p(1-p)(h-d)}{(i-2)^2k^2}\le\\
+&\frac {4p(1-p)}{(i-2)^2}\le\frac 1{(i-2)^2},\endalign$$
+proto\v ze pro $0\le p\le 1$ je $p(1-p)\le\frac 14$. Kdy\v z shrneme tato pozorov\'an\'\i , 
+dost\'av\'a\-me, \v ze 
+$$\align E(C)=&\sum_{i\ge 1}p_i\le 2+2\sum_{i\ge 3}\frac 1{(i-2)^2}=
+2+2\sum_{i\ge 1}\frac 1{i^2}=\\
+&2+2\frac {\pi^2}6=2+\frac {\pi^2}3\approx 5.3\endalign$$
+Z\'av\v er: o\v cek\'avan\'y po\v cet dotaz\accent23u v bloku je men\v s\'\i\ ne\v z $
+6$.
+\medskip
+
+\flushpar Kdy\v z $E(T(n))$ je o\v cek\'avan\'y po\v cet dotaz\accent23u pro operaci 
+{\bf MEMBER} a kdy\v z $|S|=n$, pak plat\'\i\ 
+$$E(T(n))\le E(C)+E(T(\sqrt n)).$$
+Proto\v ze $E(T(1))=1$ a $E(T(2))\le 2$, dost\'av\'ame z rekurentn\'\i ho 
+vzorce, \v ze 
+$$E(T(n))\le 2+E(C)\log\log n\qquad\text{\rm pro }n\ge 2.$$
+
+
+\proclaim{V\v eta}\v Cas operace {\bf MEMBER} v uspo\v r\'adan\'em poli d\'elky $
+n$ p\v ri 
+zobec\-n\v en\'em kvadra\-tick\'em vyhled\'av\'an\'\i\ je v nejhor\v s\'\i m 
+p\v r\'\i pa\-d\v e $O(\log n)$. Kdy\v z rozd\v elen\'\i\ vstupn\'\i ch dat je 
+rovno\-m\v er\-n\'e, pak o\v cek\'avan\'y \v cas je $O(\log\log n)$. 
+\endproclaim
+
+\flushpar Nev\'yhoda t\'eto datov\'e struktury 
+spo\v c\'\i v\'a v neexistenci p\v riroze\-n\'ych efektivn\'\i ch implementac\'\i\ 
+ope\-rac\'\i\ {\bf INSERT}, {\bf DELETE}, {\bf SPLIT} a {\bf JOIN}. P\v rirozen\'e 
+implementace t\v echto ope\-rac\'\i\ vy\v za\-duj\'\i\ \v cas 
+$O(|S|)$, zhruba \v re\v ceno mus\'\i me pohybovat s t\'em\v e\v r ka\v z\-d\'ym prvkem. 
+Pokusem o \v re\v sen\'\i\ 
+tohoto probl\'emu byl n\'avrh bin\'ar\-n\'\i ch vyhled\'avac\'\i ch 
+strom\accent23u.
+\medskip
+
+\heading 
+Bin\'arn\'\i\ vyhled\'avac\'\i\ stromy
+\endheading
+
+\flushpar Bin\'arn\'\i\ vyhled\'avac\'\i\ strom je struktura pro bin\'ar\-n\'\i\ 
+vyhled\'av\'an\'\i\ v uspo\v r\'ada\-n\'em poli rozta\-\v zen\'em do roviny a 
+vyhled\'av\'an\'\i\ odpo\-v\'\i\-d\'a cest\v e ve stro\-m\v e. Form\'aln\'\i\ 
+definice:
+
+\flushpar P\v redpokl\'ad\'ame, \v ze $U$ je line\'arn\v e uspo\v r\'adan\'e 
+univerzum a $S\subseteq U$.  \emph{Bin\'arn\'\i} \emph{vyhled\'avac\'\i} 
+\emph{strom} $T$ \emph{reprezentuj\'\i c\'\i} mno\v zinu $S$ je \'upln\'y 
+bin\'arn\'\i\ strom (tj. ka\v zd\'y vrchol je bu\v d listem nebo m\'a 
+dva syny, lev\'eho a prav\'eho), kde existuje bijekce mezi 
+mno\v zinou $S$ a vnit\v rn\'\i mi vrcholy stromu takov\'a, \v ze
+\roster
+\item"{}"
+kdy\v z $v$ je vnit\v rn\'\i\ vrchol stromu $T$, kter\'emu je p\v ri\v razen 
+prvek $s\in S$, pak ka\v zd\'emu vnit\v rn\'\i mu vrcholu $u$ v 
+podstromu lev\'eho syna vrcholu $v$ je p\v ri\v razen prvek z $S$ 
+men\v s\'\i\ ne\v z $s$ a ka\v zd\'emu vnit\v rn\'\i mu vrcholu $
+w$ v 
+podstromu prav\'eho syna vrcholu $v$ je p\v ri\v razen prvek z $S$ 
+v\v et\v s\'\i\ ne\v z $s$.
+\endroster
+\medskip
+
+\flushpar Strukura vnit\v rn\'\i ho vrcholu $v$:\newline 
+ukazatel $\otec(v)$ na otce vrcholu $v$,\newline 
+ukazatel $\levy(v)$ na lev\'eho syna vrcholu $v$,\newline 
+ukazatel $\pravy(v)$ na prav\'eho syna vrcholu $v$,\newline 
+atribut $\key(v)$ -- prvek z $S$ p\v ri\v razen\'y vrcholu $v$.
+Kdy\v z $v$ je ko\v ren stromu, pak hodnota ukazatele $\otec(v)$ 
+je $NIL$. List m\'a ukazatele pouze na otce.
+\medskip
+
+\flushpar Ka\v zd\'y list reprezentuje interval mezi dv\v ema 
+sousedn\'\i mi prvky z $S$ -- p\v resn\v e, kdy\v z $u$ je list a je 
+lev\'ym synem vrcholu $v$, nalezneme vrchol na cest\v e z $u$ 
+do ko\v rene nejbl\'\i\v ze $u$ takov\'y, \v ze je prav\'ym synem 
+vrcholu $w$. Pak $u$ repre\-zentuje interval $(\key(w),\key(v))$ a 
+kdy\v z vrchol $w$ neexistuje, pak $u$ repre\-zentuje 
+interval $(-\infty ,\key(v))$ a prvek $\key(v)$ je nej\-men\v s\'\i\ prvek v 
+$S$.  Kdy\v z $u$ je list a je prav\'ym synem vrcholu $v$, 
+nalezneme vrchol na cest\v e z $u$ do ko\v rene nejbl\'\i\v ze 
+$u$ takov\'y, \v ze je lev\'ym synem vrcholu $w$. Pak $u$ repre\-zentuje 
+interval $(\key(v),\key(w))$ a kdy\v z takov\'y vrchol $w$ neexistuje, 
+pak $u$ repre\-zentuje interval $(\key(v),+\infty )$ a prvek $\key
+(v)$ 
+je nejv\v et\v s\'\i\ prvek v $S$.  
+\medskip
+
+\flushpar P\v ri implementaci bin\'arn\'\i ch vyhled\'av\'ac\'\i ch 
+strom\accent23u je v\'yhodn\'e vynechat listy (m\'\i sto nich bude 
+ukazatel $NIL$). P\v ri n\'avrhu algoritm\accent23u je v\v sak 
+naopak v\'yhodn\'e 
+pracovat s listy (vyhl\'\i\v z\'\i\ to logi\v ct\v ej\v s\'\i ). Proto p\v ri n\'avrhu 
+algoritm\accent23u budeme p\v redpokl\'adat, \v ze stromy maj\'\i\ 
+listy reprezentuj\'\i c\'\i\ intervaly.
+\medskip
+
+\flushpar Navrhneme algoritmy pro bin\'arn\'\i\ vyhled\'avac\'\i\ stromy 
+rea\-lizuj\'\i\-c\'\i\ operace z uspo\v r\'adan\'eho slovn\'\i kov\'eho probl\'emu.
+\medskip
+
+{\bf Vyhledej$(x)$\newline 
+$t:=$}ko\v ren stromu\newline 
+{\bf while} $t$ nen\'\i\ list a $\key(t)\ne x$ {\bf do}\newline 
+\phantom{---}{\bf if} $\key(t)>x$ {\bf then} $t:=\levy(t)$ {\bf else} $t:=\pravy(t)$ {\bf endif\newline 
+enddo
+\medskip
+
+MEMBER$(x)$\newline 
+Vyhledej$(x)$\newline 
+if} $t$ nen\'\i\ list {\bf then V\'ystup}: $x\in S$ {\bf else V\'ystup}: $
+x\notin S$ {\bf endif
+\medskip
+
+INSERT$(x)$\newline 
+Vyhledej$(x)$\newline 
+if} $t$ je list {\bf then}\newline 
+$t$ se zm\v en\'\i\ na vnit\v rn\'\i\ vrchol, $\key(t):=x$,\newline 
+$\levy(t)$ a $\pravy(t)$ jsou nov\'e listy, jejich\v z otcem je $t$\newline 
+{\bf endif
+\medskip
+
+DELETE$(x)$\newline 
+Vyhledej$(x)$\newline 
+if} $t$ nen\'\i\ list {\bf then}\newline 
+\phantom{---}{\bf if} $\levy(t)$ je list {\bf then\newline}
+\phantom{------}odstran\'\i me vrchol $\levy(t)$, $\otec(\pravy(t)):=\otec(t)$\newline 
+\phantom{------}{\bf if} $t=\levy(\otec(t))$ {\bf then}\newline
+\phantom{---------}$\levy(\otec(t)):=\pravy(t)$\newline 
+\phantom{------}{\bf else}\newline 
+\phantom{---------}$\pravy(\otec(t)):=\pravy(t)$\newline 
+\phantom{------}{\bf endif\newline}
+\phantom{------}odstran\'\i me vrchol $t$\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}$u:=\levy(t)$\newline 
+\phantom{------}{\bf while} $\pravy(u)$ nen\'\i\ list {\bf do}\newline \phantom{---------}$u:=\pravy(u)$\newline 
+\phantom{------}{\bf enddo}\newline 
+\phantom{------}$\key(t):=\key(u)$, odstran\'\i me vrchol $\pravy(u)$,\newline 
+\phantom{------}$\otec(\levy(u)):=\otec(u)$\newline 
+\phantom{------}{\bf if} $u=\levy(\otec(u))$ {\bf then}\newline 
+\phantom{---------}$\levy(\otec(u)):=\levy(u)$\newline 
+\phantom{------}{\bf else}\newline 
+\phantom{---------}$\pravy(\otec(u)):=\levy(u)$\newline 
+\phantom{------}{\bf endif\newline}
+\phantom{------}odstran\'\i me vrchol $u$\newline 
+\phantom{---}{\bf endif\newline 
+endif}
+\medskip
+
+{\bf MIN\newline 
+$t:=$}ko\v ren stromu\newline 
+{\bf while} lev\'y syn $t$ nen\'\i\ list {\bf do} $t:=\levy(t)$ {\bf enddo\newline 
+V\'ystup}: prvek reprezentovan\'y $t$ je nejmen\v s\'\i\ prvek v $
+S$
+\medskip
+
+{\bf MAX\newline 
+$t:=$}ko\v ren stromu\newline 
+{\bf while} prav\'y syn $t$ nen\'\i\ list {\bf do} $t:=\pravy(t)$ {\bf enddo\newline 
+V\'ystup}: prvek reprezentovan\'y $t$ je nejv\v et\v s\'\i\ prvek v $
+S$
+\medskip
+
+{\bf SPLIT$(x)$}:\newline 
+$T_1$ a $T_2$ jsou pr\'azdn\'e stromy\newline 
+$u_1:=u_2:=NIL$\newline 
+$t:=\text{\rm ko\v ren stromu }T$\newline 
+{\bf while} $t$ nen\'\i\ list a $\key(t)\ne x$ {\bf do\newline}
+\phantom{---}{\bf if} $\key(t)>x$ {\bf then\newline 
+\phantom{------}$u:=\levy(t)$}, $\levy(t):=NIL$, $\otec(u):=NIL$\newline 
+\phantom{------}{\bf if} $T_2$ je pr\'azdn\'y strom {\bf then}\newline \phantom{---------}$T_2:=\text{\rm podstrom vrcholu }t$\newline
+\phantom{------}{\bf else}\newline 
+\phantom{---------}$\levy(u_2):=t$, $\otec(t):=u_2$\newline 
+\phantom{------}{\bf endif}\newline
+\phantom{------}$u_2:=t$\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}$u:=\pravy(t)$, $\pravy(t):=NIL$, $\otec(u):=NIL$\newline
+\phantom{------}{\bf if} $T_1$ je pr\'azdn\'y strom {\bf then}\newline \phantom{---------}$T_1:=\text{\rm podstrom vrcholu }t$\newline
+\phantom{------}{\bf else}\newline 
+\phantom{---------}$\pravy(u_1):=t$, $\otec(t):=u_1$\newline 
+\phantom{------}{\bf endif}\newline
+\phantom{------}$u_1:=t$\newline 
+\phantom{---}{\bf endif}\newline 
+\phantom{---}$t:=u$\newline 
+{\bf enddo\newline 
+if} $\key(t)=x$ {\bf then}\newline 
+\phantom{---}$\otec(\levy(t)):=u_1$, $\pravy(u_1):=\levy(t)$\newline 
+\phantom{---}$\otec(\pravy(t)):=u_2$, $\levy(u_2):=\pravy(t)$\newline 
+\phantom{---}$\otec(u_1):=NIL$, $\otec(u_2):=NIL$, {\bf V\'ystup}: $x\in S$\newline 
+{\bf else}\newline 
+\phantom{---}{\bf V\'ystup}: $x\notin S$\newline 
+{\bf endif\newline }
+Koment\'a\v r: $T_1$ je bin\'arn\'\i\ vyhled\'avac\'\i\ strom reprezentuj\'\i c\'\i\ 
+mno\-\v zi\-nu 
+$\{s\in S\mid s<x\}$ a $T_2$ je bin\'arn\'\i\ vyhled\'avac\'\i\ strom 
+reprezentuj\'\i c\'\i\ mno\v zinu $\{s\in S\mid s>x\}$.
+\medskip
+
+{\bf JOIN3$(T_1,x,T_2)$} -- p\v redpokl\'ad\'ame, \v ze kdy\v z $
+T_i$ reprezentuje 
+mno\v zinu $S_i$ pro $i=1,2$, pak $\max S_1<x<\min S_2$\newline 
+vytvo\v rme nov\'y vrchol $u$, $\key(u)=x$, $\otec(u):=NIL$, \newline 
+$\otec(\text{ko\v rene }T_1):=u$, $\otec(\text{ko\v rene }T_2):=u$, \newline 
+$\levy(u):=$ko\v ren $T_1$, $\pravy(u):=$ko\v ren $T_2$.
+\medskip
+
+
+\flushpar Abych dok\'azali korektnost algoritmu {\bf Vyhledej} -- 
+jedn\'a se o modifikaci vyhled\'av\'an\'\i\ v uspo\v r\'adan\'em poli --
+pop\'\i\v seme po\-drobn\v eji vlastnosti bin\'arn\'\i ho vyhled\'avac\'\i ho 
+stromu. Nej\-prve roz\v s\'\i \v r\'\i me universum o dva nov\'e prvky, o nov\'y 
+nejmen\v s\'\i\ prvek $-\infty$ a o nov\'y nejv\v et\v s\'\i\ prvek $+\infty$. 
+M\v ejme bin\'arn\'\i\ vyhled\'avac\'\i\ strom $T$ reprezentuj\'\i c\'\i\ 
+mno\v zinu $S$, pak pro vrchol $t$ stromu $T$ definujeme indukc\'\i\ hodnoty $\lambda(t)$ 
+a $\pi(t)$. Kdy\v z $r$ je ko\v ren, pak $\lambda(r)=-\infty$ a $\pi(r)=+\infty$. 
+Kdy\v z hodnoty $\lambda(t)$ a $\pi(t)$ jsou pro vrchol $t$ definov\'any, pak pro lev\'eho syna $u$ vrcholu $t$ definujeme $\lambda(u)=\lambda(t)$ a $\pi(u)=\key(y)$
+a pro prav\'eho syna $w$ vrcholu $t$ definujeme $\lambda(w)=\key(t)$ a $\pi(w)=\pi(t)$.
+Nyn\'\i\ dok\'a\v zeme
+
+
+\proclaim{Lemma}Je-li $T'$ podstrom bin\'arn\'\i ho vyhled\'avac\'\i ho 
+stromu $T$ ur\v cen\'y vrcholem $t$, pak $T'$ reprezentuje mno\v zinu 
+$S\cap (\lambda (t),\pi (t))$. Nav\'\i c interval $(\lambda (t),\pi 
+(t))$ je nejv\v et\v s\'\i\ interval, 
+kter\'y obsahuje jenom prvky z $S$, kter\'e jsou reprezentov\'any 
+vrcholy podstromu $T'$. Nav\'\i c, kdy\v z $t$ je list, pak $<\lambda(t),\pi(t)>$ je interval repreyentovan\'y listem $t$.
+\endproclaim
+
+
+\demo{D\accent23ukaz}Tvrzen\'\i\ dok\'a\v zeme indukc\'\i .  Z\v rejm\v e plat\'\i , 
+kdy\v z $t$ je ko\v ren stromu $T$.  P\v redpokl\'adej\-me, \v ze plat\'\i\ pro vrchol 
+$t$ a dok\'a\-\v ze\-me ho pro syny vrcholu $t$.  Ozna\v cme $t_l$ lev\'eho syna 
+vrcholu $t$, $t_p$ prav\'eho syna vrcholu $t$.  Z definice bin\'arn\'\i ho 
+vyhled\'avac\'\i ho stromu stromu plyne, \v ze kdy\v z $u$ je vnit\v rn\'\i\ 
+vrchol v podstromu $T$ ur\v cen\'em vrcholem $t_l$ a kdy\v z $v$ je vnit\v rn\'\i\ 
+vrchol v podstromu $T$ ur\v cen\'em vrcholem $t_p$, pak 
+$\key(u)<\key(t)<\key(v)$.  Nyn\'\i\ platnost tvrzen\'\i\ pro $t$ 
+implikuje platnost tvrzen\'\i\ i pro vrcholy $t_l$ a $t_p$.  \qed
+\enddemo
+\medskip
+
+\flushpar Korektnost podprocedury {\bf Vyhledej} plyne z 
+n\'asleduj\'\i c\'\i ho invariantu:
+\roster
+\item"{}"
+Kdy\v z p\v ri vyhled\'av\'an\'\i\ $x$ vy\v set\v rujeme vrchol $
+t$, pak 
+$$\lambda (t)<x<\pi (t).$$
+\endroster
+Toto tvrzen\'\i\ se lehce dok\'a\v ze indukc\'\i\ z popisu algoritmu 
+{\bf Vy\-hledej}.  Tedy operace {\bf Vy\-hledej} je korektn\'\i\ a korekt\-nost 
+ope\-rac\'\i\ {\bf MEMBER} a {\bf INSERT} je te\v d z\v rejm\'a. V operaci {\bf DELE\-TE},  
+kdy\v z $\levy(t)$ je list, pak korektnost je z\v rejm\'a. Kdy\v z $\levy
+(t)$ 
+nen\'\i\ list, pak algoritmus nalezne list $v$ takov\'y, \v ze $\pi(v)=x$. 
+Pak pro $u=\otec(v)$ plat\'\i\ $v=\pravy(u)$ a $\lambda(v)=\key(u)$ a 
+$(\lambda(v),\pi(v))\cap S=\emptyset$. Kdy\v z $y=\key(u)$, pak 
+odstran\v en\'\i\ vrchol\accent23u $u$ a $v$ d\'av\'a bin\'arn\'\i\ vyhled\'avac\'\i\ strom reprezentuj\'\i c\'\i\ $S\setminus \{y\}$. 
+Proto\v ze $(y,x)\cap S=\emptyset$, tak p\v r\'\i kaz $\key(t):=y$ d\'av\'a bin\'arn\'\i\ 
+vyhled\'avac\'\i\ strom reprezentuj\'\i c\'\i\ $S\setminus \{x\}$ a proto operace 
+{\bf DELETE} je korektn\'\i . 
+\medskip
+
+\flushpar Korektnost operac\'\i\ {\bf MIN}, {\bf MAX} a {\bf JOIN3} plyne z definice 
+bin\'arn\'\i ho vyhledavac\'\i ho stromu.  Korektnost operace {\bf SPLIT }
+plyne z korektnosti algoritmu {\bf Vyhledej} a z faktu, \v ze $u_
+1$ je otec 
+nej\-prav\v ej\v s\'\i ho listu stromu $T_1$ a $u_2$ je otec nejlev\v ej\v s\'\i ho listu stromu $T_2$.  
+Proto\v ze ke stromu $T_1$ se p\v rid\'av\'a \v c\'ast stromu $T$ reprezentuj\'\i c\'\i\ 
+prvky, kter\'e jsou v\v et\v s\'\i\ ne\v z prvky reprezentovan\'e v $
+T_1$, a ke 
+stromu $T_2$ se p\v rid\'av\'a \v c\'ast stromu $T$ reprezentuj\'\i c\'\i\ prvky, 
+kter\'e jsou men\v s\'\i\ ne\v z prvky reprezentovan\'e v $T_2$, korektnost 
+algoritmu pro operaci {\bf SPLIT} je jasn\'a.  
+\medskip
+
+\flushpar Zpracov\'an\'\i\ jednoho vrcholu vy\v zaduje \v cas $O(
+1)$ a 
+algoritmus se pohybuje po jedn\'e cest\v e z ko\v rene do 
+n\v ejak\'eho listu. Ozna\v cme $\hloubka(T)$ d\'elku nejdel\v s\'\i\ cesty 
+z ko\v rene do n\v ejak\'eho listu. Pak dost\'av\'ame
+\medskip
+
+\proclaim{V\v eta}Algoritmy pro operace {\bf MEMBER}, {\bf INSERT}, {\bf DE\-LE\-TE}, {\bf MIN}, {\bf MAX}, 
+{\bf JOIN3} a {\bf SPLIT} v bin\'ar\-n\'\i m vy\-hled\'a\-va\-c\'\i m stro\-m\v e $
+T$ vy\v zaduj\'\i\ 
+\v cas $O(\hloubka(T))$. 
+\endproclaim
+
+\flushpar Bohu\v zel ani struktura bin\'arn\'\i ch vyhled\'avac\'\i ch 
+strom\accent23u nepodporuje efektivn\'\i\ implementaci operace 
+{\bf ord$(k)$}. Pro jej\'\i\ efektivn\'\i\ implentaci je vhodn\'e roz\v s\'\i\v rit 
+datovou strukturu tak, \v ze u ka\v zd\'eho vrcholu $t$ je deklarov\'an 
+tak\'e \'udaj $p(t)$ -- po\v cet list\accent23u v podstromu ur\v cen\'em 
+vrcholem $t$. Po proveden\'\i\ operac\'\i\ {\bf INSERT}, {\bf DELETE}, {\bf JOIN3} a 
+{\bf SPLIT} je pak nutn\'e aktualizovat tuto polo\v zku na cest\v e z 
+vrcholu do ko\v rene. N\'asleduj\'\i c\'\i\ algoritmus pak 
+realizuje operaci {\bf ord}$(k)$.
+\medskip
+
+{\bf ord$(k)$ \newline 
+$t:=$}ko\v ren stromu \newline 
+{\bf if} $k\ge p(t)$ {\bf then} $k$-t\'y prvek neexistuje, {\bf stop endif\newline 
+while} true {\bf do}\newline 
+\phantom{---}{\bf if} $k>p(\levy(t))$ {\bf then}\newline 
+\phantom{------}$k:=k-p(\levy(t))$, $t:=\pravy(t)$\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}{\bf if} $k<p(\levy(t)$ {\bf then}\newline 
+\phantom{---------}$t:=\levy(t)$\newline 
+\phantom{------}{\bf else}\newline 
+\phantom{---------}$\key(t)$ je $k$-t\'y prvek reprezentovan\'e mno\v ziny, stop \newline 
+\phantom{------}{\bf endif}\newline 
+\phantom{---}{\bf endif\newline 
+enddo}
+\bigskip
+
+\flushpar Korektnost algoritmu plyne z n\'asleduj\'\i c\'\i ho invariantu:  
+Kdy\v z algoritmus m\'a v dan\'em okam\v ziku v prom\v enn\'e $t$ vrchol $
+v$ 
+a hodnota prom\v enn\'e $k$ je $k'$, pak $k$-t\'y prvek v $S$ se rovn\'a 
+$k'$-t\'emu prvku v intervalu reprezentovan\'em v podstromu 
+stromu $T$ ur\v cen\'em vrcholem $v$.  Proto\v ze na po\v c\'atku algoritmu 
+je $v$ ko\v ren stromu a interval je $S$ (a $k'=k$), tak na po\v c\'atku 
+b\v ehu algoritmu invariant plat\'\i.  P\v redpokl\'adejme, \v ze plat\'\i\ v 
+n\v ekter\'em kroku.  Nech\v t $u$ je lev\'y syn $v$, $w$ je prav\'y syn $
+v$ a 
+$I_a$ je interval reprezovan\'y podstromem $T$ ur\v cen\'ym vrcholem $
+a$.  
+Pak $|I_u|=p(u)-1$, $\max I_u<\key(v)<\min I_w$ a 
+$I_v=I_u\cup \{\key(v)\}\cup I_w$.  Odtud plyne, \v ze kdy\v z $k'
+<p(u)$, pak 
+$k'$-t\'y prvek v intervalu $I_v$ je $k'$-t\'y prvek v intervalu $
+I_u$, kdy\v z 
+$k'>p(u)$, pak $k'$-t\'y prvek v intervalu $I_v$ je $(k'-p(u))$-t\'y prvek 
+v intervalu $I_w$, a kdy\v z $k'=p(u)$, pak $k'$-t\'y prvek v intervalu $
+I_v$ 
+je $\key(v)$.  Odtud plyne invariant a korektnost algoritmu.  
+Podle stejn\'ych argument\accent23u jako v p\v redchoz\'\i m p\v r\'\i pad\v e 
+dostaneme, \v ze \v casov\'a slo\v zitost algoritmu je $O(\hloubka
+(T))$.  
+Tedy m\accent23u\v zeme tato fakta shrnout.  
+
+\proclaim{V\v eta}Algoritmy pro operace {\bf MEMBER}, {\bf INSERT}, {\bf DE\-LE\-TE}, {\bf MIN}, {\bf MAX}, 
+{\bf JOIN3}, {\bf SPLIT} a $\bold o\bold r\bold d(k)$ pro v\v sechna $
+k$ v roz\v s\'\i\v ren\'ych bin\'ar\-n\'\i ch 
+vy\-hled\'avac\'\i ch stromech vy\v zaduj\'\i\ \v cas $O(\hloubka
+(T))$, kde $T$ je 
+reprezentuj\'\i c\'\i\ strom. 
+\endproclaim
+
+
+\flushpar Tento v\'ysledek motivuje pou\v z\'\i v\'an\'\i\ bin\'arn\'\i ch 
+vyhled\'avac\'\i ch strom\accent23u, kter\'e spl\v nuj\'\i\ dal\v s\'\i\ 
+podm\'\i nku, kter\'a m\'a zajistit, \v ze 
+$\hloubka(T)=O(\log|S|)$.  V takov\'emto p\v r\'\i pad\v e mluv\'\i me o 
+\emph{vyv\'a\v zen\'ych} \emph{bin\'arn\'\i ch} 
+\emph{vyhled\'avac\'\i ch} \emph{stromech}.  Je v\v sak nutn\'e 
+p\v ridat k ope\-rac\'\i m {\bf INSERT}, {\bf DELETE}, {\bf JOIN3} a {\bf SPLIT} dal\v s\'\i\ 
+kroky, kter\'e 
+zaru\v c\'\i , \v ze po jejich proveden\'\i\ strom op\v et spl\v nuje 
+po\v zadovan\'e podm\'\i nky.  To vede k po\v zadavku, aby 
+vyva\v zovac\'\i\ operace byly rychl\'e a prov\'ad\v elo se jich m\'alo.  
+\medskip
+
+\flushpar P\v ri n\'ahodn\'e posloupnosti operac\'\i\ {\bf INSERT} a {\bf DELETE} je 
+velk\'a pravd\v epodobnost, \v ze dostaneme n\'ahodn\'y bin\'arn\'\i\ 
+vy\-hled\'avac\'\i\ strom.  Je zn\'amo, \v ze o\v cek\'avan\'a hodnota prom\v en\-n\'e 
+$\hloubka(T)$ je $O(\log|S|)$.  Proto\v ze se nepou\v z\'\i vaj\'\i\ vyva\v zovac\'\i\ 
+operace, m\accent23u\v zeme dostat lep\v s\'\i\ v\'ysledek (\v casov\v e) ne\v z pro 
+vyv\'a\-\v zen\'e bin\'ar\-n\'\i\ vyhled\'avac\'\i\ stromy.  Tento probl\'em se te\v d 
+intenzivn\v e studu\-je.  Velk\'a pozornost je v\v enov\'ana 
+pravd\v epodobnost\-n\'\i m modifikac\'\i m bin\'arn\'\i ch vyhled\'avac\'\i ch 
+strom\accent23u.  Hledaj\'\i\ se v\v sak i dal\v s\'\i\ mo\v znosti.  
+\medskip
+
+\flushpar Studuj\'\i\ se tzv.  samoupravuj\'\i c\'\i\ struktury.  Zde se 
+pracuje s datovou strukturou bez dodate\v cn\'ych informac\'\i , ale 
+operace nad touto strukturou prov\'ad\'\i\ vyva\v zov\'an\'\i\ v z\'avislosti 
+na argumentu operace.  Dok\'azalo se, \v ze existuje strategie 
+vyva\v zov\'an\'\i , kter\'a zaji\v s\v tuje dobr\'e chov\'an\'\i\ bez ohledu na 
+vstupn\'\i\ data.  Dal\v s\'\i\ strategie je, \v ze se jen zji\v s\v tuje, zda datov\'a 
+struktura nem\'a v\'yraz\-n\v e \v spatn\'e chov\'an\'\i , a pokud ho m\'a nebo 
+po dlouh\'e \v rad\v e \'usp\v e\v s\-n\'ych aktualiza\v cn\'\i ch operac\'\i\ se vybuduje 
+nov\'a datov\'a struktura (s optim\'aln\'\i m chov\'an\'\i m).  T\v ret\'\i , 
+pom\v ern\v e star\'a, strategie je zalo\-\v ze\-na na p\v redpokladu, \v ze 
+zn\'ame rozd\v elen\'\i\ vstupn\'\i ch dat.  Zde se datov\'a struktura 
+p\v redem upravuje pro toto rozd\v elen\'\i .  Ukazuje se, \v ze tyto 
+strategie maj\'\i\ \'usp\v ech.  Dal\v s\'\i\ podrobnosti v letn\'\i m semestru.  
+\medskip
+
+\flushpar Nyn\'\i\ si uk\'a\v zme dv\v e operace se stromy, na nich\v z jsou 
+zalo\v zeny  vyva\v zovac\'\i\ operace pro bin\'arn\'\i\ vyhled\'avac\'\i\ 
+stromy. Ob\v e ope\-race vy\v zaduj\'\i\ \v cas $O(1)$.
+\medskip
+
+\flushpar M\v ejme vrchol $v$ bin\'arn\'\i ho vyhled\'avac\'\i ho stromu $
+T$ a 
+jeho syna $u$, kter\'y je vnit\v rn\'\i\ vrchol.  Pak {\bf Rotace$
+(v,u)$} je 
+zn\'azorn\v ena na obr\'azku a prov\'ad\'\i\ ji n\'asleduj\'\i c\'\i\ algoritmus.  
+\bigskip
+
+\midinsert
+\centerline{\input fig1.tex}
+\botcaption{Obr. 1}
+\endcaption
+\endinsert
+\medskip
+
+{\bf Rotace$(v,u)$\newline} 
+$\otec(u):=\otec(v)$,\newline 
+{\bf if} $v=\levy(\otec(v))$ {\bf then}\newline 
+\phantom{---}$\levy(\otec(v)):=u$\newline 
+{\bf else}\newline 
+\phantom{---}$\pravy(\otec(v)):=u$\newline 
+{\bf endif\newline 
+$\otec(v):=u$\newline 
+if} $u=\levy(v)$ {\bf then}\newline 
+\phantom{---}$\otec(\pravy(u)):=v$, $\levy(v):=\pravy(u)$, $\pravy(u):=v$\newline 
+{\bf else}\newline 
+\phantom{---}$\otec(\levy(u)):=v$, $\pravy(v):=\levy(u)$, $\levy(u):=v$\newline 
+{\bf endif}
+\medskip
+
+\flushpar V\v simn\v eme si, \v ze p\v ri {\bf Rotace} m\accent23u\v zeme 
+aktualizovat i funkci $p$. Pro vrchol $w\ne u,v$ se jej\'\i\ hodnota 
+nem\v en\'\i , nov\'a hodnota $p(u)$ je rovn\'a p\accent23uvodn\'\i\ hodnot\v e 
+$p(v)$ a novou hodnotu $p(v)$ dostaneme jako 
+$p(\levy(v))+p(\pravy(v))$.
+\medskip
+
+\flushpar M\v ejme vrchol $w$ stromu $T$, jeho syna $v$ a jeho 
+syna $u$ takov\'eho, \v ze $u$ nen\'\i\ list a $v$ je prav\'y syn 
+vrcholu $w$, pr\'av\v e kdy\v z $u$ je lev\'y syn vrcholu $v$. Pak 
+{\bf Dvojita}-{\bf rotace$(w,v,u)$} je zn\'azorn\v ena na obr\'azku a prov\'ad\'\i\ 
+ji n\'asleduj\'\i c\'\i\ algoritmus.
+
+\midinsert
+\centerline{\input fig2.tex}
+\botcaption{Obr. 2}
+\endcaption
+\endinsert
+\medskip
+
+{\bf Dvojita}-{\bf rotace$(w,v,u)$\newline 
+$\otec(u):=\otec(w)$\newline 
+if} $w=\levy(\otec(w))$ {\bf then}\newline 
+\phantom{---}$\levy(\otec(w)):=u$\newline 
+{\bf else}\newline 
+\phantom{---}$\pravy(\otec(w)):=u$\newline 
+{\bf endif}\newline 
+$\otec(v):=u$, $\otec(w):=u$\newline 
+{\bf if} $v=\levy(w)$ {\bf then}\newline  
+\phantom{---}$\levy(w):=\pravy(u)$, $\otec(\pravy(u)):=w$, $\pravy(v):=\levy(u)$\newline \phantom{---}$\otec(\levy(u)):=v$, $\levy(u):=v$, $\pravy(u):=w$\newline 
+{\bf else}\newline 
+\phantom{---}$\pravy(w):=\levy(u)$, $\otec(\levy(u)):=w$, $\levy(v):=\pravy(u)$\newline 
+\phantom{---}$\otec(\pravy(u)):=v$, $\levy(u):=w$, $\pravy(u):=v$\newline 
+{\bf endif}
+\medskip
+
+\flushpar Tak\'e zde m\accent23u\v zeme v \v case $O(1)$ spo\v c\'\i tat nov\'e hodnoty $
+p$. 
+Pro vrchol $x\ne u,v,w$ se hodnota nem\v en\'\i , nov\'a hodnota 
+$p(u)$ je 
+rovn\'a p\accent23uvodn\'\i\ hodnot\v e $p(w)$ a nov\'e hodnoty $
+p(v)$ 
+a $p(w)$ 
+z\'\i sk\'ame pod\-le stejn\'eho vzorce  jako v {\bf Rotace}.
+
+\heading
+AVL-stromy
+\endheading
+
+\flushpar Bin\'arn\'\i\ vyhled\'avac\'\i\ strom je 
+\emph{AVL}-\emph{strom}, kdy\v z pro ka\v zd\'y vnit\v r\-n\'\i\ vrchol 
+$v$ se d\'elka nejdel\v s\'\i\ cesty z jeho lev\'eho syna do 
+listu a d\'elka nejdel\v s\'\i\ cesty z jeho prav\'eho syna do listu 
+li\v s\'\i\ nejv\'y\v se o $1$.  
+\medskip
+
+\flushpar Pro vnit\v rn\'\i\ vrchol $v$ stromu $T$ ozna\v cme $\eta 
+(v)$ 
+d\'elku nejdel\v s\'\i\ cesty z vrcholu $v$ do listu.
+\medskip
+ 
+\flushpar Struktura vnit\v rn\'\i ch vrchol\accent23u v 
+AVL-stromech je roz\v s\'\i\v rena o hodnotu $\omega$:\newline 
+$\omega (v)=-1$, kdy\v z 
+$$\eta (\text{\rm lev\'y syn vrcholu }v)=\eta (\text{\rm prav\'y syn vrcholu }
+v)+1;$$
+$\omega (v)=0$, kdy\v z 
+$$\eta (\text{\rm lev\'y syn vrcholu }v)=\eta (\text{\rm prav\'y syn vrcholu }
+v);$$
+$\omega (v)=+1$, kdy\v z
+$$\eta (\text{\rm lev\'y syn vrcholu }v)+1=\eta (\text{\rm prav\'y syn vrcholu }
+v).$$
+\medskip
+
+\flushpar V\v simn\v eme si, \v ze hodnota $\eta (v)$ pro vnit\v rn\'\i\ vrcholy 
+$v$ stromu $T$ nen\'\i\ nikde ulo\v zena.  Hodnoty $\eta$ jsme schopni 
+spo\v c\'\i tat z hodnot $\omega$, ale nen\'\i\ to t\v reba.  Sta\v c\'\i , kdy\v z po 
+aktualiza\v cn\'\i ch operac\'\i ch budeme um\v et aktualizovat 
+hodnoty $\omega$ a upravit bin\'arn\'\i\ vy\-hled\'avac\'\i\ strom tak, 
+aby byl op\v et AVL-strom.
+\medskip
+
+\flushpar Odhad velikosti $\eta (\text{\rm ko\v ren }T)$ v z\'avislosti na 
+velikosti reprezentovan\'e mno\v ziny $S$.\newline 
+Kdy\v z $T$ je AVL-strom a $v$ je vnit\v rn\'\i\ vrchol $T$, pak 
+podstrom $T$ ur\v cen\'y vrcholem $v$ je op\v et AVL-strom. 
+Ozna\v cme\newline 
+$mn(i)$ velikost nejmen\v s\'\i\ mno\v ziny reprezentovan\'e 
+AVL-stromem $T$ takov\'ym, \v ze $$\eta (\text{\rm ko\v ren }T)=i,$$ 
+$mx(i)$ velikost nejv\v et\v s\'\i\ mno\v ziny reprezentovan\'e 
+AVL-stromem $T$ takov\'ym, \v ze $$\eta (\text{\rm ko\v ren }T)=i.$$ 
+Z definice AVL-stromu plynou rekurze
+$$\gather mn(i)=mn(i-1)+mn(i-2)+1,\,mx(i)=2mx(i-1)+1,\\
+\text{a }mn(1)=mx(1)=1,\quad mn(2)=2,\quad mx(2)=3.\endgather$$
+Nejprve spo\v c\'\i t\'ame $mx$.
+\medskip
+
+\flushpar Dok\'a\v zeme, \v ze $mx(i)=2^i-1$. Tento vzorec je 
+spln\v en pro $i=1,2$. D\'ale 
+$$mx(i+1)=2mx(i)+1=2(2^i-1)+1=2^{i+1}-1.$$
+T\'\i m je vzorec dok\'az\'an. 
+\medskip
+
+\flushpar Abychom spo\v c\'\i tali $mn$, p\v ripomeneme si definici Fibonacciho \v c\'\i sel. \emph{Fibonacciho} 
+\emph{\v c\'\i slo} $F_i$ je definov\'ano rekurenc\'\i
+$$F_1=F_2=1\text{\rm\ a }F_{i+2}=F_i+F_{i+1}\text{\rm\ pro v\v sechna }
+i\ge 3.$$
+Pak plat\'\i\ vzorec $F_i=\frac {\big(\frac {1+\sqrt 5}2\big)^i-\big
+(\frac {1-\sqrt 5}2\big)^i}{\sqrt 5}$ pro v\v sechna $i\ge 1$ 
+(dok\'a\v zeme si ho v \v c\'asti o hald\'ach). 
+\medskip
+
+\flushpar Proto\v ze 
+$-1<\frac {1-\sqrt 5}2<0$ a $\frac {1+\sqrt 5}2>1$, dost\'av\'ame, \v ze 
+$$\lim_{n\mapsto\infty}F_n\sqrt 5(\frac {1+\sqrt 5}2)^{-n}=1.$$
+Proto existuj\'\i\ konstanty $0<c_1<c_2$ takov\'e, \v ze 
+$$c_1(\frac {1+\sqrt 5}2)^i<\sqrt 5F_i<c_2(\frac {1+\sqrt 5}2)^i.$$
+\medskip
+
+\flushpar Dok\'a\v zeme, \v ze $mn(i)=F_{i+2}-1$. Proto\v ze $F_3
+=2$ a 
+$F_4=3$, 
+tvrzen\'\i\ plat\'\i\ pro $i=1$ a $i=2$. D\'ale 
+$$\align mn(i+2)=&mn(i+1)+mn(i)+1=\\&F_{i+3}-1+F_{i+2}-1+1=F_{i+4}-1.\endalign$$
+Z toho indukc\'\i\ plyne po\v zadovan\'y vztah. 
+\medskip
+
+\flushpar Kdy\v z AVL-strom $T$ o v\'y\v sce $i$ reprezentuje mno\v zinu $
+S$ o 
+velikosti $n$, pak plat\'\i\ 
+$$\frac {c_1}{\sqrt 5}(\frac {1+\sqrt 5}2)^{i+2}-1<F_{i+2}-1\le n
+\le 2^i-1.$$
+Po zlogaritmov\'an\'\i\ z toho okam\v zit\v e dost\'av\'ame
+$$\log(\frac {c_1}{\sqrt 5})+(i+2)\log(\frac {1+\sqrt 5}2)<\log(n
++1)<i.$$
+Proto\v ze $\log(\frac {1+\sqrt 5}2)\approx 0.69\approx\frac 1{1.
+44}$ dost\'av\'ame, \v ze pro dostate\v cn\v e velk\'a $n$ 
+plat\'\i , \v ze $0.69i<\log(n+1)\le i$. Odtud plyne, \v ze 
+$\log(n+1)\le i\le 1.44\log(n)$, a tedy $i=\Theta (\log(n))$.
+\medskip
+
+\flushpar Operace {\bf MEMBER$(x)$} pro AVL-stromy je stejn\'a jako 
+ope\-race {\bf MEMBER$(x)$} pro nevy\-v\'a\-\v zen\'e bin\'arn\'\i\ vyhled\'avac\'\i\ 
+stro\-my. Aktualiza\v cn\'\i\ operace pro AVL-stromy nejprve provedou 
+p\v r\'\i slu\v snou ope\-raci pro nevyv\'a\v zen\'e bin\'arn\'\i\ vyhled\'avac\'\i\ stromy 
+a pak n\'asle\-du\-je jejich vyva\v zovac\'\i\ \v c\'ast. P\v ri \'usp\v e\v sn\v e 
+proveden\'e operaci {\bf IN\-SERT$(x)$} v nevyv\'a\v zen\'ych bin\'arn\'\i ch 
+stromech zm\v en\'\i me vhod\-n\'y list $t$ na vnit\v rn\'\i\ vrchol 
+stromu reprezentuj\'\i c\'\i\ $x$ a p\v rid\'ame k $t$ dva syny, kte\v r\'\i\ 
+budou listy. D\accent23usledkem je, \v ze definujeme 
+$\omega (t)=0$. Proto\v ze se v\v sak zv\v et\v sila hodnota $\eta 
+(t)$ (bylo 
+$\eta (t)=0$ a te\v d je $\eta (t)=1$), zavol\'ame proceduru 
+{\bf Kontrola-INSERT$(t)$}, kter\'a zajist\'\i\ spr\'avnou hodnotu 
+funkce $\omega$ pro otce $t$. Nav\'\i c, kdy\v z zjist\'\i , \v ze se zv\v et\v sila 
+hodnota $\eta$ vrcholu otce $t$, pak zavol\'a sama sebe na vrchol 
+otec $t$. Nejprve provedeme anal\'yzu situace. 
+\medskip
+
+\flushpar M\v ejme vrchol $t$, jeho $\eta (t)=a$ (ale $a$ nezn\'ame), na 
+za\v c\'atku 
+ope\-ra\-ce {\bf INSERT} bylo $\eta (t)=a-1$.  V podstromu ur\v cen\'em 
+vrcholem $t$ m\'ame u\v z spr\'avn\'e hodnoty $\omega$.  Vrchol $
+v$ je otcem $t$, 
+$t=\levy(v)$ a $\omega (v)$ m\'a je\v st\v e p\accent23uvodn\'\i\ hodnotu.  
+\medskip
+
+\proclaim{Lemma}Kdy\v z se hodnota $\eta (t)$ p\v ri operaci {\bf INSERT }
+zv\v et\v sila a $t$ nebyl listem p\v red operaci, pak po operaci 
+neplat\'\i\ $\omega (t)=0$.
+\endproclaim
+
+\flushpar Ozna\v cme $u=\pravy(v)$ a uva\v zme p\v r\'\i pady:\newline 
+A) $\omega (v)=1$, pak $\eta (u)=a$ a $\eta (v)=a+1$ se nezm\v enilo, 
+tedy sta\v c\'\i\ polo\v zit $\omega (v)=0$.\newline 
+B) $\omega (v)=0$, pak $\eta (u)=a-1$ a $\eta (v)=a+1$ se zm\v enilo, 
+tedy mus\'\i me polo\v zit $\omega (v)=-1$ a zavolat proceduru 
+{\bf Kontrola-INSERT} na vrchol $v$.\newline 
+C) $\omega (v)=-1$, pak $\eta (u)=a-2$ a $\eta (v)=a+1$ se zm\v enilo. 
+Nyn\'\i\ $\omega (v)=-2$ a to je zak\'azan\'e. Ozna\v cme $t_1=\levy
+(t)$, 
+$t_2=\pravy(t)$ ($\omega (t)=0$ nenastane, viz Lemma). 
+\newline 
+C1) $\omega (t)=-1$, pak $\eta (t_1)=a-1$, $\eta (t_2)=a-2$ a provedeme 
+{\bf Rotace$(v,t)$}. Pak $t_2$ je druh\'y syn $v$ a sta\v c\'\i\ polo\v zit 
+$\omega (v)=\omega (t)=0$.\newline 
+C2) $\omega (t)=1$, pak $\eta (t_1)=a-2$, $\eta (t_2)=a-1$ a provedeme 
+{\bf Dvojita-rotace$(v,t,t_2)$}. Pro $t_3=\levy(t_2)$ a $t_4=\pravy
+(t_2)$ 
+plat\'\i :\newline 
+C2i) $\omega (t_2)=1\implies\eta (t_3)=a-3$ a $\eta (t_4)=a-2$ a sta\v c\'\i\ 
+polo\v zit $\omega (t)=-1$, $\omega (v)=\omega (t_2)=0$, proto\v ze $
+\eta (t_2)=a$.\newline 
+C2ii) $\omega (t_2)=0\implies\eta (t_3)=\eta (t_4)=a-2$ a sta\v c\'\i\ polo\v zit 
+$\omega (t_2)=\omega (v)=\omega (t)=0$, proto\v ze $\eta (t_2)=a$. \newline 
+C2iii) $\omega (t_2)=-1\implies\eta (t_3)=a-2$ a $\eta (t_4)=a-3$ a 
+sta\v c\'\i\ polo\v zit $\omega (v)=1$, $\omega (t_2)=\omega (t)=
+0$, proto\v ze $\eta (t_2)=a$.\newline 
+Kdy\v z $t$ je prav\'y syn $v$, pak situace je symetrick\'a.\newline 
+Pop\'\i\v seme proceduru {\bf Kontrola-INSERT}.
+\medskip
+
+{\bf Kontrola-INSERT$(t)$\newline 
+$v:=\otec(t)$\newline 
+if} $t=\levy(v)$ {\bf then}\newline 
+\phantom{---}{\bf if} $\omega (v)=1$ {\bf then}\newline 
+\phantom{------}$\omega (v):=0$ \newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}{\bf if} $\omega (v)=0$ {\bf then}\newline 
+\phantom{---------}$\omega (v):=-1$, $t:=v$, {\bf Kontrola-INSERT}$(t)$\newline 
+\phantom{------}{\bf else}\newline
+\phantom{---------}{\bf if} $\omega (t)=-1$ {\bf then}\newline 
+\phantom{------------}{\bf Rotace$(v,t)$}, $\omega (v):=0$, $\omega (t):=0$\newline 
+\phantom{---------}{\bf else}\newline 
+\phantom{------------}$w:=\pravy(t)$, {\bf Dvojita-rotace$(v,t,w)$},\newline 
+\phantom{------------}{\bf if} $\omega (w)=0$ {\bf then}\newline 
+\phantom{---------------}$\omega (t):=0$, $\omega (v):=0$\newline 
+\phantom{------------}{\bf else}\newline 
+\phantom{---------------}{\bf if} $\omega (w)=1$ {\bf then}\newline 
+\phantom{------------------}$\omega (v):=0$, $\omega (t):=-1$\newline 
+\phantom{---------------}{\bf else}\newline 
+\phantom{------------------}$\omega (v):=1$, $\omega (t):=0$\newline 
+\phantom{---------------}{\bf endif}\newline 
+\phantom{------------}{\bf endif}\newline 
+\phantom{------------}$\omega (w):=0$\newline 
+\phantom{---------}{\bf endif}\newline
+\phantom{------}{\bf endif}\newline 
+\phantom{---}{\bf endif\newline 
+else}\newline 
+\phantom{---}{\bf if} $\omega (v)=-1$ {\bf then}\newline 
+\phantom{------}$\omega (v):=0$\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}{\bf if} $\omega (v)=0$ {\bf then}\newline 
+\phantom{---------}$\omega (v):=1$, $t:=v$, {\bf Kontrola-INSERT}$(t)$\newline 
+\phantom{------}{\bf else}\newline 
+\phantom{---------}{\bf if} $\omega (t)=1$ {\bf then}\newline 
+\phantom{------------}{\bf Rotace$(v,t)$}, $\omega (v):=0$, $\omega (t):=0$\newline 
+\phantom{---------}{\bf else}\newline 
+\phantom{------------}$w:=\levy(t)$, {\bf Dvojita-rotace$(v,t,w)$},\newline 
+\phantom{------------}{\bf if} $\omega (w)=0$ {\bf then}\newline 
+\phantom{---------------}$\omega (t):=0$, $\omega (v):=0$\newline 
+\phantom{------------}{\bf else}\newline 
+\phantom{---------------}{\bf if} $\omega (w)=1$ {\bf then}\newline 
+\phantom{------------------}$\omega (v):=0$, $\omega(t):=-1$\newline 
+\phantom{---------------}{\bf else}\newline 
+\phantom{------------------}$\omega (v):=1$, $\omega (t):=0$\newline 
+\phantom{---------------}{\bf endif}\newline 
+\phantom{------------}{\bf endif}\newline 
+\phantom{------------}$\omega (w):=0$\newline 
+\phantom{---------}{\bf endif}\newline 
+\phantom{------}{\bf endif}\newline 
+\phantom{---}{\bf endif\newline 
+endif}
+\bigskip
+
+\flushpar V\v simn\v eme si, \v ze po proveden\'\i\ {\bf Rotace} nebo
+{\bf Dvojita-rotace} vyva\v zov\'an\'\i\ v operaci {\bf INSERT} kon\v c\'\i . Tedy 
+operace {\bf INSERT} prov\'ad\'\i\ nejv\'y\v se jednu proceduru {\bf Rotace }
+nebo {\bf Dvojita-rota\-ce}. Korektnost vyva\v zovac\'\i\ operace je 
+zalo\v zena na faktu, \v ze kdy\v z se zv\v et\v s\'\i\ hodnota $
+\eta (t)$, pak 
+nem\accent23u\v ze b\'yt $\omega (t)=0$. Tento fakt se vyu\v z\'\i v\'a  v 
+{\bf if}-p\v r\'\i kazu na 5-t\'em a 6-t\'em \v r\'adku a na 13-t\'em a 14-t\'em  
+\v r\'adku programu.
+\medskip
+
+\flushpar Pop\'\i\v seme vyva\v zovac\'\i\ operaci pro operaci 
+{\bf DELETE}.  P\v red\-po\-kl\'adejme, \v ze $t$ je vrchol, jeho\v z otec se 
+odstranil (tj.  bratr $t$ byl list) a hodnota $\eta (t)$ je men\v s\'\i\ 
+ne\v z byla hodnota $\eta (\otec(t))$.  Proto zavol\'ame proceduru 
+{\bf Kontrola-DELETE$(t)$}.  Tato procedura zajist\'\i\ spr\'avnou 
+hodnotu funkce $\omega$ pro otce $t$.  Nav\'\i c, kdy\v z zjist\'\i , \v ze se 
+zmen\v sila hodnota $\eta$ vrcholu otce $t$, pak zavol\'a sama sebe 
+na vrchol otec $t$. Pop\'\i\v seme anal\'yzu situace, na n\'\i\v z je 
+zalo\v zena korektnost procedury {\bf Kontrola-DELETE$(t)$}.  
+\medskip
+
+\flushpar V anal\'yze je d\accent23ule\v zit\'e, \v ze kdy\v z procedura {\bf Kontrola-DELETE }
+p\v resune vrchol $x$ na m\'\i sto vrcholu $y$, pak skute\v cn\'a hodnota $
+\eta (x)$ 
+je bu\v d p\accent23uvodn\'\i\ hodnota $\eta (y)$ nebo je p\v resn\v e o $
+1$ men\v s\'\i . V\v simn\v ete si, \v ze to plat\'\i . 
+\medskip
+
+\flushpar D\'an vrchol $t$, jeho\v z hodnota $\eta (t)$ se zmen\v sila (o $
+1$).  V 
+podstromu ur\v cen\'em vrcholem $t$ jsou hodnoty $\omega$ aktualizov\'any, 
+$v=\otec(t)$ a $\omega (v)$ je p\accent23uvodn\'\i .  P\v redpokl\'adejme 
+$t=\levy(v)$, $u=\pravy(v)$ a $\eta (t)=a$ ($a$ je nezn\'am\'e).  Nast\'avaj\'\i\ 
+p\v r\'\i pady:\newline 
+A) kdy\v z $\omega (v)=1$, pak $\eta (u)=a+2$ a $\eta (v)=a+3$ (p\accent23uvodn\v e 
+bylo $\eta (t)=a+1$).  Ozna\v cme $u_1=\levy(u)$, $u_2=\pravy(u)$.\newline 
+A1) $\omega (u)=1\implies\eta (u_1)=a,\,\eta (u_2)=a+1$.  Provedeme 
+{\bf Rotace$(v,u)$}.  
+Vrchol $u_1$ je druh\'ym synem $v$ a plat\'\i\ $\eta (t)=\eta (u_
+1)=a$, 
+$\eta (v)=\eta (u_2)=a+1$ a $\eta (u)=a+2$.  Tedy polo\v zme $\omega 
+(v)=\omega (u)=0$ a 
+zavolejme {\bf Kontrola-DELETE} na vrchol $u$.\newline 
+A2) $\omega (u)=0\implies\eta (u_1)=\eta (u_2)=a+1$. Provedeme 
+{\bf Rotace$(v,u)$}. Vrchol $u_1$ je druh\'ym synem $v$ a plat\'\i\ 
+$\eta (t)=a$, $\eta (u_1)=a+1=\eta (u_2)$, $\eta (v)=a+2$, $\eta 
+(u)=a+3$. Polo\v zme 
+$\omega (v)=1$, $\omega (u)=-1$ a kon\v c\'\i me.
+\medskip
+ 
+\flushpar A3) $\omega (u)=-1\implies\eta (u_1)=a+1,\,\eta (u_2)=a$.  Provedeme 
+{\bf Dvojita-rotace$(v,u,u_1)$}.  Pro $u_3=\levy(u_1)$, 
+$u_4=\pravy(u_1)$ nastanou p\v r\'\i pady:\newline 
+A3i) $\omega (u_1)=-1\implies\eta (u_3)=a,\,\eta (u_4)=a-1$ a tedy 
+$\eta (v)=\eta (u)=a+1$ a $\eta (u_1)=a+2$. Proto polo\v z\'\i me 
+$\omega (v)=\omega (u_1)=0$, $\omega (u)=1$ a zavol\'ame proceduru {\bf Kontrola-DELETE }
+na vrchol $u_1$.\newline 
+A3ii) $\omega (u_1)=0\implies\eta (u_3)=\eta (u_4)=a$ a tedy 
+$\eta (v)=\eta (u)=a+1$ a $\eta (u_1)=a+2$. Proto polo\v z\'\i me 
+$\omega (v)=\omega (u_1)=\omega (u)=0$ a zavol\'ame proceduru {\bf Kontrola-DELETE }
+na vrchol $u_1$.\newline 
+A3iii) $\omega (u_1)=1\implies\eta (u_3)=a-1,\,\eta (u_4)=a$ a tedy 
+$\eta (v)=\eta (u)=a+1$ a $\eta (u_1)=a+2$. Proto polo\v z\'\i me 
+$\omega (u)=\omega (u_1)=0$, $\omega (v)=-1$ a zavol\'ame proceduru {\bf Kontrola-DELETE }
+na vrchol $u_1$.\newline 
+B) kdy\v z $\omega (v)=0$, pak $\eta (u)=a+1$ a $\eta (v)=a+2$. 
+Sta\v c\'\i\ polo\v zit $\omega (v)=1$ a skon\v cit.\newline 
+C) kdy\v z $\omega (v)=-1$, pak $\eta (u)=a$ a $\eta (v)=a+2$. 
+Nyn\'\i\ polo\v z\'\i me $\omega (v)=0$ a 
+zavol\'ame proceduru {\bf Kontrola-DELETE} na vrchol $v$.
+\medskip
+
+{\bf Kontrola-DELETE$(t)$\newline 
+$v:=\otec(t)$\newline 
+if} $t=\levy(v)$ {\bf then}\newline 
+\phantom{---}{\bf if} $\omega (v)=1$ {\bf then}\newline 
+\phantom{------}$u:=\pravy(v)$\newline 
+\phantom{------}{\bf if} $\omega (u)\ge 0$ {\bf then}\newline 
+\phantom{---------}{\bf Rotace$(v,u)$}\newline 
+\phantom{---------}{\bf if} $\omega (v)=0$ {\bf then}\newline 
+\phantom{------------}$\omega (v):=1$, $\omega (u):=-1$\newline 
+\phantom{---------}{\bf else}\newline 
+\phantom{------------}$\omega (u):=\omega (v):=0$, $t:=u$, {\bf Kontrola-DELETE}$(t)$\newline 
+\phantom{---------}{\bf endif}\newline 
+\phantom{------}{\bf else}\newline 
+\phantom{---------}$w:=\levy(u)$, {\bf Dvojita-rotace}$(v,u,w)$\newline 
+\phantom{---------}{\bf if} $\omega (w)=1$ {\bf then}\newline 
+\phantom{------------}$\omega (u):=0$, $\omega (v):=-1$\newline 
+\phantom{---------}{\bf else}\newline 
+\phantom{------------}{\bf if} $\omega (w):=0$ {\bf then}\newline 
+\phantom{---------------}$\omega (u):=0$, $\omega(v):=0$\newline 
+\phantom{------------}{\bf else}\newline 
+\phantom{---------------}$\omega (u):=1$, $\omega (v):=0$\newline 
+\phantom{------------}{\bf endif}\newline 
+\phantom{---------}{\bf endif}\newline 
+\phantom{---------}$\omega (w):=0$, $t:=w$, {\bf Kontrola-Delete}$(t)$\newline 
+\phantom{------}{\bf endif}\newline 
+\phantom{---}{\bf endif\newline 
+else}\newline 
+\phantom{---}{\bf if} $\omega (v)=0$ {\bf then}\newline 
+\phantom{------}$\omega (v):=1$\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}$\omega (v):=0$, $t:=v$, {\bf Kontrola-DELETE}$(t)$\newline \phantom{---}{\bf endif\newline 
+else}\newline 
+\phantom{---}{\bf if} $\omega (v)=-1$ {\bf then}\newline 
+\phantom{------}$u:=\levy(v)$\newline 
+\phantom{------}{\bf if} $\omega (u)\le 0$ {\bf then}\newline 
+\phantom{---------}{\bf Rotace}$(v,u)$\newline 
+\phantom{---------}{\bf if} $\omega (u)=0$ {\bf then}\newline 
+\phantom{------------}$\omega (v):=-1$, $\omega (u):=1$\newline 
+\phantom{---------}{\bf else}\newline 
+\phantom{------------}$\omega (u):=\omega (v):=0$, $t:=u$, {\bf Kontrola-DELETE}$(t)$\newline 
+\phantom{---------}{\bf endif}\newline 
+\phantom{------}{\bf else}\newline 
+\phantom{---------}$w:=\pravy(u)$, {\bf Dvojita-rotace$(v,u,w)$}\newline 
+\phantom{---------}{\bf if} $\omega (w)=1$ {\bf then}\newline 
+\phantom{------------}$\omega (u):=-1$, $\omega (v):=0$\newline 
+\phantom{---------}{\bf else}\newline 
+\phantom{------------}{\bf if} $\omega (w):=0$ {\bf then}\newline 
+\phantom{---------------}$\omega (u):=0$, $\omega(v):=0$\newline 
+\phantom{------------}{\bf else}\newline 
+\phantom{---------------}$\omega (u):=0$, $\omega (v):=1$\newline 
+\phantom{------------}{\bf endif}\newline 
+\phantom{---------}{\bf endif}\newline 
+\phantom{---------}$\omega (w):=0$, $t:=w$, {\bf Kontrola-Delete}$(t)$\newline
+\phantom{------}{\bf endif}\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}{\bf if} $\omega (v)=0$ {\bf then}\newline 
+\phantom{---------}$\omega (v):=-1$\newline 
+\phantom{------}{\bf else}\newline 
+\phantom{---------}$\omega (v):=0$, $t:=v$, {\bf Kontrola-DELETE}$(t)$\newline \phantom{------}{\bf endif}\newline 
+\phantom{---}{\bf endif\newline 
+endif}
+\medskip
+
+\flushpar V operaci {\bf DELETE} se m\accent23u\v ze st\'at, \v ze procedury 
+{\bf Rotace} nebo {\bf Dvojita-rotace} jsou vol\'any a\v z $\log(
+|S|)$-kr\'at. 
+To je v\'yrazn\'y rozd\'\i l proti operaci {\bf INSERT}. Proto operace 
+{\bf DELETE} je pomalej\v s\'\i\ ne\v z operace {\bf INSERT}, i kdy\v z 
+asymptoticky jsou stejn\v e rychl\'e. Korektnost se 
+ov\v e\v r\'\i\ p\v r\'\i mo.
+
+\proclaim{V\v eta}Datov\'a struktura AVL-strom 
+umo\v z\v nuje implementaci operac\'\i\ {\bf MEMBER}, {\bf INSERT} a 
+{\bf DELETE}, kter\'e vy\v zaduj\'\i\ \v cas $O(\log(|S|))$ (kde $
+S$ je 
+reprezentovan\'a mno\v zina).  Ope\-race {\bf INSERT} zavol\'a 
+nejv\'y\v se jednu proceduru {\bf Rotace} nebo {\bf Dvo\-ji\-ta-rotace}.  
+\endproclaim
+\medskip
+
+\heading 
+\v Cerveno-\v cern\'e stromy
+\endheading
+
+\flushpar Bin\'arn\'\i\ vyhled\'avac\'\i\ strom $T$ reprezentuj\'\i c\'\i\ 
+mno\v zinu $S$, jeho\v z vrcholy jsou obarveny \v cerven\v e nebo 
+\v cern\v e (ka\v zd\'y vrchol m\'a pr\'av\v e jednu barvu) tak, \v ze jsou 
+spln\v eny podm\'\i nky:
+\roster
+\item"{}"
+listy jsou obarveny \v cern\v e,
+\item"{}"
+kdy\v z $v$ je vrchol obarven\'y \v cerven\v e, pak je bu\v d ko\v ren 
+stromu nebo jeho otec je obarven \v cern\v e,
+\item"{}"
+v\v sechny cesty z ko\v rene do list\accent23u maj\'\i\ stejn\'y 
+po\v cet \v cer\-n\'ych vrchol\accent23u
+\endroster
+se naz\'yv\'a \emph{\v cerveno}-\emph{\v cern\'y} \emph{strom}. 
+\medskip
+
+\flushpar Nejprve uk\'a\v zeme, \v ze \v cerveno-\v cern\'e stromy jsou 
+vyv\'a\v zen\'e stro\-my, tj. $$\hloubka(T)=O(\log(|S|).$$
+P\v redpokl\'adejme, \v ze $T$ je \v cerveno-\v cern\'y strom, kter\'y m\'a 
+na cest\v e z ko\v rene do listu pr\'av\v e $k$ \v cern\'ych 
+vrchol\accent23u. Pak pro po\v cet vrchol\accent23u $\#T$ 
+stromu $T$ plat\'\i\ 
+$$2^k-1\le \#T\le 2^{2k}-1.$$
+Nejmen\v s\'\i\ takov\'y strom m\'a v\v sechny vrcholy \v cern\v e 
+obarven\'e a je to \'upln\'y pravideln\'y bin\'arn\'\i\ strom o 
+v\'y\v sce $k-1$, co\v z d\'av\'a doln\'\i\ odhad.  Nejv\v et\v s\'\i\ takov\'y 
+strom m\'a v\v sechny vrcholy v sud\'ych hladin\'ach obarveny 
+\v cerven\v e a v lich\'ych hladin\'ach \v cern\v e, je to \'upln\'y 
+pravideln\'y bin\'arn\'\i\ strom o v\'y\v sce $2k-1$ a t\'\i m je d\'an 
+horn\'\i\ odhad. Tedy $k\le\log(1+\#T)\le 2k$.
+Proto\v ze velikost $S$ je po\v cet vnit\v rn\'\i ch vrchol\accent23u, 
+dost\'av\'ame, \v ze $\#T=2|S|+1$. Z vlastnost\'\i\ \v cerveno-\v cern\'ych 
+strom\accent23u plyne, \v ze 
+$$k\le\hloubka(T)\le 2k.$$
+Tedy
+\medskip
+
+\proclaim{Tvrzen\'\i}Kdy\v z \v cerveno-\v cern\'y strom $T$ 
+reprezentuje mno\v zinu $S$, pak $$\hloubka(T)\le 2\log(2|S|+2)=1+\log(|S|+1).$$
+\endproclaim
+
+\flushpar Pro \v cerveno-\v cern\'e stromy navrhneme algoritmy 
+realizuj\'\i c\'\i\ ope\-race z uspo\v r\'adan\'eho slovn\'\i\-ko\-v\'eho probl\'emu.  
+Operace {\bf MEMBER} pro \v cerveno-\v cern\'e stromy je stejn\'a jako pro 
+nevyv\'a\v zen\'e bin\'arn\'\i\ vyhled\'avac\'\i\ stromy. Operace 
+{\bf IN\-SERT} a {\bf DELETE} maj\'\i\ dv\v e \v c\'asti:  nejprve se provede 
+ope\-race {\bf INSERT} nebo {\bf DELETE} pro nevyv\'a\v zen\'e bin\'arn\'\i\ 
+vy\-hled\'avac\'\i\ stromy a pak n\'asleduj\'\i\ vyva\v zovac\'\i\ operace, kter\'e 
+zajist\'\i , \v ze v\'ysledn\'y strom spl\v nuje pod\-m\'\i n\-ky pro \v cerveno-\v cern\'e 
+stromy (stejn\'e sch\'ema jako pro AVL-stromy). Sch\'ema operac\'\i\ 
+{\bf JOIN} a {\bf SPLIT} bude vych\'azet z jejich realizac\'\i\ v $
+(a,b)$-stromech. 
+V operaci {\bf JOIN} prohled\'av\'an\'\i m nalezneme m\'\i sto, kde se 
+stromy  
+daj\'\i\ spojit (a aplikujeme operaci {\bf JOIN} pro 
+nevyv\'a\v zen\'e 
+bin\'arn\'\i\ vyhled\'a\-va\-c\'\i\ stromy), a pak pou\v zijeme 
+vyva\v zovac\'\i\ operace. Algoritmus ope\-race {\bf SPLIT} rozd\v el\'\i\ \v cerveno-\v cern\'y strom 
+do n\v ekolika men\v s\'\i ch podle cesty vyhled\'avaj\'\i c\'\i\ $
+x$ (podobn\v e jako 
+v $(a,b)$-stromech) a na tyto stromy pak aplikuje operaci {\bf JOIN }
+a zkonstruuje hledan\'e \v cerveno-\v cern\'e stromy. Algoritmy pro 
+ope\-race {\bf MIN} a {\bf MAX} jsou stejn\'e jako pro nevyv\'a\v zen\'e bin\'arn\'\i\ 
+vyhled\'avac\'\i\ stromy.
+\medskip
+
+\flushpar Nejprve pop\'\i\v seme vyva\v zovac\'\i\ operace. 
+Dvojice $(T,v)$ se naz\'yv\'a 2-\emph{parci\'aln\'\i}
+\emph{\v cerveno}-\emph{\v cern\'y} \emph{strom}, kdy\v z $T$ je 
+bin\'arn\'\i\ vyhled\'avac\'\i\ strom, ka\v zd\'y vrchol je obarven 
+\v cerven\v e nebo \v cern\v e, $v$ je 
+vnit\v rn\'\i\ vrchol stromu $T$ obarven\'y \v cerven\v e a plat\'\i :
+\roster
+\item"{}"
+listy jsou obarveny \v cern\v e,
+\item"{}"
+kdy\v z $t$ je vrchol obarven\'y \v cerven\v e, pak je bu\v d ko\v ren 
+stromu nebo $t=v$ nebo jeho otec je obarven \v cern\v e,
+\item"{}"
+v\v sechny cesty z ko\v rene do list\accent23u maj\'\i\ stejn\'y 
+po\v cet \v cer\-n\'ych vrchol\accent23u.
+\endroster
+\medskip
+
+\flushpar Vyva\v zov\'an\'\i\ 2-parci\'aln\'\i ho \v cerveno-\v cern\'eho stromu $(T',v)$ 
+pro\-v\'a\-d\'\i\ procedura {\bf Vyvaz-IN\-SERT$(v)$}.  Po jej\'\i m 
+proveden\'\i\ bu\v d do\-sta\-neme \v cer\-ve\-no-\v cern\'y strom nebo 
+je procedura {\bf Vyvaz-IN\-SERT} zavol\'ana na vrchol $
+v'$ takov\'y, 
+\v ze $(T',v')$ je 2-parci\'aln\'\i\ \v cerve\-no-\v cern\'y strom a $
+v'$ je d\v ed $v$ 
+(tj.  je o dv\v e hladiny bl\'\i\v z ke ko\v reni ne\v z vrchol $
+v$). 
+\medskip
+
+\flushpar Obarven\'\i\ je realizov\'ano roz\v s\'\i\v ren\'\i m struktury vrcholu $v$ 
+o boolskou prom\v ennou $b(v)$, kde $b(v)=0$ znamen\'a, \v ze $v$ je obarven 
+\v cerven\v e, a $b(v)=1$ znamen\'a, \v ze $v$ je obarven \v cern\v e.
+\medskip
+
+\flushpar Pop\'\i\v seme proceduru {\bf Vyvaz-INSERT$(v)$} (p\v redpokl\'ad\'ame, \v ze 
+$v$ je obarven \v cerven\v e). Pro zjednodu\v sen\'\i\ $s(v
+)=levy$, kdy\v z $v=\levy(\otec(v))$, a $s(v)=pravy$ pro  
+$v=\pravy(\otec(v))$.
+\bigskip
+
+{\bf Vyvaz-INSERT$(v)$}.\newline 
+{\bf if} $v$ nen\'\i\ ko\v ren $T'$ a $b(\otec(v))=0$ {\bf then}\newline 
+\phantom{---}{\bf if} $otec(v)$ je ko\v ren {\bf then}\newline 
+\phantom{------}$b(\otec(v)):=1$\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}$w:=\otec(v)$, $u:=\bratr(w)$\newline 
+\phantom{------}{\bf if} $b(u)=0$ {\bf then}\newline 
+\phantom{---------}$v:=\otec(w)$, $b(w):=1$, $b(u):=1$\newline 
+\phantom{---------}$b(v):=0$, {\bf Vyvaz-INSERT$(v)$} (Viz Obr. 1)\newline 
+\phantom{------}{\bf else}\newline 
+\phantom{---------}$t:=\otec(w)$\newline 
+\phantom{---------}{\bf if} $s(w)=s(v)$ {\bf then}\newline 
+\phantom{------------}{\bf Rotace$(t,w)$}, $b(t):=0$, $b(w):=1$ (Viz Obr. 2)\newline 
+\phantom{---------}{\bf else}\newline 
+\phantom{------------}{\bf Dvojita-rotace$(t,w,v)$}, $b(t):=0$, $b(v):=1$ (Viz Obr. 3)\newline 
+\phantom{---------}{\bf endif}\newline 
+\phantom{------}{\bf endif}\newline 
+\phantom{---}{\bf endif\newline 
+endif}
+\medskip
+
+\flushpar Na obr\'azku $b$ zna\v c\'\i\ \v cernou barvu a $r$ zna\v c\'\i\ \v cervenou 
+barvu. Otec vrcholu $w$ je ozna\v cen $t$. 
+\medskip
+
+\midinsert
+\centerline{\input fig3.tex}
+\botcaption{Obr. 1}
+\endcaption
+\endinsert
+
+\midinsert
+\centerline{\input fig4.tex}
+\botcaption{Obr. 2}
+\endcaption
+\endinsert
+\newpage
+
+\midinsert
+\centerline{\input fig5.tex}
+\botcaption{Obr. 3}
+\endcaption
+\endinsert
+
+\flushpar$2$-parci\'aln\'\i\ \v cerveno-\v cern\'e stromy vznikaj\'\i\ p\v ri 
+operac\'\i ch {\bf INSERT} a {\bf JOIN.}  P\v ri operaci {\bf DELETE} se poru\v s\'\i\ 
+struktura \v cerveno-\v cern\'ych strom\accent23u jin\'ym 
+zp\accent23usobem a vznikne 3-parci\'aln\'\i\ \v cerveno-\v cer\-n\'y strom.  
+\medskip
+
+\flushpar\v Rekneme, \v ze dvojice $(T,v)$ je \emph{3}-\emph{parci\'aln\'\i} 
+\emph{\v cerveno}-\emph{\v cern\'y} \emph{strom}, kdy\v z $T$ je bin\'arn\'\i\ 
+vy\-hled\'avac\'\i\ strom, ka\v zd\'emu vrcholu je p\v ri\-\v razena pr\'av\v e jedna z 
+dvojice barev \v cerven\'a -- \v cern\'a, $v$ je vrchol ve stromu $
+T$ a 
+plat\'\i\ n\'asleduj\'\i c\'\i\ podm\'\i nky: 
+\roster
+\item"{}"
+listy a vrchol $v$ jsou obarveny \v cern\v e,
+\item"{}"
+kdy\v z $t$ je vrchol obarven\'y \v cerven\v e, pak je bu\v d ko\v ren 
+stromu nebo jeho otec je obarven \v cern\v e,
+\item"{}"
+existuje \v c\'\i slo $k$ takov\'e, \v ze v\v sechny cesty z ko\v rene do 
+list\accent23u, kter\'e neobsahuj\'\i\ vrchol $v$, obsahuj\'\i\ pr\'av\v e 
+$k$ \v cer\-n\'ych vrchol\accent23u, a v\v sechny cesty z ko\v rene do 
+list\accent23u proch\'a\-ze\-j\'\i\-c\'\i\ vrcholem $v$ obsahuj\'\i\ $
+k-1$ \v cern\'ych 
+vrchol\accent23u.
+\endroster
+\medskip
+
+\flushpar Pop\'\i\v seme proceduru {\bf Vyvaz-DELETE$(v)$}, kter\'a se 
+pou\v zije na 3-parci\'aln\'\i\ \v cerveno-\v cern\'y strom $(T,v)$, kdy\v z $
+v$ nen\'\i\ jeho 
+ko\v ren.  V\'ysledkem procedury bude bu\v d \v cerveno-\v cern\'y strom 
+nebo zavol\'an\'\i\ procedury {\bf Vyvaz-DELE\-TE$(v')$}, kde $v'$ je otcem 
+vrcholu $v$.  Z faktu, \v ze kdy\v z $(T,v)$ je 3-parci\'aln\'\i\ \v cerveno-\v cern\'y 
+strom a $v$ je jeho ko\v ren, pak $T$ je \v cerveno-\v cern\'y strom, plyne, 
+\v ze aplikac\'\i\ {\bf Vyvaz-DELETE$(v)$} na 3-parci\'aln\'\i\ \v cerveno-\v cern\'y strom 
+$(T,v)$ dostaneme \v cerveno-\v cern\'y strom.  
+\medskip
+
+{\bf Vyvaz-DELETE$(v)$\newline 
+$u:=\bratr(v)$}, $t:=\otec(v)$\newline 
+{\bf if} $b(u)=0$ {\bf then}\newline 
+\phantom{---}{\bf Rotace}$(t,u)$, $b(u):=1$, $b(t):=0$, $u:=\bratr(v)$\newline 
+{\bf endif\newline}
+(Viz Obr. 4, Koment\'a\v r: nyn\'\i\ $b(u)=1$)\newline 
+$w_1$ je syn $u$ takov\'y, \v ze $s(v)=s(w_1)$, $w_2:=\bratr(w_1)$\newline 
+{\bf if} $b(w_1)=b(w_2)=1$ {\bf then}\newline 
+\phantom{---}$b(u):=0$\newline 
+\phantom{---}{\bf if} $b(t):=0$ {\bf then}\newline 
+\phantom{------}$b(t):=1$\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}{\bf if} $t$ nen\'\i\ ko\v ren stromu {\bf then}\newline \phantom{---------}$v:=t$, {\bf Vyvaz-DELETE}$(v)$\newline 
+\phantom{------}{\bf endif}\newline 
+\phantom{---}{\bf endif} (Viz Obr. 5)\newline 
+{\bf else}\newline 
+\phantom{---}{\bf if} $b(w_1)=1$ {\bf then}\newline 
+(Koment\'a\v r: $b(w_2)=0$)\newline 
+\phantom{------}{\bf Rotace$(t,u)$}, $b(w_2):=1$, $b(u):=b(t)$, $b(t):=1$ (Viz Obr. 6)\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}{\bf Dvojita-rotace}$(t,u,w_1)$, $b(w_1):=b(t)$, $b(t):=1$ (Viz Obr. 7)\newline
+\phantom{---}{\bf endif\newline 
+endif}
+\bigskip
+
+\flushpar V n\'asleduj\'\i c\'\i ch obr\'azc\'\i ch jsou vrcholy, kter\'e 
+nemaj\'\i\ specifikovanou barvu (mohou b\'yt jak \v cerven\'e tak \v cern\'e).
+Tyto barvy budeme ozna\v covat $a$, $a'$. D\accent23uvod je, \v ze se 
+tato barva m\accent23u\v ze p\v ren\'est do c\'\i lov\'eho stromu, ale 
+i na jin\'y vrchol. V tomto smyslu jsou tyto barvy ur\v ceny vstupn\'\i m 
+stromem a specifikuj\'\i\ tyto barvy v c\'\i lov\'em strom\v e. V Obr. 5 
+se barva $a$ v c\'\i lov\'em strom\v e neobjevuje.
+\medskip
+
+
+\midinsert
+\centerline{\input fig6.tex}
+\botcaption{Obr. 4}
+\endcaption
+\endinsert
+
+\midinsert
+\centerline{\input fig7.tex}
+\botcaption{Obr. 5}
+\endcaption
+\endinsert
+\newpage
+
+\midinsert
+\centerline{\input fig8.tex}
+\botcaption{Obr. 6}
+\endcaption
+\endinsert
+
+\midinsert
+\centerline{\input fig9.tex}
+\botcaption{Obr. 7}
+\endcaption
+\endinsert
+
+
+\flushpar Nyn\'\i\ pop\'\i\v seme algoritmy realizuj\'\i c\'\i\ operace {\bf INSERT}, 
+{\bf DE\-LE\-TE}, {\bf JOIN3} a {\bf SPLIT} pro \v cerveno-\v cern\'e stromy.  
+P\v red\-po\-kl\'a\-dejme, \v ze $T$ je \v cerveno-\v cern\'y strom reprezentuj\'\i c\'\i\ 
+mno\v zinu $S$ a pro\-v\'a\-d\'\i\-me operaci {\bf INSERT$(x)$} pro $
+x\notin S$.  Kdy\v z 
+ope\-race {\bf IN\-SERT$(x)$} pro nevyv\'a\v zen\'e bin\'arn\'\i\ vyhled\'avac\'\i\ stro\-my 
+vytvo\v r\'\i\ strom $T'$, kde vrchol $v$ reprezentuje $x$, pak $
+v$ 
+obar\-v\'\i\-me \v cerven\v e a syny $v$ (jsou to listy) obarv\'\i me \v cern\v e.  
+Dost\'av\'ame, \v ze $(T',v)$ je 2-parci\'aln\'\i\ \v cerveno-\v cern\'y strom, a pak 
+aplikujeme proceduru {\bf Vyvaz-INSERT}.  
+\medskip
+
+\flushpar Operace {\bf INSERT} v \v cerveno-\v cern\'ych stromech 
+vol\'a nejv\'y\v se $2+\log(|S|)$-kr\'at proceduru {\bf Vyvaz-INSERT} a 
+provede nejv\'y\v se jednu rotaci nebo dvojitou rotaci.
+\medskip
+
+\flushpar Operace {\bf DELETE} je \v re\v sena stejn\'ym zp\accent23usobem 
+jako ope\-race {\bf INSERT}, ale p\v ri operaci {\bf DELETE} je poru\v sena t\v ret\'\i\ 
+pod\-m\'\i n\-ka v definici \v cerveno-\v cern\'ych stro\-m\accent23u a 
+vyva\v zov\'an\'\i\ je technicky n\'aro\v cn\v ej\v s\'\i .  
+P\v redpok\'adejme, \v ze $T$ je \v cerveno-\v cern\'y strom. Kdy\v z chceme 
+prov\'est operaci {\bf DELETE}, pak nejprve provedeme algoritmus {\bf DELETE} 
+pro nevyv\'a\v zen\'e 
+bin\'arn\'\i\ vyhled\'avac\'\i\ stro\-my. P\v ri prov\'ad\v en\'\i\ jsme 
+odstranili vrchol $u$ a jeho syna $w$, kter\'y je list. Na 
+m\'\i sto vrcholu $u$ se dostal jeho druh\'y syn $v$, kter\'y 
+obarv\'\i me \v cern\v e. Pak jsou spln\v eny prvn\'\i\ 
+dv\v e podm\'\i nky v definici \v cerveno-\v cern\'ych 
+strom\accent23u a pokud vrchol $u$ nebo vrchol $v$ byl
+obarven \v cerven\v e, pak je spln\v ena i 
+t\v ret\'\i\ podm\'\i nka. Pokud vrchol $u$ i vrchol $v$ byly obarveny 
+\v cern\v e, pak ka\v zd\'a cesta z ko\v rene do listu obsahuj\'\i c\'\i\ 
+vrchol $v$ m\'a o jeden \v cern\'y  vrchol m\'en\v e  ne\v z cesta z 
+ko\v rene do listu neobsahuj\'\i c\'\i\ vrchol $v$ (chyb\'\i\ \v cern\'y  
+vrchol $u$), a tedy $(T,v)$ je 3-parci\'aln\'\i\ \v cerveno-\v cern\'y strom. 
+Nyn\'\i\ aplikujeme proceduru {\bf Vyvaz-DELETE}.
+Anal\'yza poskytuje rychl\'y test na to, zda 
+vznikne \v cerveno-\v cern\'y strom nebo 3-parci\'aln\'\i\ 
+\v cerveno-\v cern\'y strom (pak $v$ je list). 
+\medskip
+
+\flushpar M\v ejme \v cerveno-\v cern\'e stromy $T_1$ a $T_2$ reprezentuj\'\i c\'\i\ 
+mno\v ziny $S_1$ a $S_2$ a m\v ejme prvek $x\in U$ takov\'y, \v ze 
+$\max S_1<x<\min S_2$.  Nejprve zajist\'\i me, \v ze ko\v reny $T_
+1$ i $T_2$ jsou 
+obarveny \v cern\v e.  P\v redpokl\'adejme, \v ze $k_i$ je po\v cet \v cern\'ych 
+vrchol\accent23u na cest\v e z ko\v rene do list\accent23u ve strom\v e 
+$T_i$ pro $i=1,2$.  Kdy\v z $k_1=k_2$, pak sta\v c\'\i\ prov\'est {\bf JOIN3$
+(T_1,x,T_2)$ }
+pro nevyv\'a\v zen\'e bin\'arn\'\i\ vyhled\'avac\'\i\ stromy (ko\v ren obarv\'\i me 
+\v cerven\v e).  Probl\'em je, kdy\v z $k_1\ne k_2$.  Nap\v r\'\i klad 
+p\v redpokl\'adejme, \v ze $k_1>k_2$.  Pak za\v cneme v ko\v reni stromu $
+T_1$ a 
+jdeme po prav\'ych synech dol\accent23u tak dlouho, a\v z nalezneme 
+\v cern\'y vrchol $v$ takov\'y, \v ze v\v sechny cesty z $v$ do list\accent23u 
+v $T_1$ obsahuj\'\i\ pr\'av\v e $k_2$ \v cern\'ych vrchol\accent23u.  Pak 
+provedeme {\bf JOIN3} pro nevyv\'a\v zen\'e bin\'arn\'\i\ vyhledavac\'\i\ stromy 
+na podstrom $T_1$ ur\v cen\'y vrcholem $v$, na $x$ a na $T_2$. Ko\v ren $
+w$ 
+vznikl\'eho stromu obarv\'\i me \v cerven\v e a tento strom vlo\v z\'\i me do 
+$T_1$ m\'\i sto podstromu ur\v cen\'eho vrcholem $v$. Pak $(T_1,w
+)$ je 
+$2$-parci\'aln\'\i\ \v cerveno-\v cern\'y strom a aplikujeme proceduru 
+{\bf Vyvaz-INSERT}. P\v r\'\i pad $k_2>k_1$ se \v re\v s\'\i\ symetricky. 
+\medskip
+
+\flushpar Algoritmus pro operaci {\bf SPLIT} je velmi podobn\'y 
+algoritmu pro $(a,b)$-stromy. Vy\-hled\'av\'a\-me vrchol 
+reprezentuj\'\i c\'\i\ $x$. Kdy\v z jsme ve vrcholu $t$ a pokra\v cujme akc\'\i\ 
+$t:=\levy(t)$, pak dvojici $\key(t)$ a podstrom $T$ ur\v cen\'y prav\'ym 
+synem $t$ vlo\v z\'\i me do z\'asobn\'\i ku $Z_2$, kdy\v z pokra\v cujeme akc\'\i\ 
+$t:=\pravy(t)$, pak do z\'asobn\'\i ku $Z_1$ vlo\v z\'\i me dvojici podstrom $
+T$ 
+ur\v cen\'y lev\'ym synem $T$ a $\key(t)$. Kdy\v z $\key(t)=x$, pak do $
+Z_1$ 
+vlo\v z\'\i me podstrom ur\v cen\'y lev\'ym synem $t$ a do $Z_2$ podstrom 
+ur\v cen\'y prav\'ym synem $t$. Kdy\v z $t$ je list, pak do $Z_1$ i $
+Z_2$ vlo\v z\'\i me 
+jednoprvkov\'e stromy. Ze z\'asobn\'\i ku $Z_1$ pomoc\'\i\ operace {\bf JOIN3 }
+vytvo\v r\'\i me strom $T_1$ a ze z\'asobn\'\i ku $Z_2$ pomoc\'\i\ operace {\bf JOIN3 }
+dostaneme strom $T_2$. 
+\medskip
+
+\flushpar Nyn\'\i\ pop\'\i\v seme algoritmy pro tyto operace.
+\medskip
+
+{\bf INSERT$(x)$\newline 
+Vyhledej$(x)$\newline 
+if} $t$ je list {\bf then}\newline 
+\phantom{---}$t$ se zm\v en\'\i\ na vnit\v rn\'\i\ vrchol, $\key(t):=x$\newline 
+\phantom{---}pro vrchol $t$ vytvo\v rme syny $\levy(t)$ a $\pravy(t)$\newline 
+\phantom{---}$b(t):=0$, $b(\levy(t)):=1$, $b(\pravy(t)):=1$, {\bf Vyvaz-INSERT$(t)$\newline
+endif
+\medskip
+
+DELETE$(x)$\newline 
+Vyhledej$(x)$\newline 
+if} $t$ nen\'\i\ list {\bf then}\newline 
+\phantom{---}$vyv:=false$ \newline 
+\phantom{---}{\bf if} $\levy(t)$ je list {\bf then}\newline 
+\phantom{------}$v:=\pravy(t)$\newline 
+\phantom{------}{\bf if} $b(t)=1$ a $b(v)=1$ {\bf then}\newline 
+\phantom{---------}$vyv:=true$\newline 
+\phantom{------}{\bf endif}\newline 
+\phantom{------}odstran\'\i me vrchol $\levy(t)$, $\otec(v):=\otec(t)$\newline 
+\phantom{------}{\bf if} $t=\levy(\otec(t))$ {\bf then}\newline 
+\phantom{---------}$\levy(\otec(t)):=v$\newline 
+\phantom{------}{\bf else}\newline 
+\phantom{---------}$\pravy(\otec(t)):=v$\newline 
+\phantom{------}{\bf endif}\newline 
+\phantom{------}$b(v):=1$, odstran\'\i me vrchol $t$\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}$u:=\levy(t)$\newline 
+\phantom{------}{\bf while} $\pravy(u)$ nen\'\i\ list {\bf do} $u:=\pravy(u)$ {\bf enddo}\newline 
+\phantom{------}$\key(t):=\key(u)$, $v:=\levy(u)$ \newline 
+\phantom{------}{\bf if} $b(u)=1$ a $b(v)=1$ {\bf then}\newline 
+\phantom{---------}$vyv:=true$\newline 
+\phantom{------}{\bf endif}\newline 
+\phantom{------}odstran\'\i me vrchol $\pravy(u)$, $\otec(v):=\otec(u)$\newline
+\phantom{------}{\bf if} $u=\levy(\otec(u))$ {\bf then}\newline 
+\phantom{---------}$\levy(\otec(u)):=v$\newline 
+\phantom{------}{\bf else}\newline 
+\phantom{---------}$\pravy(\otec(u)):=v$\newline 
+\phantom{------}{\bf endif}\newline 
+\phantom{------}$b(v):=1$, odstran\'\i me vrchol $u$\newline 
+\phantom{---}{\bf endif} \newline 
+\phantom{---}{\bf if} $vyv$ {\bf then Vyvaz-DELETE$(v)$ endif\newline 
+endif}
+\medskip
+
+{\bf JOIN3$(T_1,x,T_2)$\newline 
+if} $b(\text{ko\v ren }T_1)=0$ {\bf then} $b(\text{ko\v ren }T_1)
+:=1$ {\bf endif\newline 
+if} $b(\text{ko\v ren }T_2)=0$ {\bf then} $b(\text{ko\v ren }T_2)
+:=1$ {\bf endif}\newline 
+$k_1$ je po\v cet \v cern\'ych vrchol\accent23u v $T_1$ z ko\v rene do list\accent23u \newline 
+$k_2$ je po\v cet \v cern\'ych vrchol\accent23u v $T_2$ z ko\v rene do list\accent23u \newline 
+{\bf if} $k_1\ge k_2$ {\bf then}\newline 
+\phantom{---}$t:=\text{ ko\v ren }T_1$, $i:=k_1-k_2$ \newline 
+\phantom{---}{\bf while} $i>0$ {\bf do}\newline 
+\phantom{------}$t:=\pravy(t)$\newline 
+\phantom{------}{\bf if} $b(t)=1$ {\bf then} $i:=i-1$ {\bf endif}\newline 
+\phantom{---}{\bf enddo}\newline 
+\phantom{---}vytvo\v r vrchol $u$, $b(u):=0$, $\key(u):=x$\newline 
+\phantom{---}{\bf if} $t$ nen\'\i\ ko\v ren $T_1$ {\bf then}\newline 
+\phantom{------}$\otec(u):=\otec(t)$, $\pravy(\otec(t)):=u$\newline 
+\phantom{---}{\bf endif}\newline 
+\phantom{---}$\otec(t):=u$, $\otec(\text{ko\v ren }T_2):=u$ \newline 
+\phantom{---}$\pravy(u):=\text{ ko\v ren }T_2$, $\levy(u):=t$, {\bf Vyvaz-INSERT$(T_1,u)$\newline 
+else}\newline 
+\phantom{---}$t:=\text{ko\v ren }T_2$, $i:=k_2-k_1$ \newline 
+\phantom{---}{\bf while} $i>0$ {\bf do}\newline 
+\phantom{------}$t:=\levy(t)$\newline 
+\phantom{------}{\bf if} $b(t)=1$ {\bf then} $i:=i-1$ {\bf endif}\newline 
+\phantom{---}{\bf enddo}\newline 
+\phantom{---}vytvo\v r vrchol $u$, $b(u):=0$, $\key(u):=x$ \newline 
+\phantom{---}$\otec(u):=\otec(t)$, $\levy(\otec(t)):=u$, $\otec(t):=u$ \newline 
+\phantom{---}$\otec(\text{ko\v ren }T_1):=u$, $\levy(u):=\text{ ko\v ren }T_1$ \newline 
+\phantom{---}$\pravy(u):=t$, {\bf Vyvaz-INSERT}$(T_2,u)$\newline 
+{\bf endif}
+\medskip
+
+{\bf SPLIT$(x)$\newline 
+$Z_1$} a $Z_2$ jsou pr\'azdn\'e z\'asobn\'\i ky, $t:=\text{ ko\v ren }T$\newline 
+{\bf while} $\key(t)\ne x$ a $t$ nen\'\i\ list {\bf do}\newline 
+\phantom{---}{\bf if} $\key(t)>x$ {\bf then}\newline 
+\phantom{------}vlo\v z $(\key(t),\pravy(t))$ do $Z_2$, $t:=\levy(t)$ \newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}vlo\v z $(\levy(t),\key(t))$ do $Z_1$, $t:=\pravy(t)$ \newline 
+\phantom{---}{\bf endif\newline 
+enddo \newline 
+if} $\key(t)=x$ {\bf then}\newline 
+\phantom{---}{\bf V\'ystup}: $x\in S$, $T_1$ je podstrom $T$ ur\v cen\'y $\levy(t)$ \newline 
+\phantom{---}$T_2$ je podstrom $T$ ur\v cen\'y $\pravy(t)$ \newline 
+{\bf else}\newline 
+\phantom{---}{\bf V\'ystup}: $x\notin S$, $T_1$ a $T_2$ jsou jednoprvkov\'e stromy\newline 
+{\bf endif \newline 
+while} $Z_1\ne\emptyset$ {\bf do}\newline 
+\phantom{---}$(t,x)$ je na vrcholu $Z_1$, odstra\v n $(t,x)$ ze $Z_1$ \newline 
+\phantom{---}$T'$ je podstrom $T$ ur\v cen\'y $t$, $T_1:=${\bf JOIN3$(T',x,T_1
+)$ \newline 
+enddo\newline 
+while} $Z_2\ne\emptyset$ {\bf do}\newline 
+\phantom{---}$(x,t)$ je na vrcholu $Z_2$, odstra\v n $(x,t)$ ze $Z_1$ \newline 
+\phantom{---}$T'$ je podstrom $T$ ur\v cen\'y $t$, $T_2:=${\bf JOIN3$(T_2,x,T'
+)$ \newline 
+enddo}
+\medskip
+
+\flushpar Korektnost algoritm\accent23u je vid\v et z 
+obr\'azk\accent23u. V\v simn\v eme si p\v ri ope\-raci {\bf DELETE}, \v ze kdy\v z $
+u$ je 
+obarven \v cerven\v e, pak po proveden\'\i\ {\bf Rotace$(t,u)$} bude $
+(T,v)$ op\v et 
+3-parci\'aln\'\i\ \v cerveno-\v cern\'y strom a vrchol $t$ bude obarven \v cerven\v e.  
+Pak z Obr.  5 je vid\v et, \v ze dostaneme \v cerveno-\v cern\'y 
+strom. Tedy m\accent23u\v zeme shrnout:
+
+
+\proclaim{V\v eta}Algoritmy operac\'\i\ {\bf MEMBER}, {\bf INSERT}, 
+{\bf DE\-LE\-TE}, {\bf MIN}, {\bf MAX}, {\bf JOIN3} a {\bf SPLIT} pro \v cerveno-\v cern\'e 
+stro\-my vy\v zaduj\'\i\ v nejhor\v s\'\i m p\v r\'\i pad\v e \v cas $O
+(\log(|S|)$, kde $S$ je 
+reprezentovan\'a mno\v zina.  Operace {\bf INSERT} a {\bf JOIN3} zavolaj\'\i\ 
+nejv\'y\v se jednou bu\v d {\bf Rotace} nebo {\bf Dvojita-rota\-ce} a operace 
+{\bf DE\-LE\-TE} zavol\'a nejv\'y\v se dvakr\'at {\bf Rotace} nebo {\bf Rotace} a 
+{\bf Dvojita-ro\-ta\-ce}.  
+\endproclaim
+
+\flushpar V\v simn\v ete si, \v ze operace {\bf JOIN3} ve skute\v cnosti 
+vy\v zaduje \v cas $O(|k_1-k_2|+1)$. Proto\v ze $Z_1$ a $Z_2$ obsahuj\'\i\ nejv\'y\v se 
+$\log(|S|)$ polo\v zek, tak se odhad \v casov\'e slo\v zitosti operace {\bf SPLIT }
+prove\-de stejn\'ym zp\accent23usobem jako v $(a,b)$-stromech. 
+V ostatn\'\i ch p\v r\'\i\-pa\-dech je odhad \v casov\'e slo\v zitosti vid\v et z toho, 
+\v ze $\hloubka(T)=O(\log(|S|))$ a akce na ka\v zd\'e hladin\v e vy\v zaduj\'\i\ jen 
+$O(1)$ \v casu.
+\medskip
+
+\flushpar Pokud chceme m\'\i t i algoritmus pro operaci {\bf ord$
+(k)$}, pak 
+mus\'\i me roz\v s\'\i\v rit strukturu o funkci $p$. Pak lze pou\v z\'\i t p\v r\'\i mo 
+algoritmus pro {\bf ord$(k)$} v nevyv\'a\v zen\'ych bin\'arn\'\i ch vyhled\'avac\'\i ch 
+stromech. P\v ripome\v nme si, \v ze procedury {\bf Rotace} a {\bf Dvojita-rotace }
+mohou aktualizovat funkci $p$ v \v case $O(1)$. Proto dost\'av\'ame 
+
+\proclaim{V\v eta}Algoritmy operac\'\i\ {\bf MEMBER}, 
+{\bf INSERT}, {\bf DE\-LE\-TE}, {\bf MIN}, {\bf MAX}, {\bf JOIN3}, {\bf SPLIT} a {\bf ord$
+(k)$} pro 
+roz\-\v s\'\i\-\v re\-nou strukturu \v cerveno-\v cern\'ych strom\accent23u vy\v zaduje 
+v nejhor\v s\'\i m p\v r\'\i pad\v e \v cas $O(\log(|S|)$, kde $S$ je reprezentovan\'a 
+mno\v zina.  Operace {\bf INSERT} a {\bf JOIN3} zavolaj\'\i\ nejv\'y\v se jednou bu\v d 
+{\bf Rotace} nebo {\bf Dvojita-rota\-ce} a operace {\bf DELETE} zavol\'a nejv\'y\v se 
+dvakr\'at {\bf Rotace} nebo jednou {\bf Rotace} a {\bf Dvojita-rotace}.  \endproclaim
+
+
+\flushpar Vznik\'a ot\'azka, pro\v c se tolik pozornosti v\v enuje 
+procedur\'am {\bf Rotace} a {\bf Dvojita-rotace}. Sice vy\v zaduj\'\i\ \v cas 
+$O(1)$, ale jsou to nej\-slo\v zit\v ej\v s\'\i\ akce vy\v zaduj\'\i c\'\i\ nejv\'\i ce \v casu. 
+V mnoha aplikac\'\i ch (pou\-\v z\'\i vaj\'\i\ se hlavn\v e ve v\'ypo\v cetn\'\i\ geometrii), 
+tvar stromu spolu s parametry nesou je\v st\v e 
+dal\v s\'\i\ zak\'odovan\'e informace. P\v ri zm\v en\v e tvaru stromu je 
+t\v reba je p\v repo\v c\'\i tat. {\bf Rotace} a {\bf Dvojita-rotace} m\v en\'\i\ tvar 
+stromu, kde\v zto posun sm\v erem ke ko\v reni pouze m\v en\'\i\ 
+obarven\'\i . V tomto p\v r\'\i pad\v e pak {\bf Rotace} nebo {\bf Dvo\-ji\-ta-rotace }
+vy\v zaduje \v cas $O(|S|)$ (obvykle je t\v reba prohl\'ednout cel\'y 
+strom) a nikoliv $O(1)$.
+\medskip
+
+\heading
+V\'ahov\v e vyv\'a\v zen\'e stromy
+\endheading
+
+\flushpar V osmdes\'at\'ych letech se ve v\'ypo\v cetn\'\i\ geometrii 
+hodn\v e pou\v z\'\i\-va\-ly $BB(\alpha )$-stromy, proto se o nich alespo\v n 
+orienta\v cn\v e zm\'\i n\'\i me. M\v ejme re\'aln\'e \v c\'\i slo $
+\alpha$ takov\'e, \v ze 
+$\frac 14<\alpha\;\le\frac {\sqrt 2}2$. Pro strom $T$ ozna\v cme $
+p(T)$ po\v cet 
+list\accent23u ve stromu $T$. Bin\'arn\'\i\ vyhled\'avac\'\i\ strom $T$ 
+reprezentuj\'\i c\'\i\ mno\v zinu $S$ se naz\'yv\'a $BB(\alpha )$-\emph{strom}, 
+kdy\v z pro ka\v zd\'y vnit\v rn\'\i\ vrchol $v$ plat\'\i :
+$$\alpha\le\frac {p(T_l)}{p (T_v)}=1-\frac {p(T_r)}{p(T_v)}\le 1-\alpha$$
+kde $T_v$ je podstrom $T$ ur\v cen\'y vrcholem $v$, $T_l$ je podstrom 
+$T$ ur\v cen\'y lev\'ym synem vrcholu $v$, $T_r$ je podstrom $T$ 
+ur\v cen\'y prav\'ym synem vrcholu $v$. Plat\'\i
+
+
+\proclaim{Tvrzen\'\i}Kdy\v z $T$ je $BB(\alpha )$-strom reprezentuj\'\i c\'\i\ 
+$n$-prvkovou mno\v zinu, pak 
+$$\hloubka(T)\le 1+\frac {\log(n+1)-1}{\log\frac 1{1-\alpha}}.$$
+\endproclaim
+
+\flushpar D\accent23usledek je, \v ze $BB(\alpha )$-stromy pat\v r\'\i\ do 
+skupiny vyv\'a\v zen\'ych bin\'arn\'\i ch vyhled\'avac\'\i ch 
+stro\-m\accent23u.  Vyva\v zov\'an\'\i\ se provad\'\i\ op\v et pomoc\'\i\ 
+{\bf Rotace} a {\bf Dvojita-rotace} a popisuje ho n\'asledu\-j\'\i\-c\'\i\ 
+technick\'e tvrzen\'\i. 
+
+\proclaim{Tvrzen\'\i}Pro ka\v zd\'e $\alpha$ existuje konstanta $
+d$ 
+takov\'a, \v ze $\alpha <d<1-\alpha$ a pro ka\v zd\'y bin\'arn\'\i\ vyhled\'avac\'\i\ 
+strom $T$ s ko\v renem $t$ spl\v nuj\'\i c\'\i\ podm\'\i nky
+\roster
+\item
+podstromy $T_l$ a $T_r$ stromu $T$ ur\v cen\'e lev\'ym a prav\'ym 
+synem $t$ jsou $BB(\alpha )$-stromy;
+\item
+$\frac {p(T_l)}{p(T)}<\alpha$, ale $\alpha\le\frac {
+p(T_l)}{p(T)-1}\le 1-\alpha$ nebo $\alpha\le\frac {
+p(T_l)+1}{p(T)+1}\le 1-\alpha$
+\endroster
+plat\'\i :\newline 
+kdy\v z $\rho\le d$ a provedeme {\bf Rotace$(t,\pravy(t))$}, nebo kdy\v z 
+$\rho >d$ a provedeme proceduru {\bf Dvojita-rotace$(t,\pravy(t),\levy(\pravy(t)))$}, pak dostaneme 
+$BB(\alpha )$-strom (zde $\rho =\frac {p(T')}{p(T_r
+)}$ a $T'$ je ur\v cen lev\'ym synem 
+prav\'e\-ho syna ko\v rene $t$).  
+\endproclaim
+
+\flushpar Toto tvrzen\'\i\ a jeho symetrick\'e verze jednozna\v cn\v e ukazuj\'\i , 
+jak vyva\v zovat $BB(\alpha )$-stromy p\v ri aktualiza\v cn\'\i ch 
+operac\'\i ch (podstrom $BB(\alpha )$-stromu je $BB(\alpha )$-strom). Pak dost\'av\'ame:
+
+\proclaim{V\v eta}Implementace operac\'\i\ {\bf MEMBER}, {\bf INSERT} a {\bf DELETE }v $BB(\alpha )$-stromech vy\v zaduje v nejhor\v s\'\i m 
+p\v r\'\i pad\v e \v cas $O(\log(|S|))$, kde $S$ je 
+reprezentovan\'a mno\v zina.
+\endproclaim
+
+\flushpar Obliba $BB(\alpha )$-strom\accent23u byla zap\v r\'\i\v cin\v ena 
+platnost\'\i\ n\'asleduj\'\i c\'\i\ v\v ety, kter\'a je analogi\'\i\ v\v ety o 
+vyva\v zovac\'\i ch operac\'\i ch pro $(a,b)$-stromy.
+
+\proclaim{V\v eta}Kdy\v z $\alpha$ je re\'aln\'e \v c\'\i slo takov\'e, \v ze 
+$\frac 14<\alpha <1-\frac {\sqrt 2}2$, pak existuje konstanta $c>
+0$ z\'avisl\'a jen na 
+$\alpha$ takov\'a, \v ze ka\v zd\'a posloupnost operac\'\i\ {\bf INSERT} a {\bf DELETE }
+o d\'elce $m$ aplikovan\'a na pr\'azdn\'y $BB(\alpha )$-strom vol\'a 
+nejv\'y\v se $cm$ procedur {\bf Rotace} a {\bf Dvojita-rotace}.
+\endproclaim
+
+\heading
+Historick\'y p\v rehled:
+\endheading
+
+$(a,b)$-stromy zavedli Bayer a McGreght (1972),\newline 
+v\v ety o po\v ctu vyva\v zovac\'\i ch operac\'\i\ pro $(a,b)$-stromy dok\'azali 
+Huddleston a Mehlhorn (1982).\newline 
+$A$-sort analyzovali Guibas, McGreight, Plass a Roberts (1977).
+\smallskip
+\flushpar Anal\'yza interpola\v cn\'\i ho vyhled\'av\'an\'\i\ poch\'az\'\i\ od Perla, 
+Itai a Avniho (1978),\newline 
+kvadratick\'e vyhled\'av\'an\'\i\ analyzovali Perl a Reingold (1977).
+\smallskip
+\flushpar Adelson-Velskij a Landis (1962) definovali 
+AVL-stromy,\newline 
+\v cerveno-\v cern\'e stromy definovali Guibas a Sedgewick 
+(1978),\newline 
+verze algoritmu {\bf DELETE} poch\'az\'\i\ od Tarjana (1983).
+$BB(\alpha )$-stromy zavedli Nievergelt a Reingold (1973),\newline 
+v\v ety o jejich vyva\v zov\'an\'\i\ dok\'azali Blum a Mehlhorn (1980).\newline 
+Priorita AVL-strom\accent23u se odr\'a\v z\'\i\ v 
+jejim hojn\'em pou\v z\'\i v\'an\'\i , i kdy\v z \v cerveno-\v cern\'e stromy 
+jsou efektivn\v ej\v s\'\i . 
+
+\end

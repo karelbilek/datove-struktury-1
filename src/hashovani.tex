@@ -1,0 +1,3461 @@
+%%AmSTeX
+%\documentstyle{amsppt}
+\input amstex
+\input amsppt.sty
+
+
+\magnification=\magstep1
+\pagewidth{5.5in}
+\pageheight{19.5cm}
+
+
+\def \emph#1{\underbar{#1}}
+\def \Prob{\operatorname{Prob}}
+\def \var{\operatorname{var}}
+
+\heading
+Datov\'e struktury
+\endheading
+
+\subhead
+\'Uvod
+\endsubhead
+
+\flushpar Z\'akladn\'\i\ probl\'em: Reprezentace mno\v zin a 
+operace s nimi. V \v rad\v e \'uloh a algoritm\accent23u je tento 
+podprobl\'em rozhoduj\'\i c\'\i\ pro slo\v zitost \v re\v sen\'\i , proto\v ze 
+tyto operace se mnohokr\'at opakuj\'\i . Proto je t\v reba 
+navrhnout pro tyto \'ulohy co nejefektivn\v ej\v s\'\i\ algoritmy 
+(ka\v zd\'y u\v set\v ren\'y \v cas mnohon\'asobn\'ym opakov\'an\'\i m za\v cne 
+hr\'at d\accent23ule\v zitou roli). To vede k detailn\'\i\ 
+anal\'yze slo\v zitosti v z\'avislosti na vn\v ej\v s\'\i ch okolnostech. 
+Nelze \v r\'\i ct, 
+\v ze n\v ekter\'y algoritmus je nejlep\v s\'\i , proto\v ze za ur\v cit\'ych 
+okolnost\'\i\ m\accent23u\v ze b\'yt `m\'en\v e efektivn\'\i ' algoritmus 
+v\'yhodn\v ej\v s\'\i .
+\medskip
+
+\flushpar C\'\i lem t\'eto p\v redn\'a\v sky nen\'\i\ pouze sezn\'amit v\'as s algoritmy 
+pro \v re\v sen\'\i\ t\v echto probl\'em\accent23u, proto\v ze s t\v emi jste se 
+sezn\'amili u\v z v p\v redn\'a\v sce `Algoritmy a datov\'e struktury'. Hlavn\'\i m c\'\i lem 
+je uk\'azat v\'am prost\v redky a metody, jak m\v e\v rit a zji\v s\v tovat 
+jejich efektivitu, a t\'\i m v\'am uk\'azat prost\v red\-ky, kter\'e v\'am 
+umo\v zn\'\i\ rozhodnout se v dan\'e situaci pro ur\v cit\'y algoritmus. 
+Proto hlavn\'\i\ n\'apln\'\i\ t\'eto p\v redn\'a\v sky bude po\v c\'\i t\'an\'\i\ efektivity 
+algoritm\accent23u. Budeme po\v c\'\i tat za 
+zjednodu\v se\-n\'ych 
+p\v redpoklad\accent23u, proto\v ze neum\'\i m \v r\'\i ct (a ani to nelze, proto\v ze v\v zdy z\'ale\v z\'\i\ 
+na konkr\'etn\'\i ch okolnostech), kter\'e sofistikovan\v ej\v s\'\i\ metody 
+budou v praxi vhodn\'e pro \v re\v sen\'\i\ va\v seho probl\'emu. C\'\i lem p\v redn\'a\v sky je 
+sezn\'amit v\'as s mo\v znostmi, jak \v re\v sit tyto probl\'emy, a se z\'akladn\'\i mi 
+metodami pro jejich \v re\v sen\'\i . Nejprve si zadefinujeme asi 
+nejz\'akladn\v ej\v s\'\i\ probl\'em, kter\'y \v re\v s\'\i me v datov\'ych struktur\'ach. 
+\medskip
+
+\flushpar\v Re\v s\'\i me tzv. slovn\'\i kov\'y probl\'em: D\'ano 
+univerzum $U$, m\'ame reprezentovat $S\subseteq U$ a navrhnout algoritmy pro 
+n\'asle\-duj\'\i c\'\i\ operace\newline 
+{\bf MEMBER$(x)$} -- zjist\'\i , zda $x\in S$, a nalezne jeho 
+ulo\v zen\'\i\newline 
+{\bf INSERT$(x)$} -- kdy\v z $x\notin S$, pak vlo\v z\'\i\ $x$ do struktury 
+repre\-zentuj\'\i c\'\i\ $S$\newline 
+{\bf DELETE$(x)$} -- kdy\v z $x\in S$, pak odstran\'\i\ $x$ ze struktury 
+reprezentuj\'\i c\'\i\ $S$.\newline 
+Efektivita algoritmu: \v casov\'a slo\v zitost, prostorov\'a 
+slo\v zitost;\newline 
+vy\-\v set\v ren\'e bu\v d v nejhor\v s\'\i m p\v r\'\i pad\v e nebo v 
+pr\accent23um\v ern\'em p\v r\'\i pad\v e nebo amortizovan\v e.
+\medskip
+
+\flushpar Literatura:\newline 
+K.~Mehlhorn: Data Structures and Algorithms 1: Sorting 
+and Searching, Springer 1984\newline 
+http://www.mpi-sb.mpg.de/$^{\thicksim}$mehlhorn/DatAlgbooks.html
+\smallskip
+
+\flushpar J.~S.~Vitter, W.-Ch.~Chen: Design and Analysis of 
+Coalesced Hashing, Oxford Univ. Press, 1987
+\newpage
+
+\heading
+Ha\v sov\'an\'\i
+\endheading
+
+\flushpar Pomoc\'\i\ bitov\'eho pole m\accent23u\v zeme rychle 
+implementovat operace {\bf MEMBER}, {\bf INSERT} a {\bf DELETE}. 
+
+\flushpar Nev\'yhoda: kdy\v z je velk\'e univerzum, pak je prostorov\'a 
+slo\v zitost v nejlep\v s\'\i m p\v r\'\i pad\v e ohrom\-n\'a, ve \v spatn\'em 
+p\v r\'\i pad\v e nelze pole zadat do po\v c\'\i ta\v ce.\newline 
+Ha\v sov\'an\'\i\ chce zachovat rychlost operac\'\i , ale odstranit 
+pam\v e\v to\-vou n\'aro\v cnost. Prvn\'\i\ publikovan\'y \v cl\'anek o 
+ha\v sov\'an\'\i\ je od Dumney z roku 1956, prvn\'\i\ anal\'yza ha\v sov\'an\'\i\ 
+poch\'az\'\i\ od Petersona z roku 1957, ale existuje technick\'a  
+zpr\'ava od IBM o ha\v sov\'an\'\i\ z roku 1953.
+\medskip
+
+\flushpar Z\'akladn\'\i\ idea: D\'ano univerzum $U$ a mno\v zina 
+$S\subseteq U$ tak, \v ze $|S|<<|U|$. M\'ame funkci 
+$h:U@>>>\{0,1,\dots,m-1\}$ a mno\v zinu $S$ reprezentujeme 
+tabulkou (polem) s $m$ \v r\'adky tak, \v ze $s\in S$ je ulo\v zen na 
+\v r\'adku $h(s)$.\newline 
+Nev\'yhoda: mohou existovat r\accent23uzn\'a $s,t\in S$ takov\'a, 
+\v ze $h(s)=h(t)$ - tento jev se naz\'yv\'a \emph{kolize}.\newline 
+Hlavn\'\i\ probl\'em: \v re\v sen\'\i\ koliz\'\i .\newline 
+Z\'akladn\'\i\ \v re\v sen\'\i : pou\v zijeme pole o velikosti $[
+0..m-1]$ a 
+$i$-t\'a polo\v zka pole bude spojov\'y seznam obsahuj\'\i c\'\i\ 
+v\v sechny prvky $s\in S$ takov\'e, \v ze $h(s)=i$. Toto \v re\v sen\'\i\ se 
+naz\'yv\'a \emph{ha\v sov\'an\'\i} \emph{se} \emph{separovan\'ymi} 
+\emph{\v ret\v ezci}.
+
+\flushpar P\v r\'\i klad: $U=\{1,2,\dots,1000\}$, $S=\{1,7,11,53,
+73,141,161\}$ a 
+funkce je $h(x)=x\bmod10$. Pak 
+$$\gather P(0)=P(2)=P(4)=P(5)=P(6)=P(8)=P(9)=\emptyset ,\\
+P(7)=<7>,\quad P(3)=<53,73>,\quad P(1)=<1,141,11,161>.\endgather$$
+Seznamy nemus\'\i\ b\'yt uspo\v r\'adan\'e.  
+\medskip
+
+\subhead
+Algoritmy operac\'\i
+\endsubhead
+\smallskip
+
+\flushpar {\bf MEMBER$(x)$}\newline 
+Spo\v c\'\i t\'ame $i:=h(x)$, $t:=NIL$\newline 
+{\bf if} $i$-t\'y seznam je nepr\'azdn\'y {\bf then\newline 
+\phantom{{\rm ---}}$t:=$}prvn\'\i\ prvek $i$-t\'eho seznamu\newline 
+\phantom{---}{\bf while} $t\ne x$ a $t\ne$posledn\'\i\ prvek $i$-t\'eho seznamu {\bf do\newline 
+\phantom{{\rm ------}}$t:=$}n\'asleduj\'\i c\'\i\ prvek $i$-t\'eho seznamu\newline 
+\phantom{---}{\bf enddo\newline 
+endif\newline 
+if} $t=x$ {\bf then V\'ystup}: $x\in S$ {\bf else V\'ystup}: $x\notin 
+S$ {\bf endif
+\medskip
+
+\flushpar INSERT$(x)$}\newline 
+Spo\v c\'\i t\'ame $i:=h(x)$, $t:=NIL$\newline 
+{\bf if} $i$-t\'y seznam je nepr\'azdn\'y {\bf then\newline 
+\phantom{{\rm ---}}$t:=$}prvn\'\i\ prvek $i$-t\'eho seznamu\newline 
+\phantom{---}{\bf while} $t\ne x$ a $t\ne$posledn\'\i\ prvek $i$-t\'eho seznamu {\bf do\newline 
+\phantom{{\rm ------}}$t:=$}n\'asleduj\'\i c\'\i\ prvek $i$-t\'eho seznamu\newline 
+\phantom{---}{\bf enddo\newline 
+endif\newline 
+if} $t\ne x$ {\bf then} vlo\v z\'\i me $x$ do $i$-t\'eho seznamu {\bf endif}
+\medskip
+
+\flushpar {\bf DELETE}$(x)$\newline 
+Spo\v c\'\i t\'ame $i:=h(x)$, $t:=NIL$\newline 
+{\bf if} $i$-t\'y seznam je nepr\'azdn\'y {\bf then\newline 
+\phantom{{\rm ---}}$t:=$}prvn\'\i\ prvek $i$-t\'eho seznamu\newline 
+\phantom{---}{\bf while} $t\ne x$ a $t\ne$posledn\'\i\ prvek $i$-t\'eho seznamu {\bf do\newline 
+\phantom{{\rm ------}}$t:=$}n\'asleduj\'\i c\'\i\ prvek $i$-t\'eho seznamu\newline 
+\phantom{---}{\bf enddo\newline 
+endif\newline 
+if} $t=x$ {\bf then} odstran\'\i me $x$ z $i$-t\'eho seznamu {\bf endif}
+\medskip
+
+\flushpar V n\'asleduj\'\i c\'\i\ anal\'yze p\v redpokl\'ad\'ame, \v ze hodnota funkce $
+h(x)$ 
+je spo\v citateln\'a v \v case $O(1)$.\newline 
+V nejhor\v s\'\i m p\v r\'\i pad\v e operace vy\v zaduj\'\i\ \v cas $
+O(|S|)$ 
+(v\v sechny prv\-ky jsou v jednom seznamu). \newline 
+Po\v zadovan\'a pam\v e\v tov\'a n\'aro\v cnost $O(m+|S|)$ 
+(p\v redpokl\'ad\'ame, \v ze reprezentace prvku $s\in S$ vy\v zaduje pam\v e\v t $
+O(1)$)\newline 
+Pam\v e\v t nen\'\i\ efektivn\v e vyu\v zit\'a.
+\smallskip
+
+\flushpar Spo\v c\'\i t\'ame o\v cek\'avanou d\'elku \v ret\v ezc\accent23u za 
+p\v redpoklad\accent23u
+\roster
+\item
+$h$ je rychle spo\v citateln\'a (tj. $O(1)$) a nem\v enn\'a b\v ehem 
+v\'ypo\v ctu;
+\item
+$h$ rozd\v eluje univerzum $U$ rovnom\v ern\v e (tj. 
+$-1\le |h^{-1}(i)|-|h^{-1}(j)|\le 1$ pro $i,j\in \{0,1,\dots,m-1\}$);
+\item
+$S$ je n\'ahodn\v e vybran\'a z univerza $U$ (tj. pro dan\'e $n=|
+S|$ 
+jsou v\v sechny podmno\v zi\-ny $U$ o velikosti $n$ reprezentovanou 
+mno\v zinou $S$ se stejnou pravd\v epodobnost\'\i );\item
+ka\v zd\'y prvek z $U$ m\'a stejnou pravd\v epodobnost b\'yt 
+argumentem operace;
+\item
+velikost reprezentovan\'e mno\v ziny je v\'yrazn\v e men\v s\'\i\ ne\v z 
+velikost univerza.
+\endroster
+
+
+\flushpar Pou\v zit\'e zna\v cen\'\i : $|S|=n$, $m=$po\v cet 
+\v ret\v ezc\accent23u, $|U|=N$,\newline 
+$\ell (i)=$d\'elka $i$-t\'eho \v ret\v ezce, $\alpha =\frac nm$ faktor napln\v en\'\i\ (load factor)
+\smallskip
+
+\flushpar D\accent23usledky p\v redpoklad\accent23u:
+\roster
+\item"{}"
+$\Prob(h(x)=i)=\frac 1m$ pro v\v sechna $x\in U$ a v\v sechna 
+$i=0,1,\dots,m-1$; 
+\item"{}"
+$\Prob(\ell (i)=l)=p_{n,l}=\binom nl(\frac 1m)^l(1-\frac 1m)^{n-l}$ 
+pro v\v sechna $i=0,1,\dots,m-1$.
+\endroster
+\flushpar Vysv\v etlen\'\i : $i$-t\'y \v ret\v ezec m\'a d\'elku $
+l$, pr\'av\v e kdy\v z existuje 
+pod\-mno\-\v zina $A\subseteq S$ takov\'a, \v ze $|A|=l$ (t\v echto mo\v znost\'\i\ je 
+$\binom nl$), pro ka\v zd\'e $x\in A$ plat\'\i\ $h(x)=i$ (pravd\v epodobnost 
+tohoto jevu je $(\frac 1m)^l$) a pro ka\v zd\'e $x\in S\setminus 
+A$ plat\'\i\ $h(x)\ne i$ 
+(pravd\v epodobnost tohoto jevu je $(1-\frac 1m)^{n-l}$). To znamen\'a, \v ze jev m\'a 
+binomi\'aln\'\i\ rozd\v elen\'\i .
+\medskip
+
+\flushpar Zde jsme nep\v resn\'\i . Obecn\v e pro n\'ahodn\v e zvolen\'e $
+x\in U$ 
+a dan\'e $i$ je $\Prob(h(x)=i)=\frac {|h^{-1}(i)|}{|U|}$ a kdy\v z existuj\'\i\ dv\v e r\accent23uzn\'a 
+$i,j\in \{0,1,\dots,m-1\}$ takov\'a, \v ze $|h^{-1}(i)|\ne |h^{-1}
+(j)|$, pak obecn\v e 
+$\frac {|h^{-1}(i)|}{|U|}\ne\frac 1m$. Toto nastane i v p\v r\'\i pad\v e, kdy\v z jsme ji\v z zvolili n\v ejak\'y 
+prvek v $h^{-1}(i)$. Proto\v ze v\v sak p\v redpokl\'ad\'ame, \v ze $
+n,m<<|U|$ tak 
+ve v\v sech uva\v zovan\'ych p\v r\'\i padech je $Prob(h(x)=i)$ p\v ribli\v zn\v e 
+$\frac 1m$, a m\accent23u\v zeme tuto pravd\v epodobnost aproximovat 
+hodnotou $\frac 1m$.
+
+\subhead
+O\v cek\'avan\'a d\'elka \v ret\v ezc\accent23u
+\endsubhead
+$$\align E(l)=&\sum_{l=0}^nlp_{n,l}=\sum_{l=0}^nl\binom nl(\frac 
+1m)^l(1-\frac 1m)^{n-l}=\\
+&\sum_{l=0}^nl\frac {n!}{l!(n-l)!}(\frac 1m)^l(1-\frac 1m)^{n-l}=\\
+&\frac nm\sum_{l=1}^n\frac {(n-1)!}{(l-1)!(n-l)!}(\frac 1m)^{l-1}
+(1-\frac 1m)^{n-l}=\\
+&\frac nm\sum_{l=1}^n\binom {n-1}{l-1}(\frac 1m)^{l-1}(1-\frac 1m
+)^{(n-1)-(l-1)}=\\
+&\frac nm\sum_{l=0}^{n-1}\binom {n-1}l(\frac 1m)^l(1-\frac 1m)^{n
+-1-l}=\\
+&\frac nm(\frac 1m+1-\frac 1m)^{n-1}=\frac nm.\endalign$$
+Toto je standardn\'\i\ element\'arn\'\i\ v\'ypo\v cet 
+o\v cek\'avan\'e hodnoty binomi\'aln\'\i ho rozd\v elen\'\i .  
+\medskip
+
+\subhead
+V\'ypo\v cet druh\'eho momentu
+\endsubhead
+
+$$\align E(l^2)=&E(l(l-1))+E(l),\\
+E(l(l-1&))=\sum_{l=0}^nl(l-1)\binom nl(\frac 1m)^l(1-\frac 1m)^{n
+-l}=\\
+&\frac {n(n-1)}{m^2}\sum_{l=2}^n\binom {n-2}{l-2}(\frac 1m)^{l-2}
+(1-\frac 1m)^{(n-2)-(l-2)}=\\
+&\frac {n(n-1)}{m^2}\sum_{l=0}^{n-2}\binom {n-2}l(\frac 1m)^l(1-\frac 
+1m)^{n-2-l}=\\
+&\frac {n(n-1)}{m^2},\\
+E(l^2)=&\frac {n(n-1)}{m^2}+\frac nm=\frac nm(1+\frac {n-1}m).\endalign$$
+\subhead
+V\'ypo\v cet rozptylu
+\endsubhead
+
+$$\align\var(l)=&E(l-E(l))^2=E(l^2)-(E(l))^2=\\
+&\frac nm(1+\frac {n-1}m)-(\frac nm)^2=\frac nm(1-\frac 1m).\endalign$$
+\flushpar Shrneme v\'ysledky:\newline 
+O\v cek\'avan\'a d\'elka \v ret\v ezc\accent23u je $\frac nm$ a rozptyl d\'elky 
+\v ret\v ezc\accent23u je $\frac nm(1-\frac 1m)$.
+Toto jsou standardn\'\i\ element\'arn\'\i\ odvozen\'\i\ druh\'eho momentu
+a rozptylu binomi\'aln\'\i ho rozd\v elen\'\i .
+\medskip
+
+\subhead
+O\v cek\'avan\'y nejhor\v s\'\i\ p\v r\'\i pad
+\endsubhead
+\smallskip
+
+\flushpar Spo\v c\'\i t\'ame $E(NP)$ o\v cek\'avanou d\'elku maxim\'aln\'\i ho 
+\v ret\v ezce.\newline 
+O\-zna\v c\-me $\ell (i)$ d\'elku $i$-t\'eho \v ret\v ezce. Pak
+$$\Prob(\max_i\ell (i)=j)=\Prob(\max_i\ell (i)\ge j)-\Prob(\max_i
+\ell (i)\ge j+1).$$
+
+\flushpar Pak m\accent23u\v zeme po\v c\'\i tat:
+$$\align E(NP)=&\sum_jj\Prob(\max_i\ell (i)=j)=\\
+&\sum_jj(\Prob(\max_i\ell (i)\ge j)-\Prob(\max_i\ell (i)\ge j+1))
+=\\
+&\sum_jj\Prob(\max_i\ell (i)\ge j)-\sum_jj\Prob(\max_i\ell (i)\ge 
+j+1)=\\
+&\sum_jj\Prob(\max_i\ell (i)\ge j)-\sum_j(j-1)\Prob(\max_i\ell (i
+)\ge j)=\\
+&\sum_j(j-j+1)\Prob(\max_i\ell (i)\ge j)=\\
+&\sum_j\Prob(\max_i\ell (i)\ge j).\endalign$$
+Vysv\v etlen\'\i : P\v ri \v ctvrt\'e rovnosti se v druh\'e sum\v e zv\v et\v sil 
+index, p\v res kter\'y s\v c\'\i t\'ame, o $1$, v p\'at\'e rovnosti se k sob\v e 
+daly koeficienty p\v ri stejn\'ych pravd\v epodobnostech ve dvou 
+sum\'ach. 
+
+\flushpar Odtud
+$$\align\Prob(\max_i&(\ell (i))\ge j)=\\
+&\Prob(\ell (1)\ge j\vee\ell (2)\ge j\vee\dots\vee\ell (m-1)\ge j
+)\le\\
+&\sum_i\Prob(\ell (i)\ge j)\le m\binom nj(\frac 1m)^j=\\
+&\frac {\prod_{k=0}^{j-1}(n-k)}{j!}(\frac 1m)^{j-1}\le n(\frac nm
+)^{j-1}\frac 1{j!}.\endalign$$
+Vysv\v etlen\'\i :  Prvn\'\i\ nerovnost plyne z toho, \v ze 
+pravd\v epodobnost disjunkce jev\accent23u je men\v s\'\i\ ne\v z 
+sou\v cet pravd\v epodobnost\'\i\ jev\accent23u, dru\-h\'a nerovnost 
+plyne z toho, \v ze $i$-t\'y \v ret\v ezec m\'a d\'elku alespo\v n $
+j$, jakmile existuje 
+podmno\v zina $A\subseteq S$ takov\'a, \v ze $|A|=j$ (t\v echto mo\v znost\'\i\ je $\binom 
+nj$) a pro ka\v zd\'e $x\in A$ plat\'\i\ $h(x)=i$ (pravd\v epo\-dob\-nost 
+tohoto jevu je $(\frac 1m)^j$). Proto\v ze pravd\v epodobnost je pro v\v sechna $i$ stejn\'a a $i$ nab\'yv\'a $m$ hodnot, dost\'av\'ame druhou nerovnost. N\'asleduj\'\i c\'\i\ rovnost plyne z rozeps\'an\'\i\ binomick\'ych koeficient\accent23u. Posledn\'\i\ nerovnost dostane\-me nahrazen\'\i m $n-k$ hodnotou $n$.
+\smallskip
+
+\proclaim{D\accent23usledek}
+$$\Prob(\max_i(\ell (i))\ge j)\le\min\{1,n(\frac nm)^{j-1}\frac 1{
+j!}\}.$$
+\endproclaim
+\smallskip
+
+\flushpar P\v redpoklad: $\alpha =\frac nm\le 1$. Uk\'a\v zeme, \v ze pro dostate\v cn\v e 
+velk\'a $n$ pro 
+$$j_0=\min\{j\mid n(\frac nm)^{j-1}\frac 1{j!}\le 1\}$$
+plat\'\i\ $j_0\le\frac {(1+o(1))\log n}{\log\log n}$. 
+K tomu pou\v zijeme Stirling\accent23uv vzorec pro faktori\'aly
+$$j!=\sqrt{2j\pi}\left(\frac je\right)^j\left(1+\frac 1{12j}+\frac 1{288j^2}+O(j^{-3})\right)$$
+a n\'asleduj\'\i c\'\i\ lemma.
+
+\proclaim{Lemma}Kdy\v z $(\frac qe)^q\le n$, pak $q\le(1+o(1))\frac{\ln n}{\ln\ln n}$.
+\endproclaim
+
+\demo{D\accent23ukaz}V\v simn\v eme si nejd\v r\'\i v, \v ze plat\'\i 
+$$\align\left((\ln(\frac{\ln n}{\ln\ln n})-1\right)\frac{\ln n}{\ln\ln n}=&(\ln\ln n-\ln\ln\ln n-1)\frac{\ln n}{\ln\ln n}=\\&
+\ln n-\frac{\ln n(\ln\ln\ln n)}{\ln\ln n}-\frac{\ln n}{\ln\ln n}=\\&\ln n(1-\frac{\ln\ln\ln n}{\ln\ln n}-
+\frac 1{\ln\ln n})=(1+o(1))\ln n,\endalign$$
+proto\v ze $\lim_{n\mapsto\infty}\frac{\ln\ln\ln n}{\ln\ln n}=0=\lim_{n\mapsto\infty}\frac 1{\ln\ln n}$. 
+Odtud plyne $$\lim_{n\mapsto\infty}\left(\frac{\frac{\ln n}{\ln\ln n}}e\right)=e^{(1+o(1))\ln n}=n.$$ Proto\v ze $(\frac qe)^q$ je rostouc\'\i\ funkce, tak dost\'av\'ame, \v ze $q\le(1+o(1))(\frac{\ln n}{\ln\ln n})$. \qed
+\enddemo
+\smallskip
+
+\flushpar Proto\v ze $\frac nm\le1$, tak plat\'\i , \v ze 
+$$j_0=\min\{j\mid n(\frac nm)^{j-1}\frac 1{j!}\le 1\}\le\min\{j\mid n\le j!\}\le\min\{j\mid n\le
+(\frac je)^j\}\le(1+o(1))\frac{\ln n}{\ln\ln n}.$$ 
+
+\flushpar Toto pou\v zijeme p\v ri odhadu $E(NP)$.
+$$\align E(NP)=&\sum_j\Prob(\max_i(\ell (i))\ge j)\le\\
+&\sum_j\min\{1,n(\frac nm)^{j-1}\frac 1{j!}\}=\\
+&\sum_{j=1}^{j_0}1+\sum_{j=j_0+1}^{\infty}\big(n(\frac nm)^{j-1}\frac 
+1{j!}\big)\le j_0+\sum_{j=j_0+1}^{\infty}\frac n{j!}=\\
+&j_0+\frac n{j_0!}\sum_{j=j_0+1}^{\infty}\frac {j_0!}{j!}\le j_0+
+\sum_{j=j_0+1}(\frac 1{j_0+1})^{j-j_0}=\\
+&j_0+\frac {\frac 1{j_0+1}}{-\frac 1{j_0+1}+1}=j_0+\frac 1{j_0}=O
+(j_0).\endalign$$
+Vysv\v etlen\'\i: P\v ri druh\'e rovnosti jsme pou\v zili, \v ze $n(\frac nm)^{j-1}\frac 1{j!}\le 1$, pr\'av\v e kdy\v z $j\le j_0$. P\v ri druh\'e nerovnosti jsme pou\v zili, \v ze $\frac 
+nm\le 1$, 
+p\v ri t\v ret\'\i\ nerovnosti jsme pou\v zili, \v ze $\frac n{j_
+0!}\le 1$ a 
+$$\frac {j_0!}{j!}=\frac 1{\prod_{k=j_0+1}^jk}\le (\frac 1{j_0+
+1})^{j-j_0}.$$
+Shrneme z\'\i skan\'y v\'ysledek
+
+\proclaim{V\v eta}Za p\v redpokladu $\alpha =\frac nm\le 1$ je p\v ri ha\v sov\'an\'\i\ 
+se se\-parovan\'ymi \v ret\v ezci horn\'\i\ odhad o\v cek\'avan\'e d\'elky 
+maxim\'aln\'\i ho \v re\-t\v ez\-ce $O(\frac {\log n}{\log\log n}
+)$.  
+\flushpar Kdy\v z $0.5\le\alpha\le 1$, je to z\'arove\v n i doln\'\i\ odhad.
+\endproclaim
+
+\subhead
+O\v cek\'avan\'y po\v cet test\accent23u
+\endsubhead
+\smallskip
+
+\flushpar Test je porovn\'an\'\i\ argumentu operace s 
+prvkem na dan\'em m\'\i st\v e \v ret\v ezce nebo zji\v st\v e\-n\'\i , 
+\v ze vy\v set\v rovan\'y \v ret\v ezec je pr\'azdn\'y.
+\medskip
+
+\flushpar Budeme rozli\v sovat dva p\v r\'\i pady:\newline 
+\phantom{---}\emph{\'usp\v e\v sn\'e} \emph{vyhled\'av\'an\'\i} -- argument 
+operace je mezi prvky reprezentovan\'e mno\v ziny,\newline 
+\phantom{---}\emph{ne\'usp\v e\v sn\'e} \emph{vyhled\'av\'an\'\i} -- argument 
+operace nen\'\i\ mezi prv\-ky reprezentovan\'e mno\-\v ziny.
+\medskip
+
+\subhead
+Ne\'usp\v e\v sn\'e vyhled\'av\'an\'\i
+\endsubhead
+\smallskip
+
+\flushpar O\v cek\'avan\'y po\v cet test\accent23u:
+$$\align E(T)=&\Prob(\ell (i)=0)+\sum_ll\Prob(\ell (i)=l)=\\
+&p_{n,0}+\sum_llp_{n,l}=\\
+&(1-\frac 1m)^n+\frac nm\approx e^{-\alpha}+\alpha .\endalign$$
+Vysv\v etlen\'\i : Zji\v st\v en\'\i , zda \v ret\v ezec je pr\'azdn\'y, vy\v zaduje 
+jeden test, tj. $\Prob(\ell (i)=0)$ nen\'\i\ s koeficientem $0$, ale $
+1$.
+Proto\v ze pravd\v epodobnosti jsou stejn\'e pro v\v sechny 
+\v ret\v ezce, nemus\'\i me specifikovat \v ret\v ezec, kter\'y 
+vy\v set\v rujeme, sta\v c\'\i\ ps\'at obecn\v e $i$. $\sum_llp_{
+n,l}$ jsme spo\v c\'\i tali 
+p\v ri v\'ypo\v ctu o\v cek\'avan\'e d\'elky \v ret\v ezce.
+\medskip
+
+\subhead
+\'Usp\v e\v sn\'e vyhled\'av\'an\'\i
+\endsubhead
+\smallskip
+
+\flushpar Zvolme jeden \v ret\v ezec prvk\accent23u o d\'elce $l$. 
+Po\v cet test\accent23u p\v ri vyhled\'an\'\i\ v\v sech prvk\accent23u 
+v tomto \v ret\v ezci je
+$$1+2+\dots+l=\binom {l+1}2.$$
+\medskip
+
+\flushpar O\v cek\'avan\'y po\v cet test\accent23u p\v ri vyhled\'an\'\i\ v\v sech 
+prvk\accent23u v n\v ejak\'em \v ret\v ezci je 
+$$\sum_l\binom {l+1}2\Prob(\ell (i)=l)=\sum_l\binom {l+1}2p_{n,l}
+.$$
+\medskip
+\flushpar O\v cek\'an\'y po\v cet test\accent23u p\v ri vyhled\'an\'\i\ v\v sech 
+prvk\accent23u v tabulce je $m\sum_l\binom {l+1}2p_{n,l}$.
+\medskip
+
+\flushpar O\v cek\'avan\'y po\v cet test\accent23u pro 
+vyhled\'an\'\i\ jednoho prvku je 
+$$\align\frac mn\sum_{l=0}^n\binom {l+1}2p_{n,l}=&\frac m{2n}\big
+(\sum_{l=0}^nl^2p_{n,l}+\sum_{l=0}^nlp_{n,l}\big)=\\
+&\frac m{2n}\big(\sum_{l=1}^nl(l-1)p_{n,l}+2\sum_{l=1}^nlp_{n,l}\big
+)=\\
+&\frac m{2n}(\frac {n(n-1)}{m^2}+\frac {2n}m)=\frac {n-1}{2m}+1\approx\\
+&1+\frac {\alpha}2.\endalign$$
+
+\flushpar Jin\'y postup: P\v redpokl\'adejme, \v ze po\v cet test\accent23u p\v ri \'usp\v e\v sn\'em 
+vyhled\'av\'an\'\i\ prvku $x\in S$ je $1+$po\v cet porovn\'an\'\i\ 
+kl\'\i\v c\accent23u p\v ri ne\'usp\v e\v sn\'em vyhled\'av\'an\'\i\ $
+x$ v operaci 
+{\bf INSERT$(x)$}. Pak po\v cet porovn\'an\'\i\ kl\'\i\v c\accent23u je d\'elka 
+\v ret\v ezce, a proto o\v cek\'ava\-n\'y po\v cet porovn\'an\'\i\ kl\'\i\v c\accent23u 
+je o\v cek\'ava\-n\'a d\'elka \v ret\v ezce. Tedy o\v cek\'avan\'y po\v cet 
+test\accent23u p\v ri \'usp\v e\v sn\'em vyhled\'av\'an\'\i\ $x$ je  
+$1+$o\v cek\'avan\'a d\'elka \v ret\v ezce v okam\v ziku vkl\'ad\'an\'\i\ $
+x$, neboli 
+$$\frac 1n\sum_{i=0}^{n-1}(1+\frac im)=1+\frac {n-1}{2m}.$$
+
+\proclaim{V\v eta}P\v ri ha\v sov\'an\'\i\ se separovan\'ymi \v ret\v ezci je 
+o\v cek\'avan\'y po\-\v cet test\accent23u p\v ri ne\'uspe\v s\-n\'em 
+vy\-hled\'avan\'\i\ p\v ribli\v zn\v e $e^{-\alpha}+\alpha$ a p\v ri \'us\-p\v e\v s\-n\'em 
+vyhled\'av\'an\'\i\ p\v ribli\v zn\v e $1+\frac {\alpha}2$.
+\endproclaim
+
+\flushpar N\'asleduj\'\i c\'\i\ tabulka d\'av\'a p\v rehled o\v cek\'avan\'eho 
+po\v ctu test\accent23u pro r\accent23uzn\'e hodnoty $\alpha$
+$$\vtop{\hbox{\vbox {\offinterlineskip\halign{\strut\vrule\ # & \vrule\ # & \vrule\ # & \vrule\ # & \vrule\ # & \vrule\ # & \vrule\ # & \vrule\hfill # \hfill \vrule\cr\noalign{\hrule} $
+\alpha$ & 0 & 0.1 & 0.2 & 0.3 & 0.4 & 0.5 & 0.6 \cr\noalign{\hrule}ne\'usp. vyh. & 1 & 1.005 & 1.019 & 1.041 & 1.07 & 1.107 & 1.149 \cr\noalign{\hrule} \'usp\v e\v s. vyh. & 1 & 1.05 & 1.1 & 1.15 & 1.2 & 1.25 & 1.3 \cr\noalign{\hrule}}}}\hbox{\vbox {\offinterlineskip\halign{\strut\vrule\ # & \vrule\ # & \vrule\ # & \vrule\ # & \vrule\ # & \vrule\ # & \vrule\hfill # \hfill \vrule\cr\noalign{\hrule} $
+\alpha$ & 0.7 & 0.8 & 0.9 & 1 & 2 & 3 \cr\noalign{\hrule}ne\'usp. vyh. & 1.196 & 1.249 & 1.307 & 1.368 & 2.135 & 3.05 \cr\noalign{\hrule}\'usp\v e\v s. vyh. & 1.35 & 1.4 & 1.45 & 1.5 & 2 & 2.5 \cr\noalign{\hrule}}}}}$$
+
+\flushpar V\v simn\v ete si, \v ze o\v cek\'avan\'y po\v cet test\accent23u 
+p\v ri ne\'usp\v e\v sn\'em vy\-hled\'av\'an\'\i\ je men\v s\'\i\ ne\v z o\v cek\'avan\'y 
+po\v cet test\accent23u p\v ri \'usp\v e\v sn\'em vy\-hled\'av\'an\'\i , kdy\v z 
+$\alpha\le 1$. Na prvn\'\i\ pohled vypad\'a tento v\'ysledek nesmysln\v e, 
+ale d\accent23uvod je, \v ze po\v cet test\accent23u p\v ri 
+\'usp\v e\v sn\'em vy\-hled\'av\'an\'\i\ pr\accent23um\v erujeme proti $
+n$, 
+kde\v zto p\v ri ne\'usp\v e\v sn\'em vy\-hled\'av\'an\'\i\ proti $
+m$. Ilustrujeme 
+to na n\'asleduj\'\i c\'\i m p\v r\'\i kladu:\newline 
+Nech\v t $n=\frac m2$ a nech\v t polovina nepr\'azdn\'ych 
+\v ret\v ezc\accent23u m\'a d\'elku $1$ a polovina m\'a d\'elku $
+2$. \newline 
+O\v cek\'avan\'y po\v cet test\accent23u p\v ri ne\'usp\v e\v sn\'em 
+vyhled\'avan\'\i :
+\roster
+\item"{}"
+$1$ test pro pr\'azdn\'e \v ret\v ezce a \v ret\v ezce 
+d\'elky $1$ -- t\v echto p\v r\'\i pad\accent23u je $\frac {5m}6$
+\item"{}"
+$2$ testy pro \v ret\v ezce d\'elky $2$ -- t\v echto p\v r\'\i pad\accent23u je 
+$\frac m6$.
+\endroster
+O\v cek\'avan\'y po\v cet test\accent23u je 
+$\frac 1m(1\frac {5m}6+2\frac m6)=\frac 76$.\newline 
+O\v cek\'avan\'y po\v cet test\accent23u p\v ri \'usp\v e\v sn\'em 
+vyhled\'av\'an\'\i : 
+\roster
+\item"{}"
+$1$ test pro prvky na prvn\'\i m m\'\i st\v e \v ret\v ezce -- t\v echto 
+p\v r\'\i pad\accent23u je $\frac {2n}3$
+\item"{}"
+$2$ testy pro prvky, kter\'e jsou na druh\'em m\'\i st\v e \v ret\v ezce -- t\v echto 
+p\v r\'\i pad\accent23u je $\frac n3$.
+\endroster
+O\v cek\'avan\'y po\v cet test\accent23u je $\frac 1n(1\frac {2n}
+3+2\frac n3)=\frac 43$.
+
+\flushpar Velikost $\alpha$ je doporu\v cov\'ana men\v s\'\i\ ne\v z $
+1$, ale nem\'a b\'yt 
+hodn\v e mal\'a, proto\v ze by pam\v e\v t nebyla efektivn\v e vyu\v zita. 
+
+
+\heading
+Ha\v sov\'an\'\i\ s uspo\v r\'adan\'ymi separovan\'ymi \v ret\v ezci
+\endheading
+
+\flushpar Vylep\v sen\'\i\ metody: ha\v sov\'an\'\i\ s uspo\v r\'adan\'ymi \v ret\v ezci.
+Rozd\'\i l proti p\accent23uvodn\'\i\ metod\v e -- \v ret\v ezce jsou 
+uspo\v r\'adan\'e ve vzr\accent23usta\-j\'\i c\'\i m po\v rad\'\i . Proto\v ze 
+\v ret\v ezce obsahuj\'\i\ tyt\'e\v z prvky, je po\v cet o\v cek\'a\-va\-n\'ych test\accent23u 
+p\v ri \'usp\v e\v sn\'em vyhled\'av\'an\'\i\ stejn\'y jako u ne\-uspo\v r\'adan\'ych 
+\v ret\v ezc\accent23u. P\v ri ne\'usp\v e\v sn\'em vyhled\'av\'an\'\i\ kon\v c\'\i me, 
+kdy\v z argument operace je men\v s\'\i\ ne\v z vy\v set\v rovan\'y prvek 
+v \v ret\v ez\-ci, tedy kon\v c\'\i me d\v r\'\i v. N\'asleduj\'\i c\'\i\ v\v eta (bez 
+d\accent23ukazu) uv\'ad\'\i\ o\v cekavan\'y po\v cet test\accent23u v 
+ne\'usp\v e\v sn\'em p\v r\'\i pad\v e.
+
+\proclaim{V\v eta}O\v cek\'avan\'y po\v cet test\accent23u p\v ri 
+ne\'usp\v e\v sn\'em vyhled\'av\'an\'\i\ pro ha\v sov\'an\'\i\ s uspo\v r\'a\-dan\'ymi 
+\v ret\v ezci je p\v ribli\v zn\v e $e^{-\alpha}+1+\frac {\alpha}
+2-\frac 1{\alpha}(1-e^{-\alpha})$. O\v cek\'avan\'y 
+po\v cet test\accent23u p\v ri \'usp\v e\v sn\'em vyhled\'av\'an\'\i\ pro 
+ha\v sov\'an\'\i\ s uspo\v r\'adan\'ymi \v ret\v ezci je 
+p\v ribli\v zn\v e $1+\frac {\alpha}2.$
+\endproclaim
+
+\flushpar Uvedeme algoritmy pro operace s uspo\v r\'adan\'ymi 
+\v re\-t\v ez\-ci.
+\medskip
+
+\subhead
+Algoritmy
+\endsubhead
+\smallskip
+
+\flushpar {\bf MEMBER$(x)$}\newline 
+Spo\v c\'\i t\'ame $i:=h(x)$, $t:=NIL$\newline 
+{\bf if} $i$-t\'y seznam je nepr\'azdn\'y {\bf then\newline 
+\phantom{{\rm ---}}$t:=$}prvn\'\i\ prvek $i$-t\'eho seznamu\newline 
+\phantom{---}{\bf while} $t<x$ a $t\ne$posledn\'\i\ prvek $i$-t\'eho seznamu {\bf do\newline 
+\phantom{{\rm ------}}$t:=$}n\'asleduj\'\i c\'\i\ prvek $i$-t\'eho seznamu\newline 
+\phantom{---}{\bf enddo\newline 
+endif \newline 
+if} $t=x$ {\bf then} $x\in S$ {\bf else} $x\notin S$ {\bf endif
+\medskip
+
+\flushpar INSERT$(x)$}\newline 
+Spo\v c\'\i t\'ame $i:=h(x)$, $t:=NIL$\newline 
+{\bf if} $i$-t\'y seznam je nepr\'azdn\'y {\bf then\newline 
+\phantom{{\rm ---}}$t:=$}prvn\'\i\ prvek $i$-t\'eho seznamu\newline 
+\phantom{---}{\bf while} $t<x$ a $t\ne$posledn\'\i\ prvek $i$-t\'eho seznamu {\bf do\newline 
+\phantom{{\rm ------}}$t:=$}n\'asleduj\'\i c\'\i\ prvek $i$-t\'eho seznamu\newline 
+\phantom{---}{\bf enddo\newline 
+endif \newline 
+if} $t\ne x$ {\bf then\newline 
+\phantom{{\rm ---}}if} $x<t$ {\bf then\newline 
+\phantom{{\rm ------}}}vlo\v z\'\i me $x$ do $i$-t\'eho seznamu p\v red prvek $
+t$\newline 
+\phantom{---}{\bf else}\newline  
+\phantom{------}vlo\v z\'\i me $x$ do $i$-t\'eho seznamu za prvek $
+t$\newline 
+\phantom{---}{\bf endif\newline 
+endif
+\medskip
+
+\flushpar DELETE$(x)$}\newline 
+Spo\v c\'\i t\'ame $i:=h(x)$, $t:=NIL$\newline
+{\bf if} $i$-t\'y seznam je nepr\'azdn\'y {\bf then\newline 
+\phantom{{\rm ---}}$t:=$}prvn\'\i\ prvek $i$-t\'eho seznamu\newline 
+\phantom{---}{\bf while} $t<x$ a $t\ne$posledn\'\i\ prvek $i$-t\'eho seznamu {\bf do}\newline 
+\phantom{------}$t:=$n\'asleduj\'\i c\'\i\ prvek $i$-t\'eho seznamu\newline 
+\phantom{---}{\bf enddo\newline 
+endif\newline 
+if} $t=x$ {\bf then} odstran\'\i me $x$ z $i$-t\'eho seznamu {\bf endif
+\bigskip
+
+}\flushpar Nev\'yhody ha\v sovan\'\i\ se separovan\'ymi \v ret\v ezci --\newline 
+\phantom{---}nevyu\v zit\'\i\ alokovan\'e pam\v eti (nehospod\'arn\'e)\newline 
+\phantom{---}pou\v z\'\i v\'an\'\i\ ukazatel\accent23u (cache).\newline 
+
+\flushpar\v Re\v sen\'\i : vyu\v z\'\i t pro \v ret\v ezce p\accent23uvodn\'\i\ tabulku. Pak \v r\'adky tabulky mus\'\i\ m\'\i t strukturu, kter\'a umo\v z\v nuje prohled\'avat \v ret\v ezce, a velikost reprezentovan\'e mno\v ziny 
+m\accent23u\v ze b\'yt nejv\'y\v se rovna velikosti tabulky.  
+\medskip
+\flushpar Polo\v zky tabulky:\newline 
+\phantom{---}key,\newline 
+\phantom{---}odkaz na ulo\v zen\'a data,\newline 
+\phantom{---}polo\v zky pro pr\'aci s tabulkou.\medskip
+
+\flushpar P\v redpokl\'ad\'ame, \v ze data jsou velk\'a, v tom p\v r\'\i pad\v e se 
+ukl\'adaj\'\i\ mimo tabulku. V tabulce je jen odkaz na ulo\v zen\'a data. 
+P\v ri popisu pr\'ace s tabulkou tuto \v c\'ast budeme vynech\'avat (tj. 
+data budou pouze kl\'\i\v c).
+\medskip
+
+\flushpar Podle \v re\v sen\'\i\ kolize d\v el\'\i me d\'al ha\v sov\'an\'\i :
+\roster
+\item"{}"
+ha\v sov\'an\'\i\ s p\v rem\'\i s\v tov\'an\'\i m, ha\v sov\'an\'\i\ s dv\v ema 
+ukazateli, 
+\item"{}"
+sr\accent23ustaj\'\i c\'\i\ ha\v sov\'an\'\i ,
+\item"{}"
+dvojit\'e ha\v sov\'an\'\i\ a ha\v sov\'an\'\i\ s line\'arn\'\i m 
+p\v rid\'av\'an\'\i m.
+\endroster
+
+\heading
+Ha\v sov\'an\'\i\ s p\v rem\'\i s\v tov\'an\'\i m
+\endheading
+
+\flushpar Polo\v zky pro pr\'aci s tabulkou: next, previous\newline 
+\phantom{---}polo\v zka next -- \v c\'\i slo \v r\'adku tabulky 
+obsahuj\'\i c\'\i\ n\'asleduj\'\i c\'\i\ polo\v z\-ku seznamu\newline 
+\phantom{---}polo\v zka previous -- \v c\'\i slo \v r\'adku tabulky obsahuj\'\i c\'\i\ 
+p\v redch\'azej\'\i c\'\i\ polo\v zku seznamu.
+\medskip
+
+\flushpar Proto\v ze velikost tabulky omezuje velikost reprezentovan\'e mno\v ziny, m\accent23u\v ze nastat p\v repln\v en\'\i. O \v re\v sen\'\i\ 
+p\v r\'\i padn\'eho p\v repln\v en\'\i\ pojedn\'ame pozd\v eji na str. 29. Stejn\'y zp\accent23usob \v re\v sen\'\i\ p\v repln\v en\'\i\ se pou\v z\'\i v\'a i v dal\v s\'\i ch metod\'ach, kde velikost tabulky omezuje velikost reprezentovan\'e mno\v ziny.
+\medskip
+
+\flushpar P\v r\'\i klad: $U=\{1,2,\dots,1000\}$, $h(x)=x\bmod10$,\newline 
+ulo\v zen\'a mno\v zina $S=\{1,7,11,53,73,141,161\}$,\newline 
+\v ret\v ezce: $P(1)=(1,141,11,161)$, 
+$P(3)=(73,53)$, $P(7)=(7)$.\newline 
+Ha\v sovac\'\i\ tabulka:
+$$\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}\v r\'adek & key & next & previous\hfil \cr\noalign{\hrule}P(0) & & & \hfill \cr\noalign{\hrule}P(1) & 1 & 9 & \hfill \cr\noalign{\hrule}P(2) & & & \hfill \cr\noalign{\hrule}P(3) & 73 & 6 & \hfill \cr\noalign{\hrule}P(4) & & &\hfill \cr\noalign{\hrule}P(5) & 161 & & 8 \cr\noalign{\hrule}P(6) & 53 & & 3 \cr\noalign{\hrule}P(7) & 7 & &\hfill \cr\noalign{\hrule}P(8) & 11 & 5 & 9 \cr\noalign{\hrule}P(9) & 141 & 8 & 1 \cr\noalign{\hrule}}}$$
+\flushpar Tabulka vznikla n\'asleduj\'\i c\'\i\ posloupnost\'\i\ 
+operac\'\i :\newline 
+{\bf INSERT$(1)$}, {\bf INSERT$(141)$}, {\bf INSERT$(11)$}, {\bf INSERT$
+(73)$}, 
+{\bf INSERT$(53)$},\newline 
+{\bf INSERT$(7)$}, {\bf INSERT$(161)$}. 
+\medskip
+
+\subhead
+Algoritmy
+\endsubhead
+\smallskip
+
+\flushpar {\bf MEMBER$(x)$}\newline 
+Spo\v c\'\i t\'ame $i:=h(x)$\newline 
+{\bf if} $i.previous\ne$pr\'azdn\'e nebo $i.key=$pr\'azdn\'e {\bf then V\'ystup}: $
+x\notin S$, stop {\bf endif \newline 
+while} $i.next\ne$pr\'azdn\'e a $i.key\ne x$ {\bf do} $i:=i.next$ {\bf enddo\newline 
+if} $i.key=x$ {\bf then V\'ystup}: $x\in S$ {\bf else V\'ystup}: $
+x\notin S$ {\bf endif\medskip
+
+\flushpar DELETE$(x)$}\newline 
+Spo\v c\'\i t\'ame $i:=h(x)$\newline 
+{\bf if} $i.previous\ne$pr\'azdn\'e nebo $i.key=$pr\'azdn\'e {\bf then} stop {\bf endif\newline 
+while} $i.next\ne$pr\'azdn\'e a $i.key\ne x$ {\bf do} $i:=i.next$ {\bf enddo \newline 
+if} $i.key=x$ {\bf then}\newline  
+\phantom{---}{\bf if} $i.previous\ne$pr\'azdn\'e {\bf then}\newline 
+\phantom{------}$(i.previous).next:=i.next$\newline 
+\phantom{------}{\bf if} $i.next\ne$pr\'azdn\'e {\bf then} $(i.n
+ext).previous:=i.previous$ {\bf endif}\newline 
+\phantom{------}$i.key:=i.next:=i.previous:=$ pr\'azdn\'e \newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}{\bf if} $i.next\ne$pr\'azdn\'e {\bf then}\newline 
+\phantom{---------}$i.key:=(i.next).key$, $i.next:=(i.next).next$\newline 
+\phantom{---------}{\bf if} $((i.next).next)\ne$pr\'azdn\'e {\bf then} $
+((i.next).next).previous:=i$ {\bf endif}\newline 
+\phantom{---------}$(i.next).key:=(i.next).next:=(i.next).previous:=$ pr\'azdn\'e \newline 
+\phantom{------}{\bf else}\newline 
+\phantom{---------}$i.key:=$ pr\'azdn\'e \newline 
+\phantom{------}{\bf endif}\newline 
+\phantom{---}{\bf endif\newline 
+endif
+\bigskip
+
+\flushpar INSERT$(x)$}\newline 
+Spo\v c\'\i t\'ame $i:=h(x)$\newline
+{\bf if} $i.key=NIL$ {\bf then} $i.key:=x$, stop {\bf endif}\newline 
+{\bf if} $i.previous\ne NIL${\bf then}\newline 
+\phantom{---}{\bf if} neexistuje pr\'azdn\'y \v r\'adek tabulky {\bf then}\newline 
+\phantom{------}{\bf V\'ystup}: p\v repln\v en\'\i\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}nech\v t $j$ je voln\'y \v r\'adek tabulky\newline 
+\phantom{------}$j.key:=i.key$, $j.previous:=i.previous$, $j.next:=i.next$, $(j.previous).next:=j$\newline 
+\phantom{------}{\bf if} $j.next\ne NIL$ {\bf then} $(j.next).previous:=j$ {\bf endif}\newline 
+\phantom{---------}$i,key:=x$, $i.next:=i.previous:=$pr\'azdn\'e\newline 
+\phantom{------}{\bf endif}\newline 
+\phantom{---}{\bf endif\newline 
+else}\newline 
+\phantom{---}{\bf while} $i.next\ne NIL$ a $i.key\ne x$ {\bf do} $i:=i.next$ {\bf enddo}\newline 
+\phantom{---}{\bf if} $i.key\ne x$ {\bf then}\newline 
+\phantom{------}{\bf if} neexistuje pr\'azdn\'y \v r\'adek tabulky {\bf then}\newline 
+\phantom{---------}{\bf V\'ystup}: p\v repln\v en\'\i\newline 
+\phantom{------}{\bf else}\newline 
+\phantom{---------}nech\v t $j$ je voln\'y \v r\'adek tabulky\newline 
+\phantom{---------}$i.next:=j$, $j.key:=x$, $j.previous:=i$\newline 
+\phantom{------}{\bf endif}\newline 
+\phantom{---}{\bf endif\newline
+endif}
+\bigskip
+
+\flushpar V p\v r\'\i kladu provedeme {\bf INSERT$(28)$}, nov\'y \v r\'adek je 4. \v r\'adek\newline 
+-- v\'ysledn\'a ha\v sovac\'\i\ tabulka
+$$\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}\v r\'adek & key & next & previous\hfil \cr\noalign{\hrule}P(0) & & &\hfill \cr\noalign{\hrule}P(1) & 1 & 9 &\hfill \cr\noalign{\hrule}P(2) & & &\hfill \cr\noalign{\hrule}P(3) & 73 & 6 &\hfill \cr\noalign{\hrule}P(4) & 11 & 5 & 9 \cr\noalign{\hrule}P(5) & 161 & & 4 \cr\noalign{\hrule}P(6) & 53 & & 3 \cr\noalign{\hrule}P(7) & 7 & &\hfill \cr\noalign{\hrule}P(8) & 28 &  &\hfill  \cr\noalign{\hrule}P(9) & 141 & 4 & 1 \cr\noalign{\hrule}}}$$
+
+\flushpar O\v cek\'avan\'y po\v cet test\accent23u je stejn\'y jako pro 
+ha\v sov\'an\'\i\ se se\-pa\-ro\-va\-n\'y\-mi \v ret\v ezci:\newline 
+\phantom{---}\'usp\v e\v sn\'e vyhled\'av\'an\'\i : $\frac {n-1}{
+2m}+1\approx 1+\frac {\alpha}2$\newline 
+\phantom{---}ne\'usp\v e\v sn\'e vyhled\'av\'an\'\i : $(1-\frac 1
+m)^n+\frac nm\approx e^{-\alpha}+\alpha$,\newline 
+kde $m=$ velikost tabulky, $n=$ velikost $S$, tj. po\v cet ulo\v zen\'ych 
+prvk\accent23u, $\alpha =\frac nm=$ faktor zapln\v en\'\i .
+
+\heading
+Ha\v sov\'an\'\i\ s dv\v ema ukazateli
+\endheading
+
+\flushpar Nev\'yhodou ha\v sov\'an\'\i\ s p\v rem\'\i s\v tov\'an\'\i m je v operaci 
+{\bf INSERT} p\v r\'\i pad, \v ze $previous$ $h(i)$-t\'eho \v r\'adku je nepr\'azdn\'y. Pak p\v rem\'\i s\v tujeme polo\v zku na $h(i)$-t\'em \v r\'adku na voln\'y \v r\'adek a to vy\v zaduje v\'\i ce \v casu -- operace s p\v rem\'\i st\v en\'\i m 
+polo\v zky. Toto odstra\v nuje dal\v s\'\i\ implementace ha\v sov\'an\'\i\ se 
+separuj\'\i c\'\i mi \v ret\v ezci.
+\smallskip
+
+\flushpar Polo\v zky pro pr\'aci s tabulkou -- next, 
+begin\newline 
+\phantom{---}Polo\v zka next -- \v c\'\i slo \v r\'adku tabulky obsahuj\'\i c\'\i\ 
+n\'asleduj\'\i c\'\i\ polo\v z\-ku seznamu\newline 
+\phantom{---}Polo\v zka begin -- \v c\'\i slo \v r\'adku tabulky obsahuj\'\i c\'\i\ prvn\'\i\ polo\v zku seznamu 
+s touto adresou\newline 
+
+\flushpar Stejn\'a data jako v minul\'em p\v r\'\i pad\v e\newline 
+
+\flushpar Ha\v sovac\'\i\ tabulka:
+$$\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}\v r\'adek & key & next & begin \hfil \cr\noalign{\hrule}P(0) & & & \hfill \cr\noalign{\hrule}P(1) & 1 & 9 & 1 \cr\noalign{\hrule}P(2) & & & \hfill \cr\noalign{\hrule}P(3) & 73 & 7 & 3 \cr\noalign{\hrule}P(4) & & &\hfill \cr\noalign{\hrule}P(5) & 161 & & \hfill \cr\noalign{\hrule}P(6) & 7 & & \hfill \cr\noalign{\hrule}P(7) & 53 & & 6 \cr\noalign{\hrule}P(8) & 11 & 5 & \hfill \cr\noalign{\hrule}P(9) & 141 & 8 & \hfill \cr\noalign{\hrule}}}$$
+
+\flushpar Tabulka vznikla n\'asleduj\'\i c\'\i\ posloupnost\'\i\ 
+operac\'\i :\newline 
+{\bf INSERT$(1)$}, {\bf INSERT$(141)$}, {\bf INSERT$(11)$}, {\bf INSERT$
+(73)$}, 
+{\bf INSERT$(53)$}, {\bf INSERT$(7)$}, {\bf INSERT$(161)$}. 
+\medskip
+
+\subhead
+Algoritmy
+\endsubhead
+\smallskip
+
+\flushpar {\bf MEMBER$(x)$}\newline 
+Spo\v c\'\i t\'ame $i:=h(x)$\newline 
+{\bf if} $i.begin=$pr\'azdn\'e {\bf then V\'ystup}: $x\notin S$, stop {\bf else} $i:=i.begin$ {\bf endif\newline 
+while} $i.next\ne$pr\'azdn\'e a $i.key\ne x$ {\bf do} $i:=i.next$ {\bf enddo \newline 
+if} $i.key=x$ {\bf then V\'ystup}: $x\in S$ {\bf else V\'ystup}: $
+x\notin S$ {\bf endif
+\bigskip
+
+\flushpar DELETE$(x)$}\newline 
+Spo\v c\'\i t\'ame $i:=h(x)$\newline 
+{\bf if} $i.begin=$pr\'azdn\'e {\bf then} stop {\bf else} $j:=i$, $
+i:=i.begin$ {\bf endif\newline 
+while} $i.next\ne$pr\'azdn\'e a $i.key\ne x$ {\bf do} $j:=i$, $i:
+=i.next$ {\bf enddo \newline 
+if} $i.key=x$ {\bf then\newline 
+\phantom{{\rm ---}}if} $i=j.begin$ {\bf then\newline 
+\phantom{{\rm ------}}if} $i.next\ne$pr\'azdn\'e {\bf then\newline 
+\phantom{{\rm ---------}}$j.begin:=i.next$\newline 
+\phantom{{\rm ------}}else\newline 
+\phantom{{\rm ---------}}$j.begin:=$}pr\'azdn\'e\newline 
+\phantom{------}{\bf endif\newline 
+\phantom{{\rm ---}}else\newline 
+\phantom{{\rm ------}}$j.next:=i.next$\newline 
+\phantom{{\rm ---}}endif\newline 
+\phantom{{\rm ---}}$i.key:=i.next:=$}pr\'azdn\'e\newline 
+{\bf endif
+\bigskip
+
+\flushpar INSERT$(x)$}\newline 
+Spo\v c\'\i t\'ame $i:=h(x)$\newline 
+{\bf if} $i.begin=$pr\'azdn\'e {\bf then}\newline 
+\phantom{---}{\bf if} $i.key=$pr\'azdn\'e {\bf then}\newline 
+\phantom{------}$i.key:=x$, $i.begin:=i$\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}{\bf if} neexistuje pr\'azdn\'y \v r\'adek tabulky {\bf then}\newline 
+\phantom{---------}{\bf V\'ystup}: p\v repln\v en\'\i\newline 
+\phantom{------}{\bf else}\newline 
+\phantom{---------}nech\v t $j$ je voln\'y \v r\'adek tabulky\newline 
+\phantom{---------}$j.key=x$, $i.begin:=j$\newline 
+\phantom{------}{\bf endif}\newline 
+\phantom{---}{\bf endif\newline 
+else}\newline 
+\phantom{---}$i:=i.begin$\newline
+\phantom{---}{\bf while} $i.next\ne$pr\'azdn\'e a $i.key\ne x$ {\bf do} $i:=i.next$ {\bf enddo}\newline 
+\phantom{---}{\bf if} $i.key\ne x$ {\bf then}\newline 
+\phantom{------}{\bf if} neexistuje pr\'azdn\'y \v r\'adek tabulky {\bf then}\newline 
+\phantom{---------}{\bf V\'ystup}: p\v repln\v en\'\i\newline 
+\phantom{------}{\bf else}\newline 
+\phantom{---------}nech\v t $j$ je voln\'y \v r\'adek tabulky\newline 
+\phantom{---------}$i.next:=j$, $j.key:=x$\newline 
+\phantom{------}{\bf endif}\newline 
+\phantom{---}{\bf endif\newline 
+endif}
+\bigskip
+
+\flushpar V p\v r\'\i kladu provedeme {\bf INSERT$(28)$}, nov\'y \v r\'adek je 4. 
+\v r\'adek\newline 
+-- v\'ysledn\'a ha\v sovac\'\i\ tabulka
+$$\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}\v r\'adek & key & next & begin\hfil \cr\noalign{\hrule}P(0) & & &\hfill \cr\noalign{\hrule}P(1) & 1 & 9 & 1 \cr\noalign{\hrule}P(2) & & &\hfill \cr\noalign{\hrule}P(3) & 73 & 7 & 3 \cr\noalign{\hrule}P(4) & 28 &  &\hfill \cr\noalign{\hrule}P(5) & 161 & & \hfill \cr\noalign{\hrule}P(6) & 7 & &\hfill \cr\noalign{\hrule}P(7) & 53 & & 6 \cr\noalign{\hrule}P(8) & 11 & 5 & 4  \cr\noalign{\hrule}P(9) & 141 & 8 & \hfill \cr\noalign{\hrule}}}$$
+
+\flushpar Algoritmus p\v ri pr\'aci s polo\v zkami je rychlej\v s\'\i\ ne\v z p\v ri 
+ha\v sov\'an\'\i\ s p\v rem\'\i s\v tov\'an\'\i m, ale za\v c\'atek \v ret\v ezce v 
+jin\'em m\'\i st\v e tabulky p\v rid\'av\'a jeden test. V\'ysledek bez 
+odvozov\'an\'\i :\newline 
+O\v cek\'avan\'y po\v cet test\accent23u:\newline 
+\phantom{---}\'usp\v e\v sn\'y p\v r\'\i pad: $1+\frac {(n-1)(n-2
+)}{6m^2}+\frac {n-1}{2m}\approx 1+\frac {\alpha^2}6+\frac {\alpha}
+2$\newline 
+\phantom{---}ne\'usp\v e\v sn\'y p\v r\'\i pad: $\approx 1+\frac {
+\alpha^2}2+\alpha +e^{-\alpha}(2+\alpha )-2$.
+
+\heading
+Sr\accent23ustaj\'\i c\'\i\ ha\v sov\'an\'\i
+\endheading
+
+\flushpar Sr\accent23ustaj\'\i c\'\i\ ha\v sov\'an\'\i\ se d\v el\'\i\ podle pr\'ace s 
+pam\v et\'\i\ na standardn\'\i\ a na sr\accent23ustaj\'\i c\'\i\ ha\v sov\'an\'\i\ 
+s pomocnou pam\v et\'\i\ (kter\'e se naz\'yv\'a jen 
+sr\accent23ustaj\'\i c\'\i\ ha\v sov\'an\'\i ) a podle zp\accent23usobu 
+p\v rid\'av\'an\'\i\ dal\v s\'\i ho prvku.
+\medskip
+
+\flushpar Pop\'\i\v seme metody:\newline 
+\phantom{---}Standardn\'\i\ sr\accent23ustaj\'\i c\'\i\ ha\v sov\'an\'\i : LISCH, EISCH,\newline 
+\phantom{---}Sr\accent23ustaj\'\i c\'\i\ ha\v sov\'an\'\i : LICH, VICH, EICH.
+\medskip
+
+\flushpar V\v sechny metody pro pr\'aci s tabulkou pou\v z\'\i vaj\'\i\ jen 
+polo\v zku next -- \v c\'\i slo \v r\'adku tabulky obsahuj\'\i c\'\i\ 
+n\'asleduj\'\i c\'\i\ polo\v zku seznamu. 
+
+\flushpar Z\'akladn\'\i\ idea: \v ret\v ezec za\v c\'\i n\'a na sv\'em m\'\i st\v e, ale 
+pokud u\v z tam byl ulo\v zen 
+n\v ejak\'y \'udaj, pak \v ret\v ezec tohoto \'udaje sroste s \v ret\v ezcem 
+za\v c\'\i naj\'\i c\'\i m na tomto \v r\'adku. To znamen\'a, \v ze prvky \v ret\v ezce, kter\'y za\v c\'\i n\'a na tomto m\'\i st\v e, budou ulo\v zeny v \v ret\v ezci, kter\'y u\v z je ulo\v zen na tomto m\'\i st\v e, ale jen od tohoto m\'\i sta d\'al.
+\medskip
+
+\subhead
+Metody EISCH a LISCH
+\endsubhead
+
+\phantom{---}EISCH -- early-insertion standard coalesced hashing\newline 
+\phantom{---}LISCH -- late-insertion standard coalesced hashing.
+ 
+\flushpar Organizace tabulky je stejn\'a jako v p\v redchoz\'\i ch 
+p\v r\'\i padech.\newline 
+Z\'akladn\'\i\ ideje: LISCH p\v rid\'av\'a nov\'y prvek na konec 
+\v ret\v ezce, \newline 
+EISCH p\v rid\'av\'a nov\'y prvek $x$ do \v ret\v ezce na 
+\v r\'adek $h(x)$ (pokud je pr\'azdn\'y) nebo hned za prvek na \v r\'adku $h(x)$\newline 
+
+\flushpar P\v r\'\i klad: $U=\{1,2,\dots,1000\}$, $h(x)=x\bmod10$\newline 
+mno\v zina $S=\{1,7,11,53,73,141,171\}$ je ulo\v zena 
+v ha\v sovac\'\i\ tabulce
+$$\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}\v r\'adek & key & next \hfil \cr\noalign{\hrule}P(0) & &\hfill \cr\noalign{\hrule}P(1) & 1 & 9 \cr\noalign{\hrule}P(2) & &\hfill \cr\noalign{\hrule}P(3) & 73 & 6 \cr\noalign{\hrule}P(4) &  &\hfill \cr\noalign{\hrule}P(5) & 7 & \hfill \cr\noalign{\hrule}P(6) & 53 &\hfill \cr\noalign{\hrule}P(7) & 161 & 5 \cr\noalign{\hrule}P(8) & 11 & 7  \cr\noalign{\hrule}P(9) & 141 & 8 \cr\noalign{\hrule}}}$$
+
+\flushpar Tabulka pro metodu LISCH vznikla n\'asleduj\'\i c\'\i\ posloupnost\'\i\ 
+operac\'\i :\newline 
+{\bf INSERT$(1)$}, {\bf INSERT$(141)$}, {\bf INSERT$(11)$}, {\bf INSERT$
+(73)$}, 
+{\bf INSERT$(53)$},\newline 
+{\bf INSERT$(161)$}, {\bf INSERT$(7)$}.\newline 
+Pro metodu EISCH tabulka vznikla n\'asleduj\'\i c\'\i\ posloupnost\'\i\ 
+operac\'\i :\newline 
+{\bf INSERT$(1)$}, {\bf INSERT$(161)$}, {\bf INSERT$(11)$}, {\bf INSERT$
+(73)$}, 
+{\bf INSERT$(53)$}, {\bf INSERT$(7)$}, {\bf INSERT$(141)$}. 
+
+\flushpar Provedeme {\bf INSERT$(28)$}, p\v rid\'av\'ame do \v cvrt\'eho r\'adku, v\'y\-sled\-n\'a tabulka vlevo je pro meto\-du 
+LISCH, vpravo pro metodu EISCH.
+$$\vbox {\hbox{\vtop{\offinterlineskip\halign{\strut\vrule\ # & \vrule\ # & \vrule\hfil# \hfil\vrule\cr\noalign{\hrule}\v r\'adek & key & next \hfil\cr\noalign{\hrule}P(0) & &\hfill \cr\noalign{\hrule}P(1) & 1 & 9 \cr\noalign{\hrule}P(2) & &\hfill \cr\noalign{\hrule}P(3) & 73 & 6 \cr\noalign{\hrule}P(4) & 28 &\hfill \cr\noalign{\hrule}P(5) & 7 & 4 \cr\noalign{\hrule}P(6) & 53 &\hfill \cr\noalign{\hrule}P(7) & 161 & 5 \cr\noalign{\hrule}P(8) & 11 & 7 \cr\noalign{\hrule}P(9) & 141 & 8 \cr\noalign{\hrule}}}\qquad\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}\v r\'adek & key & next \hfil \cr\noalign{\hrule}P(0) & &\hfill \cr\noalign{\hrule}P(1) & 1 & 9 \cr\noalign{\hrule}P(2) & &\hfill \cr\noalign{\hrule}P(3) & 73 & 6 \cr\noalign{\hrule}P(4) & 28 & 7 \cr\noalign{\hrule}P(5) & 7 & \hfill \cr\noalign{\hrule}P(6) & 53 & \hfill \cr\noalign{\hrule}P(7) & 161 & 5 \cr\noalign{\hrule}P(8) & 11 & 4  \cr\noalign{\hrule}P(9) & 141 & 8 \cr\noalign{\hrule}}}}}$$
+\medskip
+
+\subhead
+Algoritmy
+\endsubhead
+\smallskip
+
+\flushpar Algoritmus operace {\bf MEMBER} je pro ob\v e metody stejn\'y.
+\bigskip
+
+\flushpar {\bf MEMBER$(x)$}\newline 
+Spo\v c\'\i t\'ame $i:=h(x)$\newline 
+{\bf while} $i.next\ne$pr\'azdn\'e a $i.key\ne x$ {\bf do} $i:=i.
+next$ {\bf enddo \newline 
+if} $i.key=x$ {\bf then V\'ystup}: $x\in S$ {\bf else V\'ystup}: $
+x\notin S$ {\bf endif}
+\bigskip
+
+\flushpar Metoda LISCH -- {\bf INSERT$(x)$}\newline 
+Spo\v c\'\i t\'ame $i:=h(x)$\newline 
+{\bf while} $i.next\ne$pr\'azdn\'e a $i.key\ne x$ {\bf do} $i:=i.
+next$ {\bf enddo \newline 
+if} $i.key\ne x$ {\bf then}\newline 
+\phantom{---}{\bf if} neexistuje pr\'azdn\'y \v r\'adek tabulky {\bf then}\newline 
+\phantom{------}{\bf V\'ystup}: p\v repln\v en\'\i\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}nech\v t $j$ je pr\'azdn\'y \v r\'adek $j.
+key:=x$, 
+$i.next:=j$\newline 
+\phantom{---}{\bf endif\newline 
+endif}
+\bigskip
+
+\flushpar Metoda EISCH -- {\bf INSERT$(x)$}\newline 
+Spo\v c\'\i t\'ame $k:=i:=h(x)$\newline 
+{\bf while} $i.next\ne$pr\'azdn\'e a $i.key\ne x$ {\bf do} $i:=i.
+next$ {\bf enddo \newline 
+if} $i.key\ne x$ {\bf then}\newline 
+\phantom{---}{\bf if} neexistuje pr\'azdn\'y \v r\'adek tabulky {\bf then}\newline 
+\phantom{------}{\bf V\'ystup}: p\v repln\v en\'\i\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}nech\v t $j$ je voln\'y \v r\'adek tabulky\newline 
+\phantom{------}$j.next:=k.next$, $k.next:=j$, $j.key:=x$\newline 
+\phantom{---}{\bf endif\newline 
+endif}
+\bigskip
+
+\flushpar Efektivn\'\i\ operace {\bf DELETE}  nen\'\i\ zn\'am\'a, ale i primitivn\'\i\ 
+algoritmy pro operaci {\bf DELETE} maj\'\i\ rozumnou o\v cek\'avanou 
+\v casovou slo\v zitost.
+\medskip
+
+\subhead
+Anal\'yza slo\v zitosti t\v echto algoritm\accent23u
+\endsubhead
+\smallskip
+
+\flushpar Popis situace: Ulo\v zena mno\v zina 
+$S=\{s_1,s_2,\dots,s_n\}$ do ta\-bulky velikosti $m$, je d\'an 
+prvek $s_{n+1}$ a m\'ame zjistit, zda $s_{n+1}\in S$. Ozna\v cme 
+$a_i=h(s_i)$ pro $i=1,2,\dots,n+1$, kde $h$ je pou\v zit\'a ha\v sovac\'\i\ 
+funkce.\newline 
+P\v redpoklad: v\v sechny posloupnosti $a_1,a_2,\dots,a_{n+1}$ jsou 
+{\bf stejn\v e pravd\v epodobn\'e}. V\'yb\v er pr\'azdn\'eho \v r\'adku je 
+pevn\v e dan\'y, to znamen\'a, \v ze p\v ri stejn\v e obsazen\'ych 
+\v radc\'\i ch dostaneme v\v zdy stejn\'y pr\'azdn\'y \v r\'adek.  
+\medskip
+
+\subhead
+Ne\'usp\v e\v sn\'e vyhled\'av\'an\'\i\ ($s_{n+1}\notin S$) 
+\endsubhead
+\smallskip
+
+\flushpar Ozna\v cen\'\i : $C(a_1,a_2,\dots,a_n;a_{n+1})$ ozna\v cuje po\v cet 
+test\accent23u pro zji\v s\-t\v en\'\i , \v ze $s_{n+1}\notin S$. Plat\'\i : 
+o\v cek\'avan\'y po\v cet test\accent23u p\v ri 
+ne\'usp\v e\v sn\'em vy\-hled\'av\'an\'\i\ v mno\v zin\v e $S$ je 
+$$\frac {\sum C(a_1,a_2,\dots,a_n;a_{n+1})}{m^{n+1}},$$
+kde se s\v c\'\i t\'a p\v res v\v sechny posloupnosti $a_1,a_2,\dots
+,a_{n+1}$ -- 
+a t\v ech je $m^{n+1}$. \newline 
+\v Ret\v ezec d\'elky $l$ v mno\v zin\v e $S$ je maxim\'aln\'\i\ posloupnost 
+adres $(b_1,b_2,\dots,b_l)$ takov\'a, \v ze $b_i.next=b_{i+1}$ pro 
+$i=1,2,\dots,l-1$.
+Kdy\v z adresa $a_{n+1}$ je $i$-t\'y prvek v \v ret\v ezci, pak po\v cet 
+test\accent23u je $l-i+1$. \v Ret\v ezec d\'elky $l$ p\v risp\v el k sou\v ctu 
+$\sum C(a_1,a_2,\dots,a_n;a_{n+1})$ po\v ctem test\accent23u $1+2+\dots+l=l+\binom l2$. 
+
+\flushpar$c_n(l)=$ po\v cet v\v sech \v ret\v ezc\accent23u d\'elky $
+l$ ve v\v sech 
+reprezentac\'\i ch $n$-prvkov\'ych mno\v zin (ztoto\v z\v nuje\-me dv\v e 
+mno\v ziny, kter\'e m\v ely stej\-nou posloupnost adres p\v ri 
+ukl\'adan\'\i\ prvk\accent23u), pak 
+$$\align\sum C(a_1,a_2,&\dots,a_n;a_{n+1})=c_n(0)+\sum_{l=1}^n(l+\binom 
+l2)c_n(l)\\
+&=c_n(0)+\sum_{l=1}^nlc_n(l)+\sum_{l=1}^n\binom l2c_n(l),\endalign$$
+kde $c_n(0)$ je po\v cet pr\'azdn\'ych \v r\'adk\accent23u ve v\v sech 
+reprezentac\'\i ch. \newline 
+Reprezentace $S$ m\'a $m-n$ pr\'azdn\'ych \v r\'adk\accent23u,\newline 
+v\v sech posloupnost\'\i\ $n$-adres je $m^n$, proto 
+$$c_n(0)=(m-n)m^n.$$
+$\sum_{l=1}^nlc_n(l)$ je celkov\'a d\'elka v\v sech \v ret\v ezc\accent23u ve 
+v\v sech tabulk\'ach reprezentuj\'\i c\'\i ch v\v sechny $n$-prvkov\'e 
+mno\v ziny, a proto 
+$$\sum_{l=1}^nlc_n(l)=nm^n.$$
+Spo\v c\'\i t\'ame $S_n=\sum_{l=1}^n\binom l2c_n(l)$.  Nejprve rekurentn\'\i\ vztah 
+pro $c_n(l)$.  P\v rid\'av\'ame prvek s adresou $a_{n+1}$.  Pak \v ret\v ezec 
+d\'elky $l$ v reprezentaci $S$ z\accent23ustal stejn\'y, kdy\v z 
+adresa $a_{n+1}$ nele\v zela v tomto \v ret\v ezci, v opa\v cn\'em p\v r\'\i pad\v e 
+se d\'elka \v ret\v ezce zv\v et\v sila na $l+1$.  Proto p\v rid\'an\'\i\ jednoho 
+prvku vytvo\v rilo z \v ret\v ezce d\'elky $l$ celkem $m-l$ 
+\v ret\v ezc\accent23u d\'elky $l$ a $l$ \v ret\v ezc\accent23u d\'elky $
+l+1$.  
+Vys\v c\'\i t\'an\'\i m p\v res v\v sechny $n$-prvkov\'e posloupnosti adres 
+dost\'av\'ame 
+$$c_{n+1}(l)=(m-l)c_n(l)+(l-1)c_n(l-1).$$
+
+\flushpar Odtud
+$$\align S_n=&\sum_{l=1}^n\binom l2c_n(l)=\\
+&\sum_{l=1}^n\big(\binom l2(m-l)c_{n-1}(l)+\binom l2(l-1)c_{n-1}(
+l-1)\big)=\\
+&\big(\sum_{l=1}^n\binom l2(m-l)c_{n-1}(l)\big)+\big(\sum_{l=0}^{
+n-1}\binom {l+1}2lc_{n-1}(l)\big)=\\
+&\binom n2(m-n)c_{n-1}(n)+\\
+&\big(\sum_{l=1}^{n-1}(\binom l2(m-l)+\binom {l+1}2l)c_{n-1}(l)\big
+)+\binom 120c_{n-1}(0)=\\
+&\sum_{l=1}^{n-1}\binom l2(m+2)c_{n-1}(l)+\sum_{l=1}^{n-1}lc_{n-1}
+(l)=\\
+&(m+2)S_{n-1}+(n-1)m^{n-1},\endalign$$
+kde jsme pou\v zili, \v ze $c_{n-1}(n)=0$, a identitu
+$$\align(m-l)\binom l2+l\binom {l+1}2=&\frac 12(l^2m-lm-l^3+l^2+l^
+3+l^2)=\\
+&\frac 12(l^2m-lm+2l^2)=\\
+&\frac 12(l^2m-lm+2(l^2-l))+l=\\
+&(m+2)\binom l2+l.\endalign$$
+
+\flushpar Rekurence pro $S_n$ d\'av\'a 
+$$\align S_n=&(m+2)S_{n-1}+(n-1)m^{n-1}=\\
+&(m+2)^2S_{n-2}+(m+2)(n-2)m^{n-2}+(n-1)m^{n-1}=\\
+&(m+2)^3S_{n-3}+(m+2)^2(n-3)m^{n-3}+\\
+&(m+2)(n-2)m^{n-2}+(n-1)m^{n-1}=\\
+&(m+2)^{n-1}S_0+\sum_{i=0}^{n-1}(m+2)^i(n-1-i)m^{n-1-i}=\\
+&(m+2)^{n-1}\sum_{i=0}^{n-1}(n-1-i)\big(\frac m{m+2}\big)^{n-1-i}
+=\\
+&(m+2)^{n-1}\sum_{i=1}^{n-1}i\big(\frac m{m+2}\big)^i,\endalign$$
+kde jsme vyu\v zili, \v ze $S_0=0$. Spo\v c\'\i t\'ame sou\v cet 
+$T_c^n=\sum_{i=1}^nic^i$ pro $n=1,2,\dots$ a $c\ne 1$. Z
+$cT_c^n=\sum_{i=1}^nic^{i+1}$ plyne 
+$$\align(c-1)T_c^n=&cT_c^n-T_c^n=\sum_{i=2}^{n+1}(i-1)c^i-\sum_{i
+=1}^nic^i=\\
+&nc^{n+1}+\big(\sum_{i=2}^n((i-1)c^i-ic^i)\big)-c=\\
+&nc^{n+1}+\big(\sum_{i=2}^n-c^i\big)-c=\\
+&nc^{n+1}-\sum_{i=1}^nc^i=nc^{n+1}-\frac {c^{n+1}-c}{c-1}=\\
+&\frac {nc^{n+2}-(n+1)c^{n+1}+c}{c-1}.\endalign$$
+
+\flushpar Tedy plat\'\i\ 
+$$T_c^n=\frac {nc^{n+2}-(n+1)c^{n+1}+c}{(c-1)^2}.$$
+Proto\v ze $\frac m{m+2}\ne 1$, dost\'av\'ame, \v ze 
+$$\align S_n=&(m+2)^{n-1}\frac {(n-1)\big(\frac m{m+2}\big)^{n+1}
+-n\big(\frac m{m+2}\big)^n+\frac m{m+2}}{\big(\frac m{m+2}-1\big)^
+2}=\\
+&\frac 14(m+2)^{n+1}\big[(n-1)\big(\frac m{m+2}\big)^{n+1}-n\big(\frac 
+m{m+2}\big)^n+\frac m{m+2}\big]=\\
+&\frac 14\big[(n-1)m^{n+1}-n(m+2)m^n+m(m+2)^n\big]=\\
+&\frac 14\big(m(m+2)^n-m^{n+1}-2nm^n\big).\endalign$$
+O\v cek\'avan\'y po\v cet test\accent23u p\v ri ne\'usp\v e\v sn\'em 
+vyhled\'av\'an\'\i\ je  
+$$\align&\frac {(m-n)m^n+nm^n+\frac 14\big(m(m+2)^n-m^{n+1}-2nm^n\big
+)}{m^{n+1}}=\\
+&\frac {m^{n+1}+\frac 14\big(m(m+2)^n-m^{n+1}-2nm^n\big)}{m^{n+1}}
+=\\
+&1+\frac 14\big((1+\frac 2m)^n-1-\frac {2n}m\big)\sim 1+\frac 14(
+e^{2\alpha}-1-2\alpha ).\endalign$$
+Tento odhad je stejn\'y pro ob\v e metody -- LISCH i EISCH, 
+proto\v ze maj\'\i\ stejn\'e posloupnosti adres (li\v s\'\i\ se jen po\v rad\'\i m 
+prvk\accent23u v jednotliv\'ych \v ret\v ezc\'\i ch).
+\medskip
+
+\subhead
+\'Usp\v e\v sn\'y p\v r\'\i pad ($s_{n+1}\in S$)
+\endsubhead
+\smallskip
+
+\flushpar O\v cek\'avan\'y po\v cet test\accent23u p\v ri \'usp\v e\v sn\'em 
+vyhled\'av\'an\'\i\ v modelu LISCH spo\v c\'\i t\'ame stejnou meto\-dou jako 
+pro ha\v sov\'an\'\i\ se separuj\'\i c\'\i mi \v ret\v ezci.  Pro vyhled\'an\'\i\ prvku 
+$s_{n+1}\in S$ je po\v cet test\accent23u roven $1+$po\v cet porovn\'an\'\i\ 
+kl\'\i\v c\accent23u p\v ri operaci {\bf INSERT$(s_{n+1})$.}  Kdy\v z $
+s_{n+1}$ je vlo\v zen 
+na m\'\i sto $h(s_{n+1})$, nebyl porovn\'av\'an \v z\'adn\'y kl\'\i\v c a test bude $
+1$, 
+kdy\v z $h(s_{n+1})$ byl na na $i$-t\'em m\'\i st\v e v \v ret\v ezci d\'elky $
+l$, pak bylo 
+p\v ri operaci {\bf INSERT$(s_{n+1})$} pou\v zito $l-i+1$ porovn\'an\'\i\ kl\'\i\v c\accent23u 
+a te\v d se pou\v zije $l-i+2$ test\accent23u. Podle p\v redchoz\'\i\ \v c\'asti anal\'yzy dostaneme, \v ze o\v cek\'avan\'y po\v cet 
+porovn\'an\'\i\ kl\'\i\v c\accent23u p\v ri ne\'usp\v e\v sn\'em vyhled\'av\'an\'\i\ je 
+$$\align&\frac 1{m^{n+1}}(\sum_{l=1}^n(l+\binom l2)c_n(l))=\\
+&\frac 1{m^{n+1}}(nm^n+\frac 14\big(m(m+2)^n-m^{n+1}-2nm^n\big))=\\
+&\frac 14\big((1+\frac 2m)^n-1+\frac {2n}m\big).\endalign$$
+Tedy o\v cek\'avan\'y po\v cet test\accent23u p\v ri \'usp\v e\v sn\'em 
+vy\-hled\'av\'an\'\i\ v $n$-prvkov\'e mno\v zin\v e je podle 
+p\v red\-cho\-z\'\i\ anal\'yzy 
+roven $1+n$-tina sou\v ctu o\v cek\'avan\'eho po\v ctu porovn\'an\'\i\ 
+kl\'\i\v c\accent23u p\v ri ne\'usp\v e\v sn\'em vy\-hled\'av\'an\'\i\ v $
+i$-prvkov\'e 
+mno\v zin\v e, kde $i$ prob\'\i h\'a \v c\'\i sla $0,1,\dots,n-1$.  Podle p\v redchoz\'\i ch 
+v\'ysledk\accent23u je hledan\'y sou\v cet 
+$$\align\sum_{i=0}^{n-1}\frac 14\big[(1+\frac 2m)^i-&1+\frac {2i}
+m\big]=\frac 14\frac {(1+\frac 2m)^n-1}{1+\frac 2m-1}-\frac n4+\frac {\binom 
+n2}{2m}=\\
+&\frac m8\big((1+\frac 2m)^n-1-\frac {2n}m\big)+\frac {n^2-n}{4m}
+.\endalign$$
+Tedy o\v cek\'avan\'y po\v cet test\accent23u v \'usp\v e\v sn\'em 
+p\v r\'\i pad\v e pro $n$-prvko\-vou mno\v zinu je 
+$$1+\frac m{8n}\big((1+\frac 2m)^n-1-\frac {2n}m\big)+\frac {n-1}{
+4m}\sim 1+\frac 1{8\alpha}(e^{2\alpha}-1-2\alpha )+\frac {\alpha}
+4.$$
+Pro metodu EISCH je o\v cek\'av\'an\'y po\v cet test\accent23u v 
+\'usp\v e\v sn\'em p\v r\'\i pa\-d\v e 
+$$\frac mn\big((1+\frac 1m)^n-1\big)\sim\frac 1{\alpha}(e^{\alpha}
+-1).$$
+V\'ypo\v cet je ale komplikovan\v ej\v s\'\i , mus\'\i\ se pou\v z\'\i t slo\v zit\v ej\v s\'\i\ metoda (metoda EISCH d\'av\'a nov\'y prvek hned za m\'\i sto, kde m\'a b\'yt ulo\v zen). Chyba aproximace 
+pro tyto odhady je $O(\frac 1m)$. 
+\medskip
+
+\subhead
+Metody LICH, EICH, VICH
+\endsubhead
+
+\phantom{---}LICH -- late-insertion coalesced hashing\newline 
+\phantom{---}EICH -- early-insertion coalesced hashing\newline 
+\phantom{---}VICH -- varied-insertion coalesced hashing.
+\medskip
+
+\flushpar Z\'akladn\'\i\ idea: Metody pou\v z\'\i vaj\'\i\ pomocnou pam\v e\v t. 
+Tabulka je rozd\v elen\'a na adresovac\'\i\ \v c\'ast a na pomocnou 
+pam\v e\v t, kter\'a nen\'\i\ dostupn\'a pomoc\'\i\ ha\v sovac\'\i\ funkce, 
+ale pom\'ah\'a p\v ri \v re\v sen\'\i\ koliz\'\i . Metody se li\v s\'\i\ operac\'\i\ 
+{\bf INSERT}. V\v sechny metody p\v ri kolizi nejprve pou\v zij\'\i\ \v r\'adek 
+tabulky z pomocn\'e \v c\'asti a teprve, kdy\v z je pomocn\'a \v c\'ast 
+zapln\v ena, pou\v z\'\i vaj\'\i\ adresovac\'\i\ \v c\'ast.\newline 
+Metoda LICH: p\v ri {\bf INSERT}u vkl\'ad\'a prvek v\v zdy na konec 
+\v re\-t\v ez\-ce.\newline 
+Metoda EICH: p\v ri {\bf INSERT}u vkl\'ad\'a prvek $x$ do \v ret\v ezce v\v zdy 
+na m\'\i sto hned za \v r\'adkem $h(x)$.\newline 
+Metoda VICH: P\v ri {\bf INSERT}u, kdy\v z nov\'y \v r\'adek je z 
+pomocn\'e \v c\'asti, tak je vlo\v zen s nov\'ym prvkem na konec 
+\v ret\v ezce, kdy\v z je pomocn\'a \v c\'ast pam\v eti vy\v cer\-p\'a\-na, tak se 
+\v r\'adek s nov\'ym prvkem vkl\'ad\'a do \v ret\v ezce za posled\-n\'\i\ 
+\v r\'adek z pomocn\'e \v c\'asti tabulky. Kdy\v z \v ret\v ezec neobsahuje 
+\v z\'adn\'y \v r\'adek z pomocn\'e pam\v eti, tak se \v r\'adek s nov\'ym  prvkem $
+x$ vkl\'ad\'a hned za \v r\'adek $h(x)$. 
+\medskip
+
+\flushpar Idea: pomocn\'a \v c\'ast m\'a zabr\'anit rychl\'emu 
+sr\accent23ust\'an\'\i\ \v ret\v ezc\accent23u.
+\medskip
+
+\flushpar Tyto metody nepodporuj\'\i\ p\v rirozen\'e efektivn\'\i\ algoritmy 
+pro ope\-raci {\bf DELETE}.
+
+\flushpar P\v r\'\i klad: $U=\{1,2,\dots,1000\}$, $h(x)=x\bmod10$,\newline 
+$S=\{1,7,11,53,73,141,161\}$. Tabulka m\'a 12 \v r\'adk\accent23u a 
+m\'a tvar
+$$\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}\v r\'adek & key & next \hfil \cr\noalign{\hrule}P(0) & &\hfill \cr\noalign{\hrule}P(1) & 1 & 10 \cr\noalign{\hrule}P(2) & &\hfill \cr\noalign{\hrule}P(3) & 73 & 11 \cr\noalign{\hrule}P(4) &  &\hfill \cr\noalign{\hrule}P(5) & 7 & \hfill \cr\noalign{\hrule}P(6) & &\hfill \cr\noalign{\hrule}P(7) & 161 & 5 \cr\noalign{\hrule}P(8) & 11 & 7 \cr\noalign{\hrule}P(9) & &\hfill \cr\noalign{\hrule}\noalign{\hrule}P(10) & 141 & 8 \cr\noalign{\hrule}P(11) & 53 & \cr\noalign{\hrule}}}$$
+
+\flushpar Ha\v sovac\'\i\ tabulka vznikla posloupnostmi operac\'\i :\newline 
+Pro metodu LICH:\newline 
+{\bf INSERT$(1)$}, {\bf INSERT$(73)$}, {\bf INSERT$(141)$}, 
+{\bf INSERT$(53)$}, {\bf INSERT$(11)$},\newline 
+{\bf INSERT$(161)$}, {\bf INSERT$(7)$}.\newline 
+Pro metodu EICH:\newline 
+{\bf INSERT$(1)$}, {\bf INSERT$(73)$}, {\bf INSERT$(161)$}, 
+{\bf INSERT$(53)$}, {\bf INSERT$(11)$},\newline 
+{\bf INSERT$(141)$}, {\bf INSERT$(7)$},
+
+\flushpar ale nedodr\v zovalo se, \v ze se nejd\v r\'\i v zapl\v nuj\'\i\ \v r\'adky z 
+pomocn\'e \v c\'asti.  P\v ri dodr\v zov\'an\'\i\ tohoto pravidla takov\'ato tabulka 
+nem\accent23u\v ze vznik\-nout.\newline 
+Pro metodu VICH:\newline 
+{\bf INSERT$(1)$}, {\bf INSERT$(73)$}, {\bf INSERT$(141)$}, 
+{\bf INSERT$(53)$}, {\bf INSERT$(161)$},\newline 
+{\bf INSERT$(11)$}, {\bf INSERT$(7)$}. 
+
+\flushpar Aplikujeme operace {\bf INSERT$(28)$} a {\bf INSERT$(31
+)$}, nov\'e \v r\'ad\-ky 
+budou \v r\'adky \v c\'\i slo 4 a 9. Tabulka vytvo\v ren\'a pomoc\'\i\ 
+metody LICH je na lev\'e stran\v e, metodou VICH je v 
+prost\v redku a metodou EICH je na prav\'e stran\v e.
+
+$\vbox {\hbox{\vtop{\offinterlineskip\halign{\strut\vrule\ # & \vrule\ # & \vrule\hfil # \hfil\vrule\cr\noalign{\hrule}\v r\'adek & key & next \hfil\cr\noalign{\hrule}P(0) & &\hfill \cr\noalign{\hrule}P(1) & 1 & 10 \cr\noalign{\hrule}P(2) & &\hfill \cr\noalign{\hrule}P(3) & 73 & 11 \cr\noalign{\hrule}P(4) & 28 & 9 \cr\noalign{\hrule}P(5) & 7 & 4 \cr\noalign{\hrule}P(6) &  &\hfill \cr\noalign{\hrule}P(7) & 161 & 5 \cr\noalign{\hrule}P(8) & 11 & 7 \cr\noalign{\hrule}P(9) & 31 &\hfill \cr\noalign{\hrule}\noalign{\hrule}P(10) & 141 & 8 \cr\noalign{\hrule}P(11) & 53 & \hfill \cr\noalign{\hrule}}}\,\vtop{\offinterlineskip\halign{\strut\vrule\ # & \vrule\ # & \vrule\hfil# \hfil\vrule\cr\noalign{\hrule}\v r\'adek & key & next \hfil\cr\noalign{\hrule}P(0) & &\hfill \cr\noalign{\hrule}P(1) & 1 & 10 \cr\noalign{\hrule}P(2) & &\hfill \cr\noalign{\hrule}P(3) & 73 & 11 \cr\noalign{\hrule}P(4) & 28 & 7 \cr\noalign{\hrule}P(5) & 7 & \hfill \cr\noalign{\hrule}P(6) &  &\hfill \cr\noalign{\hrule}P(7) & 161 & 5 \cr\noalign{\hrule}P(8) & 11 & 4 \cr\noalign{\hrule}P(9) & 31 & 8 \cr\noalign{\hrule}\noalign{\hrule}P(10) & 141 & 9 \cr\noalign{\hrule}P(11) & 53 & \hfill \cr\noalign{\hrule}}}\,\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}\v r\'adek & key & next \hfil \cr\noalign{\hrule}P(0) & &\hfill \cr\noalign{\hrule}P(1) & 1 & 9 \cr\noalign{\hrule}P(2) & &\hfill \cr\noalign{\hrule}P(3) & 73 & 11 \cr\noalign{\hrule}P(4) & 28 & 7 \cr\noalign{\hrule}P(5) & 7 & \hfill \cr\noalign{\hrule}P(6) & & \hfill \cr\noalign{\hrule}P(7) & 161 & 5 \cr\noalign{\hrule}P(8) & 11 & 4  \cr\noalign{\hrule}P(9) & 31 & 10 \cr\noalign{\hrule}\noalign{\hrule}P(10) & 141 & 8 \cr\noalign{\hrule}P(11) & 53 & \hfill \cr\noalign{\hrule}}}}}$
+\medskip
+
+\subhead
+Algoritmy
+\endsubhead
+\smallskip
+
+\flushpar Algoritmus operace {\bf MEMBER} je pro tyto metody 
+stejn\'y jako pro LISCH a EISCH
+\bigskip
+
+\flushpar {\bf MEMBER$(x)$}\newline 
+Spo\v c\'\i t\'ame $i:=h(x)$\newline 
+{\bf while} $i.next\ne$pr\'azdn\'e a $i.key\ne x$ {\bf do} $i:=i.
+next$ {\bf enddo\newline 
+if} $i.key=x$ {\bf then V\'ystup}: $x\in S$ {\bf else V\'ystup}: $
+x\notin S$ {\bf endif
+\medskip
+
+}\flushpar Algoritmus operace {\bf INSERT} je pro metodu LICH stejn\'y 
+jako pro metodu LISCH a pro metodu EICH je stejn\'y jako 
+pro metodu EISCH s jedin\'ym dopl\v nkem, pokud existuje 
+pr\'azdn\'y \v r\'adek v pomocn\'e \v c\'asti, tak $j$-t\'y \v r\'adek je z 
+pomocn\'e \v c\'asti. Tento p\v redpoklad je i pro algoritmus 
+{\bf INSERT} pro metodu VICH.
+\bigskip
+
+\flushpar Metoda LICH -- {\bf INSERT$(x)$}\newline 
+Spo\v c\'\i t\'ame $i:=h(x)$\newline 
+{\bf if} $i.next=NIL$ {\bf then} $i.next=x$, stop {\bf endif\newline 
+while} $i.next\ne NIL$ a $i.key\ne x$ {\bf do} $i:=i.next$ {\bf enddo\newline 
+if} $i.key\ne x$ {\bf then}\newline 
+\phantom{---}{\bf if} neexistuje pr\'azdn\'y \v r\'adek tabulky {\bf then}\newline 
+\phantom{------}{\bf V\'ystup}: p\v repln\v en\'\i\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}nech\v t $j$ je pr\'azdn\'y \v r\'adek, $j
+.key:=x$, $i.next:=j$\newline 
+\phantom{---}{\bf endif\newline 
+endif}
+\bigskip
+
+\flushpar Metoda EICH -- {\bf Insert$(x)$}\newline 
+Spo\v c\'\i t\'ame $k:=i:=h(x)$\newline 
+{\bf if} $i.next=NIL$ {\bf then} $i.next=x$, stop {\bf endif\newline 
+while} $i.next\ne NIL$ a $i.key\ne x$ {\bf do} $i:=i.next$ {\bf enddo\newline 
+if} $i.key\ne x$ {\bf then}\newline 
+\phantom{---}{\bf if} neexistuje pr\'azdn\'y \v r\'adek tabulky {\bf then}\newline 
+\phantom{------}{\bf V\'ystup}: p\v repln\v en\'\i\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}nech\v t $j$ je voln\'y \v r\'adek tabulky\newline 
+\phantom{------}$j.next:=k.next$, $k.next:=j$, $j.key:=x$\newline 
+\phantom{---}{\bf endif\newline 
+endif}
+\bigskip
+
+\flushpar Metoda VICH -- {\bf INSERT$(x)$}\newline 
+Spo\v c\'\i t\'ame $i:=h(x)$\newline 
+{\bf if} $i.next=NIL$ {\bf then} $i.next=x$, stop {\bf endif\newline 
+while} $i.next\ne NIL$ a $i.key\ne x$ {\bf do}\newline 
+\phantom{---}{\bf if} $k$ nen\'\i\ definov\'ano a $i.next<m$ {\bf then} $k:=i$ {\bf endif\newline 
+Pozn\'amka}: Podm\'\i nka pro $k$ je spln\v ena, kdy\v z jsme byli na 
+za\v c\'atku nebo v pomocn\'e \v c\'asti, podm\'\i nka na $i.next$ je 
+spln\v ena, kdy\v z $i.next$ nen\'\i\ v pomocn\'e \v c\'asti.\newline 
+\phantom{---}$i:=i.next$\newline 
+{\bf enddo\newline 
+if} $i.key\ne x$ {\bf then}\newline 
+\phantom{---}{\bf if} neexistuje pr\'azdn\'y \v r\'adek {\bf then}\newline 
+\phantom{------}{\bf V\'ystup}: p\v repln\v en\'\i\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}nech\v t $j$ je voln\'y \v r\'adek, $j.key:=x$\newline 
+\phantom{------}{\bf if} $k$ nen\'\i\ definov\'ano {\bf then}\newline 
+\phantom{---------}$i.next:=j$\newline 
+\phantom{------}{\bf else}\newline 
+\phantom{---------}$j.next:=k.next$, $k.next:=j$\newline 
+\phantom{------}{\bf endif}\newline 
+\phantom{---}{\bf endif\newline 
+endif}
+\bigskip
+
+\flushpar Slo\v zitost algoritm\accent23u pro sr\accent23ustaj\'\i c\'\i\ ha\v sov\'an\'\i .\newline 
+Zna\v cen\'\i : $n$ -- velikost ulo\v zen\'e mno\v ziny,\newline 
+$m$ -- velikost adresovac\'\i\ \v c\'asti tabulky,\newline 
+$m'$ -- velikost tabulky,\newline 
+$\alpha =\frac n{m'}$ -- faktor zapln\v en\'\i ,\newline 
+$\beta =\frac m{m'}$ -- adresovac\'\i\ faktor,\newline 
+$\lambda$ -- jedin\'e nez\'aporn\'e \v re\v sen\'\i\ rovnice $e^{
+-\lambda}+\lambda =\frac 1{\beta}$.
+\medskip
+
+\flushpar O\v cek\'avan\'y po\v cet test\accent23u pro metodu LICH\newline 
+ne\'usp\v e\v sn\'y p\v r\'\i pad:\newline 
+\phantom{---}$e^{-\frac {\alpha}{\beta}}+\frac {\alpha}{\beta}$, kdy\v z  $
+\alpha\le\lambda\beta$, \newline 
+\phantom{---}$\frac 1{\beta}+\frac 14(e^{2(\frac {\alpha}{\beta}-
+\lambda )}-1)(3-\frac 2{\beta}+2\lambda )-\frac 12(\frac {\alpha}{
+\beta}-\lambda )$, kdy\v z $\alpha\ge\lambda\beta$\newline 
+\'usp\v e\v sn\'y p\v r\'\i pad:\newline 
+\phantom{---}$1+\frac {\alpha}{2\beta}$, kdy\v z $\alpha\le\lambda
+\beta$, \newline 
+\phantom{---}$1+\frac {\beta}{8\alpha}(e^{2(\frac {\alpha}{\beta}
+-\lambda )}-1-2(\frac {\alpha}{\beta}-\lambda ))(3-\frac 2{\beta}
++2\lambda )+\frac 14(\frac {\alpha}{\beta}+\lambda )+\frac {\lambda}
+4(1-\frac {\lambda\beta}{\alpha})$, 
+kdy\v z $\alpha\ge\lambda\beta$.
+\medskip
+
+\flushpar O\v cek\'avan\'y po\v cet test\accent23u pro metodu EICH\newline 
+ne\'usp\v e\v sn\'y p\v r\'\i pad:\newline 
+\phantom{---}$e^{-\frac {\alpha}{\beta}}+\frac {\alpha}{\beta}$, kdy\v z  $
+\alpha\le\lambda\beta$, \newline 
+\phantom{---}$e^{2(\frac {\alpha}{\beta}-\lambda )}(\frac 34+\frac {
+\lambda}2-\frac 1{2\beta})+e^{\frac {\alpha}{\beta}-\lambda}(\frac 
+1{\beta}-1)+(\frac 14-\frac {\alpha}{2\beta}+\frac 1{2\beta})$, kdy\v z $
+\alpha\ge\lambda\beta$\newline 
+\'usp\v e\v sn\'y p\v r\'\i pad:\newline 
+\phantom{---}$1+\frac {\alpha}{2\beta}$, kdy\v z $\alpha\le\lambda
+\beta$, \newline 
+\phantom{---}$1+\frac {\alpha}{2\beta}+\frac {\beta}{\alpha}((e^{\frac {
+\alpha}{\beta}-\lambda}-1)(1+\lambda )-(\frac {\alpha}{\beta}-\lambda 
+))(1+\frac {\lambda}2+\frac {\alpha}{2\beta}))$, kdy\v z $\alpha\ge
+\lambda\beta$.
+\medskip
+
+\flushpar O\v cek\'avan\'y po\v cet test\accent23u pro metodu VICH\newline 
+ne\'usp\v e\v sn\'y p\v r\'\i pad:\newline 
+\phantom{---}$e^{-\frac {\alpha}{\beta}}+\frac {\alpha}{\beta}$, kdy\v z  $
+\alpha\le\lambda\beta$, \newline 
+\phantom{---}$\frac 1{\beta}+\frac 14(e^{2(\frac {\alpha}{\beta}-
+\lambda )}-1)(3-\frac 2{\beta}+2\lambda )-\frac 12(\frac {\alpha}{
+\beta}-\lambda )$, kdy\v z $\alpha\ge\lambda\beta$\newline 
+\'usp\v e\v sn\'y p\v r\'\i pad:\newline 
+\phantom{---}$1+\frac {\alpha}{2\beta}$, kdy\v z $\alpha\le\lambda
+\beta$, \newline 
+\phantom{---}$1+\frac {\alpha}{2\beta}+\frac {\beta}{\alpha}((e^{\frac {
+\alpha}{\beta}-\lambda}-1)(1+\lambda )-(\frac {\alpha}{\beta}-\lambda 
+))(1+\frac {\lambda}2+\frac {\alpha}{2\beta}))+\frac {1-\beta}{\alpha}
+(\frac {\alpha}{\beta}-\lambda -e^{\frac {\alpha}{\beta}-\lambda}
++1)$, 
+kdy\v z $\alpha\ge\lambda\beta$.
+\medskip
+\flushpar Chyba aproximace pro tyto odhady je $O(\log\frac {m'}{\sqrt {
+m'}})$.
+
+
+\heading
+Ha\v sov\'an\'\i\ s line\'arn\'\i m p\v rid\'av\'an\'\i m
+\endheading
+
+\flushpar Tabulka m\'a jedinou polo\v zku -- key
+\medskip
+
+\flushpar Z\'akladn\'\i\ idea:  P\v ri operaci {\bf INSERT$(x)$} vlo\v z\'\i me $
+x$ 
+na \v r\'adek $h(x)$, kdy\v z je pr\'azdn\'y, v opa\v cn\'em p\v r\'\i pad\v e 
+nalezneme nejmen\v s\'\i\ $i$ takov\'e, \v ze \v r\'adek $h(x)+i\bmod 
+m$ je 
+pr\'azdn\'y, a tam vlo\v z\'\i me $x$. Tato metoda byla motivov\'ana snahou o co nejv\v et\v s\'\i\ vyu\v zit\'\i\ pam\v eti. 
+\medskip
+
+\flushpar Koment\'a\v r:  Metoda vy\v zaduje minim\'aln\'\i\ velikost pam\v eti.  
+V tabulce se vytv\'a\v rej\'\i\ shluky pou\v zit\'ych \v r\'adk\accent23u, a proto 
+p\v ri velk\'em zapln\v en\'\i\ metoda vy\v zaduje velk\'y po\v cet test\accent23u.  
+Metoda nepodporuje efektivn\'\i\ implementaci operace {\bf DELETE}.  
+P\v ri vy\-hle\-d\'a\-v\'a\-n\'\i\ je t\v reba testovat, zda nevy\v set\v rujeme 
+podruh\'e prvn\'\i\ vy\v set\v rovan\'y \v r\'adek, a pro zji\v st\v en\'\i\ p\v repln\v en\'\i\ je 
+vhodn\'e m\'\i t ulo\v zen po\v cet vypln\v en\'ych \v r\'adk\accent23u v tabulce. Pro standarn\'\i\ pam\v eti nen\'\i\ v\'yhodn\'a. P\v ri pou\v zit\'\i\ cache-pam\v eti se v\'yrazn\v e m\v en\'\i\ jej\'\i\ hodnocen\'\i. D\accent23uvodem je, \v ze v tomto p\v r\'\i pad\v e hraje kl\'\i\v covou roli nikoliv po\v cet test\accent23u, ale po\v cet p\v rechod\accent23u mezi r\accent23uzn\'ymi \'urovn\v emi pam\v eti. Proto\v ze tabulka je reprezentovan\'a polem, tak je tento po\v cet men\v s\'\i\ ne\v z u jin\'ych metod. Proto se tato metoda doporu\v cuje pro po\v c\'\i ta\v ce s cache-pam\v et\'\i .
+\bigskip
+
+\flushpar {\bf MEMBER$(x)$}\newline 
+Spo\v c\'\i t\'ame $i:=h(x)$, $h:=i$\newline 
+{\bf if} $i.key=x$ {\bf then V\'ystup} $x\in S$, stop {\bf endif\newline 
+if} $i.key=$pr\'azdn\'y {\bf then {{\rm V\'ystup}}}: $x\notin S$, stop {\bf endif\newline 
+$i:=i+1$\newline 
+while} $i.key\ne$pr\'azdn\'y a $i.key\ne x$ a $i\ne h$ {\bf do} $
+i:=i+1\bmod m$ {\bf enddo\newline 
+if} $i.key=x$ {\bf then V\'ystup}: $x\in S$ {\bf else V\'ystup}: $
+x\notin S$ {\bf endif
+\bigskip
+
+\flushpar INSERT$(x)$}\newline 
+Spo\v c\'\i t\'ame $i:=h(x)$, $j:=0$\newline 
+{\bf while} $i.key\ne$pr\'azdn\'y a $i.key\ne x$ a $j<m$ {\bf do} $
+i:=i+1\bmod m${\bf ,} $j:=j+1$ {\bf enddo\newline 
+if} $j=m$ {\bf then V\'ystup}: p\v repln\v en\'\i , stop {\bf endif\newline 
+if} $i.key=$pr\'azdn\'y {\bf then} $i.key:=x$ {\bf endif}
+\bigskip
+
+\flushpar P\v r\'\i klad: M\'ame universum $U=\{1,2,\dots,1000\}$, 
+ha\v sovac\'\i\ funk\-ci $h(x)=x\bmod10$ a mno\v zinu  
+$S=\{1,7,11,53,73,141,161\}$. Tato mno\v zina je ulo\v zena v lev\'e tabulce. 
+Provedeme operaci {\bf INSERT$(35)$}. V\'ysledek je ulo\v zen v 
+prav\'e tabulce.
+$$\vbox {\hbox{\vtop{\offinterlineskip\halign{\strut\vrule\ # & \vrule\hfil# \hfil\vrule\cr\noalign{\hrule}\v r\'adek & key \hfil\cr\noalign{\hrule}P(0) & \hfill \cr\noalign{\hrule}P(1) & 1 \cr\noalign{\hrule}P(2) & 11 \cr\noalign{\hrule}P(3) & 73 \cr\noalign{\hrule}P(4) & 141 \cr\noalign{\hrule}P(5) & 161 \cr\noalign{\hrule}P(6) & 53 \cr\noalign{\hrule}P(7) & 7 \cr\noalign{\hrule}P(8) & \hfill\cr\noalign{\hrule}P(9) & \hfill \cr\noalign{\hrule}}}\qquad\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}\v r\'adek & key \hfil \cr\noalign{\hrule}P(0) & \hfill \cr\noalign{\hrule}P(1) & 1 \cr\noalign{\hrule}P(2) & 11 \cr\noalign{\hrule}P(3) & 73 \cr\noalign{\hrule}P(4) & 141 \cr\noalign{\hrule}P(5) & 161 \cr\noalign{\hrule}P(6) & 53 \cr\noalign{\hrule}P(7) & 7 \cr\noalign{\hrule}P(8) & 35  \cr\noalign{\hrule}P(9) & \hfill \cr\noalign{\hrule}}}}}$$
+
+\flushpar Tabulka vznikla posloupnost\'\i\ operac\'\i :\newline 
+{\bf INSERT$(1)$}, {\bf INSERT$(11)$}, {\bf INSERT$(73)$}, 
+{\bf INSERT$(141)$}, {\bf INSERT$(161)$},\newline 
+{\bf INSERT$(53)$}, {\bf INSERT$(7)$}. 
+
+\flushpar Na z\'av\v er uvedeme slo\v zitost t\'eto metody. O\v cek\'avan\'y 
+po\v cet test\accent23u:\newline 
+\phantom{---}ne\'usp\v e\v sn\'y p\v r\'\i pad: $\approx\frac 12(
+1+\big(\frac 1{1-\alpha}\big)^2)$, \newline 
+\phantom{---}\'usp\v e\v sn\'y p\v r\'\i pad: $\approx\frac 12(1+\frac 
+1{1-\alpha})$.
+
+\heading
+Dvojit\'e ha\v sov\'an\'\i
+\endheading
+
+\flushpar Z\'akladn\'\i\ nev\'yhoda p\v redchoz\'\i\ metody je zp\accent23usob 
+v\'yb\v eru dal\-\v s\'\i\-ho \v r\'adku. Je velmi determinov\'an a 
+d\accent23usledkem je vznik shluku \v r\'adk\accent23u, kter\'y 
+vede k v\'yrazn\'emu zpomalen\'\i\ metody. \newline 
+Idea jak odstranit tuto nev\'yhodu: Pou\v zijeme dv\v e 
+ha\v sovac\'\i\ funkce $h_1$ a $h_2$ a p\v ri operaci {\bf INSERT$
+(x)$ }
+nalezneme nejmen\v s\'\i\ $i=0,1,\dots$ takov\'e, \v ze 
+$(h_1(x)+ih_2(x))\bmod m$ je pr\'azdn\'y \v r\'adek, a tam ulo\v z\'\i me 
+prvek $x$.\newline 
+Tabulka m\'a jedinou polo\v zku -- key.\newline 
+Po\v zadavky na korektnost: Pro ka\v zd\'e $x$ mus\'\i\ b\'yt $h_
+2(x)$ a 
+$m$ nesoud\v eln\'e (jinak prvek $x$ nem\accent23u\v ze b\'yt ulo\v zen 
+na libovoln\'em \v r\'adku tabulky). \newline 
+P\v redpoklad pro v\'ypo\v cet o\v cek\'avan\'eho po\v ctu test\accent23u: posloupnost 
+$\{h_1(x)+ih_2(x)\}_{i=0}^{m-1}$ je n\'ahodn\'a permutace mno\v ziny 
+\v r\'adk\accent23u tabulky.\newline 
+Nev\'yhoda: Uveden\'a metoda nepodporuje operaci {\bf DELETE}. \newline 
+Pozn\'amka: Metoda ha\v sov\'an\'\i\ s line\'arn\'\i m p\v rid\'av\'an\'\i m je 
+speci\'al\-n\'\i\ p\v r\'\i pad dvojit\'eho ha\v sov\'an\'\i , kde $
+h_2(x)=1$ pro 
+ka\v zd\'e $x\in U$.
+\medskip
+
+\subhead
+Algoritmy
+\endsubhead
+\bigskip
+
+\flushpar {\bf MEMBER$(x)$}\newline 
+Spo\v c\'\i t\'ame $i:=h_1(x)$, $h:=h_2(x)$, $j:=0$\newline 
+{\bf while} $i.key\ne$pr\'azdn\'y a $i.key\ne x$ a $j<m$ {\bf do} $
+i:=i+h\bmod m$, $j:=j+1$ {\bf enddo\newline 
+if} $i.key=x$ {\bf then V\'ystup}: $x\in S$ {\bf else V\'ystup}: $
+x\notin S$ {\bf endif
+\bigskip
+
+\flushpar INSERT$(x)$}\newline 
+Spo\v c\'\i t\'ame $i:=h_1(x)$, $h:=h_2(x)$, $j:=0$\newline 
+{\bf while} $i.key\ne$pr\'azdn\'y a $i.key\ne x$ a $j<m$ {\bf do} $
+i:=i+h\bmod m$, $j:=j+1$ {\bf enddo\newline 
+if} $j=m$ {\bf then V\'ystup}: p\v repln\v en\'\i , stop {\bf endif\newline 
+if} $i.key=$pr\'azdn\'y {\bf then} $i.key:=x$ {\bf endif}
+\bigskip
+
+\flushpar P\v r\'\i klad: M\v ejme universum $U=\{1,2,\dots,1000
+\}$. 
+Ha\v sovac\'\i\ funkce jsou 
+$h_1(x)=x\bmod10$ a $h_2(x)=1+2(x\bmod4)$, kdy\v z 
+$x\bmod4\in \{0,1\}$, $h_2(x)=3+2(x\bmod4)$, kdy\v z $x\bmod4\in 
+\{2,3\}$. 
+Mno\v zina je  $S=\{1,7,11,53,73,141,161\}$. Tato mno\v zina je ulo\v zena v 
+lev\'e tabulce. Aplikujme {\bf INSERT$(35)$}. Pak $h_2(35)=9$, tedy 
+posloupnost pro $x=35$ je 
+$$(5,4,3,2,1,0,9,8,7,6).$$
+V\'ysledek je ulo\v zen v prav\'e tabulce. 
+$$\vbox {\hbox{\vtop{\offinterlineskip\halign{\strut\vrule\ # & \vrule\hfil# \hfil\vrule\cr\noalign{\hrule}\v r\'adek & key \hfil\cr\noalign{\hrule}P(0) & 11 \cr\noalign{\hrule}P(1) & 1 \cr\noalign{\hrule}P(2) & \hfill \cr\noalign{\hrule}P(3) & 73 \cr\noalign{\hrule}P(4) & 141 \cr\noalign{\hrule}P(5) & 7 \cr\noalign{\hrule}P(6) & 53 \cr\noalign{\hrule}P(7) & 161 \cr\noalign{\hrule}P(8) & \hfill\cr\noalign{\hrule}P(9) & \hfill \cr\noalign{\hrule}}}\qquad\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}\v r\'adek & key \hfil \cr\noalign{\hrule}P(0) & 11 \cr\noalign{\hrule}P(1) & 1 \cr\noalign{\hrule}P(2) & 35 \cr\noalign{\hrule}P(3) & 73 \cr\noalign{\hrule}P(4) & 141 \cr\noalign{\hrule}P(5) & 7 \cr\noalign{\hrule}P(6) & 53 \cr\noalign{\hrule}P(7) & 161 \cr\noalign{\hrule}P(8) & \hfill \cr\noalign{\hrule}P(9) & \hfill \cr\noalign{\hrule}}}}}$$
+
+\flushpar Tabulka vznikla posloupnost\'\i\ operac\'\i :\newline 
+{\bf INSERT$(1)$}, {\bf INSERT$(73)$}, {\bf INSERT$(53)$}, 
+{\bf INSERT$(141)$}, {\bf INSERT$(161)$},\newline 
+{\bf INSERT$(11)$}, {\bf INSERT$(7)$}. 
+
+\flushpar Anal\'yza vyhled\'av\'an\'\i\ v dvojit\'em ha\v sov\'an\'\i .
+\medskip
+\subhead
+Ne\'usp\v e\v sn\'y p\v r\'\i pad
+\endsubhead
+\smallskip
+ 
+\flushpar Zna\v cen\'\i :  $q_i(n,m)$ -- kdy\v z tabulka m\'a $m$ \v r\'adk\accent23u a 
+je v n\'\i\ obsazeno $n$ \v r\'adk\accent23u, tak je to 
+pravd\v epodobnost, \v ze pro ka\v zd\'e $j=0,1,\dots,i-1$ je 
+\v r\'adek $h_1(x)+jh_2(x)$ obsazen. Pak $q_0(n,m)=1$, $q_1(n,m)=\frac 
+nm$, 
+$q_2(n,m)=\frac {n(n-1)}{m(m-1)}$ a obecn\v e 
+$$q_i(n,m)=\frac {\prod_{j=0}^{i-1}(n-j)}{\prod_{j=0}^{i-1}(m-j)}
+.$$
+$C(n,m)$ -- o\v cek\'avan\'y po\v cet test\accent23u v ne\'usp\v e\v sn\'em 
+vyhled\'av\'an\'\i , kdy\v z tabulka m\'a $m$ \v r\'adk\accent23u a $
+n$ jich 
+je obsazeno. Podle definice plat\'\i :
+$$C(n,m)=\sum_{j=0}^n(j+1)(q_j(n,m)-q_{j+1}(n,m))=\sum_{j=0}^nq_j
+(n,m).$$
+D\'ale plat\'\i\ $C(0,m)=1$ pro ka\v zd\'e $m$ a 
+$q_j(n,m)=\frac nmq_{j-1}(n-1,m-1)$ pro v\v sechna $j,n>0$ a $m>1$. 
+Odtud
+$$C(n,m)=\sum_{j=0}^nq_j(n,m)=1+\frac nm(\sum_{j=0}^{n-1}q_j(n-1,
+m-1))=1+\frac nmC(n-1,m-1).$$
+
+\flushpar Indukc\'\i\ uk\'a\v zeme, \v ze $C(n,m)=\frac {m+1}{m-n
++1}$. Kdy\v z $n=0$, pak 
+$C(0,m)=\frac {m+1}{m-0+1}=1$ a tvrzen\'\i\ plat\'\i . P\v redpokl\'ad\'ame, \v ze tvrzen\'\i\ 
+plat\'\i\ pro $n-1\ge 0$ a pro ka\v zd\'e $m\ge n-1$ a dok\'a\v zeme tvrzen\'\i\ 
+pro $n$ a $m\ge n$. Plat\'\i
+$$\align C(n,m)=&1+\frac nmC(n-1,m-1)=\\
+&1+\frac {n((m-1)+1)}{m((m-1)-(n-1)+1)}=\\
+&1+\frac n{m-n+1}=\frac {m+1}{m-n+1}.\endalign$$
+O\v cek\'avan\'y po\v cet dotaz\accent23u p\v ri ne\'usp\v e\v sn\'em 
+vyhled\'av\'an\'\i\ v tabulce s $m$ \v r\'adky, z nich\v z $n$ je obsazeno, 
+je $\frac {m+1}{m-n+1}$.
+\medskip
+
+\subhead
+\'Usp\v e\v sn\'y p\v r\'\i pad
+\endsubhead
+\smallskip
+ 
+\flushpar Pou\v zijeme metodu ze separuj\'\i c\'\i ch \v ret\v ezc\accent23u. 
+Po\v cet dotaz\accent23u p\v ri vyhled\'av\'an\'\i\ $x$ pro $x\in 
+S$ je 
+stejn\'y jako byl po\v cet dotaz\accent23u p\v ri vkl\'ad\'an\'\i\ $
+x$ do 
+tabulky. Tedy o\v cek\'avan\'y po\v cet dotaz\accent23u p\v ri 
+\'usp\v e\v sn\'em vyhled\'av\'an\'\i\ v tabulce s $m$ \v r\'adky, z nich\v z $
+n$ je 
+obsazeno, je
+$$\align\frac 1n\sum_{i=0}^{n-1}C(i,m)=&\frac 1n\sum_{i=0}^{n-1}\frac {
+m+1}{m-i+1}=\\
+&\frac {m+1}n\big(\sum_{j=1}^{m+1}\frac 1j-\sum_{j=1}^{m-n+1}\frac 
+1j\big)\approx\\
+&\frac 1{\alpha}\ln(\frac {m+1}{m-n+1})\approx\frac 1{\alpha}\ln(\frac 
+1{1-\alpha}).\endalign$$
+N\'asleduj\'\i c\'\i\ tabulka ukazuje tyto hodnoty v z\'avislosti na 
+velikosti $\alpha$. 
+$$\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule\ # & \vrule\ # & \vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}hodnota $\alpha$ & 0.5 & 0.7 & 0.9 & 0.95 & 0.99 & 0.999 \hfill \cr\noalign{\hrule}$\frac 1{1-\alpha}$ & 2 & 3.3 & 10 & 20 & 100 & 1000 \cr\noalign{\hrule} $\frac 1{\alpha}\ln(\frac 1{1-\alpha})$ & 1.38 & 1.70 & 2.55 & 3.15 & 4.65 & 6.9 \cr\noalign{\hrule}}}$$
+
+\heading
+Porovn\'an\'\i\ efektivity
+\endheading
+
+\flushpar Po\v rad\'\i\ metod ha\v sov\'an\'\i\ podle o\v cek\'avan\'eho po\v ctu 
+test\accent23u:
+\subhead
+Ne\'usp\v e\v sn\'e vyhled\'av\'an\'\i
+\endsubhead
+
+\flushpar\phantom{---}Ha\v sov\'an\'\i\ s uspo\v r\'adan\'ymi \v ret\v ezci,\newline 
+\phantom{---}Ha\v sov\'an\'\i\ s \v ret\v ezci=Ha\v sov\'an\'\i\ s p\v rem\'\i s\v tov\'an\'\i m,\newline 
+\phantom{---}Ha\v sov\'an\'\i\ s dv\v ema ukazateli,\newline 
+\phantom{---}VICH=LICH,\newline 
+\phantom{---}EICH,\newline 
+\phantom{---}LISCH=EISCH,\newline 
+\phantom{---}Dvojit\'e ha\v sov\'an\'\i ,\newline 
+\phantom{---}Ha\v sov\'an\'\i\ s line\'arn\'\i m p\v rid\'av\'an\'\i m.
+\medskip
+
+\subhead
+\'Usp\v e\v sn\'e vyhled\'av\'an\'\i
+\endsubhead
+
+\flushpar\phantom{---}Ha\v sov\'an\'\i\ s uspo\v r\'adan\'ymi \v ret\v ezci=Ha\v sov\'an\'\i\ s 
+\v ret\v ezci=Ha\v so\-v\'a\-n\'\i\ s p\v rem\'\i s\v tov\'an\'\i m,\newline 
+\phantom{---}Ha\v sov\'an\'\i\ s dv\v ema ukazateli,\newline 
+\phantom{---}VICH,\newline 
+\phantom{---}LICH,\newline 
+\phantom{---}EICH,\newline 
+\phantom{---}EISCH,\newline 
+\phantom{---}LISCH,\newline 
+\phantom{---}Dvojit\'e ha\v sov\'an\'\i ,\newline 
+\phantom{---}Ha\v sov\'an\'\i\ s line\'arn\'\i m p\v rid\'av\'an\'\i m.
+\medskip
+
+\flushpar Pozn\'amka: Metoda VICH p\v ri ne\'usp\v e\v sn\'em vyhled\'av\'an\'\i\ pro 
+$\alpha <0.72$ a p\v ri \'usp\v e\v sn\'em vy\-hled\'av\'an\'\i\ pro $
+\alpha <0.92$ 
+vy\v zaduje men\v s\'\i\ o\v cek\'avan\'y po\v cet test\accent23u ne\v z 
+metoda s dv\v ema ukazateli.
+
+\flushpar P\v ri ne\'usp\v e\v sn\'em vyhled\'av\'an\'\i\ jsou metody VICH a LICH stejn\'e a jsou o 8\% lep\v s\'\i\ ne\v z 
+EICH a o 15\% ne\v z metody LISCH a EISCH. P\v ri \'usp\v e\v sn\'em vyhled\'av\'an\'\i\ 
+je VICH nepatrn\v e lep\v s\'\i\ ne\v z LICH a EICH o 3\% lep\v s\'\i\ ne\v z 
+EISCH a o 7\% lep\v s\'\i\ ne\v z LISCH.
+\medskip
+\subhead
+O\v cek\'avan\'y po\v cet test\accent23u p\v ri \'upln\v e zapln\v en\'e 
+tabulce
+\endsubhead
+
+\flushpar\phantom{---}Metoda s p\v rem\'\i s\v tov\'an\'\i m: ne\'usp\v e\v sn\'e vyhled\'av\'an\'\i\ 1.5, \'usp\v e\v sn\'e 
+vyhled\'av\'an\'\i\ 1.4.\newline 
+\phantom{---}Metoda s dv\v ema ukazateli: \'usp\v e\v sn\'e i ne\'usp\v e\v sn\'e vyhled\'av\'an\'\i\  1.6.\newline 
+\phantom{---}VICH: ne\'usp\v e\v sn\'e vyhled\'av\'an\'\i\ 1.79, \'usp\v e\v sn\'e vyhled\'av\'an\'\i\ 
+1.67.\newline 
+\phantom{---}LICH: ne\'usp\v e\v sn\'e vyhled\'av\'an\'\i\ 1.79, \'usp\v e\v sn\'e vyhled\'av\'an\'\i\ 
+1.69.\newline 
+\phantom{---}EICH: ne\'usp\v e\v sn\'e vyhled\'av\'an\'\i\ 1.93, \'usp\v e\v sn\'e vyhled\'av\'an\'\i\ 
+1.69.\newline 
+\phantom{---}EISCH: ne\'usp\v e\v sn\'e vyhled\'av\'an\'\i\ 2.1, \'usp\v e\v sn\'e vyhled\'av\'an\'\i\ 
+1.72.\newline 
+\phantom{---}LISCH: ne\'usp\v e\v sn\'e vyhled\'av\'an\'\i\ 2.1, \'usp\v e\v sn\'e vyhled\'av\'an\'\i\ 
+1.8.
+\medskip
+
+\flushpar Metodu s line\'arn\'\i m p\v rid\'av\'an\'\i m je dobr\'e pou\v z\'\i t jen pro 
+$\alpha <0.7$, metodu s dvojit\'ym ha\v sov\'an\'\i m pro $\alpha 
+<0.9$, pak 
+\v cas pro ne\'usp\v e\v sn\'e vyhled\'av\'an\'\i\ rychle nar\accent23ust\'a.
+\medskip
+
+\flushpar Vliv $\beta =\frac m{m'}$ p\v ri sr\accent23ustaj\'\i c\'\i m ha\v sov\'an\'\i .\newline 
+P\v ri 
+\'usp\v e\v sn\'em vy\-hled\'av\'an\'\i\ je optim\'aln\'\i\ hodnota $
+\beta =0.85$, p\v ri 
+ne\'usp\v e\v sn\'em vy\-hled\'av\'an\'\i\ je optim\'aln\'\i\ hodnota $
+\beta =0.78$. 
+V praxi se doporu\v cuje pou\v z\'\i t hodnotu $\beta =0.86$ (uveden\'e 
+v\'ysledky byly pro tuto hodnotu $\beta ).$
+\medskip
+
+\flushpar Koment\'a\v r: Metody se separuj\'\i c\'\i mi \v ret\v ezci a 
+sr\accent23ustaj\'\i c\'\i\ ha\v sov\'an\'\i\ pou\v z\'\i vaj\'\i\ v\'\i ce pam\v eti (p\v ri 
+sr\accent23ustaj\'\i c\'\i m ha\v sov\'an\'\i\ sou\v cet adresovac\'\i\ a 
+pomocn\'e \v c\'asti). Metoda s p\v rem\'\i s\v tov\'an\'\i m a metoda 
+dvojit\'eho ha\v sov\'an\'\i\ vy\v zaduj\'\i\ v\'\i ce \v casu -- na p\v rem\'\i st\v en\'\i\ 
+prvku a na v\'ypo\v cet druh\'e ha\v sovac\'\i\ funkce.
+
+\heading
+Dal\v s\'\i\ ot\'azky
+\endheading
+
+\flushpar Jak nal\'ezt voln\'y \v r\'adek.\newline 
+Za nejlep\v s\'\i\ metodu se pova\v zuje m\'\i t seznam (z\'asobn\'\i k) 
+voln\'ych \v r\'adk\accent23u a z jeho vrcholu br\'at voln\'y \v r\'adek 
+a po \'usp\v e\v sn\'e operaci {\bf DELETE} tam zase \v r\'adek vlo\v zit 
+(pozor p\v ri operaci {\bf DELETE} ve struktur\'ach, kter\'e 
+nepodporuj\'\i\ {\bf DELETE}).
+\medskip
+
+\flushpar Jak \v re\v sit p\v repln\v en\'\i .\newline 
+Standardn\'\i\ model: D\'ana z\'akladn\'\i\ velikost tabulky $m$ a 
+pracuje se s tabulkami s $2^im$ \v r\'adky pro vhodn\'e 
+$i=0,1,\dots$. Vhodn\'e $i$ znamen\'a, \v ze faktor zapln\v en\'\i\ $
+\alpha$ je v 
+intervalu $<\frac 14,1>$ (s v\'yjimkou $i=0$, kde se uva\v zuje 
+pouze horn\'\i\ mez). P\v ri p\v rekro\-\v ce\-n\'\i\ meze se zv\v et\v s\'\i\ nebo 
+zmen\v s\'\i\ $i$ a v\v sechna data se p\v reha\v suj\'\i\ do nov\'e 
+tabulky.\newline 
+V\'yhoda: Po p\v reha\v sov\'an\'\i\ do nov\'e tabulky je po\v cet operac\'\i , 
+kter\'e vedou k nov\'emu p\v reha\v sov\'a\-v\'a\-n\'\i , roven alespo\v n polovin\v e 
+velikosti ulo\v zen\'e mno\v ziny.\newline 
+Praktick\'e pou\v zit\'\i : Nedr\v zet se striktn\v e mez\'\i , pou\v z\'\i vat 
+mal\'e pomocn\'e ta\-bul\-ky p\v ri p\v repln\v en\'\i\ a posunout velk\'e 
+p\v reha\v sov\'an\'\i\ na dobu klidu (aby syst\'em nenechal u\v zivatele v 
+norm\'aln\'\i\ dob\v e \v cekat).
+\medskip
+
+\flushpar Jak \v re\v sit {\bf DELETE} v metod\'ach, kter\'e ho 
+nepodporuj\'\i .\newline 
+Pou\v z\'\i t ideu tzv. `fale\v sn\'eho {\bf DELETE}'. 
+Odstranit prvek, ale \v r\'adek neuvolnit (i v kl\'\i\v ci nechat 
+n\v ejakou hodnotu, kter\'a bude znamenat, \v ze \v r\'adek je 
+pr\'azdn\'y, polo\v zky podporuj\'\i c\'\i\ pr\'aci s tabulkami nem\v enit). 
+\v R\'adek nebude v seznamu voln\'ych \v r\'adk\accent23u, ale 
+operace {\bf INSERT}, kdy\v z testuje tento \v r\'adek, tam 
+m\accent23u\v ze vlo\v zit nov\'y prvek. Kdy\v z je alespo\v n 
+polovina pou\v zit\'ych \v r\'adk\accent23u takto blokov\'ana, je 
+vhodn\'e celou strukturu p\v reha\v sovat. Prav\-d\v epodobnostn\'\i\ 
+anal\'yzu tohoto modelu nezn\'am.
+\medskip
+\subhead
+Otev\v ren\'e probl\'emy
+\endsubhead
+\smallskip
+
+\flushpar Jak vyu\v z\'\i t ideje z ha\v sov\'an\'\i\ s uspo\v r\'adan\'ymi 
+\v ret\v ezci pro ostatn\'\i\ metody \v re\v sen\'\i\ koliz\'\i\ 
+(jmeno\-vit\v e pro sr\accent23ustaj\'\i c\'\i\ ha\v sov\'an\'\i ).
+\medskip
+
+\flushpar Jakou metodu pou\v z\'\i t pro operaci {\bf DELETE} ve 
+sr\accent23ustaj\'\i c\'\i m ha\v sov\'an\'\i\ (probl\'em je zachovat n\'ahodnost 
+ulo\v zen\'e mno\v ziny a t\'\i m platnost odhadu na slo\v zitost operac\'\i ). 
+\medskip
+
+\flushpar Jak nal\'ezt druhou ha\v sovac\'\i\ funkci pro metodu 
+dvojit\'eho ha\v so\-v\'a\-n\'\i , aby vznikl\'e posloupnosti adres p\v ri operaci 
+{\bf INSERT} se chovaly jako n\'ahodn\'e.
+\medskip
+
+\subhead
+Z\'av\v er
+\endsubhead
+\smallskip
+
+\flushpar P\v ripome\v nme si p\v redpoklady pro p\v redchoz\'\i\ uveden\'e 
+v\'ysledky o ha\v sov\'an\'\i :
+\roster
+\item
+Ha\v sovac\'\i\ funkce se rychle spo\v c\'\i t\'a (v \v case 
+$O(1)$);
+\item Ha\v sovac\'\i\ funkce rovnom\v ern\v e rozd\v eluje univerzum (to 
+znamen\'a, \v ze pro dv\v e r\accent23uzn\'e hodnoty $i$ a $j$ 
+ha\v sovac\'\i\ funkce plat\'\i\ $-1\le |h^{-1}(i)|-|h^{-1}(j)|\le 
+1$); 
+\item
+Vstupn\'\i\ data jsou rovnom\v ern\v e rozd\v elen\'a.
+\endroster
+
+\flushpar Diskutujme splnitelnost t\v echto p\v redpoklad\accent23u.\newline 
+P\v redpoklad 1) je jasn\'y.\newline 
+P\v redpoklad 2) -- je v\'yhodn\'e, 
+kdy\v z rozd\v elen\'\i\ univerza ha\v sovac\'\i\ funkc\'\i\ kop\'\i ruje zn\'am\'e 
+rozd\v ele\-n\'\i\ vstupn\'\i ch dat. Toto se pou\v zilo p\v ri n\'avrhu 
+p\v reklada\v ce pro FORTRAN (Lum 1971). V p\v reklada\v ci byla pou\v zita metoda separovan\'ych \v ret\v ezc\accent23u a ha\v sovac\'\i\ funkce, 
+kter\'a preferovala obvykl\'e n\'azvy identifik\'ator\accent23u. V\'ysledky byly m\v e\v reny, kdy\v z se p\v reklada\v c FORTRANu pou\v zil pro standardn\'\i\ v\'ypo\v cet. Z\'\i skan\'e v\'ysledky se porovn\'avaly s teoretick\'ymi v\'ypo\v cty za na\v sich p\v redpoklad\accent23u. V 
+n\'asleduj\'\i c\'\i\ tabulce m\accent23u\v zete porovnat v\'ysledky 
+z\'\i skan\'e teoretick\'ymi v\'ypo\v cty a nam\v e\v ren\'e hodnoty.
+Porovn\'an\'\i\ v\'ysledk\accent23u:
+\smallskip
+
+$$\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule\ # & \vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}hodnota $\alpha$ & 0.5 & 0.6 & 0.7 & 0.8 & 0.9 \hfill \cr\noalign{\hrule}experiment & 1.19 & 1.25 & 1.28 & 1.34 & 1.38 \cr\noalign{\hrule}teorie & 1.25 & 1.30 & 1.35 & 1.40 & 1.45 \cr\noalign{\hrule}}}$$
+\medskip
+
+\flushpar Z\'av\v er: Podm\'\i nky 1) a 2) m\accent23u\v zeme splnit, 
+kdy\v z zn\'ame rozlo\v zen\'\i\ vstupn\'\i ch dat, m\accent23u\v zeme 
+dos\'ahnout je\v st\v e lep\v s\'\i ch v\'ysledk\accent23u.
+\medskip
+
+\flushpar Nev\'yhoda: Rozlo\v zen\'\i\ vstupn\'\i ch dat 
+nem\accent23u\v zeme ovlivnit a obvykle ho ani nezn\'ame. Je 
+re\'aln\'e, \v ze rozd\v elen\'\i\ vstupn\'\i ch dat bude nevhodn\'e pro 
+pou\v zitou ha\v sovac\'\i\ funkci. D\accent23usledek -- na po\v c\'atku 
+70. let se za\v calo ustupovat od ha\v sov\'an\'\i . Hledal se postup, 
+kter\'y by se vyhnul uveden\'emu probl\'emu s bodem 3). Nalezen\'emu 
+\v re\v sen\'\i\ je v\v enov\'an n\'asleduj\'\i c\'\i\ text.
+\medskip
+
+
+\heading
+Univerz\'aln\'\i\ ha\v sov\'an\'\i
+\endheading
+
+\flushpar\v Re\v sen\'\i\ navrhli Carter a Wegman (1977), kdy\v z p\v ri\v sli s 
+metodou univerz\'aln\'\i ho ha\v sov\'an\'\i , kter\'a obch\'az\'\i\ po\v za\-davek 3).  
+To vedlo k nov\'emu rozs\'ahl\'emu pou\v z\'\i v\'an\'\i\ ha\v sov\'an\'\i .  
+\medskip
+
+\flushpar Z\'akladn\'\i\ idea: M\'\i sto jedn\'e funkce m\'ame 
+mno\v zinu $H$ funkc\'\i\ z univerza do tabulky velikosti $m$ 
+takov\'ych, \v ze pro ka\v zdou mno\v zinu $S\subseteq U$, $|S|\le 
+m$ se 
+v\v et\v sina funkc\'\i\ chov\'a dob\v re v\accent23u\v ci $S$ (tj. ha\v sovac\'\i\ funkce m\'a jen m\'alo koliz\'\i\ v mno\v zin\v e $S$). 
+Ha\v sovac\'\i\ funkci 
+zvol\'\i me n\'ahodn\v e z $H$ (s rovnom\v ern\'ym rozd\v elen\'\i m) a ha\v sujeme  
+pomoc\'\i\ takto zvo\-len\'e funkce. 
+\medskip
+
+\flushpar Modifikace ideje. Ov\v e\v rov\'an\'\i\ vlastnost\'\i\ vy\v zaduje 
+znalost velikosti mno\v ziny $H$. Rychl\'a vy\v c\'\i slitelnost $
+h(x)$ 
+vy\v zaduje ana\-lytick\'e zad\'an\'\i\ funkc\'\i\ v $H$, ale zji\v st\v en\'\i\ rovnosti 
+dvou analy\-ticky zadan\'ych funkc\'\i\ na univerzu $U$ je 
+problematick\'e. \v Re\v sen\'\i m probl\'emu je pou\v zit\'\i\ indexov\'e mno\v ziny. 
+To znamen\'a, \v ze $H=\{h_i\mid i\in I\}$ a dv\v e funkce jsou r\accent23uzn\'e, 
+kdy\v z maj\'\i\ r\accent23uzn\'e indexy. Pak velikost syst\'emu bude 
+velikost indexov\'e mno\v ziny. M\'\i sto zvolen\'\i\ ha\v sovac\'\i\ funkce 
+budeme volit n\'ahodn\v e index s rovnom\v ern\'ym rozlo\v zen\'\i m a kdy\v z 
+zvol\'\i me index $i$, pak budeme pracovat s ha\v sovac\'\i\ funkc\'\i\ $
+h_i$. 
+O\v cek\'avan\'a hodnota n\'ahodn\'e prom\v enn\'e $f$ z mno\v ziny $
+I$ do 
+re\'aln\'ych \v c\'\i sel bude pr\accent23um\v er p\v res $I$, tj. $\frac {
+\sum_{i\in I}f(i)}{|I|}$.
+
+\flushpar Form\'aln\v e: Nech\v t  $U$ je univerzum. Soubor  
+funkc\'\i\ $H=\{h_i\mid i\in I\}$ z univerza $U$ do mno\v ziny $\{
+0,1,\dots,m-1\}$ se 
+naz\'yv\'a $c$-\emph{univerz\'aln\'\i} ($c$ je kladn\'e re\'aln\'e \v c\'\i slo), 
+kdy\v z 
+$$\forall x,y\in U,\,x\ne y\text{\rm\ plat\'\i\ }|\{i\in I\mid h_
+i(x)=h_i(y)\}|\le\frac {c|I|}m.$$
+\medskip
+
+\flushpar Jako ekvivalentn\'\i\ definici lze pou\v z\'\i t toto tvrzen\'\i : syst\'em funkc\'\i\ $
+H$ z univerza $U$ do mno\v ziny $\{0,1,\dots,m-1\}$ je $c$-univerz\'aln\'\i ,
+kdy\v z vybereme-li $h\in H$ s rovnom\v ern\'ym rozd\v ele\-n\'\i m, pak pro 
+ka\v zd\'a dv\v e r\accent23uzn\'a $x,y\in U$ plat\'\i\ 
+$$\Prob(h(x)=h(y))\le\frac cm.$$
+
+
+\flushpar Probl\'emy: existence $c$-univerz\'aln\'\i ch 
+syst\'em\accent23u, \newline 
+vlastnosti $c$-univerz\'aln\'\i ch syst\'em\accent23u (zda spl\v nuj\'\i\ 
+po\v zadovan\'e ide\-je).
+\medskip
+
+\subhead
+Existence univerz\'aln\'\i ch syst\'em\accent23u
+\endsubhead
+\smallskip
+
+\flushpar Univerzum $U=\{0,1,\dots,N-1\}$ pro prvo\v c\'\i slo $N$,\newline 
+$H=\{h_{a,b}\mid (a,b)\in U\times U\}$,\newline 
+kde $h_{a,b}(x)=((ax+b)\bmod N)\bmod m$\newline 
+(tj. indexov\'a mno\v zina je $U\times U$ a jej\'\i\ velikost je $
+N^2$).
+\smallskip
+\flushpar V\'yhoda: funkce z mno\v ziny $H$ um\'\i me rychle 
+vy\v c\'\i slit.
+\smallskip
+
+\flushpar Zvolme $x,y\in U$ takov\'a, \v ze $x\ne y$. Chceme nal\'ezt 
+$(a,b)\in U\times U$ takov\'e, \v ze $h_{a,b}(x)=h_{a,b}(y)$. 
+\medskip
+
+\flushpar Mus\'\i\ existovat $i\in \{0,1,\dots,m-1\}$ a 
+$r,s\in \{0,1,\dots,\lceil\frac Nm\rceil -1\}$ tak, \v ze plat\'\i
+$$\align(ax+b&\equiv i+rm)\bmod N\\
+(ay+b&\equiv i+sm)\bmod N\endalign$$
+Kdy\v z $x$, $y$, $i$, $r$ a $s$ jsou konstanty a $a$ a $b$ jsou 
+prom\v enn\'e, je to syst\'em line\'arn\'\i ch rovnic v t\v elese 
+$\Bbb Z/\bmod N$, kde $\Bbb Z$ jsou cel\'a \v c\'\i sla. Matice soustavy  
+$$\pmatrix x\quad 1\\
+y\quad 1\endpmatrix $$
+je regul\'arn\'\i, proto\v ze $x\ne y$. Jeliko\v z $\Bbb Z/\bmod N$ je t\v eleso, tak 
+ pro fixovan\'a $x$, $y$, $i$, $r$ a $s$ existuje pr\'av\v e jedno \v re\v sen\'\i\ t\'eto soustavy.
+Pro dan\'a $x$ a $y$, $i$ nab\'yv\'a $m$ hodnot, $r$ a $s$ nab\'yvaj\'\i\ 
+$\lceil\frac Nm\rceil$ hodnot. 
+
+\flushpar Z\'av\v er: pro ka\v zd\'a $x,y\in U$ takov\'a, \v ze 
+$x\ne y$, existuje $m\big(\lceil\frac Nm\rceil\big)^2$ dvojic $(a
+,b)\in U\times U$ takov\'ych, \v ze 
+$h_{a,b}(x)=h_{a,b}(y)$.
+\medskip
+
+\proclaim{V\v eta}Mno\v zina $H$ je $c$-univerz\'aln\'\i\ pro 
+$$c=\frac {\big(\lceil\frac Nm\rceil\big)^2}{\big(\frac Nm\big)^2}
+.$$
+\endproclaim
+
+\flushpar Skute\v cn\v e, pro ka\v zd\'e $x,y\in U$, $x\ne y$, je po\v cet 
+$(a,b)\in U\times U$ takov\'ych, \v ze $h_{a,b}(x)=h_{a,b}(y)$, nejv\'y\v se roven
+$$m\big(\lceil\frac Nm\rceil\big)^2=\frac {\big(\lceil\frac Nm\rceil\big
+)^2}{\big(\frac Nm\big)^2}\frac {N^2}m=\frac {\big(\lceil\frac Nm
+\rceil\big)^2}{\big(\frac Nm\big)^2}\frac {|I|}m.$$
+\medskip
+
+\flushpar Z\'av\v er: Dok\'azali jsme existenci $c$-univerz\'aln\'\i ch 
+syst\'em\accent23u pro $c$ bl\'\i zk\'e $1$. Sta\v c\'\i\ si uv\v edomit, \v ze  ka\v zd\'e univerzum m\accent23u\v zeme 
+pova\v zovat za univerzum tvaru $\{0,1,\dots,N-1\}$ pro n\v ejak\'e 
+$N$ a \v ze mezi \v c\'\i sly $N$ a $2N$ v\v zdy existuje n\v ejak\'e 
+prvo\v c\'\i slo.
+\medskip
+
+\subhead
+Vlastnosti univerz\'aln\'\i ho ha\v sov\'an\'\i
+\endsubhead
+\smallskip
+
+\flushpar P\v redpoklad: $H=\{h_i\mid i\in I\}$ je $c$-univerz\'aln\'\i\ syst\'em funkc\'\i\newline 
+Ozna\v cen\'\i : Pro $i\in I$ a prvky $x,y\in U$ 
+ozna\v cme 
+$$\delta_i(x,y)=\cases 1&\quad\text{\rm\ kdy\v z }x\ne y\text{\rm\ a }
+h_i(x)=h_i(y),\\
+0&\text{\rm\ kdy\v z }x=y\text{\rm\ nebo }h_i(x)\ne h_i(y).\endcases $$
+Pro mno\v zinu $S\subseteq U$, $x\in U$ a $i\in I$ definujme
+$$\delta_i(x,S)=\sum_{y\in S}\delta_i(x,y).$$
+\flushpar Pro fixovanou mno\v zinu $S\subseteq U$ a pro fixovan\'e $
+x\in U$ se\v cteme
+$\delta_i(x,S)$ p\v res v\v sechna $i\in I$:
+$$\align\sum_{i\in I}\delta_i(x,S)=&\sum_{i\in I}\sum_{y\in S}\delta_
+i(x,y)=\sum_{y\in S}\sum_{i\in I}\delta_i(x,y)=\\
+&\sum_{y\in S,y\ne x}|\{i\in I\mid h_i(x)=h_i(y)\}|\le\\
+&\sum_{y\in S,y\ne x}c\frac {|I|}m=\cases (|S|-1)c\frac {|I|}m&\text{\rm\ kdy\v z }
+x\in S,\\
+|S|c\frac {|I|}m&\text{\rm\ kdy\v z }x\notin S.\endcases \endalign$$
+\flushpar Proto\v ze $\delta_i(x,S)$ d\'av\'a odhad na velikost \v ret\v ezce $
+h_i(x)$ p\v ri 
+repre\-zentaci mno\v ziny $S$ pomoc\'\i\ funkce $h_i$, dost\'av\'ame, \v ze 
+o\v cek\'avan\'a d\'elka \v ret\v ezce pro fixovanou mno\v zinu  
+$S\subseteq U$ a fixovan\'e $x\in U$ p\v res $i\in I$ s rovnom\v ern\'ym 
+rozd\v elen\'\i m je nejv\'y\v se
+$$\frac 1{|I|}\sum_{i\in I}\delta_i(x,S)\le\cases c\frac {|S|-1}m&\text{\rm\ kdy\v z }
+\quad x\in S,\\
+c\frac {|S|}m&\text{\rm\ kdy\v z }\quad x\notin S.\endcases $$
+
+\proclaim{V\v eta}O\v cek\'avan\'y \v cas operac\'\i\ {\bf MEMBER}, {\bf INSERT }
+a {\bf DE\-LETE} p\v ri $c$-univerz\'aln\'\i m ha\v sov\'an\'\i\ je $
+O(1+c\alpha )$, kde 
+$\alpha$ je faktor napl\-n\v en\'\i\ (tj. $\alpha =\frac {|S|}m$).
+
+\flushpar O\v cek\'avan\'y \v cas pro pevnou posloupnost $n$ operac\'\i\ 
+{\bf MEMBER}, {\bf INSERT} a {\bf DELETE} aplikovan\'ych na pr\'azdnou ta\-bulku 
+pro $c$-univerz\'aln\'\i\ ha\v sov\'an\'\i\ je $O((1+\frac c2\alpha 
+)n)$, kde $\alpha =\frac nm$.  
+\endproclaim
+
+\flushpar V\'yznam v\'ysledku:  Vzorec se jen o multiplikativn\'\i\ 
+konstantu $c$ li\v s\'\i\ od vzorce pro ha\v sov\'an\'\i\ se separovan\'ymi 
+\v ret\v ezci.  P\v ritom $c$ m\accent23u\v ze b\'yt jen o m\'alo men\v s\'\i\ ne\v z $
+1$ a 
+ve v\v sech zn\'am\'ych p\v r\'\i kla\-dech je $c\ge 1$.  Tak\v ze, co jsme 
+dos\'ahli?  Rozd\'\i l je v p\v redpokla\-dech.  Zde je p\v redpoklad 3) 
+nahrazen p\v redpokladem, \v ze index $i\in I$ je vybr\'an s 
+rovnom\v ern\'ym rozd\v elen\'\i m, a nen\'\i\ \v z\'adn\'y p\v redpoklad na vstupn\'\i\ 
+data.  {\bf V\'yb\v er indexu} $i$ {\bf m\accent23u\v zeme ov\-liv\-nit, ale v\'yb\v er 
+vstupn\'\i ch dat nikoliv.}  M\accent23u\v zeme zajistit rovno\-m\v er\-n\'e 
+rozd\v elen\'\i\ v\'yb\v eru $i$ z $I$ nebo se k tomuto rozd\v elen\'\i\ hodn\v e 
+p\v ribl\'\i\v zit.  
+\medskip
+
+\subhead
+Markovova nerovnost
+\endsubhead
+\smallskip
+
+\flushpar P\v redpoklady: Je d\'ana mno\v zina $S\subseteq U$, prvek $
+x\in U$. 
+O\v cek\'a\-va\-n\'a velikost $\delta_i(x,S)$ je $\mu$ a $t\ge 
+1$.
+\medskip
+
+\flushpar Uk\'a\v zeme pro $t>1$, \v ze pravd\v epodobnost, \v ze $
+\delta_i(x,S)\ge t\mu$ 
+pro $i\in I$, je men\v s\'\i\ ne\v z $\frac 1t$ (p\v redpoklad\'ame, \v ze $
+i$ je z $I$ vybr\'ano s 
+rovnom\v ern\'ym rozd\v elen\'\i m).  
+\medskip
+
+\flushpar Ozna\v cme $I'=\{i\in I\mid\delta_i(x,S)\ge t\mu \}$. Pak plat\'\i
+$$\mu =\frac {\sum_{i\in I}\delta_i(x,S)}{|I|}>\frac {\sum_{i\in 
+I'}\delta_i(x,S)}{|I|}\ge\frac {\sum_{i\in I'}t\mu}{|I|}=\frac {|
+I'|}{|I|}t\mu$$
+\flushpar Odtud
+$$|I'|<\frac {|I|}t.$$
+\flushpar Z\'av\v er: Pravd\v epodobnost, \v ze $\delta_i(x,S)\ge 
+t\mu$, je men\v s\'\i\ 
+ne\v z $\frac 1t$, a odtud plyne po\v zadovan\'e tvrzen\'\i . 
+\medskip
+
+\flushpar Pozn\'amka: Toto tvrzen\'\i\ plat\'\i\ obecn\v e a naz\'yv\'a 
+se Markovova nerovnost. Uveden\'y d\accent23ukaz 
+ilustruje jednoduch\'e tvrzen\'\i\ pro ko\-ne\v c\-n\'y p\v r\'\i pad.
+\medskip
+
+\subhead
+Probl\'emy
+\endsubhead
+\smallskip
+
+\flushpar Hlavn\'\i\ probl\'em: Zaji\v st\v en\'\i\ rovnom\v ern\'eho rozd\v elen\'\i\ 
+v\'yb\v eru $i$ z $I$.
+\medskip
+
+\flushpar Proveden\'\i\ v\'yb\v eru: Zak\'odovat indexy z mno\v ziny $
+I$ do 
+\v c\'\i sel $0,1,\dots,|I|-1$. Zvolit n\'ahodn\v e \v c\'\i slo $
+i$ z tohoto 
+intervalu s rovnom\v ern\'ym rozd\v elen\'\i m a pak pou\v z\'\i t 
+funkci s indexem, jeho\v z k\'od je $i$. Abychom vybrali $i$, nalezneme 
+nejmen\v s\'\i\ $j$ takov\'e, \v ze $2^j-1\ge |I|-1$. Pak \v c\'\i sla v 
+intervalu $\{0,1,\dots,2^j-1\}$ jednozna\v cn\v e koresponduj\'\i\ s 
+posloupnostmi $0$ a $1$ d\'elky $j$. Budeme vyb\'\i rat n\'ahodn\v e 
+posloupnost $0$ a $1$ d\'elky $j$. Kdy\v z takto vybran\'a posloupnost neodpov\'\i d\'a prvku z $I$, tak vygenerujeme jinou posloupnost (a tuto vynech\'ame). Pokud pou\v zijeme n\'ahodn\'y gener\'ator $0$ a $1$, pak takto z\'\i sk\'ame n\'ahodn\'y prvek z $I$. Tedy k v\'yb\v eru n\'ahodn\'e funkce pot\v rebujeme  
+n\'ahodn\'y gener\'ator $0$ a $1$ s rovnom\v ern\'ym rozd\v ele\-n\'\i m.
+\medskip
+
+\flushpar Z\'avada: Skute\v cn\'y n\'ahodn\'y gener\'ator pro 
+rovnom\v ern\'e rozd\v ele\-n\'\i\ je prakticky nedosa\v ziteln\'y 
+(n\v ekter\'e fyzik\'aln\'\i\ procesy). K dispozici je pouze 
+pseudogener\'ator. 
+\medskip
+
+\flushpar Jeho nev\'yhoda: \v C\'\i m je $j$ v\v et\v s\'\i , t\'\i m je 
+posloupnost pravideln\v ej\v s\'\i\ (tj. m\'en\v e n\'ahodn\'a). 
+\medskip
+
+\flushpar D\accent23usledky: Nal\'ezt co nejmen\v s\'\i\ $c$-univerz\'aln\'\i\ 
+syst\'emy. Nal\'ezt doln\'\i\ odhady na jejich velikost.
+\medskip
+
+\subhead
+Doln\'\i\ odhady na velikost
+\endsubhead
+\smallskip
+
+\flushpar P\v redpoklady: Nech\v t $U$ je univerzum velikosti $N$ a nech\v t 
+$H=\{h_i\mid i\in I\}$ je $c$-univerz\'aln\'\i\ syst\'em funkc\'\i\ ha\v suj\'\i c\'\i ch do tabulky velikosti 
+$m$. M\accent23u\v zeme p\v redpokl\'a\-dat, \v ze 
+$$I=\{0,1,\dots,|I|-1\}.$$
+\medskip
+
+\flushpar Indukc\'\i\ definujme mno\v ziny $U_0,U_1,\dots$ tak, \v ze: 
+$U_0=U$.\newline 
+Nech\v t $U_1$ je nejv\v et\v s\'\i\ podmno\v zina $U_0$ vzhledem k po\v ctu 
+prvk\accent23u takov\'a, \v ze $h_0(U_1)$ je jednoprvkov\'a 
+mno\v zina. \newline 
+Nech\v t $U_2$ je nejv\v et\v s\'\i\ podmno\v zina $U_1$ vzhledem k po\v ctu 
+prvk\accent23u takov\'a, \v ze $h_1(U_2)$ je jednoprvkov\'a 
+mno\v zina. \newline 
+Nech\v t $U_3$ je nejv\v et\v s\'\i\ podmno\v zina $U_2$ vzhledem k po\v ctu 
+prvk\accent23u takov\'a, \v ze $h_2(U_3)$ je jednoprvkov\'a 
+mno\v zina. \newline 
+Obecn\v e, nech\v t $U_i$ je nejv\v et\v s\'\i\ podmno\v zina $U_{
+i-1}$ vzhledem k po\v ctu 
+prvk\accent23u takov\'a, \v ze $h_{i-1}(U_i)$ je jednoprvkov\'a 
+mno\v zina. 
+\medskip
+
+\flushpar Proto\v ze ha\v sujeme do tabulky velikosti $m$, plat\'\i\ 
+$|U_i|\ge\lceil\frac {|U_{i-1}|}m\rceil$. Proto\v ze $|U_0|=N$, dost\'av\'ame indukc\'\i , \v ze 
+$|U_i|\ge\lceil\frac N{m^i}\rceil$ pro ka\v zd\'e $i$. Zvolme $i=
+\lceil\log_mN\rceil -1$. Pak $i$ je 
+nejv\v et\v s\'\i\ p\v rirozen\'e \v c\'\i slo takov\'e, \v ze $\frac 
+N{m^i}>1$. Tedy $U_i$ m\'a 
+aspo\v n dva prvky, zvolme $x,y\in U_i$ takov\'a, \v ze $x\ne y$. Pak 
+$h_j(x)=h_j(y)$ pro $j=0,1,\dots,i-1$. Tedy 
+$$i\le |\{j\in I\mid h_j(x)=h_j(y)\}|\le\frac {c|I|}m.$$
+\medskip
+
+\proclaim{V\v eta}Kdy\v z $H=\{h_i\mid i\in I\}$ je $c$-univerz\'aln\'\i\ syst\'em pro 
+univerzum $U$ o velikosti $N$ ha\v suj\'\i c\'\i\ do tabulky s $m$ \v r\'adky, pak 
+$$|I|\ge\frac mc(\lceil\log_mN\rceil -1).$$
+Posloupnosti $0$ a $1$ p\v ri n\'ahodn\'e volb\v e $i$ z $I$ mus\'\i\ m\'\i t 
+d\'elku alespo\v n $\lceil (\log m-\log c+\log\log N-\log\log m)\rceil$ (zde v\v sechny logaritmy 
+jsou o z\'akladu $2$).
+\endproclaim
+\medskip
+
+\subhead
+Mal\'y univerz\'aln\'\i\ syst\'em
+\endsubhead
+\smallskip
+
+\flushpar Zkonstruujeme $c$-univerz\'aln\'\i\ syst\'em takov\'y, 
+\v ze logaritmus z velikosti jeho indexov\'e mno\v ziny pro velk\'a 
+univerza je a\v z na aditivn\'\i\ konstantu men\v s\'\i\ ne\v z 
+$4(\log m+\log\log N)$, kde $N$ je velikost univerza a $m$ je po\v cet 
+\v r\'adk\accent23u v tabulce.  
+\medskip
+
+\flushpar Nech\v t $p_1,p_2,\dots$ je rostouc\'\i\ posloupnost v\v sech 
+prvo\v c\'\i sel. M\v ej\-me velikost tabulky $m$ a univerzum $U=
+\{0,1,\dots,N-1\}$ pro 
+n\v ejak\'e p\v rirozen\'e \v c\'\i slo $N$ (nemus\'\i\ b\'yt prvo\v c\'\i slo). Nech\v t $
+t$ je 
+nejmen\v s\'\i\ \v c\'\i slo takov\'e, \v ze $t\ln p_t\ge m\ln N$. Definujme 
+$$H_1=\{g_{c,d}(h_{\ell})\mid t<\ell\le 2t,\,c,d\in \{0,1,\dots,p_{
+2t}-1\}\},$$
+kde $h_{\ell}(x)=x\bmod p_{\ell}$ a 
+$g_{c,d}(x)=((cx+d)\bmod p_{2t})\bmod m$.\newline 
+Uk\'a\v zeme, \v ze kdy\v z $m(\ln m+\ln\ln m)<N$, pak $H_1$ je $
+3.25$-univerz\'aln\'\i\ syst\'em. 
+\medskip
+
+\flushpar Nejprve si p\v ripomeneme zn\'amou v\v etu o velikosti prvo\v c\'\i sel 
+(zde $\ln$ je p\v rirozen\'y logaritmus, tj. o z\'akladu $e$).
+
+\proclaim{V\v eta}Pro ka\v zd\'e $i=1,2,\dots$ plat\'\i\ $p_i>i\ln 
+i$ a pro $i\ge 6$ 
+plat\'\i\ $p_i<i(\ln i+\ln\ln i)$. \qed
+\endproclaim
+
+\flushpar Tedy pro $i\ge 6$ plat\'\i\ $p_i<2i\ln i$.
+\medskip
+
+\flushpar Velikost indexov\'e mno\v ziny $H_1$.  Indexov\'a mno\v zina $
+H_1$ je 
+$$I=\{(c,d,\ell )\mid c,d\in \{0,1,\dots,p_{2t}-1,\,t<\ell\le 2t\}
+.$$
+  
+Tedy $|I|=tp_{2t}^2$.   
+Odtud plyne $|I|\le 16t^3\ln^22t$ a tedy 
+$$\log(|I|)\le 4+3\log t+2\log\log t.$$
+Pro dostate\v cn\v e velk\'e $t$ (takov\'e, \v ze $\log t\ge 2\log\log 
+t$, tj. $t\ge 16$) plat\'\i , 
+\v ze $\log(|I|)\le 4+4\log t$.  Z definice $t$ plyne, 
+\v ze $t\le m\ln N$, kdy\v z $\ln p_t\ge 1$ (tj.  $p_t\ge 3$).\newline 
+Z\'av\v er: $\log(|I|)\le 4+4(\log m+\log\log N)$. 
+\medskip
+
+\subhead
+Univerzalita mal\'eho syst\'emu
+\endsubhead
+\smallskip
+
+\flushpar Zvolme r\accent23uzn\'a $x$ a $y$ z univerza $U$. 
+Ozna\v cme
+$$\align G_1&=\{(c,d,\ell )\mid g_{c,d}(h_{\ell}(x))=g_{c,d}(h_{\ell}
+(y)),\,h_{\ell}(x)\ne h_{\ell}(y)\},\\
+G_2&=\{(c,d,\ell )\mid g_{c,d}(h_{\ell}(x))=g_{c,d}(h_{\ell}(y)),\,
+h_{\ell}(x)=h_{\ell}(y)\}\endalign$$
+a odhadneme velikost $G_1$ a $G_2$. 
+\medskip
+
+\flushpar Odhad velikosti $G_1$. Kdy\v z $(c,d,\ell )\in G_1$, pak 
+existuj\'\i\ $r,s\in \{0,1,\dots,\lceil\frac {p_{2t}}m\rceil -1\}$ a $
+i\in \{0,1,\dots,m-1\}$ 
+takov\'a, \v ze 
+$$\align(c(x\bmod p_{\ell})+d&\equiv i+rm)\bmod p_{2t}\\
+(c(y\bmod p_{\ell})+d&\equiv i+sm)\bmod p_{2t}.\endalign$$
+Kdy\v z $c$ a $d$ pova\v zujeme za nezn\'am\'e, pak je to  
+soustava line\'ar\-n\'\i ch rovnic s regul\'arn\'\i\ matic\'\i\ (proto\v ze 
+$x\bmod p_{\ell}\ne y\bmod p_{\ell}$), a tedy pro ka\v zd\'e $\ell$, $
+i$, $r$ a $s$ 
+existuje pr\'av\v e jedna takov\'a dvojice $(c,d)$ (p\v ripom\'\i n\'ame, \v ze $\Bbb Z/\bmod p_{2t}$ je t\v eleso). Proto 
+$$|G_1|\le tm(\lceil\frac {p_{2t}}m\rceil )^2\le\frac {tp_{2t}^2}
+m(1+\frac m{p_{2t}})^2=\frac {|I|}m(1+\frac m{p_{2t}})^2.$$
+
+\flushpar Odhad velikosti $G_2$. Ozna\v cme 
+$L=\{\ell\mid t<\ell\le 2t,\,x\bmod p_{\ell}=y\bmod p_{\ell}\}$ a $
+P=\prod_{\ell\in L}p_{\ell}$. 
+Proto\v ze $P$ d\v el\'\i\ $|x-y|$, dost\'av\'ame, \v ze $P\le N$. Proto\v ze 
+$p_t<p_{\ell}$ pro ka\v zd\'e $\ell\in L$, dost\'av\'ame, \v ze $
+P>p_t^{|L|}$. Tedy 
+$|L|\le\frac {\ln N}{\ln p_t}\le\frac tm$ z definice $t$. Proto\v ze $
+(c,d,\ell )\in G_2$, pr\'av\v e 
+kdy\v z $\ell\in L$ a $c,d\in \{0,1,\dots,p_{2t}-1\}$, shrneme, \v ze 
+$$|G_2|\le |L|p_{2t}^2\le\frac {tp_{2t}^2}m=\frac {|I|}m.$$
+\medskip
+
+\flushpar Abychom odhadli $(1+\frac m{p_{2t}})^2$, uk\'a\v zeme si nejd\v r\'\i v 
+pomocn\'e lem\-ma.
+
+\proclaim{Lemma}Kdy\v z $t\ge 6$ a $m(\ln m+\ln\ln m)<N$, pak $m<\frac {
+p_t}{\ln t}$.
+\endproclaim
+
+\demo{D\accent23ukaz}P\v redpokl\'adejme, \v ze tvrzen\'\i\ neplat\'\i. Pak $
+m\ge\frac {p_t}{\ln t}$. Z V\v ety o velikosti 
+prvo\-\v c\'\i\-sel plyne $m\ge\frac {p_t}{\ln t}>\frac {t\ln 
+t}{\ln t}=t$. Kdy\v z pou\v zijeme, \v ze 
+$m(\ln m+\ln\ln m)<N$, tak dostaneme, \v ze 
+$$\ln m+\ln(\ln m+\ln\ln m)<\ln N,$$
+a odtud plyne, \v ze 
+$$t\ln p_t<t\ln(t(\ln t+\ln\ln t))\le m(\ln m+\ln(\ln m+\ln\ln m)
+)<m\ln N$$
+a to je spor s definic\'\i\ $t$. Tedy $m<\frac {p_t}{\ln t}$. \qed
+\enddemo
+
+\flushpar Nyn\'\i\ zkombinujeme V\v etu o odhadu velikosti prvo\v c\'\i sel, 
+p\v red\-cho\-z\'\i\ Lemma a fakt, \v ze 
+$$\ln2t\ge\ln t\ge\ln\ln t\qquad\text{pro v\v sechna }t\ge 1$$
+a dostaneme, \v ze
+$$\frac m{p_{2t}}\le\frac {\frac {p_t}{\ln t}}{2t\ln2t}<\frac {t(\ln 
+t+\ln\ln t)}{2t\ln t\ln2t}<\frac 1{\ln2t}(1+\frac {\ln\ln t}{\ln 
+t}).$$
+Je z\v rejm\'e, \v ze tento v\'yraz je men\v s\'\i\ ne\v z $\frac 
+12$, 
+a kdy\v z $t$ konverguje k $+\infty$, pak tento v\'yraz konverguje k $
+0$.
+\medskip
+
+\flushpar Z toho plyne, \v ze $(1+\frac m{p_{2t}})^2\le 1.5^2=2.2
+5$, a tedy 
+$$\align|\{i\in I&\mid h_i(x)=h_i(y)\}|=|G_1|+|G_2|\le\\
+&\frac {|I|}m(1+\frac m{p_{2t}})^2+\frac {|I|}m\le\frac {|I|}m(1+
+2.25)=3.25\frac {|I|}m.\endalign$$
+\medskip
+
+\flushpar Shrnut\'\i : Kdy\v z $t\ge 6$ a $m\ln m\ln\ln m<N$, pak $
+H_1$ je 
+$3.25$-univerz\'aln\'\i . Bez jak\'ychkoliv p\v redpoklad\accent23u lze 
+uk\'azat, \v ze $H_1$ je $5$-univerz\'aln\'\i .
+\medskip
+
+\subhead
+Odhad na velikost $c$
+\endsubhead
+\smallskip
+
+\proclaim{V\v eta}Kdy\v z $H$ je $c$-univerz\'aln\'\i\ 
+syst\'em univerza $U$ o velikosti $N$ ha\v suj\'\i c\'\i\ do tabulky s $
+m$ \v r\'adky, 
+pak $c\ge 1-\frac mN$.
+\endproclaim
+\medskip
+
+Nejprve dok\'a\v zeme technick\'e lemma.
+
+\proclaim{Lemma}M\v ejme re\'aln\'a \v c\'\i sla $b_i$ pro $i=0,1
+,\dots,m-1$ a 
+nech\v t $b=\sum_{i=0}^{m-1}b_i$. Pak 
+$$\sum_{i=0}^{m-1}b_i(b_i-1)\ge b(\frac bm-1).$$
+\endproclaim
+
+\demo{D\accent23ukaz lemmatu}Z Cauchyho-Schwarzovy nerovnosti 
+$$(\sum_{i=0}^{m-1}x_iy_i)^2\le (\sum_{i=0}^{m-1}x^2_i)(\sum_{i=0}^{
+m-1}y_i^2)$$
+plyne $(\sum_{i=0}^{m-1}b_i)^2=b^2\le m(\sum_{i=0}^{m-1}b_i^2)$, sta\v c\'\i\ polo\v zit 
+$x_i=b_i$ a $y_i=1$, a tedy $\frac {b^2}m\le\sum_{i=0}^{m-1}b_i^2$. Odtud
+$$\sum_{i=0}^{m-1}b_i(b_i-1)=\sum_{i=0}^{m-1}b_i^2-\sum_{i=0}^{m-
+1}b_i=\sum_{i=0}^{m-1}b_i^2-b\ge\frac {b^2}m-b=b(\frac bm-1)$$
+a lemma je dok\'az\'ano. \qed
+\enddemo
+
+\demo{D\accent23ukaz V\v ety}M\v ejme funkci $f:U@>>>T$, kde $U$ m\'a 
+velikost $N$ a $T$ m\'a velikost $m$. Ozna\v cme $A$ mno\v zinu 
+uspo\v r\'adan\'ych dvojic $u,v\in U$ takov\'ych, \v ze $u\ne v$ a $
+f(u)=f(v)$.
+Kdy\v z pro $t\in T$ ozna\v c\'\i me $k_t=|f^{-1}(t)|$, pak $|A|=
+\sum_{t\in T}k_t(k_t-1)$.
+Z lemmatu plyne, \v ze 
+$$|A|=\sum_{t\in T}k_t(k_t-1)\ge N(\frac Nm-1)=N(\frac {N-m}m),$$
+proto\v ze $\sum_{t\in T}k_t=N$.\newline 
+Kdy\v z $H=\{h_i\mid i\in I\}$ je $c$-univerz\'aln\'\i\ syst\'em funkc\'\i\ z univerza $
+U$ o 
+velikosti $N$ do tabulky o velikosti $m$, pak pomoc\'\i\ 
+lemmatu dost\'av\'ame 
+$$\align&|I|N(\frac {N-m}m)\le\\
+&\sum_{i\in I}|\{(x,y)\in U\times U\mid h_i(x)=h_i(y),\,x\ne y\}|
+=\\
+&\sum_{(x,y)\in U\times U,\,x\ne y}|\{i\in I\mid h_i(x)=h_i(y)\}|
+\le\\
+&\sum_{(x,y)\in U\times U,x\ne y}c\frac {|I|}m=N(N-1)c\frac {|I|}
+m.\endalign$$
+Odtud plyne, \v ze $N-m\le c(N-1)$, a tedy 
+$$c\ge\frac {N-m}{N-1}>\frac {N-m}N=1-\frac mN.\qed$$
+\enddemo
+
+
+\subhead
+Probl\'emy univerz\'aln\'\i ho ha\v sov\'an\'\i
+\endsubhead
+\smallskip
+
+\flushpar Pou\v z\'\i t jin\'e metody na \v re\v sen\'\i\ koliz\'\i\ ne\v z 
+separovan\'e \v ret\v ezce. Jak to ovlivn\'\i\ pou\v zitelnost 
+univerz\'aln\'\i ho ha\v sov\'an\'\i ? Plat\'\i\ podobn\'e vztahy jako pro 
+pevn\v e danou ha\v sovac\'\i\ funkci? Jak\'y vliv na efektivnost 
+m\'a nep\v r\'\i tomnost operace {\bf DELETE}?
+\medskip
+
+\flushpar Existuje $c$-univerz\'aln\'\i\ ha\v sovac\'\i\ syst\'em pro 
+$c<1$? Jak\'y je vztah mezi velikost\'\i\ $c$-univerz\'aln\'\i\-ho 
+ha\v sovac\'\i ho syst\'emu a velikost\'\i\ $c$? Lze zkonstruovat 
+mal\'y $c$-univerz\'aln\'\i\ syst\'em pro $c<3.25$? Zde hraje roli 
+fakt, \v ze p\v ri $c=3.25$ se o\v cek\'avan\'a d\'elka \v ret\v ezce 
+m\accent23u\v ze pohybovat a\v z kolem hodnoty $7$.
+\medskip
+
+\flushpar Pou\v zit\'\i\ \v Ceby\v sevovy nerovnosti m\'\i sto 
+Markovovy nerovnosti d\'av\'a kvadratick\'y odhad 
+prav\-d\v e\-podobnosti, \v ze d\'elka \v ret\v ezce je o $t$ v\v et\v s\'\i\ ne\v z 
+o\v cek\'avan\'a hodnota. Za jak\'ych okolnost\'\i\ d\'av\'a lep\v s\'\i\ 
+odhad? Lze pou\v z\'\i t i vy\v s\v s\'\i ch moment\accent23u?
+\medskip
+
+\flushpar Jak pou\v z\'\i t Markovou nerovnost a o\v cek\'avanou 
+d\'elku maxim\'al\-n\'\i\-ho \v ret\v ezce pro odhad o\v cek\'a\-va\-n\'eho 
+po\v ctu voleb ha\v sovac\'\i\ funk\-ce? 
+Pro jak\'e parametry lze pou\v z\'\i t n\'asleduj\'\i c\'\i\ model?
+
+\flushpar Je d\'ana z\'akladn\'\i\ velikost tabulky $m$ a d\'ale pro $
+j=0,1,\dots$ 
+\v c\'\i sla (parametry) $l_j$ a $c$-univer\-z\'al\-n\'\i\ ha\v sovac\'\i\ syst\'emy 
+$H_j=\{h_i\mid i\in I_j\}$ z univerza do tabulky s $m2^j$ \v r\'adky.\newline 
+Mno\v zina $S\subseteq U$ je reprezentov\'ana n\'asledovn\v e:  je d\'ano $
+j$ 
+tako\-v\'e, \v ze kdy\v z $j>0$, pak $m2^{j-2}\le |S|\le m2^j$, kdy\v z $
+j=0$, pak 
+$|S|\le m$, a je zvolen index $i\in I_j$.  D\'ale m\'ame prost\'e \v ret\v ezce 
+$r_0,r_1,\dots,r_{m2^j-1}$, jejich\v z d\'elky jsou nejv\'y\v se $
+l_j$, a \v ret\v ezec $r_k$ 
+obsahuje prvky $\{s\in S\mid h_i(s)=k\}$.\newline 
+Operace {\bf INSERT$(x)$} prohled\'a \v ret\v ezec $r_{h_i(x)}$ a kdy\v z tento 
+\v re\-t\v e\-zec neobsahuje prvek $x$, pak ho p\v rid\'a.  Kdy\v z 
+$m2^{j-2}\le |S|\le m2^j$ a d\'elka \v ret\v ezce $r_{h_i}(x)$ je nejv\'y\v se $
+l_j$, pak 
+operace kon\v c\'\i .  Kdy\v z $|S|>m2^j$, tak se nejd\v r\'\i ve zv\v et\v s\'\i\ $
+j$ o $1$.  
+Pak se n\'ahodn\v e zvol\'\i\ $i\in I_j$ a zkonstruuj\'\i\ se \v ret\v ezce 
+reprezentuj\'\i c\'\i\ $S$.  Kdy\v z n\v ekter\'y z nich m\'a d\'elku v\v et\v s\'\i\ ne\v z $
+l_j$, 
+tak se volba a konstrukce \v ret\v ezc\accent23u opakuje tak dlouho, 
+dokud se nepovede zvolit $i\in I_j$ takov\'e, \v ze v\v sechny 
+zkonstruovan\'e \v ret\v ezce maj\'\i\ d\'elku nejv\'y\v se $l_j$.  Operace {\bf DELETE }
+se \v re\v s\'\i\ analogicky.\newline 
+Probl\'em:  Jak volit parametry $l_i$?  
+\medskip
+
+
+\flushpar V p\v r\'\i pad\v e \v re\v sen\'\i\ 
+koliz\'\i\ dvojit\'ym ha\v sov\'an\'\i m nebo ha\v sov\'an\'\i m s 
+line\'arn\'\i m p\v rid\'av\'an\'\i m je t\v reba d\'at siln\v ej\v s\'\i\ podm\'\i nky na velikost $
+|S|$. V posledn\'\i\ dob\v e se t\'eto t\'ematice 
+v\v enuje pozornost a byla dosa\v zena \v rada zaj\'\i mav\'ych v\'ysledk\accent23u.
+
+\heading
+Perfektn\'\i\ ha\v sov\'an\'\i
+\endheading
+
+\flushpar Jin\'e \v re\v sen\'\i\ koliz\'\i\ je perfektn\'\i\ ha\v sov\'an\'\i . Idea 
+je nal\'ezt pro danou mno\v zinu ha\v sovac\'\i\ funkci, kter\'a 
+nevytv\'a\v r\'\i\ kolize.
+\medskip
+
+\flushpar Nev\'yhoda: Metoda nep\v ripou\v st\'\i\ operaci {\bf INSERT }
+(pro nov\'y vstup nem\accent23u\v zeme zaru\v cit, \v ze nevznikne  
+kolize). Metodu lze prakticky pou\v z\'\i t pro \'ulohy, kde lze 
+o\v cek\'avat hodn\v e operac\'\i\ {\bf MEMBER} a operace {\bf INSERT} se 
+t\'em\v e\v r nevyskytuje (kolize se \v re\v s\'\i\ pomoc\'\i\ mal\'e pomocn\'e 
+tabulky, kam se ukl\'adaj\'\i\ koliduj\'\i\-c\'\i\ data). Tato metoda se 
+pou\v z\'\i v\'a p\v ri navrhov\'an\'\i\ kompil\'ator\accent23u.
+\medskip
+
+\flushpar Zad\'an\'\i\ \'ulohy: Pro danou mno\v zinu $S\subseteq 
+U$ chceme 
+nal\'ezt ha\v so\-va\-c\'\i\ funkci $h$ takovou, \v ze
+\roster
+\item
+pro $s,t\in S$ takov\'e, \v ze $s\ne t$, plat\'\i\ $h(s)\ne h(t)$ (tj. $
+h$ je \emph{perfektn\'\i} \emph{ha\v sovac\'\i} \emph{funkce} pro 
+$S$); 
+\item
+$h$ ha\v suje do tabulky s $m$ \v r\'adky, kde $m$ je p\v ribli\v zn\v e 
+stejn\v e velk\'e jako $|S|$ (nen\'\i\ praktick\'e ha\v sovat do p\v r\'\i li\v s 
+velk\'ych tabulek -- ztr\'ac\'\i\ se jeden ze z\'akladn\'\i ch 
+d\accent23uvod\accent23u pro ha\v sov\'an\'\i ); 
+\item
+$h$ mus\'\i\ b\'yt rychle spo\v citateln\'a -- jinak ha\v sov\'an\'\i\ 
+nen\'\i\ rychl\'e;
+\item
+ulo\v zen\'\i\ $h$ nesm\'\i\ vy\v zadovat moc pam\v eti, 
+nejv\'yhodn\v ej\v s\'\i\ je ana\-lytick\'e zad\'an\'\i\ (kdy\v z zad\'an\'\i\ $
+h$ bude 
+vy\v zadovat moc pam\v eti, nap\v r. kdy\v z by byla d\'ana tabulkou, 
+pak se ztr\'ac\'\i\ d\accent23uvod k pou\v zit\'\i\ stejn\v e jako v 
+bod\v e 2).
+\endroster
+
+
+\flushpar Kompenzace: Nalezen\'\i\ ha\v sovac\'\i\ funkce 
+m\accent23u\v ze spot\v rebovat v\'\i ce \v casu. Prov\'ad\'\i\ se jen na 
+za\v c\'atku \'ulohy. 
+\medskip
+
+\flushpar Uveden\'e po\v zadavky motivuj\'\i\ zaveden\'\i\ 
+n\'asleduj\'\i c\'\i ho pojmu.\newline 
+M\v ejme univerzum $U=\{0,1,\dots,N-1\}$. Soubor funkc\'\i\ $H$ z 
+$U$ do mno\v ziny $\{0,1,\dots,m-1\}$ se naz\'yv\'a 
+$(N,m,n)$-\emph{perfektn\'\i}, kdy\v z pro ka\v zdou $S\subseteq 
+U$ 
+takovou, \v ze $|S|=n$, existuje $h\in H$ perfektn\'\i\ pro $S$ (tj. 
+$h(s)\ne h(t)$ pro ka\v zd\'a dv\v e r\accent23uzn\'a $s,t\in S$).
+
+\flushpar Proto\v ze nev\'\i me, zda takov\'a $h$ existuj\'\i , nejprve 
+vy\v set\v r\'\i me mno\-\v zi\-ny perfektn\'\i ch ha\v sovac\'\i ch 
+funkc\'\i . Vy\v set\v r\'\i me vlastnosti $(N,m,n)$-perfektn\'\i ch 
+soubor\accent23u funkc\'\i .
+\medskip
+
+\subhead
+Doln\'\i\ odhady na velikost $(N,m,n)$-perfektn\'\i ho souboru
+\endsubhead
+\smallskip
+
+\flushpar P\v redpokl\'adejme, \v ze $H$  je $(N,m,n)$-perfektn\'\i\ 
+syst\'em pro $U=\{0,1,\dots,N-1\}$ a nejprve nalezneme doln\'\i\ 
+odhady na velikost $|H|$.
+\medskip
+
+\flushpar M\v ejme funkci $h$ z $U$ do mno\v ziny $\{0,1,\dots,m-
+1\}$. 
+Nalezneme po\v cet mno\v zin $S\subseteq U$ takov\'ych, \v ze  
+$h$ je perfektn\'\i\ funkce pro $S$ a $|S|=n$. Funkce $h$ je perfektn\'\i\ pro 
+$S\subseteq U$, pr\'av\v e kdy\v z pro ka\v zd\'e $i=0,1,\dots,m-
+1$ je 
+$|h^{-1}(i)\cap S|\le 1$. Odtud po\v cet t\v echto mno\v zin je
+$$\sum \{\prod_{j=0}^{n-1}|h^{-1}(i_j)|\mid 0\le i_0<i_1<\dots<i_{
+n-1}<m\}.$$
+\flushpar Vysv\v etlen\'\i : $h(S)=\{i_j\mid j=0,1,\dots,n-1\}$.
+\medskip
+
+\flushpar Toto \v c\'\i slo je maxim\'aln\'\i , kdy\v z $|h^{-1}(
+i)|=\frac Nm$ pro ka\v zd\'e $i$. 
+Tedy $h$ m\accent23u\v ze b\'yt perfektn\'\i\ nejv\'y\v se pro $\binom 
+mn(\frac Nm)^n$ 
+mno\v zin (\v c\'\i slo $\binom mn$ ur\v cuje po\v cet posloupnost\'\i\ 
+$0\le i_0<i_1<\dots<i_{n-1}<m$). Proto\v ze $n$-prvkov\'ych 
+podmno\v zin universa je $\binom Nn$, dost\'av\'ame, \v ze 
+$$|H|\ge\frac {\binom Nn}{\binom mn(\frac Nm)^n}.$$
+
+\flushpar Jin\'y odhad velikosti $(N,m,n)$-perfektn\'\i ho souboru.
+\medskip
+
+\flushpar P\v redpokl\'adejme, \v ze $H=\{h_1,\dots,h_t\}$ je 
+$(N,m,n)$-perfektn\'\i\ soubor funkc\'\i .  Definujme indukc\'\i\ 
+soubor mno\v zin $U_i$:\newline 
+$U_0=U$ a pro 
+$i>0$ je $U_i$ nejv\v et\v s\'\i\ podmno\v zina $U_{i-1}$, co do po\v ctu 
+prvk\accent23u, 
+takov\'a, \v ze $h_i$ je konstantn\'\i\ na $U_i$.  Pak $|U_i|\ge\frac {
+|U_{i-1}|}m$ 
+pro v\v sechna $i>0$.  Z $|U_0|=N$ plyne $|U_i|\ge\frac N{m^i}$.  Pro ka\v zd\'e 
+$i=1,2,\dots,t$ je $h_j(U_i)$ jednobodov\'a mno\v zina pro ka\v zd\'e 
+$j\le i$.  Proto \v z\'adn\'a $h_j$ pro $j\le i$ nen\'\i\ perfektn\'\i\ pro 
+mno\v zinu $S\subseteq U$ takovou, \v ze $|S\cap U_i|\ge 2$.  Proto\v ze $
+H$ je 
+$(N,m,n)$-perfektn\'\i , mus\'\i\ b\'yt $|U_t|\le 1$, a tedy $\frac 
+N{m^t}\le 1$.  Proto 
+$t\ge\frac {\log N}{\log m}$.    
+\medskip
+
+\proclaim{V\v eta}Kdy\v z $H$ je $(N,m,n)$-perfektn\'\i\ soubor 
+funkc\'\i , pak 
+$$|H|\ge\max\{\frac {\binom Nn}{\binom mn(\frac Nm)^n},\frac {\log 
+N}{\log m}\}.$$
+\endproclaim
+
+\subhead
+Existence $(N,m,n)$-perfektn\'\i ho souboru
+\endsubhead
+\smallskip
+
+\flushpar M\v ejme univerzum $U=\{0,1,\dots,N-1\}$ a soubor 
+funkc\'\i\ $H=\{h_1,h_2,\dots,h_t\}$ z univerza $U$ do mno\v ziny 
+$\{0,1,\dots,m-1\}$.  Reprezentujeme tento soubor pomoc\'\i\ 
+matice $M(H)$ typu $N\times t$ s hodnotami $\{0,1,\dots,m-1\}$ tak, 
+\v ze pro $x\in U$ a $i=1,2,\dots,t$ je 
+v $x$-t\'em \v r\'adku a $i$-t\'em sloupci matice $M(H)$ 
+hodnota $h_i(x)$. Pak \v z\'adn\'a funkce z $H$ 
+nen\'\i\ perfektn\'\i\ pro mno\v zinu $S=\{s_1,s_2,\dots,s_n\}\subseteq 
+U$, 
+pr\'av\v e kdy\v z podmatice $M(H)$ tvo\v re\-n\'a 
+\v r\'adky $s_1$, $s_2$, a\v z $s_n$ a v\v semi sloupci nem\'a prost\'y sloupec. 
+Ta\-ko\-v\'ych matic je nejv\'y\v se 
+$$(m^n-\prod_{i=0}^{n-1}(m-i))^tm^{(N-n)t}.$$
+\flushpar Vysv\v etlen\'\i :  $m^n$ je po\v cet v\v sech funkc\'\i\ z $
+S$ do 
+$\{0,1,\dots,m-1\}$, $\prod_{i=0}^{n-1}(m-i)$ je po\v cet prost\'ych funkc\'\i\ z $
+S$ 
+do $\{0,1,\dots,m-1\}$, a tedy po\v cet v\v sech podmatic s $n$ 
+\v r\'adky takov\'ych, \v ze \v z\'adn\'y jejich sloupec nen\'\i\ prost\'y, je 
+$(m^n-\prod_{i=0}^{n-1}(m-i))^t$.  Tyto podmatice m\accent23u\v zeme 
+libovoln\v e doplnit na matici typu $N\times n$ a pro ka\v zdou 
+matici je t\v echto dopln\v en\'\i\ $m^{(N-n)t}$.  
+\medskip
+
+\flushpar Podmno\v zin $U$ velikosti $n$ je $\binom Nn$, tedy po\v cet v\v sech 
+matic, kter\'e nereprezentuj\'\i\ $(N,m,n)$-perfektn\'\i\ syst\'em, je 
+men\v s\'\i\ nebo roven  
+$$\binom Nn(m^n-\prod_{i=0}^{n-1}(m-i))^tm^{(N-n)t}.$$
+
+\flushpar V\v sech matic je $m^{Nt}$ a kdy\v z 
+$$\binom Nn(m^n-\prod_{i=0}^{n-1}(m-i))^tm^{(N-n)t}<m^{Nt},\tag *$$
+\flushpar pak nutn\v e existuje $(N,m,n)$-perfektn\'\i\ syst\'em. 
+N\'asleduj\'\i c\'\i\ v\'y\-ra\-zy jsou ekvivalentn\'\i\ s ne\-rov\-nost\'\i\ 
+\thetag{$*$}
+$$\binom Nn\big(1-\frac {\prod_{i=0}^{n-1}(m-i)}{m^n}\big)^t<1\,\Leftrightarrow\,
+t\ge\frac {\ln\binom Nn}{-\ln(1-\frac {\prod_{i=0}^{n-1}(m-i)}{m^
+n})}.$$
+Proto\v ze $\ln\binom Nn\le n\ln N$ a proto\v ze $-\ln(1-x)\ge x$ pro $
+x\in (0,1)$, dost\'av\'ame
+$$\align-\ln(1-\frac {\prod_{i=0}^{n-1}(m-i)}{m^n})\ge&\prod_{i=0}^{
+n-1}(1-\frac im)=e^{\sum_{i=0}^{n-1}\ln(1-\frac im)}\ge\\
+&e^{\int_0^n\ln(1-\frac xm)dx},\endalign$$
+kde integr\'al m\accent23u\v zeme odhadnout 
+$$m[(1-\frac nm)(1-\ln(1-\frac nm))-1]\ge m[(1-\frac nm)(1+\frac 
+nm)-1]=-\frac {n^2}m.$$
+Odtud dost\'av\'ame, \v ze kdy\v z $t\ge n(\ln N)e^{\frac {n^2}m}$, pak \thetag{*} plat\'\i , a tedy 
+existuje $(N,m,n)$-perfektn\'\i\ soubor funkc\'\i . 
+\medskip
+
+\flushpar Existence $(N,m,n)$-perfektn\'\i ho souboru funkc\'\i\ ale 
+nezaru\v cuje spln\v en\'\i\ po\v zadavk\accent23u 2), 3) a 4).  
+Abychom usp\v eli, pou\v zijeme ideu z metody univerz\'aln\'\i ho 
+ha\v sov\'an\'\i .  
+\medskip
+
+\subhead
+Konstrukce perfektn\'\i\ ha\v sovac\'\i\ funkce
+\endsubhead
+\smallskip
+
+\flushpar P\v redpoklady:  $U=\{0,1,\dots,N-1\}$, kde $N$ je 
+prvo\v c\'\i slo.  M\v ejme $S\subseteq U$ o velikosti $n$.  Budeme 
+uva\v zovat funkce 
+$$h_k(x)=(kx\bmod N)\bmod m\qquad\text{\rm\ pro }k=1,2,\dots,N-1.$$
+Pro $i=0,1,\dots,m-1$ a $k=1,2,\dots,N-1$ ozna\v cme 
+$$b_i^k=|\{x\in S\mid (kx\bmod N)\bmod m=i\}|.$$
+\medskip
+
+\flushpar V\'yznam $b_i^k$: Hodnoty $b_i^k$ lze pova\v zovat za 
+veli\v ciny, kter\'e ukazuj\'\i\ odchylku od perfektnosti. 
+V\v simn\v eme si, \v ze 
+$$\text{\rm kdy\v z }b_i^k\ge 2,\text{\rm\ pak }(b_i^k)^2-b_i^k\ge 
+2,$$
+\flushpar proto\v ze $a^2-a\ge 2$, kdy\v z $a\ge 2$. Na druhou stranu 
+$$b_i^k\le 1\text{\rm\ implikuje }(b_i^k)^2-b_i^k=0.$$
+\flushpar Tedy z $\sum_{i=0}^{m-1}b_i^k=n$ plyne 
+
+\proclaim{V\v eta}Funkce $h_k$ je perfektn\'\i , pr\'av\v e kdy\v z 
+$\sum_{i=0}^{m-1}(b_i^k)^2-n<2$.
+\endproclaim
+
+\flushpar Nyn\'\i\ odhadneme v\'yraz $\sum_{k=1}^{N-1}\big((\sum_{
+i=0}^{m-1}(b_i^k)^2)-n\big)$.
+$$\align\sum_{k=1}^{N-1}\big(&(\sum_{i=0}^{m-1}(b_i^k)^2)-n\big)=\\
+&\sum_{k=1}^{N-1}\big((\sum_{i=0}^{m-1}|\{x\in S\mid h_k(x)=i\}|^
+2)-n\big)=\\
+&\sum_{k=1}^{N-1}|\{(x,y)\mid x,y\in S,\,x\ne y,\,h_k(x)=h_k(y)\}
+|=\\
+&\sum_{x,y\in S,x\ne y}|\{k\mid 1\le k<N,\,h_k(x)=h_k(y)\}|.\endalign$$
+Zvolme $x,y\in S$ takov\'a, \v ze $x\ne y$. Pak $h_k(x)=h_k(y)$, 
+pr\'av\v e kdy\v z existuje $i=0,1,\dots,m-1$ a $r,s=0,1,\dots,\lfloor\frac 
+Nm\rfloor$ 
+takov\'a, \v ze $kx\equiv i+rm\bmod N$ a $ky\equiv i+sm\bmod N$ a $
+i+rm,i+sm<N$. Odtud dost\'av\'ame, \v ze $h_k(x)=h_k(y)$ implikuje $
+kx-ky\equiv (r-s)m\bmod N$.
+Proto\v ze $0<k<n$ a $x\ne y$, dost\'av\'ame, \v ze $kx-ky\ne 0$, a tedy 
+$h_k(x)=h_k(y)$ implikuje existenci 
+$q=-\lfloor\frac Nm\rfloor ,-\lfloor\frac Nm\rfloor +1,\dots,-1,1
+,2,\dots,\lfloor\frac Nm\rfloor$ takov\'eho, \v ze 
+$kx-ky\equiv qm\bmod N$,
+a to je 
+ekvivalentn\'\i\ s t\'\i m, \v ze $k(x-y)\equiv qm\bmod N$ pro n\v ejak\'e 
+$q=-\lfloor\frac Nm\rfloor ,-\lfloor\frac Nm\rfloor +1,\dots,-1,1
+,2,\dots,\lfloor\frac Nm\rfloor$.
+\medskip
+
+\flushpar Pro $x>y$ a pro jedno $q=0,1,\dots,\lfloor\frac Nm\rfloor$ e\-xis\-tuje 
+pr\'av\v e jedno $k$ takov\'e, \v ze $k(x-y)\equiv qm\bmod N$, proto\v ze 
+$\Bbb Z_N$ je t\v eleso (tato rovnice m\'a jedin\'e \v re\v sen\'\i ). 
+Proto\v ze pro $q=-\lfloor\frac Nm\rfloor ,\dots,-1,0$ je rovnice $
+k(x-y)\equiv qm\bmod N$ 
+ekvivalentn\'\i\ s rovnic\'\i\ $k(x-y)\equiv N+qm\bmod N$, tak 
+dost\'av\'ame, \v ze pro $x,y\in S$, $x>y$, existuje nejv\'y\v se 
+$2\lfloor\frac Nm\rfloor =2\lfloor\frac {N-1}m\rfloor$ r\accent23uzn\'ych $
+k=1,2,\dots,N-1$, \v ze $h_k(x)=h_k(y)$ (obecn\v e nen\'\i\ pravda, \v ze kdy\v z 
+$k$ spl\v nuje rovnici $k(x-y)\equiv qm\bmod N$ pro n\v ejak\'e 
+$q=-\lfloor\frac Nm\rfloor ,\dots,-1,1,\dots,\lfloor\frac Nm\rfloor$, 
+pak $h_k(x)=h_k(y)$). Stejn\'y odhad analogicky dostaneme, kdy\v z $
+x<y$ 
+(ale dost\'av\'ame jin\'a \v re\v sen\'\i ). Odtud 
+$$\sum_{k=1}^{N-1}\big((\sum_{i=0}^{m-1}(b_i^k)^2)-n\big)\le\sum_{
+x,y\in S,x\ne y}2(\frac {N-1}m)=2(N-1)\frac {n(n-1)}m.$$
+\smallskip
+
+\flushpar Tedy existuje $k$ takov\'e, \v ze $\sum_{i=0}^{m-1}(b_i^
+k)^2\le 2\frac {n(n-1)}m+n$. 
+\medskip
+
+\flushpar Uk\'a\v zeme, \v ze existuje v\'\i ce ne\v z $\frac {N-
+1}4$ takov\'ych 
+$k$, \v ze plat\'\i
+$$\sum_{i=0}^{m-1}(b_i^k)^2<3\frac {n(n-1)}m+n.$$
+V opa\v cn\'em p\v r\'\i pad\v e dost\'av\'ame, \v ze 
+$$\align\sum_{k=1}^{N-1}\big((\sum_{i=0}^{m-1}(b_i^k)^2)-n\big)\ge&\frac {
+3(N-1)}4\frac {3n(n-1)}m=\\
+&\frac {9(N-1)n(n-1)}{4m}>\\
+&\frac {2(N-1)n(n-1)}m,\endalign$$
+a to je spor s p\v redchoz\'\i m v\'ysledkem. Tedy p\v ri n\'ahodn\'em rovnom\v ern\'em 
+v\'yb\v eru $k$ je 
+$$\Prob\{\sum_{i=0}^{m-1}(b_i^k)^2<\frac {3n(n-1)}m+n\mid k\in \{
+1,2,\dots,N-1\}\}\ge\frac 14.$$
+
+\proclaim{Tvrzen\'\i}Kdy\v z $n=m$, pak 
+\roster
+\item"{(a)}"
+existuje deterministick\'y algoritmus, jen\v z v \v case $O(nN)$ 
+nalezne $k$ takov\'e, \v ze 
+$$\sum_{i=0}^{m-1}(b_i^k)^2<3n;$$
+\item"{(b)}"
+existuje pravd\v epodobnostn\'\i\ algoritmus, kter\'y 
+nalezne v \v case $O(n)$ takov\'e $k$, \v ze $\sum_{i=0}^{m-1}(b_
+i^k)^2<4n$ -- o\v cek\'avan\'y po\v cet iterac\'\i\ v\'ypo\v ctu je nejv\'y\v se $
+4$.
+\endroster
+D\'ale 
+\roster
+\item"{(c)}"
+existuje deterministick\'y algoritmus, jen\v z v \v case $O(nN)$ pro 
+$m=n(n-1)+1$ nalezne takov\'e $k$, \v ze $h_k$ je 
+perfektn\'\i ;
+\item"{(d)}"
+existuje pravd\v epodobnostn\'\i\ algoritmus, kter\'y pro 
+$m=2n(n-1)$ v \v case $O(n)$ nalezne $k$ takov\'e, \v ze $h_k$ je 
+perfektn\'\i\ -- o\v cek\'avan\'y po\v cet iterac\'\i\ v\'ypo\v ctu 
+je nejv\'y\v se $4$.
+\endroster
+\endproclaim
+
+\demo{D\accent23ukaz}M\v ejme $n=m$. Proto\v ze spo\v c\'\i t\'an\'\i\ 
+$\sum_{i=0}^{m-1}(b_i^k)^2$ pro pevn\'e $k$ vy\v zaduje \v cas $O
+(n)$, prohled\'an\'\i m 
+v\v sech mo\v znost\'\i\ nalez\-ne\-me $k$ takov\'e, \v ze 
+$$\sum_{i=0}^{m-1}(b_i^k)^2\le\frac {2n(n-1)}n+n=3n-2<3n,$$
+v \v case $O(nN)$. T\'\i m je 
+dok\'az\'ano a). Pravd\v epodobnostn\'\i\ algoritmus dokazuj\'\i c\'\i\ b) vol\'\i\ 
+n\'ahodn\v e $k$ a v \v case $O(n)$ ov\v e\v r\'\i , zda 
+$\sum_{i=0}^{m-1}(b_i^k)^2\le 3\frac {n(n-1)}n+n=4n-3<4n$. Tuto akci opakuje, dokud 
+po\v zadavek nen\'\i\ spln\v en. Proto\v ze pravd\v epodobnost, \v ze $
+k$ spl\v nuje 
+po\v zadavek, je alespo\v n $\frac 14$, tak o\v cek\'avan\'y po\v cet ite\-rac\'\i\ 
+akce je nejv\'y\v se 
+$$\sum_{i=0}^{\infty}i(\frac 34)^{i-1}\frac 14=\frac 14\frac 1{(1
+-\frac 34)^2}=4$$
+a odtud plyne b). 
+
+\flushpar Kdy\v z $m=n(n-1)+1$, pak prohled\'an\'\i m v\v sech mo\v znost\'\i\ 
+nalezne\-me $k$ takov\'e, \v ze 
+$$\sum_{i=0}^{m-1}(b_i^k)^2\le\frac {2n(n-1)}{n(n-1)+1}+n<n+2,$$
+ v 
+\v case $O(nN)$ a c) plyne z p\v redchoz\'\i\ v\v ety. Kdy\v z 
+$m=2n(n-1)$, pak pro n\'ahodn\v e zvolen\'e $k$ plat\'\i\ s 
+pravd\v epodobnost\'\i\ $\le\frac 14$, \v ze 
+$$\sum_{i=0}^{m-1}(b_i^k)^2\le\frac {3n(n-1)}{2n(n-1)}+n<n+2.$$
+Algoritmus spl\v nuj\'\i c\'\i\ tvrzen\'\i\ d) je stejn\'y jako 
+v p\v r\'\i pad\v e b) (jen $m=2n(n-1)$). \qed
+\enddemo
+
+\flushpar Takto zkonstruovan\'e perfektn\'\i\ ha\v sovac\'\i\ funkce 
+nespl\v nuj\'\i\ po\v za\-davek 2) (plat\'\i\ $m=\Theta (n^2)$).  Pou\v zijeme n\'asleduj\'\i c\'\i\ 
+postup. 
+\medskip
+
+\flushpar1) Nalezneme $k$ takov\'e, \v ze pro $m=n$ plat\'\i\ 
+$\sum_{i=0}^{m-1}(b_i^k)^2<3n$ (respektive $\sum_{i=0}^{m-1}(b_i^
+k)^2<4n$).  Pro 
+$i=0,1,\dots,m-1$ nalezneme mno\v ziny 
+$S_i=\{s\in S\mid h_k(s)=i\}$;\newline 
+2) Pro ka\v zd\'e $i=0,1\dots,m-1$ takov\'e, \v ze $S_i\ne\emptyset$, 
+nalezneme pro $m=1+|S_i|(|S_i|-1)$ (respektive $m=1+2|S_i|(|S_i|-
+1)$) 
+takov\'e $k_i$, \v ze $h_{k_i}$ je perfektn\'\i\ na $S_i$. Definujme 
+$c_i=1+|S_i|(|S_i|-1)$ (respektive $c_i=2|S_i|(|S_i|-1)$), kdy\v z 
+$S_i\ne\emptyset$, a $c_i=0$, kdy\v z 
+$S_i=\emptyset$.\newline 
+3) Pro $i=0,1,\dots,m$ definujme $d_i=\sum_{j=0}^{i-1}c_j$ a pro $
+x\in U$ 
+ozna\v cme $h_k(x)=l$. Pak polo\v z\'\i me $g(x)=d_l+h_{k_l}(x)$.
+
+\proclaim{V\v eta}Zkonstruovan\'a funkce $g$ je perfektn\'\i , 
+hodnota $g(x)$ se pro ka\v zd\'e $x\in U$ spo\v c\'\i t\'a v \v case $
+O(1)$, 
+v deterministick\'em p\v r\'\i pa\-d\v e ha\v suje do tabulky velikosti 
+$<3n$ a je nalezena v \v case $O(nN)$, v pravd\v epodobnostn\'\i m 
+p\v r\'\i pa\-d\v e ha\v suje do tabulky velikosti $<6n$ a je nalezena 
+v \v case $O(n)$. Pro jej\'\i\ zak\'odov\'an\'\i\ jsou t\v reba hodnoty $
+k$ a 
+$k_i$ pro $i=0,1,\dots,m-1$. Tyto hodnoty jsou v rozmez\'\i\ 
+$1,2,\dots,N-1$, a tedy vy\v zaduj\'\i\ $O(n\log N)$ pam\v eti.
+\endproclaim
+
+\demo{D\accent23ukaz}Proto\v ze $g(S_i)$ pro $i=0,1,\dots,m-1$ 
+jsou navz\'ajem disjunktn\'\i\ a $h_{k_i}$ je perfektn\'\i\ na $S_
+i$, 
+dost\'av\'ame, \v ze $g$ je perfektn\'\i . Pro v\'ypo\v cet hodnoty $
+g(x)$ 
+jsou t\v reba dv\v e n\'asoben\'\i , dvoj\'\i\ v\'ypo\v cet zbytku p\v ri 
+d\v elen\'\i\ a jedno s\v c\'\i t\'an\'\i\ (hodnoty $d_i$ jsou ulo\v zeny v 
+pam\v eti). Proto v\'ypo\v cet $g(x)$ vy\v zaduje \v cas $O(1)$. D\'ale 
+$d_m$ je horn\'\i\ odhad na po\v cet \v r\'adk\accent23u v tabulce. 
+Proto\v ze pro $S_i\ne\emptyset$ m\'ame $|S_i|(|S_i|-1)+1\le |S_
+i|^2=(b_i^k)^2$, 
+dost\'av\'ame v deterministick\'em p\v r\'\i pad\v e 
+$d_m=\sum_{i=0}^{m-1}c_i\le\sum_{i=0}^{m-1}(b_i^k)^2<3n$ a $k$ nalezneme v \v case 
+$O(nN)$. Proto\v ze $k_i$ nalezneme v \v case $O(|S_i|N)$, lze $g$ 
+zkonstruovat v \v case 
+$O(nN+\sum_{i=0}^{m-1}|S_i|N)=O(nN+N\sum_{i=0}^{m-1}|S_i|)=O(2nN)
+=O(nN)$. 
+V pravd\v epodob\-nostn\'\i m p\v r\'\i pad\v e je 
+$$d_m=\sum_{i=0}^{m-1}c_i\le\sum_{i=0}^{m-1}(2|S_i|^2-2|S_i|)=2\sum_{
+i=0}^{m-1}(b_i^k)^2-2\sum_{i=0}^{m-1}b_i^k<8n-2n=6n$$
+(proto\v ze $|S_i|=b_i^k$ a $\sum_{i=0}^{m-1}b_i^k=n$). Proto\v ze $
+k$ nalezneme v \v case $O(n)$ a $k_i$ v \v case $O(|S_i|)$, dostaneme, \v ze 
+\v ze $g$ nalezneme v \v case $O(n)$. Zbytek je jasn\'y. \qed
+\enddemo
+
+\flushpar Tedy zkonstruovan\'a ha\v sovac\'\i\ funkce spl\v nuje po\v zadavky 
+1), 2) a 3), ale po\v zadavek 4) nen\'\i\ spln\v en. 
+\medskip
+
+\flushpar M\v ejme p\v rirozen\'e \v c\'\i slo $m$ a nech\v t $q$ je po\v cet v\v sech prvo\v c\'\i sel 
+d\v el\'\i c\'\i ch $m$ ($p_1,p_2,\dots$ je rostouc\'\i\ posloupnost v\v sech 
+prvo\v c\'\i sel). Pak
+$$m\ge\prod_{i=1}^qp_i>q!=e^{\sum_{i=1}^q\ln i}\ge e^{\int_1^q\ln 
+xdx}=e^{q\ln(\frac qe)+1}\ge (\frac qe)^q.$$
+Proto existuje konstanta $c$, \v ze $q\le c\frac {\ln m}{\ln\ln m}$ (viz Lemma v odstavci O\v cek\'avan\'y 
+nejhor\v s\'\i\ p\v r\'\i pad na str\'ance 6). Plat\'\i\ tedy  
+\proclaim{V\v eta}Nech\v t $\delta (m)=$po\v cet prvo\v c\'\i sel, kter\'a d\v el\'\i\ 
+$m$. Pak $\delta (m)=O(\frac {\log m}{\log\log m})$.
+\endproclaim
+
+\flushpar M\v ejme $S=\{s_1<s_2<\dots<s_n\}\subseteq U$. Ozna\v cme 
+$d_{i,j}=s_j-s_i$ pro $1\le i<j\le n$. Pak $s_i\bmod p\ne s_j\bmod 
+p$, 
+pr\'av\v e kdy\v z $d_{i,j}\ne 0\bmod p$. Ozna\v cme 
+$D=\prod_{1\le i<j\le n}d_{i,j}\le N^{(n^2)}$. Pak po\v cet prvo\v c\'\i seln\'ych 
+d\v elitel\accent23u \v c\'\i sla $D$ je nejv\'y\v se $c\frac {\ln 
+D}{\ln\ln D}$, a tedy mezi 
+prvn\'\i mi $1+c\frac {\ln D}{\ln\ln D}$ prvo\v c\'\i sly existuje prvo\v c\'\i slo $
+p$ 
+takov\'e, \v ze $s_i\bmod p\ne s_j\bmod p$ pro ka\v zd\'e $1\le i
+<j\le n$. 
+To znamen\'a, \v ze funkce $\phi_p(x)=x\bmod p$ je perfektn\'\i\ pro 
+$S$. Podle v\v ety o velikosti prvo\v c\'\i sel $p_t\le 2t\ln t$ pro ka\v zd\'e $
+t\ge 6$, tedy
+$$\align p\le&2(1+c\frac {\ln D}{\ln\ln D})\ln(1+c\frac {\ln D}{\ln\ln 
+D})\le\\
+&4c\frac {\ln D}{\ln\ln D}\ln(2c\frac {\ln D}{\ln\ln D})\le\\
+&4c(\ln2c)\frac {\ln D}{\ln\ln D}+4c\frac {\ln D}{\ln\ln D}\ln(\frac {\ln 
+D}{\ln\ln D})=\\
+&4c\ln D+o(\ln D)=O(\ln D)=O(n^2\ln N).\endalign$$
+
+\proclaim{V\v eta}Pro ka\v zdou $n$-prvkovou mno\v zinu $S\subseteq 
+U$ 
+existuje prvo\-\v c\'\i s\-lo $p$ o velikosti $O(n^2\ln N)$ takov\'e, \v ze 
+funkce $\phi_p(x)=x\bmod p$ je perfektn\'\i\ pro $S$.  
+\endproclaim
+\medskip
+
+\flushpar Test, zda funkce $\phi_p(x)=x\bmod p$ je perfektn\'\i\ 
+pro $S$, 
+vy\v zaduje \v cas $O(n\log n)$. Tedy systematick\'e hled\'an\'\i\ 
+nejmen\v s\'\i ho $p$, \v ze $\phi_p$ je perfektn\'\i\ pro $S$, vy\v zaduje \v cas 
+$O(n^3\log n\log N)$. Nejmen\v s\'\i\ $p$ takov\'e, \v ze $\phi_p$ je perfektn\'\i\ 
+pro $S$, 
+je prvo\v c\'\i slo. Navrhneme pravd\v epodob\-nostn\'\i\ algoritmus 
+pro nalezen\'\i\ $p$. Pro dostate\v cn\v e velk\'e $n$ mezi 
+prvn\'\i mi $9c\ln D$ \v c\'\i sly je alespo\v n polovina tako\-v\'ych 
+prvo\v c\'\i sel $p$, \v ze $\phi_p$ je perfektn\'\i\ pro $S$. Algoritmus pak 
+opakuje n\'asleduj\'\i c\'\i\ krok, dokud nenalezne perfektn\'\i\ funkci
+\roster
+\item"{}"
+vyberme n\'ahodn\v e \v c\'\i slo $p$ mezi prvn\'\i mi $9cn^2\ln 
+N$ 
+\v c\'\i sly a otestujme, zda $p$ je prvo\v c\'\i slo a $\phi_p$ je perfektn\'\i
+\endroster
+\flushpar Odhad o\v cek\'avan\'eho po\v ctu ne\'usp\v e\v sn\'ych krok\accent23u.\newline 
+N\'ahodn\v e zvolen\'e \v c\'\i slo $p\le 9cn^2\ln N$ je prvo\v c\'\i slo s 
+pravd\v epo\-dob\-nost\'\i\ $\Theta (\frac 1{\ln(9cn^2\ln N)})$ 
+(pou\v zi\-je\-me Rabin-Miller\accent23uv pravd\v epdobnostn\'\i\ algoritmus na testov\'en\'\i\ prvo\v c\'\i sel) a pro prvo\v c\'\i slo $
+p$ je $\phi_p$ 
+perfektn\'\i\ s prav\-d\v e\-po\-dob\-nost\'\i\ $\ge\frac 12$. Tedy n\'ahodn\v e zvolen\'e 
+\v c\'\i slo $p\le 9cn^2\ln N$ spl\v nuje test s pravd\v e\-po\-dob\-nost\'\i\ 
+$\Theta (\frac 1{\ln(9cn^2\ln N)})$, a proto o\v cek\'a\-va\-n\'y po\v cet ne\'usp\v e\v sn\'ych 
+test\accent23u je $O(\ln(9cn^2\ln N))$. Tedy o\v cek\'a\-van\'y \v cas 
+algoritmu je $O(n\log n(\log n+\log\log N))$.
+
+\proclaim{V\v eta}Pro danou mno\v zinu $S\subseteq U$ takovou, \v ze 
+$|S|=n$, deterministick\'y algoritmus nalezne prvo\v c\'\i slo 
+$p=O(n^2\log N)$ takov\'e, \v ze $\phi_p(x)=x\bmod p$ je perfektn\'\i\ 
+pro $S$, a pracuje v \v case $O(n^3\log n\log N)$. Pravd\v epodobnostn\'\i\ 
+algoritmus nalezne pr\-vo\v c\'\i slo $p=O(n^2\log N)$ takov\'e, \v ze 
+$\phi_p$ je perfektn\'\i , v o\v cek\'ava\-n\'em \v case 
+$O(n\log n(\log n+\log\log N))$.
+\endproclaim
+
+\flushpar Deterministick\'y algoritmus nalezne nejmen\v s\'\i\ prvo\v c\'\i slo s 
+po\-\v za\-dovanou vlastnost\'\i .  Prav\-d\v e\-podobnostn\'\i\ algoritmus 
+nalezne prvo\v c\'\i slo, kter\'e m\accent23u\v ze b\'yt podstatn\v e 
+v\v et\v s\'\i , ale jeho velikost je omezena $9cn^2\log N$. 
+\medskip
+
+\flushpar Nyn\'\i\ navrhneme postup na konstrukci perfektn\'\i\ 
+ha\v sovac\'\i\ funk\-ce pro mno\v zinu $S\subseteq U$.
+
+\roster
+\item
+Nalezneme prvo\v c\'\i slo $q_0\in O(n^2\log N)$ takov\'e, \v ze 
+$\phi_{q_0}(x)=x\bmod q_0$ je perfektn\'\i\ funkce pro $S$. Polo\v zme 
+$S_1=\{\phi_{q_0}(s)\mid s\in S\}$.
+\item
+Nalezneme prvo\v c\'\i slo $q_1$ takov\'e, \v ze 
+$n(n-1)<q_1\le 2n(n-1)$. Pak existuje 
+$l\in \{1,2,\dots,q_0-1\}$ takov\'e, \v ze $h_l(x)=((lx)\bmod q_0
+)\bmod q_1$ 
+je perfektn\'\i\ pro $S_1\subseteq \{0,1,\dots,q_0-1\}$. Polo\v zme 
+$S_2=\{h_l(s)\mid s\in S_1\}$.
+\item
+D\'ale zkonstruujme perfektn\'\i\ ha\v sovac\'\i\ funkci 
+$g$ pro mno\v zinu 
+$S_2\subseteq \{0,1,\dots,q_1-1\}$ do tabulky s m\'en\v e ne\v z $
+3n$ \v r\'adky. 
+Polo\v zme $f(x)=g(h_l(\phi_{q_0}(x)))$. Konstruovan\'a ha\v sovac\'\i\ 
+funkce je $f$.
+\endroster
+
+\flushpar V\'ysledek: $f$ je perfektn\'\i\ ha\v sovac\'\i\ funkce pro $
+S$, proto\v ze 
+slo\v zen\'\i\ perfektn\'\i ch ha\v sovac\'\i ch funkc\'\i\ je zase perfektn\'\i\ 
+funkce, a tedy po\v zadavek 1) je spln\v en. \newline 
+$f$ ha\v suje $S$ do tabulky s m\'en\v e ne\v z $3n$ \v r\'adky, a tedy 
+spl\v nuje po\v zadavek 2). \newline 
+Proto\v ze ka\v zd\'a z funkc\'\i\ $g$, $h_l$, $\phi_{q_0}$ se vy\v c\'\i sl\'\i\ v \v case $
+O(1)$, 
+i vy\v c\'\i slen\'\i\ funkce $f$ vy\v zaduje \v cas $O(1)$ a po\v zadavek 3) je 
+spln\v en.\newline 
+Funkce $\phi_{q_0}$ je jednozna\v cn\v e ur\v cena \v c\'\i slem $
+q_0\in O(n^2\log N)$. 
+Funkce $h_l$ je ur\v cena \v c\'\i sly $q_1\in O(n^2)$ a $l\in O(
+q_0)$. Funkce $g$ 
+je ur\v cena $n+1$ \v c\'\i sly velikosti $O(q_1)$. Tedy zad\'an\'\i\ $
+f$ 
+vy\v zaduje pam\v e\v t o velikosti 
+$$O(\log n+\log\log N+n\log n)=O(n\log n+\log\log N).$$
+Lze \v r\'\i ct, \v ze po\v zadavek 4) je spln\v en. 
+\medskip
+
+\flushpar V\'ypo\v cet $\phi_{q_0}$ vy\v zaduje \v cas $O(n^3\log 
+n\log N)$. V\'ypo\v cet $h_l$ 
+vy\v za\-du\-je \v cas $O(n(n^2\log N))=O(n^3\log N)$ (pou\v zit\'e univerzum je 
+$\{0,1,\dots,q_0\}$). V\'ypo\v cet $g$ vy\v zaduje \v cas $O(nn^2
+)=O(n^3)$ 
+(zde univerzum je $\{0,1,\dots,q_1\}$). Celkov\v e 
+v\'ypo\v cet $f$ vy\v zaduje \v cas $O(n^3\log n\log N)$.
+\medskip
+
+\flushpar Lze pou\v z\'\i t i pravd\v epodobnostn\'\i\ algoritmy pro nalezen\'\i\ 
+$g$, $h_l$ a $\phi_{q_0}$. Pak ha\v sujeme do tabulky s m\'en\v e ne\v z $
+6n$ 
+\v r\'adky, ale o\v cek\'avan\'y \v cas pro nalezen\'\i\ $f$ je 
+$O(n\log n(\log n+\log\log N))$.
+\bigskip
+
+\flushpar Tuto metodu navrhli Fredman, Koml\'os a Szemer\'edi.
+\medskip
+
+\subhead
+Univerz\'aln\'\i\ a perfektn\'\i\ ha\v sov\'an\'\i
+\endsubhead
+\smallskip
+
+\flushpar P\v redchoz\'\i\ hlavn\'\i\ konstrukce perfektn\'\i\ ha\v sovac\'\i\ funkce 
+vych\'azela z idej\'\i\ pou\v zit\'ych v univerz\'aln\'\i m ha\v sov\'an\'\i .  Uk\'a\v zeme, 
+\v ze to nen\'\i\ n\'ahodn\'a shoda. Dok\'a\v zeme, \v ze ka\v zd\'y $
+c$-univerz\'aln\'\i\ 
+syst\'em funkc\'\i\ umo\v z\v nuje z\'akladn\'\i\ konstrukci perfektn\'\i\ ha\v sovac\'\i\ 
+funkce.  Pro ka\v zd\'e $m$ nech\v t $\Cal H_m=\{h_i\mid i\in I\}$ je $
+c$-univerz\'aln\'\i\ 
+syst\'em funkc\'\i\ ha\v suj\'\i c\'\i ch do ta\-bulky velikosti $
+m$. Pro 
+libovolnou, ale pevnou podmno\v zinu $S\subseteq U$ o velikosti $
+n$ definujme 
+$b_j^i=\{s\in S\mid h_i(s)=j\}$ pro ka\v zd\'e $j=0,1,\dots,m-1$ a $
+i\in I$. Kdy\v z 
+$b^i_j\ge 2$, pak $(b^i_j)^2-b^i_j\ge 2$, a kdy\v z $b^i_j\le 1$, pak $
+(b^i_j)^2-b^i_j=0$. Odtud 
+dost\'av\'ame p\v rirozen\'e zobecn\v en\'\i\ d\accent23usledku z p\v redchoz\'\i\ 
+sekce, kter\'e vyu\v zijeme stejn\'ym zp\accent23usobem jako v 
+p\v redchoz\'\i\ sekci:
+
+\proclaim{D\accent23usledek}Kdy\v z $\sum_{j=0}^{m-1}(b^i_j)^2\ge n+2$, pak $h_i$ nen\'\i\ 
+perfektn\'\i\ pro $S$, kdy\v z $\sum_{j=0}^{m-1}(b^i_j)^2<n+2$, pak $h_i$ je perfektn\'\i\ 
+ha\v sovac\'\i\ funkce pro $S$.
+\endproclaim
+
+\flushpar Stejn\v e jako v p\v redchoz\'\i\ sekci spo\v c\'\i t\'ame  
+$$\align\sum_{i\in I}&\big(\sum_{j=0}^{m-1}(b^i_j)^2-n\big)=\sum_{
+i\in I}|\{(s,t)\mid s,t\in S,\,s\ne t,\,h_i(s)=h_i(t)\}|=\\
+&\sum_{s,t\in S,s\ne t}|\{i\in I\mid h_i(s)=h_i(t)\}|\le\sum_{s,t
+\in S,s\ne t}\frac {c|I|}m=\frac {cn(n-1)|I|}m.\endalign$$
+
+\flushpar Proto existuje $i\in I$ takov\'e, \v ze $\sum_{j=0}^{m-
+1}(b^i_j)^2\le\frac {cn(n-1)}m+n$. Nyn\'\i\ 
+spo\v c\'\i t\'ame analogick\'e odhady, kter\'e tvo\v r\'\i\ z\'aklad pro 
+pravd\v epodobnostn\'\i\ algoritmus. M\v ejme kladn\'e \v c\'\i slo $
+a>0$ a 
+ozna\v cme $I'$ mno\v zinu t\v ech $i\in I,$ \v ze  
+$$\sum_{j=0}^{m-1}(b^i_j)^2>\frac {(c+a)n(n-1)}m+n.$$
+D\'ale p\v redpokl\'adejme, \v ze $|I'|\ge b|I|$ pro 
+n\v ejak\'e kladn\'e \v c\'\i slo $b$. Pak plat\'\i\ 
+$$\align\frac {cn(n-1)|I|}m&\ge\sum_{i\in I}\big(\sum_{j=0}^{m-1}
+(b^i_j)^2-n\big)\ge\sum_{i\in I'}\big(\sum_{j=0}^{m-1}(b^i_j)^2-n\big
+)>\\
+&\sum_{i\in I'}\frac {(c+a)n(n-1)}m\ge\frac {(c+a)n(n-1)b|I|}m.\endalign$$
+Odtud plyne, \v ze $c>(c+a)b$, a proto $b<\frac c{c+a}$. Kdy\v z tedy vyb\'\i r\'ame  
+$h_i\in \Cal H_m$ n\'ahodn\v e s rovnom\v ern\'ym rozd\v elen\'\i m (vzhledem k $
+i\in I$), pak 
+pravd\v epo\-dobnost, \v ze bude platit $\sum_{j=0}^{m-1}(b^i_j)^
+2>\frac {(c+a)n(n-1)}m+n$, je 
+men\v s\'\i\ ne\v z $\frac c{c+a}$. Stejn\v e jako v p\v redchoz\'\i\ sekci shrneme tato fakta do tvrzen\'\i\ 
+
+\proclaim{Tvrzen\'\i}Pro p\v rirozen\'e \v c\'\i slo $m$ m\v ejme $
+c$-univerz\'aln\'\i\ syst\'em funkc\'\i\ $\Cal H_m=\{h_i\mid i\in 
+I\}$ ha\v suj\'\i c\'\i ch do tabulky o velikosti 
+$m$. Pro $m=n$ existuje deterministick\'y algoritmus, 
+kter\'y v \v case $O(|I|n)$ nalezne $h_i\in \Cal H_m$ takovou, \v ze $
+\sum_{j=0}^{m-1}(b^i_j)^2\le c(n-1)+n$, 
+a existuje pravd\v epodobnostn\'\i\ algoritmus, kter\'y pro kladn\'e \v c\'\i slo 
+$a$ v \v case $O(n)$ nalezne $h_i\in \Cal H_m$ takov\'e, \v ze 
+$$\sum_{j=0}^{m-1}(b^i_j)^2<(c+a)(n-1)+n,$$
+a o\v cek\'avan\'y po\v cet iterac\'\i\ p\v ri hled\'an\'\i\ $h_i$ je men\v s\'\i\ ne\v z $\frac {
+c+a}a$.   
+
+\flushpar Pro $m=\frac {cn(n-1)}2+1$ existuje deterministick\'y algoritmus, 
+kter\'y nalezne perfektn\'\i\ ha\v sovac\'\i\ funkci  $h\in \Cal H_
+m$ pro mno\v zinu $S$ 
+velikosti $n$ v \v case $O(n|I|)$.
+
+\flushpar Pro $a>0$ a pro $m=\frac {(c+a)n(n-1)}2+1$ existuje 
+pravd\v epodobnostn\'\i\ algoritmus, kter\'y nalezne perfektn\'\i\ ha\v sovac\'\i\ 
+funkci $h\in \Cal H_m$ pro mno\v zinu $S$ v \v case $O(n)$ a o\v cek\'avan\'y po\v cet 
+iterac\'\i\ je men\v s\'\i\ ne\v z $\frac {c+a}a$.  
+\endproclaim
+
+\demo{D\accent23ukaz}Kdy\v z $n=m$, pak v \v case $O(n)$ pro  
+ha\v sovac\'\i\ funkci ov\v e\v r\'\i me, zda $\sum_{j=0}^{m-1}(b^
+i_j)^2\le c(n-1)+n$, respektive 
+$\sum_{j=0}^{m-1}(b^i_j)^2\le (c+a)(n-1)+n$.  V prvn\'\i m p\v r\'\i pad\v e v\'\i me, \v ze takov\'a 
+funkce v souboru $\Cal H_m$ existuje, a systematick\'ym prohled\'av\'an\'\i m 
+v\v sech funkc\'\i\ v dan\'em $c$-univerz\'aln\'\i m syst\'emu $\Cal H_
+m$ ji nalezneme 
+v \v case $O(n|I|)$.  Pro pravd\v epodobnostn\'\i\ algoritmus budeme 
+vyb\'\i rat funkci ze souboru $\Cal H_m$ n\'ahodn\v e s rovnom\v ern\'ym 
+rozd\v elen\'\i m.  Pak o\v cek\'avan\'y po\v cet iterac\'\i\ ne\v z usp\v ejeme je 
+$$\align\sum_{i=1}^{\infty}&i(\frac c{c+a})^{i-1}(1-\frac c{c+a})
+\le\sum_{i=1}^{\infty}i(\frac c{c+a})^{i-1}-\sum_{i=1}^{\infty}i(\frac 
+c{c+a})^i=\\
+&\sum_{i=0}^{\infty}(\frac c{c+a})^i=\frac 1{1-\frac c{c+a}}=\frac {c
++a}a.\endalign$$
+\flushpar Pro hled\'an\'\i\ perfektn\'\i\ ha\v sovac\'\i\ funkce op\v et pou\v zijeme 
+syste\-ma\-tick\'e prohled\'av\'an\'\i\ $c$-univer\-z\'al\-n\'\i ho syst\'emu, proto\v ze 
+v\'\i me, \v ze existuje funkce $h_i\in \Cal H_m$ takov\'a, \v ze 
+$\sum_{j=1}^{m-1}(b^i_j)^2\le\frac {cn(n-1)}{\frac {cn(n-1)}2+1}+
+n<n+2$, a tedy je tato funkce perfektn\'\i . 
+To vy\v zaduje \v cas $O(n|I|)$. 
+
+\flushpar Kdy\v z m\'ame $a>1$ a $m=\frac {(c+a)n(n-1)}2+1$ 
+a kdy\v z budeme volit funkce z $\Cal H_m$ 
+n\'ahodn\v e s rovnom\v ern\'ym rozd\v elen\'\i m, pak s pravd\v epodobnost\'\i\ 
+$\frac a{c+a}$ do\-sta\-ne\-me funkci $h_i$ takovou, \v ze 
+$$\sum_{j=0}^{m-1}(b^i_j)^2\le\frac {(c+a)n(n-1)}{\frac {(c+a)n(n
+-1)}2+1}+n<2+n.$$
+Z d\accent23usledku plyne, \v ze $h_i$ je perfektn\'\i .  Anal\'yza 
+o\v cek\'avan\'eho po\v ctu iterac\'\i\ je stejn\'a jako u p\v redchoz\'\i ho tvrzen\'\i\ 
+pro pravd\v epodobnostn\'\i\ algoritmus.  \qed
+\enddemo
+
+\flushpar Dal\v s\'\i\ postup konstrukce perfektn\'\i\ ha\v sovac\'\i\ funkce u\v z 
+nesouvis\'\i\ s $c$-univerz\'aln\'\i mi syst\'emy. 
+
+\subhead
+Dynamick\'e perfektn\'\i\ ha\v sov\'an\'\i
+\endsubhead
+\smallskip
+
+\flushpar Jedna z velk\'ych nev\'yhod perfektn\'\i ho ha\v sovan\'\i\ je 
+neznalost efektivn\'\i ch aktualiza\v cn\'\i ch ope\-rac\'\i . Existuj\'\i\ sice 
+obecn\'e meto\-dy na dynamizaci deterministick\'ych operac\'\i\ -- viz 
+letn\'\i\ p\v redn\'a\v s\-ka, ale tato metoda v tomto p\v r\'\i pad\v e neposkytuje 
+efektivn\'\i\ dynamiza\v cn\'\i\ operace, proto\v ze deterministick\'y 
+algoritmus pro \v re\-\v se\-n\'\i\ perfektn\'\i ho ha\v sov\'an\'\i\ je pro 
+aktualiza\v cn\'\i\ ope\-race p\v r\'\i li\v s pomal\'y. To vedlo k n\'avrhu, 
+kter\'y kombinuje pravd\v epodobnostn\'\i\ algoritmus pro perfektn\'\i\ 
+ha\v sov\'an\'\i\ s obecnou metodou dynami\-za\-ce a tyto metody jsou 
+upraveny pro konkr\'etn\'\i\ situaci. 
+\medskip
+
+\flushpar Nejprve uvedeme modifikaci v\'ysledk\accent23u z 
+p\v redchoz\'\i\ \v c\'asti, na kter\'ych je tato metoda zalo\v zena.
+P\v redpokl\'ad\'ame, \v ze $U=\{0,1,\dots,N-1\}$ je univerzum, kde $
+N$ je 
+prvo\v c\'\i slo, a \v ze je d\'ano \v c\'\i slo $s<N$. Ozna\v cme 
+$\Cal H_s=\{h_k\mid k=1,2,\dots,N-1\}$ mno\v zinu funkc\'\i\ z $U$ do 
+$\{0,1,\dots,s-1\}$, kde $h_k(x)=(kx\bmod N)\bmod s$ pro ka\v zd\'e $
+x\in U$. 
+Kdy\v z zvol\'\i me n\'ahodn\v e $k=1,2,\dots,N-1$, pak s pravd\v epodobnost\'\i\ 
+ales\-po\v n $\frac 12$ plat\'\i\ 
+$$\sum_{i=0}^{s-1}(b_i^k)^2<\frac {4n^2}s+n.$$
+Skute\v cn\v e, kdy\v z pro m\'en\v e ne\v z $\frac{N-1}2$ hodnot $k$ plat\'\i\ $\sum_{i=0}^m-1(b^k_i)^2\le\frac{4n}m$, pak 
+$$\sum_{k=1}^{N-1}\left((\sum_{i=0}^{m-1}(b^k_i)^2)-n\right)\ge2(N-1)\frac{n^2}m$$ 
+a to je spor. Budeme p\v redpokl\'adat, 
+\v ze takov\'e $k$ m\'ame, a pak pro ka\v zd\'e $i=0,1,\dots,s-1$ 
+p\v redpokl\'ad\'ame, \v ze n\'ahodn\v e zvol\'\i me $j_i\in \Cal H_{
+2(b_i^k)^2}$ takov\'e, \v ze 
+$h_{j_i}$ je prost\'a na mno\v zin\v e $S_i=\{s\in S\mid h_k(s)=i
+\}$ (z p\v redchoz\'\i ho textu v\'\i me, \v ze kdy\v z zvol\'\i me n\'ahodn\v e 
+$j_i=0,1,\dots,N-1$, pak s pravd\v epodobnost\'\i\ ales\-po\v n $\frac 
+14$ je $h_{j_i}$ prost\'a na $S_i$). Pro jednoduchost p\v redpokl\'ad\'ame, \v ze mno\v ziny $
+S_i$ 
+pro $i=0,1,\dots,s-1$ ulo\v z\'\i me do tabulek $T_i$ a tabulky 
+$T_0,T_1,\dots,T_{s-1}$ budou ulo\v zeny v tabulce $T$. Kdy\v z $
+s=O(|S|)$, 
+pak tato metoda vy\v zaduje $O(|S|)$ prostoru. Abychom ur\v cili $
+s$, 
+zvolme $c>1$ a polo\v zme $s=\sigma (|S|)$, kde $\sigma (n)=\frac 
+43\sqrt 6(1+c)n$ pro 
+ka\v zd\'e $n$. Nyn\'\i\ pop\'\i\v seme algoritmy. Zde $n$ je velikost reprezentovan\'e mno\v ziny, $s=\sigma(n)$ a $2m(j)$ je velikost tabulky $T_j$ pro $j=0,1,\dots,s-1$.
+\medskip
+
+\subhead
+Algoritmy
+\endsubhead
+\bigskip
+
+\flushpar {\bf INSERT$(x)$}: \newline 
+$n:=n+1$ \newline 
+{\bf if} $n\le s$ {\bf then}\newline 
+\phantom{---}$j:=h(x)$, $|S_j|:=|S_j|+1$\newline 
+\phantom{---}{\bf if} $|S_j|\le m(j)$ a pozice $h_j(x)$ v $T_j$ je pr\'azdn\'a {\bf then}\newline 
+\phantom{------}vlo\v z\'\i me $x$ do tabulky $T_j$  na pozici $
+h_j(x)$\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}{\bf if} $|S_j|\le m(j)$ a pozice $h_j(x)$ v $T_
+j$ je obsazen\'a {\bf then}\newline 
+\phantom{---------}vytvo\v r\'\i me seznam $S_j$ prvk\accent23u v tabulce $
+T_j$\newline 
+\phantom{---------}vypr\'azdn\'\i me tabulku $T_j$\newline 
+\phantom{---------}zvol\'\i me n\'ahodn\v e funkci $h_j\in \Cal H_{
+m(j)^2}$\newline 
+\phantom{---------}{\bf while} $h_j$ nen\'\i\ prost\'a na mno\v zin\v e $
+S_j$ {\bf do}\newline 
+\phantom{------------}zvol\'\i me n\'ahodn\v e funkci $h_j
+\in \Cal H_{m(j)^2}$\newline 
+\phantom{---------}{\bf enddo}\newline 
+\phantom{---------}{\bf for every} $y\in S_j$ {\bf do} vlo\v z\'\i me $
+y$ do $T_j$ na pozici $h_j(y)$ {\bf enddo}\newline 
+\phantom{------}{\bf else}\newline 
+\phantom{---------}$m(j):=2m(j)$\newline 
+\phantom{---------}{\bf if} nen\'\i\ dost prostoru pro tabulku $
+T_j$ nebo 
+$$\sum_{i=0}^{\sigma (m)-1}(m(i))^2\ge\frac {4n^2}{\sigma (n)}+n$$
+\phantom{---------}{\bf then}\newline 
+\phantom{------------}{\bf RehashAll}\newline 
+\phantom{---------}{\bf else}\newline 
+\phantom{------------}alokujeme prostor pro novou pr\'azdnou tabulku $
+T_j$ \newline 
+\phantom{------------}vytvo\v r\'\i me seznam $S_j$ prvk\accent23u ze star\'e tabulky $
+T_j$ a zru\v s\'\i me ji\newline 
+\phantom{------------}zvol\'\i me n\'ahodn\v e funkci $h_j\in \Cal H_{
+m(j)^2}$\newline 
+\phantom{------------}{\bf while} $h_j$ nen\'\i\ prost\'a na mno\v zin\v e $
+S_j$ {\bf do}\newline 
+\phantom{---------------}zvol\'\i me n\'ahodn\v e funkci $
+h_j\in \Cal H_{m(j)^2}$\newline 
+\phantom{------------}{\bf enddo}\newline 
+\phantom{------------}{\bf for every} $y\in S_j$ {\bf do} vlo\v z\'\i me $
+y$ do $T_j$ na pozici $h_j(y)$ {\bf enddo}\newline 
+\phantom{---------}{\bf endif}\newline 
+\phantom{------}{\bf endif}\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}{\bf RehashAll}\newline 
+\phantom{---}{\bf endif\newline 
+endif}
+\bigskip
+
+\flushpar {\bf RehashAll}:\newline 
+projdeme tabulku $T$ a tabulky $T_i$ a vytvo\v r\'\i me seznam 
+prvk\accent23u z mno\v ziny $S$\newline 
+$s:=\sigma(n)$\newline 
+zvolme n\'ahodn\v e $h\in \Cal H_s$ \newline 
+{\bf for every} $i=0,1,\dots,s-1$ {\bf do} $S_i:=\{x\in 
+S\mid h(x)=i\}$ {\bf enddo\newline 
+while} $\sum_{i=0}^{s-1}2(|S_i|)^2>\frac {8n^2}s+2n$ {\bf do}\newline 
+\phantom{---}zvolme n\'ahodn\v e $h\in \Cal H_s$ \newline 
+\phantom{---}{\bf for every} $i=0,1,\dots,s-1$ {\bf do} $
+S_i:=\{x\in S\mid h(x)=i\}$ {\bf enddo}\newline 
+{\bf enddo}\newline
+Koment\'a\v r: zde $S_i$ jsou mno\v ziny vytvo\v ren\'e n\'ahodn\v e zvolenou 
+funkc\'\i\ $h$ \newline 
+$n:=0$ \newline 
+{\bf for every} $i=0,1,\dots,s-1$ {\bf do}\newline 
+\phantom{---}$m(i):=2|S_i|$\newline 
+\phantom{---}zvol\'\i me n\'ahodn\v e $h_i\in \Cal H_{m(i
+)^2}$\newline 
+\phantom{---}{\bf while} $h_i$ nen\'\i\ prost\'a na mno\v zin\v e $
+S_i$ {\bf do}\newline 
+\phantom{------}zvol\'\i me n\'ahodn\v e $h_i\in \Cal H_{m(i)^2}$\newline 
+\phantom{---}{\bf enddo\newline 
+enddo\newline 
+for every} $x\in S$ {\bf do INSERT$(x)$ enddo}
+\bigskip
+
+\flushpar {\bf DELETE$(x)$}:\newline 
+$j:=h(x)$, $n:=n-1$, $|S_j|:=|S_j|-1$\newline 
+odstran\'\i me $x$ z pozice $h_j(x)$ v tabulce $T_j$, pozice bude pr\'azdn\'a \newline 
+{\bf if} $n<\frac m{1+2c}$ {\bf then RehashAll endif}
+\bigskip
+
+\flushpar {\bf MEMBER$(x)$}: \newline 
+$j:=h(x)$\newline 
+{\bf if} $x$ je na $h_j(x)$-t\'e pozici v tabulce $T_j$ {\bf then}\newline 
+\phantom{---}{\bf V\'ystup}: $x$ je prvek $S$ \newline 
+{\bf else}\newline 
+\phantom{---}{\bf V\'ystup}: $x$ nen\'\i\ prvkem $S$\newline 
+{\bf endif}
+\bigskip
+
+\flushpar Algoritmy p\v redpokl\'adaj\'\i , \v ze p\v ri operaci {\bf INSERT$
+(x)$} prvek $x$ nepat\v r\'\i\ do $S$ a p\v ri operaci {\bf DELETE$(x)$} $
+x$ je prvkem $S$. Velikost reprezentovan\'e mno\v ziny je $n$. 
+\medskip
+
+\flushpar Uvedu slo\v zitost t\'eto metody bez d\accent23ukazu.
+\medskip
+
+\proclaim{V\v eta}Popsan\'a metoda vy\v zaduje line\'arn\'\i\ pam\v e\v t 
+(neuva\v zuje se pam\v e\v t pot\v rebn\'a pro zak\'odo\-v\'a\-n\'\i\ ha\v sovac\'\i ch funkc\'\i ), operace {\bf MEMBER }
+v nej\-hor\v s\'\i m p\v r\'\i pad\v e vy\v zaduje \v cas $O(1)$ a o\v cek\'avan\'a 
+amortizovan\'a slo\v zitost operac\'\i\ {\bf INSERT} a {\bf DELETE} je tak\'e $
+O(1)$.
+\endproclaim
+
+\flushpar Toto zobecn\v en\'\i\ Fredman-Koml\'os-Szemer\'ediho metody navrhli 
+Dietzfelbinger, Karlin, Mehl\-horn, Meyer auf der Heide, Rohnert 
+a Tarjan.
+\bigskip
+
+\flushpar Dal\v s\'\i\ nev\'yhoda Fredman-Koml\'os-Szemer\'ediho metody:\newline 
+Navr\v zen\'a metoda pracuje pro $m<3n$, ale nezajist\'\i\ $m=n$. 
+Lze \v r\'\i ct, \v ze pam\v e\v t je efektivn\v e vyu\v zita? Existuje 
+metoda, kter\'a by umo\v znila n\'avrh perfektn\'\i\ ha\v sovac\'\i\ 
+funkce pro $m=n$? Z v\'ysledk\accent23u pro 
+$(N,m,n)$-perfektn\'\i\ soubory funkc\'\i\ plyne existence 
+$(N,n,n)$-perfektn\'\i ho souboru pro $n^N>e^{n+ln(n)}\ln(N)$. 
+Zm\'\i n\'\i me se orienta\v cn\v e o parametrizovan\'e metod\v e, kter\'a 
+navr\-huje perfektn\'\i\ ha\v sovac\'\i\ funkci pro $S\subseteq U$ a pro 
+$|S|=n$. Parametr bude p\v rirozen\'e \v c\'\i slo $r$, kter\'e ur\v cuje, 
+jak\'e hypergrafy jsou u\v zity p\v ri konstrukci funkce. Proto 
+nejd\v r\'\i ve p\v ripomeneme n\v ekolik definic.
+
+\flushpar Dvojice $(X,E)$, kde $X$ je mno\v zina a $E$ je syst\'em 
+$r$-prvkov\'ych podmno\v zin $X$, se naz\'yv\'a $r$-\emph{hypergraf}.  
+Prvky v $E$ se naz\'yvaj\'\i\ \emph{hrany} $r$-hypergrafu.  
+\emph{Cyklus} je hypergraf $(X,E)$, kde ka\v zd\'y vrchol le\v z\'\i\ 
+alespo\v n ve dvou r\accent23uzn\'ych hran\'ach.  Naopak 
+$r$-hypergraf $(X,E)$ se naz\'yv\'a \emph{acyklick\'y}, kdy\v z 
+\v z\'adn\'y jeho podhypergraf nen\'\i\ cyklus.  
+\medskip
+
+\flushpar Nyn\'\i\ pop\'\i\v seme metodu, kter\'a je rozd\v elena do 
+dvou krok\accent23u. Je d\'ano $S\subseteq U$ takov\'e, \v ze 
+$|S|=n$.
+\medskip
+
+\flushpar Krok 1) M\v ejme $r$-hypergraf $(V,E)$, kde $|E|=n$.  Nalezneme 
+zobrazen\'\i\ 
+$$g:V@>>>\{0,1,\dots,n-1\}$$
+takov\'e, \v ze funkce 
+$h:E@>>>\{0,1,\dots,n-1\}$ definovan\'a $h(e)=\sum_{i=1}^rg(v_i)\bmod 
+n$, 
+kde $e=\{v_1,v_2,\dots,v_r\}$, je prost\'a (m\'\i sto s\v c\'\i t\'an\'\i\ modulo $
+n$ 
+m\accent23u\v zeme pou\v z\'\i t libovolnou grupovou operaci na 
+mno\v zin\v e $\{0,1,\dots,n-1\}$).  Pro acyklick\'y $r$-hypergraf lze 
+funkci $g$ zkonstruovat n\'asle\-duj\'\i c\'\i m postupem.  Zvol\'\i me 
+bijekci $h:E@>>>\{0,1,\dots,n-1\}$ a pak definujeme $g$ 
+n\'asledovn\v e:  kdy\v z $e=\{v_1,v_2,\dots,v_r\}$ a $g(v_i)$ je 
+definov\'ano pro $i=2,3,\dots,r$, pak 
+$$g(v_1)=h(e)-\sum_{i=2}^rg(v_i)\bmod n.$$
+Proto\v ze pro ka\v zd\'y acyklick\'y $r$-hypergraf existuje vrchol, kter\'y 
+le\v z\'\i\ v jedin\'e hran\v e, lze tento postup pou\v z\'\i t ke konstrukci $
+g$ 
+pomoc\'\i\ indukce (a tedy m\'ame algoritmus pro konstrukci $g$).  
+\smallskip
+
+\flushpar Krok 2) Nalezneme $r$ funkc\'\i\ $f_1,f_2,\dots,f_r:U@>>>
+V$ takov\'ych, \v ze 
+$(V,E)$, kde 
+$$E=\{\{f_1(x),f_2(x),\dots,f_r(x)\}\mid x\in S\},$$
+ je acyklick\'y 
+$r$-hypergraf.  Pak ha\v sovac\'\i\ funkce $f$ je definov\'ana 
+$f(x)=\sum_{i=1}^rg(f_i(x))$ pro ka\v zd\'e $x\in U$.  Z konstrukce 
+vypl\'yv\'a, \v ze je perfektn\'\i\ na mno\v zin\v e $S$.  
+\medskip
+
+\flushpar Auto\v ri dok\'azali, \v ze 
+nejvhodn\v ej\v s\'\i\ alternativa je, kdy\v z zobrazen\'\i\ $f_1
+,f_2,\dots,f_r$ 
+jsou n\'ahodn\'a zob\-razen\'\i\ n\'ahodn\v e zvolen\'a. Bohu\-\v zel takov\'a 
+zobrazen\'\i\ neum\'\i me zkonstruovat, ale auto\v ri uk\'azali, \v ze 
+pro tyto \'u\v cely lze pou\v z\'\i t n\'ahodn\'y v\'yb\v er funkc\'\i\ z 
+n\v ejak\'eho $c$-univerz\'aln\'\i ho souboru funk\-c\'\i . 
+\medskip
+
+\flushpar Auto\v ri uk\'azali, \v ze jejich algoritmus vy\v zaduje $
+O(rn+|V|)$ 
+\v casu a $O(n\log n+r\log|V|)$ pam\v eti. 
+\medskip
+
+\flushpar Tento metapostup navrhli Majewski, Wormald, Havas a Czech (1996).
+\medskip
+
+\flushpar Pro praktick\'e pou\v zit\'\i\ je problematick\'a 
+reprezentace $r$-hyper\-gra\-fu a i n\'ahodn\'a volba funkc\'\i\ 
+$f_1,f_2,\dots,f_r$ (viz p\v redchoz\'\i\ diskuze o $c$-univerzalit\v e).  Z 
+po\v zadavk\accent23u na perfektn\'\i\ ha\v sovac\'\i\ funkci je op\v et 
+probl\'emem spln\v en\'\i\ po\v za\-davku 4).  Nev\'\i m, jak je uveden\'a 
+metoda prakticky pou\-\v zi\-teln\'a a zda se n\v ekde pou\v z\'\i v\'a.  
+
+\heading
+Extern\'\i\ ha\v sov\'an\'\i
+\endheading
+
+\flushpar Navr\v zen\'y postup je tak\'e zn\'am pod n\'azvem Fagin\accent23uv algoritmus. T\'\i mto probl\'emem se jako prvn\'\i\ asi zab\'yval Larsson.
+\medskip
+
+\flushpar\v Re\v s\'\i me jin\'y probl\'em -- ulo\v zen\'\i\ dat v extern\'\i\ 
+pam\v e\v ti. Hlavn\'\i\ probl\'em -- minimalizovat p\v r\'\i stupy na 
+extern\'\i\ pam\v e\v t. 
+\medskip
+
+\flushpar P\v redpoklady:  Extern\'\i\ pam\v e\v t je rozd\v elena na 
+str\'anky, ka\v zd\'a str\'anka obsahuje $b$ polo\v zek (dat) 
+(p\v redpokl\'ad\'ame, \v ze $b>1$, jinak to nem\'a smysl).  V\v zdy v 
+jednom kroku na\v cteme celou str\'anku do intern\'\i\ pam\v eti 
+nebo celou str\'anku v intern\'\i\ pam\v eti v jednom kroku 
+zap\'\i\v seme na extern\'\i\ medium.  Tyto operace jsou \v r\'adov\v e 
+pomalej\v s\'\i\ ne\v z operace v intern\'\i\ pam\v eti.  
+\medskip
+
+\flushpar Podobn\'y probl\'em se tak\'e \v re\v s\'\i\ pri pr\'aci s cache-pam\v et\'\i . V tom p\v r\'\i pad\v e v\v sak 
+neovliv\v nujeme, kter\'a str\'anka se bude na\v c\'\i tat, kde\v zto v p\v r\'\i pad\v e extern\'\i\ pam\v eti to pr\'av\v e mus\'\i me \v re\v sit.
+\smallskip
+
+\flushpar N\'a\v s c\'\i l:  
+Nal\'ezt zp\accent23usob ukl\'ad\'an\'\i\ dat do str\'anek extern\'\i\ 
+pam\v eti, aby se minimalizoval po\v cet operac\'\i\ s extern\'\i\ 
+pam\v et\'\i .  
+\medskip
+
+\flushpar P\v redpokl\'adejme, \v ze $h:U@>>>\{0,1\}^{*}$ je prost\'e 
+zobrazen\'\i\ takov\'e, \v ze d\'elka $h(u)$ je stejn\'a pro v\v sechny prvky 
+univerza $U$.  Ozna\v cme $k$ d\'elku $h(u)$ pro $u\in U$. Pak $
+h$ je 
+ha\v sovac\'\i\ funkce (to znamen\'a, \v ze ha\v sovac\'\i\ funkce je p\v rejmenov\'an\'\i\ prvk\accent23u).  Nech\v t $S\subseteq U$, pak pro slovo $
+\alpha$ d\'elky 
+men\v s\'\i\ ne\v z $k$ definujme 
+$$h^{-1}_S(\alpha )=\{s\in S\mid\alpha\text{\rm\ je prefix }h(s)\}
+.$$
+\v Rekneme, \v ze $\alpha$ je \emph{kritick\'e} \emph{slovo}, kdy\v z 
+$0<|h^{-1}_S(\alpha )|\le b$ a pro ka\v zd\'y vlastn\'\i\ prefix $
+\alpha'$ slova $\alpha$ plat\'\i\ 
+$|h^{-1}_S(\alpha')|>b$.  Pro ka\v zd\'e $s\in S$ existuje pr\'av\v e jedno 
+kritick\'e slovo $\alpha$, kter\'e je prefixem $h(s)$.  Definujme $
+d(s)$ 
+pro $s\in S$ jako d\'elku kritick\'eho slova, kter\'e je prefixem 
+$h(s)$ a 
+$$d(S)=\max\{\text{\rm d\'elka}(\alpha )\mid\alpha\text{\rm\ je kritick\'e slovo}
+\}=\max\{d(s)\mid s\in S\}.$$
+Mno\v zinu $S$ reprezentujeme tak, \v ze je jednozna\v cn\'a 
+korespondence mezi kritick\'ymi slovy a str\'ankami extern\'\i\ 
+pam\v eti slou\v z\'\i\-c\'\i\-mi k reprezentaci $S$.  Na str\'ance 
+p\v r\'\i slu\v sej\'\i c\'\i\ kritick\'emu slovu $\alpha$ je reprezentov\'an soubor 
+$h^{-1}_S(\alpha )$.  
+
+\flushpar Probl\'em: jak nal\'ezt str\'anku kritick\'eho slova 
+$\alpha$?\newline 
+\v Re\v sen\'\i : Adres\'a\v r je funkce, kter\'a ka\v zd\'emu slovu $
+\alpha$ o 
+d\'elce $d(S)$ p\v ri\v rad\'\i\ adresu str\'anky p\v redpisem
+\roster
+\item"{}"kdy\v z kritick\'e slovo $\beta$ je prefixem $\alpha$, pak k $
+\alpha$ je 
+p\v ri\v razena str\'an\-ka koresponduj\'\i c\'\i\ s $\beta$, jinak je k $
+\alpha$ 
+p\v ri\v razena str\'an\-ka $NIL$ -- speci\'aln\'\i\ pr\'azdn\'a str\'anka.
+\endroster
+\flushpar Korektnost: Pro r\accent23uzn\'a kritick\'a slova 
+$\beta$ a $\gamma$ plat\'\i\ $h^{-1}_S(\beta )\cap h^{-1}_S(\gamma 
+)=\emptyset$, a tedy pro ka\v zd\'e slovo $\alpha$ 
+d\'elky $d(S)$ existuje nejv\'y\v se jedno kritick\'e slovo, kter\'e 
+je prefixem $\alpha$. Kdy\v z $\alpha$ je slovo d\'elky $d(S)$, pak nastane 
+jeden z t\v echto t\v r\'\i\ p\v r\'\i pad\accent23u:
+\roster
+\item
+$h^{-1}_S(\alpha )\ne\emptyset$, pak $0<|h^{-1}_S(\alpha )|\le b$ a existuje pr\'av\v e jedno kritick\'e slovo $
+\beta$, 
+kter\'e je prefixem $\alpha$; 
+\item
+$h^{-1}_S(\alpha )=\emptyset$ a existuje prefix $\alpha'$ slova $
+\alpha$ takov\'y, \v ze 
+$0<|h^{-1}_S(\alpha')|\le b$, pak existuje pr\'av\v e jedno kritick\'e slovo, kter\'e je 
+prefixem $\alpha'$ (a tedy tak\'e prefixem $\alpha$);
+\item
+$h^{-1}_S(\alpha )=\emptyset$ a pro ka\v zd\'y prefix $\alpha'$ slova $
+\alpha$ plat\'\i\ bu\v d 
+$h^{-1}_S(\alpha')=\emptyset$ nebo $|h^{-1}_S(\alpha')|>b$ (pak k $
+\alpha$ je p\v ri\v razena 
+str\'anka $NIL$).
+\endroster
+
+\flushpar M\v ejme slovo $\alpha$ o d\'elce $d(S)$. Ozna\v cme $c
+(\alpha )$ nejkrat\v s\'\i\ 
+prefix $\alpha'$ slova $\alpha$ takov\'y, \v ze ka\v zd\'emu slovu $\beta$ o d\'elce $d(S)$, kter\'e m\'a $\alpha'$ 
+za prefix, je p\v ri\v razen\'a stejn\'a str\'anka jako slovu $\alpha$. V\v simn\v eme si, \v ze kdy\v z $h^{
+-1}_S(\alpha )\ne\emptyset$, pak $c(\alpha )$ je 
+kritick\'e slovo. Plat\'\i\ siln\v ej\v s\'\i\ tvrzen\'\i , kter\'e tvrd\'\i , \v ze 
+n\'asleduj\'\i c\'\i\ podm\'\i nky jsou ekvivalentn\'\i :
+\roster
+\item
+str\'anka p\v ri\v razen\'a slovu $\alpha$ je r\accent23uzn\'a od $
+NIL$;
+\item
+$c(\alpha )$ je kritick\'e slovo;
+\item
+n\v ejak\'y prefix $\alpha$ je kritick\'e slovo.
+\endroster
+V\v simn\v eme si, \v ze znalost adres\'a\v re umo\v z\v nuje nal\'ezt slovo 
+$c(\alpha )$ pro ka\v zd\'e slovo o d\'elce $d(S)$.
+\medskip
+
+\flushpar Line\'arn\'\i\ uspo\v r\'ad\'an\'\i\ na slovech d\'elky $
+n$ nazveme 
+\emph{lexikografick\'e}, kdy\v z $\alpha <\beta$, pr\'av\v e kdy\v z 
+$\alpha =\gamma 0\alpha'$ a $\beta =\gamma 1\beta'$ pro n\v ejak\'a slova $
+\gamma$, $\alpha'$ a $\beta'$. 
+Lexikografick\'e uspo\v r\'ad\'an\'\i\ v\v zdy existuje a je 
+jednozna\v cn\'e.
+\medskip
+
+\flushpar Reprezentace adres\'a\v re: Je to seznam adres 
+str\'anek o d\'elce $2^{d(S)}$ takov\'y, \v ze adresa na $i$-t\'em m\'\i st\v e 
+odpov\'\i d\'a $i$-t\'emu slovu d\'elky $d(S)$ v lexikografick\'em 
+uspo\v r\'ad\'an\'\i .
+
+\flushpar P\v r\'\i klad: $U$ je mno\v zina v\v sech slov nad $\{
+0,1\}$ o 
+d\'elce $5$, $h$ 
+je identick\'a funkce a $b=2$. Reprezentujme mno\v zinu  
+$S=\{00000,\,00010,\,01000,\,10000\}$. Pak 
+$d(00000)=d(00010)=d(01000)=2$, $d(10000)=1$, kritick\'a slova 
+jsou $00$, $01$ a $1$ a adres\'a\v r je (m\'\i sto adresy str\'anky 
+uvedeme mno\v zinu, kter\'a je na t\'eto str\'ance ulo\v zena)
+$$00\mapsto \{00000,00010\},\quad 01\mapsto \{01000\},\quad 10\mapsto 
+11\mapsto \{10000\}.$$
+Tedy $c(00)=00$, $c(01)=01$ a $c(10)=c(11)=1$.
+Kdy\v z odstran\'\i me prvek $10000$, pak $1$ p\v restane b\'yt kritick\'e 
+slovo a adres\'a\v r bude m\'\i t tvar
+$$00\mapsto \{00000,00010\},\quad 01\mapsto \{01000\},\quad 10\mapsto 
+11\mapsto NIL.$$
+Op\v et plat\'\i\ $c(00)=00$, $c(01)=01$ a $c(10)=c(11)=1$.
+V adres\'a\v ri je tak\'e ulo\v zeno $d(S)$.
+\medskip
+
+\subhead
+Algoritmy
+\endsubhead
+\bigskip
+
+\flushpar Uvedeme zde jen slovn\'\i\ popis operac\'\i . P\v redpokl\'ad\'ame, \v ze adres\'a\v r 
+je ulo\v zen v extern\'\i\ pam\v eti na jedn\'e str\'ance.
+\medskip
+
+\flushpar {\bf MEMBER$(x)$}\newline 
+1) Spo\v c\'\i t\'ame $h(x)$ a {\bf na\v cteme} adres\'a\v r do intern\'\i\ pam\v eti. 
+Vez\-me\-me prefix $\alpha$ slova $h(x)$ o d\'elce $d(S)$ a nalezneme 
+adresu str\'anky p\v r\'\i slu\v sej\'\i c\'\i\ k $\alpha$. Kdy\v z je to str\'anka 
+$NIL$, pak $x\notin S$ a konec, jinak pokra\v cujeme krokem 
+2).\newline 
+2) {\bf Na\v cteme} str\'anku p\v r\'\i slu\v sej\'\i c\'\i\ k $\alpha$ do intern\'\i\ 
+pam\v eti. Prohle\-d\'a\-me ji a pokud neobsahuje $x$, pak $x\notin 
+S$ a 
+konec. Kdy\v z obsahuje $x$, pak provedeme po\v zadovan\'e 
+zm\v eny a str\'anku {\bf ulo\-\v z\'\i\-me} do extern\'\i\ pam\v eti na jej\'\i\ 
+p\accent23uvodn\'\i\ m\'\i sto. Konec.
+\medskip
+
+\flushpar {\bf INSERT$(x)$}\newline 
+1) Spo\v c\'\i t\'ame $h(x)$ a {\bf na\v cteme} adres\'a\v r do intern\'\i\ pam\v eti. 
+Vez\-me\-me prefix $\alpha$ slova $h(x)$ o d\'elce $d(S)$ a nalezneme 
+adresu str\'anky p\v r\'\i slu\v sej\'\i c\'\i\ k $\alpha$ a slovo $
+c(\alpha )$. 
+Kdy\v z str\'anka p\v ri\v razen\'a k $\alpha$ je $NIL$, pokra\v cu\-je\-me krokem 
+3), v opa\v cn\'em p\v r\'\i pad\v e pokra\v cu\-je\-me krokem 2).\newline 
+2) {\bf Na\v cteme} str\'anku p\v ri\v razenou slovu $\alpha$. Kdy\v z $
+x$ je 
+ulo\v zeno na t\'eto str\'ance, pak skon\v c\'\i me. Kdy\v z $x$ nen\'\i\ na 
+t\'eto str\'ance, pak tam p\v rid\'ame slovo $x$. Pokud na str\'ance 
+je nejv\'y\v se $b$ prvk\accent23u, pak {\bf ulo\v z\'\i me} str\'anku 
+na jej\'\i\ p\accent23uvodn\'\i\ m\'\i sto a skon\v c\'\i me. Kdy\v z na 
+str\'ance je v\'\i ce ne\v z $b$ prvk\accent23u, pak nalezneme nov\'a 
+kritick\'a slova, 
+kter\'a n\'am str\'anku rozd\v el\'\i , a vytvo\v r\'\i me dv\v e str\'anky -- 
+jednu {\bf ulo\v z\'\i me} na m\'\i sto p\accent23uvodn\'\i\ str\'anky a 
+druhou {\bf ulo\v z\'\i me} na novou str\'anku. Pokra\v cujeme krokem 
+4).\newline 
+3) Vytvo\v r\'\i me v intern\'\i\ pam\v eti novou str\'anku, kter\'a 
+obsahuje $x$, nalezneme novou str\'anku v extern\'\i\ pam\v eti a 
+tam {\bf ulo\v z\'\i me} vytvo\v renou str\'anku (v\v sem slov\accent23um, 
+kter\'a maj\'\i\ $c(\alpha )$ za prefix, bude p\v ri\v razena tato str\'anka) a 
+pokra\v cujeme krokem 4).\newline 
+4) {\bf Na\v cteme} op\v et adres\'a\v r do intern\'\i\ pam\v eti, 
+aktualizujeme adresy p\v ri\v razen\'ych str\'anek a p\v r\'\i padn\v e 
+zv\v et\v s\'\i me adres\'a\v r (to nastane, kdy\v z n\v ejak\'e nov\'e kritick\'e 
+slovo m\'a d\'elku v\v et\v s\'\i\ ne\v z $d(S)$, pak nov\'e $d(S
+)$ je pr\'av\v e 
+d\'elka tohoto slova -- ob\v e kritick\'a slova vznikl\'a v kroku 
+2) maj\'\i\ stejnou d\'elku). Aktualizovan\'y adres\'a\v r {\bf ulo\v z\'\i me} do 
+extern\'\i\ pam\v eti. Konec.
+\medskip
+
+\flushpar {\bf DELETE$(x)$}\newline 
+1) Spo\v c\'\i t\'ame $h(x)$ a {\bf na\v cteme} adres\'a\v r do intern\'\i\ pam\v eti. 
+Vez\-me\-me prefix $\alpha$ slova $h(x)$ o d\'elce $d(S)$ a nalezneme 
+adresu str\'anky p\v r\'\i slu\v sej\'\i c\'\i\ k $\alpha$ a slovo $
+c(\alpha )$. 
+Kdy\v z str\'anka p\v ri\v razen\'a k $\alpha$ je $NIL$, pak skon\v c\'\i me. 
+Ozna\v cme $\beta'$ slovo, kter\'e m\'a stejnou d\'elku jako $c(\alpha 
+)$ a 
+li\v s\'\i\ se od $c(\alpha )$ pouze v posledn\'\i m bitu. Kdy\v z existuje 
+slovo $\beta$ d\'elky $d(S)$ takov\'e, \v ze $c(\beta )=\beta'$, pak str\'anka 
+p\v ri\v razen\'a k $\beta$ je \emph{kandid\'at}.\newline 
+2) {\bf Na\v cteme} str\'anku p\v r\'\i slu\v snou k slovu $\alpha$ do intern\'\i\ 
+pam\v eti. Kdy\v z tato str\'anka neobsahuje $x$, pak skon\v c\'\i me. 
+Kdy\v z tato str\'anka obsahuje $x$, pak odstran\'\i me $x$ z t\'eto 
+str\'anky. Kdy\v z neexistuje kandid\'at nebo kdy\v z nov\'a 
+str\'anka a str\'anka kandid\'ata dohromady obsahuj\'\i\ v\'\i ce ne\v z $
+b$ 
+prvk\accent23u, pak novou str\'anku {\bf ulo\-\v z\'\i me} na jej\'\i\ 
+p\accent23uvodn\'\i\ m\'\i sto a skon\v c\'\i me. \newline 
+3) Kdy\v z nov\'a str\'anka a str\'anka kandid\'ata maj\'\i\ 
+dohromady $b$ prvk\accent23u, pak {\bf na\v cteme} str\'anku 
+kandid\'ata do intern\'\i\ pam\v eti. V intern\'\i\ pam\v eti tyto 
+str\'anky spoj\'\i me do jedn\'e a tuto str\'anku pak 
+{\bf ulo\-\v z\'\i me} do extern\'\i\ pam\v eti.\newline 
+4) {\bf Na\v cteme} adres\'a\v r, kde zaktualizujeme adresy 
+str\'anek. Po\-kud jsme slou\v cili dv\v e str\'anky, mus\'\i me nal\'ezt 
+nov\'e $c(\alpha )$ (je to nejkrat\v s\'\i\ prefix $\alpha'$ slova $
+\alpha$ takov\'y, \v ze 
+ke ka\v zd\'emu slovu $\beta$ o d\'elce $d(S)$, kter\'e m\'a $\alpha'$ za prefix, 
+je p\v ri\v razena jedna z t\v echto adres: adresa str\'anky 
+p\v ri\v razen\'a k $\alpha$, adresa str\'anky kandid\'ata, $NIL$) a ka\v zd\'emu 
+slovu o d\'elce $d(S)$, kter\'e m\'a nov\'e $c(\alpha )$ za prefix, bude 
+p\v ri\v razena adresa nov\'e (spojen\'e) str\'anky. Otestujeme, zda 
+se adres\'a\v r nem\accent23u\v ze zkr\'atit (to nastane, kdy\v z 
+adresy str\'anek p\v ri\v razen\'e $(2i+1)$-\'\i mu slovu a $(2i+
+2)$-\'emu 
+slovu o d\'elce $d(S)$ jsou stejn\'e pro v\v sechna $i$, 
+pak se tato slova spoj\'\i\ a $d(S)$ se zmen\v s\'\i\ o $1$). Upraven\'y 
+adres\'a\v r {\bf ulo\v z\'\i me}. Konec.
+\bigskip
+
+\flushpar N\'asleduj\'\i c\'\i\ v\v eta ukazuje, \v ze jsme n\'a\v s hlavn\'\i\ c\'\i l splnili. Pro jednoduchost p\v redpokl\'ad\'ame, \v ze 
+adres\'a\v r je tak\'e ulo\v zen na extern\'\i\ pam\v eti a \v ze v 
+intern\'\i\ pam\v eti nem\accent23u\v ze b\'yt ulo\v zen spolu s n\v ejakou jinou str\'ankou. 
+
+\proclaim{V\v eta}Operace {\bf MEMBER} vy\v zaduje nejv\'y\v se t\v ri 
+operace s extern\'\i\ pam\v et\'\i . Operace {\bf INSERT} a {\bf DELETE }
+vy\v zaduj\'\i\ nejv\'y\v se \v sest operac\'\i\ s extern\'\i\ pam\v et\'\i .
+\endproclaim
+
+\flushpar V na\v sem p\v r\'\i kladu provedeme operaci 
+{\bf INSERT$(00001)$}. Po p\v rid\'an\'\i\ prvku str\'anka p\accent23uvodn\v e 
+p\v ri\v razen\'a k slovu $00$ vypad\'a takto $\{00000,00001,0001
+0\}$. Tuto 
+str\'anku rozd\v el\'\i me na  
+str\'an\-ky $\{00000,00001\}$ a $\{00010\}$. P\v ritom kritick\'e slovo 
+prvn\'\i\ str\'an\-ky je $0000$ a druh\'e str\'an\-ky je $0001$. Tak\v ze 
+$d(S)=4$ a adres\'a\v r vypad\'a 
+$$\align&0000\mapsto \{00000,00001\},0001\mapsto \{00010\},\\
+&0010\mapsto 0011\mapsto NIL,\\
+&0100\mapsto 0101\mapsto 0110\mapsto 0111\mapsto \{0100\},\\
+&1000\mapsto 1001\mapsto 1010\mapsto 1011\mapsto \{10000\},\\
+&1100\mapsto 1101\mapsto 1110\mapsto 1111\mapsto \{10000\}.\endalign$$
+To znamen\'a, \v ze krom\v e adresy $00$ se ostatn\'\i\ slova rozd\v elila 
+na \v cty\v ri slova, ale adresy z\accent23ustaly stejn\'e. Jen u 
+slova 00 vznikl\'a slova dostala r\accent23uzn\'e adresy.
+\medskip
+
+\flushpar V p\accent23uvodn\'\i m p\v r\'\i kladu 
+provedeme operaci {\bf DELETE$(01000)$}. Pak kandid\'at je $00$ a po 
+odstran\v en\'\i\ prvku $01000$ nastane spojen\'\i\ t\v echto dvou 
+str\'anek. Po aktualizaci adres dostane adres\'a\v r tvar
+$$00\mapsto 01\mapsto \{00000,00010\},10\mapsto 11\mapsto \{10000
+\},$$
+tj. k prvn\'\i mu a druh\'emu slovu je p\v ri\v razena stejn\'a 
+str\'anka a stejn\v e tak k t\v ret\'\i mu a \v ctvrt\'emu slovu. Tak\v ze 
+m\accent23u\v zeme adres\'a\v r zmen\v sit. Pak $d(S)=1$ a adres\'a\v r m\'a 
+podobu  
+$$0\mapsto \{00000,00010\},1\mapsto \{10000\}.$$
+
+\flushpar Vznik\'a ot\'azka, jak je tato metoda efektivn\'\i . 
+Hlavn\v e jak efektivn\v e vyu\v z\'\i v\'a pam\v e\v t. Plat\'\i
+
+\proclaim{V\v eta}Kdy\v z velikost repre\-zentovan\'e mno\v ziny je $
+n$, pak 
+o\v cek\'avan\'y po\v cet pou\v zit\'ych str\'anek je 
+$\frac n{b\ln2}$ a o\v cek\'ava\-n\'a velikost adres\'a\v re je $\frac 
+e{b\ln2}n^{1+\frac 1b}$. 
+\endproclaim
+
+\flushpar Prvn\'\i\ tvrzen\'\i\ \v r\'\i k\'a, \v ze o\v cek\'avan\'y po\v cet 
+prvk\accent23u na str\'ance je $b\ln2\approx 0.69b$. Tedy zapln\v eno 
+je asi 69\% m\'\i st. Tento v\'ysledek nen\'\i\ p\v rekvapuj\'\i c\'\i\ a je 
+akceptovateln\'y. Hor\v s\'\i\ je to s adres\'a\v rem, jak ukazuje 
+n\'asleduj\'\i c\'\i\ tabulka
+\medskip
+$$\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}velikost $S$ & $10^5$ & $10^6$ & $10^8$ & $10^{10}$ \hfill \cr\noalign{\hrule} 2 & $6.2\cdot10^7$ & $1.96\cdot10^8$ & $1.96\cdot10^{11}$ & $1.96\cdot10^{14}$ \cr\noalign{\hrule} $10$ & $1.2\cdot10^5$ & $1.5\cdot10^6$ & $2.4\cdot10^8$ & $3.9\cdot10^{10}$ \cr\noalign{\hrule} $50$ & $9.8\cdot10^3$ & $1.0\cdot10^6$ & $1.1\cdot10^8$ & $1.2\cdot10^{10}$ \cr\noalign{\hrule} $100$ & $4.4\cdot10^3$ & $4.5\cdot10^4$ & $4.7\cdot10^6$ & $4.9\cdot10^8$ \cr\noalign{\hrule}}}$$
+\flushpar kde jednotliv\'e \v r\'adky odpov\'\i daj\'\i\ hodnot\'am $
+b$ 
+uveden\'ym v prv\-n\'\i m sloupci. Proto\v ze o\v cek\'avan\'a velikost 
+adres\'a\v re se zv\v et\v su\-je rychleji ne\v z line\'arn\v e (exponent u $
+n$ je $1+\frac 1b$), 
+tak nelze o\v cek\'avat, \v ze tuto metodu lze v\v zdy pou\v z\'\i t. 
+V\'ypo\v cty i expe\-ri\-menty uka\-zu\-j\'\i , \v ze pou\v ziteln\'a je do 
+velikosti $|S|=10^{10}$, kdy\v z $b\approx 100$. V tomto rozmez\'\i\ je 
+n\'ar\accent23ust adres\'a\v re jen kolem 5\%. Pro v\v et\v s\'\i\ $
+n$ je 
+t\v reba, aby $b$ bylo je\v st\v e v\v et\v s\'\i .
+\end
+

@@ -1,0 +1,96 @@
+42 LBegin
+/p0 { 60 10 } def 
+/p1 { 90 10 } def
+/p2 { 110 10 } def
+/p3 { 140 10 } def
+/p4 { 75 15 } def
+/p5 { 125 15 } def
+/p6 { 130 15 } def
+/p7 { 10 40 } def 
+/p8 { 40 40 } def
+/p9 { 25 45 } def
+/p10 { 40 45 } def
+/p11 { 75 40 } def
+/p12 { 125 40 } def
+/p13 { 125 60 } def
+/p14 { 25 70 } def
+/p15 { 25 60 } def
+/p16 { 100 70 } def
+/p17 { 100 90 } def
+/p18 { 60 90 } def
+/p19 { 60 110 } def
+/p20 { 140 60 } def
+/p21 { 180 60 } def
+/p22 { 240 10 } def 
+/p23 { 270 10 } def
+/p24 { 290 10 } def
+/p25 { 320 10 } def
+/p26 { 255 15 } def
+/p27 { 305 15 } def
+/p28 { 320 15 } def
+/p29 { 190 40 } def 
+/p30 { 220 40 } def
+/p31 { 205 45 } def
+/p32 { 230 45 } def
+/p33 { 255 40 } def
+/p34 { 305 40 } def
+/p35 { 305 60 } def
+/p36 { 205 70 } def
+/p37 { 205 60 } def
+/p38 { 280 70 } def
+/p39 { 280 90 } def
+/p40 { 240 90 } def
+/p41 { 240 110 } def
+LNarrow
+p4 p5 2 LTextloc
+p5 p6 3 LTextloc
+p9 p10 4 LTextloc
+p11 p4 5 LTextloc
+p12 p13 6 LTextloc
+p14 p15 7 LTextloc
+p16 p17 8 LTextloc
+p18 p19 9 LTextloc
+p26 p27 10 LTextloc
+p27 p28 11 LTextloc
+p31 p32 12 LTextloc
+p33 p26 13 LTextloc
+p34 p35 14 LTextloc
+p36 p37 15 LTextloc
+p38 p39 16 LTextloc
+p40 p41 17 LTextloc
+p11 LDot
+p12 LDot
+p14 LDot
+p16 LDot
+p18 LDot
+p19 LDot
+p33 LDot
+p34 LDot
+p36 LDot
+p38 LDot
+p40 LDot
+p41 LDot
+p11 p0 LLine
+p11 p1 LLine
+p12 p2 LLine
+p12 p3 LLine
+p14 p7 LLine
+p14 p8 LLine
+p16 p11 LLine
+p16 p12 LLine
+p18 p14 LLine
+p18 p16 LLine
+p18 p19 LLine
+p20 p21 LVector
+p33 p22 LLine
+p33 p23 LLine
+p34 p24 LLine
+p34 p25 LLine
+p36 p29 LLine
+p36 p30 LLine
+p38 p33 LLine
+p38 p34 LLine
+p40 p36 LLine
+p40 p38 LLine
+p40 p41 LLine
+LEnd

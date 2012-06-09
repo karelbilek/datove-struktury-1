@@ -1,0 +1,118 @@
+52 LBegin
+/p0 { 50 10 } def 
+/p1 { 70 10 } def
+/p2 { 90 10 } def
+/p3 { 110 10 } def
+/p4 { 60 15 } def
+/p5 { 100 15 } def
+/p6 { 130 15 } def
+/p7 { 10 30 } def 
+/p8 { 30 30 } def
+/p9 { 60 30 } def
+/p10 { 100 30 } def
+/p11 { 20 35 } def
+/p12 { 40 35 } def
+/p13 { 20 50 } def
+/p14 { 80 50 } def
+/p15 { 80 70 } def
+/p16 { 130 50 } def
+/p17 { 150 50 } def
+/p18 { 140 55 } def
+/p19 { 160 55 } def
+/p20 { 50 70 } def
+/p21 { 50 60 } def
+/p22 { 140 70 } def
+/p23 { 100 90 } def
+/p24 { 100 110 } def
+/p25 { 140 80 } def
+/p26 { 150 60 } def
+/p27 { 190 60 } def
+/p28 { 180 10 } def
+/p29 { 200 10 } def
+/p30 { 220 10 } def
+/p31 { 240 10 } def
+/p32 { 260 10 } def
+/p33 { 280 10 } def
+/p34 { 300 10 } def
+/p35 { 320 10 } def
+/p36 { 190 15 } def
+/p37 { 230 15 } def
+/p38 { 270 15 } def 
+/p39 { 310 15 } def
+/p40 { 330 15 } def
+/p41 { 190 30 } def
+/p42 { 230 30 } def
+/p43 { 270 30 } def
+/p44 { 310 30 } def
+/p45 { 310 60 } def
+/p46 { 210 50 } def
+/p47 { 290 50 } def
+/p48 { 210 10 } def
+/p49 { 290 70 } def
+/p50 { 250 70 } def
+/p51 { 250 90 } def
+LNarrow
+p4 p5 2 LTextloc
+p5 p6 3 LTextloc
+p11 p12 4 LTextloc
+p18 p19 5 LTextloc
+p14 p15 6 LTextloc
+p20 p21 7 LTextloc
+p22 p25 8 LTextloc
+p23 p24 9 LTextloc
+p36 p37 10 LTextloc
+p37 p38 11 LTextloc
+p38 p39 12 LTextloc
+p39 p40 13 LTextloc
+p44 p45 14 LTextloc
+p46 p48 15 LTextloc
+p47 p49 16 LTextloc
+p50 p51 17 LTextloc
+p9 LDot
+p10 LDot
+p13 LDot
+p14 LDot
+p20 LDot
+p22 LDot
+p23 LDot
+p24 LDot
+p41 LDot
+p42 LDot
+p43 LDot
+p44 LDot
+p46 LDot
+p47 LDot
+p50 LDot
+p51 LDot
+p9 p0 LLine
+p9 p1 LLine
+p10 p2 LLine
+p10 p3 LLine
+p13 p7 LLine
+p13 p8 LLine
+p14 p9 LLine
+p14 p10 LLine
+p20 p13 LLine
+p20 p14 LLine
+p22 p16 LLine
+p22 p17 LLine
+p23 p20 LLine
+p23 p22 LLine
+p24 p23 LLine
+p26 p27 LVector
+p28 p41 LLine
+p29 p41 LLine
+p30 p42 LLine
+p31 p42 LLine
+p32 p43 LLine
+p33 p43 LLine
+p34 p44 LLine
+p35 p44 LLine
+p46 p41 LLine
+p46 p42 LLine
+p47 p43 LLine
+p47 p44 LLine
+p50 p46 LLine
+p50 p47 LLine
+p50 p51 LLine
+LEnd

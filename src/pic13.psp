@@ -1,0 +1,237 @@
+104 LBegin
+/p0 { 50 10 } def 
+/p1 { 70 10 } def
+/p2 { 90 10 } def
+/p3 { 110 10 } def
+/p4 { 60 15 } def
+/p5 { 100 15 } def
+/p6 { 130 15 } def
+/p7 { 10 30 } def 
+/p8 { 30 30 } def
+/p9 { 60 30 } def
+/p10 { 100 30 } def
+/p11 { 20 35 } def
+/p12 { 40 35 } def
+/p13 { 20 50 } def
+/p14 { 80 50 } def
+/p15 { 110 50 } def
+/p16 { 130 50 } def
+/p17 { 120 55 } def
+/p18 { 140 55 } def
+/p19 { 50 70 } def
+/p20 { 120 70 } def
+/p21 { 80 90 } def
+/p22 { 100 60 } def
+/p23 { 120 100 } def
+/p24 { 40 90 } def
+/p25 { 160 50 } def
+/p26 { 220 50 } def
+/p27 { 250 20 } def
+/p28 { 270 20 } def
+/p29 { 290 20 } def
+/p30 { 310 20 } def
+/p31 { 330 20 } def
+/p32 { 350 20 } def
+/p33 { 370 20 } def
+/p34 { 390 20 } def
+/p35 { 260 25 } def
+/p36 { 300 25 } def
+/p37 { 340 25 } def
+/p38 { 380 25 } def
+/p39 { 400 25 } def
+/p40 { 260 40 } def
+/p41 { 300 40 } def
+/p42 { 340 40 } def
+/p43 { 380 40 } def
+/p44 { 300 70 } def
+/p45 { 380 70 } def
+/p46 { 280 60 } def
+/p47 { 360 60 } def
+/p48 { 320 80 } def
+/p49 { 280 20 } def
+/p50 { 360 90 } def
+/p51 { 200 80 } def
+/p52 { 10 120 } def
+/p53 { 30 120 } def
+/p54 { 50 120 } def
+/p55 { 70 120 } def
+/p56 { 20 125 } def
+/p57 { 60 125 } def
+/p58 { 100 125 } def
+/p59 { 20 140 } def
+/p60 { 60 140 } def
+/p61 { 80 140 } def
+/p62 { 100 140 } def
+/p63 { 90 145 } def
+/p64 { 120 145 } def
+/p65 { 40 160 } def
+/p66 { 90 160 } def
+/p67 { 110 160 } def
+/p68 { 130 160 } def
+/p69 { 120 165 } def
+/p70 { 160 165 } def
+/p71 { 60 180 } def
+/p72 { 120 180 } def
+/p73 { 90 200 } def
+/p74 { 40 120 } def
+/p75 { 120 200 } def
+/p76 { 50 200 } def
+/p77 { 160 150 } def
+/p78 { 220 150 } def
+/p79 { 250 130 } def
+/p80 { 270 130 } def
+/p81 { 290 130 } def
+/p82 { 310 130 } def
+/p83 { 330 130 } def
+/p84 { 350 130 } def
+/p85 { 370 130 } def
+/p86 { 390 130 } def
+/p87 { 260 135 } def
+/p88 { 300 135 } def
+/p89 { 340 135 } def
+/p90 { 380 135 } def
+/p91 { 400 135 } def
+/p92 { 260 150 } def
+/p93 { 300 150 } def
+/p94 { 340 150 } def
+/p95 { 380 150 } def
+/p96 { 300 180 } def
+/p97 { 380 180 } def
+/p98 { 280 170 } def
+/p99 { 360 170 } def 
+/p100 { 320 190 } def
+/p101 { 280 120 } def
+/p102 { 360 200 } def
+/p103 { 200 190 } def 
+LNarrow
+p4 p5 2 LTextloc
+p5 p6 3 LTextloc
+p11 p12 4 LTextloc
+p17 p18 5 LTextloc
+p9 p4 6 LTextloc
+p10 p22 7 LTextloc
+p13 p11 8 LTextloc
+p14 p21 9 LTextloc
+p19 p0 10 LTextloc
+p20 p23 11 LTextloc
+p21 p24 12 LTextloc
+p35 p36 13 LTextloc
+p36 p37 14 LTextloc
+p37 p38 15 LTextloc
+p38 p39 16 LTextloc
+p40 p35 17 LTextloc
+p41 p44 18 LTextloc
+p42 p37 19 LTextloc
+p43 p45 20 LTextloc
+p46 p49 21 LTextloc
+p47 p50 22 LTextloc
+p48 p51 23 LTextloc
+p56 p57 24 LTextloc
+p57 p58 25 LTextloc
+p63 p64 26 LTextloc
+p69 p70 27 LTextloc
+p59 p56 28 LTextloc
+p60 p71 29 LTextloc
+p65 p74 30 LTextloc
+p66 p73 31 LTextloc 
+p71 p60 32 LTextloc
+p72 p75 33 LTextloc
+p73 p76 34 LTextloc
+p87 p88 35 LTextloc
+p88 p89 36 LTextloc
+p89 p90 37 LTextloc
+p90 p91 38 LTextloc
+p92 p87 39 LTextloc
+p93 p96 40 LTextloc
+p94 p89 41 LTextloc
+p95 p97 42 LTextloc
+p98 p101 43 LTextloc
+p99 p102 44 LTextloc
+p100 p103 45 LTextloc
+p9 LDot
+p10 LDot
+p13 LDot
+p14 LDot
+p19 LDot
+p20 LDot
+p21 LDot
+p40 LDot
+p41 LDot
+p42 LDot
+p43 LDot
+p46 LDot
+p47 LDot
+p48 LDot
+p59 LDot
+p60 LDot
+p65 LDot
+p66 LDot
+p71 LDot
+p72 LDot
+p73 LDot
+p92 LDot
+p93 LDot
+p94 LDot
+p95 LDot
+p98 LDot
+p99 LDot
+p100 LDot
+p9 p0 LLine
+p9 p1 LLine
+p10 p2 LLine
+p10 p3 LLine
+p13 p7 LLine
+p13 p8 LLine
+p14 p9 LLine
+p14 p10 LLine
+p19 p13 LLine
+p19 p14 LLine
+p20 p15 LLine
+p20 p16 LLine
+p21 p19 LLine
+p21 p20 LLine
+p25 p26 LVector
+p40 p27 LLine
+p40 p28 LLine
+p41 p29 LLine
+p41 p30 LLine
+p42 p31 LLine
+p42 p32 LLine
+p43 p33 LLine
+p43 p34 LLine
+p46 p40 LLine
+p46 p41 LLine
+p47 p42 LLine
+p47 p43 LLine
+p48 p46 LLine
+p48 p47 LLine
+p59 p52 LLine
+p59 p53 LLine
+p60 p54 LLine
+p60 p55 LLine
+p65 p59 LLine
+p65 p60 LLine
+p66 p61 LLine
+p66 p62 LLine
+p71 p65 LLine
+p71 p66 LLine
+p72 p67 LLine
+p72 p68 LLine
+p73 p71 LLine
+p73 p72 LLine
+p77 p78 LVector
+p92 p79 LLine
+p92 p80 LLine
+p93 p81 LLine
+p93 p82 LLine
+p94 p83 LLine
+p94 p84 LLine
+p95 p85 LLine
+p95 p86 LLine
+p98 p92 LLine
+p98 p93 LLine
+p99 p94 LLine
+p99 p95 LLine
+p100 p98 LLine
+p100 p99 LLine
+LEnd

@@ -1,0 +1,145 @@
+89 LBegin
+/p0 { 40 20 } def
+/p1 { 140 20 } def
+/p2 { 160 20 } def
+/p3 { 40 80 } def
+/p4 { 140 80 } def
+/p5 { 160 80 } def
+/p6 { 40 140 } def
+/p7 { 140 140 } def
+/p8 { 160 140 } def
+/p9 { 60 8 } def
+/p10 { 115 8 } def
+/p11 { 115 13 } def
+/p12 { 60 13 } def
+/p13 { 60 68 } def
+/p14 { 115 68 } def
+/p15 { 115 73 } def
+/p16 { 60 73 } def
+/p17 { 60 128 } def
+/p18 { 115 128 } def
+/p19 { 115 133 } def
+/p20 { 60 133 } def
+/p21 { 40 60 } def
+/p22 { 40 120 } def
+/p23 { 5 30 } def
+/p24 { 5 110 } def
+/p25 { 140 60 } def
+/p26 { 140 120 } def
+/p27 { 170 30 } def
+/p28 { 170 110 } def
+/p29 { p24 p22 0.999 LOnLine } def
+/p30 { p27 p1 0.999 LOnLine } def
+/p31 { 45 20 } def
+/p32 { 50 30 } def
+/p33 { 42 30 } def
+/p34 { p33 p0 0.999 LOnLine } def
+/p35 { 135 20 } def
+/p36 { 130 30 } def
+/p37 { 138 30 } def
+/p38 { p37 p1 0.999 LOnLine } def
+/p39 { 45 80 } def
+/p40 { 50 90 } def
+/p41 { 42 90 } def
+/p42 { p41 p3 0.999 LOnLine } def
+/p43 { 135 60 } def
+/p44 { 130 50 } def
+/p45 { 138 50 } def
+/p46 { p45 p25 0.999 LOnLine } def
+/p47 { 45 140 } def
+/p48 { 50 150 } def
+/p49 { 42 150 } def
+/p50 { p49 p6 0.999 LOnLine } def
+/p51 { 135 120 } def
+/p52 { 130 110 } def
+/p53 { 138 110 } def
+/p54 { p53 p26 0.999 LOnLine } def
+/p55 { 50 25 } def
+/p56 { 30 25 } def
+/p57 { 65 13 } def
+/p58 { 90 13 } def
+/p59 { 90 8 } def
+/p60 { 100 8 } def
+/p61 { 130 25 } def
+/p62 { 100 25 } def
+/p63 { 35 40 } def
+/p64 { 150 40 } def
+/p65 { 35 20 } def
+/p66 { 150 100 } def
+/p67 { 50 85 } def
+/p68 { 30 85 } def
+/p69 { 65 73 } def
+/p70 { 90 73 } def
+/p71 { 90 68 } def
+/p72 { 100 68 } def
+/p73 { 125 63 } def
+/p74 { 160 63 } def
+/p75 { 35 100 } def
+/p76 { 150 140 } def
+/p77 { 7 75 } def
+/p78 { 7 40 } def
+/p79 { 170 75 } def
+/p80 { 170 120 } def
+/p81 { 50 145 } def
+/p82 { 30 145 } def
+/p83 { 65 133 } def
+/p84 { 90 133 } def
+/p85 { 90 128 } def
+/p86 { 100 128 } def
+/p87 { 125 118 } def
+/p88 { 160 118 } def
+LNarrow
+p0 p1 2 LTextloc
+p1 p2 3 LTextloc
+p3 p4 4 LTextloc
+p4 p5 5 LTextloc
+p6 p7 6 LTextloc
+p7 p8 7 LTextloc
+p55 p56 8 LTextloc
+p58 p57 9 LTextloc
+p59 p60 10 LTextloc
+p61 p62 11 LTextloc
+p63 p65 12 LTextloc
+p64 p66 13 LTextloc
+p67 p68 14 LTextloc
+p70 p69 15 LTextloc
+p71 p72 16 LTextloc
+p73 p74 17 LTextloc
+p75 p63 18 LTextloc
+p66 p76 19 LTextloc
+p77 p78 20 LTextloc
+p79 p80 21 LTextloc
+p81 p82 22 LTextloc
+p84 p83 23 LTextloc
+p85 p86 24 LTextloc
+p87 p88 25 LTextloc
+p9 p10 LVector
+p11 p12 LVector
+p13 p14 LVector
+p15 p16 LVector
+p17 p18 LVector
+p19 p20 LVector
+p21 p0 LVector
+p22 p3 LVector
+p0 p23 p24 p22 LSpline
+p29 p22 LVector
+p1 p25 LVector
+p4 p26 LVector
+p26 p28 p27 p1 LSpline
+p30 p1 LVector
+p31 p32 p33 p0 LSpline
+p34 p0 LVector
+p35 p36 p37 p1 LSpline
+p38 p1 LVector
+p39 p40 p41 p3 LSpline
+p42 p3 LVector
+p43 p44 p45 p25 LSpline
+p46 p25 LVector
+p47 p48 p49 p6 LSpline
+p50 p6 LVector
+p51 p52 p53 p26 LSpline
+p54 p26 LVector
+LEnd
+
+
+

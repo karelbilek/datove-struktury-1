@@ -1,0 +1,109 @@
+104 LBegin
+/p0 { 20 20 } def
+/p1 { 40 20 } def
+/p2 { 60 20 } def
+/p3 { 80 20 } def 
+/p4 { 100 20 } def
+/p5 { 120 20 } def
+/p6 { 140 20 } def
+/p7 { 160 20 } def
+/p8 { 180 20 } def
+/p9 { 200 20 } def
+/p10 { 30 40 } def
+/p11 { 30 10 } def
+/p12 { 40 40 } def
+/p13 { 50 40 } def
+/p14 { 50 80 } def
+/p15 { 90 40 } def
+/p16 { 90 10 } def
+/p17 { 100 40 } def
+/p18 { 110 40 } def
+/p19 { 110 80 } def
+/p20 { 150 40 } def
+/p21 { 150 20 } def
+/p22 { 160 40 } def
+/p23 { 170 40 } def
+/p24 { 170 60 } def
+/p25 { 40 60 } def
+/p26 { 70 60 } def
+/p27 { 100 60 } def
+/p28 { 140 60 } def
+/p29 { 160 60 } def
+/p30 { 180 60 } def
+/p31 { 55 80 } def
+/p32 { 55 20 } def
+/p33 { 70 80 } def
+/p34 { 85 80 } def
+/p35 { 85 100 } def 
+/p36 {150 80 } def
+/p37 { 150 20 } def
+/p38 { 160 80 } def
+/p39 { 170 80 } def
+/p40 { 170 100 } def
+/p41 { 20 100 } def
+/p42 { 70 100 } def
+/p43 { 160 100 } def
+/p44 { 55 120 } def
+/p45 { 55 20 } def
+/p46 { 80 120 } def
+/p47 { 80 100 } def
+/p48 { 125 120 } def
+/p49 { 125 140 } def
+/p50 { 90 140 } def
+LNarrow
+p2 p1 2 LTextloc
+p3 p4 3 LTextloc
+p4 p5 4 LTextloc
+p6 p7 5 LTextloc
+p7 p8 6 LTextloc
+p8 p9 7 LTextloc
+p10 p11 8 LTextloc
+p12 p1 9 LTextloc
+p13 p14 10 LTextloc
+p15 p16 11 LTextloc
+p17 p4 12 LTextloc
+p18 p19 13 LTextloc
+p20 p21 14 LTextloc
+p22 p7 15 LTextloc
+p23 p24 16 LTextloc
+p31 p32 17 LTextloc
+p33 p26 18 LTextloc
+p34 p35 19 LTextloc
+p36 p37 20 LTextloc
+p38 p29 21 LTextloc
+p39 p40 22 LTextloc
+p44 p45 23 LTextloc
+p46 p47 24 LTextloc
+p48 p49 25 LTextloc
+p0 LDot
+p1 LDot
+p5 LDot
+p25 LDot
+p26 LDot
+p27 LDot
+p28 LDot
+p29 LDot
+p30 LDot
+p41 LDot
+p42 LDot
+p43 LDot
+p50 LDot
+p25 p0 LLine
+p25 p1 LLine
+p25 p2 LLine
+p27 p3 LLine
+p27 p4 LLine
+p27 p5 LLine
+p29 p6 LLine
+p29 p7 LLine
+p29 p8 LLine
+p42 p25 LLine
+p42 p26 LLine
+p42 p27 LLine
+p43 p28 LLine
+p43 p29 LLine
+p43 p30 LLine
+p50 p41 LLine
+p50 p42 LLine
+p50 p43 LLine
+LEnd

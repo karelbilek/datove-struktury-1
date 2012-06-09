@@ -1,0 +1,2967 @@
+%%AmSTeX
+\documentstyle{amsppt}
+
+\magnification=\magstep1
+\pagewidth{5.5in}
+\pageheight{20cm}
+\input lhead
+
+
+\font\bigbigrm=cmr10 scaled \magstep2
+\font\bigbigbigrm=cmr10 scaled \magstep3
+\def \emph#1{\underbar{#1}}
+\def \Prob{\operatorname{Prob}}
+\def \count{\operatorname{count}}
+\def \NIL{\operatorname{NIL}}
+\def \otec{\operatorname{otec}}
+\def \list{\operatorname{list}}
+\def \Prv{\operatorname{Prv}}
+\def \Nasl{\operatorname{Nasl}}
+\def \levy{\operatorname{levy}}
+\def \pravy{\operatorname{pravy}}
+\def \key{\operatorname{key}}
+\def \Prst{\operatorname{Prst}}
+\def \hloubka{\operatorname{hloubka}}
+\def \bratr{\operatorname{bratr}}
+\def \npl{\operatorname{npl}}
+\def \Cont{\operatorname{Cont}}
+%\magnification=\magstep1
+
+\centerline{\bigbigbigrm{Datov\'e struktury - haldy a t\v r\'\i dic\'\i\ algoritmy}}
+\bigskip
+\centerline{\bigbigrm{I. \'Uvod}}
+\bigskip
+
+\flushpar V praxi se \v casto setk\'av\'ame s n\'asleduj\'\i c\'\i m 
+probl\'emem, kter\'y vznik\'a na uspo\v r\'adan\'em univerzu, jeho\v z 
+uspo\v r\'ad\'an\'\i\ se v\v sak v pr\accent23ub\v ehu \v casu m\v en\'\i . \'Uloha se 
+li\v s\'\i\ od slovn\'\i kov\'eho probl\'emu v tom, \v ze se nevy\v zaduje  
+efektivn\'\i\ operace {\bf MEMBER}. Dokonce se p\v redpokl\'ad\'a, \v ze ope\-race 
+dostane spolu s argumentem informaci o ulo\v zen\'\i\ 
+zpracov\'avan\'eho prvku. 
+Hlav\-n\'\i m po\v zadavkem je rychlost provededn\'\i\ ostatn\'\i ch operac\'\i\ a mal\'e 
+pam\v e\v tov\'e n\'aroky. P\v ritom v praxi obvykle nesta\v c\'\i\ zn\'at jen 
+asymptotickou slo\v zitost, d\accent23ule\v zitou roli hraje skute\v cn\'a 
+rychlost, kterou v\v sak neum\'\i me obecn\v e spo\v c\'\i tat, proto\v ze je z\'avisl\'a na 
+pou\v zit\'em syst\'emu a hardwaru. P\v resto je p\v ri pou\v zit\'\i\ 
+n\'asleduj\'\i c\'\i ch struktur dobr\'e m\'\i t realistickou p\v redstavu o 
+skute\v cn\'ych rychlostech operac\'\i\ a podle toho si vybrat 
+vhodnou strukturu. 
+\medskip
+
+\flushpar Zad\'an\'\i\ probl\'emu: Nech\v t $U$ je univerzum. Je d\'ana mno\v zina 
+$S\subseteq U$ a funkce $f:S@>>>\Bbb R$, kde $\Bbb R$ jsou re\'aln\'a \v c\'\i sla (tato 
+funkce realizuje uspo\v r\'ad\'an\'\i\ na univerzu $U$ -- pro $u,
+v\in U$ plat\'\i\ 
+$u\le v$, pr\'av\v e kdy\v z $f(u)\le f(v)$; zm\v ena uspo\v r\'ad\'an\'\i\ se pak realizuje 
+zm\v enou funkce $f$).
+M\'ame navrhnout reprezentaci $S$ a $f$, kter\'a umo\v z\v nuje 
+operace:\newline 
+{\bf INSERT$(s,a)$} -- p\v rid\'a k mno\v zin\v e $S$ prvek $s$ tak, \v ze 
+$f(s)=a$,\newline 
+{\bf MIN} -- nalezne prvek $s\in S$ s nejmen\v s\'\i\ hodnotou 
+$f(s)$,\newline 
+{\bf DELETEMIN} -- odstran\'\i\ prvek $s\in S$ s nejmen\v s\'\i\ hodnotou 
+$f(s)$,\newline 
+{\bf DELETE$(s)$} -- odstran\'\i\ prvek $s\in S$ z mno\v ziny $S$,\newline 
+{\bf DECREASE$(s,a)$} -- zmen\v s\'\i\ hodnotu $f(s)$ o $a$ (tj. 
+$f(s):=f(s)-a$),\newline 
+{\bf INCREASE$(s,a)$} -- zv\v et\v s\'\i\ hodnotu $f(s)$ o $a$ (tj. 
+$f(s):=f(s)+a$).\newline 
+P\v ri operaci {\bf INSERT$(s,a)$} se p\v redpokl\'ad\'a, \v ze $
+s\notin S$, a tento 
+p\v redpoklad operace {\bf INSERT} neov\v e\v ruje. P\v ri operac\'\i ch {\bf DE\-LE\-TE$
+(s)$},
+{\bf DECREASE$(s,a)$ a INCREASE$(s,a)$} se p\v red\-pokl\'ad\'a, \v ze $
+s\in S$, 
+a operace nav\'\i c dost\'av\'a informaci, jak naj\'\i t  
+prvek $s$ v reprezentaci $S$ a $f$. Haldy jsou typ 
+struktury, kter\'a se pou\v z\'\i v\'a pro \v re\v sen\'\i\ tohoto probl\'emu. 
+\medskip
+
+\flushpar\emph{Halda} je stromov\'a struktura, kde vrcholy 
+reprezentuj\'\i\ prvky z $S$ a spl\v nuj\'\i\ lok\'aln\'\i\ podm\'\i nku na 
+$f$. Obvykle se pou\v z\'\i v\'a n\'asleduj\'\i c\'\i\ podm\'\i nka nebo jej\'\i\ 
+du\'aln\'\i\ verze:
+\bigskip
+\roster
+\item"{(usp)}"
+Pro ka\v zd\'y vrchol $v$ plat\'\i : kdy\v z $v$ reprezentuje prvek 
+$s\in S$ a $\otec(v)$ reprezentuje $t\in S$, pak $f(t)\le f(s)$.
+\endroster
+\medskip
+
+\flushpar Probereme n\v ekolik verz\'\i\ hald a budeme 
+p\v redpokl\'adat, \v ze v\v zdy spl\v nuj\'\i\ tuto podm\'\i nku a \v ze po\v zadavek na 
+proveden\'\i\ operac\'\i\ {\bf DELETE$(s)$}, {\bf DECREA\-SE$(s,a
+)$} a {\bf INCREASE$(s,a)$ }
+tak\'e zad\'av\'a ukazatel na vrchol repre\-zentuj\'\i c\'\i\ $s\in 
+S$.  Nav\'\i c budeme 
+uva\v zovat operace
+\medskip
+
+\flushpar {\bf MAKEHEAP$(S,f)$} -- operace vytvo\v r\'\i\ haldu 
+reprezentuj\'\i c\'\i\ mno\v zinu $S$ a funkci $f$,\newline 
+{\bf MERGE$(H_1,H_2)$} -- p\v redpokl\'ad\'a, \v ze halda $H_i$ reprezentuje 
+mno\v zinu $S_i$ a funkci $f_i$ pro $i=1,2$ a $S_1\cap S_2=\emptyset$. Operace 
+vytvo\v r\'\i\ haldu $H$ reprezentuj\'\i c\'\i\ $S_1\cup S_2$ a $
+f_1\cup f_2$, 
+p\v ri\v cem\v z neov\v e\v ruje disjunktnost $S_1$ a $S_2$.
+\newpage
+
+\centerline{\bigbigrm{II. Regul\'arn\'\i\ haldy}}
+\bigskip
+
+\flushpar Prvn\'\i\ pou\v zit\'e haldy byly bin\'arn\'\i\ neboli $
+2$-regul\'arn\'\i\ haldy. 
+Tyto haldy jsou velmi obl\'\i ben\'e pro svou jednoduchost a 
+n\'azornost a pro velmi efektivn\'\i\ implementaci.
+\medskip
+
+\flushpar P\v redpokl\'adejme, \v ze $d>1$ je p\v rirozen\'e \v c\'\i slo. 
+$d$-\emph{regul\'arn\'\i} \emph{strom} je ko\v renov\'y strom 
+$(T,r)$, pro kter\'y existuje po\v rad\'\i\ syn\accent23u 
+jednotliv\'ych vnit\v rn\'\i ch vrchol\accent23u takov\'e, \v ze 
+o\v c\'\i slov\'an\'\i\ vrchol\accent23u pro\-hle\-d\'a\-v\'an\'\i m do \v s\'\i\v rky 
+(ko\v ren $r$ je \v c\'\i slov\'an $1$) spl\v nuje n\'asleduj\'\i c\'\i\ vlastnosti
+\roster
+\item
+ka\v zd\'y vrchol m\'a nejv\'y\v se $d$ syn\accent23u,
+\item
+kdy\v z vrchol nen\'\i\ list, tak v\v sechny vrcholy s men\v s\'\i m 
+\v c\'\i slem maj\'\i\ pr\'av\v e $d$ syn\accent23u,
+\item
+kdy\v z vrchol m\'a m\'en\v e ne\v z $d$ syn\accent23u, pak v\v sechny 
+vrcholy s v\v et\v s\'\i mi \v c\'\i sly jsou listy.
+\endroster
+Toto o\v c\'\i slov\'an\'\i\ se naz\'yv\'a \emph{p\v rirozen\'e} 
+\emph{o\v c\'\i slov\'an\'\i} $d$-regul\'arn\'\i ho stromu. 
+\medskip
+
+\proclaim{Tvrzen\'\i}Ka\v zd\'y $d$-regul\'arn\'\i\ strom m\'a nejv\'y\v se jeden 
+vrchol, kter\'y nen\'\i\ list a m\'a m\'en\v e ne\v z $d$ syn\accent23u. Kdy\v z 
+$d$-regul\'arn\'\i\ strom m\'a $n$ vrchol\accent23u, pak jeho 
+v\'y\v ska je $\lceil\log_d(n(d-1)+1)\rceil$. Nech\v t $o$ je p\v rirozen\'e o\v c\'\i slov\'an\'\i\ 
+vrchol\accent23u $d$-regul\'arn\'\i ho stromu. Kdy\v z pro vrchol 
+$v$ je $o(v)=k$, pak vrchol $w$ je syn vrcholu $v$, pr\'av\v e 
+kdy\v z $o(w)\in \{(k-1)d+2,(k-1)d+3,\dots,kd+1\}$, a vrchol $u$ je 
+otcem vrcholu $v$, pr\'av\v e kdy\v z $o(u)=1+\lfloor\frac {k-2}d
+\rfloor$. 
+\endproclaim
+
+\demo{D\accent23ukaz}Prvn\'\i\ \v c\'ast tvrzen\'\i\ plyne p\v r\'\i mo z po\v zadavku 2) na 
+$d$-regul\'arn\'\i\ strom. M\'a-li $d$-regul\'arn\'\i\ strom v\'y\v sku $
+k$, 
+pak m\'a alespo\v n $\Sigma_{i=0}^{k-1}d^i+1$ a nejv\'y\v se $\Sigma_{
+i=0}^kd^i$ 
+vrchol\accent23u. Proto
+$$\frac {d^k-1}{d-1}<n\le\frac {d^{k+1}}{d-1}\quad ,\quad d^k-1<n
+(d-1)\le d^{k+1}-1$$
+a zlogaritmov\'an\'\i m dostaneme
+$$k<\log_d(n(d-1)+1)\le k+1.$$
+Odtud plyne 
+druh\'a \v c\'ast tvrzen\'\i .  T\v ret\'\i\ \v c\'ast pro \v c\'\i sla syn\accent23u dok\'a\v zeme 
+indukc\'\i\ podle o\v c\'\i slov\'a\-n\'\i .  Synov\'e ko\v rene maj\'\i\ \v c\'\i sla 
+$2,3,\dots$,$d+1$,  proto\v ze ko\v ren m\'a \v c\'\i slo $1$.  Kdy\v z tvrzen\'\i\ plat\'\i\ 
+pro vrchol s \v c\'\i slem $k$, pak synov\'e vrcholu s \v c\'\i slem $
+k+1$ 
+maj\'\i\ \v c\'\i sla $kd+2,kd+3,\dots,kd+d+1$, co\v z odpov\'\i d\'a 
+\v c\'\i sl\accent23um $(k+1-1)d+2,(k+1-1)d+3,\dots,(k+1)d+1$, a tedy 
+tvrzen\'\i\ plat\'\i . Posledn\'\i\ \v c\'ast pak plyne z toho, \v ze kdy\v z $
+i\in \{(k-1)d+2,(k-1)d+3,\dots,kd+1\}$, pak 
+$1+\lfloor\frac {i-2}d\rfloor =k$. \qed
+\enddemo
+
+\flushpar V\v simn\v eme si, \v ze speci\'aln\v e pro $d=2$ maj\'\i\ synov\'e vrcholu s \v c\'\i slem $
+k$ 
+\v c\'\i sla $2k$ a $2k+1$ a otec vrcholu s \v c\'\i slem $k$ m\'a \v c\'\i slo 
+$\lfloor\frac k2\rfloor$. Tedy pro $2$-regul\'arn\'\i\ stromy je p\v redpis pro nalezen\'\i\ 
+syn\accent23u a otce zvl\'a\v st\v e jednoduch\'y.  
+\medskip
+
+\flushpar\v Rekneme, \v ze mno\v zina $S$ s funkc\'\i\ $f$ je reprezentov\'ana 
+$d$-regul\'ar\-n\'\i\ haldou $H$, kde $H$ je $d$-regul\'arn\'\i\ strom $
+(T,r)$, kdy\v z 
+p\v ri\v razen\'\i\ prvk\accent23u mno\v ziny $S$ vrchol\accent23um stromu 
+$T$ je bijekce spl\v nuj\'\i c\'\i\ podm\'\i nku \thetag{usp}. Toto p\v ri\v razen\'\i\ 
+je realizov\'ano funkc\'\i\ $\key$, kter\'a vrcholu p\v ri\v razuje j\'\i m 
+reprezentovan\'y prvek.
+\medskip
+
+\flushpar Defince $d$-regul\'arn\'\i ho stromu umo\v z\v nuje velmi efektivn\'\i\ 
+implementace $d$-regul\'arn\'\i ch hald.  M\v ej\-me mno\v zinu $
+S$ 
+reprezentovanou $d$-regul\'arn\'\i\ haldou $H$ s p\v rirozen\'ym 
+o\v c\'\i s\-lo\-v\'a\-n\'\i m $o$ $d$-regul\'arn\'\i\-ho stromu $
+(T,r)$.  Pak haldu $H$ 
+m\accent23u\v zeme reprezentovat polem $H[1..|S|]$, kde pro vrchol 
+stromu $v$, pro kter\'y $o(v)=i$, je $H(i)=(\key(v),f(\key(v))$.  Algoritmy 
+budeme popisovat pro stromy, proto\v ze je to n\'azorn\v ej\v s\'\i .  
+P\v reformulovat je pro pole je snadn\'e (viz 
+o\v c\'\i slov\'an\'\i\ syn\accent23u a otce vrcholu $v$).  Pro jednoduchost 
+budeme pro vrchol $v$ ps\'at $f(v)$ m\'\i sto $f(\key(v))$, neboli $
+f(v)$ 
+bude ozna\v covat $f(s)$, kde $s$ je reprezentov\'an vrcholem $v$.  U 
+$d$-regul\'arn\'\i ho stromu p\v redpo\-kl\'a\-d\'ame, \v ze zn\'ame p\v rirozen\'e 
+o\v c\'\i slov\'an\'\i , a fr\'aze `posledn\'\i\ vrchol', `p\v red\-ch\'azej\'\i c\'\i\ vrchol' atd.  
+se vztahuj\'\i\ k tomuto o\v c\'\i slov\'an\'\i .  
+\bigskip
+
+\head
+Algoritmy
+\endhead
+
+\flushpar Pro $d$-regul\'arn\'\i\ haldy nen\'\i\ zn\'ama efektivn\'\i\ implementace operace 
+{\bf MERGE}.  Efektivn\'\i\ implementace 
+ostatn\'\i ch operac\'\i\ jsou zalo\v zeny na pomocn\'ych 
+operac\'\i ch {\bf UP$(v)$} a {\bf DOWN$(v)$}.  Ope\-race {\bf UP$
+(v)$} posunuje 
+prvek $s$ reprezentovan\'y vrcholem $v$ sm\v erem ke ko\v reni, 
+dokud vrchol reprezentuj\'\i c\'\i\ prvek $s$ nespl\v nu\-je podm\'\i nku 
+\thetag{usp}.  Operace {\bf DOWN$(v)$} je symetrick\'a.  
+\bigskip
+ 
+
+{\bf UP$(v)$}:\newline 
+{\bf while} $v$ nen\'\i\ ko\v ren a $f(v)<f(\otec(v))$ {\bf do\newline 
+\phantom{{\rm ---}}}vym\v e\v n $\key(v)$ a $\key(\otec(v))$\newline 
+\phantom{---}$v:=\otec(v)$\newline 
+{\bf enddo
+\bigskip
+
+DOWN$(v)$}:\newline 
+{\bf if} $v$ nen\'\i\ list {\bf then\newline 
+\phantom{{{\rm ---}}}$w:=$}syn vrcholu $v$ reprezentuj\'\i c\'\i\ prvek s nejmen\v s\'\i\ 
+hodnotou $f(w)$\newline 
+\phantom{---}{\bf while} $f(w)<f(v)$ a $v$ nen\'\i\ list {\bf do\newline 
+\phantom{{\rm ------}}}vym\v e\v n $\key(v)$ a $\key(w)$, $v:=w$\newline 
+\phantom{------}$w:=$syn vrcholu $v$ reprezentuj\'\i c\'\i\ prvek s nejmen\v s\'\i\ 
+hodnotou $f(w)$\newline 
+\phantom{---}{\bf enddo\newline 
+endif
+\bigskip
+
+INSERT$(s)$}:\newline 
+$v:=$nov\'y posledn\'\i\ list, $\key(v):=s$, {\bf UP$(v)$
+\bigskip
+
+MIN}:\newline 
+{\bf V\'ystup} $\key(\text{\rm ko\v ren}(T))$
+\bigskip
+
+{\bf DELETEMIN}:\newline 
+$v:=$posledn\'\i\ list, $r:=$ko\v ren, $\key(r):=\key(v)$\newline 
+odstra\v n $v$\newline 
+{\bf DOWN$(r)$
+\bigskip
+
+DELETE$(s)$}:\newline 
+$v:=$vrchol reprezentuj\'\i c\'\i\ $s$\newline 
+$w:=$posledn\'\i\ list\newline 
+$t:=\key(w),$ $\key(v):=t,$ odstra\v n $w$\newline 
+{\bf if} $f(t)<f(s)$ {\bf then UP$(v)$ else DOWN$(v)$ endif
+\bigskip
+
+DECREASE$(s,a)$}:\newline 
+$v:=$vrchol reprezentuj\'\i c\'\i\ $s$\newline 
+$f(s):=f(s)-a$, {\bf UP$(v)$
+\bigskip
+
+INCREASE$(s,a)$}:\newline 
+$v:=$vrchol reprezentuj\'\i c\'\i\ $s$\newline 
+$f(s):=f(s)+a$, {\bf DOWN$(v)$
+\bigskip
+
+MAKEHEAP$(S,f)$}:\newline 
+$T:=d$-regul\'arn\'\i\ strom s $|S|$ vrcholy\newline 
+zvol libovolnou reprezentaci $S$ vrcholy stromu $T$\newline 
+$v:=$posledn\'\i\ vrchol, kter\'y nen\'\i\ list\newline 
+{\bf while} $v$ je vrchol $T$ {\bf do\newline 
+\phantom{{\rm ---}}DOWN$(v)$\newline 
+\phantom{{\rm ---}}$v:=$}vrchol p\v redch\'azej\'\i c\'\i\ 
+vrcholu $v$\newline 
+{\bf enddo
+\bigskip
+
+}\flushpar Ov\v e\v r\'\i me korektnost algoritm\accent23u.  Je z\v rejm\'e, \v ze 
+pomocn\'e operace jsou korektn\'\i\ -- skon\v c\'\i , kdy\v z podm\'\i nku 
+\thetag{usp} spl\v nuje prvek $s$, kter\'y byl p\accent23uvodn\v e 
+reprezentov\'an vrcholem $v$. Korektnost operace {\bf MIN} plyne 
+p\v r\'\i mo z podm\'\i nky \thetag{usp}, proto\v ze ko\v ren reprezentuje nejmen\v s\'\i\ 
+prvek mno\v ziny $S$. U operace {\bf INSERT} je podm\'\i nka 
+\thetag{usp} spln\v ena pro v\v sechny vrcholy s v\'yjimkou nov\v e 
+vytvo\v ren\'eho listu a operace {\bf UP} zajist\'\i\ jej\'\i\ spln\v en\'\i .  P\v ri 
+operaci {\bf DELETEMIN} je pod\-m\'\i n\-ka \thetag{usp} spln\v ena pro 
+v\v sechny vrcholy s v\'yjimkou ko\v rene a v tomto p\v r\'\i pad\v e ope\-race {\bf DOWN} zajist\'\i\ 
+jej\'\i\ spln\v en\'\i .  Po proveden\'\i\ operac\'\i\ {\bf DE\-LE\-TE$
+(s)$}, {\bf DECREASE$(s,a)$ }
+a {\bf INCREASE$(s,a)$} je pod\-m\'\i n\-ka \thetag{usp} spln\v ena pro 
+v\v sechny vrcholy s v\'yjimkou vrcholu $v$ a jej\'\i\ spln\v en\'\i\ 
+op\v et zajist\'\i\ operace {\bf UP }
+resp. {\bf DOWN}.  Pro operaci {\bf MAKEHEAP }
+budeme uva\v zovat du\'aln\'\i\ formulaci podm\'\i nky \thetag{usp}:  
+\roster
+\item"{(d-usp)}"
+kdy\v z $s$ je prvek reprezentovan\'y vrcholem $v$, pak 
+$f(s)\le f(t)$ pro v\v sechny prvky reprezentovan\'e syny 
+vrcholu $v$. 
+\endroster
+Pokud ka\v zd\'y vrchol spl\v nuje podm\'\i nku \thetag{d-usp}, pak 
+spl\v nuje i pod\-m\'\i nku \thetag{usp}. Z\v rejm\v e ka\v zd\'y list spl\v nuje 
+podm\'\i nku \thetag{d-usp} a kdy\v z ope\-race {\bf MAKEHEAP }
+provede proceduru {\bf DOWN$(v)$}, pak je podm\'\i nka 
+\thetag{d-usp} spln\v ena pro v\v sechny vrcholy s 
+\v c\'\i sly alespo\v n tak velk\'ymi jako je \v c\'\i slo $v$. 
+Operace {\bf MAKEHEAP} kon\v c\'\i\ proveden\'\i m operace {\bf DOWN} na 
+ko\v ren a odtud plyne jej\'\i\ korektnost.
+\bigskip
+
+\head
+Slo\v zitost operac\'\i
+\endhead
+
+\flushpar Vypo\v cteme \v casovou slo\v zitost operac\'\i :  Jeden b\v eh cyklu 
+v operaci {\bf UP} vy\v zaduje \v cas $O(1)$ a v operaci {\bf DOWN }\v cas $
+O(d)$.  
+Proto operace {\bf UP} v nejhor\v s\'\i m p\v r\'\i pad\v e vy\v zaduje \v cas $
+O(\log_d|S|)$ 
+a operace {\bf DOWN }\v cas $O(d\log_d|S|)$.  
+Operace {\bf MIN} vy\v zaduje \v cas $O(1)$,  {\bf INSERT} a {\bf DECREASE }
+vy\v zadu\-j\'\i\ \v cas $O(\log_d|S|)$ a  {\bf DELETEMIN}, {\bf DELETE} a 
+{\bf INCREASE }\v cas $O(d\log_d|S|)$.
+\medskip
+\flushpar Haldu m\accent23u\v zeme 
+vytvo\v rit iterac\'\i\ operace {\bf INSERT}, co\v z 
+vy\v zaduje \v cas $O(|S|\log_d(|S|))$.  Uk\'a\v ze\-me, \v ze slo\v zitost operace 
+{\bf MAKEHEAP} je men\v s\'\i , ale pro mal\'e haldy je v\'yhodn\v ej\v s\'\i\ 
+prov\'ad\v et opakovan\v e operaci {\bf INSERT}.  Operace {\bf DOWN$
+(v)$} na vrchol 
+ve v\'y\v sce $h$ vy\v zaduje v nej\-hor\v s\'\i m p\v r\'\i pad\v e \v cas $
+O(hd)$.  
+Vrchol\accent23u v hloubce $i$ je nejv\'y\v se $d^i$.  
+P\v red\-pok\-l\'a\-dejme, \v ze strom m\'a v\'y\v sku $k$, pak vrchol v 
+hloubce $i$ m\'a v\'y\v sku nejv\'y\v se $k-i$.  Tedy operace {\bf MAKEHEAP }
+vy\v zaduje \v cas $O(\sum_{i=0}^{k-1}d^i(k-i)d)=O(\sum_{i=0}^{k-
+1}d^{i+1}(k-i))$.  Oz\-na\v c\-me 
+$A=\sum_{i=0}^{k-1}d^{i+1}(k-i)$, pak 
+$$\align dA-A=&\sum_{i=0}^{k-1}d^{i+2}(k-i)-\sum_{i=0}^{k-1}d^{i+
+1}(k-i)=\sum_{i=2}^{k+1}d^i(k-i+2)-\sum_{i=1}^kd^i(k-i+1)=\\
+&d^{k+1}+\sum_{i=2}^kd^i(k-i+2-k+i-1)-dk=d^{k+1}+\sum_{i=2}^kd^i-
+dk=\\
+&d^{k+1}+d^2\frac {d^{k-1}-1}{d-1}-dk.\endalign$$
+Tedy $A=\frac {d^{k+1}}{d-1}+\frac {d^{k+1}-d^2}{(d-1)^2}-\frac {
+dk}{d-1}$. Proto\v ze 
+$k=\lceil\log_d(|S|(d-1)+1)\rceil$, 
+dost\'av\'ame, \v ze $d^{k+1}\le d^2((d-1)|S|+1)$, a proto $A\le 
+2d^2|S|$. Tedy 
+{\bf MAKEHEAP} vy\v zaduje v nejhor\v s\'\i m p\v r\'\i pad\v e jen \v cas 
+$O(d^2|S|)$. 
+\bigskip
+
+\head
+Aplikace 
+\endhead
+
+\flushpar T\v r\'\i d\v en\'\i : prostou posloupnost 
+\v c\'\i sel $x_1,x_2,\dots,x_n$ lze set\v r\'\i dit n\'asleduj\'\i c\'\i m 
+algoritmem pou\v z\'\i\-vaj\'\i c\'\i m haldu ($f$ bude v tomto p\v r\'\i pad\v e 
+identick\'a funkce).
+\bigskip
+
+$d${\bf -HEAPSORT$(x_1,x_2,\dots,x_n)$}:\newline 
+{\bf MAKEHEAP$(\{x_i\mid i=1,2,\dots,n\},f)$\newline 
+$i=1$\newline 
+while} $i\le n$ {\bf do\newline 
+\phantom{{\rm ---}}$y_i:=$MIN}, {\bf DELETEMIN}, $i:=i+1$\newline 
+{\bf enddo\newline 
+V\'ystup}: $y_1,y_2,\dots,y_n$
+\bigskip
+
+
+\flushpar Teoreticky lze uk\'azat, \v ze pou\v zit\'\i\ $d$-regul\'arn\'\i ch hald v 
+algoritmu {\bf HEAPSORT} pro $d=3$ a $d=4$ je v\'yhodn\v ej\v s\'\i\ 
+ne\v z $d=2$. Experimenty uk\'azaly, \v ze optim\'aln\'\i\ 
+algoritmus pro posloupnosti d\'elek do 1 000 000 by m\v el  
+pou\v z\'\i vat $d=6$ nebo $d=7$ (v experimentech byl m\v e\v ren 
+skute\v cn\v e spot\v rebovan\'y \v cas, nikoli po\v cet porovn\'an\'\i\ a 
+v\'ym\v en prvk\accent23u). 
+Pro del\v s\'\i\ posloupnosti se optim\'aln\'\i\ 
+hodnota $d$ m\accent23u\v ze zmen\v sit.
+\bigskip
+
+\flushpar Dal\v s\'\i m p\v r\'\i kladem je nalezen\'\i\ nejkrat\v s\'\i ch cest v grafu z dan\'eho 
+bodu. \v Re\v sme n\'asleduj\'\i c\'\i\ \'ulohu: \newline 
+Vstup: orientovan\'y ohodnocen\'y graf $(X,R,c)$, kde $c$ je funkce z $
+R$ do mno\v ziny kladn\'ych 
+re\'aln\'ych \v c\'\i sel, a vrchol $z\in X$.\newline 
+\'Ukol: nal\'ezt pro ka\v zd\'y bod $x\in X$ d\'elku 
+nejkrat\v s\'\i\ cestu ze $z$ do $x$, kde d\'elka cesty je sou\v cet 
+$c$-ohodnocen\'\i\ hran na cest\v e.
+\bigskip
+
+{\bf Dijkstr\accent23uv algoritmus}:\newline 
+$d(z):=0$, $U:=\{z\}$\newline 
+{\bf for every} $x\in X\setminus \{z\}$ {\bf do} $d(x):=+\infty$ {\bf enddo\newline 
+while} $U\ne\emptyset$ {\bf do\newline 
+\phantom{{\rm ---}}}najdi vrchol $u\in U$ s nejmen\v s\'\i\ hodnotou $
+d(u)$\newline 
+\phantom{---}odstra\v n $u$ z $U$\newline 
+\phantom{---}{\bf for every} $(u,v)\in R$ {\bf do \newline 
+\phantom{{\rm ------}}if} $d(u)+c(u,v)<d(v)$ {\bf then\newline 
+\phantom{{\rm ---------}}if} $d(v)=+\infty$ {\bf then} vlo\v z $v$ do $
+U$ {\bf endif\newline 
+\phantom{{\rm ---------}}$d(v):=d(u)+c(u,v)$\newline 
+\phantom{{\rm ------}}endif\newline 
+\phantom{{\rm ---}}enddo\newline 
+enddo
+\bigskip
+
+}\flushpar Korektnost algoritmu je zalo\v zena na kombinatorick\'em 
+lemmatu, kter\'e \v r\'\i k\'a, \v ze kdy\v z odstra\-\v nuje\-me z $
+U$ prvek $x$ s 
+nejmen\v s\'\i\ hodnotou $d(x)$, pak vzd\'alenost ze $z$ do $x$ je pr\'av\v e 
+$d(x)$. Proto kdy\v z $U=\emptyset$, pak $d(x)$ jsou d\'elky nejkrat\v s\'\i ch cest ze 
+$z$ do $x$ pro v\v sechna $x\in X$. Tedy pr\'ace s mno\v zinou $U$ vy\v zaduje 
+nejv\'y\v se $|X|$ operac\'\i\ {\bf INSERT}, {\bf MIN} a {\bf DELETEMIN} a $
+|R|$ operac\'\i\ 
+{\bf DECREASE} a v\v zdy plat\'\i\ $|U|\le |X|$. Vypo\v cteme \v casovou slo\v zitost 
+{\bf Dijkstrova algoritmu} za p\v redpokladu, \v ze $U$ reprezentujeme jako $
+d$-regul\'arn\'\i\ 
+haldu. Kdy\v z $d=2$, pak dost\'av\'ame, \v ze algoritmus vy\v zaduje \v cas 
+$O(|X|\log(|X|)+|R|\log(|X|))$. Kdy\v z $d=\max\{2,\lfloor\frac {
+|R|}{|X|}\rfloor \}$, pak algoritmus 
+vy\v zaduje \v cas $O(|R|\log_d|X|)$. V p\v r\'\i pad\v e, \v ze $
+(X,R)$ je hust\'y graf, 
+tj. $|R|>|X|^{1+\varepsilon}$ pro $\varepsilon >0$, pak $\log_d|X
+|=O(1)$ a algoritmus 
+je line\'arn\'\i\ (tj. vy\v zaduje \v cas $O(|R|)$).
+\bigskip
+ 
+\centerline{\bigbigrm{III. Leftist haldy}}
+\medskip
+
+\flushpar Dal\v s\'\i m typem hald, se kter\'ymi se sezn\'am\'\i me, jsou lefist 
+haldy (nezn\'ame vhodn\'y \v cesk\'y p\v reklad, proto z\accent23ust\'av\'ame 
+u anglick\'eho n\'azvu). Je to velmi elegantn\'\i\ a jednoduch\'y typ 
+hald. V\v sechny operace jsou stejn\v e jako u regul\'arn\'\i ch hald 
+zalo\v zeny na 
+dvou z\'akladn\'\i ch operac\'\i ch, z nich\v z v tomto p\v r\'\i pad\v e hlavn\'\i\ je {\bf MERGE} a  
+druhou je {\bf DECREASE}. Pou\v zit\'\i\ {\bf MERGE }
+p\v ri n\'avrhu jin\'ych operac\'\i\ je b\v e\v zn\'e i v dal\v s\'\i ch hald\'ach. 
+Operace {\bf MERGE} vyu\v z\'\i v\'a speci\'aln\'\i ch vlastnost\'\i\ leftist 
+hald a idea operace {\bf DECREASE} je stejn\'a jako ve 
+Fibonacciho hald\'ach. Nejprve form\'aln\v e pop\'\i\v seme strukturu 
+leftist hald. 
+\medskip
+
+\flushpar M\v ejme bin\'arn\'\i\ ko\v renov\'y strom $(T,r)$ (to znamen\'a, \v ze $
+r$ je ko\v ren, 
+ka\v zd\'y vrchol m\'a nejv\'y\v se dva syny a u ka\v zd\'eho syna 
+v\'\i me, zda je to prav\'y nebo lev\'y syn). Pro vrchol $v$ 
+ozna\v cme $\npl(v)$ d\'elku nejkrat\v s\'\i\ cesty z $v$ do vrcholu, kter\'y m\'a 
+nejv\'y\v se jednoho syna, tak\v ze nap\v r. pro list $l$ plat\'\i\ $\npl
+(l)=0$. 
+\medskip
+
+\flushpar M\v ejme $S\subseteq U$ a funkci $f:S@>>>\Bbb R$. Pak bin\'arn\'\i\ strom 
+$(T,r)$ takov\'y, \v ze
+\roster
+\item
+kdy\v z vrchol $v$ m\'a jen jednoho syna, pak je to lev\'y syn,
+\item
+kdy\v z vrchol $v$ m\'a dva syny, pak 
+$$\npl(\text{\rm prav\'y syn }v)\le\npl(\text{\rm lev\'y syn }v),$$
+\item
+existuje jednozna\v cn\'e p\v ri\v razen\'\i\ prvk\accent23u $S$  
+vrchol\accent23um $T$, kter\'e spl\v nuje podm\'\i nku \thetag{usp} 
+(toto p\v ri\v razen\'\i\ 
+je reprezentov\'ano funkc\'\i\ $\key$, kter\'a vrcholu $v$ p\v ri\v rad\'\i\ prvek 
+z mno\v zi\-ny $S$ reprezentovan\'y vrcholem $v$)
+\endroster
+je \emph{leftist} \emph{halda} 
+reprezentuj\'\i c\'\i\ mno\v zinu $S$ a funkci $f$. 
+\medskip
+
+\flushpar Struktura vrcholu $v$ v leftist hald\v e:\newline 
+S vrcholem $v$ jsou 
+spojeny ukazatel\'e $\otec(v)$, $\levy(v)$ a $\pravy(v)$ na otce a 
+na lev\'eho a prav\'eho syna vrcholu $v$.  
+Kdy\v z ukazatel nen\'\i\ definov\'an, pak p\'\i\v seme, \v ze jeho hodnota je 
+$NIL$.  D\'ale jsou s vrcholem spojeny funkce\newline 
+$\npl(v)$ -- prom\v enn\'a s hodnotou $\npl(v)$,\newline 
+$\key(v)$ -- prvek reprezentovan\'y vrcholem $v$,\newline 
+$f(v)$ -- prom\v enn\'a obsahuj\'\i c\'\i\ hodnotu $f(\key(v))$.
+\medskip
+
+\flushpar Uvedeme z\'akladn\'\i\ vlastnost leftist haldy, kter\'a 
+umo\v z\v nuje efektivn\'\i\ implementace operac\'\i . 
+Posloupnost vrchol\accent23u $v_0,v_1,\dots,v_k$ se naz\'yv\'a 
+\emph{prav\'a} \emph{cesta} z vrcholu $v$, kdy\v z $v=v_0$, $v_{i
++1}$ 
+je prav\'y syn $v_i$ pro ka\v zd\'e $i=0,1,\dots,k-1$ a $v_k$ nem\'a 
+prav\'eho syna. Pak podstrom vrcholu $v$ do hloubky $k$ je 
+\'upln\'y bin\'arn\'\i\ strom a m\'a tedy  
+alespo\v n $2^{k+1}-1$ vrchol\accent23u. Proto plat\'\i\ 
+
+\proclaim{Tvrzen\'\i}V leftist hald\v e je 
+d\'elka prav\'e cesty z ka\v zd\'eho vrcholu $v$ nejv\'y\v se rovna 
+$$\log(\text{\rm velikost podstromu ur\v cen\'eho vrcholem }v).$$
+\endproclaim
+\bigskip
+
+\head
+Algoritmy a slo\v zitost operac\'\i
+\endhead
+
+\flushpar Z\'akladn\'\i\ operac\'\i\ pro leftist haldy je {\bf MERGE}. Tato 
+operace je definov\'ana rekurzivn\v e a hloubka rekurze je omezena 
+pr\'av\v e d\'elkami prav\'ych cest.
+\bigskip
+
+{\bf MERGE$(T_1,T_2)$}:\newline 
+{\bf if} $T_1=\emptyset$ {\bf then V\'ystup$=T_2$} konec {\bf endif\newline 
+if} $T_2=\emptyset$ {\bf then V\'ystup$=T_1$} konec {\bf endif\newline 
+if} $\key(\text{\rm ko\v ren }T_1)>\key(\text{\rm ko\v ren }T_2)$ {\bf then\newline 
+\phantom{{\rm ---}}}zam\v e\v n $T_1$ a $T_2$\newline 
+{\bf endif\newline 
+$T':=$MERGE$(\text{{{\rm podstrom prav\'eho syna ko\v rene }}}T_1
+,T_2)$\newline 
+$\pravy(\text{\rm{{\rm ko\v ren }}}T_1):=\text{\rm{{\rm ko\v ren }}}
+T'$\newline 
+$\otec(\text{\rm {\rm ko\v ren }}T'):=\text{\rm {\rm ko\v ren }}T_
+1$\newline 
+if} $\npl(\pravy(\text{\rm ko\v ren }T_1))>\npl(\levy(\text{\rm ko\v ren }
+T_1))$ {\bf then\newline 
+\phantom{{\rm ---}}}vym\v e\v n lev\'eho a prav\'eho syna ko\v rene $
+T_1$\newline 
+{\bf endif\newline 
+$\npl(\text{{\rm {\rm ko\v ren }}}T_1):=\npl(\pravy(\text{{\rm {\rm ko\v ren }}}
+T_1)+1$
+\bigskip
+
+INSERT$(x)$}:\newline 
+Vytvo\v r haldu $T_1$ reprezentuj\'\i c\'\i\ $\{x\}$\newline 
+$\bold M\bold E\bold R\bold G\bold E(T,T_1)$
+\bigskip
+
+{\bf MIN}:\newline 
+{\bf V\'ystup}: $\key(\text{\rm ko\v ren }T)$
+\bigskip
+
+{\bf DELETEMIN}:\newline 
+$T_1:=$podstrom lev\'eho syna ko\v rene $T$\newline 
+$T_2:=$podstrom prav\'eho syna ko\v rene $T$\newline 
+{\bf MERGE$(T_1,T_2)$
+\bigskip
+
+MAKEHEAP$(S,f)$}:\newline 
+$Q:=$pr\'azdn\'a fronta\newline 
+{\bf for every} $s\in S$ {\bf do\newline 
+\phantom{{\rm ---}}}vlo\v z leftist haldu $T_s$ reprezentuj\'\i c\'\i\ $
+\{s\}$ do $Q$\newline 
+{\bf enddo\newline 
+while} $|Q|>1$ {\bf do\newline 
+\phantom{{\rm ---}}}vezmi haldy $T_1$ a $T_2$ z vrcholu $Q$ 
+(odstra\v n je)\newline 
+\phantom{---}{\bf MERGE$(T_1,T_2)$} vlo\v z do $Q$\newline 
+{\bf enddo
+\bigskip
+
+
+}\flushpar Vypo\v cteme \v casovou slo\v zitost p\v redchoz\'\i ch 
+algoritm\accent23u. Ka\v zd\'y b\v eh 
+algoritmu {\bf MERGE} (bez rekurzivn\'\i ho vol\'an\'\i ) vy\v zaduje \v cas 
+$O(1)$. Po\v cet rekurzivn\'\i ch vol\'an\'\i\ je sou\v cet d\'elek prav\'ych 
+cest, proto algoritmus {\bf MERGE} vy\v zaduje \v cas $O(\log(|S_
+1|+|S_2|))$, 
+kde $S_i$ je mno\v zina reprezentovan\'a haldou $T_i$ pro $i=1,2$.
+Odtud d\'ale plyne, \v ze \v cas algoritm\accent23u {\bf INSERT} a 
+{\bf DELETE\-MIN} je v 
+nejhor\v s\'\i m p\v r\'\i pad\v e $O(\log(|S|))$. Operace {\bf MIN} vy\v zaduje 
+\v cas $O(1)$. Pro odhad slo\v zitosti {\bf MA\-KEHEAP} budeme 
+uva\v zovat, \v ze na za\v c\'atku algoritmu je na vrcholu fronty 
+speci\'aln\'\i\ znak, kter\'y se jen p\v renese na konec fronty. 
+Odhadneme \v cas, kter\'y spot\v rebuj\'\i\ {\bf while-}cykly mezi dv\v e\-ma 
+p\v renesen\'\i mi speci\'aln\'\i ho znaku. P\v redpokl\'adejme, \v ze se 
+spe\-ci\'al\-n\'\i\ znak p\v renesl po $k$-t\'e. V tomto okam\v ziku 
+maj\'\i\ v\v sechny haldy ve front\v e a\v z na jednu velikost $2^{
+k-1}$. 
+Proto ve front\v e $Q$ je $\big\lceil \frac {|S|}{2^{k-1}}\big\rceil $ hald a jeliko\v z jedna operace 
+{\bf MERGE} vy\v zadu\-je $O(k)$ \v casu, tak {\bf while}-cykly vy\v zaduj\'\i\ 
+\v cas $O(k\frac {|S|}{2^{k-1}})$. M\accent23u\v zeme tedy shrnout, \v ze operace 
+{\bf MAKEHEAP} pot\v rebuje \v cas 
+$$O(\sum_{k=1}^{\infty}k\frac {|S|}{2^{k-1}})=O(|S|\sum_{k=1}^{\infty}\frac 
+k{2^{k-1}})=O(|S|).$$
+\v Rada $\sum_{k=1}^{\infty}$$\frac k{2^{k-1}}$ konverguje nap\v r. podle pod\'\i lov\'eho d'Alambertova 
+krit\'eria a lze jednodu\v se spo\v c\'\i tat (nap\v r. stejnou metodou 
+jako pro regul\'arn\'\i\ haldy), \v ze sou\v cet je $4$.
+\medskip
+
+\flushpar Implementace operac\'\i\ {\bf DECREASE} a {\bf INCREASE} pomoc\'\i\ 
+operac\'\i\ {\bf UP} a {\bf DOWN} jako v $d$-regul\'arn\'\i ch hald\'ach nen\'\i\ 
+efektivn\'\i , proto\v ze d\'elka cesty z ko\v rene do listu v leftist hald\v e 
+m\accent23u\v ze b\'yt a\v z $|S|$.  Proto navrhneme pro tyto operace 
+efektivn\v ej\v s\'\i\ algoritmus zalo\v zen\'y na jin\'em principu.  Tento princip 
+je pak pou\v zit i pro Fibonacciho haldy.  \medskip
+
+\flushpar Nejprve pop\'\i\v seme pomocnou operaci {\bf Oprav$(T,v
+)$}, 
+kter\'a vy\-tvo\-\v r\'\i\ lef\-tist haldu z bin\'arn\'\i ho stromu $
+T'$ vznikl\'eho z 
+leftist haldy $T$ odtr\v zen\'\i m podstromu s ko\v renem ve vrcholu $
+v$.
+\bigskip
+
+{\bf Oprav$(T,v)$}:\newline 
+$t:=\otec(v)$, $\npl(t):=0$\newline 
+{\bf if} $\pravy(t)\ne v$ {\bf then} $\levy(t):=\pravy(t)$ {\bf endif\newline 
+$\pravy(t):=NIL$\newline 
+while} se zmen\v silo $\npl(t)$ a $t$ nen\'\i\ ko\v ren {\bf do\newline 
+\phantom{{\rm ---}}$t:=\otec(t)$\newline 
+\phantom{{\rm ---}}if} $\npl(\pravy(t))>\npl(\levy(t))$ {\bf then\newline 
+\phantom{{\rm ------}}}vym\v e\v n $\levy(t)$ a $\pravy(t)$\newline 
+\phantom{---}{\bf endif\newline 
+\phantom{{\rm ---}}$\npl(t):=\npl(\pravy(t))+1$\newline 
+enddo
+\bigskip
+
+}\flushpar Po proveden\'\i\ operace {\bf Oprav} maj\'\i\ v\v sechny vrcholy 
+spr\'avn\'e \v c\'\i slo $\npl$ a podm\'\i nky kladen\'e na leftist 
+haldu jsou spln\v eny. Tedy po proveden\'\i\ {\bf Oprav }
+je $T$ op\v et leftist halda. Kdy\v z $t$ je posledn\'\i\ vrchol, u 
+kter\'eho se zmen\v silo $\npl$, pak  v\v sechny vrcholy, kde se zmen\v silo 
+$\npl$, tvo\v r\'\i\ pravou cestu z vrcholu $t$. To znamen\'a, \v ze 
+{\bf while}-cyklus se prov\'ad\v el nejv\'y\v se $\log(|S|)$-kr\'at a ka\v zd\'y 
+b\v eh {\bf while}-cyklu vy\v zadoval \v cas $O(1)$. Proto algoritmus 
+{\bf Oprav} vy\v zaduje \v cas $O(\log(|S|))$.
+\medskip
+
+\flushpar Pop\'\i\v seme ostatn\'\i\ algoritmy.
+\bigskip
+
+{\bf DECREASE$(s,a)$}:\newline 
+$v:=$prvek reprezentuj\'\i c\'\i\ $s$\newline 
+$T_1$$:=$podstrom $T$ ur\v cen\'y vrcholem $v$, $f(v):=f(v)-a$\newline 
+$T_2:=${\bf Oprav$(T,v)$}, $T:=${\bf MERGE$(T_1,T_2)$
+\bigskip
+
+INCREASE$(s,a)$}:\newline 
+$v:=$prvek reprezentuj\'\i c\'\i\ $s$\newline 
+$T_1:=$podstrom $T$ ur\v cen\'y vrcholem $\levy(v)$\newline 
+$T_2:=$podstrom $T$ ur\v cen\'y  vrcholem $\pravy(v)$\newline 
+$T_3:=$leftist halda reprezentuj\'\i c\'\i\ prvek $s$\newline 
+$f(v):=f(v)+a$, $T_4:=${\bf Oprav$(T,v)$}, $T_1:=${\bf MERGE$(T_1
+,T_3)$\newline 
+$T_2:=$MERGE$(T_2,T_4)$}, $T:=${\bf MERGE$(T_1,T_2)$
+\bigskip
+
+DELETE$(s,a)$}:\newline 
+$v:=$prvek reprezentuj\'\i c\'\i\ $s$\newline 
+$T_1:=$podstrom $T$ ur\v cen\'y vrcholem $\levy(v)$\newline 
+$T_2:=$podstrom $T$ ur\v cen\'y  vrcholem $\pravy(v)$\newline 
+$T_3:=${\bf MERGE$(T_1,T_2)$}, $T_4:=${\bf Oprav$(T,v)$\newline 
+$T:=$MERGE$(T_3,T_4)$
+\bigskip
+
+}\flushpar Proto\v ze algoritmy {\bf MERGE} a {\bf Oprav} vy\v zaduj\'\i\ \v cas 
+$O(\log(|S|)$ a proto\v ze zbyl\'e \v c\'asti algoritm\accent23u pro operace 
+{\bf DECREASE}, {\bf INCREASE} a {\bf DELETE} vy\v zaduj\'\i\ $O(
+1)$ \v casu, 
+m\accent23u\v zeme shrnout v\'ysledky:  
+\medskip
+
+\proclaim{V\v eta}V leftist hald\'ach existuje implementace operace 
+{\bf MIN}, kter\'a v nejhor\v s\'\i m p\v r\'\i pad\v e vy\v zaduje \v cas $
+O(1)$, 
+implementace ope\-rac\'\i\ {\bf INSERT}, {\bf DELETEMIN}, {\bf DELETE}, 
+{\bf MER\-GE}, {\bf DECREA\-SE} a {\bf INCREA\-SE}, kter\'e vy\v zaduj\'\i\ v nejhor\v s\'\i m 
+p\v r\'\i\-pa\-d\v e \v cas $O(\log(|S|))$, a implementace operace {\bf MAKE\-HEAP},
+kter\'a vy\v zaduje \v cas $O(|S|)$, kde $S$ je reprezentovan\'a mno\v zina.
+\endproclaim
+\bigskip
+
+\centerline{\bigbigrm{IV. Amortizovan\'a slo\v zitost}}
+\medskip
+
+\flushpar Pop\'\i\v seme bankovn\'\i\ paradigma pro po\v c\'\i t\'an\'\i\ s 
+amortizovanou slo\v zitost\'\i . P\v redpokl\'adejme, \v ze m\'ame funkci $
+h$, 
+kter\'a ohodnucuje konfigurace a kvantitativn\v e vystihuje 
+jejich vhodnost pro proveden\'\i\ operace $o$. 
+Kdy\v z na konfiguraci $D$ aplikujeme operaci $o$ 
+a dostaneme konfiguraci $D'$, pak amortizovan\'a slo\v zitost 
+$am(o)$ ope\-race $o$ m\'a vystihovat nejen \v casovou n\'aro\v cnost 
+operace, ale i to, jak se zm\v enila vhodnost konfigurace pro 
+tuto operaci. Proto ji defi\-nujme jako $am(o)=t(o)+h(D')-h(D)$, kde $
+t(o)$ je 
+\v cas pot\v rebn\'y pro proveden\'\i\ operace $o$. P\v redpokl\'adejme, 
+\v ze chceme prov\'est posloupnost operac\'\i\ $o_1,o_2,\dots,o_n$ na 
+konfiguraci $D_0$. Zn\'azorn\'\i me si to takto:
+$$D_0@>{o_1}>>D_1@>{o_2}>>D_2@>{o_3}>>\dots@>{o_n}>>D_n.$$
+P\v redpokl\'adejme, \v ze pro ka\v zd\'e $i=1,2,\dots,n$ m\'ame odhad 
+$c(o_i)$ amortizovan\'e slo\v zitos\-ti operace $o_i$, tj. $am(o_
+i)\le c(o_i)$ 
+pro v\v sechna $i=1,2,\dots,n$. Pak
+$$\sum_{i=1}^nam(o_i)=\sum_{i=1}^n\big(t(o_i)+h(D_i)-h(D_{i-1})\big
+)=h(D_n)-h(D_0)+\sum_{i=1}^nt(o_i)\le\sum_{i=1}^nc(o_i).$$
+Z toho plyne, \v ze 
+$$\sum_{i=1}^nt(o_i)\le\sum_{i=1}^nc(o_i)-h(D_n)+h(D_0).$$
+\medskip
+
+\flushpar Obvykle je $h(D)\ge 0$ pro v\v sechny konfigurace $D$ 
+nebo naopak $h(D)\le 0$ 
+pro v\v sechny konfigurace $D$. Kdy\v z $h(D)\ge 0$, pak 
+$$\sum_{i=1}^nt(o_i)\le\sum_{i=1}^nc(o_i)+h(D_0),$$
+kdy\v z $h(D)\le 0$, pak 
+$$\sum_{i=1}^nt(o_i)\le\sum_{i=1}^nc(o_i)-h(D_n).$$
+To znamen\'a, \v ze odhad amortizovan\'e slo\v zitosti d\'av\'a tak\'e odhad 
+na \v casovou slo\v zitost posloupnosti operac\'\i , kter\'y b\'yv\'a lep\v s\'\i\ ne\v z odhad slo\v zitosti v 
+nejhor\v s\'\i m p\v r\'\i pad\v e.  Tato skute\v cnost vysv\v etluje \v radu 
+p\v r\'\i pad\accent23u, kdy 
+v\'ysledky byly lep\v s\'\i\ ne\v z teoretick\'y v\'ypo\v cet.  Ukazuje se, \v ze 
+slo\v zitost posloupnosti operac\'\i\ v nejhor\v s\'\i m p\v r\'\i pad\v e je \v casto podstatn\v e 
+men\v s\'\i\ ne\v z sou\v cet slo\v zitost\'\i\ v nejhor\v s\'\i m p\v r\'\i pad\v e pro 
+jednotliv\'e operace.  
+\bigskip
+
+\centerline{\bigbigrm{V. Binomi\'aln\'\i\ haldy}}
+\medskip
+
+\flushpar Dal\v s\'\i\ typ hald je motivov\'an s\v c\'\i tan\'\i m p\v rirozen\'ych \v c\'\i sel.  
+Binomi\'aln\'\i\ halda reprezentuj\'\i c\'\i\ $n-$prvkovou mno\v zinu se 
+toti\v z chov\'a 
+podobn\v e jako \v c\'\i slo $n$.  Tento typ hald je tak\'e po zobecn\v en\'\i\ v jist\'em 
+smyslu vzorem pro Fibonacciho haldy.  
+\medskip
+
+\flushpar Pro $i=0,1,\dots$ definujeme rekurentn\v e binomi\'aln\'\i\ 
+stromy $H_i$.  Jsou to ko\v renov\'e stromy takov\'e, \v ze $H_0$ je 
+jednoprvkov\'y strom a  strom $H_{i+1}$ vznikne ze dvou 
+disjunktn\'\i ch strom\accent23u $H_i$, kde ko\v ren jednoho stromu  
+se stane dal\v s\'\i m synem (nejlev\v ej\v s\'\i m nebo nejprav\v ej\v s\'\i m) ko\v rene druh\'eho stromu.  Viz 
+Obr.  1. 
+\medskip
+
+\midinsert
+\centerline{\input fig10.tex}
+\botcaption{Obr. 1}
+\endcaption
+\endinsert
+
+\flushpar Nejprve uvedeme z\'akladn\'\i\ vlastnosti t\v echto 
+strom\accent23u.
+\medskip
+
+\proclaim{Tvrzen\'\i}Pro ka\v zd\'e p\v rirozen\'e \v c\'\i slo $
+i=0,1,\dots$ 
+plat\'\i :
+\roster
+\item
+strom $H_i$ m\'a $2^i$ vrchol\accent23u,
+\item
+ko\v ren stromu $H_i$ m\'a $i$ syn\accent23u,
+\item
+d\'elka nejdel\v s\'\i\ cesty z ko\v rene do listu ve stromu $H_i$ je 
+$i$ (tj. v\'y\v ska $H_i$ je $i$),
+\item
+podstromy ur\v cen\'e syny ko\v rene stromu $H_i$ jsou izomorf\-n\'\i\ 
+se stromy $H_0,H_1,\dots,H_{i-1}$.
+\endroster
+\endproclaim
+
+\demo{D\accent23ukaz}Tvrzen\'\i\ plat\'\i\ pro strom $H_0$ a 
+jednoduchou indukc\'\i\ se dok\'a\v ze i pro dal\v s\'\i\ stromy. 
+Skute\v cn\v e, kdy\v z $H_i$ m\'a $2^i$ vrchol\accent23u, pak $H_{
+i+1}$ m\'a 
+$2(2^i)=2^{i+1}$ vrchol\accent23u. Ko\v ren stromu $H_{i+1}$ m\'a o jednoho 
+syna v\'\i ce ne\v z ko\v ren stromu $H_i$ a nejdel\v s\'\i\ cesta do listu je o $
+1$ 
+del\v s\'\i . Proto\v ze podstrom syna, kter\'y p\v ribyl ko\v reni stromu 
+$H_{i+1}$, je izomorfn\'\i\ s $H_i$ a jinak se nic nem\v enilo, je 
+d\accent23ukaz kompletn\'\i . \qed
+\enddemo
+\medskip
+
+\flushpar\emph{Binomi\'aln\'\i} \emph{halda} $\Cal H$ reprezentuj\'\i c\'\i\ 
+mno\v zinu $S$ je soubor (seznam) strom\accent23u $\{T_1,T_2,\dots
+,T_k\}$ 
+takov\'y, \v ze 
+\roster
+\item"{}"
+celkov\'y po\v cet vrchol\accent23u v t\v echto stromech je 
+roven velikosti $S$ a 
+existuje a je d\'ano jednozna\v cn\'e p\v ri\v razen\'\i\ prvk\accent23u 
+z $S$ vrchol\accent23um strom\accent23u takov\'e, \v ze plat\'\i\ 
+podm\'\i nka \thetag{usp} -- toto p\v ri\v razen\'\i\ je realizov\'ano 
+funkc\'\i\ 
+$\key,$ kter\'a vrcholu stromu p\v ri\v razuje prvek j\'\i m reprezentovan\'y;
+\item"{}"
+ka\v zd\'y strom $T_i$ je izomorfn\'\i\ s n\v ejak\'ym stromem $H_
+j$;
+\item"{}"
+$T_i$ nen\'\i\ izomorfn\'\i\ s \v z\'adn\'ym $T_j$ pro $i\ne j$.
+\endroster
+\medskip
+
+\flushpar Z bin\'arn\'\i ho z\'apisu p\v rirozen\'ych \v c\'\i sel plyne, \v ze 
+pro ka\v zd\'e p\v riro\-ze\-n\'e \v c\'\i slo $n>0$ existuje prost\'a 
+posloupnost $i_1,i_2,\dots,i_k$ p\v riro\-ze\-n\'ych \v c\'\i sel takov\'a, \v ze 
+$n=\sum_{j=1}^k2^{i_j}$. Z toho plyne, \v ze pro ka\v zdou nepr\'azd\-nou 
+mno\v zinu $S$ existuje binomi\'aln\'\i\ halda repre\-zentuj\'\i c\'\i\ $
+S$.
+Tato halda obsahuje strom izomorfn\'\i\ s $H_i$, pr\'av\v e kdy\v z v 
+bin\'arn\'\i m z\'apise \v c\'\i sla $|S|$ je na $i$-t\'em m\'\i st\v e zprava $
+1$.
+\bigskip
+
+\head
+Algoritmy a slo\v zitost operac\'\i
+\endhead
+
+\flushpar Operace pro binomi\'aln\'\i\ haldy jsou  
+stejn\v e jako pro leftist haldy zalo\v zeny na ope\-raci {\bf MER\-GE}. Ope\-race 
+{\bf MERGE} pro binomi\'aln\'\i\ haldy je analogi\'\i\ s\v c\'\i t\'an\'\i\ 
+p\v rirozen\'ych \v c\'\i sel v bin\'ar\-n\'\i m z\'apise.
+\bigskip
+
+{\bf MERGE$(\Cal H_1,\Cal H_2)$}:\newline 
+(koment\'a\v r: $\Cal H_i$ reprezentuje mno\v zinu $S_i$ pro $i=1
+,2$ a $S_1\cap S_2=\emptyset$)\newline 
+$i:=0$, $T:=$pr\'azdn\'y strom, $\Cal H:=\emptyset$\newline 
+{\bf while} $i<\log(|S_1|+|S_2|)$ {\bf do\newline 
+\phantom{{\rm ---}}if} existuje $U\in \Cal H_1$ izomorfn\'\i\ s $
+H_i$ {\bf then\newline 
+\phantom{{\rm ------}}$U_1:=U$\newline 
+\phantom{{\rm ---}}else\newline 
+\phantom{{\rm ------}}$U_1:=$}pr\'azdn\'y strom\newline 
+\phantom{---}{\bf endif\newline 
+\phantom{{\rm ---}}if} existuje $U\in \Cal H_2$ izomorfn\'\i\ s $
+H_i$ {\bf then\newline 
+\phantom{{\rm ------}}$U_2:=U$\newline 
+\phantom{{\rm ---}}else\newline 
+\phantom{{\rm ------}}$U_2:=$}pr\'azdn\'y strom\newline 
+\phantom{---}{\bf endif\newline 
+\phantom{{\rm ---}}case\newline 
+\phantom{{\rm ------}}}(existuje pr\'av\v e jeden nepr\'azdn\'y strom 
+$V\in \{T,U_1,U_2\}$) {\bf do}:\newline 
+\phantom{---------}vlo\v z $V$ do $\Cal H$, $T:=$pr\'azdn\'y strom\newline 
+\phantom{------}(existuj\'\i\ pr\'av\v e dva nepr\'azdn\'e stromy 
+$V_1,V_2\in \{T,U_1,U_2\})$ {\bf do}:\newline 
+\phantom{---------}$T:=${\bf spoj$(V_1,V_2)$\newline 
+\phantom{{\rm ------}}}(v\v sechny stromy $T$, $U_1$ a $U_2$ jsou nepr\'azdn\'e) {\bf do}:\newline 
+\phantom{---------}vlo\v z $T$ do $\Cal H$, $T:=${\bf spoj$(U_1,U_
+2)$\newline 
+\phantom{{\rm ---}}endcase\newline 
+\phantom{{\rm ---}}$i:=i+1$\newline 
+enddo\newline 
+if} $T\ne$pr\'azdn\'y strom {\bf then} vlo\v z $T$ do $\Cal H$ {\bf endif\newline 
+V\'ystup}:$\Cal H$
+\bigskip
+
+{\bf spoj$(T_1,T_2)$}:\newline 
+{\bf if} $f(\text{\rm ko\v ren }T_1)>f(\text{\rm ko\v ren }T_2)$ {\bf then\newline 
+\phantom{{\rm ---}}}vym\v e\v n stromy $T_1$ a $T_2$\newline 
+{\bf endif\newline 
+}
+vytvo\v r nov\'eho  syna $v$ ko\v rene $T_1$\newline 
+$v:=$ko\v ren $T_2$
+\bigskip
+
+\flushpar Je vid\v et, \v ze kdy\v z oba stromy $T_1$ a $T_2$ jsou izomorfn\'\i\ 
+s $H_i$, pak v\'ysledn\'y strom operace {\bf spoj} je izomorfn\'\i\ 
+s $H_{i+1}$. Korektnost ope\-race {\bf MERGE} plyne z tohoto 
+pozorov\'an\'\i\ a z faktu, \v ze $\Cal H_j$ obsahuje strom izomorfn\'\i\ s 
+$H_i$, pr\'av\v e kdy\v z v bin\'arn\'\i m z\'apise \v c\'\i sla $
+|S_j|$ je na $i$-t\'em 
+m\'\i st\v e zprava $1$, a \v ze $T$ je nepr\'azdn\'y strom, kdy\v z se 
+prov\'ad\'\i\ posun \v r\'adu p\v ri s\v c\'\i t\'an\'\i . Proto\v ze ka\v zd\'y b\v eh 
+cyklu vy\v zaduje \v cas $O(1)$, algoritmus {\bf MER\-GE} vy\v zaduje \v cas 
+$O(\log(|S_1|+|S_2|))$. Implementace dal\v s\'\i ch algoritm\accent23u 
+je podobn\'a jako pro leftist haldy. 
+\bigskip
+
+{\bf INSERT$(x)$}:\newline 
+Vytvo\v r haldu $\Cal H_1$ reprezentuj\'\i c\'\i\ $\{x\}$\newline 
+$\bold M\bold E\bold R\bold G\bold E(\Cal H,\Cal H_1)$
+\bigskip
+
+{\bf MIN}:\newline 
+Prohledej prvky reprezentovan\'e ko\v reny v\v sech strom\accent23u 
+v $\Cal H$\newline 
+{\bf V\'ystup}: nejmen\v s\'\i\ z t\v echto prvk\accent23u  
+\bigskip
+
+{\bf DELETEMIN}:\newline 
+Prohledej prvky reprezentovan\'e ko\v reny v\v sech strom\accent23u 
+v $\Cal H$\newline 
+$T:=$ strom, jeho\v z ko\v ren reprezentuje nejmen\v s\'\i\ prvek\newline 
+$\Cal H_1:=\Cal H\setminus \{T\}$\newline 
+$\Cal H_2:=$ halda tvo\v ren\'a podstromy $T$ ur\v cen\'ymi syny ko\v rene $
+T$\newline 
+{\bf MERGE$(\Cal H_1,\Cal H_2)$
+\bigskip
+
+}\flushpar Z podm\'\i nky \thetag{usp} je z\v rejm\'e, \v ze 
+nejmen\v s\'\i\ prvek v $S$ je reprezentov\'an v ko\v reni n\v ejak\'eho  
+stromu haldy. T\'\i m je d\'ana korekt\-nost operace {\bf MIN}.
+Z \'uvodn\'\i ho tvrzen\'\i\ plyne, \v ze $\Cal H_2$ v operaci {\bf DELE\-TE\-MIN} je 
+binomi\'aln\'\i\ halda, a odtud plyne korekt\-nost ope\-race 
+{\bf DE\-LE\-TEMIN}. Operace {\bf DECREASE} se implementuje pomoc\'\i\ 
+ope\-race {\bf UP} a ope\-race {\bf INCREASE} pomoc\'\i\ 
+operace {\bf DOWN} stejn\v e jako v regul\'arn\'\i ch hald\'ach. 
+Struktura binomi\'aln\'\i\ haldy nepodporuje p\v r\'\i mo operaci 
+{\bf DELETE} -- ta se d\'a realizovat jedin\v e jako posloupnost 
+operac\'\i\ {\bf DECREASE$(s,\infty )$} a {\bf DELETEMIN}.  
+Operace {\bf MAKEHEAP} se prov\'ad\'\i\ opakov\'an\'\i m operace {\bf INSERT}.
+\medskip
+
+\flushpar V\'ypo\v cet \v casov\'e slo\v zitosti operac\'\i\ pro binomi\'aln\'\i\ haldy 
+vyu\v z\'\i v\'a n\v ekolik zn\'am\'ych fakt\accent23u.  Ope\-race {\bf MERGE }
+simuluje s\v c\'\i t\'an\'\i\ p\v rirozen\'ych \v c\'\i sel v bin\'arn\'\i m z\'apise a m\'a 
+tedy stejnou slo\v zitost.  Odhad slo\v zitosti vytv\'a\v ren\'\i\ haldy vyu\v z\'\i v\'a 
+zn\'am\'eho faktu, \v ze amortizovan\'a slo\v zitost p\v ri\v c\'\i t\'an\'\i\ $
+1$  
+k bin\'arn\'\i mu \v c\'\i slu je $O(1)$.  
+Odhad slo\v zitosti operac\'\i\ {\bf MIN} a {\bf DELETEMIN} je zalo\v zen na 
+pozorov\'an\'\i , \v ze binomi\'aln\'\i\ halda reprezentuj\'\i c\'\i\ mno\v zinu $
+S$ m\'a 
+tolik strom\accent23u, kolik je jedni\v cek v bin\'arn\'\i m z\'apise $
+|S|$, a 
+to je nejv\'y\v se $\log(|S|)$.  
+\medskip
+
+\flushpar Z tvrzen\'\i\ tak\'e plyne, \v ze v\'y\v ska v\v sech strom\accent23u v 
+binomi\'aln\'\i\ hald\v e je $\le\log(|S|)$ a po\v cet syn\accent23u 
+ko\v rene ka\v zd\'eho stromu je 
+tak\'e $\le\log(|S|)$, p\v ri\v cem\v z tento odhad se ned\'a zlep\v sit. Odtud 
+dost\'av\'ame slo\v zitost operac\'\i\ {\bf DECREASE} a {\bf INCREASE} v nejhor\v s\'\i m 
+p\v r\'\i pad\v e. M\accent23u\v zeme tedy shrnout:
+\medskip
+
+
+\proclaim{V\v eta}Pro binomi\'aln\'\i\ haldy algoritmy operac\'\i\ 
+{\bf IN\-SERT}, {\bf MIN}, {\bf DELETEMIN}, {\bf DECREASE} a {\bf MERGE  }
+vy\-\v za\-duj\'\i\ \v cas $O(\log(|S|))$, algoritmus operace {\bf INCRE\-ASE }
+vy\-\v za\-duje \v cas $O(\log^2(|S|))$ a algoritmus operace {\bf MAKEHEAP 
+}\v cas $O(|S|)$.
+\endproclaim
+\medskip
+
+
+\flushpar Z t\v echto v\'ysledk\accent23u je vid\v et, \v ze p\v redchoz\'\i\ 
+typy hald maj\'\i\ efektivn\v ej\v s\'\i\ chov\'an\'\i\ ne\v z binomi\'aln\'\i\ haldy. 
+V\'yznam binomi\'aln\'\i ch hald tak spo\-\v c\'\i\-v\'a p\v redev\v s\'\i m v 
+tom, \v ze se daj\'\i\ d\'ale zobecnit (t\'\i mto zobecn\v en\'\i m jsou Fibonacciho 
+haldy) a \v ze na nich lze kr\'asn\v e 
+ilustrovat princip, \v ze s \v radou \'uprav je v\'yhodn\'e po\v ckat 
+a neprov\'ad\v et je okam\v zit\v e.
+\bigskip
+
+\head
+L\'\i n\'a implentace operac\'\i
+\endhead
+
+\flushpar N\'asleduj\'\i c\'\i\ algoritmy jsou zalo\v zeny na ideji, \v ze 
+`vyva\v zov\'an\'\i ' sta\v c\'\i\ prov\'ad\v et jen p\v ri operac\'\i ch {\bf MIN} a 
+{\bf DELETEMIN}, kdy je stejn\v e zapot\v reb\'\i\ prohledat v\v sechny 
+stromy. Z tohoto d\accent23uvodu zeslab\'\i me podm\'\i nky na 
+binomi\'aln\'\i\ haldy.
+\medskip
+
+\flushpar\emph{L\'\i n\'a} \emph{binomi\'aln\'\i} \emph{halda} $\Cal H$ 
+reprezentuj\'\i c\'\i\ mno\v zinu $S$ je seznam strom\accent23u 
+$\{T_1,T_2,\dots,T_k\}$ takov\'y, \v ze  
+\roster
+\item"{}"
+celkov\'y po\v cet vrchol\accent23u v t\v echto stromech je 
+roven velikosti $S$ a 
+existuje jednozna\v cn\'e p\v ri\v razen\'\i\ prvk\accent23u mno\v ziny 
+$S$ vrchol\accent23um strom\accent23u, kter\'e spl\v nuje 
+podm\'\i nku \thetag{usp} -- toto p\v ri\v razen\'\i\ je jako obvykle 
+realizov\'ano funkc\'\i\ $\key$;
+\item"{}"
+ka\v zd\'y strom $T_i$ je izomorfn\'\i\ s n\v ejak\'ym stromem $H_
+j$.
+\endroster
+\medskip
+
+\flushpar V l\'\i n\'e binomi\'aln\'\i\ hald\v e je vynech\'an p\v redpoklad 
+neizo\-morf\-nosti strom\accent23u tvo\v r\'\i c\'\i ch haldu. Tento fakt se 
+projev\'\i\ ve velmi jednoduch\'em algoritmu pro operaci 
+{\bf MERGE}.
+\bigskip
+
+{\bf MERGE$(\Cal H_1,\Cal H_2)$}:\newline 
+Prove\v d konkatenaci seznam\accent23u $\Cal H_1$ a $\Cal H_2$
+\bigskip
+
+\flushpar Samotn\'y algoritmus pro operaci {\bf INSERT} se nezm\v en\'\i , jen 
+provede tuto implementaci ope\-race {\bf MER\-GE}.  Ope\-race 
+{\bf MIN} a {\bf DELETE\-MIN} pou\v zij\'\i\ n\'asleduj\'\i c\'\i\ pomocnou 
+proceduru {\bf vyvaz}.  Jej\'\i m vstu\-pem je soubor 
+seznam\accent23u $\{O_i\mid i=0,1,\dots,k\}$, kde seznam $O_i$ 
+obsahuje jen stromy izomorfn\'\i\ se stromem $H_i$.  
+Procedura {\bf vyvaz} pak z t\v echto strom\accent23u vytvo\v r\'\i\ 
+klasickou binomi\'aln\'\i\ hal\-du. 
+\bigskip
+
+{\bf vyvaz$(\{O_i\mid i=0,1,\dots,k\})$}:\newline 
+$i:=0$, $\Cal H:=\emptyset$\newline 
+{\bf while} existuje $O_i\ne\emptyset$ {\bf do\newline 
+\phantom{{\rm ---}}while} $|O_i|>1$ {\bf do\newline 
+\phantom{{\rm ------}}}vezmi dva r\accent23uzn\'e stromy $T_1$ a $
+T_2$ z 
+$O_i$\newline 
+\phantom{------}odstra\v n je z $O_i$\newline 
+\phantom{------}{\bf spoj$(T_1,T_2)$} vlo\v z do $O_{i+1}$\newline 
+\phantom{---}{\bf enddo\newline 
+\phantom{{\rm ---}}if} $O_i\ne\emptyset$ {\bf then\newline 
+\phantom{{\rm ------}}}strom $T\in O_i$ odstra\v n z $O_i$ a vlo\v z do $
+\Cal H$\newline 
+\phantom{---}{\bf endif},\newline 
+\phantom{---}$i:=i+1$\newline 
+{\bf enddo\newline 
+V\'ystup}: $\Cal H$
+\bigskip
+
+{\bf MIN}:\newline 
+Prohledej prvky reprezentovan\'e ko\v reny v\v sech 
+strom\accent23u  
+v $\Cal H$\newline 
+{\bf V\'ystup}: nejmen\v s\'\i\ z t\v echto prvk\accent23u\newline 
+stromy rozd\v el do mno\v zin $O_i=\{$v\v sechny stromy v 
+$\Cal H$ izomorfn\'\i\ s $H_i\}$\newline 
+{\bf vyvaz$(\{O_i\mid i=0,1,\dots,\lfloor\log(|S|)\rfloor \})$
+\bigskip
+
+DELETEMIN}:\newline 
+Prohledej prvky reprezentovan\'e ko\v reny v\v sech 
+strom\accent23u v $\Cal H$\newline 
+$T:=$ strom, jeho\v z ko\v ren repre\-zentuje nejmen\v s\'\i\ 
+prvek\newline 
+stromy rozd\v el do mno\v zin $O_i=\{$v\v sechny stromy v 
+$\Cal H$ izomorfn\'\i\ s $H_i$ r\accent23uzn\'e od $T\}\cup \{$podstrom $
+T$ ur\v cen\'y n\v ejak\'ym synem ko\v rene $T$ 
+izomorfn\'\i\ s $H_i\}$\newline 
+{\bf vyvaz$(\{O_i\mid i=0,1,\dots,\lfloor\log(|S|)\rfloor \})$
+\bigskip
+
+\flushpar}\v Casov\'a slo\v zitost operac\'\i\ {\bf INSERT} a {\bf MER\-GE} p\v ri l\'\i n\'e 
+implementaci je $O(1)$, ale \v casov\'a slo\v zitost operac\'\i\ {\bf MIN} a 
+{\bf DELETEMIN} je v nejhor\v s\'\i m p\v r\'\i pad\v e $O(|S|)$. Tento odhad je 
+velmi \v spatn\'y, ale uk\'a\v zeme, \v ze amortizovan\'a slo\v zitost m\'a rozumn\'e 
+hodnoty. 
+P\v ripom\'\i n\'ame, \v ze amortizovan\'a slo\v zi\-tost je \v cas operace plus 
+ohodnocen\'\i\ v\'ysledn\'e struktury minus ohodnocen\'\i\ 
+po\v c\'ate\v cn\'\i\ struktury. 
+Konfiguraci ohodnot\'\i me po\v ctem strom\accent23u v 
+hald\v e. 
+Proto\v ze ope\-race {\bf MERGE} nem\v en\'\i\ po\v cet strom\accent23u a 
+proto\v ze operace {\bf INSERT} p\v rid\'a jen jeden strom, je 
+amortizovan\'a slo\v zitost operac\'\i\ {\bf MERGE} a {\bf INSERT} st\'ale $
+O(1)$.
+Uk\'a\v zeme, \v ze amortizovan\'a slo\v zitost operac\'\i\ {\bf MIN} a {\bf DELETEMIN }
+p\v ri l\'\i n\'e implementaci binomi\'aln\'\i ch hald je $O(\log
+(|S|)$. 
+Proto\v ze ka\v zd\'y b\v eh 
+vnit\v rn\'\i ho {\bf while}-cyklu v operaci {\bf vyvaz} vy\v zaduje \v cas $
+O(1)$ 
+a zmen\v s\'\i\ po\v cet strom\accent23u v seznamech $O_i$ o $1$, 
+ope\-ra\-ce {\bf vyvaz} vy\v zaduje \v cas $O(k+\sum_{i=0}^k|O_i|
+)$. Ope\-ra\-ce {\bf MIN}
+bez podprocedury {\bf vyvaz} vy\v zaduje \v cas $O(|\Cal H|)$ a operace 
+{\bf DELETEMIN} bez podprocedury {\bf vyvaz }\v cas $O(\Cal H+i)$ pro 
+takov\'e $i$, \v ze $T$ je izomorfn\'\i\ s $H_i$. Podle tvrzen\'\i\ je $
+i\le\log(|S|)$, a 
+tedy ope\-ra\-ce {\bf MIN} vy\v zaduje \v cas $O(|\Cal H|)$ a ope\-race 
+{\bf DELETEMIN }\v cas $O(|\Cal H|+\log(|S|))$. Proto\v ze  
+ohodnocen\'\i\ klasick\'e binomi\'aln\'\i\ haldy je nejv\'y\v se $\log
+(|S|)$ 
+(obsahuje tolik strom\accent23u, kolik je $1$ v bin\'arn\'\i m z\'apise 
+\v c\'\i sla $|S|$), dost\'av\'ame, \v ze amortizovan\'a slo\v zitost ope\-race {\bf MIN} je 
+$O(|\Cal H|-|\Cal H|+\log(|S|))=O(\log(|S|))$ a amortizovan\'a slo\v zitost 
+operace {\bf DELETEMIN} je $O(|\Cal H|+\log(|S|)-|\Cal H|+\log(|S
+|))=O(\log(|S|))$.
+\medskip
+
+\flushpar Proto\v ze si funkci ohodnocen\'\i\ vol\'\i me, 
+m\accent23u\v zeme pou\v z\'\i t takov\'e multiplikativn\'\i\ 
+koeficienty, aby jednotka \v casu odpov\'\i dala jednotce v 
+amortizovan\'e slo\v zitosti. Proto lze $|\Cal H|$ od sebe ode\v c\'\i st.
+\bigskip
+
+\centerline{\bigbigrm{VI. Fibonacciho haldy}}
+\medskip
+
+\flushpar V\'yznam Fibonacciho hald ur\v cuje fakt, \v ze amortizovan\'a 
+slo\v zitost operac\'\i\ {\bf INSERT} a {\bf DECREASE} v t\v echto hald\'ach je 
+$O(1)$ a amortizovan\'a slo\v zitost operace {\bf DELETEMIN} je $
+O(\log(|S|)$. 
+Proto se hodn\v e pou\v z\'\i vaj\'\i\ v grafov\'ych algoritmech, 
+kde umo\v z\v nuj\'\i\ v mnoha p\v r\'\i padech dos\'ahnout asymptoticky t\'em\v e\v r line\'arn\'\i\ 
+slo\v zitosti. Nezn\'ame v\v sak \v z\'adn\'e  
+expe\-riment\'aln\'\i\ v\'ysledky, kter\'e by porovn\'avaly pou\v zit\'\i\ Fibonacciho 
+hald a nap\v r. $d$-regul\'arn\'\i ch hald v t\v echto grafov\'ych 
+algoritmech v praxi. Tak\v ze nezn\'ame podm\'\i nky, za 
+kter\'ych jsou Fibonacciho 
+haldy lep\v s\'\i\ ne\v z t\v reba $d$-regul\'arn\'\i\ haldy, 
+ani nev\'\i me, do jak\'e m\'\i ry je to jen teoretick\'y 
+v\'ysledek a do jak\'e m\'\i ry jsou opravdu prakticky pou\v ziteln\'e. 
+\medskip
+
+\flushpar Neform\'aln\v e \v re\v ceno, je Fibonacciho halda mno\v zina 
+strom\accent23u, jejich\v z n\v ekter\'e vrcholy r\accent23uzn\'e od 
+ko\v ren\accent23u jsou ozna\v ceny, a kde existuje 
+jednozna\v cn\'a korepondence mezi prvky $S$ a vrcholy 
+strom\accent23u (realizov\'ana funkc\'\i\ $\key$), kter\'a spl\v nuje 
+podm\'\i nku \thetag{usp}.  Toto je v\v sak jen p\v ribli\v z\-n\'e 
+vyj\'ad\v ren\'\i .  Existuj\'\i\ toti\v z struktury, na kter\'e se tento 
+popis hod\'\i , ale 
+nevznikly z pr\'azd\-n\'e Fibonacciho haldy aplikac\'\i\ 
+posloupnosti haldov\'ych  
+operac\'\i .  P\v ritom d\accent23ukaz efekti\-vity Fibonacciho hald se 
+dosti v\'yrazn\v e op\'\i r\'a o fakt, \v ze halda vznikla z pr\'azdn\'e 
+haldy aplikac\'\i\ algoritm\accent23u pro Fibonacciho 
+haldy. Proto nejprve pop\'\i\v seme algoritmy pro tyto 
+ope\-race, a pak budeme
+definovat \emph{Fibonacciho} \emph{haldy} jako struktury 
+vznikl\'e z pr\'azdn\'e haldy aplikac\'\i\ posloupnosti 
+t\v echto algoritm\accent23u.
+\bigskip
+
+\head
+Algoritmy
+\endhead
+
+\flushpar V algoritmech p\v redpokl\'ad\'ame, \v ze Fibonacciho halda je 
+seznam strom\accent23u, kde n\v ekter\'e vrcholy r\accent23uzn\'e od 
+ko\v ren\accent23u jsou ozna\v ceny.  Vrchol je ozna\v cen, pr\'av\v e kdy\v z nen\'\i\ 
+ko\v ren a kdy\v z mu byl n\v ekdy d\v r\'\i ve odtr\v zen n\v ekter\'y jeho syn. Toto se 
+nezaznamen\'av\'a pro ko\v reny strom\accent23u. Proto kdy\v z se 
+vrchol stane ko\v renem (odtr\v zen\'\i m podstromu ur\v cen\'eho 
+t\'\i mto vrcholem),  
+zapomene  se tento \'udaj a za\v cne se znovu zaznamen\'avat, 
+a\v z kdy\v z vrchol p\v restane 
+b\'yt ko\v renem. \v Rekneme, \v ze strom m\'a \emph{rank} $i$, kdy\v z 
+jeho ko\v ren 
+m\'a $i$ syn\accent23u. Tento fakt nahrazuje test pou\v z\'\i van\'y 
+v binomi\'aln\'\i ch 
+hald\'ach, \v ze strom je izomorfn\'\i\ se stromem $H_i$. 
+\medskip
+
+\flushpar Algoritmy pro operace {\bf MERGE}, {\bf INSERT}, {\bf MIN} a 
+{\bf DELE\-TEMIN} jsou zalo\v zeny na stejn\'ych idej\'\i ch jako algoritmy pro l\'\i nou implementaci 
+v binomi\'aln\'\i ch hald\'ach, pouze po\v za\-da\-vek, aby strom byl 
+izomorfn\'\i\ s $H_i$, je nahrazen po\v zadavkem, \v ze m\'a rank $
+i$. 
+Algoritmy pro ope\-race {\bf DECREASE}, {\bf INCREASE} a {\bf DELETE }
+vych\'azej\'\i\ z algoritm\accent23u pro tyto operace v leftist 
+hald\'ach. V algoritmech p\v redpokl\'ad\'ame, \v ze $c=\log^{-1}
+(\frac 32)$.
+\bigskip
+
+{\bf MERGE$(\Cal H_1,\Cal H_2)$}:\newline 
+Prove\v d konkatenaci seznam\accent23u $\Cal H_1$ a $\Cal H_2$
+\bigskip
+
+{\bf INSERT$(x)$}:\newline 
+Vytvo\v r haldu $\Cal H_1$ reprezentuj\'\i c\'\i\ $\{x\}$\newline 
+$\bold M\bold E\bold R\bold G\bold E(\Cal H,\Cal H_1)$
+\bigskip
+
+{\bf MIN}:\newline 
+Prohledej prvky reprezentovan\'e ko\v reny v\v sech 
+strom\accent23u v $\Cal H$\newline 
+{\bf V\'ystup}: nejmen\v s\'\i\ z t\v echto prvk\accent23u\newline 
+stromy rozd\v el do mno\v zin $O_i=\{$v\v sechny stromy v 
+$\Cal H$ s rankem $i\}$\newline 
+{\bf vyvaz1$(\{O_i\mid i=0,1,\dots,\lfloor c\log(\sqrt 5|S|+1)\rfloor 
+\})$
+\bigskip
+
+DELETEMIN}:\newline 
+Prohledej prvky reprezentovan\'e ko\v reny v\v sech 
+strom\accent23u v $\Cal H$\newline 
+$T:=$ strom, jeho\v z ko\v ren reprezentuje nejmen\v s\'\i\ 
+prvek\newline 
+stromy rozd\v el do mno\v zin $O_i=\{$v\v sechny stromy v 
+$\Cal H$ s rankem $i$ r\accent23uzn\'e od $T\}\cup \{$podstrom $T$ ur\v cen\'y 
+n\v ekter\'ym synem ko\v rene $T$ s 
+rankem $i$$\}$\newline 
+{\bf vyvaz1$(\{O_i\mid i=0,1,\dots,\lfloor c\log(\sqrt 5|S|+1)\rfloor 
+\})$
+\bigskip
+
+vyvaz1$(\{O_i\mid i=0,1,\dots,k\})$}:\newline 
+$i:=0$, $\Cal H:=\emptyset$\newline 
+{\bf while} existuje $O_i\ne\emptyset$ {\bf do\newline 
+\phantom{{\rm ---}}while} $|O_i|>1$ {\bf do\newline 
+\phantom{{\rm ------}}}vezmi dva r\accent23uzn\'e stromy $T_1$ a $
+T_2$ z 
+$O_i$\newline 
+\phantom{------}odstra\v n je z $O_i$\newline 
+\phantom{------}{\bf spoj$(T_1,T_2)$} vlo\v z do $O_{i+1}$\newline 
+\phantom{---}{\bf enddo\newline 
+\phantom{{\rm ---}}if} $O_i\ne\emptyset$ {\bf then\newline 
+\phantom{{\rm ------}}}strom $T\in O_i$ odstra\v n z $O_i$ a vlo\v z ho do $
+\Cal H$\newline 
+\phantom{---}{\bf endif\newline 
+\phantom{{\rm ---}}$i:=i+1$\newline 
+enddo\newline 
+V\'ystup}: $\Cal H$
+\bigskip
+
+{\bf spoj$(T_1,T_2)$}:\newline 
+{\bf if} $f(\text{\rm ko\v ren }T_1)>f(\text{\rm ko\v ren }T_2)$ {\bf then\newline 
+\phantom{{\rm{\rm ---}}}}vym\v e\v n stromy $T_1$ a $T_2$\newline 
+{\bf endif\newline 
+}
+vytvo\v r nov\'eho syna $v$ ko\v rene $T_1$\newline 
+$v:=$ko\v ren $T_2$
+\bigskip
+
+{\bf DECREASE$(s,a)$}:\newline 
+$T:=$strom v $\Cal H$, kter\'y obsahuje vrchol reprezentuj\'\i c\'\i\ $
+s$\newline 
+$v:=$vrchol stromu $T$ reprezentuj\'\i c\'\i\ $s$\newline 
+{\bf if} $v$ nen\'\i\ ko\v ren {\bf then \newline 
+\phantom{{\rm ---}}}odtrhni podstrom $T'$ ur\v cen\'y vrcholem $v$\newline 
+\phantom{---}{\bf vyvaz2$(T,v)$\newline 
+\phantom{{\rm ---}}if} $v$ byl ozna\v cen {\bf then} zru\v s ozna\v cen\'\i\ $
+v$ {\bf endif\newline 
+\phantom{{\rm ---}}}vlo\v z $T'$ do $\Cal H$\newline 
+{\bf endif\newline 
+$f(v):=f(v)-a$
+\bigskip
+
+INCREASE$(s,a)$}:\newline 
+$T:=$strom v $\Cal H$, kter\'y obsahuje vrchol reprezentuj\'\i c\'\i\ $
+s$\newline 
+$v:=$vrchol stromu $T$ reprezentuj\'\i c\'\i\ $s$\newline 
+{\bf if} $v$ nen\'\i\ list {\bf then \newline 
+\phantom{{\rm ---}}}odtrhni podstrom $T'$ ur\v cen\'y vrcholem $v$\newline 
+\phantom{---}{\bf if} $v$ nen\'\i\ ko\v ren {\bf then vyvaz2$(T,v
+)$ endif\newline 
+\phantom{{\rm ---}}if} $v$ byl ozna\v cen {\bf then} zru\v s ozna\v cen\'\i\ $
+v$ {\bf endif\newline 
+\phantom{{\rm ---}}}zru\v s ozna\v cen\'\i\ v\v sech syn\accent23u vrcholu $
+v$\newline 
+\phantom{---}odtrhni podstromy $T'$ ur\v cen\'e v\v semi syny $v$ 
+a vlo\v z je do $\Cal H$\newline 
+\phantom{{\bf ---}}do $\Cal H$ vlo\v z strom maj\'\i c\'\i\ jen vrchol $
+v$\newline 
+{\bf endif\newline 
+$f(v):=f(v)+a$
+\bigskip
+
+DELETE$(s)$}:\newline 
+$T:=$strom v $\Cal H$, kter\'y obsahuje vrchol reprezentuj\'\i c\'\i\ $
+s$\newline 
+$v:=$vrchol stromu $T$ reprezentuj\'\i c\'\i\ $s$\newline 
+{\bf if} $v$ nen\'\i\ list {\bf then\newline 
+\phantom{{\rm ---}}}zru\v s ozna\v cen\'\i\ syn\accent23u vrcholu $
+v$\newline 
+\phantom{---}odtrhni podstromy ur\v cen\'e v\v semi syny 
+vrcholu $v$ a vlo\v z je do $\Cal H$\newline 
+{\bf endif\newline 
+if} $v$ nen\'\i\ ko\v ren {\bf then vyvaz2$(T,v)$ endif\newline 
+}
+zru\v s vrchol $v$
+\bigskip
+
+{\bf vyvaz2$(T,v)$}:\newline 
+$u:=\otec v$\newline 
+{\bf while} $u$ je ozna\v cen {\bf do\newline 
+\phantom{{\rm ---}}$u':=\otec(u)$}, zru\v s ozna\v cen\'\i\ $u$\newline 
+\phantom{---}odtrhni podstrom $T'$ ur\v cen\'y vrcholem $u$\newline 
+\phantom{---}vlo\v z $T'$ do $\Cal H$, $u:=u'$\newline 
+{\bf enddo\newline 
+if} $u$ nen\'\i\ ko\v ren $T$ {\bf then} ozna\v c $u$ {\bf endif
+\bigskip
+
+}\flushpar V\v simn\v eme si, \v ze kdy\v z stromy $T_1$ a $T_2$ maj\'\i\ rank 
+$i$, pak procedura {\bf spoj$(T_1,T_2)$} vytvo\v r\'\i\ strom s rankem 
+$i+1$.  Aby algoritmy pro operace {\bf MIN} a {\bf DELETEMIN} byly 
+korektn\'\i , mus\'\i me uk\'azat, \v ze v\v sechny stromy ve 
+Fibonacciho hald\v e $\Cal H$ reprezentuj\'\i c\'\i\ mno\v zinu $
+S$ maj\'\i\ rank 
+nejv\'y\v se $c\log(\sqrt 5|S|+1)$. Jen tak zajist\'\i me, aby v\'ysledn\'a 
+halda reprezentovala $S$, res\-pektive 
+$S\setminus \{\text{\rm prvek s nejmen\v s\'\i\ hodnotou }f\}$.  Operace {\bf vyvaz1 }
+zaji\v s\v tuje, \v ze od ka\v zd\'eho vrcholu stromu r\accent23uzn\'eho 
+od ko\v rene byl v tomto strom\v e odtr\v zen podstrom nejv\'y\v se 
+jednoho syna -- v tom p\v r\'\i pad\v e je tento prvek ozna\v cen a 
+kdy\v z se mu odtrh\'av\'a podstrom dal\v s\'\i ho syna, bude odtr\v zen 
+i cel\'y podstrom tohoto vrcholu (t\'\i m se tento vrchol stane ko\v renem 
+stromu).  Kdy\v z se pozd\v eji stane tento vrchol zase 
+vrcholem r\accent23uzn\'ym od ko\v rene, cel\'y proces se 
+opakuje. 
+\bigskip
+
+\head
+Slo\v zitost operac\'\i
+\endhead
+
+\flushpar Na\v s\'\i m c\'\i lem bude odhadnout amortizovanou slo\v zitost t\v echto 
+operac\'\i , proto\v ze slo\v zitost v nejhor\v s\'\i m p\v r\'\i pad\v e nen\'\i\ 
+pou\v ziteln\'y v\'ysledek.  Abychom to mohli ud\v elat, spo\v c\'\i t\'ame parametry 
+slo\v zitosti jednotliv\'ych operac\'\i :  
+\medskip
+
+\flushpar {\bf MERGE} -- \v casov\'a slo\v zitost $O(1)$, nevznik\'a \v z\'adn\'y 
+nov\'y strom, 
+ozna\-\v ce\-n\'e vrcholy se nem\v en\'\i ;\newline 
+{\bf INSERT} -- \v casov\'a slo\v zitost $O(1)$, p\v ribyl jeden strom, 
+ozna\v cen\'e vrcholy se nem\v en\'\i ;\newline 
+{\bf MIN} -- \v casov\'a slo\v zitost $O(|\Cal H|)$, po proveden\'\i\ operace 
+r\accent23uzn\'e stro\-my v hald\v e maj\'\i\ r\accent23uzn\'e 
+ranky, ozna\v cen\'e vrcholy se nem\v en\'\i ;\newline 
+{\bf DELETEMIN} -- \v casov\'a slo\v zitost $O(|\Cal H|+\text{\rm po\v cet syn\accent23u }
+v)$,
+kde $v$ reprezentoval prvek s nej\-men\v s\'\i\ hodnotou $f$. Po 
+proveden\'\i\ ope\-ra\-ce r\accent23uzn\'e stromy v hald\v e maj\'\i\ 
+r\accent23uzn\'e ranky, \v z\'adn\'y nov\'y vrchol nebyl 
+ozna\v cen, n\v ekter\'e ozna\v cen\'e vrcholy p\v restaly b\'yt ozna\v cen\'e;\newline 
+{\bf DECREASE} -- \v casov\'a slo\v zitost $O(1+c)$, kde $c$ je po\v cet 
+vrchol\accent23u, kter\'e p\v restaly b\'yt ozna\v cen\'e. 
+Bylo p\v rid\'ano $1+c$ nov\'ych strom\accent23u a byl ozna\v cen 
+nejv\'y\v se jeden vrchol;\newline 
+{\bf INCREASE} -- \v casov\'a slo\v zitost $O(1+c+d)$, kde $c$ je po\v cet 
+vrchol\accent23u, kter\'e p\v restaly b\'yt ozna\v cen\'e, $d$ je 
+po\v cet syn\accent23u vrcholu $v$ reprezentuj\'\i c\'\i ho prvek, 
+jeho\v z hodnota se zvy\v suje. Bylo p\v rid\'ano nejv\'y\v se $1
++c+d$ 
+nov\'ych strom\accent23u a byl ozna\v cen nejv\'y\v se jeden 
+vrchol;\newline 
+{\bf DELETE} -- \v casov\'a slo\v zitost $O(1+c+d)$, kde $c$ je po\v cet 
+vrchol\accent23u, kter\'e p\v restaly b\'yt ozna\v cen\'e, $d$ je 
+po\v cet syn\accent23u vrcholu $v$ reprezentuj\'\i c\'\i ho prvek, 
+kter\'y se m\'a odstranit. Bylo p\v rid\'ano nejv\'y\v se $c+d$ 
+nov\'ych strom\accent23u a byl ozna\v cen nejv\'y\v se jeden 
+vrchol.
+\medskip
+
+\flushpar Pro v\'ypo\v cet amortizovan\'e slo\v zitosti 
+mus\'\i me nejprve navrhnout funkci ohodnocuj\'\i c\'\i\ 
+konfigurace.  P\v ri vy\v set\v rov\'an\'\i\ l\'\i n\'e implementace binomi\'aln\'\i ch 
+hald se uk\'azalo, \v ze vhodn\'ym ohodnocen\'\i m je po\v cet strom\accent23u 
+v hald\v e. Kdy\v z si ale prohl\'edneme algoritmus pro operaci 
+{\bf DECREASE}, vid\'\i me, \v ze zde je vhodn\'e br\'at do ohodnocen\'\i\ i 
+po\v cet ozna\v cen\'ych vrchol\accent23u, a to dokonce tak, aby 
+se pokryl 
+nejen \v cas, ale i p\v r\'\i r\accent23ustek strom\accent23u. To vede k 
+n\'asleduj\'\i c\'\i mu ohodnocen\'\i\ konfigurace: ohodnocen\'\i\ je po\v cet 
+strom\accent23u v konfiguraci plus dvojn\'asobek po\v ctu 
+ozna\v cen\'ych vrchol\accent23u.
+\medskip
+\flushpar Nech\v t $\rho (n)$ je maxim\'aln\'\i\ 
+po\v cet syn\accent23u vrcholu ve Fibonacciho hald\v e 
+reprezentuj\'\i c\'\i\ $n$-prvkovou mno\v zinu.  Pak amortizovan\'a 
+slo\v zitost operac\'\i\ {\bf MERGE}, {\bf INSERT} a {\bf DECREASE} je $
+O(1)$ a 
+operac\'\i\ {\bf MIN}, {\bf DELETEMIN}, {\bf INCREASE} a {\bf DELETE} je $
+O(\rho (n))$.
+\medskip
+
+\flushpar Abychom spo\v c\'\i tali odhad $\rho (n)$, vyu\v zijeme toho, \v ze 
+Fibonacciho halda vznikla z pr\'azdn\'e haldy pomoc\'\i\ 
+popsan\'ych algoritm\accent23u. Nejprve uvedeme jedno technick\'e 
+lemma.
+\medskip
+
+\proclaim{Lemma}Nech\v t $v$ je vrchol stromu ve 
+Fibonacciho hald\v e a nech\v t $u$ je $i$-t\'y nejstar\v s\'\i\ syn 
+vrcholu $v$. Pak $u$ m\'a aspo\v n $i-2$ syn\accent23u.
+\endproclaim
+
+\demo{D\accent23ukaz}V moment\v e, kdy se $u$ st\'aval synem $v$, se 
+aplikovala operace {\bf spoj}, $u$ a $v$ byly ko\v reny 
+strom\accent23u a m\v ely stejn\'y po\v cet syn\accent23u. 
+Podle p\v redpoklad\accent23u m\v el vrchol $v$ alespo\v n $i-1$ 
+syn\accent23u (jinak by $u$ nebyl $i$-t\'y nejstar\v s\'\i\ syn), a 
+proto\v ze se od $u$ mohl odtrhnout jen jeden syn, 
+dost\'av\'ame, \v ze $u$ mus\'\i\ m\'\i t alespo\v n $i-2$ syn\accent23u. \qed
+\enddemo
+\medskip
+
+\proclaim{Tvrzen\'\i}Nech\v t $v$ je vrchol stromu ve 
+Fibonacciho hald\v e, kte\-r\'y m\'a pr\'av\v e $i$ syn\accent23u. Pak 
+podstrom ur\v cen\'y vrcholem $v$ m\'a aspo\v n $F_{i+2}$ 
+vrchol\accent23u.
+\endproclaim
+
+\demo{D\accent23ukaz}Tvrzen\'\i\ dok\'a\v zeme indukc\'\i\ 
+podle maxim\'aln\'\i\ d\'elky cesty z vrcholu $v$ do n\v ekter\'eho 
+listu.  Tato d\'elka je $0$, pr\'av\v e kdy\v z $v$ je list.  V tom 
+p\v r\'\i pad\v e $v$ nem\'a syna a podstrom ur\v cen\'y vrcholem $
+v$ m\'a 
+jedin\'y vrchol.  Proto\v ze $1=F_2=F_{0+2}$, tvrzen\'\i\ plat\'\i .  
+M\v ejme nyn\'\i\ vrchol $v$, kter\'y m\'a $k$ 
+syn\accent23u, a nech\v t maxim\'aln\'\i\ d\'elka cesty z vrcholu $
+v$ do 
+list\accent23u je $j$. P\v redpokl\'adej\-me, \v ze tvrzen\'\i\ plat\'\i\ pro 
+v\v sechny vrcholy, pro n\v e\v z tato d\'elka  
+je men\v s\'\i\ ne\v z $j$,  tedy plat\'\i\ i pro 
+v\v sechny syny vrcholu $v$.  Pak pro $i>1$ m\'a $i$-t\'y nejstar\v s\'\i\ 
+syn vrcholu $v$ podle p\v redchoz\'\i ho lemmatu alespo\v n $i-2$ 
+syn\accent23u a podle induk\v cn\'\i ho p\v redpokladu podstrom ur\v cen\'y 
+t\'\i mto synem m\'a alespo\v n $F_i$ vrchol\accent23u.  Odtud 
+dost\'av\'ame, \v ze podstrom ur\v cen\'y vrcholem $v$ m\'a alespo\v n 
+$$1+F_2+\sum_{i=2}^kF_i=1+\sum_{i=1}^kF_i$$
+vrchol\accent23u, proto\v ze $F_1=F_2$ (na lev\'e stran\v e prvn\'\i\ $
+1$ 
+je za vrchol $v$ a 
+prvn\'\i\ $F_2$ je za nejstar\v s\'\i\ vrchol). Indukc\'\i\ pak dostaneme, \v ze 
+$$1+\sum_{i=1}^nF_i=F_{n+2}$$
+pro v\v sechna $n\ge 0$. Skute\v cn\v e, pro $n=0$ plat\'\i\ 
+$$1+\sum_{i=1}^0F_i=1=F_2=F_{0+2},$$
+pro $n=1$ m\'ame 
+$$1+\sum_{i=1}^1F_i=1+F_1=2=F_3=F_{1+2}$$
+a z induk\v cn\'\i ho p\v redpokladu a z vlastnost\'\i\ Fibonacciho 
+\v c\'\i sel plyne, \v ze 
+$$1+\sum_{i=1}^nF_i=1+\sum_{i=1}^{n-1}F_i+F_n=F_{n+1}+F_n=F_{n+2}
+.$$
+Kdy\v z shrneme tato fakta, dost\'av\'ame, \v ze podstrom 
+ur\v cen\'y vrcholem $v$ m\'a alespo\v n $F_{i+2}$ vrchol\accent23u, a 
+tvrzen\'\i\ je dok\'az\'ano. \qed
+\enddemo
+\medskip
+
+\flushpar Vezm\v eme nyn\'\i\ nejmen\v s\'\i\ $i$ takov\'e, \v ze $
+n<F_i$. Proto\v ze 
+posloupnost $\{F_i\}_{i=1}^{\infty}$ je rostouc\'\i , plyne z p\v redchoz\'\i ho 
+tvrzen\'\i , \v ze ka\v zd\'y vrchol ve Fibonacciho hald\v e 
+reprezentuj\'\i c\'\i\ $n-$prvkovou mno\v zinu m\'a m\'en\v e ne\v z $
+i-2$ 
+syn\accent23u (kdy\v z vrchol $v$ Fibonacciho haldy m\'a $i-2$ 
+syn\accent23u, pak podstrom vrcholu $v$ reprezentuje 
+mno\v zinu alespo\v n s $F_i$ prvky). Proto $\rho (n)<i-2$. K odhadu 
+velikosti $i$ pou\v zijeme explicitn\'\i\ vzorec 
+pro $i$-t\'e Fibonacciho \v c\'\i slo: 
+$$F_i=\frac {\big(\frac {1+\sqrt 5}2\big)^i-\big(\frac {1-\sqrt 5}
+2\big)^i}{\sqrt 5}=\frac 1{\sqrt 5}\big(\frac {1+\sqrt 5}2\big)^i
+-\frac 1{\sqrt 5}\big(\frac {1-\sqrt 5}2\big)^i.$$
+Proto\v ze $0>\frac {1-\sqrt 5}2>-\frac 34$ a proto\v ze $\sqrt 5
+>2$, dost\'av\'ame, \v ze $|\frac 1{\sqrt 5}\big(\frac {1-\sqrt 5}
+2\big)^i|<\frac 38$ pro v\v sechna 
+$i=1,2,\dots$, a tedy 
+$$\frac 1{\sqrt 5}\big(\frac {1+\sqrt 5}2\big)^i-\frac 38<F_i<\frac 
+1{\sqrt 5}\big(\frac {1+\sqrt 5}2\big)^i+\frac 38.$$
+Odtud plyne, \v ze kdy\v z $i$ spl\v nuje 
+$$n\le\frac 1{\sqrt 5}\big(\frac {1+\sqrt 5}2\big)^i-\frac 38,$$
+pak $n<F_i$. 
+P\v reveden\'\i m $\frac 38$ na druhou stranu v\'yrazu, jeho 
+vyn\'asoben\'\i m $\sqrt 5$ a zlogaritmov\'an\'\i m dostaneme n\'asleduj\'\i c\'\i\ 
+ekvivalenci: 
+$$\log_2(\sqrt 5n+\frac {3\sqrt 5}8)\le i\log_2\big(\frac {1+\sqrt 
+5}2\big)\quad\Leftrightarrow\quad n\le\frac 1{\sqrt 5}\big(\frac {
+1+\sqrt 5}2\big)^i-\frac 38.$$
+Z $\frac {3\sqrt 5}8<1$ a z $\frac 32<\frac {1+\sqrt 5}2$ plyne, \v ze 
+$$\frac {\log_2(\sqrt 5n+\frac {3\sqrt 5}8)}{\log_2\frac {1+\sqrt 
+5}2}<\frac {\log_2(\sqrt 5n+1)}{\log_2\frac 32}.$$
+Tedy plat\'\i\ n\'asleduj\'\i c\'\i\ implikace
+$$\frac {\log_2(\sqrt 5n+1)}{\log_2\frac 32}<i\quad\implies\frac {\log_
+2(\sqrt 5n+\frac {3\sqrt 5}8)}{\log_2\big(\frac {1+\sqrt 5}2\big)}
+<i.$$
+Proto kdy\v z $\frac {\log_2(\sqrt 5n+1)}{\log_23-1}<i$, pak $n<F_
+i$, a tedy $\rho (n)<i-2$.
+\medskip
+
+\flushpar V\'ysledky shrneme do n\'asleduj\'\i c\'\i\ v\v ety: 
+\medskip
+
+\proclaim{V\v eta}Ve Fibonacciho hald\v e, kter\'a   
+reprezentuje $n$-prvkovou mno\v zinu, m\'a ka\v zd\'y vrchol 
+stu\-pe\v n men\v s\'\i\ ne\v z 
+$$\frac {\log_2(\sqrt 5n+1)}{(\log_23)-1}-2.$$
+Amortizovan\'a slo\v zitost operac\'\i\ {\bf INSERT}, {\bf MERGE} a {\bf DECREASE }
+je $O(1)$ a amortizovan\'a slo\v zitost operac\'\i\ {\bf MIN}, 
+{\bf DE\-LE\-TE\-MIN}, {\bf INCREASE} a {\bf DELETE} je $O(\log n
+)$. Operace {\bf MIN }
+a {\bf DELETEMIN} jsou korektn\'\i .
+\endproclaim
+\medskip
+
+\flushpar Pro \'uplnost dok\'a\v zeme, \v ze $F_i=\frac {\big(\frac {
+1+\sqrt 5}2\big)^i-\big(\frac {1-\sqrt 5}2\big)^i}{\sqrt 5}$ .\newline 
+Pro $i=1$ plat\'\i\ 
+$$\frac {\big(\frac {1+\sqrt 5}2\big)^1-\big(\frac {1-\sqrt 5}2\big
+)^1}{\sqrt 5}=\frac {1+\sqrt 5-1+\sqrt 5}{2\sqrt 5}=\frac {2\sqrt 
+5}{2\sqrt 5}=1=F_1.$$
+Pro $i=2$ plat\'\i\ 
+$$\frac {\big(\frac {1+\sqrt 5}2\big)^2-\big(\frac {1-\sqrt 5}2\big
+)^2}{\sqrt 5}=\frac {1+2\sqrt 5+5-1+2\sqrt 5-5}{4\sqrt 5}=\frac {
+4\sqrt 5}{4\sqrt 5}=1=F_2.$$
+Induk\v cn\'\i\ krok:
+$$\align&\frac {\big(\frac {1+\sqrt 5}2\big)^i-\big(\frac {1-\sqrt 
+5}2\big)^i}{\sqrt 5}=\frac {\big(\frac {1+\sqrt 5}2\big)^{i-2}\big
+(\frac {1+\sqrt 5}2\big)^2-\big(\frac {1-\sqrt 5}2\big)^{i-2}\big
+(\frac {1-\sqrt 5}2\big)^2}{\sqrt 5}=\\
+&\frac {\big(\frac {1+\sqrt 5}2\big)^{i-2}\big(\frac {3+\sqrt 5}2\big
+)-\big(\frac {1-\sqrt 5}2\big)^{i-2}\big(\frac {3-\sqrt 5}2\big)}{\sqrt 
+5}=\\
+&\frac {\big(\frac {1+\sqrt 5}2\big)^{i-2}\big(1+\frac {1+\sqrt 5}
+2\big)-\big(\frac {1-\sqrt 5}2\big)^{i-2}\big(1+\frac {1-\sqrt 5}
+2\big)}{\sqrt 5}=\\
+&\frac {\big(\frac {1+\sqrt 5}2\big)^{i-2}+\big(\frac {1+\sqrt 5}
+2\big)^{i-1}-\big(\frac {1-\sqrt 5}2\big)^{i-2}-\big(\frac {1-\sqrt 
+5}2\big)^{i-1}}{\sqrt 5}=\\
+&\frac {\big(\frac {1+\sqrt 5}2\big)^{i-2}-\big(\frac {1-\sqrt 5}
+2\big)^{i-2}}{\sqrt 5}+\frac {\big(\frac {1+\sqrt 5}2\big)^{i-1}-\big
+(\frac {1-\sqrt 5}2\big)^{i-1}}{\sqrt 5}=F_{i-2}+F_{i-1}=F_i.\endalign$$
+Tedy indukc\'\i\ dost\'av\'ame po\v zadovan\'y vztah.
+\bigskip
+
+\head
+Aplikace 
+\endhead
+
+
+\flushpar Vr\'at\'\i me se k Dijkstrov\v e algoritmu.  
+Mno\v zinu $U$ bude\-me reprezentovat pomoc\'\i\ Fibonacciho haldy.  
+Proto\v ze ohodnocen\'\i\ je nez\'aporn\'e a ohodnocen\'\i\ po\v c\'ate\v cn\'\i\ haldy 
+je $0$, d\'av\'a odhad amortizovan\'e slo\v zitosti tak\'e odhad \v casov\'e 
+slo\v zitosti (viz odstavec IV.).  Proto Dijkstr\accent23uv 
+algoritmus s pou\v zit\'\i m 
+Fibonacciho haldy vy\v zaduje v nejhor\v s\'\i m p\v r\'\i pad\v e \v cas 
+$O(|X|(1+\log|X|)+|R|)=O(|R|+|X|\log|X|)$.  Stejn\'y v\'ysledek 
+dostane\-me i pro konstrukci nejmen\v s\'\i\ napnut\'e kostry grafu.  
+\medskip
+
+\flushpar Ot\'azka je, kdy v Dijkstrov\v e algoritmu nebo v 
+algoritmu konstruuj\'\i\-c\'\i m nejmen\v s\'\i\ napnutou kostru pou\v z\'\i t Fibonacciho haldu a kdy 
+nap\v r.  $d$-regu\-l\'ar\-n\'\i\ haldy. Lze 
+\v r\'\i ci, \v ze Fibonacciho halda by m\v ela b\'yt v\'yrazn\v e lep\v s\'\i\ pro 
+v\v et\v s\'\i , ale \v r\'\i dk\'e grafy (tj. grafy s mal\'ym po\v ctem hran). 
+D\'a se p\v redpokl\'adat, \v ze $d$-regul\'arn\'\i\ haldy budou lep\v s\'\i\ 
+(d\'\i ky sv\'ym jednodu\v s\v s\'\i m algoritm\accent23um) pro hust\'e 
+grafy (tj. grafy, kde po\v cet hran je $|X|^{1+\varepsilon}$ pro vhodn\'e 
+$\varepsilon >0$). Probl\'em je, pro kter\'e hodnoty nast\'av\'a zlom. 
+Nev\'\i m o \v z\'adn\'ych experiment\'aln\'\i ch ani teoretick\'ych 
+v\'ysledc\'\i ch tohoto typu.
+\bigskip
+
+\head
+Historick\'y p\v rehled
+\endhead
+
+\flushpar Bin\'arn\'\i\ neboli $2$-regul\'arn\'\i\ haldy 
+zavedl Williams 1964.  Jejich zobecn\v en\'\i\ na $d$-regul\'arn\'\i\ haldy 
+poch\'az\'\i\ od Johnsona 1975.  Leftist haldy definoval Crane 1972 a 
+detailn\v e popsal Knuth 1975.  Binomi\'aln\'\i\ haldy navrhnl Vuillemin 
+1978, Brown 1978 je implementoval a prok\'azal jejich praktickou 
+pou\v zitelnost.  Fibonacciho haldy byly zavedeny Fredmanem a 
+Tarjanem 1987.  
+\newpage
+
+\centerline{\bigbigrm{VII. T\v r\'\i dic\'\i\ algoritmy}}
+\bigskip
+
+\flushpar Jednou z nej\v cast\v eji \v re\v sen\'ych \'uloh p\v ri pr\'aci s 
+daty je set\v r\'\i d\v en\'\i\ 
+posloupnosti prvk\accent23u n\v ejak\'eho typu. Proto velk\'a pozornost byla a je v\v enov\'ana 
+t\v r\'\i dic\'\i m algoritm\accent23um \v re\v s\'\i c\'\i m tuto \'ulohu, kter\'a 
+sv\'ym charakterem a sv\'ymi 
+po\v zadavky na algoritmy je \v razena do datov\'ych 
+struktur. Byla navr\v zena \v rada algoritm\accent23u, kter\'e se 
+st\'ale je\v st\v e analyzuj\'\i\ a optimalizuj\'\i . Anal\'yzy jsou velmi detailn\'\i\ a algoritmy se 
+studuj\'\i\ za r\accent23uzn\'ych vstupn\'\i ch p\v redpoklad\accent23u. 
+Krom\v e toho t\v r\'\i d\v en\'\i\ je jedna z m\'ala \'uloh, pro kterou 
+alespo\v n za jist\'ych 
+p\v redpoklad\accent23u um\'\i me spo\v c\'\i tat doln\'\i\ odhad slo\v zitosti.
+\medskip
+
+\flushpar Formulace \'ulohy:\newline 
+Nech\v t $U$ je tot\'aln\v e uspo\v r\'adan\'e univerzum.\newline 
+Vstup: Prost\'a posloupnost $\{a_1,a_2,\dots,a_n\}$ prvk\accent23u z 
+univerza $U$.\newline 
+V\'ystup: Rostouc\'\i\ posloupnost $\{b_1,b_2,\dots,b_n\}$ takov\'a, \v ze 
+$\{a_i\mid i=1,2,\dots,n\}=\{b_i\mid i=1,2,\dots,n\}$.\newline 
+Tento probl\'em se naz\'yv\'a \emph{t\v r\'\i d\v en\'\i}. 
+V praxi se setk\'av\'ame s \v radou jeho modifikac\'\i , a nich\v z 
+asi nejb\v e\v zn\v ej\v s\'\i\ je vynech\'an\'\i\ p\v redpokladu, \v ze 
+vstupem je prost\'a posloupnost. Pak jsou dv\v e varianty 
+\v re\v sen\'\i\ -- bu\v d se ve v\'ystupn\'\i\ posloupnosti odstran\'\i\ 
+duplicity nebo v\'ystupn\'\i\ posloupnost zachov\'a \v cetnost prvk\accent23u ze 
+vstupn\'\i\ posloupnosti.
+\medskip
+
+\flushpar Z\'akladn\'\i\ algoritmy, kter\'e  \v re\v s\'\i\ t\v r\'\i dic\'\i\ 
+probl\'em, jsou {\bf QUICKSORT}, {\bf MERGESORT} a {\bf HEAP\-SORT}. 
+\bigskip
+
+\head
+HEAPSORT
+\endhead
+
+\flushpar S algoritmem {\bf HEAPSORT} jsme se sezn\'amili p\v ri 
+aplikac\'\i ch hald.  Byl to prvn\'\i\ algoritmus pou\v z\'\i vaj\'\i c\'\i\ haldy 
+(bin\'arn\'\i\ regul\'ar\-n\'\i\ haldy byly definov\'any pr\'av\v e p\v ri n\'avrhu 
+{\bf HEAP\-SORTU}).  Pod\'\i v\'ame se detailn\v eji na jednu z jeho 
+implementac\'\i , kter\'a t\v r\'\i d\'\i\ takzvan\v e na m\'\i st\v e. 
+\medskip
+
+\flushpar T\v r\'\i dic\'\i\ algoritmy se \v casto pou\v z\'\i vaj\'\i\ jako 
+podprocedura p\v ri \v re\v sen\'\i\ jin\'ych \'uloh. V takov\'em p\v r\'\i pad\v e je 
+obvykle vstupn\'\i\ posloupnost ulo\v zena v poli v pracovn\'\i\ 
+pam\v eti programu a po\v za\-dav\-kem  je set\v r\'\i dit ji 
+bez pou\v zit\'\i\ dal\v s\'\i\ 
+pam\v eti pouze s v\'yjimkou omezen\'eho (mal\'eho) po\v ctu pomocn\'ych 
+prom\v enn\'ych. Pro \v re\v sen\'\i\ tohoto probl\'emu se hod\'\i\ 
+{\bf HEAPSORT}. Zvol\'\i me implementaci {\bf HEAPSORTU} pomoc\'\i\ 
+$d$-regul\'arn\'\i ch hald, kter\'e jsou reprezentov\'any  
+polem, v n\v em\v z je ulo\v zena vstupn\'\i\ posloupnost (viz odstavec 
+Aplikace v kapitole o $d$-regul\'arn\'\i ch hald\'ach). Pou\v zijeme 
+algoritmus s jedinou zm\v enou -- budeme po\v zadovat du\'aln\'\i\ 
+podm\'\i nku na uspo\v r\'ad\'an\'\i\ (to znamen\'a, \v ze prvek reprezentovan\'y 
+vrcholem bude men\v s\'\i\ ne\v z prvek reprezentovan\'y jeho 
+otcem) a nahrad\'\i me operace {\bf MIN} a {\bf DELETEMIN }
+operacemi {\bf MAX} a {\bf DELETEMAX}. V algoritmu v\v zdy um\'\i st\'\i me 
+odebran\'e maximum na m\'\i sto prvku v posled\-n\'\i m listu 
+haldy (tj. prvku, kter\'y ho p\v ri operaci {\bf DELETEMAX }
+nahradil) m\'\i sto toho, abychom ho vlo\v zili 
+do v\'ystupn\'\i\ posloupnosti. Mus\'\i me si ale 
+pamatovat, kde v poli kon\v c\'\i\ reprezentovan\'a halda. Ka\v zd\'a 
+aplikace operace {\bf DELETEMAX} zkr\'at\'\i\ po\v c\'ate\v cn\'\i\ \'usek pole 
+reprezentuj\'\i c\'\i ho haldu o jedno m\'\i sto 
+a z\'arove\v n o toto m\'\i sto zv\v et\v s\'\i\ druhou \v c\'ast, ve kter\'e je ulo\v zena ji\v z 
+set\v r\'\i d\v en\'a \v c\'ast posloupnosti. 
+\medskip
+
+\flushpar {\bf HEAPSORTU} je st\'ale v\v enov\'ana velk\'a pozornost a 
+bylo navr\v ze\-no n\v ekolik jeho modifikac\'\i , sna\v z\'\i c\'\i ch se 
+nap\v r. minimalizovat po\v cet porovn\'an\'\i\ prvk\accent23u apod.
+\bigskip
+
+\head
+MERGESORT
+\endhead
+
+\flushpar Nejstar\v s\'\i\ z uveden\'ych algoritm\accent23u je 
+{\bf MERGESORT}, kter\'y je star\v s\'\i\ ne\v z je po\v c\'\i ta\v cov\'a \'era, 
+nebo\v t n\v ekter\'e jeho 
+verze se pou\v z\'\i valy u\v z p\v ri mecha\-nick\'em t\v r\'\i d\v en\'\i . Pop\'\i\v seme 
+jednu jeho itera\v cn\'\i\ verzi, tzv. p\v rirozen\'y {\bf MERGESORT}. 
+\bigskip
+
+{\bf MERGESORT$(a_1,a_2,\dots,a_n)$}:\newline 
+$Q$ je pr\'azdn\'a fronta, $i=1$\newline 
+{\bf while} $i\le n$ {\bf do\newline 
+\phantom{{\rm ---}}$j:=i$\newline 
+\phantom{{\rm ---}}while} $i<n$ a $a_{i+1}>a_i$ {\bf do} $i:=i+1$ {\bf enddo\newline 
+\phantom{{\rm ---}}}posloupnost $P=(a_j,a_{j+1},\dots,a_i)$ vlo\v z do $
+Q$\newline 
+\phantom{---}$i:=i+1$\newline 
+{\bf enddo\newline 
+while} $|Q|>1$ {\bf do\newline 
+\phantom{{\rm ---}}$ $}vezmi $P_1$ a $P_2$ dv\v e posloupnosti z vrcholu $
+Q$\newline 
+\phantom{---}odstra\v n $P_1$ a $P_2$ z $Q$\newline 
+\phantom{---}{\bf MERGE$(P_1,P_2)$} vlo\v z na konec $Q$\newline 
+{\bf enddo\newline 
+V\'ystup}: posloupnost z $Q$
+\bigskip
+
+{\bf MERGE$(P_1=(a_1,a_2,\dots,a_n),P_2=(b_1,b_2,\dots,b_m))$}:\newline 
+$P:=$ je pr\'azdn\'a posloupnost, $i:=1$, $j:=1$, $k:=1$\newline 
+{\bf while} $i\le n$ a $j\le m$ {\bf do\newline 
+\phantom{{\rm ---}}if} $a_i<b_j$ {\bf then\newline 
+\phantom{{\rm ------}}$c_k:=a_i$}, $i:=i+1$, $k:=k+1$\newline 
+\phantom{---}{\bf else\newline 
+\phantom{{\rm ------}}$c_k:=b_j$}, $j:=j+1$, $k:=k+1$\newline 
+\phantom{---}{\bf endif\newline 
+enddo\newline 
+while} $i\le n$ {\bf do\newline 
+\phantom{{\rm ---}}$c_k:=a_i$}, $i:=i+1$, $k:=k+1$\newline 
+{\bf enddo\newline 
+while} $j\le m$ {\bf do\newline 
+\phantom{{\rm ---}}$c_k:=b_j$}, $j:=j+1$, $k:=k+1$\newline 
+{\bf enddo\newline 
+V\'ystup:} $P=(c_1,c_2,\dots,c_{n+m})$
+\bigskip
+
+\flushpar V\v simn\v eme si, \v ze v\v sechny posloupnosti v $Q$ jsou 
+rostouc\'\i\ a \v ze sjednocen\'\i m v\v sech jejich prvk\accent23u  
+je v\v zdy na za\v c\'atku b\v ehu cyklu {\bf while 
+$|Q|>1$ do} mno\v zina $\{a_i\mid i=1,2,\dots,n\}$. 
+Proto\v ze po\v cet 
+posloupnost\'\i\ ve front\v e $Q$ je nejv\'y\v se roven d\'elce vstupn\'\i\ 
+posloupnosti a ka\v zd\'y pr\accent23ub\v eh tohoto 
+cyklu zmen\v s\'\i\ jejich po\v cet o $1$, je algoritmus {\bf MERGE\-SORT} korektn\'\i .
+\medskip
+
+\flushpar Spo\v c\'\i t\'ame \v casovou slo\v zitost {\bf MERGESORTU}. 
+Nejprve vy\v set\v r\'\i me slo\-\v zi\-tost podprocedury {\bf MER\-GE}. Proto\v ze 
+ur\v cen\'\i\ prvku $c_k$ vy\v za\-du\-je \v cas $O(1)$ (provede se 
+nejv\'y\v se jedno porovn\'an\'\i ) a 
+proto\v ze maxim\'aln\'\i\ hodnota $k$ je $n+m$, dost\'av\'ame, \v ze 
+podprocedura {\bf MERGE} vy\v zaduje \v cas $O(n+m)$ (nejv\'y\v se $
+n+m$ 
+porovn\'an\'\i ), kde $n$ a $m$ jsou d\'elky vstupn\'\i ch posloupnost\'\i .
+\medskip
+
+\flushpar Nyn\'\i\ vypo\v cteme slo\v zitost hlavn\'\i\ procedury. 
+Z\v rejm\v e prvn\'\i\ cyklus vy\v zaduje line\'arn\'\i\ \v cas. Vy\v set\v r\'\i me 
+druh\'y cyklus prob\'\i haj\'\i c\'\i\ p\v res frontu $Q$. P\v redpokl\'adejme, \v ze p\v red prvn\'\i m b\v ehem 
+tohoto cyklu je na vrcholu $Q$ speci\'aln\'\i\ znak $\natural$, kter\'y se v\v zdy 
+pouze p\v renese z vrcholu $Q$ na jej\'\i\ konec. Proto\v ze mezi dv\v ema 
+p\v renosy $\natural$ projde ka\v zd\'y prvek vstupn\'\i\ posloupnosti 
+podprocedurou {\bf MERGE} pr\'av\v e jednou, vy\v zaduj\'\i\ jednotliv\'e b\v ehy cyklu 
+\v cas $O(n)$, kde 
+$n$ je d\'elka vstupn\'\i\ posloupnosti (a z\'arove\v n sou\v cet v\v sech d\'elek 
+posloupnost\'\i\ v $Q$). V\v sech\-ny posloupnosti v $Q$ maj\'\i\  
+na po\v c\'atku d\'elku $\ge 1$. Odtud jednoduchou indukc\'\i\ 
+dostaneme, \v ze po $i$-t\'em p\v renosu znaku $\natural$ maj\'\i\ 
+d\'elku $\ge 2^{i-1}$. Proto po\v cet p\v renos\accent23u je 
+nejv\'y\v se $\lceil\log_2n\rceil$, a tedy algoritmus {\bf MERGESORT }
+vy\v zaduje \v cas $O(n\log n)$ (provede se nejv\'y\v se $n\log n$ 
+porovn\'an\'\i ).
+\medskip
+
+\flushpar Vzhledem k 
+po\v ctu porovn\'an\'\i\ je {\bf MERGESORT} optim\'aln\'\i\ t\v r\'\i dic\'\i\ algoritmus. 
+Nav\'\i c v t\'eto verzi je adaptivn\'\i\ na p\v redt\v r\'\i d\v en\'e 
+posloupnosti, kter\'e maj\'\i\ jen mal\'y po\v cet dlouh\'ych 
+set\v r\'\i d\v en\'ych \'usek\accent23u (b\v eh\accent23u). P\v ri 
+konstantn\'\i m po\v ctu b\v eh\accent23u m\'a slo\v zitost $O(n)$. Jin\'a 
+jeho verze, kter\'a za\v c\'\i n\'a sl\'ev\'an\'\i\ v\v zdy od 
+jednoprvkov\'ych posloupnost\'\i\ (tzv. p\v r\'\i m\'y {\bf MERGESORT}) 
+tuto vlastnost nem\'a. 
+\bigskip
+
+\head
+QUICKSORT
+\endhead
+
+\flushpar Nyn\'\i\ pop\'\i\v seme patrn\v e v\accent23ubec 
+nejpou\v z\'\i van\v ej\v s\'\i\ t\v r\'\i dic\'\i\ algoritmus, kter\'ym je {\bf QUICKSORT}. 
+D\accent23uvodem je, \v ze pro obecnou posloupnost je 
+nejrychlej\v s\'\i , p\v ri rovnom\v ern\'em rozlo\v zen\'\i\ vstupn\'\i ch 
+polsoupnost\'\i\ m\'a nejmen\v s\'\i\ o\v cek\'avan\'y \v cas. 
+\bigskip
+
+{\bf Quick$(a_i,a_{i+1},\dots,a_j)$}:\newline 
+{\bf if} $i=j$ {\bf then\newline 
+\phantom{{\rm ---}}V\'ystup}: $(a_i)$\newline 
+{\bf else\newline 
+\phantom{{\rm ---}}}zvol $k$ takov\'e, \v ze $i\le k\le j$, $a:=a_k$, 
+vym\v e\v n $a_i$ a $a_k$, $l:=i+1$, $q:=j$\newline 
+\phantom{---}{\bf while} true {\bf do\newline 
+\phantom{{\rm ------}}while} $a_l<a$ {\bf do} $l:=l+1$ {\bf enddo\newline 
+\phantom{{\rm ------}}while} $a_q>a$ {\bf do} $q:=q-1$ {\bf enddo\newline 
+\phantom{{\rm ------}}if} $l\ge q$ {\bf then\newline 
+\phantom{{\rm ---------}}}exit\newline 
+\phantom{------}{\bf else\newline 
+\phantom{{\rm ---------}}}vym\v e\v n $a_l$ a $a_q$, $l:=l+1$, $q
+:=q-1$\newline 
+\phantom{{\rm------}}{\bf endif\newline 
+\phantom{{\rm ---}}enddo\newline 
+\phantom{{\rm---}}if} $i+1=l$ {\bf then\newline 
+\phantom{{\rm ------}}V\'ystup$(a,$Quick$(a_{q+1},a_{q+2},\dots,a_
+j))$\newline 
+\phantom{{\rm ---}}else\newline 
+\phantom{{\rm ------}}if} $j=q$ {\bf then\newline 
+\phantom{{\rm ---------}}V\'ystup$($Quick$(a_{i+1},a_{i+2},\dots,
+a_{l-1}),a)$\newline 
+\phantom{{\rm ------}}else\newline 
+\phantom{{\rm ---------}}V\'ystup$($Quick$(a_{i+1},a_{i+2},\dots,
+a_{l-1}),a,$Quick$(a_{q+1},\dots,a_j))$\newline 
+\phantom{{\rm ------}}endif\newline 
+\phantom{{\rm ---}}endif\newline 
+endif
+\bigskip
+
+QUICKSORT$(a_1,a_2,\dots,a_n)$}:\newline 
+{\bf V\'ystup$($Quick$(a_1,a_2,\dots,a_n))$
+\bigskip
+
+}\flushpar Algoritmus {\bf Quick} set\v r\'\i d\'\i\ posloupnost 
+$(a_i,a_{i+1},\dots,a_j)$ tak, \v ze pro prvek $a=a_k$ vytvo\v r\'\i\ posloupnost 
+$(a_i,a_{i+1},\dots,a_{l-1})$ v\v sech prvk\accent23u men\v s\'\i ch ne\v z $
+a$ 
+a posloupnost
+$(a_{q+1},\dots,a_j)$ v\v sech prvk\accent23u 
+v\v et\v s\'\i ch ne\v z $a$. Na tyto posloupnosti pak 
+zavol\'a s\'am sebe a do v\'ysledn\'e posloupnosti ulo\v z\'\i\ 
+nejprve set\v r\'\i d\v enou prvn\'\i\ posloupnost, pak prvek $a$ a nakonec 
+set\v r\'\i d\v enou druhou posloupnost. Korektnost procedury 
+{\bf Quick}  i algoritmu {\bf QUICKSORT} je tedy z\v rejm\'a, proto\v ze 
+$l\le j$ a $i\le q$. 
+\medskip
+
+\flushpar Procedura {\bf Quick} bez rekurzivn\'\i ho vol\'an\'\i\ 
+vy\v zaduje \v cas $O(j-i)$. Tedy kdyby $a_k$ byl medi\'an (tj. 
+prost\v redn\'\i\ prvek) posloupnosti $(a_i,a_{i+1},\dots,a_j)$, pak 
+by algoritmus {\bf QUICKSORT} v nejhor\v s\'\i m p\v r\'\i pad\v e vy\-\v zadoval \v cas $
+O(n\log n)$. Jak 
+uvid\'\i me pozd\v eji, medi\'an lze sice nal\'ezt v line\'ar\-n\'\i m \v case, ale 
+pou\v zit\'\i\ jak\'ekoli procedury pro jeho nalezen\'\i\ m\'a za 
+n\'asledek, \v ze algoritmy {\bf MERGESORT} a {\bf HEAPSORT }
+budou rychlej\v s\'\i\ (nikoliv asymptoticky, ale 
+multiplikativn\'\i\ konstanta bude v tomto p\v r\'\i pad\v e vysok\'a). Proto je t\v reba 
+vybrat prvek $a_k$ (tzv. pivot) co 
+nejrychleji. P\accent23uvodn\v e se bral prvn\'\i\ nebo 
+posledn\'\i\ prvek posloupnosti. P\v ri t\'eto volb\v e a p\v ri 
+rovnom\v ern\'em rozd\v elen\'\i\ vstup\accent23u je 
+o\v cek\'avan\'y \v cas {\bf QUICKSORTU} $O(n\log n)$ a algoritmus je 
+obvykle rychlej\v s\'\i\ ne\v z {\bf MERGESORT} a 
+{\bf HEAPSORT}. Av\v sak \v cas v nejhor\v s\'\i m p\v r\'\i pad\v e je 
+kvadratick\'y a dokonce pro ur\v cit\'a rozd\v elen\'\i\ vstupn\'\i ch dat 
+je i o\v cek\'avan\'y \v cas kvadratick\'y. 
+Proto tuto volbu pivota nen\'\i\ vhodn\'e pou\v z\'\i vat pro \'ulohy, kdy 
+nezn\'ame rozd\v elen\'\i\ vstupn\'\i ch dat (mohlo by se st\'at, \v ze je 
+nevhodn\'e). Jednodu\v se to lze napravit tak, \v ze budeme volit $
+k$ n\'ahodn\v e. Bohu\v zel 
+pou\v zit\'\i\ pseudon\'ahodn\'eho gener\'atoru tak\'e vy\v zaduje jist\'y \v cas, a pak 
+u\v z by algoritmus zase nemusel b\'yt rychlej\v s\'\i\ ne\v z algoritmy 
+{\bf MERGESORT} a {\bf HEAPSORT} (nav\'\i c takto n\'ahodn\v e zvolen\'y 
+prvek nen\'\i\ skute\v cn\v e n\'ahodn\'y, ale to v tomto p\v r\'\i pad\v e 
+nevad\'\i ). D\accent23usledkem je n\'avrh vyb\'\i rat pivota jako 
+medi\'an ze t\v r\'\i\ nebo p\v eti pevn\v e zvolen\'ych prvk\accent23u 
+posloupnosti. Praxe uk\'azala, \v ze tento v\'yb\v er pivota je 
+nej\-prakti\v ct\v ej\v s\'\i , d\'a se prov\'est rychle a zaji\v s\v tuje 
+dostate\v cnou n\'a\-hod\-nost.
+\medskip
+
+\flushpar Proto\v ze p\v ri ka\v zd\'em vol\'an\'\i\ m\'a {\bf Quick} jako 
+argument krat\v s\'\i\ 
+vstupn\'\i\ posloupnost, lze uk\'azat, \v ze:
+\roster
+\item{}p\v ri ka\v zd\'e volb\v e 
+pivota je nejhor\v s\'\i\ \v cas algoritmu {\bf QUICKSORT} $O(n^2
+)$,
+\item{}pokud je pivot vybr\'an jedno\-du\-ch\'ym a rychl\'ym 
+zp\accent23usobem (to plat\'\i , i kdy\v z se vol\'\i\ n\'ahodn\v e), pak 
+exi\-stuj\'\i\ vstupn\'\i\ posloupnosti, kter\'e vy\v zaduj\'\i\ \v cas $
+O(n^2)$,
+\item{}o\v cek\'avan\'y \v cas je $O(n\log n)$.
+\endroster
+\medskip
+
+\flushpar N\'asledn\'a anal\'y\-za o\v cek\'avan\'eho p\v r\'\i padu  
+je pro n\'a\-hod\-n\v e zvolen\'eho pivota (bez dal\v s\'\i ho p\v red\-pokladu na 
+vstupn\'\i\ data) nebo pro p\v r\'\i pad, kdy pivot je pevn\v e zvolen a data jsou 
+rovno\-m\v ern\v e rozd\v e\-lena.
+\medskip
+
+\flushpar Uk\'a\v zeme dva zp\accent23usoby v\'ypo\v cty o\v cek\'avan\'eho \v casu.  Jeden 
+je zalo\v zen na n\v ekolika jednoduch\'ych pozorov\'an\'\i ch a nen\'\i\ v 
+n\v em mnoho po\v c\'\i t\'an\'\i , druh\'y na rekurzivn\'\i m v\'ypo\v ctu. Ten 
+je po\v cetn\v e n\'aro\v cn\v ej\v s\'\i , ale postup je standardn\'\i . Hlavn\'\i\ idea v obou 
+p\v r\'\i padech spo\v c\'\i v\'a v tom, \v ze  
+o\v cek\'avan\'y \v cas algoritmu {\bf QUICKSORT} je \'um\v ern\'y 
+o\v cek\'avan\'emu po\v ctu porovn\'an\'\i\ v algoritmu {\bf QUICKSORT}.
+Tento fakt plyne p\v r\'\i mo z popisu algoritmu.  Budeme 
+tedy po\v c\'\i tat  
+o\v cek\'a\-van\'y po\v cet porovn\'an\'\i\ pro algoritmus {\bf QUICKSORT}.  
+\medskip
+
+\flushpar Prvn\'\i\ zp\accent23usob v\'ypo\v ctu:\newline 
+Ka\v zd\'e dva prvky $a_i$ a $a_j$ algoritmus {\bf QUICKSORT} porovn\'a 
+p\v ri t\v r\'\i d\v en\'\i\ posloupnosti $(a_1,a_2,\dots,a_n)$ nejv\'y\v se jednou, 
+p\v ri\v cem\v z kdy\v z porovn\'av\'a $a_i$ a $a_j$, 
+pak pro n\v ejak\'y b\v eh podprocedury {\bf Quick} je $a_i$ nebo $
+a_j$ 
+pivot, ale v p\v redchoz\'\i ch b\v ez\'\i ch {\bf Quick} $a_i$ ani $
+a_j$ 
+nebyl pivotem (proto\v ze pivot je v\v zdy vy\v razen z n\'asleduj\'\i c\'\i ch 
+vol\'an\'\i\ t\'eto podprocedury).
+\medskip
+
+\flushpar Nech\v t $(b_1,b_2,\dots,b_n)$ je v\'ysledn\'a posloupnost.  
+Ozna\v cme $X_{i,j}$ boolskou prom\v enou, kter\'a m\'a hodnotu $
+1$, 
+kdy\v z {\bf QUICKSORT} provedl porovn\'an\'\i\ mezi prvky $b_i$ a $
+b_j$, a 
+jinak m\'a hodnotu $0$.  P\v redpokl\'adejme, \v ze je to n\'ahodn\'a 
+veli\v cina. Kdy\v z $p_{i,j}$ je prav\-d\v e\-podobnost, \v ze $
+X_{i,j}=1$, 
+pak o\v cek\'avan\'a hodnota $X_{i,j}$ je 
+$$\bold E(X_{i,j})=0(1-p_{i,j})+1p_{i,j}=p_{i,j}.$$
+Proto\v ze po\v cet porovn\'an\'\i\  p\v ri b\v ehu algoritmu {\bf QUICKSORT} je
+$$\sum_{i=1}^n\sum_{j=i+1}^nX_{i,j}$$
+a proto\v ze o\v cek\'avan\'a hodnota sou\v ctu n\'ahodn\'ych 
+prom\v enn\'ych je sou\v ctem o\v cek\'avan\'ych hodnot, dost\'av\'ame, \v ze 
+o\v cek\'avan\'y po\v cet porovn\'an\'\i\ v algoritmu {\bf QUICKSORT} je
+$$\sum_{i=1}^n\sum_{j=i+1}^n\bold E(X_{i,j})=\sum_{i=1}^n\sum_{j=
+i+1}^np_{i,j}.$$
+\medskip
+
+\flushpar Abychom spo\v c\'\i tali $p_{i,j}$, pop\'\i\v seme chov\'an\'\i\ algoritmu 
+{\bf QUICKSORT} pomoc\'\i\ modifikace stromu v\'ypo\v ctu. Bude to bin\'arn\'\i\ 
+strom, v n\v em\v z ka\v zd\'y vrchol odpov\'\i d\'a jednomu 
+b\v ehu podprocedury {\bf Quick}. Vrchol $v$ bude vnit\v rn\'\i m 
+vrcholem, 
+kdy\v z odpov\'\i da\-j\'\i\-c\'\i\ podprocedura volila pivota, a tento 
+pivot bude ohodnocen\'\i m $v$. V podstromu lev\'eho syna vrcholu $
+v$
+budou pr\'av\v e v\v sechna n\'asleduj\'\i c\'\i\ rekurzivn\'\i\ vol\'an\'\i\ podprocedury 
+{\bf Quick} nad \v c\'ast\'\i\ posloupnosti, kter\'a p\v redch\'az\'\i\ pivotu. 
+Analogicky v podstromu 
+prav\'eho syna vrcholu $v$ budou pr\'av\v e v\v sechna n\'asleduj\'\i c\'\i\ 
+rekurzivn\'\i\ vol\'an\'\i\ procedury {\bf Quick} nad \v c\'ast\'\i\ 
+posloupnosti, kter\'a n\'asleduje po pivotu. 
+Listy stromu odpov\'\i daj\'\i\ vol\'an\'\i\ procedury {\bf Quick} nad 
+jednoprvkov\'ymi posloupnost\-mi a ka\v zd\'y takov\'y jednotliv\'y 
+prvek ohodnocuje p\v r\'\i slu\v sn\'y  
+list. Kdy\v z vrchol $v$ odpov\'\i d\'a vol\'an\'\i\ {\bf Quick} nad posloupnost\'\i\ 
+$(a_i,a_{i+1},\dots,a_j)$, pak vrcholy v podstromu lev\'eho syna $
+v$ jsou 
+ohodnoceny prvky z posloupnosti $(a_i,a_{i+1},\dots,a_{l-1})$ a vrcholy v 
+podstromu prav\'eho syna vrcholu $v$ jsou ohodnoceny prvky z posloupnosti 
+$(a_{q+1},\dots,a_j)$ (po p\v rerovn\'an\'\i ).
+D\'ale plat\'\i\ $\{a_l\mid i\le l\le j\}=\{b_l\mid i\le l\le j\}$.
+\medskip
+
+\flushpar O\v c\'\i slujeme vrcholy tohoto stromu prohled\'av\'an\'\i m do 
+\v s\'\i\v rky za p\v redpokladu, \v ze lev\'y syn vrcholu p\v redch\'az\'\i\ 
+prav\'emu synu. Nech\v t $(c_1,c_2,\dots,c_n)$ je posloupnost 
+prvk\accent23u $\{a_i\mid 1\le i\le n\}$ v po\v rad\'\i\ dan\'em t\'\i mto 
+o\v c\'\i slov\'an\'\i m. Pak plat\'\i , \v ze $X_{i,j}=1$, pr\'av\v e kdy\v z prvn\'\i\ 
+prvek v posloupnosti $(c_1,c_2,\dots,c_n)$ z mno\v zi\-ny 
+$\{b_l\mid i\le l\le j\}$ je bu\v d $b_i$ nebo $b_j$. Pravd\v epodobnost tohoto 
+jevu je $\frac 2{j-i+1}$, tedy $p_{i,j}=\frac 2{j-i+1}$ pro $1\le 
+i<j\le n$. Odtud 
+o\v cek\'avan\'y po\v cet porovn\'an\'\i\ v algoritmu {\bf QUICKSORT} je
+$$\sum_{i=1}^n\sum_{j=i+1}^np_{i,j}=\sum_{i=1}^n\sum_{j=i+1}^n\frac 
+2{j-i+1}=\sum_{i=1}^n\sum_{k=2}^{n-i+1}\frac 2k\le 2n(\sum_{k=2}^
+n\frac 1k)\le 2n\int_1^n\frac 1xdx=2n\ln n.$$
+\medskip
+
+\flushpar Druh\'y zp\accent23usob v\'ypo\v ctu:\newline 
+Ozna\v cme $QS(n)$ o\v cek\'avan\'y po\v cet 
+porovn\'an\'\i\ proveden\'ych algoritmem {\bf QUICKSORT} p\v ri 
+t\v r\'\i d\v en\'\i\ $n$-\v clenn\'e posloupnosti. Pak plat\'\i
+$$\gather QS(0)=QS(1)=0\text{\rm\ a }\\
+QS(n)=\frac 1n\big(\sum_{k=0}^{n-1}n-1+QS(k)+QS(n-k-1)\big)=n-1+\frac 
+2n(\sum_{k=0}^{n-1}QS(k)).\endgather$$
+Z toho dost\'av\'ame, \v ze 
+$$nQS(n)=n(n-1)+2\sum_{k=0}^{n-1}QS(k).$$
+P\v rep\'\i\v seme je\v st\v e jednou tuto rovnici s $n+1$ m\'\i sto $
+n$:
+$$(n+1)QS(n+1)=(n+1)n+2\sum_{k=0}^nQS(k).$$
+Od t\'eto rovnice ode\v cteme rovnici p\v redchoz\'\i\ a po 
+jednoduch\'e \'uprav\v e z\'\i sk\'ame rekurentn\'\i\ vztah
+$$QS(n+1)=\frac {2n}{n+1}+\frac {n+2}{n+1}QS(n).$$
+Postupn\'ym dosazov\'an\'\i m dostaneme \v re\v sen\'\i\ 
+$$\align QS(n)=&\sum_{i=2}^n\frac {n+1}{i+1}\frac {2(i-1)}i\le 2(
+n+1)\big(\sum_{i=2}^n\frac 1{i+1}\big)=2(n+1)\big(\sum_{i=3}^{n+1}\frac 
+1i\big)=\\
+&2(n+1)\big(\sum_{i=2}^{n+1}\frac 1i-\frac 12\big)\le 2(n+1)\big(
+(\int_{i=1}^{n+1}\frac 1xdx)-\frac 12\big)=\\
+&2n\ln(n+1)+2\ln(n+1)-n-1.\endalign$$
+Pro dostate\v cn\v e velk\'a $n$ tedy plat\'\i\ 
+$$2n\ln(n+1)+2\ln(n+1)-n\le 2n\ln n.$$
+\bigskip
+
+\head
+Porovn\'an\'\i\ t\v r\'\i dic\'\i ch algoritm\accent23u
+\endhead
+
+\flushpar Nyn\'\i\ porovn\'ame slo\v zitost algoritm\accent23u 
+{\bf HEAPSORT}, {\bf MERGE\-SORT}, {\bf QUICKSORT}, {\bf A-sort} (byl pops\'an 
+v kapitole o $(a,b)-$stromech), 
+{\bf SELECTIONSORT} a {\bf INSERTIONSORT}.  P\v ripome\v nme si, \v ze 
+{\bf SELECTIONSORT} t\v r\'\i\-d\'\i\ posloupnost tak, \v ze jedn\'\i m
+pr\accent23ucho\-dem nalezne jej\'\i\ nej\-men\v s\'\i\ prvek, 
+kter\'y vy\v rad\'\i\ a vlo\v z\'\i\ do v\'ysledn\'e 
+posloupnosti (ve verzi, kter\'a t\v r\'\i d\'\i\ na m\'\i st\v e, ho vym\v en\'\i\ 
+s lev\'ym krajn\'\i m prvkem pole). 
+Tento proces pak opakuje se zbytkem 
+p\accent23uvodn\'\i\ posloupnosti. Tato idea byla 
+z\'akla\-dem algoritmu {\bf HEAPSORT}.  {\bf INSERTIONSORT} t\v r\'\i d\'\i\ 
+tak, \v ze do ji\v z set\v r\'\i d\v en\'eho za\v c\'atku  
+posloupnosti vkl\'ad\'a dal\v s\'\i\ prvek, kter\'y pomoc\'\i\ v\'ym\v en 
+za\v rad\'\i\ na spr\'avn\'e m\'\i sto, a tento proces (za\v c\'\i n\'a druh\'ym 
+prvkem zleva) opakuje.  
+\medskip
+
+\flushpar {\bf QUICKSORT} v nejhor\v s\'\i m p\v r\'\i pad\v e vy\v zaduje \v cas 
+$\Theta (n^2)$, o\v ce\-k\'avan\'y \v cas je $9n\log n$, v 
+nej\-hor\v s\'\i m p\v r\'\i pad\v e prov\'ad\'\i\ $\frac {n^2}2$ porov\-n\'an\'\i ,  
+o\v cek\'avan\'y po\v cet porov\-n\'an\'\i\ je $1.44n\log n$. 
+Pot\v rebuje $n+\log n+konst$ pam\v eti, pou\v z\'\i v\'a p\v r\'\i m\'y 
+p\v r\'\i stup k pam\v eti a nen\'\i\ adaptivn\'\i\ na p\v redt\v r\'\i d\v en\'e 
+posloupnosti.\newline 
+{\bf HEAPSORT} v nejhor\v s\'\i m p\v r\'\i pad\v e vy\v zaduje \v cas $
+20n\log n$, 
+o\v ce\-k\'avan\'y \v cas je $\le 20n\log n$, v nejhor\v s\'\i m i v 
+o\v cek\'avan\'em p\v r\'\i pad\v e prov\'ad\'\i\ $2n\log n$ porovn\'an\'\i . 
+Pot\v rebuje $n+konst$ pam\v eti, pou\v z\'\i v\'a p\v r\'\i m\'y p\v r\'\i stup k pam\v eti a 
+nen\'\i\ adaptivn\'\i\ na p\v redt\v r\'\i d\v en\'e posloupnosti.\newline 
+{\bf MERGESORT} v nejhor\v s\'\i m p\v r\'\i pad\v e vy\v zaduje \v cas 
+$12n\log n$, o\v cek\'avan\'y \v cas je $\le 12n\log n$, v nejhor\v s\'\i m 
+i v o\v cek\'ava\-n\'em p\v r\'\i pad\v e prov\'ad\'\i\ $n\log n$ 
+porovn\'an\'\i\ (nejmen\v s\'\i\ mo\v zn\'y po\v cet). Pot\v rebuje $
+2n+konst$ 
+pam\v eti, pou\v z\'\i v\'a 
+sekven\v cn\'\i\ p\v r\'\i stup k pam\v eti a m\'a verzi, kter\'a je 
+adaptivn\'\i\ na p\v redt\v r\'\i d\v en\'e posloupnosti s mal\'ym po\v ctem 
+b\v eh\accent23u.\newline 
+{\bf A-sort} v nejhor\v s\'\i m p\v r\'\i pad\v e i v o\v cek\'an\'em p\v r\'\i pad\v e vy\v zaduje \v cas 
+$O(n\log\frac Fn)$, kde $F$ je po\v cet inverz\'\i\ ve vstupn\'\i\ 
+posloupnosti,  v nejhor\v s\'\i m i v o\v cek\'avan\'em 
+p\v r\'\i pad\v e prov\'ad\'\i\ $O(n\log\frac Fn)$ porovn\'an\'\i . Pot\v rebuje  
+$5n+konst$ pam\v eti, pou\v z\'\i v\'a p\v r\'\i m\'y p\v r\'\i stup k pam\v eti 
+a je adaptivn\'\i\ na p\v redt\v r\'\i d\v en\'e posloupnosti s mal\'ym 
+po\v ctem inverz\'\i .\newline 
+{\bf SELECTIONSORT} v nejhor\v s\'\i m i v o\v cek\'avan\'em p\v r\'\i pad\v e 
+vy\v zaduje \v cas $2n^2$, po\v cet porov\-n\'an\'\i\ v nejhor\v s\'\i m 
+i v o\v cek\'avan\'em p\v r\'\i pad\v e je $\frac {n^2}2$. Pot\v rebuje 
+$n+konst$ pam\v eti, pou\v z\'\i v\'a p\v r\'\i m\'y p\v r\'\i stup k pam\v eti a 
+nen\'\i\ adaptivn\'\i\ na p\v redt\v r\'\i d\v en\'e posloupnosti.\newline 
+{\bf INSERTIONSORT} v nejhor\v s\'\i m i v o\v cek\'avan\'em p\v r\'\i pad\v e  
+vy\-\v zaduje \v cas $O(n^2)$, po\v cet porov\-n\'an\'\i\ v nejhor\v s\'\i m 
+p\v r\'\i pad\v e je $\frac {n^2}2$, v o\v ce\-k\'a\-van\'em p\v r\'\i pad\v e 
+$\frac {n^2}4$. Pot\v rebuje $n+konst$ pam\v eti, pou\v z\'\i\-v\'a 
+sekven\v cn\'\i\ p\v r\'\i stup k pam\v eti a m\'a verzi, kter\'a je 
+adaptivn\'\i\ na p\v redt\v r\'\i d\v en\'e posloupnosti s mal\'ym po\v ctem 
+inverz\'\i .
+\medskip
+
+\flushpar Prezentovan\'e  v\'ysledky byly spo\v c\'\i t\'any 
+pro model RAM (viz Mehlhorn 1984).
+\medskip
+
+\flushpar O\v cek\'avan\'y \v cas pro {\bf HEAPSORT} je prakticky stejn\'y jako 
+jeho nej\-hor\v s\'\i\ \v cas.  Byly navr\v zeny verze, kter\'e optimalizuj\'\i\ 
+po\v cet porov\-n\'an\'\i , ale v\v et\v sinou maj\'\i\ v\v et\v s\'\i\ n\'aroky na 
+\v cas, a proto a\v z na v\'yjimky ne\-jsou pro praktick\'e 
+pou\v zit\'\i\ vhodn\'e.  
+Situace pro {\bf MERGESORT} je komplikovan\v ej\v s\'\i , hod\-n\v e z\'avis\'\i\ 
+na konkr\'etn\'\i\ verzi algoritmu.  Algoritmus 
+{\bf MER\-GE\-SORT} je nejvhodn\v ej\v s\'\i\ pro extern\'\i\ pam\v eti se  
+sekven\v cn\'\i m p\v r\'\i stupem k dat\accent23um, pro intern\'\i\ 
+pam\v e\v t kv\accent23uli velk\'e prostorov\'e n\'aro\v cnosti 
+nen\'\i\ doporu\v cov\'an (je nap\v r. dvojn\'asobn\'a proti {\bf HEAPSORTU }
+a t\'em\v e\v r dvojn\'asobn\'a proti {\bf QUICKSORTU}). Tak\'e se hod\'\i\ pro 
+n\'avrh pa\-ra\-leln\'\i ch algoritm\accent23u. Pro t\v r\'\i d\v en\'\i\ 
+kr\'atk\'ych posloupnost\'\i\ je doporu\v cov\'ano m\'\i sto {\bf QUICKSORTU }
+pro posloupnosti d\'elky $\le 22$ pou\v z\'\i t {\bf SELECTIONSORT} a pro 
+posloupnosti d\'elky $\,\le 15$  {\bf INSERTIONSORT.}
+To vede k n\'avrhu optimalizovan\'eh {\bf QUICKSORTU}, 
+kter\'y{\bf ,}  kdy\v z 
+vol\'a rekurzivn\v e s\'am sebe na kr\'atkou posloupnost, pak 
+pou\v zije {\bf SELECTIONSORT} ne\-bo {\bf INSERTIONSORT}. V algoritmu {\bf A-sort }
+se doporu\-\v cu\-je pou\v z\'\i t $(2,3)$-strom.  
+Pom\v er \v cas\accent23u spot\v rebovan\'ych  
+algoritmy {\bf QUICKSORT},  {\bf MERGESORT} a {\bf HEAPSORT} na 
+klasick\'ych po\v c\'\i ta\v c\'\i ch uv\'ad\'\i\ Mehlhorn (1984) jako  
+$1$ : $1.33$ : $2.22$. To 
+v\v sak nemus\'\i\  b\'yt pravda pro sou\v casn\'e procesory, 
+pam\v eti a opera\v cn\'\i\ syst\'emy. 
+\bigskip
+
+\head
+Sl\'ev\'an\'\i\ nestejn\v e dlouh\'ych posloupnost\'\i
+\endhead
+
+\flushpar V algoritmu {\bf MERGESORT} jsme pou\v zili frontu, kter\'a 
+\v r\'\i dila proces slu\v cov\'an\'\i\ rostouc\'\i ch posloupnost\'\i .  Tato metoda je uspokojuj\'\i c\'\i\ a 
+d\'av\'a optim\'aln\'\i\ v\'ysledek (ve smyslu \v casov\'e n\'aro\v cnosti){\bf ,} pokud posloupnosti ve front\v e jsou 
+stejn\v e dlouh\'e.  Pokud se ale jejich d\'elky hodn\v e li\v s\'\i , 
+nedos\'ahneme t\'\i mto zp\accent23usobem  
+optim\'aln\'\i ho v\'ysledku.  P\v ritom r\accent23uzn\'e verze tohoto 
+probl\'emu se vyskytuj\'\i\ v mnoha \'uloh\'ach. Jednou z prvn\'\i ch \'uloh, 
+kde jsme se s n\'\i m setkali, je konstrukce 
+Huffmanova k\'odu -- to je minim\'aln\'\i\ redundantn\'\i\ k\'od, kter\'y byl 
+nalezen v roce 1952. K optim\'aln\'\i mu \v re\v sen\'\i\ vede nap\v r. 
+postup, kter\'y je kombinac\'\i\ `mergeov\'an\'\i ' a 
+optimalizace a pou\v z\'\i v\'a metody dynamick\'eho programov\'an\'\i .  
+Nejprve form\'aln\v e pop\'\i\v seme abstraktn\'\i\ verzi tohoto probl\'emu.  
+\medskip
+
+\flushpar Vstup: Mno\v zina rostouc\'\i ch navz\'ajem 
+disjunktn\'\i ch posloupnost\'\i .\newline 
+\'Ukol:  Pomoc\'\i\ operace {\bf MERGE} co nejrychleji spojit 
+v\v sechny tyto posloupnosti do jedin\'e rostouc\'\i\ posloupnosti.  
+\medskip
+
+\flushpar P\v redpokl\'adejme, \v ze m\'ame postup, kter\'y z 
+dan\'ych rostouc\'\i ch posloupnost\'\i\ vytvo\v r\'\i\ 
+jedinou rostouc\'\i\ po\-sloupnost. Tento postup ur\v cuje \'upln\'y 
+bin\'arn\'\i\ strom $T$, jeho\v z listy jsou ohodnoceny vstupn\'\i mi 
+posloupnostmi a ka\v zd\'y vnit\v rn\'\i\ vr\-chol je ohodnocen 
+posloupnost\'\i , kter\'a je slou\v cen\'\i m vstupn\'\i ch posloupnost\'\i\ 
+ohodnocuj\'\i c\'\i ch listy v podstromu ur\v cen\'em t\'\i mto 
+vr\-cholem. Tedy ko\v ren je ohodnocen v\'ystupn\'\i\ posloupnost\'\i . 
+Form\'aln\v e pro ka\v zd\'y vnit\v rn\'\i\ vr\-chol  $v$ plat\'\i :
+\roster
+\item"{}"
+kdy\v z  $v_1$ a $v_2$ jsou synov\'e $v$ a $P(v)$ je posloupnost 
+ohodnocuj\'\i c\'\i\ vrchol $v$,  pak\newline 
+$P(v)=${\bf MERGE$(P(v_1),P(v_2))$}.
+\endroster
+Ozna\v cme $l(P)$ d\'elku posloupnosti $P$. Pak sou\v cet 
+\v cas\accent23u, kter\'e v tomto procesu vy\v zaduje 
+podprocedura {\bf MERGE},
+je $O(\sum \{l(P(v))\mid v\text{\rm \ je vnit\v rn\'\i\ vrchol stromu }
+T\})$. Indukc\'\i\ 
+lehce dostaneme, \v ze 
+$$\sum \{l(P(v))\mid v\text{\rm \ vnit\v rn\'\i\ vrchol stromu }T
+\}=\sum_{\{t\text{\rm \ je list }T\}}d(t)l(P(t)),$$
+kde $d(t)$ je hloubka listu $t$.
+\medskip
+
+\flushpar Kdy\v z tedy $T$ je \'upln\'y bin\'arn\'\i\ strom, jeho\v z listy
+jsou ohodnoceny navz\'ajem disjunktn\'\i mi rostouc\'\i mi  
+posloupnostmi, pak n\'asleduj\'\i c\'\i\ algoritmus {\bf Slevani} spoj\'\i\ tyto  
+posloupnosti do jedin\'e rostouc\'\i\ posloupnosti a procedury 
+{\bf MERGE} budou vy\v zadovat celkov\'y \v cas 
+$$O(\sum_{\{t\text{\rm \ je list }T\}}d(t)l(P(t))).$$
+\bigskip
+
+{\bf Slevani$(T,\{P(l)\mid l\text{\rm \ je list }T\})$\newline 
+while} $P(\text{\rm ko\v ren }T)$ nen\'\i\ definov\'ano {\bf do\newline 
+\phantom{{\rm---}}}$v:=$ vrchol $T$ takov\'y, \v ze $P(v)$ nen\'\i\ 
+definov\'ano a\newline 
+\phantom{---}pro oba syny $v_1$ a $v_2$ vrcholu $v$ jsou $P(v_1)$ a $
+P(v_2)$ definov\'any\newline 
+\phantom{---}$P(v):=${\bf MERGE$(P(v_1),P(v_2))$\newline 
+enddo
+\bigskip
+
+}\flushpar Nyn\'\i\ m\accent23u\v zeme p\v reformulovat p\accent23uvodn\'\i\ 
+probl\'em:\newline 
+Vstup: $n$ \v c\'\i sel $x_1,x_2,\dots,x_n$\newline 
+V\'ystup: \'upln\'y bin\'arn\'\i\ strom $T$ s $n$ listy a bijekce $
+\phi$ z 
+mno\v ziny $\{1,2,\dots,n\}$ do list\accent23u $T$ takov\'a, \v ze 
+$\sum_{i=1}^nd(\phi (i))x_i$ je minim\'aln\'\i\ (kde $d(\phi (i))$ je hloubka 
+listu $\phi (i)$).\newline 
+\v Rekneme, \v ze dvojice $(T,\phi )$ je \emph{optim\'aln\'\i} 
+\emph{strom} vzhledem k $x_1,x_2,\dots,x_n$. 
+\medskip
+
+\flushpar V p\v reformulov\'an\'e \'uloze u\v z nepracujeme s 
+posloupnostmi, ale jen s jejich d\'elkami. 
+To znamen\'a, \v ze kdy\v z pro p\accent23uvodn\'\i\ \'ulohu 
+byly vstupem posloupnosti $P_1,P_2,\dots,
+P_n$, pak pro 
+p\v reformulovanou \'ulohu jsou vstupem jen d\'elky  
+$l(P_1),l(P_2),\dots,l(P_n)$. Strom vytvo\v ren\'y pro 
+p\v reformulovanou \'ulohu  
+je pou\v zit v algoritmu {\bf Slevani}  
+tak, \v ze  posloupnost $P_i$ ohodnocuje list, kter\'y byl v 
+p\v reformulovan\'e \'uloze ohodnocen d\'elkou $l(P_i)$, a hledan\'a posloupnost 
+v p\accent23uvodn\'\i\ \'uloze ohodnocuje ko\v ren stromu. 
+\medskip
+
+\flushpar M\v ejme mno\v zinu $\{x_i\mid i=1,2,\dots,n\}$.  Pro \'upln\'y bin\'arn\'\i\ 
+strom $T$ s $n$ listy a bijekci $\phi$ z mno\v ziny $\{1,2,\dots,
+n\}$ do 
+list\accent23u stromu $T$ definujme 
+$$\Cont(T,\phi )=\sum_{i=1}^nd(\phi (i))x_i,$$
+kde $d(\phi (i))$ je hloubka listu $\phi (i)$, tj.  d\'elka cesty z 
+ko\v rene do listu $\phi (i)$  pro $i=1,2,\dots,n$.  
+Chceme zkonstruovat \'upln\'y bin\'arn\'\i\ strom s $n$ listy, 
+kter\'y minimalizuje hodnotu $\Cont$. K \v re\v sen\'\i\ 
+pou\v zijeme n\'asleduj\'\i c\'\i\ algoritmus, kter\'y je upravenou verz\'\i\ 
+hladov\'eho algoritmu pro n\'a\v s probl\'em.
+\medskip
+
+{\bf Optim$(x_1,x_2,\dots x_n)$}:\newline 
+$V$ je mno\v zina $n$ jednoprvkov\'ych strom\accent23u\newline 
+$\phi$ je bijekce mezi $\{1,2,\dots,n\}$ a mno\v zinou $V$\newline 
+{\bf for every} $v\in V$ {\bf do} $c(v):=x_{\phi^{-1}(v)}$ {\bf enddo\newline 
+while} $|V|>1$ {\bf do\newline 
+\phantom{{\rm---}}}vezmi z $V$ dva stromy $v_1$ a $v_2$ s nejmen\v s\'\i m ohodnocen\'\i m\newline 
+\phantom{---}odstra\v n je z $V$\newline 
+\phantom{---}vytvo\v r nov\'y strom $v$ spojen\'\i m strom\accent23u $
+v_1$ a $v_2$\newline 
+\phantom{---}$c(v):=c(v_1)+c(v_2)$, strom $v$ vlo\v z do $V$\newline 
+{\bf enddo\newline 
+V\'ystup}: $(T,\phi )$, kde $T$ je strom v mno\v zin\v e $V$
+\bigskip
+
+\flushpar Vytvo\v ren\'\i\ nov\'eho stromu $v$ spojen\'\i m strom\accent23u 
+$v_1$ a $v_2$ znamen\'a vytvo\v ren\'\i\ nov\'eho vrcholu, kter\'y bude 
+ko\v renem stromu $v$ a jeho\v z synov\'e budou ko\v reny strom\accent23u 
+$v_1$ a $v_2$. To je analogick\'e procedu\v re {\bf spoj}.
+\medskip
+
+\proclaim{V\v eta}Pro danou posloupnost \v c\'\i sel 
+$(x_1,x_2,\dots,x_n)$ algoritmus {\bf Optim} nalezne optim\'aln\'\i\ strom 
+pro mno\v zinu $x_1,x_2,\dots,x_n$ a pokud je posloupnost 
+$(x_1,x_2,\dots,x_n)$ neklesaj\'\i c\'\i , pak vy\v za\-du\-je \v case 
+$O(n)$.  
+\endproclaim
+
+\demo{D\accent23ukaz}D\accent23ukaz m\'a dv\v e \v c\'asti. V 
+prvn\'\i\ dok\'a\v zeme korektnost algoritmu a ve druh\'e pop\'\i\v seme 
+reprezentaci mno\v ziny $V$ a vypo\v cteme \v casovou slo\v zitost.
+\medskip
+
+\flushpar Nejprve p\v ripome\v nme, \v ze $\phi (i)$ je list $T$ 
+pro ka\v zd\'e $i\in \{1,2,\dots,n\}$.  Proto\v ze na za\v c\'atku $
+V$ 
+obsahuje jen 
+jednoprvko\-v\'e stromy, tak tvrzen\'\i\ plat\'\i .  Ka\v zd\'y b\v eh cyklu 
+{\bf while do} zmen\v s\'\i\ po\v cet strom\accent23u $V$ o jeden, ale nezm\v en\'\i\ 
+mno\v zinu list\accent23u.  Proto $T$ je strom s $n$ listy, $\phi$ je 
+bijekce z $\{1,2,\dots,n\}$ do mno\v ziny list\accent23u $T$ a algoritmus 
+v\v zdy kon\v c\'\i .  Dok\'a\v zeme indukc\'\i\ podle $n$, \v ze zkonstruovan\'a 
+dvojice $(T,\phi )$ je optim\'aln\'\i\ strom vzhledem k $(x_1,x_2
+,\dots,x_n)$.  
+Kdy\v z $n=2$, tvrzen\'\i\ z\v rejm\v e plat\'\i .  P\v redpokl\'adejme, \v ze 
+plat\'\i\ pro ka\v zdou posloupnost \v c\'\i sel $(y_1,y_2,\dots,$$
+y_{n-1})$, a 
+nech\v t $x_1\le x_2\le\dots\le x_n$ je neklesaj\'\i c\'\i\ posloupnost \v c\'\i sel.  Bez \'ujmy na 
+obecnosti m\accent23u\v zeme p\v redpokl\'adat, \v ze v prvn\'\i m kroku 
+algoritmus {\bf Optim} zvolil stromy $\phi (1)$ a $\phi (2)$.  Uva\v zujme mno\v zinu 
+$(y_1,y_2,\dots,y_{n-1})$, kde $y_i=x_{i+2}$ pro $i=1,2,\dots,n-2$, 
+$y_{n-1}=x_1+x_2$.  Nech\v t $T'$ je strom z\'\i skan\'y ze stromu $
+T$  
+odstran\v en\'\i m list\accent23u $\phi (1)$ a $\phi (2)$ a nech\v t $
+\psi$ je bijekce z 
+mno\v ziny $\{1,2,\dots,n-1\}$ takov\'a, \v ze $\psi (i)=\phi (i+
+2)$ pro 
+$i=1,2,\dots,n-2$ a $\psi (n-1)$ je otec listu $\phi (1)$.  Pak 
+m\accent23u\v zeme p\v redpokl\'adat, \v ze algoritmus 
+{\bf Optim$(y_1,y_2,\dots,y_{n-1})$} zkonstruoval strom $(T',\psi 
+)$, a podle induk\v cn\'\i ho 
+p\v redpokladu je to optim\'aln\'\i\ strom pro $(y_1,y_2,\dots,y_{
+n-1})$.  Nech\v t 
+$(U,\theta )$ je optim\'aln\'\i\ strom vzhledem k $(x_1,x_2,\dots
+,x_n)$.  Zvolme 
+vnit\v rn\'\i\ vrchol $u$ stromu $U$ takov\'y, \v ze d\'elka cesty z ko\v rene 
+do vrcholu $u$ je nej\-v\v et\v s\'\i\ mezi v\v semi vnit\v rn\'\i mi vrcholy 
+stromu $U$.  Nech\v t $u_1$ a $u_2$ jsou synov\'e $u$, pak nutn\v e $
+u_1$ 
+a $u_2$ jsou listy stromu $U$.  Nech\v t $i,j\in \{1,2,\dots,n\}$ takov\'e, \v ze 
+$\theta (i)=u_1$, $\theta (j)=u_2$.  Po eventu\'aln\'\i m p\v rejmenov\'an\'\i\ m\accent23u\v zeme 
+p\v redpokl\'adat, \v ze kdy\v z $i,j\in \{1,2\}$, pak $i=1$ a 
+$j=2$.  Definujme $\eta$ z $\{1,2,\dots,n\}$ do list\accent23u $U$ tak, \v ze 
+$\eta (1)=u_1$, $\eta (2)=u_2$, $\eta (i)=\theta (1)$, $\eta (j)=
+\theta (2)$ a $\eta (k)=\theta (k)$ pro 
+v\v sechna $k\in \{3,4,\dots,n\}\setminus \{i,j\}$.  Pak $\eta$ je bijekce a 
+$$\Cont(U,\eta )-\Cont(U,\theta )=(d(u_1)-d(\theta (1))(x_1-x_i)+
+(d(u_2)-d(\theta (2))(x_2-x_j).$$
+Z volby $u$ plyne, \v ze $d(u_1)\ge d(\theta (1))$, $d(u_2)\ge d(
+\theta (2))$, 
+$x_1\le x_i$ a $x_2\le x_j$. Odtud  
+$$(d(u_1)-d(\theta (1))(x_1-x_i)+(d(u_2)-d(\theta (2))(x_2-x_j)\le 
+0$$
+a proto\v ze $(U,\theta )$ je optim\'aln\'\i\ strom pro $(x_1,x_2
+,\dots,x_n)$, 
+dost\'a\-v\'a\-me, \v ze $(U,\eta )$ je tak\'e optim\'aln\'\i\ strom pro 
+$(x_1,x_2,\dots,x_n)$.  Od\-stran\v en\'\i m list\accent23u $u_1$ a $
+u_2$ ze stromu 
+$U$ dostaneme strom $U'$.  Definujme $\tau$ z $\{1,2,\dots,n-1\}$ 
+p\v redpisem $\tau (i)=\eta (i+2)$ pro $i=1,2,\dots,n-2$ a $\tau 
+(n-1)=u$.  Pak 
+$\tau$ je bijekce z $\{1,2,\dots,n-1\}$ do mno\v ziny list\accent23u $
+U'$ a 
+proto\v ze $(T',\psi )$ je optim\'aln\'\i\ strom pro $(y_1,y_2,\dots
+,y_{n-1})$, 
+plat\'\i , \v ze 
+$$\Cont(T',\psi )\le\Cont(U',\tau ).$$
+Proto\v ze  
+$$\gather\Cont(T,\phi )=\Cont(T,\psi )+x_1+x_2\text{\rm \ , }\\
+\Cont(U,\eta )=\Cont(U',\tau )+x_1+x_2\endgather$$
+pak z\'av\v er je, \v ze $(T,\phi )$ je optim\'aln\'\i\ strom pro 
+$(x_1,x_2,\dots,x_n)$.
+\medskip
+
+\flushpar P\v redpokl\'adejme op\v et, \v ze $x_1\le x_2\le\dots\le 
+x_n$ a \v ze v dan\'em 
+okam\v ziku jsou $v_1,v_2,\dots,v_k$ postupn\v e vytvo\v ren\'e v\'\i ceprvkov\'e stromy
+(tj. strom $v_i$ byl vytvo\v ren p\v red stromem $v_j$, kdy\v z $
+i<j$). V 
+tomto okam\v ziku je mno\v zina $V$ sjednocen\'\i m mno\v ziny $\{
+v_1,v_2,\dots,v_k\}$ 
+a mno\v ziny jednoprvkov\'ych strom\accent23u, kter\'e nebyly je\v st\v e 
+zpracov\'any. Nyn\'\i\ vytvo\v r\'\i me strom $w$ spojen\'\i m 
+strom\accent23u $t_1$ a $t_2$ s nejmen\v s\'\i m ohodnocen\'\i m. Z popisu algoritmu plyne, \v ze kdy\v z 
+strom $v_i$ pro $i=1,2,\dots,k$ vznikl spojen\'\i m strom\accent23u $
+u_1$ 
+a $u_2$, pak $\max\{c(u_1),c(u_2)\}\le\min\{c(t_1),c(t_2)\}$, a proto $
+c(w)\ge c(v_i)$ 
+pro ka\v zd\'e $i=1,2,\dots,k$. Pak indukc\'\i\ 
+okam\v zit\v e dost\'av\'ame, \v ze $c(v_1)\le c(v_2)\le\dots\le 
+c(v_k)$.  Tedy sta\v c\'\i , 
+abychom m\v eli rostouc\'\i\ posloupnost list\accent23u a v n\'\i\ 
+ukazatel na nej\-men\v s\'\i\ list, kter\'y je je\v st\v e 
+nezpracovan\'ym jednoprvkov\'ym stro\-mem (tj. p\v red ukazatelem jsou 
+listy, kter\'e u\v z nejsou stromy v mno\v zin\v e $V$, 
+za ukazatelem jsou listy, kter\'e jsou je\v st\v e jednoprvkov\'e 
+stro\-my v mno\v zin\v e $V$) a frontu v\'\i ceprvkov\'ych 
+strom\accent23u (z n\'\i\v z stromy ke zpracov\'an\'\i\ odeb\'\i r\'ame 
+zp\v redu a nov\v e vytvo\v ren\'e  
+ukl\'ad\'ame na konec).  Udr\v zovat tyto struktury vy\v za\-duje \v cas 
+$O(1)$ stejn\v e jako nalezen\'\i\ dvou strom\accent23u s nej\-men\v s\'\i m 
+ohodnocen\'\i m. M\accent23u\v zeme tedy shrnout, \v ze algoritmus 
+{\bf Optim} konstruuje optim\'aln\'\i\ stromy v \v case $O(n)$, kde $
+n$ je po\v cet 
+zadan\'ych \v c\'\i sel $x_i$. \qed
+\enddemo
+\bigskip
+
+\flushpar Pro aplikaci na na\v si p\accent23uvodn\'\i\ \'ulohu je 
+t\v reba  
+je\v st\v e set\v r\'\i dit vstupn\'\i\ posloupnost d\'elek pro p\v reformu\-lo\-vanou \'ulohu.
+Tato posloupnost je tvo\v rena p\v rirozen\'ymi \v c\'\i sly a 
+k jej\'\i mu set\v r\'\i d\v en\'\i\  
+m\accent23u\v zeme pou\v z\'\i t algoritmus {\bf BUCKETSORT} (bude 
+pops\'an d\'ale v textu), kter\'y 
+vy\v zaduje \v cas $O(n+m)$, kde $n$ je po\v cet posloupnost\'\i\ a $
+m$ je 
+maxim\'aln\'\i\ d\'elka posloupnosti.
+\medskip
+
+\proclaim{V\v eta}Uveden\'y algoritmus mno\v zinu 
+disjunktn\'\i ch rostouc\'\i ch 
+posloupnost\'\i\ $P_1,P_2,\dots,P_n$ o d\'elk\'ach $l(P_1),l(P_2)
+,\dots,l(P_n)$ spoj\'\i\ 
+do jedin\'e rostouc\'\i\ posloupnosti v \v case 
+$O(\sum_{i=1}^nl(P_i))$.
+\endproclaim
+\bigskip
+
+\centerline{\bigbigrm{VIII. Rozhodovac\'\i\ stromy}}
+\medskip
+
+\flushpar V\v et\v sina obecn\'ych t\v r\'\i dic\'\i ch algoritm\accent23u 
+pou\v z\'\i v\'a jedinou primitivn\'\i\ operaci mezi prvky vstupn\'\i\ 
+posloupnosti, a to jejich vz\'a\-jemn\'e porov\-n\'an\'\i .  
+To znamen\'a, \v ze pr\'aci 
+takov\'eho algoritmu lze po\-psat 
+bin\'arn\'\i m stro\-mem, jeho\v z vnit\v rn\'\i\ vrcholy jsou ohodnoceny 
+porovn\'an\'\i mi dvojic prvk\accent23u vstupn\'\i\ posloupnosti 
+(nap\v r. $a_i<a_j$). Bez \'ujmy na obecnosti p\v redpokl\'adejme, \v ze 
+vstupn\'\i\ posloupnost je permutace $\pi$
+mno\v ziny $\{1,2,\dots,n\}$. Tato permutace proch\'az\'\i\ 
+stromem takto:
+\roster
+\item"{}"
+Za\v c\'\i n\'a v ko\v reni stromu. Kdy\v z je ve vnit\v rn\'\i m vrcholu $
+v$ 
+ohodnocen\'em porovn\'an\'\i m $a_i\le a_j$, pak kdy\v z $\pi (i)
+<\pi (j)$, 
+pokra\v cuje v lev\'em synu vrcholu $v$, a kdy\v z $\pi (j)<\pi (
+i)$, 
+pokra\v cuje v prav\'em synu vrcholu $v$. Proces 
+t\v r\'\i d\v en\'\i\ kon\v c\'\i , kdy\v z se dostane do listu.
+\endroster
+Aby byl algoritmus korektn\'\i , mus\'\i\ platit, \v ze dv\v e 
+r\accent23uzn\'e permutace skon\v c\'\i\ v r\accent23uzn\'ych 
+listech.  Tedy strom popisuj\'\i c\'\i\ korektn\'\i\ algoritmus 
+pro set\v r\'\i d\v en\'\i\ $n$-prvkov\'yvh posloupnost\'\i\ mus\'\i\ m\'\i t 
+alespo\v n $n!$ list\accent23u.  D\'elka cesty z ko\v rene do listu, 
+kde skon\v cila permutace $\pi$, reprezentuje po\v cet porovn\'an\'\i , kter\'e pot\v rebuje 
+dan\'y algoritmus k set\v r\'\i d\v en\'\i\ dan\'e posloupnosti $
+\pi$. Proto\v ze porovn\'an\'\i\ 
+vy\v zaduje alespo\v n jednotku \v casu, dost\'av\'ame t\'\i m i doln\'\i\ odhad na 
+\v cas pot\v rebn\'y k set\v r\'\i d\v en\'\i\ t\'eto posloupnosti  algoritmem 
+odpov\'\i daj\'\i c\'\i m dan\'emu stromu. Doln\'\i\ odhad  po\v ctu 
+porovn\'an\'\i\ i \v casu pro dan\'y algoritmus a v\v sechny  
+$n$-prvkov\'e posloupnosti je pak d\'elka nejdel\v s\'\i\ cesty z ko\v rene 
+do listu v odpov\'\i daj\'\i c\'\i m stromu. To n\'am umo\v z\v nuje 
+z\'\i skat obecn\v e platn\'y doln\'\i\ odhad \v casu pot\v rebn\'eho k set\v r\'\i d\v en\'\i\ 
+$n-$prvkov\'e posloupnosti, kter\'ym je  
+minimum p\v res v\v sechny bin\'arn\'\i\ stromy s alespo\v n $n!$ 
+listy z jejich maxim\'aln\'\i ch d\'elek cest z ko\v rene do listu. 
+Korekt\-nost t\v echto \'uvah plyne z pozorov\'an\'\i , 
+\v ze kdy\v z porovn\'an\'\i\ je jedin\'a primi\-tivn\'\i\ operace, pak 
+algoritmus nen\'\i\ z\'avisl\'y na konkr\'etn\'\i ch prvc\'\i ch vstup\-n\'\i\ 
+posloupnosti, ale jen na jejich vz\'ajemn\'em vzta\-hu. 
+Proto sta\v c\'\i\ uva\v zovat pouze permutace $n$-prvkov\'e mno\v ziny, 
+proto\v ze za\-chycuj\'\i\ v\v sechny mo\v zn\'e vztahy v $n$-prvkov\'e 
+posloupnosti. D\'a\-le je t\v reba si uv\v edomit, \v ze vztah mezi 
+stromem pro $n$-prvkov\'e posloupnosti a stromem pro 
+$(n+1)$-prvkov\'e posloupnosti je d\'an konkr\'etn\'\i m algoritmem a 
+ned\'a se popsat obecn\v e. 
+\medskip
+
+\flushpar V nevhodn\'em algoritmu se m\accent23u\v ze st\'at, \v ze 
+v n\v ekter\'em listu neskon\v c\'\i\ \v z\'adn\'a permutace. To  
+nastane, kdy\v z strom pro $n$-prvkov\'e posloupnosti m\'a v\'\i ce 
+ne\v z $n!$ list\accent23u, nebo, jinak \v re\v ceno, kdy\v z 
+porovn\'an\'\i\ dvou stejn\'ych prvk\accent23u se na n\v ejak\'e cest\v e 
+vyskytne alespo\v n dvakr\'at. 
+\medskip
+
+\flushpar N\'asleduj\'\i c\'\i\ obr\'azek ilustruje na\v se \'uvahy na 
+{\bf SELECTIONSORTU} pro $3$-prvkov\'e posloupnosti. Listy jsou 
+ohodnoceny permutacemi vstupn\'\i\ mno\v ziny 
+$\{a_1,a_2,a_3\}$, kter\'e v nich 
+skon\v c\'\i , nebo jsou pr\'azdn\'e. 
+\midinsert
+\centerline{\input fig11.tex}
+\botcaption{Obr. 1}
+\endcaption
+\endinsert
+\medskip
+
+\definition{Definice}M\v ejme t\v r\'\i dic\'\i\ algoritmus {\bf A}, kter\'y 
+jako jedinou pri\-mitivn\'\i\ operaci s prvky vstupn\'\i\ 
+posloupnosti pou\v z\'\i v\'a jejich porov\-n\'an\'\i . \v Rekneme, \v ze bin\'arn\'\i\ 
+strom $T$, jeho\v z vnit\v rn\'\i\ vrcholy jsou ohodnoceny 
+porovn\'an\'\i mi  $a_i\le a_j$ pro $i,j=1,2,\dots,n$, $i\ne j$, je 
+\emph{rozhodovac\'\i m} \emph{stromem} algoritmu {\bf A} pro 
+$n$-prvkov\'e posloupnosti, kdy\v z pro ka\v zdou permutaci $\pi$
+$n$-prvkov\'e mno\v ziny plat\'\i\ 
+\roster
+\item"{}"
+posloupnost porovn\'an\'\i\ p\v ri t\v r\'\i d\v en\'\i\ permutace $
+\pi$ 
+algoritmem {\bf A} je stejn\'a jako po\-sloupnost porovn\'an\'\i\ p\v ri 
+pr\accent23uchodu permutace $\pi$ stromem $T$.
+\endroster
+\enddefinition
+\medskip
+
+\flushpar Pak korektnost algoritmu zaji\v s\v tuje, \v ze dv\v e r\accent23uzn\'e 
+permutace mno\v ziny $\{1,2,\dots,n\}$ skon\v c\'\i\ v 
+r\accent23uzn\'ych listech stromu $T$ a dol\-n\'\i m odhadem pro 
+\v cas algoritmu {\bf A} v nej\-hor\v s\'\i m p\v r\'\i pad\v e je d\'elka nejdel\v s\'\i\ 
+cesty z ko\v rene do listu.  
+P\v ri rovnom\v ern\'em 
+rozd\v elen\'\i\ vstupn\'\i ch po\-sloupnost\'\i\ je o\v cek\'avan\'y \v cas 
+algoritmu {\bf A} roven pr\accent23um\v ern\'e d\'elce cesty z ko\v rene do 
+listu.  
+\medskip
+
+\flushpar Definujme\newline 
+$S(n)$ jako minimum p\v res v\v sechny stromy $T$ s alespo\v n $n
+!$ listy z 
+d\'elek nejdel\v s\'\i ch cest z ko\v rene 
+do listu v $T$, \newline 
+$A(n)$ jako minimum p\v res v\v sechny stromy $T$ s alespo\v n $n
+!$ listy z
+pr\accent23um\v ern\'ych d\'elek cest z ko\v rene do listu v $T$.\newline 
+Na\v s\'\i m c\'\i lem je spo\v c\'\i tat doln\'\i\ odhady t\v echto veli\v cin.
+\medskip
+
+\flushpar Kdy\v z nejdel\v s\'\i\ cesta z ko\v rene do listu v 
+bin\'arn\'\i m strom\v e $T$ m\'a d\'elku $k$, pak $T$ m\'a nejv\'y\v se $
+2^k$ 
+list\accent23u. Proto $n!\le 2^{S(n)}$. Odtud plyne, \v ze $S(n)\ge\log_
+2n!$.
+P\v ripome\v nme si Stirling\accent23uv vzorec pro faktori\'al: 
+$$n!=\sqrt {2\pi n}\big(\frac ne\big)^n(1+\frac 1{12n}+O(\frac 1{
+n^2})).$$
+Proto\v ze pro $n\ge 1$ je $\frac 1{12n},\frac 1{n^2}\ge 0$, m\accent23u\v zeme 
+p\v redpokl\'adat, \v ze $(1+\frac 1{12n}+O(\frac 1{n^2}))\ge 1$ pro v\v sechna $
+n\ge 1$. Po 
+zlogaritmov\'an\'\i\ vzorce dost\'av\'ame 
+$$\log_2n!\ge\frac 12\log_2n+n(\log_2n-\log_2e)+\log_2\sqrt {2\pi}
+\ge (n+\frac 12)\log_2n-n\log_2e.$$
+Proto\v ze  
+$$e^1=e=2^{\log_2e}=(e^{\ln2})^{\log_2e}=e^{\ln2\log_2e},$$
+plat\'\i , \v ze $\frac 1{\ln2}=\log_2e$, a tedy  
+$$S(n)\ge\log_2n!\ge (n+\frac 12)\log_2n-\frac n{\ln2}.$$
+\medskip
+
+\flushpar D\'ale pro bin\'arn\'\i\ strom $T$ ozna\v cme $B(T)$ sou\v cet v\v sech 
+d\'elek cest z ko\v rene do list\accent23u a polo\v zme 
+$$B(k)=\min\{B(T)\mid T\text{\rm\ je bin\'arn\'\i\ strom s $k$ listy}
+\}.$$
+Kdy\v z uk\'a\v zeme, \v ze $B(k)\ge k\log_2k$, pak bude 
+$$A(n)\ge\frac {B(n!)}{n!}\ge\frac {n!\log_2n!}{n!}=\log_2n!\ge (
+n+\frac 12)\log_2n-\frac n{\ln2}.$$
+Doka\v zme tedy, \v ze $B(T)\ge k\log_2k$ pro ka\v zd\'y bin\'arn\'\i\ 
+strom $T$ s $k$ listy. Kdy\v z ve strom\v e $T$ vynech\'ame ka\v zd\'y 
+vrchol, kter\'y m\'a jen jednoho syna, a tohoto syna spoj\'\i me 
+s jeho p\v redch\accent23udcem, dostaneme \'upln\'y bin\'arn\'\i\ 
+strom $T'$ s $k$ listy tako\-v\'y, \v ze $B(T')\le B(T)$. Proto se sta\v c\'\i\  
+omezit na \'upln\'e bin\'arn\'\i\ stromy. Kdy\v z $T$ je \'upln\'y 
+bin\'arn\'\i\ strom s jedn\'\i m listem, pak $B(T)=0=1\log_21$, 
+kdy\v z $T$ je \'upln\'y bin\'arn\'\i\ strom se dv\v ema listy, pak 
+$B(T)=2=2\log_22$. Tedy plat\'\i\ $B(1)\ge 1\log_21$ a $B(2)\ge 2\log_
+22$. 
+P\v redpokl\'adejme, \v ze $B(i)\ge i\log_2i$ pro $i<k$, a nech\v t $
+T$ je 
+\'upln\'y bin\'arn\'\i\ strom s $k$ listy. Nech\v t $T_1$ a $T_2$ jsou 
+podstromy ur\v cen\'e syny ko\v rene a nech\v t $T_i$ m\'a $k_i$ 
+list\accent23u, kde $i=1,2$. Pak $1\le k_1,k_2$ a $k_1+k_2=k$, tedy 
+$k_1,k_2<k$ a podle induk\v cn\'\i ho p\v redpokladu $B(k_i)\ge k_
+i\log_2k_i$. 
+Odtud 
+$$B(T)=k_1+B(T_1)+k_2+B(T_2)\ge k+B(k_1)+B(k_2)\ge k+k_1\log_2k_1
++k_2\log_2k_2.$$
+\medskip
+
+\flushpar Tedy sta\v c\'\i\ uk\'azat, \v ze 
+$$k+k_1\log_2k_1+k_2\log_2k_2\ge k\log_2k$$
+pro v\v sechna $k_1,k_2>0$ takov\'a, \v ze $k=k_1+k_2$. To je 
+ekvivalentn\'\i\ s tvrzen\'\i m, \v ze pro $k>0$ plat\'\i\ 
+$$f(x)=x\log_2x+(k-x)\log_2(k-x)+k-k\log_2k\ge 0,$$
+kde $x\in (0,k)$. 
+Abychom to dok\'azali, v\v simn\v eme si, \v ze $f(\frac k2)=0$ a  
+po\v c\'\i\-tejme derivaci $f$.
+$$f'(x)=\log_2x+\log_2e-\log_2(k-x)-\log_2e=\log_2\frac x{k-x}.$$
+Nyn\'\i\ kdy\v z $x\in (0,\frac k2)$, pak $f'(x)<0$ a $f$ je na tomto intervalu 
+klesaj\'\i c\'\i , kdy\v z $x\in (\frac k2,k)$, pak $f'(x)>0$ a $
+f$ je na tomto 
+intervalu rostouc\'\i . Odtud plyne, \v ze $f(x)\ge 0$ pro $x\in 
+(0,k)$.
+T\'\i m jsme dok\'azali, \v ze $A(n)\ge (n+\frac 12)\log_2n-\frac 
+n{\ln2}$. Shrneme 
+na\v se v\'ysledky.
+\medskip
+
+\proclaim{V\v eta}Ka\v zd\'y t\v r\'\i dic\'\i\ algoritmus, jeho\v z jedinou 
+primitivn\'\i\ ope\-rac\'\i\ s prvky vstupn\'\i\ posloupnosti je 
+porovn\'an\'\i , vy\v zaduje v nejhor\v s\'\i m i v o\v cek\'avan\'em p\v r\'\i pad\v e 
+alespo\v n $cn\log n$ \v casu pro n\v ejakou konstantu $c>0$.  V 
+nejhor\v s\'\i m p\v r\'\i pad\v e pou\v zije alespo\v n $\lceil 
+(n+\frac 12)\log_2n-\frac n{\ln2}\rceil$ 
+porovn\'an\'\i\ a o\v cek\'avan\'y po\v cet porovn\'an\'\i\ p\v ri rovnom\v ern\'em 
+rozd\v elen\'\i\ vstupn\'\i ch posloupnost\'\i\ je alespo\v n 
+$(n+\frac 12)\log_2n-\frac n{\ln2}$.  
+\endproclaim
+\medskip
+
+\flushpar Tato v\v eta 
+plat\'\i\ i pro \v sir\v s\'\i\ t\v r\'\i du primitivn\'\i ch operac\'\i , proto v n\'\i\ 
+lze oslabit p\v redpklady. 
+Doln\'\i\ odhad (v nejhor\v s\'\i m i pr\accent23um\v ern\'em p\v r\'\i pad\v e) 
+bude platit i za 
+p\v red\-pokladu, \v ze t\v r\'\i dic\'\i\ algoritmus nepou\v z\'\i v\'a nep\v r\'\i m\'e 
+adreso\-v\'an\'\i\ a celo\-\v c\'\i seln\'e d\v elen\'\i . 
+(Na druh\'e stran\v e n\'asleduj\'\i c\'\i\ klasick\'y algoritmus 
+{\bf BUCKETSORT} ukazuje, \v ze p\v red\-poklady
+ve v\v et\v e nelze zcela vynechat.) 
+Tato metoda pro 
+nalezen\'\i\ doln\'\i ho odhadu se pou\v z\'\i v\'a i pro vy\v c\'\i slov\'an\'\i\ 
+algebraick\'ych funkc\'\i\ a p\v ri algoritmick\'em \v re\v sen\'\i\ 
+geometrick\'ych \'uloh.
+\bigskip
+
+\centerline{\bigbigrm{IX. P\v rihr\'adkov\'e t\v r\'\i d\v en\'\i}}
+\bigskip
+
+
+\flushpar V n\'asleduj\'\i c\'\i ch algoritmech 
+p\v red\-po\-kl\'a\-d\'ame, \v ze $Q_i$ jsou spojov\'e seznamy, nov\'y 
+prvek se vkl\'ad\'a na konec seznamu a konkatenace 
+seznam\accent23u z\'avis\'\i\ na jejich po\v rad\'\i . V 
+seznamech m\'ame okam\v zit\'y p\v r\'\i stup k prvn\'\i mu a posledn\'\i mu 
+prvku (pomoc\'\i\ ukazatel\accent23u na tyto prvky). 
+Algoritmus {\bf BUCKETSORT} t\v r\'\i d\'\i\ posloupnost p\v rirozen\'ych 
+\v c\'\i sel $a_1,a_2,\dots,a_n$ z intervalu $<0,m>$.
+\bigskip
+
+{\bf BUCKETSORT$(a_1,a_2,\dots,a_n,m)$}:\newline 
+{\bf for every} $i=0,1,\dots,m$ {\bf do} $Q_i=\emptyset$ {\bf enddo\newline 
+for every} $i=1,2,\dots,n$ {\bf do\newline 
+\phantom{{\rm ---}}$a_i$} vlo\v z na konec seznamu $Q_{a_i}$\newline 
+{\bf enddo\newline 
+$i:=0$}, $P:=\emptyset$\newline 
+{\bf while} $i\le m$ {\bf do\newline 
+\phantom{{\rm ---}}$P:=$}konkatenace $P$ a $Q_i$, $i:=i+1$\newline 
+{\bf enddo\newline 
+V\'ystup: $P$} je neklesaj\'\i c\'\i\ posloupnost prvk\accent23u 
+$a_1,a_2,\dots,a_n$
+\bigskip
+
+\flushpar Algoritmus nevy\v zaduje, aby prvky ve 
+vstupn\'\i\ posloupnosti by\-ly r\accent23uzn\'e. Ve v\'ystupn\'\i\ 
+posloupnosti se dan\'y prvek opakuje tolikr\'at, kolikr\'at se 
+opakoval ve vstupn\'\i\ posloupnosti, se zachov\'an\'\i m po\v rad\'\i\ 
+(tj. t\v r\'\i d\v en\'\i\ je stabiln\'\i ). 
+Konkatenace dvou seznam\accent23u a vlo\v zen\'\i\ prvku do seznamu 
+vy\v zaduj\'\i\ \v cas $O(1)$. Proto prvn\'\i\ a t\v ret\'\i\ cyklus vy\v zaduj\'\i\ 
+\v cas $O(m)$ a druh\'y cyklus \v cas $O(n)$. Celkem 
+algoritmus vy\v zaduje $O(n+m)$ \v casu a pam\v eti. Z\v rejm\v e kdy\v z  
+$m=O(n)$, tak pro tento algoritmus neplat\'\i\ tvrzen\'\i\ v\v ety z 
+p\v redchoz\'\i ho odstavce. 
+D\accent23uvodem je, 
+\v ze nejsou spln\v eny p\v redpoklady, proto\v ze druh\'y cyklus 
+pou\v z\'\i v\'a nep\v r\'\i m\'e adresov\'an\'\i .
+\medskip
+
+\flushpar Nyn\'\i\ uvedeme dv\v e sofistikovan\v ej\v s\'\i\ verze tohoto 
+algoritmu. V prvn\'\i\ p\v redpokl\'ad\'ame, \v ze 
+$a_1,a_2,\dots,a_n$ je posloupnost navz\'ajem r\accent23uzn\'ych re\'aln\'ych 
+\v c\'\i sel z intervalu $<0,1>$ a $\alpha$ je pevn\v e zvolen\'e kladn\'e 
+re\'aln\'e \v c\'\i slo.
+\medskip
+
+{\bf HYBRIDSORT$(a_1,a_2,\dots,a_n)$}:\newline 
+$k:=\alpha n$\newline 
+{\bf for every} $i=0,1,\dots,k$ {\bf do} $Q_i=\emptyset$ {\bf enddo\newline 
+for every} $i=1,2,\dots,n$ {\bf do\newline 
+\phantom{{\rm ---}}$a_i$} vlo\v z na konec seznamu $Q_{\lceil ka_
+i\rceil}$\newline 
+{\bf enddo\newline 
+$i:=0$}, $P:=\emptyset$\newline 
+{\bf while} $i\le k$ {\bf do\newline 
+\phantom{{\rm ---}}HEAPSORT$(Q_i)$
+$P:=$}konkatenace $P$ a $Q_i$, $i:=i+1$\newline 
+{\bf enddo\newline 
+V\'ystup: $P$} je rostouc\'\i\ posloupnost prvk\accent23u 
+$a_1,a_2,\dots,a_n$
+\bigskip
+
+\proclaim{V\v eta}Algoritmus {\bf HYBRIDSORT} set\v r\'\i d\'\i\ 
+posloupnost re\'al\-n\'ych \v c\'\i sel z intervalu $<0,1>$ v 
+nejhor\v s\'\i m p\v r\'\i pad\v e v \v case $O(n\log n)$. Kdy\v z prvky $
+a_i$ 
+maj\'\i\ rovnom\v ern\'e rozlo\v zen\'\i\ a jsou na sob\v e nez\'a\-visl\'e, 
+pak o\v cek\'avan\'y \v cas je $O(n)$.
+\endproclaim
+\medskip
+
+\demo{D\accent23ukaz}Prvn\'\i\ dva cykly v algoritmu 
+vy\v zaduj\'\i\ \v cas $O(n)$, $i$-t\'y b\v eh t\v ret\'\i ho cyklu vy\v zaduje 
+nejv\'y\v se \v cas $O(1+|Q_i|\log|Q_i|)$. Proto \v cas cel\'eho t\v ret\'\i ho cyklu je 
+$$O(\sum_{i=0}^k(1+|Q_i|\log|Q_i|)=O(\sum_{i=0}^k(1+|Q_i|\log n)=
+O(k+(\sum_{i=0}^k|Q_i|)\log n)=O(n\log n)$$
+a celkov\'y \v cas {\bf HYBRIDSORTU} v nejhor\v s\'\i m p\v r\'\i pad\v e je nejv\'y\v se $
+O(n\log n)$.
+\medskip
+
+\flushpar Nyn\'\i\ odhadneme o\v cek\'avan\'y \v cas. Polo\v zme 
+$X_i=|Q_i|$. Pak 
+$X_i$ je n\'a\-hodn\'a prom\v enn\'a a 
+proto\v ze pravd\v epodobnost, \v ze $x\in Q_i$, je $\frac 1k$, dost\'a\-v\'ame, \v ze 
+$$\Prob(X_i=q)=\binom nq(\frac 1k)^q(1-\frac 1k)^{n-q}.$$
+O\v cek\'avan\'y \v cas vy\v zadovan\'y t\v ret\'\i m cyklem se pak rovn\'a 
+$$E(\sum_{i=0}^k1+X_i\log X_i)\le k+k\sum_{q=2}^nq^2\binom nq(\frac 
+1k)^q(1-\frac 1k)^{n-q}=k+k(\frac {n(n-1)}{k^2}+\frac nk)=O(n),$$
+proto\v ze $k=\alpha n$ a 
+$$q^2\binom nq=(q(q-1)+q)\binom nq=n(n-1)\binom {n-2}{q-2}+n\binom {
+n-1}{q-1}.$$
+(Jedn\'a se vlastn\v e o zn\'am\'y v\'ypo\v cet 2. momentu 
+binomick\'eho rozd\v elen\'\i ). \qed
+\enddemo
+\medskip
+
+\flushpar Pozn\'amka: V d\accent23ukazu jsme pou\v zili odhad 
+$q\log q\le q^2$ a d\accent23usledkem toho je, \v ze jsme 
+dok\'azali, \v ze o\v cek\'avan\'a slo\v zitost {\bf HYBRIDSORTU }
+z\accent23ustane line\'arn\'\i , i kdybychom v n\v em m\'\i sto 
+{\bf HEAPSORTU} pou\v zili n\v ejak\'y t\v r\'\i dic\'\i\ algoritmus s 
+kvadratickou slo\v zitost\'\i , nap\v r. {\bf INSERTIONSORT}.
+\medskip
+
+\flushpar Nyn\'\i\ pou\v zijeme modifikaci {\bf BUCKETSORTU} pro 
+t\v r\'\i d\v en\'\i\ slov.  M\'ame tot\'aln\v e 
+uspo\v r\'adanou abecedu a chceme lexikograficky set\v r\'\i dit slova 
+$a_1,a_2,\dots,a_n$ nad touto abecedou. P\v ripo\-me\v n\-me, \v ze kdy\v z 
+$a=x_1x_2\dots x_n$ a $b=y_1y_2\dots y_m$ jsou dv\v e slova nad tot\'aln\v e 
+uspo\v r\'a\-danou abecedou $\Sigma$, pak $a<b$ v lexikografick\'em 
+uspo\v r\'ad\'an\'\i , pr\'av\v e kdy\v z existuje $i=0,1,\dots,\min
+\{n,m\}$ takov\'e, \v ze 
+$x_j=y_j$  pro ka\v zd\'e $j=1,2,\dots,i$ a bu\v d $n=i<m$ nebo $
+i<\min\{n,m\}$ 
+a $x_{i+1}<y_{i+1}$. P\v redpokl\'adejme, \v ze $a_i=a_i^1a_i^2\dots 
+a_i^{l(i)}$, kde 
+$a_i^j\in\Sigma$ a $l(i)$ je d\'elka $i$-t\'eho slova $a_i$.
+\bigskip
+
+{\bf WORDSORT$(a_1,a_2,\dots,a_n)$}:\newline 
+{\bf for every} $i=1,2,\dots,n$ {\bf do} $l(i):=$d\'elka slova $a_
+i$ {\bf enddo\newline 
+$l=\max\{l(i)\mid i=1,2,\dots,n\}$\newline 
+for every} $i=1,2,\dots,l$ {\bf do} $L_i=\emptyset$ {\bf enddo\newline 
+for every} $i=1,2,\dots,n$ {\bf do\newline 
+\phantom{{\rm---}}$a_i$} vlo\v z do $L_{l(i)}$\newline 
+{\bf enddo\newline}
+Koment\'a\v r: Pro ka\v zd\'e $i$ obsahuje $L_i$ v\v sechna slova z mno\v ziny 
+$\{a_1,a_2,\dots,a_n\}$ d\'elky $i$.\newline 
+$P_{}:=\{(j,a_i^j)\mid 1\le i\le n,\,1\le j\le l(i)\}$\newline 
+$P_1:=${\bf BUCKETSORT$(P)$} podle druh\'e komponenty\newline 
+$P_2:=${\bf BUCKETSORT$(P_1)$} podle prvn\'\i\ komponenty\newline 
+{\bf for every} $i=1,2,\dots,l$ {\bf do} $S_i=\emptyset$ {\bf enddo\newline 
+$(i,x):=$}prvn\'\i\ prvek $P_2$\newline 
+{\bf while} $(i,x)\ne NIL$ {\bf do\newline 
+\phantom{{\rm---}}$(i,x)$} vlo\v z do $S_i$\newline 
+\phantom{---}{\bf while}$(i,x)=$n\'asledn\'\i k $(i,x)$ v $P_2$ {\bf do}\newline
+\phantom{{\rm------}}$(i,x):=$n\'asledn\'\i k $(i,x)$ v $P_2$\newline 
+\phantom{{\rm---}}{\bf enddo}\newline
+\phantom{---}$(i,x):=$n\'asledn\'\i k $(i,x)$ v $P_2$\newline 
+{\bf enddo}\newline
+Koment\'a\v r: V $S_i$ jsou v\v sechny dvojice $(i,x)$ takov\'e, \v ze $
+x$ 
+je $i$-t\'ym p\'\i smenem n\v ekter\'eho vstupn\'\i ho slova a kdy\v z $
+x<y$, pak 
+$(i,x)$ je p\v red $(i,y)$.\newline 
+{\bf for every} $s\in\Sigma$ {\bf do} $T_s:=\emptyset$ {\bf enddo\newline 
+$T:=\emptyset$}, $i:=l$\newline 
+{\bf while} $i>0$ {\bf do\newline 
+\phantom{{\rm---}}$T:=$} konkatenace $L_i$ a $T$, $a:=$prvn\'\i\ slovo v $
+T$\newline 
+\phantom{---}{\bf while} $a\ne NIL$ {\bf do\newline 
+\phantom{{\rm------}}$s:=i$}-t\'e p\'\i smeno $a$, vlo\v z $a$ do $
+T_s$\newline 
+\phantom{------}$a:=$n\'asledn\'\i k $a$ v $T$\newline 
+\phantom{---}{\bf enddo\newline 
+\phantom{{\rm ---}}$(i,x):=$}prvn\'\i\ prvek v $S_i$, $T:=\emptyset$\newline 
+\phantom{---}{\bf while} $(i,x)\ne NIL$ {\bf do\newline 
+\phantom{{\rm------}}$T:=$} konkatenace $T$ a $T_x$, $T_x:=\emptyset$\newline 
+\phantom{------}$(i,x):=$n\'asledn\'\i k $(i,x)$ v $S_i$\newline 
+\phantom{---}{\bf enddo\newline 
+\phantom{{\rm ---}}$i:=i-1$\newline 
+enddo\newline 
+V\'ystup: $T$} je set\v r\'\i d\v en\'a posloupnost slov $a_1,a_2
+,\dots,a_n$
+\bigskip
+
+\flushpar Uva\v zujme jeden b\v eh posledn\'\i ho cyklu algortimu 
+pro ur\v cit\'e $i$. Po 
+jeho skon\v cen\'\i\ jsou v $T$ v\v sechna slova z mno\v ziny 
+$a_1,a_2,\dots,a_n$, kter\'a maj\'\i\ d\'elku alespo\v n $i$, a kdy\v z slovo 
+$a_r$ je p\v red $a_q$ v seznamu $T$, pak existuje $j=i-1,i,\dots
+,l$
+takov\'e, \v ze $a^k_r=a^k_q$ pro ka\v zd\'e $k=i,i+1,\dots,j$ a bu\v d 
+$l(r)=j\le l(q)$ nebo $j<\min\{l(r),l(q)\}$ a $a_r^{j+1}<a_q^{j+1}$. To plyne z 
+vlastnost\'\i\ algoritmu {\bf BUCKETSORT} indukc\'\i\ podle $i$. Jedin\'y a 
+hlavn\'\i\ rozd\'\i l proti {\bf BUCKETSORTU} je, \v ze neproch\'az\'\i me 
+v\v sechny p\v rihr\'adky $T_x$, ale pouze nepr\'azdn\'e. 
+To n\'am zaji\v s\v tuje mno\v zina $S_i$ (viz Koment\'a\v r). 
+\medskip
+
+\flushpar Ozna\v cme $L=\sum_{i=1}^nl(i)$ a p\v ripome\v nme, \v ze 
+$l=\max\{l(i)\mid i=1,2,\dots,n\}$. Pak prvn\'\i\ cyklus (v\'ypo\v cet  
+d\'elek slov) vy\-\v zaduje \v cas $O(L)$. Druh\'y cyklus (inicializace 
+seznam\accent23u $L_i$) vy\v zaduje 
+\v cas $O(l)=O(L)$ a t\v ret\'\i\ cyklus (za\v razen\'\i\ slov do $
+L_i$ podle 
+d\'elek) \v cas $O(n)=O(L)$. Vytvo\v ren\'\i\ 
+seznamu $P_{}$ vy\v zaduje \v cas $O(L)$ a jeho set\v r\'\i d\v en\'\i\ podle obou 
+komponent  
+\v cas $O(L+l)=O(L)$, proto\v ze $P_{}$ i $P_1$ maj\'\i\ nejv\'y\v se $
+L$ 
+prvk\accent23u. Dal\v s\'\i\ cyklus (zalo\v zen\'\i\ seznam\accent23u 
+$S_i$) vy\v zaduje \v cas $O(l)$ a n\'asleduj\'\i c\'\i\ cyklus vytv\'a\v rej\'\i c\'\i\ 
+seznamy $S_i$ \v cas $O(L)$. Cyklus zakl\'adaj\'\i c\'\i\ 
+seznamy $T_x$ vy\v zaduje \v cas $O(|\Sigma |)$. B\v ehy dal\v s\'\i ho cyklu jsou 
+indexov\'any $i=1,2,\dots,l$. Pro ka\v zd\'e $i$ ozna\v cme $m_i$ po\v cet slov z 
+mno\v ziny $\{a_1,a_2,\dots,a_n\}$, kter\'a maj\'\i\ d\'elku alespo\v n $
+i$. Pak 
+$L=\sum_{i=1}^lm_i$ a prvn\'\i\ vnit\v rn\'\i\ cyklus v $i$-t\'em b\v ehu vn\v ej\v s\'\i ho 
+cyklu vy\v zaduje \v cas $O(m_i)$ a druh\'y vnit\v rn\'\i\ cyklus 
+\v cas $O(|S_i|)=O(m_i)$. Tedy 
+celkov\'y \v cas algoritmu je $O(L+m)$, kde $m=|\Sigma |$ a $L$ 
+je sou\v cet d\'elek v\v sech slov z mno\v ziny $a_1,a_2,\dots,a_
+n$.
+\bigskip
+
+\centerline{\bigbigrm{X. Po\v r\'adkov\'e statistiky}}
+\bigskip
+
+\flushpar Na z\'av\v er pop\'\i\v seme dva algoritmy pro hled\'an\'\i\ $
+k$-t\'eho 
+nejmen\v s\'\i\-ho prvku v dan\'e podmno\v zin\v e tot\'aln\v e 
+uspo\v r\'adan\'e\-ho univerza. Prv\-n\'\i\ z nich vyu\v z\'\i v\'a  
+stejn\'y princip jako {\bf QUICKSORT}. Nejprve zad\'ame 
+p\v resn\'e zn\v e\-n\'\i\ na\v s\'\i\ \'ulohy (\'uloha i algoritmy se daj\'\i\ 
+snadno p\v reformulovat pro p\v r\'\i pad, kdy hled\'ame $k-$t\'y 
+nejv\v et\v s\'\i\ prvek).
+\medskip
+
+\flushpar Pracujeme s tot\'aln\v e uspo\v r\'adan\'ym univerzem $
+U$.\newline 
+Vstup: mno\v zina prvk\accent23u $M=\{a_1,a_2,\dots,a_n\}\subseteq 
+U$ a \v c\'\i slo $i$ takov\'e, 
+\v ze $1\le i\le n$.\newline 
+V\'ystup: prvek $a_k$ takov\'y, \v ze 
+$|\{j\mid 1\le j\le n,\,a_j\le a_k\}|=i$.\newline 
+Kdy\v z $i=\frac n2$, pak $a_k$ se naz\'yv\'a \emph{medi\'an}.
+\bigskip
+
+{\bf FIND$(M=(a_1,a_2,\dots,a_n),i)$}:\newline 
+zvol $a\in M$\newline
+$M_1:=\{b\in M\mid b<a\}$, 
+$M_2:=\{b\in M\mid b>a\}$\newline 
+{\bf if} $|M_1|>i-1$ {\bf then\newline 
+\phantom{{\rm ---}}FIND$(M_1,i)$\newline 
+else\newline 
+\phantom{{\rm ---}}if} $|M_1|<i-1$ {\bf then\newline 
+\phantom{{\rm ------}}FIND$(M_2,i-|M_1|-1)$\newline 
+\phantom{{\rm ---}}else\newline 
+\phantom{{\rm------}}V\'ystup: $a$} je hledan\'y prvek\newline 
+\phantom{---}{\bf endif\newline 
+endif}
+\bigskip
+
+\flushpar D\accent23ukaz korektnosti algoritmu je zalo\v zen na n\'asleduj\'\i c\'\i m 
+jednoduch\'em pozorov\'an\'\i : m\v ejme mno\v zinu $M$ a prvek $
+x$ a 
+polo\v zme $M_1=\{m\in M\mid m<x\}$. Kdy\v z $k\le |M_1|$, pak $k$-t\'y 
+nejmen\v s\'\i\ 
+prvek v $M_1$ je stejn\'y jako $k$-t\'y nejmen\v s\'\i\ prvek v $
+M$. Kdy\v z 
+$k>|M_1|$, pak $(k-|M_1|)$-t\'y nejmen\v s\'\i\ prvek v $M\setminus 
+M_1$ je $k$-t\'y 
+nejmen\v s\'\i\ prvek v $M$.  
+Zb\'yv\'a vy\v set\v rit slo\v zitost.
+\medskip
+\flushpar V nejhor\v s\'\i m p\v r\'\i pad\v e 
+vol\'ame {\bf FIND} $n$-kr\'at a jedno vol\'an\'\i\ vy\v zaduje \v cas $
+O(|M|)$.  
+Tedy \v casov\'a slo\v zitost algoritmu 
+{\bf FIND} v nejhor\v s\'\i m p\v r\'\i pad\v e je $O(n^2)$.  Dobr\'e volby 
+prvku $a$ mohou algoritmus zna\v cn\v e zrychlit.  V tomto 
+p\v r\'\i pad\v e plat\'\i\ stejn\'a 
+diskuse jako pro {\bf QUICKSORT}.  Spo\v c\'\i t\'ame o\v cek\'avan\'y \v cas 
+za p\v redpokladu, \v ze  
+pr\-vek $a$ byl vybr\'an n\'ahodn\v e.  Pak pravd\v epodobnost, \v ze je 
+$k$-t\'ym nejmen\v s\'\i m prvkem, je $\frac 1n$, kde $n=|M|$.  Ozna\v cme $
+T(n,i)$ 
+o\v cek\'avan\'y \v cas algoritmu {\bf FIND} pro nalezen\'\i\ $i$-t\'eho nejmen\v s\'\i ho 
+prvku v $n$-prvkov\'e mno\v zin\v e $M$.  Plat\'\i\ 
+$$T(n,i)=n+\frac 1n(\sum_{k=1}^{i-1}T(n-k,i-k)+\sum_{k=i+1}^nT(k,
+i)),$$
+proto\v ze procedura {\bf FIND} bez rekurzivn\'\i ho vol\'an\'\i\ sebe sama 
+vy\v zaduje \v cas $O(n)$. P\v redpokl\'a\-dej\-me, \v ze $T(m,i)
+\le 4m$ 
+pro ka\v zd\'e $m<n$ a ka\v zd\'e $i$ takov\'e, \v ze $1\le i\le 
+m$. Pak 
+$$\align T(n,i)=&n+\frac 1n(\sum_{k=1}^{i-1}T(n-k,i-k)+\sum_{k=i+
+1}^nT(k,i))\le n+\frac 1n(\sum_{k=1}^{i-1}4(n-k)+\sum_{k=i+1}^n4k
+)=\\
+&n+\frac 4n(\frac {(2n-i)(i-1)}2+\frac {(n+i+1)(n-i)}2)=n+\frac 4
+n(\frac {n^2+2ni-n-2i^2}2).\endalign$$
+V\'yraz v \v citateli zlomku nab\'yv\'a sv\'eho maxima pro 
+$i=\frac n2$ a jeho maximaln\'\i\ hodnota je 
+$\frac 32n^2-n=\frac {3n^2-2n}2$. Tedy
+$$T(n,i)\le n+\frac 4n(\frac {3n^2-2n}4)=n+3n-2=4n-2<4n.$$
+Proto\v ze tento odhad plat\'\i\ tak\'e pro $n=1$ a $n=2$, dok\'azali 
+jsme indukc\'\i , \v ze $T(n,i)\le 4n$ pro v\v sechna $n$ a v\v sechna $
+i$ 
+takov\'a, \v ze $1\le i\le n$. Plat\'\i\ tedy 
+\medskip
+
+\proclaim{V\v eta}Algoritmus {\bf FIND} nalezne $i$-t\'y nejmen\v s\'\i\ 
+prvek v $n$ prv\-kov\'e tot\'aln\v e uspo\v r\'adan\'e mno\-\v zi\-n\v e a v nejhor\v s\'\i m 
+p\v r\'\i pad\v e vy\v za\-du\-je \v cas $O(n^2)$. Kdy\v z se pivot vol\'\i\ 
+n\'ahodn\v e nebo kdy\v z v\v sechny vstupn\'\i\ mno\v ziny maj\'\i\ stejnou 
+pravd\v epodobnost, pak o\v cek\'avan\'y \v cas je $O(n)$.
+\endproclaim
+\medskip
+
+\flushpar Pro velmi mal\'a $i$ nebo pro $i$ velmi bl\'\i zk\'a $n$ 
+pracuje rychleji p\v r\'\i m\'y p\v rirozen\'y algoritmus (udr\v zuje si 
+posloupnost $i$ nejmen\-\v s\'\i ch nebo $n-i$ nejv\v et\v s\'\i ch prvk\accent23u 
+a k n\'\i\ p\v rid\'av\'a dal\v s\'\i\ tak, \v ze ten prvek, kter\'y p\v re\-kro\v cil 
+danou hranici, je 
+zapomenut). Tento algoritmus v\v sak nen\'\i\ 
+efektivn\'\i\ pro obecn\'a $i$. 
+\medskip
+
+\flushpar N\'asleduj\'\i c\'\i\ algoritmus nalezne $i$-t\'y nejmen\v s\'\i\ 
+prvek v line\'arn\'\i m \v case i v nejhor\v s\'\i m p\v r\'\i pad\v e.  Vstupem 
+je op\v et podmno\v zina $M$ tot\'aln\v e 
+uspo\v r\'adan\'eho univerza $U$ a p\v rirozen\'e \v c\'\i slo $i$ takov\'e, \v ze 
+$1\le i\le |M|$.  
+\medskip
+
+{\bf SELECT$(M,i)$}:\newline 
+$n:=|M|$\newline 
+{\bf if} $n\le 100$ {\bf then\newline 
+\phantom{{\rm---}}}set\v ri\v d mno\v zinu $M$, $m:=$ $i$-t\'y nejmen\v s\'\i\ 
+prvek $M$\newline 
+{\bf else\newline 
+\phantom{{\rm---}}}rozd\v el $M$ do navz\'ajem disjunktn\'\i ch 
+p\v etiprvkov\'ych podmno\v zin $A_1,A_2,\dots,A_{\lceil\frac n5\rceil}$\newline 
+\phantom{---}(posledn\'\i\ z podmno\v zin m\accent23u\v ze m\'\i t m\'en\v e ne\v z 5 prvk\accent23u).\newline 
+\phantom{---}{\bf for every} $j=1,2,\dots,\lceil\frac n5\rceil$ {\bf do\newline 
+\phantom{{\rm------}}}najdi medi\'an $m_j$ mno\v ziny $A_j$\newline 
+\phantom{---}{\bf enddo\newline 
+\phantom{{\rm ---}}$\bar {m}:=$SELECT$(\{m_j\mid j=1,2,\dots,\lceil\frac 
+n5\rceil \},\lceil\frac n{10}\rceil )$\newline 
+\phantom{{\rm ---}}$M_1:=\{m\in M\mid m<\bar {m}\}$}, $M_2:=\{m\in 
+M\mid\bar {m}<m\}$\newline 
+\phantom{---}{\bf if} $|M_1|>i-1$ {\bf then\newline 
+\phantom{{\rm ------}}$m:=$SELECT$(M_1,i)$\newline 
+\phantom{{\rm ---}}else\newline 
+\phantom{{\rm------}}if} $|M_1|<i-1$ {\bf then\newline 
+\phantom{{\rm ---------}}$m:=$SELECT$(M_2,i-|M_1|-1)$\newline 
+\phantom{{\rm ------}}else\newline 
+\phantom{{\rm ---------}}$m:=\bar {m}$\newline 
+\phantom{{\rm ------}}endif\newline 
+\phantom{{\rm ---}}endif\newline 
+\phantom{{\rm ---}}V\'ystup}: $m$\newline 
+{\bf endif
+\medskip
+
+}\flushpar D\accent23ukaz korektnosti algoritmu je stejn\'y 
+jako u algoritmu {\bf FIND}. 
+Zb\'yv\'a vy\v set\v rit slo\v zitost. Nej\-prve dok\'a\v zeme n\'asleduj\'\i c\'\i\ 
+lemma.
+\medskip
+
+\proclaim{Lemma}Kdy\v z $n\ge 100$, pak $|M_1|,|M_2|\le\frac {8n}{
+11}$.
+\endproclaim
+
+\demo{D\accent23ukaz} Pro $j\le\lfloor\frac n5\rfloor$ plat\'\i , \v ze kdy\v z $
+m_j<\bar {m}$, pak 
+$|A_j\cap M_1|\ge 3$, kdy\v z $m_j>\bar {m}$, pak $|A_j\cap M_2|\ge 
+3$, kdy\v z $m_j=\bar {m}$, 
+pak $|A_j\cap M_1|=|A_j\cap M_2|=2$.  Proto\v ze 
+$|\{j=0,1,\dots,\lfloor\frac n5\rfloor\mid m_j<\bar {m}\}|,|\{j=0
+,1,\dots,\lfloor\frac n5\rfloor\mid m_j>\bar {m}\}|\ge\lfloor\frac 
+n{10}\rfloor$, 
+dost\'av\'ame, \v ze $|M_1|,|M_2|\ge\lfloor\frac {3n}{10}\rfloor 
+-1$.  D\'ale plat\'\i\ $M_1\cap M_2=\emptyset$, 
+$M_1\cup M_2=M\setminus \{\bar {m}\}$ a proto\v ze $\frac {8n}{11}
++\lfloor\frac {3n}{10}\rfloor -1\ge\frac {113n}{110}-2\ge n$ 
+kdy\v z $n>100$, dost\'av\'ame po\v zadovan\'y odhad. \qed
+\enddemo
+
+\flushpar Maxim\'aln\'\i\ \v cas vy\v zadovan\'y algoritmem  
+{\bf SELECT$(M,i)$} pro $|M|=n$ ozna\v cme $T(n)$.  Kdy\v z $n\le 
+100$, pak z\v rejm\v e 
+exis\-tuje konstanta $a$ takov\'a, \v ze $T(n)\le an$.  Kdy\v z $
+n>100$, 
+pak $\lceil\frac n5\rceil\le\frac {21n}{100}$, a proto\v ze {\bf SELECT$
+(M,i)$} pro $|M|>100$ bez 
+rekurentn\'\i ch vol\'an\'\i\ vy\v zaduje \v cas $O(|M|)$, plat\'\i , \v ze $
+T(n)\le T(\frac {21n}{100})+T(\frac {8n}{11})+bn$ pro n\v ejakou konstantu 
+$b$.  Zvolme $c\ge\max\{a,\frac {1100b}{69}\}$. Uk\'a\v zeme, \v ze $
+T(n)\le cn$ pro 
+v\v sechna $n$.  
+Kdy\v z $n\le 100$, tak tvrzen\'\i\ z\v rejm\v e plat\'\i , proto\v ze $
+a\le c$.  Kdy\v z 
+$n>100$, pak $\lceil\frac {21n}{100}\rceil ,\lceil\frac {8n}{11}\rceil 
+<n$, a proto\v ze z volby $c$ plyne 
+$b\le\frac {69}{1100}c$, 
+dost\'av\'ame 
+$$T(n)\le c\frac {21n}{100}+c\frac {8n}{11}+bn=(\frac {1031c}{110
+0}+b)n\le cn.$$
+Tedy
+\medskip
+
+\proclaim{V\v eta}Algoritmus {\bf SELECT} nalezne $i$-t\'y nejmen\v s\'\i\ 
+prvek v line\'arn\'\i m \v case.
+\endproclaim
+\medskip
+
+\flushpar Algoritmus {\bf FIND} je ve velk\'e v\v et\v sin\v e 
+p\v r\'\i pad\accent23u 
+rychlej\v s\'\i\ ne\v z algoritmus {\bf SELECT}, proto je v praxi 
+doporu\v cov\'an, i kdy\v z existuj\'\i\ 
+p\v r\'\i pady (velmi \v r\'\i dk\'e), kdy pot\v rebuje kvadratick\'y \v cas.
+Je zn\'amo, \v ze medi\'an $n$-prvkov\'e mno\v ziny lze nal\'ezt s 
+m\'en\v e ne\v z $3n$ porovn\'an\'\i mi a \v ze ka\v zd\'y algoritmus hledaj\'\i c\'\i\ 
+medi\'an a pou\v z\'\i vaj\'\i c\'\i\ porovn\'an\'\i\ jako jedinou primitivn\'\i\ 
+operaci mezi prvky mno\v ziny vy\v zaduje v\'\i ce ne\v z $2n$ 
+porovn\'an\'\i .
+\bigskip
+
+\head
+Historick\'y p\v rehled
+\endhead
+
+\flushpar Algoritmus {\bf HEAPSORT }
+navrhl v roce 1964 Williams a vylep\v sil Floyd (rovn\v e\v z 1964).  N\'avrh 
+na pou\v zit\'\i\ $d$-regul\'ar\-n\'\i ch hald je folklor stejn\v e tak jako  
+algoritmus {\bf MER\-GESORT}.  Algoritmy {\bf QUICKSORT} a {\bf FIND }
+zavedl Hoare (1962).  Anal\'yza ope\-race {\bf MERGE} a 
+hled\'an\'\i\ optim\'aln\'\i ho stro\-mu poch\'az\'\i\ od Huffmana 
+(1952) a line\'arn\'\i\ implementaci algoritmu navrhl van 
+Leeuwen (1976).  Anal\'yza rozhodovac\'\i ch strom\accent23u je 
+folklor. Algoritmus {\bf HYBRIDSORT} navrhli Meijer a Akl (1980), 
+vylep\v se\-n\'a verze {\bf BUCKETSORTU} (nazvan\'a {\bf WORDSORT}) 
+poch\'az\'\i\ od Aho, Hopcrofta a Ullmana (1974). Algoritmus {\bf SELECT} byl 
+navr\v zen Blumem, Floydem, Prattem, Rivestem a 
+Tarjanem (1972).  
+
+
+\end
+

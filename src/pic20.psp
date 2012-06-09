@@ -1,0 +1,187 @@
+99 LBegin
+/p0 { 20 22 } def
+/p1 { 50 22 } def
+/p2 { 80 22 } def
+/p3 { 110 22 } def
+/p4 { 140 22 } def
+/p5 { 170 22 } def
+/p6 { 200 22 } def
+/p7 { 230 22 } def
+/p8 { 260 22 } def
+/p9 { 290 22 } def
+/p10 { 320 22 } def
+/p11 { 25 18 } def
+/p12 { 45 18 } def
+/p13 { 55 18 } def
+/p14 { 75 18 } def
+/p15 { 85 18 } def
+/p16 { 105 18 } def
+/p17 { 115 18 } def
+/p18 { 135 18 } def
+/p19 { 145 18 } def
+/p20 { 165 18 } def
+/p21 { 175 18 } def
+/p22 { 195 18 } def
+/p23 { 205 18 } def
+/p24 { 225 18 } def
+/p25 { 235 18 } def
+/p26 { 255 18 } def
+/p27 { 265 18 } def
+/p28 { 285 18 } def
+/p29 { 20 25 } def
+/p30 { 32 40 } def
+/p31 { 50 25 } def
+/p32 { 38 40 } def
+/p33 { 80 25 } def
+/p34 { 107 40 } def
+/p35 { 110 25 } def
+/p36 { 110 40 } def
+/p37 { 140 25 } def
+/p38 { 113 40 } def
+/p39 { 170 25 } def
+/p40 { 182 40 } def
+/p41 { 200 25 } def
+/p42 { 188 40 } def
+/p43 { 230 25 } def
+/p44 { 257 40 } def
+/p45 { 260 25 } def
+/p46 { 260 40 } def
+/p47 { 290 25 } def
+/p48 { 263 40 } def
+/p49 { 35 58 } def
+/p50 { 110 58 } def
+/p51 { 185 58 } def
+/p52 { 260 58 } def
+/p53 { 320 58 } def
+/p54 { 48 48 } def
+/p55 { 95 48 } def
+/p56 { 125 48 } def
+/p57 { 170 48 } def
+/p58 { 195 48 } def
+/p59 { 245 48 } def
+/p60 { 35 55 } def
+/p61 { 70 72 } def
+/p62 { 110 55 } def
+/p63 { 75 72 } def
+/p64 { 185 55 } def
+/p65 { 220 72 } def
+/p66 { 260 55 } def
+/p67 { 225 72 } def
+/p68 { 72 88 } def
+/p69 { 222 88 } def
+/p70 { 320 88 } def
+/p71 { 85 78 } def
+/p72 { 210 78 } def
+/p73 { 72 85 } def
+/p74 { 147 102 } def
+/p75 { 222 85 } def
+/p76 { 153 102 } def
+/p77 { 150 118 } def
+/p78 { 320 118} def
+/p79 { 20 18 } def
+/p80 { 50 18 } def
+/p81 { 80 18 } def
+/p82 { 110 18 } def
+/p83 { 140 18 } def
+/p84 { 170 18 } def
+/p85 { 200 18 } def
+/p86 { 230 18 } def
+/p87 { 260 18 } def
+/p88 { 290 18 } def
+/p89 { 20 24 } def
+/p90 { 50 24 } def
+/p91 { 80 24 } def
+/p92 { 110 24 } def
+/p93 { 140 24 } def
+/p94 { 170 24 } def
+/p95 { 200 24 } def
+/p96 { 230 24 } def
+/p97 { 260 24 } def
+/p98 { 290 24 } def
+LNarrow
+p0 p1 2 LTextloc
+p1 p2 3 LTextloc
+p2 p3 4 LTextloc
+p3 p4 5 LTextloc
+p4 p5 6 LTextloc
+p5 p6 7 LTextloc
+p6 p7 8 LTextloc
+p7 p8 9 LTextloc
+p8 p9 10 LTextloc
+p9 p10 11 LTextloc
+p49 p50 12 LTextloc
+p50 p51 13 LTextloc
+p51 p52 14 LTextloc
+p52 p53 15 LTextloc
+p68 p69 16 LTextloc
+p69 p70 17 LTextloc
+p77 p78 18 LTextloc
+p11 p12 LVector
+p12 p11 LVector
+p13 p14 LVector
+p14 p13 LVector
+p15 p16 LVector
+p16 p15 LVector
+p17 p18 LVector
+p18 p17 LVector
+p19 p20 LVector
+p20 p19 LVector
+p21 p22 LVector
+p22 p21 LVector
+p23 p24 LVector
+p24 p23 LVector
+p25 p26 LVector
+p26 p25 LVector
+p27 p28 LVector
+p28 p27 LVector
+p29 p30 LVector
+p30 p29 LVector
+p31 p32 LVector
+p32 p31 LVector
+p33 p34 LVector
+p34 p33 LVector
+p35 p36 LVector
+p36 p35 LVector
+p37 p38 LVector
+p38 p37 LVector
+p39 p40 LVector
+p40 p39 LVector
+p41 p42 LVector
+p42 p41 LVector
+p43 p44 LVector
+p44 p43 LVector
+p45 p46 LVector
+p46 p45 LVector
+p47 p48 LVector
+p48 p47 LVector
+p54 p55 LVector
+p55 p54 LVector
+p56 p57 LVector
+p57 p56 LVector
+p58 p59 LVector
+p59 p58 LVector
+p60 p61 LVector
+p61 p60 LVector
+p62 p63 LVector
+p63 p62 LVector
+p64 p65 LVector
+p65 p64 LVector
+p66 p67 LVector
+p67 p66 LVector
+p71 p72 LVector
+p72 p71 LVector
+p73 p74 LVector
+p74 p73 LVector
+p75 p76 LVector
+p76 p75 LVector
+p79 p89 LCircle
+p80 p90 LCircle
+p81 p91 LCircle
+p82 p92 LCircle
+p83 p93 LCircle
+p84 p94 LCircle
+p85 p95 LCircle
+p86 p96 LCircle
+p87 p97 LCircle
+p88 p98 LCircle
+LEnd
