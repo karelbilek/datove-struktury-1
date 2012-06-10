@@ -1,36 +1,38 @@
-%%AmSTeX
-\documentstyle{amsppt}
+\documentclass[a4paper,12pt]{article}
+ \usepackage{amsmath}
+ \usepackage{amsthm}
+ \usepackage{amsfonts}
+ 
+ 
+ \usepackage[utf8]{inputenc}
+ \usepackage[czech]{babel}
+ \usepackage{hyperref}
+ 
+ \setlength{\hoffset}{-3cm} 
+ \setlength{\voffset}{-3cm}
+ \setlength{\textheight}{26.0cm} 
+ \setlength{\textwidth}{19cm}
+ \setlength{\parindent}{0in}
+ \setlength{\parskip}{0.1in}
+ 
+ \begin{document}
+     
 
-\magnification=\magstep1
-\pagewidth{5.5in}
-\pageheight{20cm}
-\input lhead
+\newtheorem*{dusledek}{Důsledek}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{veta}{Věta}
+\newtheorem*{tvrzeni}{Tvrzení}
 
-
-\font\bigbigrm=cmr10 scaled \magstep2
-\font\bigbigbigrm=cmr10 scaled \magstep3
 \def \emph#1{\underbar{#1}}
 \def \Prob{\operatorname{Prob}}
-\def \count{\operatorname{count}}
-\def \NIL{\operatorname{NIL}}
-\def \otec{\operatorname{otec}}
-\def \list{\operatorname{list}}
-\def \Prv{\operatorname{Prv}}
-\def \Nasl{\operatorname{Nasl}}
-\def \levy{\operatorname{levy}}
-\def \pravy{\operatorname{pravy}}
-\def \key{\operatorname{key}}
-\def \Prst{\operatorname{Prst}}
-\def \hloubka{\operatorname{hloubka}}
-\def \bratr{\operatorname{bratr}}
-\def \npl{\operatorname{npl}}
-\def \Cont{\operatorname{Cont}}
-%\magnification=\magstep1
+\def \var{\operatorname{var}}
 
-\centerline{\bigbigbigrm{Datov\'e struktury - haldy a t\v r\'\i dic\'\i\ algoritmy}}
-\bigskip
-\centerline{\bigbigrm{I. \'Uvod}}
-\bigskip
+\title{Datové struktury - haldy a třídící algoritmy}
+\date{}
+\maketitle
+
+
+\section{Úvod}
 
 \flushpar V praxi se \v casto setk\'av\'ame s n\'asleduj\'\i c\'\i m 
 probl\'emem, kter\'y vznik\'a na uspo\v r\'adan\'em univerzu, jeho\v z 
@@ -2962,6 +2964,4 @@ poch\'az\'\i\ od Aho, Hopcrofta a Ullmana (1974). Algoritmus {\bf SELECT} byl
 navr\v zen Blumem, Floydem, Prattem, Rivestem a 
 Tarjanem (1972).  
 
-
-\end
-
+\end{document}
