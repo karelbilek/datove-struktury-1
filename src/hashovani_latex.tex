@@ -321,13 +321,13 @@ a následující lemma.
 \begin{lemma}Když $(\frac qe)^q\le n$, pak $q\le(1+o(1))\frac{\ln n}{\ln\ln n}$.
 \end{lemma}
 
-\demo{Důkaz}Všimněme si nejdřív, že platí
+\\begin{proof}{Důkaz}Všimněme si nejdřív, že platí
 \begin{align*}\left((\ln(\frac{\ln n}{\ln\ln n})-1\right)\frac{\ln n}{\ln\ln n}=&(\ln\ln n-\ln\ln\ln n-1)\frac{\ln n}{\ln\ln n}=\\&
 \ln n-\frac{\ln n(\ln\ln\ln n)}{\ln\ln n}-\frac{\ln n}{\ln\ln n}=\\&\ln n(1-\frac{\ln\ln\ln n}{\ln\ln n}-
 \frac 1{\ln\ln n})=(1+o(1))\ln n,\end{align*}
 protože $\lim_{n\mapsto\infty}\frac{\ln\ln\ln n}{\ln\ln n}=0=\lim_{n\mapsto\infty}\frac 1{\ln\ln n}$. 
 Odtud plyne $$\lim_{n\mapsto\infty}\left(\frac{\frac{\ln n}{\ln\ln n}}e\right)=e^{(1+o(1))\ln n}=n.$$ Protože $(\frac qe)^q$ je rostoucí funkce, tak dostáváme, že $q\le(1+o(1))(\frac{\ln n}{\ln\ln n})$. \qed
-\enddemo
+\end{proof}
 
 Protože $\frac nm\le1$, tak platí, že 
 $$j_0=\min\{j\mid n(\frac nm)^{j-1}\frac 1{j!}\le 1\}\le\min\{j\mid n\le j!\}\le\min\{j\mid n\le
@@ -1975,7 +1975,7 @@ pomocné lem\-ma.
 p_t}{\ln t}$.
 \end{lemma}
 
-\demo{Důkaz}Předpokládejme, že tvrzení neplatí. Pak $
+\begin{proof}Předpokládejme, že tvrzení neplatí. Pak $
 m\ge\frac {p_t}{\ln t}$. Z Věty o velikosti 
 prvo\-čí\-sel plyne $m\ge\frac {p_t}{\ln t}>\frac {t\ln 
 t}{\ln t}=t$. Když použijeme, že 
@@ -1985,7 +1985,7 @@ a odtud plyne, že
 $$t\ln p_t<t\ln(t(\ln t+\ln\ln t))\le m(\ln m+\ln(\ln m+\ln\ln m)
 )<m\ln N$$
 a to je spor s definicí $t$. Tedy $m<\frac {p_t}{\ln t}$. \qed
-\enddemo
+\end{proof}
 
 Nyní zkombinujeme Větu o odhadu velikosti prvočísel, 
 před\-cho\-zí Lemma a fakt, že 
@@ -2036,7 +2036,7 @@ $x_i=b_i$ a $y_i=1$, a tedy $\frac {b^2}m\le\sum_{i=0}^{m-1}b_i^2$. Odtud
 $$\sum_{i=0}^{m-1}b_i(b_i-1)=\sum_{i=0}^{m-1}b_i^2-\sum_{i=0}^{m-
 1}b_i=\sum_{i=0}^{m-1}b_i^2-b\ge\frac {b^2}m-b=b(\frac bm-1)$$
 a lemma je dokázáno. \qed
-\enddemo
+\end{proof}
 
 \demo{Důkaz Věty}Mějme funkci $f:U@>>>T$, kde $U$ má 
 velikost $N$ a $T$ má velikost $m$. Označme $A$ množinu 
@@ -2060,7 +2060,7 @@ lemmatu dostáváme
 m.\end{align*}
 Odtud plyne, že $N-m\le c(N-1)$, a tedy 
 $$c\ge\frac {N-m}{N-1}>\frac {N-m}N=1-\frac mN.\qed$$
-\enddemo
+\end{proof}
 
 \subsection{
 Problémy univerzálního hašování
@@ -2402,7 +2402,7 @@ je nejvýše $4$.
 \end{enumerate}
 \end{tvrzeni}
 
-\demo{Důkaz}Mějme $n=m$. Protože spočítání 
+\begin{proof}Mějme $n=m$. Protože spočítání 
 $\sum_{i=0}^{m-1}(b_i^k)^2$ pro pevné $k$ vyžaduje čas $O
 (n)$, prohledáním 
 všech možností nalez\-ne\-me $k$ takové, že 
@@ -2429,7 +2429,7 @@ pravděpodobností $\le\frac 14$, že
 $$\sum_{i=0}^{m-1}(b_i^k)^2\le\frac {3n(n-1)}{2n(n-1)}+n<n+2.$$
 Algoritmus splňující tvrzení d) je stejný jako 
 v případě b) (jen $m=2n(n-1)$). \qed
-\enddemo
+\end{proof}
 
 Takto zkonstruované perfektní hašovací funkce 
 nesplňují poža\-davek 2) (platí $m=\Theta (n^2)$).  Použijeme následující 
@@ -2463,7 +2463,7 @@ $k_i$ pro $i=0,1,\dots,m-1$. Tyto hodnoty jsou v rozmezí
 $1,2,\dots,N-1$, a tedy vyžadují $O(n\log N)$ paměti.
 \end{veta}
 
-\demo{Důkaz}Protože $g(S_i)$ pro $i=0,1,\dots,m-1$ 
+\begin{proof}Protože $g(S_i)$ pro $i=0,1,\dots,m-1$ 
 jsou navzájem disjunktní a $h_{k_i}$ je perfektní na $S_
 i$, 
 dostáváme, že $g$ je perfektní. Pro výpočet hodnoty $
@@ -2486,7 +2486,7 @@ i=0}^{m-1}(b_i^k)^2-2\sum_{i=0}^{m-1}b_i^k<8n-2n=6n$$
 (protože $|S_i|=b_i^k$ a $\sum_{i=0}^{m-1}b_i^k=n$). Protože $
 k$ nalezneme v čase $O(n)$ a $k_i$ v čase $O(|S_i|)$, dostaneme, že 
 že $g$ nalezneme v čase $O(n)$. Zbytek je jasný. \qed
-\enddemo
+\end{proof}
 
 Tedy zkonstruovaná hašovací funkce splňuje požadavky 
 1), 2) a 3), ale požadavek 4) není splněn. 
@@ -2710,7 +2710,7 @@ funkci $h\in \Cal H_m$ pro množinu $S$ v čase $O(n)$ a očekávaný počet
 iterací je menší než $\frac {c+a}a$.  
 \end{tvrzeni}
 
-\demo{Důkaz}Když $n=m$, pak v čase $O(n)$ pro  
+\begin{proof}Když $n=m$, pak v čase $O(n)$ pro  
 hašovací funkci ověříme, zda $\sum_{j=0}^{m-1}(b^
 i_j)^2\le c(n-1)+n$, respektive 
 $\sum_{j=0}^{m-1}(b^i_j)^2\le (c+a)(n-1)+n$.  V prvním případě víme, že taková 
@@ -2742,7 +2742,7 @@ $$\sum_{j=0}^{m-1}(b^i_j)^2\le\frac {(c+a)n(n-1)}{\frac {(c+a)n(n
 Z důsledku plyne, že $h_i$ je perfektní.  Analýza 
 očekávaného počtu iterací je stejná jako u předchozího tvrzení 
 pro pravděpodobnostní algoritmus.  \qed
-\enddemo
+\end{proof}
 
 Další postup konstrukce perfektní hašovací funkce už 
 nesouvisí s $c$-univerzálními systémy. 
