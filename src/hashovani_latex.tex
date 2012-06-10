@@ -587,7 +587,7 @@ obsahující následující polož\-ku seznamu\newline
 \phantom{---}položka previous -- číslo řádku tabulky obsahující 
 předcházející položku seznamu.
 
-Protože velikost tabulky omezuje velikost reprezentované množiny, může nastat přeplnění. O řešení 
+Pro\-to\-že ve\-li\-kost ta\-bul\-ky o\-me\-zu\-je ve\-li\-kost re\-pre\-zen\-to\-va\-né mno\-ži\-ny, mů\-že na\-stat pře\-pl\-ně\-ní. O řešení 
 případného přeplnění pojednáme později na str. 29. Stejný způsob řešení přeplnění se používá i v dalších metodách, kde velikost tabulky omezuje velikost reprezentované množiny.
 
 Příklad: $U=\{1,2,\dots,1000\}$, $h(x)=x\bmod10$,\newline 
@@ -1742,9 +1742,9 @@ $\delta_i(x,S)$ přes všechna $i\in I$:
 \begin{align*}\sum_{i\in I}\delta_i(x,S)=&\sum_{i\in I}\sum_{y\in S}\delta_
 i(x,y)=\sum_{y\in S}\sum_{i\in I}\delta_i(x,y)=\\
 &\sum_{y\in S,y\ne x}|\{i\in I\mid h_i(x)=h_i(y)\}|\le\\
-&\sum_{y\in S,y\ne x}c\frac {|I|}m=\cases (|S|-1)c\frac {|I|}m&\text{\rm\ když }
+&\sum_{y\in S,y\ne x}c\frac {|I|}m=\begin{cases} (|S|-1)c\frac {|I|}m&\text{\rm\ když }
 x\in S,\\
-|S|c\frac {|I|}m&\text{\rm\ když }x\notin S.\endcases \end{align*}
+|S|c\frac {|I|}m&\text{\rm\ když }x\notin S.\end{cases} \end{align*}
 
 Protože $\delta_i(x,S)$ dává odhad na velikost řetězce $
 h_i(x)$ při 
