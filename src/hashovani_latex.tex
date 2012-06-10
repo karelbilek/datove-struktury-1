@@ -1,25 +1,37 @@
-%%AmSTeX
-%\documentstyle{amsppt}
-\input amstex
-\input amsppt.sty
+\documentclass[a4paper,12pt]{article}
+ \usepackage{amsmath}
+ \usepackage{amsthm}
+ \usepackage{amsfonts}
+ 
+ 
+ \usepackage[utf8]{inputenc}
+ \usepackage[czech]{babel}
+ \usepackage{hyperref}
+ 
+ \setlength{\hoffset}{-3cm} 
+ \setlength{\voffset}{-3cm}
+ \setlength{\textheight}{26.0cm} 
+ \setlength{\textwidth}{19cm}
+ \setlength{\parindent}{0in}
+ \setlength{\parskip}{0.1in}
+ 
+ \begin{document}
+     
 
-
-\magnification=\magstep1
-\pagewidth{5.5in}
-\pageheight{19.5cm}
-
+\newtheorem*{dusledek}{Důsledek}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{veta}{Věta}
+\newtheorem*{tvrzeni}{Tvrzení}
 
 \def \emph#1{\underbar{#1}}
 \def \Prob{\operatorname{Prob}}
 \def \var{\operatorname{var}}
 
-\heading
-Datov\'e struktury
-\endheading
+\title{Datové struktury}
+\date{}
+\maketitle
 
-\subhead
-\'Uvod
-\endsubhead
+\section{Úvod}
 
 \flushpar Z\'akladn\'\i\ probl\'em: Reprezentace mno\v zin a 
 operace s nimi. V \v rad\v e \'uloh a algoritm\accent23u je tento 
@@ -3457,5 +3469,5 @@ velikosti $|S|=10^{10}$, kdy\v z $b\approx 100$. V tomto rozmez\'\i\ je
 n\'ar\accent23ust adres\'a\v re jen kolem 5\%. Pro v\v et\v s\'\i\ $
 n$ je 
 t\v reba, aby $b$ bylo je\v st\v e v\v et\v s\'\i .
-\end
 
+\end{document}
