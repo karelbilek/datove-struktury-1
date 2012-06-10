@@ -225,7 +225,7 @@ hodnotou $\frac 1m$.
 \subsection{
 Očekávaná délka řetězců
 }
-$$\align E(l)=&\sum_{l=0}^nlp_{n,l}=\sum_{l=0}^nl\binom nl(\frac 
+\begin{align*} E(l)=&\sum_{l=0}^nlp_{n,l}=\sum_{l=0}^nl\binom nl(\frac 
 1m)^l(1-\frac 1m)^{n-l}=\\
 &\sum_{l=0}^nl\frac {n!}{l!(n-l)!}(\frac 1m)^l(1-\frac 1m)^{n-l}=\\
 &\frac nm\sum_{l=1}^n\frac {(n-1)!}{(l-1)!(n-l)!}(\frac 1m)^{l-1}
@@ -234,7 +234,7 @@ $$\align E(l)=&\sum_{l=0}^nlp_{n,l}=\sum_{l=0}^nl\binom nl(\frac
 )^{(n-1)-(l-1)}=\\
 &\frac nm\sum_{l=0}^{n-1}\binom {n-1}l(\frac 1m)^l(1-\frac 1m)^{n
 -1-l}=\\
-&\frac nm(\frac 1m+1-\frac 1m)^{n-1}=\frac nm.\endalign$$
+&\frac nm(\frac 1m+1-\frac 1m)^{n-1}=\frac nm.\end{align*}
 Toto je standardní elementární výpočet 
 očekávané hodnoty binomiálního rozdělení.  
 
@@ -242,7 +242,7 @@ očekávané hodnoty binomiálního rozdělení.
 Výpočet druhého momentu
 }
 
-$$\align E(l^2)=&E(l(l-1))+E(l),\\
+\begin{align*} E(l^2)=&E(l(l-1))+E(l),\\
 E(l(l-1&))=\sum_{l=0}^nl(l-1)\binom nl(\frac 1m)^l(1-\frac 1m)^{n
 -l}=\\
 &\frac {n(n-1)}{m^2}\sum_{l=2}^n\binom {n-2}{l-2}(\frac 1m)^{l-2}
@@ -250,13 +250,13 @@ E(l(l-1&))=\sum_{l=0}^nl(l-1)\binom nl(\frac 1m)^l(1-\frac 1m)^{n
 &\frac {n(n-1)}{m^2}\sum_{l=0}^{n-2}\binom {n-2}l(\frac 1m)^l(1-\frac 
 1m)^{n-2-l}=\\
 &\frac {n(n-1)}{m^2},\\
-E(l^2)=&\frac {n(n-1)}{m^2}+\frac nm=\frac nm(1+\frac {n-1}m).\endalign$$
+E(l^2)=&\frac {n(n-1)}{m^2}+\frac nm=\frac nm(1+\frac {n-1}m).\end{align*}
 \subsection{
 Výpočet rozptylu
 }
 
-$$\align\var(l)=&E(l-E(l))^2=E(l^2)-(E(l))^2=\\
-&\frac nm(1+\frac {n-1}m)-(\frac nm)^2=\frac nm(1-\frac 1m).\endalign$$
+\begin{align*}\var(l)=&E(l-E(l))^2=E(l^2)-(E(l))^2=\\
+&\frac nm(1+\frac {n-1}m)-(\frac nm)^2=\frac nm(1-\frac 1m).\end{align*}
 
 Shrneme výsledky:\newline 
 Očekávaná délka řetězců je $\frac nm$ a rozptyl délky 
@@ -275,7 +275,7 @@ $$\Prob(\max_i\ell (i)=j)=\Prob(\max_i\ell (i)\ge j)-\Prob(\max_i
 \ell (i)\ge j+1).$$
 
 Pak můžeme počítat:
-$$\align E(NP)=&\sum_jj\Prob(\max_i\ell (i)=j)=\\
+\begin{align*} E(NP)=&\sum_jj\Prob(\max_i\ell (i)=j)=\\
 &\sum_jj(\Prob(\max_i\ell (i)\ge j)-\Prob(\max_i\ell (i)\ge j+1))
 =\\
 &\sum_jj\Prob(\max_i\ell (i)\ge j)-\sum_jj\Prob(\max_i\ell (i)\ge 
@@ -283,19 +283,19 @@ j+1)=\\
 &\sum_jj\Prob(\max_i\ell (i)\ge j)-\sum_j(j-1)\Prob(\max_i\ell (i
 )\ge j)=\\
 &\sum_j(j-j+1)\Prob(\max_i\ell (i)\ge j)=\\
-&\sum_j\Prob(\max_i\ell (i)\ge j).\endalign$$
+&\sum_j\Prob(\max_i\ell (i)\ge j).\end{align*}
 Vysvětlení: Při čtvrté rovnosti se v druhé sumě zvětšil 
 index, přes který sčítáme, o $1$, v páté rovnosti se k sobě 
 daly koeficienty při stejných pravděpodobnostech ve dvou 
 sumách. 
 
 Odtud
-$$\align\Prob(\max_i&(\ell (i))\ge j)=\\
+\begin{align*}\Prob(\max_i&(\ell (i))\ge j)=\\
 &\Prob(\ell (1)\ge j\vee\ell (2)\ge j\vee\dots\vee\ell (m-1)\ge j
 )\le\\
 &\sum_i\Prob(\ell (i)\ge j)\le m\binom nj(\frac 1m)^j=\\
 &\frac {\prod_{k=0}^{j-1}(n-k)}{j!}(\frac 1m)^{j-1}\le n(\frac nm
-)^{j-1}\frac 1{j!}.\endalign$$
+)^{j-1}\frac 1{j!}.\end{align*}
 Vysvětlení:  První nerovnost plyne z toho, že 
 pravděpodobnost disjunkce jevů je menší než 
 součet pravděpodobností jevů, dru\-há nerovnost 
@@ -322,9 +322,9 @@ a následující lemma.
 \endproclaim
 
 \demo{Důkaz}Všimněme si nejdřív, že platí
-$$\align\left((\ln(\frac{\ln n}{\ln\ln n})-1\right)\frac{\ln n}{\ln\ln n}=&(\ln\ln n-\ln\ln\ln n-1)\frac{\ln n}{\ln\ln n}=\\&
+\begin{align*}\left((\ln(\frac{\ln n}{\ln\ln n})-1\right)\frac{\ln n}{\ln\ln n}=&(\ln\ln n-\ln\ln\ln n-1)\frac{\ln n}{\ln\ln n}=\\&
 \ln n-\frac{\ln n(\ln\ln\ln n)}{\ln\ln n}-\frac{\ln n}{\ln\ln n}=\\&\ln n(1-\frac{\ln\ln\ln n}{\ln\ln n}-
-\frac 1{\ln\ln n})=(1+o(1))\ln n,\endalign$$
+\frac 1{\ln\ln n})=(1+o(1))\ln n,\end{align*}
 protože $\lim_{n\mapsto\infty}\frac{\ln\ln\ln n}{\ln\ln n}=0=\lim_{n\mapsto\infty}\frac 1{\ln\ln n}$. 
 Odtud plyne $$\lim_{n\mapsto\infty}\left(\frac{\frac{\ln n}{\ln\ln n}}e\right)=e^{(1+o(1))\ln n}=n.$$ Protože $(\frac qe)^q$ je rostoucí funkce, tak dostáváme, že $q\le(1+o(1))(\frac{\ln n}{\ln\ln n})$. \qed
 \enddemo
@@ -334,14 +334,14 @@ $$j_0=\min\{j\mid n(\frac nm)^{j-1}\frac 1{j!}\le 1\}\le\min\{j\mid n\le j!\}\le
 (\frac je)^j\}\le(1+o(1))\frac{\ln n}{\ln\ln n}.$$ 
 
 Toto použijeme při odhadu $E(NP)$.
-$$\align E(NP)=&\sum_j\Prob(\max_i(\ell (i))\ge j)\le\\
+\begin{align*} E(NP)=&\sum_j\Prob(\max_i(\ell (i))\ge j)\le\\
 &\sum_j\min\{1,n(\frac nm)^{j-1}\frac 1{j!}\}=\\
 &\sum_{j=1}^{j_0}1+\sum_{j=j_0+1}^{\infty}\big(n(\frac nm)^{j-1}\frac 
 1{j!}\big)\le j_0+\sum_{j=j_0+1}^{\infty}\frac n{j!}=\\
 &j_0+\frac n{j_0!}\sum_{j=j_0+1}^{\infty}\frac {j_0!}{j!}\le j_0+
 \sum_{j=j_0+1}(\frac 1{j_0+1})^{j-j_0}=\\
 &j_0+\frac {\frac 1{j_0+1}}{-\frac 1{j_0+1}+1}=j_0+\frac 1{j_0}=O
-(j_0).\endalign$$
+(j_0).\end{align*}
 Vysvětlení: Při druhé rovnosti jsme použili, že $n(\frac nm)^{j-1}\frac 1{j!}\le 1$, právě když $j\le j_0$. Při druhé nerovnosti jsme použili, že $\frac 
 nm\le 1$, 
 při třetí nerovnosti jsme použili, že $\frac n{j_
@@ -377,9 +377,9 @@ Neúspěšné vyhledávání
 }
 
 Očekávaný počet testů:
-$$\align E(T)=&\Prob(\ell (i)=0)+\sum_ll\Prob(\ell (i)=l)=\\
+\begin{align*} E(T)=&\Prob(\ell (i)=0)+\sum_ll\Prob(\ell (i)=l)=\\
 &p_{n,0}+\sum_llp_{n,l}=\\
-&(1-\frac 1m)^n+\frac nm\approx e^{-\alpha}+\alpha .\endalign$$
+&(1-\frac 1m)^n+\frac nm\approx e^{-\alpha}+\alpha .\end{align*}
 Vysvětlení: Zjištění, zda řetězec je prázdný, vyžaduje 
 jeden test, tj. $\Prob(\ell (i)=0)$ není s koeficientem $0$, ale $
 1$.
@@ -408,12 +408,12 @@ prvků v tabulce je $m\sum_l\binom {l+1}2p_{n,l}$.
 
 Očekávaný počet testů pro 
 vyhledání jednoho prvku je 
-$$\align\frac mn\sum_{l=0}^n\binom {l+1}2p_{n,l}=&\frac m{2n}\big
+\begin{align*}\frac mn\sum_{l=0}^n\binom {l+1}2p_{n,l}=&\frac m{2n}\big
 (\sum_{l=0}^nl^2p_{n,l}+\sum_{l=0}^nlp_{n,l}\big)=\\
 &\frac m{2n}\big(\sum_{l=1}^nl(l-1)p_{n,l}+2\sum_{l=1}^nlp_{n,l}\big
 )=\\
 &\frac m{2n}(\frac {n(n-1)}{m^2}+\frac {2n}m)=\frac {n-1}{2m}+1\approx\\
-&1+\frac {\alpha}2.\endalign$$
+&1+\frac {\alpha}2.\end{align*}
 
 Jiný postup: Předpokládejme, že počet testů při úspěšném 
 vyhledávání prvku $x\in S$ je $1+$počet porovnání 
@@ -921,9 +921,9 @@ l$ ve všech
 reprezentacích $n$-prvkových množin (ztotožňuje\-me dvě 
 množiny, které měly stej\-nou posloupnost adres při 
 ukládaní prvků), pak 
-$$\align\sum C(a_1,a_2,&\dots,a_n;a_{n+1})=c_n(0)+\sum_{l=1}^n(l+\binom 
+\begin{align*}\sum C(a_1,a_2,&\dots,a_n;a_{n+1})=c_n(0)+\sum_{l=1}^n(l+\binom 
 l2)c_n(l)\\
-&=c_n(0)+\sum_{l=1}^nlc_n(l)+\sum_{l=1}^n\binom l2c_n(l),\endalign$$
+&=c_n(0)+\sum_{l=1}^nlc_n(l)+\sum_{l=1}^n\binom l2c_n(l),\end{align*}
 kde $c_n(0)$ je počet prázdných řádků ve všech 
 reprezentacích. \newline 
 Reprezentace $S$ má $m-n$ prázdných řádků,\newline 
@@ -946,7 +946,7 @@ dostáváme
 $$c_{n+1}(l)=(m-l)c_n(l)+(l-1)c_n(l-1).$$
 
 Odtud
-$$\align S_n=&\sum_{l=1}^n\binom l2c_n(l)=\\
+\begin{align*} S_n=&\sum_{l=1}^n\binom l2c_n(l)=\\
 &\sum_{l=1}^n\big(\binom l2(m-l)c_{n-1}(l)+\binom l2(l-1)c_{n-1}(
 l-1)\big)=\\
 &\big(\sum_{l=1}^n\binom l2(m-l)c_{n-1}(l)\big)+\big(\sum_{l=0}^{
@@ -956,51 +956,51 @@ n-1}\binom {l+1}2lc_{n-1}(l)\big)=\\
 )+\binom 120c_{n-1}(0)=\\
 &\sum_{l=1}^{n-1}\binom l2(m+2)c_{n-1}(l)+\sum_{l=1}^{n-1}lc_{n-1}
 (l)=\\
-&(m+2)S_{n-1}+(n-1)m^{n-1},\endalign$$
+&(m+2)S_{n-1}+(n-1)m^{n-1},\end{align*}
 kde jsme použili, že $c_{n-1}(n)=0$, a identitu
-$$\align(m-l)\binom l2+l\binom {l+1}2=&\frac 12(l^2m-lm-l^3+l^2+l^
+\begin{align*}(m-l)\binom l2+l\binom {l+1}2=&\frac 12(l^2m-lm-l^3+l^2+l^
 3+l^2)=\\
 &\frac 12(l^2m-lm+2l^2)=\\
 &\frac 12(l^2m-lm+2(l^2-l))+l=\\
-&(m+2)\binom l2+l.\endalign$$
+&(m+2)\binom l2+l.\end{align*}
 
 Rekurence pro $S_n$ dává 
-$$\align S_n=&(m+2)S_{n-1}+(n-1)m^{n-1}=\\
+\begin{align*} S_n=&(m+2)S_{n-1}+(n-1)m^{n-1}=\\
 &(m+2)^2S_{n-2}+(m+2)(n-2)m^{n-2}+(n-1)m^{n-1}=\\
 &(m+2)^3S_{n-3}+(m+2)^2(n-3)m^{n-3}+\\
 &(m+2)(n-2)m^{n-2}+(n-1)m^{n-1}=\\
 &(m+2)^{n-1}S_0+\sum_{i=0}^{n-1}(m+2)^i(n-1-i)m^{n-1-i}=\\
 &(m+2)^{n-1}\sum_{i=0}^{n-1}(n-1-i)\big(\frac m{m+2}\big)^{n-1-i}
 =\\
-&(m+2)^{n-1}\sum_{i=1}^{n-1}i\big(\frac m{m+2}\big)^i,\endalign$$
+&(m+2)^{n-1}\sum_{i=1}^{n-1}i\big(\frac m{m+2}\big)^i,\end{align*}
 kde jsme využili, že $S_0=0$. Spočítáme součet 
 $T_c^n=\sum_{i=1}^nic^i$ pro $n=1,2,\dots$ a $c\ne 1$. Z
 $cT_c^n=\sum_{i=1}^nic^{i+1}$ plyne 
-$$\align(c-1)T_c^n=&cT_c^n-T_c^n=\sum_{i=2}^{n+1}(i-1)c^i-\sum_{i
+\begin{align*}(c-1)T_c^n=&cT_c^n-T_c^n=\sum_{i=2}^{n+1}(i-1)c^i-\sum_{i
 =1}^nic^i=\\
 &nc^{n+1}+\big(\sum_{i=2}^n((i-1)c^i-ic^i)\big)-c=\\
 &nc^{n+1}+\big(\sum_{i=2}^n-c^i\big)-c=\\
 &nc^{n+1}-\sum_{i=1}^nc^i=nc^{n+1}-\frac {c^{n+1}-c}{c-1}=\\
-&\frac {nc^{n+2}-(n+1)c^{n+1}+c}{c-1}.\endalign$$
+&\frac {nc^{n+2}-(n+1)c^{n+1}+c}{c-1}.\end{align*}
 
 Tedy platí 
 $$T_c^n=\frac {nc^{n+2}-(n+1)c^{n+1}+c}{(c-1)^2}.$$
 Protože $\frac m{m+2}\ne 1$, dostáváme, že 
-$$\align S_n=&(m+2)^{n-1}\frac {(n-1)\big(\frac m{m+2}\big)^{n+1}
+\begin{align*} S_n=&(m+2)^{n-1}\frac {(n-1)\big(\frac m{m+2}\big)^{n+1}
 -n\big(\frac m{m+2}\big)^n+\frac m{m+2}}{\big(\frac m{m+2}-1\big)^
 2}=\\
 &\frac 14(m+2)^{n+1}\big[(n-1)\big(\frac m{m+2}\big)^{n+1}-n\big(\frac 
 m{m+2}\big)^n+\frac m{m+2}\big]=\\
 &\frac 14\big[(n-1)m^{n+1}-n(m+2)m^n+m(m+2)^n\big]=\\
-&\frac 14\big(m(m+2)^n-m^{n+1}-2nm^n\big).\endalign$$
+&\frac 14\big(m(m+2)^n-m^{n+1}-2nm^n\big).\end{align*}
 Očekávaný počet testů při neúspěšném 
 vyhledávání je  
-$$\align&\frac {(m-n)m^n+nm^n+\frac 14\big(m(m+2)^n-m^{n+1}-2nm^n\big
+\begin{align*}&\frac {(m-n)m^n+nm^n+\frac 14\big(m(m+2)^n-m^{n+1}-2nm^n\big
 )}{m^{n+1}}=\\
 &\frac {m^{n+1}+\frac 14\big(m(m+2)^n-m^{n+1}-2nm^n\big)}{m^{n+1}}
 =\\
 &1+\frac 14\big((1+\frac 2m)^n-1-\frac {2n}m\big)\sim 1+\frac 14(
-e^{2\alpha}-1-2\alpha ).\endalign$$
+e^{2\alpha}-1-2\alpha ).\end{align*}
 Tento odhad je stejný pro obě metody -- LISCH i EISCH, 
 protože mají stejné posloupnosti adres (liší se jen pořadím 
 prvků v jednotlivých řetězcích).
@@ -1022,9 +1022,9 @@ l$, pak bylo
 při operaci {\bf INSERT$(s_{n+1})$} použito $l-i+1$ porovnání klíčů 
 a teď se použije $l-i+2$ testů. Podle předchozí části analýzy dostaneme, že očekávaný počet 
 porovnání klíčů při neúspěšném vyhledávání je 
-$$\align&\frac 1{m^{n+1}}(\sum_{l=1}^n(l+\binom l2)c_n(l))=\\
+\begin{align*}&\frac 1{m^{n+1}}(\sum_{l=1}^n(l+\binom l2)c_n(l))=\\
 &\frac 1{m^{n+1}}(nm^n+\frac 14\big(m(m+2)^n-m^{n+1}-2nm^n\big))=\\
-&\frac 14\big((1+\frac 2m)^n-1+\frac {2n}m\big).\endalign$$
+&\frac 14\big((1+\frac 2m)^n-1+\frac {2n}m\big).\end{align*}
 Tedy očekávaný počet testů při úspěšném 
 vy\-hledávání v $n$-prvkové množině je podle 
 před\-cho\-zí analýzy 
@@ -1033,11 +1033,11 @@ klíčů při neúspěšném vy\-hledávání v $
 i$-prvkové 
 množině, kde $i$ probíhá čísla $0,1,\dots,n-1$.  Podle předchozích 
 výsledků je hledaný součet 
-$$\align\sum_{i=0}^{n-1}\frac 14\big[(1+\frac 2m)^i-&1+\frac {2i}
+\begin{align*}\sum_{i=0}^{n-1}\frac 14\big[(1+\frac 2m)^i-&1+\frac {2i}
 m\big]=\frac 14\frac {(1+\frac 2m)^n-1}{1+\frac 2m-1}-\frac n4+\frac {\binom 
 n2}{2m}=\\
 &\frac m8\big((1+\frac 2m)^n-1-\frac {2n}m\big)+\frac {n^2-n}{4m}
-.\endalign$$
+.\end{align*}
 Tedy očekávaný počet testů v úspěšném 
 případě pro $n$-prvko\-vou množinu je 
 $$1+\frac m{8n}\big((1+\frac 2m)^n-1-\frac {2n}m\big)+\frac {n-1}{
@@ -1407,9 +1407,9 @@ Indukcí ukážeme, že $C(n,m)=\frac {m+1}{m-n
 $C(0,m)=\frac {m+1}{m-0+1}=1$ a tvrzení platí. Předpokládáme, že tvrzení 
 platí pro $n-1\ge 0$ a pro každé $m\ge n-1$ a dokážeme tvrzení 
 pro $n$ a $m\ge n$. Platí
-$$\align C(n,m)=&1+\frac nmC(n-1,m-1)=\\
+\begin{align*} C(n,m)=&1+\frac nmC(n-1,m-1)=\\
 &1+\frac {n((m-1)+1)}{m((m-1)-(n-1)+1)}=\\
-&1+\frac n{m-n+1}=\frac {m+1}{m-n+1}.\endalign$$
+&1+\frac n{m-n+1}=\frac {m+1}{m-n+1}.\end{align*}
 Očekávaný počet dotazů při neúspěšném 
 vyhledávání v tabulce s $m$ řádky, z nichž $n$ je obsazeno, 
 je $\frac {m+1}{m-n+1}$.
@@ -1429,12 +1429,12 @@ tabulky. Tedy očekávaný počet dotazů při
 úspěšném vyhledávání v tabulce s $m$ řádky, z nichž $
 n$ je 
 obsazeno, je
-$$\align\frac 1n\sum_{i=0}^{n-1}C(i,m)=&\frac 1n\sum_{i=0}^{n-1}\frac {
+\begin{align*}\frac 1n\sum_{i=0}^{n-1}C(i,m)=&\frac 1n\sum_{i=0}^{n-1}\frac {
 m+1}{m-i+1}=\\
 &\frac {m+1}n\big(\sum_{j=1}^{m+1}\frac 1j-\sum_{j=1}^{m-n+1}\frac 
 1j\big)\approx\\
 &\frac 1{\alpha}\ln(\frac {m+1}{m-n+1})\approx\frac 1{\alpha}\ln(\frac 
-1{1-\alpha}).\endalign$$
+1{1-\alpha}).\end{align*}
 Následující tabulka ukazuje tyto hodnoty v závislosti na 
 velikosti $\alpha$. 
 $$\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule\ # & \vrule\ # & \vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}hodnota $\alpha$ & 0.5 & 0.7 & 0.9 & 0.95 & 0.99 & 0.999 \hfill \cr\noalign{\hrule}$\frac 1{1-\alpha}$ & 2 & 3.3 & 10 & 20 & 100 & 1000 \cr\noalign{\hrule} $\frac 1{\alpha}\ln(\frac 1{1-\alpha})$ & 1.38 & 1.70 & 2.55 & 3.15 & 4.65 & 6.9 \cr\noalign{\hrule}}}$$
@@ -1689,8 +1689,8 @@ $(a,b)\in U\times U$ takové, že $h_{a,b}(x)=h_{a,b}(y)$.
 
 Musí existovat $i\in \{0,1,\dots,m-1\}$ a 
 $r,s\in \{0,1,\dots,\lceil\frac Nm\rceil -1\}$ tak, že platí
-$$\align(ax+b&\equiv i+rm)\bmod N\\
-(ay+b&\equiv i+sm)\bmod N\endalign$$
+\begin{align*}(ax+b&\equiv i+rm)\bmod N\\
+(ay+b&\equiv i+sm)\bmod N\end{align*}
 Když $x$, $y$, $i$, $r$ a $s$ jsou konstanty a $a$ a $b$ jsou 
 proměnné, je to systém lineárních rovnic v tělese 
 $\Bbb Z/\bmod N$, kde $\Bbb Z$ jsou celá čísla. Matice soustavy  
@@ -1739,12 +1739,12 @@ $$\delta_i(x,S)=\sum_{y\in S}\delta_i(x,y).$$
 Pro fixovanou množinu $S\subseteq U$ a pro fixované $
 x\in U$ sečteme
 $\delta_i(x,S)$ přes všechna $i\in I$:
-$$\align\sum_{i\in I}\delta_i(x,S)=&\sum_{i\in I}\sum_{y\in S}\delta_
+\begin{align*}\sum_{i\in I}\delta_i(x,S)=&\sum_{i\in I}\sum_{y\in S}\delta_
 i(x,y)=\sum_{y\in S}\sum_{i\in I}\delta_i(x,y)=\\
 &\sum_{y\in S,y\ne x}|\{i\in I\mid h_i(x)=h_i(y)\}|\le\\
 &\sum_{y\in S,y\ne x}c\frac {|I|}m=\cases (|S|-1)c\frac {|I|}m&\text{\rm\ když }
 x\in S,\\
-|S|c\frac {|I|}m&\text{\rm\ když }x\notin S.\endcases \endalign$$
+|S|c\frac {|I|}m&\text{\rm\ když }x\notin S.\endcases \end{align*}
 
 Protože $\delta_i(x,S)$ dává odhad na velikost řetězce $
 h_i(x)$ při 
@@ -1937,18 +1937,18 @@ Univerzalita malého systému
 
 Zvolme různá $x$ a $y$ z univerza $U$. 
 Označme
-$$\align G_1&=\{(c,d,\ell )\mid g_{c,d}(h_{\ell}(x))=g_{c,d}(h_{\ell}
+\begin{align*} G_1&=\{(c,d,\ell )\mid g_{c,d}(h_{\ell}(x))=g_{c,d}(h_{\ell}
 (y)),\,h_{\ell}(x)\ne h_{\ell}(y)\},\\
 G_2&=\{(c,d,\ell )\mid g_{c,d}(h_{\ell}(x))=g_{c,d}(h_{\ell}(y)),\,
-h_{\ell}(x)=h_{\ell}(y)\}\endalign$$
+h_{\ell}(x)=h_{\ell}(y)\}\end{align*}
 a odhadneme velikost $G_1$ a $G_2$. 
 
 Odhad velikosti $G_1$. Když $(c,d,\ell )\in G_1$, pak 
 existují $r,s\in \{0,1,\dots,\lceil\frac {p_{2t}}m\rceil -1\}$ a $
 i\in \{0,1,\dots,m-1\}$ 
 taková, že 
-$$\align(c(x\bmod p_{\ell})+d&\equiv i+rm)\bmod p_{2t}\\
-(c(y\bmod p_{\ell})+d&\equiv i+sm)\bmod p_{2t}.\endalign$$
+\begin{align*}(c(x\bmod p_{\ell})+d&\equiv i+rm)\bmod p_{2t}\\
+(c(y\bmod p_{\ell})+d&\equiv i+sm)\bmod p_{2t}.\end{align*}
 Když $c$ a $d$ považujeme za neznámé, pak je to  
 soustava lineár\-ních rovnic s regulární maticí (protože 
 $x\bmod p_{\ell}\ne y\bmod p_{\ell}$), a tedy pro každé $\ell$, $
@@ -2001,9 +2001,9 @@ a když $t$ konverguje k $+\infty$, pak tento výraz konverguje k $
 
 Z toho plyne, že $(1+\frac m{p_{2t}})^2\le 1.5^2=2.2
 5$, a tedy 
-$$\align|\{i\in I&\mid h_i(x)=h_i(y)\}|=|G_1|+|G_2|\le\\
+\begin{align*}|\{i\in I&\mid h_i(x)=h_i(y)\}|=|G_1|+|G_2|\le\\
 &\frac {|I|}m(1+\frac m{p_{2t}})^2+\frac {|I|}m\le\frac {|I|}m(1+
-2.25)=3.25\frac {|I|}m.\endalign$$
+2.25)=3.25\frac {|I|}m.\end{align*}
 
 Shrnutí: Když $t\ge 6$ a $m\ln m\ln\ln m<N$, pak $
 H_1$ je 
@@ -2051,13 +2051,13 @@ Když $H=\{h_i\mid i\in I\}$ je $c$-univerzální systém funkcí z univerza $
 U$ o 
 velikosti $N$ do tabulky o velikosti $m$, pak pomocí 
 lemmatu dostáváme 
-$$\align&|I|N(\frac {N-m}m)\le\\
+\begin{align*}&|I|N(\frac {N-m}m)\le\\
 &\sum_{i\in I}|\{(x,y)\in U\times U\mid h_i(x)=h_i(y),\,x\ne y\}|
 =\\
 &\sum_{(x,y)\in U\times U,\,x\ne y}|\{i\in I\mid h_i(x)=h_i(y)\}|
 \le\\
 &\sum_{(x,y)\in U\times U,x\ne y}c\frac {|I|}m=N(N-1)c\frac {|I|}
-m.\endalign$$
+m.\end{align*}
 Odtud plyne, že $N-m\le c(N-1)$, a tedy 
 $$c\ge\frac {N-m}{N-1}>\frac {N-m}N=1-\frac mN.\qed$$
 \enddemo
@@ -2278,9 +2278,9 @@ t\ge\frac {\ln\binom Nn}{-\ln(1-\frac {\prod_{i=0}^{n-1}(m-i)}{m^
 n})}.$$
 Protože $\ln\binom Nn\le n\ln N$ a protože $-\ln(1-x)\ge x$ pro $
 x\in (0,1)$, dostáváme
-$$\align-\ln(1-\frac {\prod_{i=0}^{n-1}(m-i)}{m^n})\ge&\prod_{i=0}^{
+\begin{align*}-\ln(1-\frac {\prod_{i=0}^{n-1}(m-i)}{m^n})\ge&\prod_{i=0}^{
 n-1}(1-\frac im)=e^{\sum_{i=0}^{n-1}\ln(1-\frac im)}\ge\\
-&e^{\int_0^n\ln(1-\frac xm)dx},\endalign$$
+&e^{\int_0^n\ln(1-\frac xm)dx},\end{align*}
 kde integrál můžeme odhadnout 
 $$m[(1-\frac nm)(1-\ln(1-\frac nm))-1]\ge m[(1-\frac nm)(1+\frac 
 nm)-1]=-\frac {n^2}m.$$
@@ -2320,12 +2320,12 @@ $\sum_{i=0}^{m-1}(b_i^k)^2-n<2$.
 
 Nyní odhadneme výraz $\sum_{k=1}^{N-1}\big((\sum_{
 i=0}^{m-1}(b_i^k)^2)-n\big)$.
-$$\align\sum_{k=1}^{N-1}\big(&(\sum_{i=0}^{m-1}(b_i^k)^2)-n\big)=\\
+\begin{align*}\sum_{k=1}^{N-1}\big(&(\sum_{i=0}^{m-1}(b_i^k)^2)-n\big)=\\
 &\sum_{k=1}^{N-1}\big((\sum_{i=0}^{m-1}|\{x\in S\mid h_k(x)=i\}|^
 2)-n\big)=\\
 &\sum_{k=1}^{N-1}|\{(x,y)\mid x,y\in S,\,x\ne y,\,h_k(x)=h_k(y)\}
 |=\\
-&\sum_{x,y\in S,x\ne y}|\{k\mid 1\le k<N,\,h_k(x)=h_k(y)\}|.\endalign$$
+&\sum_{x,y\in S,x\ne y}|\{k\mid 1\le k<N,\,h_k(x)=h_k(y)\}|.\end{align*}
 Zvolme $x,y\in S$ taková, že $x\ne y$. Pak $h_k(x)=h_k(y)$, 
 právě když existuje $i=0,1,\dots,m-1$ a $r,s=0,1,\dots,\lfloor\frac 
 Nm\rfloor$ 
@@ -2367,10 +2367,10 @@ Ukážeme, že existuje více než $\frac {N-
 $k$, že platí
 $$\sum_{i=0}^{m-1}(b_i^k)^2<3\frac {n(n-1)}m+n.$$
 V opačném případě dostáváme, že 
-$$\align\sum_{k=1}^{N-1}\big((\sum_{i=0}^{m-1}(b_i^k)^2)-n\big)\ge&\frac {
+\begin{align*}\sum_{k=1}^{N-1}\big((\sum_{i=0}^{m-1}(b_i^k)^2)-n\big)\ge&\frac {
 3(N-1)}4\frac {3n(n-1)}m=\\
 &\frac {9(N-1)n(n-1)}{4m}>\\
-&\frac {2(N-1)n(n-1)}m,\endalign$$
+&\frac {2(N-1)n(n-1)}m,\end{align*}
 a to je spor s předchozím výsledkem. Tedy při náhodném rovnoměrném 
 výběru $k$ je 
 $$\Prob\{\sum_{i=0}^{m-1}(b_i^k)^2<\frac {3n(n-1)}m+n\mid k\in \{
@@ -2516,12 +2516,12 @@ takové, že $s_i\bmod p\ne s_j\bmod p$ pro každé $1\le i
 To znamená, že funkce $\phi_p(x)=x\bmod p$ je perfektní pro 
 $S$. Podle věty o velikosti prvočísel $p_t\le 2t\ln t$ pro každé $
 t\ge 6$, tedy
-$$\align p\le&2(1+c\frac {\ln D}{\ln\ln D})\ln(1+c\frac {\ln D}{\ln\ln 
+\begin{align*} p\le&2(1+c\frac {\ln D}{\ln\ln D})\ln(1+c\frac {\ln D}{\ln\ln 
 D})\le\\
 &4c\frac {\ln D}{\ln\ln D}\ln(2c\frac {\ln D}{\ln\ln D})\le\\
 &4c(\ln2c)\frac {\ln D}{\ln\ln D}+4c\frac {\ln D}{\ln\ln D}\ln(\frac {\ln 
 D}{\ln\ln D})=\\
-&4c\ln D+o(\ln D)=O(\ln D)=O(n^2\ln N).\endalign$$
+&4c\ln D+o(\ln D)=O(\ln D)=O(n^2\ln N).\end{align*}
 
 \proclaim{Věta}Pro každou $n$-prvkovou množinu $S\subseteq 
 U$ 
@@ -2662,10 +2662,10 @@ hašovací funkce pro $S$.
 \endproclaim
 
 Stejně jako v předchozí sekci spočítáme  
-$$\align\sum_{i\in I}&\big(\sum_{j=0}^{m-1}(b^i_j)^2-n\big)=\sum_{
+\begin{align*}\sum_{i\in I}&\big(\sum_{j=0}^{m-1}(b^i_j)^2-n\big)=\sum_{
 i\in I}|\{(s,t)\mid s,t\in S,\,s\ne t,\,h_i(s)=h_i(t)\}|=\\
 &\sum_{s,t\in S,s\ne t}|\{i\in I\mid h_i(s)=h_i(t)\}|\le\sum_{s,t
-\in S,s\ne t}\frac {c|I|}m=\frac {cn(n-1)|I|}m.\endalign$$
+\in S,s\ne t}\frac {c|I|}m=\frac {cn(n-1)|I|}m.\end{align*}
 
 Proto existuje $i\in I$ takové, že $\sum_{j=0}^{m-
 1}(b^i_j)^2\le\frac {cn(n-1)}m+n$. Nyní 
@@ -2676,10 +2676,10 @@ označme $I'$ množinu těch $i\in I,$ že
 $$\sum_{j=0}^{m-1}(b^i_j)^2>\frac {(c+a)n(n-1)}m+n.$$
 Dále předpokládejme, že $|I'|\ge b|I|$ pro 
 nějaké kladné číslo $b$. Pak platí 
-$$\align\frac {cn(n-1)|I|}m&\ge\sum_{i\in I}\big(\sum_{j=0}^{m-1}
+\begin{align*}\frac {cn(n-1)|I|}m&\ge\sum_{i\in I}\big(\sum_{j=0}^{m-1}
 (b^i_j)^2-n\big)\ge\sum_{i\in I'}\big(\sum_{j=0}^{m-1}(b^i_j)^2-n\big
 )>\\
-&\sum_{i\in I'}\frac {(c+a)n(n-1)}m\ge\frac {(c+a)n(n-1)b|I|}m.\endalign$$
+&\sum_{i\in I'}\frac {(c+a)n(n-1)}m\ge\frac {(c+a)n(n-1)b|I|}m.\end{align*}
 Odtud plyne, že $c>(c+a)b$, a proto $b<\frac c{c+a}$. Když tedy vybíráme  
 $h_i\in \Cal H_m$ náhodně s rovnoměrným rozdělením (vzhledem k $
 i\in I$), pak 
@@ -2720,11 +2720,11 @@ m$ ji nalezneme
 v čase $O(n|I|)$.  Pro pravděpodobnostní algoritmus budeme 
 vybírat funkci ze souboru $\Cal H_m$ náhodně s rovnoměrným 
 rozdělením.  Pak očekávaný počet iterací než uspějeme je 
-$$\align\sum_{i=1}^{\infty}&i(\frac c{c+a})^{i-1}(1-\frac c{c+a})
+\begin{align*}\sum_{i=1}^{\infty}&i(\frac c{c+a})^{i-1}(1-\frac c{c+a})
 \le\sum_{i=1}^{\infty}i(\frac c{c+a})^{i-1}-\sum_{i=1}^{\infty}i(\frac 
 c{c+a})^i=\\
 &\sum_{i=0}^{\infty}(\frac c{c+a})^i=\frac 1{1-\frac c{c+a}}=\frac {c
-+a}a.\endalign$$
++a}a.\end{align*}
 
 Pro hledání perfektní hašovací funkce opět použijeme 
 syste\-ma\-tické prohledávání $c$-univer\-zál\-ního systému, protože 
@@ -3232,11 +3232,11 @@ stránku rozdělíme na
 strán\-ky $\{00000,00001\}$ a $\{00010\}$. Přitom kritické slovo 
 první strán\-ky je $0000$ a druhé strán\-ky je $0001$. Takže 
 $d(S)=4$ a adresář vypadá 
-$$\align&0000\mapsto \{00000,00001\},0001\mapsto \{00010\},\\
+\begin{align*}&0000\mapsto \{00000,00001\},0001\mapsto \{00010\},\\
 &0010\mapsto 0011\mapsto NIL,\\
 &0100\mapsto 0101\mapsto 0110\mapsto 0111\mapsto \{0100\},\\
 &1000\mapsto 1001\mapsto 1010\mapsto 1011\mapsto \{10000\},\\
-&1100\mapsto 1101\mapsto 1110\mapsto 1111\mapsto \{10000\}.\endalign$$
+&1100\mapsto 1101\mapsto 1110\mapsto 1111\mapsto \{10000\}.\end{align*}
 To znamená, že kromě adresy $00$ se ostatní slova rozdělila 
 na čtyři slova, ale adresy zůstaly stejné. Jen u 
 slova 00 vzniklá slova dostala různé adresy.
