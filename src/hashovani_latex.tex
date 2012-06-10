@@ -100,7 +100,7 @@ zpráva od IBM o hašování z roku 1953.
 
 Základní idea: Dáno univerzum $U$ a množina 
 $S\subseteq U$ tak, že $|S|<<|U|$. Máme funkci 
-$h:U@>>>\{0,1,\dots,m-1\}$ a množinu $S$ reprezentujeme 
+$h:U\to\{0,1,\dots,m-1\}$ a množinu $S$ reprezentujeme 
 tabulkou (polem) s $m$ řádky tak, že $s\in S$ je uložen na 
 řádku $h(s)$.\newline 
 Nevýhoda: mohou existovat různá $s,t\in S$ taková, 
@@ -2038,7 +2038,7 @@ $$\sum_{i=0}^{m-1}b_i(b_i-1)=\sum_{i=0}^{m-1}b_i^2-\sum_{i=0}^{m-
 a lemma je dokázáno.
 \end{proof}
 
-\begin{proof}[Důkaz Věty]Mějme funkci $f:U@>>>T$, kde $U$ má 
+\begin{proof}[Důkaz Věty]Mějme funkci $f:U\toT$, kde $U$ má 
 velikost $N$ a $T$ má velikost $m$. Označme $A$ množinu 
 uspořádaných dvojic $u,v\in U$ takových, že $u\ne v$ a $
 f(u)=f(v)$.
@@ -2936,16 +2936,16 @@ $|S|=n$.
 
 Krok 1) Mějme $r$-hypergraf $(V,E)$, kde $|E|=n$.  Nalezneme 
 zobrazení 
-$$g:V@>>>\{0,1,\dots,n-1\}$$
+$$g:V\to\{0,1,\dots,n-1\}$$
 takové, že funkce 
-$h:E@>>>\{0,1,\dots,n-1\}$ definovaná $h(e)=\sum_{i=1}^rg(v_i)\bmod 
+$h:E\to\{0,1,\dots,n-1\}$ definovaná $h(e)=\sum_{i=1}^rg(v_i)\bmod 
 n$, 
 kde $e=\{v_1,v_2,\dots,v_r\}$, je prostá (místo sčítání modulo $
 n$ 
 můžeme použít libovolnou grupovou operaci na 
 množině $\{0,1,\dots,n-1\}$).  Pro acyklický $r$-hypergraf lze 
 funkci $g$ zkonstruovat násle\-dujícím postupem.  Zvolíme 
-bijekci $h:E@>>>\{0,1,\dots,n-1\}$ a pak definujeme $g$ 
+bijekci $h:E\to\{0,1,\dots,n-1\}$ a pak definujeme $g$ 
 následovně:  když $e=\{v_1,v_2,\dots,v_r\}$ a $g(v_i)$ je 
 definováno pro $i=2,3,\dots,r$, pak 
 $$g(v_1)=h(e)-\sum_{i=2}^rg(v_i)\bmod n.$$
@@ -2954,7 +2954,7 @@ leží v jediné hraně, lze tento postup použít ke konstrukci $
 g$ 
 pomocí indukce (a tedy máme algoritmus pro konstrukci $g$).  
 
-Krok 2) Nalezneme $r$ funkcí $f_1,f_2,\dots,f_r:U@>>>
+Krok 2) Nalezneme $r$ funkcí $f_1,f_2,\dots,f_r:U\to
 V$ takových, že 
 $(V,E)$, kde 
 $$E=\{\{f_1(x),f_2(x),\dots,f_r(x)\}\mid x\in S\},$$
@@ -3008,7 +3008,7 @@ Nalézt způsob ukládání dat do stránek externí
 paměti, aby se minimalizoval počet operací s externí 
 pamětí.  
 
-Předpokládejme, že $h:U@>>>\{0,1\}^{*}$ je prosté 
+Předpokládejme, že $h:U\to\{0,1\}^{*}$ je prosté 
 zobrazení takové, že délka $h(u)$ je stejná pro všechny prvky 
 univerza $U$.  Označme $k$ délku $h(u)$ pro $u\in U$. Pak $
 h$ je 
