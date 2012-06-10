@@ -305,10 +305,10 @@ podmnožina $A\subseteq S$ taková, že $|A|=j$ (těchto možností je $\binom
 nj$) a pro každé $x\in A$ platí $h(x)=i$ (pravděpo\-dob\-nost 
 tohoto jevu je $(\frac 1m)^j$). Protože pravděpodobnost je pro všechna $i$ stejná a $i$ nabývá $m$ hodnot, dostáváme druhou nerovnost. Následující rovnost plyne z rozepsání binomických koeficientů. Poslední nerovnost dostane\-me nahrazením $n-k$ hodnotou $n$.
 
-\proclaim{Důsledek}
+\begin{dusledek}
 $$\Prob(\max_i(\ell (i))\ge j)\le\min\{1,n(\frac nm)^{j-1}\frac 1{
 j!}\}.$$
-\endproclaim
+\end{dusledek}
 
 Předpoklad: $\alpha =\frac nm\le 1$. Ukážeme, že pro dostatečně 
 velká $n$ pro 
@@ -318,8 +318,8 @@ K tomu použijeme Stirlingův vzorec pro faktoriály
 $$j!=\sqrt{2j\pi}\left(\frac je\right)^j\left(1+\frac 1{12j}+\frac 1{288j^2}+O(j^{-3})\right)$$
 a následující lemma.
 
-\proclaim{Lemma}Když $(\frac qe)^q\le n$, pak $q\le(1+o(1))\frac{\ln n}{\ln\ln n}$.
-\endproclaim
+\begin{lemma}Když $(\frac qe)^q\le n$, pak $q\le(1+o(1))\frac{\ln n}{\ln\ln n}$.
+\end{lemma}
 
 \demo{Důkaz}Všimněme si nejdřív, že platí
 \begin{align*}\left((\ln(\frac{\ln n}{\ln\ln n})-1\right)\frac{\ln n}{\ln\ln n}=&(\ln\ln n-\ln\ln\ln n-1)\frac{\ln n}{\ln\ln n}=\\&
@@ -350,13 +350,13 @@ $$\frac {j_0!}{j!}=\frac 1{\prod_{k=j_0+1}^jk}\le (\frac 1{j_0+
 1})^{j-j_0}.$$
 Shrneme získaný výsledek
 
-\proclaim{Věta}Za předpokladu $\alpha =\frac nm\le 1$ je při hašování 
+\begin{veta}Za předpokladu $\alpha =\frac nm\le 1$ je při hašování 
 se se\-parovanými řetězci horní odhad očekávané délky 
 maximálního ře\-těz\-ce $O(\frac {\log n}{\log\log n}
 )$.  
 
 Když $0.5\le\alpha\le 1$, je to zároveň i dolní odhad.
-\endproclaim
+\end{veta}
 
 \subsection{
 Očekávaný počet testů
@@ -427,11 +427,11 @@ $1+$očekávaná délka řetězce v okamžiku vkládání $
 x$, neboli 
 $$\frac 1n\sum_{i=0}^{n-1}(1+\frac im)=1+\frac {n-1}{2m}.$$
 
-\proclaim{Věta}Při hašování se separovanými řetězci je 
+\begin{veta}Při hašování se separovanými řetězci je 
 očekávaný po\-čet testů při neúspeš\-ném 
 vy\-hledávaní přibližně $e^{-\alpha}+\alpha$ a při ús\-pěš\-ném 
 vyhledávání přibližně $1+\frac {\alpha}2$.
-\endproclaim
+\end{veta}
 
 Následující tabulka dává přehled očekávaného 
 počtu testů pro různé hodnoty $\alpha$
@@ -494,14 +494,14 @@ v řetěz\-ci, tedy končíme dřív. Následující věta (bez
 důkazu) uvádí očekavaný počet testů v 
 neúspěšném případě.
 
-\proclaim{Věta}Očekávaný počet testů při 
+\begin{veta}Očekávaný počet testů při 
 neúspěšném vyhledávání pro hašování s uspořá\-danými 
 řetězci je přibližně $e^{-\alpha}+1+\frac {\alpha}
 2-\frac 1{\alpha}(1-e^{-\alpha})$. Očekávaný 
 počet testů při úspěšném vyhledávání pro 
 hašování s uspořádanými řetězci je 
 přibližně $1+\frac {\alpha}2.$
-\endproclaim
+\end{veta}
 
 Uvedeme algoritmy pro operace s uspořádanými 
 ře\-těz\-ci.
@@ -1706,10 +1706,10 @@ $x\ne y$, existuje $m\big(\lceil\frac Nm\rceil\big)^2$ dvojic $(a
 ,b)\in U\times U$ takových, že 
 $h_{a,b}(x)=h_{a,b}(y)$.
 
-\proclaim{Věta}Množina $H$ je $c$-univerzální pro 
+\begin{veta}Množina $H$ je $c$-univerzální pro 
 $$c=\frac {\big(\lceil\frac Nm\rceil\big)^2}{\big(\frac Nm\big)^2}
 .$$
-\endproclaim
+\end{veta}
 
 Skutečně, pro každé $x,y\in U$, $x\ne y$, je počet 
 $(a,b)\in U\times U$ takových, že $h_{a,b}(x)=h_{a,b}(y)$, nejvýše roven
@@ -1756,7 +1756,7 @@ $$\frac 1{|I|}\sum_{i\in I}\delta_i(x,S)\le\cases c\frac {|S|-1}m&\text{\rm\ kdy
 \quad x\in S,\\
 c\frac {|S|}m&\text{\rm\ když }\quad x\notin S.\endcases $$
 
-\proclaim{Věta}Očekávaný čas operací {\bf MEMBER}, {\bf INSERT }
+\begin{veta}Očekávaný čas operací {\bf MEMBER}, {\bf INSERT }
 a {\bf DE\-LETE} při $c$-univerzálním hašování je $
 O(1+c\alpha )$, kde 
 $\alpha$ je faktor napl\-nění (tj. $\alpha =\frac {|S|}m$).
@@ -1765,7 +1765,7 @@ Očekávaný čas pro pevnou posloupnost $n$ operací
 {\bf MEMBER}, {\bf INSERT} a {\bf DELETE} aplikovaných na prázdnou ta\-bulku 
 pro $c$-univerzální hašování je $O((1+\frac c2\alpha 
 )n)$, kde $\alpha =\frac nm$.  
-\endproclaim
+\end{veta}
 
 Význam výsledku:  Vzorec se jen o multiplikativní 
 konstantu $c$ liší od vzorce pro hašování se separovanými 
@@ -1876,13 +1876,13 @@ aspoň dva prvky, zvolme $x,y\in U_i$ taková, že $x\ne y$. Pak
 $h_j(x)=h_j(y)$ pro $j=0,1,\dots,i-1$. Tedy 
 $$i\le |\{j\in I\mid h_j(x)=h_j(y)\}|\le\frac {c|I|}m.$$
 
-\proclaim{Věta}Když $H=\{h_i\mid i\in I\}$ je $c$-univerzální systém pro 
+\begin{veta}Když $H=\{h_i\mid i\in I\}$ je $c$-univerzální systém pro 
 univerzum $U$ o velikosti $N$ hašující do tabulky s $m$ řádky, pak 
 $$|I|\ge\frac mc(\lceil\log_mN\rceil -1).$$
 Posloupnosti $0$ a $1$ při náhodné volbě $i$ z $I$ musí mít 
 délku alespoň $\lceil (\log m-\log c+\log\log N-\log\log m)\rceil$ (zde všechny logaritmy 
 jsou o základu $2$).
-\endproclaim
+\end{veta}
 
 \subsection{
 Malý univerzální systém
@@ -1910,10 +1910,10 @@ Ukážeme, že když $m(\ln m+\ln\ln m)<N$, pak $H_1$ je $
 Nejprve si připomeneme známou větu o velikosti prvočísel 
 (zde $\ln$ je přirozený logaritmus, tj. o základu $e$).
 
-\proclaim{Věta}Pro každé $i=1,2,\dots$ platí $p_i>i\ln 
+\begin{veta}Pro každé $i=1,2,\dots$ platí $p_i>i\ln 
 i$ a pro $i\ge 6$ 
 platí $p_i<i(\ln i+\ln\ln i)$. \qed
-\endproclaim
+\end{veta}
 
 Tedy pro $i\ge 6$ platí $p_i<2i\ln i$.
 
@@ -1971,9 +1971,9 @@ $$|G_2|\le |L|p_{2t}^2\le\frac {tp_{2t}^2}m=\frac {|I|}m.$$
 Abychom odhadli $(1+\frac m{p_{2t}})^2$, ukážeme si nejdřív 
 pomocné lem\-ma.
 
-\proclaim{Lemma}Když $t\ge 6$ a $m(\ln m+\ln\ln m)<N$, pak $m<\frac {
+\begin{lemma}Když $t\ge 6$ a $m(\ln m+\ln\ln m)<N$, pak $m<\frac {
 p_t}{\ln t}$.
-\endproclaim
+\end{lemma}
 
 \demo{Důkaz}Předpokládejme, že tvrzení neplatí. Pak $
 m\ge\frac {p_t}{\ln t}$. Z Věty o velikosti 
@@ -2014,19 +2014,19 @@ ukázat, že $H_1$ je $5$-univerzální.
 Odhad na velikost $c$
 }
 
-\proclaim{Věta}Když $H$ je $c$-univerzální 
+\begin{veta}Když $H$ je $c$-univerzální 
 systém univerza $U$ o velikosti $N$ hašující do tabulky s $
 m$ řádky, 
 pak $c\ge 1-\frac mN$.
-\endproclaim
+\end{veta}
 
 Nejprve dokážeme technické lemma.
 
-\proclaim{Lemma}Mějme reálná čísla $b_i$ pro $i=0,1
+\begin{lemma}Mějme reálná čísla $b_i$ pro $i=0,1
 ,\dots,m-1$ a 
 nechť $b=\sum_{i=0}^{m-1}b_i$. Pak 
 $$\sum_{i=0}^{m-1}b_i(b_i-1)\ge b(\frac bm-1).$$
-\endproclaim
+\end{lemma}
 
 \demo{Důkaz lemmatu}Z Cauchyho-Schwarzovy nerovnosti 
 $$(\sum_{i=0}^{m-1}x_iy_i)^2\le (\sum_{i=0}^{m-1}x^2_i)(\sum_{i=0}^{
@@ -2228,11 +2228,11 @@ $(N,m,n)$-perfektní, musí být $|U_t|\le 1$, a tedy $\frac
 N{m^t}\le 1$.  Proto 
 $t\ge\frac {\log N}{\log m}$.    
 
-\proclaim{Věta}Když $H$ je $(N,m,n)$-perfektní soubor 
+\begin{veta}Když $H$ je $(N,m,n)$-perfektní soubor 
 funkcí, pak 
 $$|H|\ge\max\{\frac {\binom Nn}{\binom mn(\frac Nm)^n},\frac {\log 
 N}{\log m}\}.$$
-\endproclaim
+\end{veta}
 
 \subsection{
 Existence $(N,m,n)$-perfektního souboru
@@ -2314,9 +2314,9 @@ $$b_i^k\le 1\text{\rm\ implikuje }(b_i^k)^2-b_i^k=0.$$
 
 Tedy z $\sum_{i=0}^{m-1}b_i^k=n$ plyne 
 
-\proclaim{Věta}Funkce $h_k$ je perfektní, právě když 
+\begin{veta}Funkce $h_k$ je perfektní, právě když 
 $\sum_{i=0}^{m-1}(b_i^k)^2-n<2$.
-\endproclaim
+\end{veta}
 
 Nyní odhadneme výraz $\sum_{k=1}^{N-1}\big((\sum_{
 i=0}^{m-1}(b_i^k)^2)-n\big)$.
@@ -2376,7 +2376,7 @@ výběru $k$ je
 $$\Prob\{\sum_{i=0}^{m-1}(b_i^k)^2<\frac {3n(n-1)}m+n\mid k\in \{
 1,2,\dots,N-1\}\}\ge\frac 14.$$
 
-\proclaim{Tvrzení}Když $n=m$, pak 
+\begin{tvrzeni}Když $n=m$, pak 
 \begin{enumerate}
 \item[(a)]
 existuje deterministický algoritmus, jenž v čase $O(nN)$ 
@@ -2400,7 +2400,7 @@ $m=2n(n-1)$ v čase $O(n)$ nalezne $k$ takové, že $h_k$ je
 perfektní -- očekávaný počet iterací výpočtu 
 je nejvýše $4$.
 \end{enumerate}
-\endproclaim
+\end{tvrzeni}
 
 \demo{Důkaz}Mějme $n=m$. Protože spočítání 
 $\sum_{i=0}^{m-1}(b_i^k)^2$ pro pevné $k$ vyžaduje čas $O
@@ -2451,7 +2451,7 @@ $S_i=\emptyset$.\newline
 x\in U$ 
 označme $h_k(x)=l$. Pak položíme $g(x)=d_l+h_{k_l}(x)$.
 
-\proclaim{Věta}Zkonstruovaná funkce $g$ je perfektní, 
+\begin{veta}Zkonstruovaná funkce $g$ je perfektní, 
 hodnota $g(x)$ se pro každé $x\in U$ spočítá v čase $
 O(1)$, 
 v deterministickém přípa\-dě hašuje do tabulky velikosti 
@@ -2461,7 +2461,7 @@ v čase $O(n)$. Pro její zak\'odování jsou třeba hodnoty $
 k$ a 
 $k_i$ pro $i=0,1,\dots,m-1$. Tyto hodnoty jsou v rozmezí 
 $1,2,\dots,N-1$, a tedy vyžadují $O(n\log N)$ paměti.
-\endproclaim
+\end{veta}
 
 \demo{Důkaz}Protože $g(S_i)$ pro $i=0,1,\dots,m-1$ 
 jsou navzájem disjunktní a $h_{k_i}$ je perfektní na $S_
@@ -2498,9 +2498,9 @@ $$m\ge\prod_{i=1}^qp_i>q!=e^{\sum_{i=1}^q\ln i}\ge e^{\int_1^q\ln
 xdx}=e^{q\ln(\frac qe)+1}\ge (\frac qe)^q.$$
 Proto existuje konstanta $c$, že $q\le c\frac {\ln m}{\ln\ln m}$ (viz Lemma v odstavci Očekávaný 
 nejhorší případ na stránce 6). Platí tedy  
-\proclaim{Věta}Nechť $\delta (m)=$počet prvočísel, která dělí 
+\begin{veta}Nechť $\delta (m)=$počet prvočísel, která dělí 
 $m$. Pak $\delta (m)=O(\frac {\log m}{\log\log m})$.
-\endproclaim
+\end{veta}
 
 Mějme $S=\{s_1<s_2<\dots<s_n\}\subseteq U$. Označme 
 $d_{i,j}=s_j-s_i$ pro $1\le i<j\le n$. Pak $s_i\bmod p\ne s_j\bmod 
@@ -2523,11 +2523,11 @@ D})\le\\
 D}{\ln\ln D})=\\
 &4c\ln D+o(\ln D)=O(\ln D)=O(n^2\ln N).\end{align*}
 
-\proclaim{Věta}Pro každou $n$-prvkovou množinu $S\subseteq 
+\begin{veta}Pro každou $n$-prvkovou množinu $S\subseteq 
 U$ 
 existuje prvo\-čís\-lo $p$ o velikosti $O(n^2\ln N)$ takové, že 
 funkce $\phi_p(x)=x\bmod p$ je perfektní pro $S$.  
-\endproclaim
+\end{veta}
 
 Test, zda funkce $\phi_p(x)=x\bmod p$ je perfektní 
 pro $S$, 
@@ -2558,14 +2558,14 @@ $\Theta (\frac 1{\ln(9cn^2\ln N)})$, a proto očeká\-va\-ný počet neúspěšn
 testů je $O(\ln(9cn^2\ln N))$. Tedy očeká\-vaný čas 
 algoritmu je $O(n\log n(\log n+\log\log N))$.
 
-\proclaim{Věta}Pro danou množinu $S\subseteq U$ takovou, že 
+\begin{veta}Pro danou množinu $S\subseteq U$ takovou, že 
 $|S|=n$, deterministický algoritmus nalezne prvočíslo 
 $p=O(n^2\log N)$ takové, že $\phi_p(x)=x\bmod p$ je perfektní 
 pro $S$, a pracuje v čase $O(n^3\log n\log N)$. Pravděpodobnostní 
 algoritmus nalezne pr\-vočíslo $p=O(n^2\log N)$ takové, že 
 $\phi_p$ je perfektní, v očekáva\-ném čase 
 $O(n\log n(\log n+\log\log N))$.
-\endproclaim
+\end{veta}
 
 Deterministický algoritmus nalezne nejmenší prvočíslo s 
 po\-ža\-dovanou vlastností.  Prav\-dě\-podobnostní algoritmus 
@@ -2656,10 +2656,10 @@ dostáváme přirozené zobecnění důsledku z předchozí
 sekce, které využijeme stejným způsobem jako v 
 předchozí sekci:
 
-\proclaim{Důsledek}Když $\sum_{j=0}^{m-1}(b^i_j)^2\ge n+2$, pak $h_i$ není 
+\begin{dusledek}Když $\sum_{j=0}^{m-1}(b^i_j)^2\ge n+2$, pak $h_i$ není 
 perfektní pro $S$, když $\sum_{j=0}^{m-1}(b^i_j)^2<n+2$, pak $h_i$ je perfektní 
 hašovací funkce pro $S$.
-\endproclaim
+\end{dusledek}
 
 Stejně jako v předchozí sekci spočítáme  
 \begin{align*}\sum_{i\in I}&\big(\sum_{j=0}^{m-1}(b^i_j)^2-n\big)=\sum_{
@@ -2687,7 +2687,7 @@ pravděpo\-dobnost, že bude platit $\sum_{j=0}^{m-1}(b^i_j)^
 2>\frac {(c+a)n(n-1)}m+n$, je 
 menší než $\frac c{c+a}$. Stejně jako v předchozí sekci shrneme tato fakta do tvrzení 
 
-\proclaim{Tvrzení}Pro přirozené číslo $m$ mějme $
+\begin{tvrzeni}Pro přirozené číslo $m$ mějme $
 c$-univerzální systém funkcí $\Cal H_m=\{h_i\mid i\in 
 I\}$ hašujících do tabulky o velikosti 
 $m$. Pro $m=n$ existuje deterministický algoritmus, 
@@ -2708,7 +2708,7 @@ Pro $a>0$ a pro $m=\frac {(c+a)n(n-1)}2+1$ existuje
 pravděpodobnostní algoritmus, který nalezne perfektní hašovací 
 funkci $h\in \Cal H_m$ pro množinu $S$ v čase $O(n)$ a očekávaný počet 
 iterací je menší než $\frac {c+a}a$.  
-\endproclaim
+\end{tvrzeni}
 
 \demo{Důkaz}Když $n=m$, pak v čase $O(n)$ pro  
 hašovací funkci ověříme, zda $\sum_{j=0}^{m-1}(b^
@@ -2897,12 +2897,12 @@ x$ je prvkem $S$. Velikost reprezentované množiny je $n$.
 
 Uvedu složitost této metody bez důkazu.
 
-\proclaim{Věta}Popsaná metoda vyžaduje lineární paměť 
+\begin{veta}Popsaná metoda vyžaduje lineární paměť 
 (neuvažuje se paměť potřebná pro zak\'odo\-vá\-ní hašovacích funkcí), operace {\bf MEMBER }
 v nej\-horším případě vyžaduje čas $O(1)$ a očekávaná 
 amortizovaná složitost operací {\bf INSERT} a {\bf DELETE} je také $
 O(1)$.
-\endproclaim
+\end{veta}
 
 Toto zobecnění Fredman-Koml\'os-Szemerédiho metody navrhli 
 Dietzfelbinger, Karlin, Mehl\-horn, Meyer auf der Heide, Rohnert 
@@ -3219,10 +3219,10 @@ Následující věta ukazuje, že jsme náš hlavní cíl splnili. Pro jednoduch
 adresář je také uložen na externí paměti a že v 
 interní paměti nemůže být uložen spolu s nějakou jinou stránkou. 
 
-\proclaim{Věta}Operace {\bf MEMBER} vyžaduje nejvýše tři 
+\begin{veta}Operace {\bf MEMBER} vyžaduje nejvýše tři 
 operace s externí pamětí. Operace {\bf INSERT} a {\bf DELETE }
 vyžadují nejvýše šest operací s externí pamětí.
-\endproclaim
+\end{veta}
 
 V našem příkladu provedeme operaci 
 {\bf INSERT$(00001)$}. Po přidání prvku stránka původně 
@@ -3256,12 +3256,12 @@ $$0\mapsto \{00000,00010\},1\mapsto \{10000\}.$$
 Vzniká otázka, jak je tato metoda efektivní. 
 Hlavně jak efektivně využívá paměť. Platí
 
-\proclaim{Věta}Když velikost repre\-zentované množiny je $
+\begin{veta}Když velikost repre\-zentované množiny je $
 n$, pak 
 očekávaný počet použitých stránek je 
 $\frac n{b\ln2}$ a očekáva\-ná velikost adresáře je $\frac 
 e{b\ln2}n^{1+\frac 1b}$. 
-\endproclaim
+\end{veta}
 
 První tvrzení říká, že očekávaný počet 
 prvků na stránce je $b\ln2\approx 0.69b$. Tedy zaplněno 
