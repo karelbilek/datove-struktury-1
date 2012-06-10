@@ -31,10 +31,9 @@
 \date{}
 \maketitle
 
-
 \section{Úvod}
 
-\flushpar V praxi se často setkáváme s následujícím 
+V praxi se často setkáváme s následujícím 
 problémem, který vzniká na uspořádaném univerzu, jehož 
 uspořádání se však v průběhu času mění. Úloha se 
 liší od slovníkového problému v tom, že se nevyžaduje  
@@ -49,9 +48,8 @@ použitém systému a hardwaru. Přesto je při použití
 následujících struktur dobré mít realistickou představu o 
 skutečných rychlostech operací a podle toho si vybrat 
 vhodnou strukturu. 
-\medskip
 
-\flushpar Zadání problému: Nechť $U$ je univerzum. Je dána množina 
+Zadání problému: Nechť $U$ je univerzum. Je dána množina 
 $S\subseteq U$ a funkce $f:S@>>>\Bbb R$, kde $\Bbb R$ jsou reálná čísla (tato 
 funkce realizuje uspořádání na univerzu $U$ -- pro $u,
 v\in U$ platí 
@@ -79,30 +77,27 @@ s\in S$,
 a operace navíc dostává informaci, jak najít  
 prvek $s$ v reprezentaci $S$ a $f$. Haldy jsou typ 
 struktury, která se používá pro řešení tohoto problému. 
-\medskip
 
-\flushpar\emph{Halda} je stromová struktura, kde vrcholy 
+\emph{Halda} je stromová struktura, kde vrcholy 
 reprezentují prvky z $S$ a splňují lokální podmínku na 
 $f$. Obvykle se používá následující podmínka nebo její 
 duální verze:
-\bigskip
+
 \roster
 \item"{(usp)}"
 Pro každý vrchol $v$ platí: když $v$ reprezentuje prvek 
 $s\in S$ a $\otec(v)$ reprezentuje $t\in S$, pak $f(t)\le f(s)$.
 \endroster
-\medskip
 
-\flushpar Probereme několik verzí hald a budeme 
+Probereme několik verzí hald a budeme 
 předpokládat, že vždy splňují tuto podmínku a že požadavek na 
 provedení operací {\bf DELETE$(s)$}, {\bf DECREA\-SE$(s,a
 )$} a {\bf INCREASE$(s,a)$ }
 také zadává ukazatel na vrchol repre\-zentující $s\in 
 S$.  Navíc budeme 
 uvažovat operace
-\medskip
 
-\flushpar {\bf MAKEHEAP$(S,f)$} -- operace vytvoří haldu 
+{\bf MAKEHEAP$(S,f)$} -- operace vytvoří haldu 
 reprezentující množinu $S$ a funkci $f$,\newline 
 {\bf MERGE$(H_1,H_2)$} -- předpokládá, že halda $H_i$ reprezentuje 
 množinu $S_i$ a funkci $f_i$ pro $i=1,2$ a $S_1\cap S_2=\emptyset$. Operace 
@@ -112,15 +107,13 @@ přičemž neověřuje disjunktnost $S_1$ a $S_2$.
 \newpage
 
 \centerline{\bigbigrm{II. Regulární haldy}}
-\bigskip
 
-\flushpar První použité haldy byly binární neboli $
+První použité haldy byly binární neboli $
 2$-regulární haldy. 
 Tyto haldy jsou velmi oblíbené pro svou jednoduchost a 
 názornost a pro velmi efektivní implementaci.
-\medskip
 
-\flushpar Předpokládejme, že $d>1$ je přirozené číslo. 
+Předpokládejme, že $d>1$ je přirozené číslo. 
 $d$-\emph{regulární} \emph{strom} je kořenový strom 
 $(T,r)$, pro který existuje pořadí synů 
 jednotlivých vnitřních vrcholů takové, že 
@@ -138,7 +131,6 @@ vrcholy s většími čísly jsou listy.
 \endroster
 Toto očíslování se nazývá \emph{přirozené} 
 \emph{očíslování} $d$-regulárního stromu. 
-\medskip
 
 \proclaim{Tvrzení}Každý $d$-regulární strom má nejvýše jeden 
 vrchol, který není list a má méně než $d$ synů. Když 
@@ -174,23 +166,21 @@ i\in \{(k-1)d+2,(k-1)d+3,\dots,kd+1\}$, pak
 $1+\lfloor\frac {i-2}d\rfloor =k$. \qed
 \enddemo
 
-\flushpar Všimněme si, že speciálně pro $d=2$ mají synové vrcholu s číslem $
+Všimněme si, že speciálně pro $d=2$ mají synové vrcholu s číslem $
 k$ 
 čísla $2k$ a $2k+1$ a otec vrcholu s číslem $k$ má číslo 
 $\lfloor\frac k2\rfloor$. Tedy pro $2$-regulární stromy je předpis pro nalezení 
 synů a otce zvláště jednoduchý.  
-\medskip
 
-\flushpar\v Rekneme, že množina $S$ s funkcí $f$ je reprezentována 
+\v Rekneme, že množina $S$ s funkcí $f$ je reprezentována 
 $d$-regulár\-ní haldou $H$, kde $H$ je $d$-regulární strom $
 (T,r)$, když 
 přiřazení prvků množiny $S$ vrcholům stromu 
 $T$ je bijekce splňující podmínku \thetag{usp}. Toto přiřazení 
 je realizováno funkcí $\key$, která vrcholu přiřazuje jím 
 reprezentovaný prvek.
-\medskip
 
-\flushpar Defince $d$-regulárního stromu umožňuje velmi efektivní 
+Defince $d$-regulárního stromu umožňuje velmi efektivní 
 implementace $d$-regulárních hald.  Měj\-me množinu $
 S$ 
 reprezentovanou $d$-regulární haldou $H$ s přirozeným 
@@ -207,13 +197,12 @@ bude označovat $f(s)$, kde $s$ je reprezentován vrcholem $v$.  U
 $d$-regulárního stromu předpo\-klá\-dáme, že známe přirozené 
 očíslování, a fráze `poslední vrchol', `před\-cházející vrchol' atd.  
 se vztahují k tomuto očíslování.  
-\bigskip
 
 \head
 Algoritmy
 \endhead
 
-\flushpar Pro $d$-regulární haldy není známa efektivní implementace operace 
+Pro $d$-regulární haldy není známa efektivní implementace operace 
 {\bf MERGE}.  Efektivní implementace 
 ostatních operací jsou založeny na pomocných 
 operacích {\bf UP$(v)$} a {\bf DOWN$(v)$}.  Ope\-race {\bf UP$
@@ -221,7 +210,7 @@ operacích {\bf UP$(v)$} a {\bf DOWN$(v)$}.  Ope\-race {\bf UP$
 prvek $s$ reprezentovaný vrcholem $v$ směrem ke kořeni, 
 dokud vrchol reprezentující prvek $s$ nesplňu\-je podmínku 
 \thetag{usp}.  Operace {\bf DOWN$(v)$} je symetrická.  
-\bigskip
+
  
 
 {\bf UP$(v)$}:\newline 
@@ -229,7 +218,6 @@ dokud vrchol reprezentující prvek $s$ nesplňu\-je podmínku
 \phantom{{\rm ---}}}vyměň $\key(v)$ a $\key(\otec(v))$\newline 
 \phantom{---}$v:=\otec(v)$\newline 
 {\bf enddo
-\bigskip
 
 DOWN$(v)$}:\newline 
 {\bf if} $v$ není list {\bf then\newline 
@@ -241,38 +229,31 @@ hodnotou $f(w)$\newline
 hodnotou $f(w)$\newline 
 \phantom{---}{\bf enddo\newline 
 endif
-\bigskip
 
 INSERT$(s)$}:\newline 
 $v:=$nový poslední list, $\key(v):=s$, {\bf UP$(v)$
-\bigskip
 
 MIN}:\newline 
 {\bf Výstup} $\key(\text{\rm kořen}(T))$
-\bigskip
 
 {\bf DELETEMIN}:\newline 
 $v:=$poslední list, $r:=$kořen, $\key(r):=\key(v)$\newline 
 odstraň $v$\newline 
 {\bf DOWN$(r)$
-\bigskip
 
 DELETE$(s)$}:\newline 
 $v:=$vrchol reprezentující $s$\newline 
 $w:=$poslední list\newline 
 $t:=\key(w),$ $\key(v):=t,$ odstraň $w$\newline 
 {\bf if} $f(t)<f(s)$ {\bf then UP$(v)$ else DOWN$(v)$ endif
-\bigskip
 
 DECREASE$(s,a)$}:\newline 
 $v:=$vrchol reprezentující $s$\newline 
 $f(s):=f(s)-a$, {\bf UP$(v)$
-\bigskip
 
 INCREASE$(s,a)$}:\newline 
 $v:=$vrchol reprezentující $s$\newline 
 $f(s):=f(s)+a$, {\bf DOWN$(v)$
-\bigskip
 
 MAKEHEAP$(S,f)$}:\newline 
 $T:=d$-regulární strom s $|S|$ vrcholy\newline 
@@ -283,9 +264,9 @@ $v:=$poslední vrchol, který není list\newline
 \phantom{{\rm ---}}$v:=$}vrchol předcházející 
 vrcholu $v$\newline 
 {\bf enddo
-\bigskip
 
-}\flushpar Ověříme korektnost algoritmů.  Je zřejmé, že 
+}
+Ověříme korektnost algoritmů.  Je zřejmé, že 
 pomocné operace jsou korektní -- skončí, když podmínku 
 \thetag{usp} splňuje prvek $s$, který byl původně 
 reprezentován vrcholem $v$. Korektnost operace {\bf MIN} plyne 
@@ -316,13 +297,12 @@ provede proceduru {\bf DOWN$(v)$}, pak je podmínka
 čísly alespoň tak velkými jako je číslo $v$. 
 Operace {\bf MAKEHEAP} končí provedením operace {\bf DOWN} na 
 kořen a odtud plyne její korektnost.
-\bigskip
 
 \head
 Složitost operací
 \endhead
 
-\flushpar Vypočteme časovou složitost operací:  Jeden běh cyklu 
+Vypočteme časovou složitost operací:  Jeden běh cyklu 
 v operaci {\bf UP} vyžaduje čas $O(1)$ a v operaci {\bf DOWN }čas $
 O(d)$.  
 Proto operace {\bf UP} v nejhorším případě vyžaduje čas $
@@ -331,8 +311,8 @@ a operace {\bf DOWN }čas $O(d\log_d|S|)$.
 Operace {\bf MIN} vyžaduje čas $O(1)$,  {\bf INSERT} a {\bf DECREASE }
 vyžadu\-jí čas $O(\log_d|S|)$ a  {\bf DELETEMIN}, {\bf DELETE} a 
 {\bf INCREASE }čas $O(d\log_d|S|)$.
-\medskip
-\flushpar Haldu můžeme 
+
+Haldu můžeme 
 vytvořit iterací operace {\bf INSERT}, což 
 vyžaduje čas $O(|S|\log_d(|S|))$.  Ukáže\-me, že složitost operace 
 {\bf MAKEHEAP} je menší, ale pro malé haldy je výhodnější 
@@ -358,17 +338,15 @@ dostáváme, že $d^{k+1}\le d^2((d-1)|S|+1)$, a proto $A\le
 2d^2|S|$. Tedy 
 {\bf MAKEHEAP} vyžaduje v nejhorším případě jen čas 
 $O(d^2|S|)$. 
-\bigskip
 
 \head
 Aplikace 
 \endhead
 
-\flushpar Třídění: prostou posloupnost 
+Třídění: prostou posloupnost 
 čísel $x_1,x_2,\dots,x_n$ lze setřídit následujícím 
 algoritmem použí\-vajícím haldu ($f$ bude v tomto případě 
 identická funkce).
-\bigskip
 
 $d${\bf -HEAPSORT$(x_1,x_2,\dots,x_n)$}:\newline 
 {\bf MAKEHEAP$(\{x_i\mid i=1,2,\dots,n\},f)$\newline 
@@ -377,10 +355,8 @@ while} $i\le n$ {\bf do\newline
 \phantom{{\rm ---}}$y_i:=$MIN}, {\bf DELETEMIN}, $i:=i+1$\newline 
 {\bf enddo\newline 
 Výstup}: $y_1,y_2,\dots,y_n$
-\bigskip
 
-
-\flushpar Teoreticky lze ukázat, že použití $d$-regulárních hald v 
+Teoreticky lze ukázat, že použití $d$-regulárních hald v 
 algoritmu {\bf HEAPSORT} pro $d=3$ a $d=4$ je výhodnější 
 než $d=2$. Experimenty ukázaly, že optimální 
 algoritmus pro posloupnosti délek do 1 000 000 by měl  
@@ -389,9 +365,8 @@ skutečně spotřebovaný čas, nikoli počet porovnání a
 výměn prvků). 
 Pro delší posloupnosti se optimální 
 hodnota $d$ může zmenšit.
-\bigskip
 
-\flushpar Dalším příkladem je nalezení nejkratších cest v grafu z daného 
+Dalším příkladem je nalezení nejkratších cest v grafu z daného 
 bodu. \v Rešme následující úlohu: \newline 
 Vstup: orientovaný ohodnocený graf $(X,R,c)$, kde $c$ je funkce z $
 R$ do množiny kladných 
@@ -399,7 +374,6 @@ reálných čísel, a vrchol $z\in X$.\newline
 Úkol: nalézt pro každý bod $x\in X$ délku 
 nejkratší cestu ze $z$ do $x$, kde délka cesty je součet 
 $c$-ohodnocení hran na cestě.
-\bigskip
 
 {\bf Dijkstrův algoritmus}:\newline 
 $d(z):=0$, $U:=\{z\}$\newline 
@@ -416,9 +390,9 @@ U$ {\bf endif\newline
 \phantom{{\rm ------}}endif\newline 
 \phantom{{\rm ---}}enddo\newline 
 enddo
-\bigskip
 
-}\flushpar Korektnost algoritmu je založena na kombinatorickém 
+}
+Korektnost algoritmu je založena na kombinatorickém 
 lemmatu, které říká, že když odstra\-ňuje\-me z $
 U$ prvek $x$ s 
 nejmenší hodnotou $d(x)$, pak vzdálenost ze $z$ do $x$ je právě 
@@ -437,12 +411,11 @@ vyžaduje čas $O(|R|\log_d|X|)$. V případě, že $
 tj. $|R|>|X|^{1+\varepsilon}$ pro $\varepsilon >0$, pak $\log_d|X
 |=O(1)$ a algoritmus 
 je lineární (tj. vyžaduje čas $O(|R|)$).
-\bigskip
+
  
 \centerline{\bigbigrm{III. Leftist haldy}}
-\medskip
 
-\flushpar Dalším typem hald, se kterými se seznámíme, jsou lefist 
+Dalším typem hald, se kterými se seznámíme, jsou lefist 
 haldy (neznáme vhodný český překlad, proto zůstáváme 
 u anglického názvu). Je to velmi elegantní a jednoduchý typ 
 hald. Všechny operace jsou stejně jako u regulárních hald 
@@ -454,18 +427,16 @@ Operace {\bf MERGE} využívá speciálních vlastností leftist
 hald a idea operace {\bf DECREASE} je stejná jako ve 
 Fibonacciho haldách. Nejprve formálně popíšeme strukturu 
 leftist hald. 
-\medskip
 
-\flushpar Mějme binární kořenový strom $(T,r)$ (to znamená, že $
+Mějme binární kořenový strom $(T,r)$ (to znamená, že $
 r$ je kořen, 
 každý vrchol má nejvýše dva syny a u každého syna 
 víme, zda je to pravý nebo levý syn). Pro vrchol $v$ 
 označme $\npl(v)$ délku nejkratší cesty z $v$ do vrcholu, který má 
 nejvýše jednoho syna, takže např. pro list $l$ platí $\npl
 (l)=0$. 
-\medskip
 
-\flushpar Mějme $S\subseteq U$ a funkci $f:S@>>>\Bbb R$. Pak binární strom 
+Mějme $S\subseteq U$ a funkci $f:S@>>>\Bbb R$. Pak binární strom 
 $(T,r)$ takový, že
 \roster
 \item
@@ -482,9 +453,8 @@ z množi\-ny $S$ reprezentovaný vrcholem $v$)
 \endroster
 je \emph{leftist} \emph{halda} 
 reprezentující množinu $S$ a funkci $f$. 
-\medskip
 
-\flushpar Struktura vrcholu $v$ v leftist haldě:\newline 
+Struktura vrcholu $v$ v leftist haldě:\newline 
 S vrcholem $v$ jsou 
 spojeny ukazatelé $\otec(v)$, $\levy(v)$ a $\pravy(v)$ na otce a 
 na levého a pravého syna vrcholu $v$.  
@@ -493,9 +463,8 @@ $NIL$.  Dále jsou s vrcholem spojeny funkce\newline
 $\npl(v)$ -- proměnná s hodnotou $\npl(v)$,\newline 
 $\key(v)$ -- prvek reprezentovaný vrcholem $v$,\newline 
 $f(v)$ -- proměnná obsahující hodnotu $f(\key(v))$.
-\medskip
 
-\flushpar Uvedeme základní vlastnost leftist haldy, která 
+Uvedeme základní vlastnost leftist haldy, která 
 umožňuje efektivní implementace operací. 
 Posloupnost vrcholů $v_0,v_1,\dots,v_k$ se nazývá 
 \emph{pravá} \emph{cesta} z vrcholu $v$, když $v=v_0$, $v_{i
@@ -509,16 +478,14 @@ alespoň $2^{k+1}-1$ vrcholů. Proto platí
 délka pravé cesty z každého vrcholu $v$ nejvýše rovna 
 $$\log(\text{\rm velikost podstromu určeného vrcholem }v).$$
 \endproclaim
-\bigskip
 
 \head
 Algoritmy a složitost operací
 \endhead
 
-\flushpar Základní operací pro leftist haldy je {\bf MERGE}. Tato 
+Základní operací pro leftist haldy je {\bf MERGE}. Tato 
 operace je definována rekurzivně a hloubka rekurze je omezena 
 právě délkami pravých cest.
-\bigskip
 
 {\bf MERGE$(T_1,T_2)$}:\newline 
 {\bf if} $T_1=\emptyset$ {\bf then Výstup$=T_2$} konec {\bf endif\newline 
@@ -539,22 +506,18 @@ T_1$\newline
 {\bf endif\newline 
 $\npl(\text{{\rm {\rm kořen }}}T_1):=\npl(\pravy(\text{{\rm {\rm kořen }}}
 T_1)+1$
-\bigskip
 
 INSERT$(x)$}:\newline 
 Vytvoř haldu $T_1$ reprezentující $\{x\}$\newline 
 $\bold M\bold E\bold R\bold G\bold E(T,T_1)$
-\bigskip
 
 {\bf MIN}:\newline 
 {\bf Výstup}: $\key(\text{\rm kořen }T)$
-\bigskip
 
 {\bf DELETEMIN}:\newline 
 $T_1:=$podstrom levého syna kořene $T$\newline 
 $T_2:=$podstrom pravého syna kořene $T$\newline 
 {\bf MERGE$(T_1,T_2)$
-\bigskip
 
 MAKEHEAP$(S,f)$}:\newline 
 $Q:=$prázdná fronta\newline 
@@ -567,10 +530,9 @@ while} $|Q|>1$ {\bf do\newline
 (odstraň je)\newline 
 \phantom{---}{\bf MERGE$(T_1,T_2)$} vlož do $Q$\newline 
 {\bf enddo
-\bigskip
 
-
-}\flushpar Vypočteme časovou složitost předchozích 
+}
+Vypočteme časovou složitost předchozích 
 algoritmů. Každý běh 
 algoritmu {\bf MERGE} (bez rekurzivního volání) vyžaduje čas 
 $O(1)$. Počet rekurzivních volání je součet délek pravých 
@@ -597,22 +559,20 @@ k{2^{k-1}})=O(|S|).$$
 \v Rada $\sum_{k=1}^{\infty}$$\frac k{2^{k-1}}$ konverguje např. podle podílového d'Alambertova 
 kritéria a lze jednoduše spočítat (např. stejnou metodou 
 jako pro regulární haldy), že součet je $4$.
-\medskip
 
-\flushpar Implementace operací {\bf DECREASE} a {\bf INCREASE} pomocí 
+Implementace operací {\bf DECREASE} a {\bf INCREASE} pomocí 
 operací {\bf UP} a {\bf DOWN} jako v $d$-regulárních haldách není 
 efektivní, protože délka cesty z kořene do listu v leftist haldě 
 může být až $|S|$.  Proto navrhneme pro tyto operace 
 efektivnější algoritmus založený na jiném principu.  Tento princip 
-je pak použit i pro Fibonacciho haldy.  \medskip
+je pak použit i pro Fibonacciho haldy.  
 
-\flushpar Nejprve popíšeme pomocnou operaci {\bf Oprav$(T,v
+Nejprve popíšeme pomocnou operaci {\bf Oprav$(T,v
 )$}, 
 která vy\-tvo\-ří lef\-tist haldu z binárního stromu $
 T'$ vzniklého z 
 leftist haldy $T$ odtržením podstromu s kořenem ve vrcholu $
 v$.
-\bigskip
 
 {\bf Oprav$(T,v)$}:\newline 
 $t:=\otec(v)$, $\npl(t):=0$\newline 
@@ -625,9 +585,9 @@ while} se zmenšilo $\npl(t)$ a $t$ není kořen {\bf do\newline
 \phantom{---}{\bf endif\newline 
 \phantom{{\rm ---}}$\npl(t):=\npl(\pravy(t))+1$\newline 
 enddo
-\bigskip
 
-}\flushpar Po provedení operace {\bf Oprav} mají všechny vrcholy 
+}
+Po provedení operace {\bf Oprav} mají všechny vrcholy 
 správné číslo $\npl$ a podmínky kladené na leftist 
 haldu jsou splněny. Tedy po provedení {\bf Oprav }
 je $T$ opět leftist halda. Když $t$ je poslední vrchol, u 
@@ -636,16 +596,13 @@ $\npl$, tvoří pravou cestu z vrcholu $t$. To znamená, že
 {\bf while}-cyklus se prováděl nejvýše $\log(|S|)$-krát a každý 
 běh {\bf while}-cyklu vyžadoval čas $O(1)$. Proto algoritmus 
 {\bf Oprav} vyžaduje čas $O(\log(|S|))$.
-\medskip
 
-\flushpar Popíšeme ostatní algoritmy.
-\bigskip
+Popíšeme ostatní algoritmy.
 
 {\bf DECREASE$(s,a)$}:\newline 
 $v:=$prvek reprezentující $s$\newline 
 $T_1$$:=$podstrom $T$ určený vrcholem $v$, $f(v):=f(v)-a$\newline 
 $T_2:=${\bf Oprav$(T,v)$}, $T:=${\bf MERGE$(T_1,T_2)$
-\bigskip
 
 INCREASE$(s,a)$}:\newline 
 $v:=$prvek reprezentující $s$\newline 
@@ -655,7 +612,6 @@ $T_3:=$leftist halda reprezentující prvek $s$\newline
 $f(v):=f(v)+a$, $T_4:=${\bf Oprav$(T,v)$}, $T_1:=${\bf MERGE$(T_1
 ,T_3)$\newline 
 $T_2:=$MERGE$(T_2,T_4)$}, $T:=${\bf MERGE$(T_1,T_2)$
-\bigskip
 
 DELETE$(s,a)$}:\newline 
 $v:=$prvek reprezentující $s$\newline 
@@ -663,14 +619,13 @@ $T_1:=$podstrom $T$ určený vrcholem $\levy(v)$\newline
 $T_2:=$podstrom $T$ určený  vrcholem $\pravy(v)$\newline 
 $T_3:=${\bf MERGE$(T_1,T_2)$}, $T_4:=${\bf Oprav$(T,v)$\newline 
 $T:=$MERGE$(T_3,T_4)$
-\bigskip
 
-}\flushpar Protože algoritmy {\bf MERGE} a {\bf Oprav} vyžadují čas 
+}
+Protože algoritmy {\bf MERGE} a {\bf Oprav} vyžadují čas 
 $O(\log(|S|)$ a protože zbylé části algoritmů pro operace 
 {\bf DECREASE}, {\bf INCREASE} a {\bf DELETE} vyžadují $O(
 1)$ času, 
 můžeme shrnout výsledky:  
-\medskip
 
 \proclaim{Věta}V leftist haldách existuje implementace operace 
 {\bf MIN}, která v nejhorším případě vyžaduje čas $
@@ -680,12 +635,10 @@ implementace ope\-rací {\bf INSERT}, {\bf DELETEMIN}, {\bf DELETE},
 pří\-pa\-dě čas $O(\log(|S|))$, a implementace operace {\bf MAKE\-HEAP},
 která vyžaduje čas $O(|S|)$, kde $S$ je reprezentovaná množina.
 \endproclaim
-\bigskip
 
 \centerline{\bigbigrm{IV. Amortizovaná složitost}}
-\medskip
 
-\flushpar Popíšeme bankovní paradigma pro počítání s 
+Popíšeme bankovní paradigma pro počítání s 
 amortizovanou složitostí. Předpokládejme, že máme funkci $
 h$, 
 která ohodnucuje konfigurace a kvantitativně vystihuje 
@@ -708,9 +661,8 @@ $$\sum_{i=1}^nam(o_i)=\sum_{i=1}^n\big(t(o_i)+h(D_i)-h(D_{i-1})\big
 )=h(D_n)-h(D_0)+\sum_{i=1}^nt(o_i)\le\sum_{i=1}^nc(o_i).$$
 Z toho plyne, že 
 $$\sum_{i=1}^nt(o_i)\le\sum_{i=1}^nc(o_i)-h(D_n)+h(D_0).$$
-\medskip
 
-\flushpar Obvykle je $h(D)\ge 0$ pro všechny konfigurace $D$ 
+Obvykle je $h(D)\ge 0$ pro všechny konfigurace $D$ 
 nebo naopak $h(D)\le 0$ 
 pro všechny konfigurace $D$. Když $h(D)\ge 0$, pak 
 $$\sum_{i=1}^nt(o_i)\le\sum_{i=1}^nc(o_i)+h(D_0),$$
@@ -724,25 +676,21 @@ výsledky byly lepší než teoretický výpočet.  Ukazuje se, že
 složitost posloupnosti operací v nejhorším případě je často podstatně 
 menší než součet složitostí v nejhorším případě pro 
 jednotlivé operace.  
-\bigskip
 
 \centerline{\bigbigrm{V. Binomiální haldy}}
-\medskip
 
-\flushpar Další typ hald je motivován sčítaním přirozených čísel.  
+Další typ hald je motivován sčítaním přirozených čísel.  
 Binomiální halda reprezentující $n-$prvkovou množinu se 
 totiž chová 
 podobně jako číslo $n$.  Tento typ hald je také po zobecnění v jistém 
 smyslu vzorem pro Fibonacciho haldy.  
-\medskip
 
-\flushpar Pro $i=0,1,\dots$ definujeme rekurentně binomiální 
+Pro $i=0,1,\dots$ definujeme rekurentně binomiální 
 stromy $H_i$.  Jsou to kořenové stromy takové, že $H_0$ je 
 jednoprvkový strom a  strom $H_{i+1}$ vznikne ze dvou 
 disjunktních stromů $H_i$, kde kořen jednoho stromu  
 se stane dalším synem (nejlevějším nebo nejpravějším) kořene druhého stromu.  Viz 
 Obr.  1. 
-\medskip
 
 \midinsert
 \centerline{\input fig10.tex}
@@ -750,9 +698,8 @@ Obr.  1.
 \endcaption
 \endinsert
 
-\flushpar Nejprve uvedeme základní vlastnosti těchto 
+Nejprve uvedeme základní vlastnosti těchto 
 stromů.
-\medskip
 
 \proclaim{Tvrzení}Pro každé přirozené číslo $
 i=0,1,\dots$ 
@@ -782,9 +729,8 @@ delší. Protože podstrom syna, který přibyl kořeni stromu
 $H_{i+1}$, je izomorfní s $H_i$ a jinak se nic neměnilo, je 
 důkaz kompletní. \qed
 \enddemo
-\medskip
 
-\flushpar\emph{Binomiální} \emph{halda} $\Cal H$ reprezentující 
+\emph{Binomiální} \emph{halda} $\Cal H$ reprezentující 
 množinu $S$ je soubor (seznam) stromů $\{T_1,T_2,\dots
 ,T_k\}$ 
 takový, že 
@@ -803,9 +749,8 @@ j$;
 \item"{}"
 $T_i$ není izomorfní s žádným $T_j$ pro $i\ne j$.
 \endroster
-\medskip
 
-\flushpar Z binárního zápisu přirozených čísel plyne, že 
+Z binárního zápisu přirozených čísel plyne, že 
 pro každé přiro\-ze\-né číslo $n>0$ existuje prostá 
 posloupnost $i_1,i_2,\dots,i_k$ přiro\-ze\-ných čísel taková, že 
 $n=\sum_{j=1}^k2^{i_j}$. Z toho plyne, že pro každou neprázd\-nou 
@@ -814,17 +759,15 @@ S$.
 Tato halda obsahuje strom izomorfní s $H_i$, právě když v 
 binárním zápise čísla $|S|$ je na $i$-tém místě zprava $
 1$.
-\bigskip
 
 \head
 Algoritmy a složitost operací
 \endhead
 
-\flushpar Operace pro binomiální haldy jsou  
+Operace pro binomiální haldy jsou  
 stejně jako pro leftist haldy založeny na ope\-raci {\bf MER\-GE}. Ope\-race 
 {\bf MERGE} pro binomiální haldy je analogií sčítání 
 přirozených čísel v binár\-ním zápise.
-\bigskip
 
 {\bf MERGE$(\Cal H_1,\Cal H_2)$}:\newline 
 (komentář: $\Cal H_i$ reprezentuje množinu $S_i$ pro $i=1
@@ -858,7 +801,6 @@ $V_1,V_2\in \{T,U_1,U_2\})$ {\bf do}:\newline
 enddo\newline 
 if} $T\ne$prázdný strom {\bf then} vlož $T$ do $\Cal H$ {\bf endif\newline 
 Výstup}:$\Cal H$
-\bigskip
 
 {\bf spoj$(T_1,T_2)$}:\newline 
 {\bf if} $f(\text{\rm kořen }T_1)>f(\text{\rm kořen }T_2)$ {\bf then\newline 
@@ -867,9 +809,8 @@ Výstup}:$\Cal H$
 }
 vytvoř nového  syna $v$ kořene $T_1$\newline 
 $v:=$kořen $T_2$
-\bigskip
 
-\flushpar Je vidět, že když oba stromy $T_1$ a $T_2$ jsou izomorfní 
+Je vidět, že když oba stromy $T_1$ a $T_2$ jsou izomorfní 
 s $H_i$, pak výsledný strom operace {\bf spoj} je izomorfní 
 s $H_{i+1}$. Korektnost ope\-race {\bf MERGE} plyne z tohoto 
 pozorování a z faktu, že $\Cal H_j$ obsahuje strom izomorfní s 
@@ -880,18 +821,15 @@ provádí posun řádu při sčítání. Protože každý běh
 cyklu vyžaduje čas $O(1)$, algoritmus {\bf MER\-GE} vyžaduje čas 
 $O(\log(|S_1|+|S_2|))$. Implementace dalších algoritmů 
 je podobná jako pro leftist haldy. 
-\bigskip
 
 {\bf INSERT$(x)$}:\newline 
 Vytvoř haldu $\Cal H_1$ reprezentující $\{x\}$\newline 
 $\bold M\bold E\bold R\bold G\bold E(\Cal H,\Cal H_1)$
-\bigskip
 
 {\bf MIN}:\newline 
 Prohledej prvky reprezentované kořeny všech stromů 
 v $\Cal H$\newline 
 {\bf Výstup}: nejmenší z těchto prvků  
-\bigskip
 
 {\bf DELETEMIN}:\newline 
 Prohledej prvky reprezentované kořeny všech stromů 
@@ -901,9 +839,9 @@ $\Cal H_1:=\Cal H\setminus \{T\}$\newline
 $\Cal H_2:=$ halda tvořená podstromy $T$ určenými syny kořene $
 T$\newline 
 {\bf MERGE$(\Cal H_1,\Cal H_2)$
-\bigskip
 
-}\flushpar Z podmínky \thetag{usp} je zřejmé, že 
+}
+Z podmínky \thetag{usp} je zřejmé, že 
 nejmenší prvek v $S$ je reprezentován v kořeni nějakého  
 stromu haldy. Tím je dána korekt\-nost operace {\bf MIN}.
 Z úvodního tvrzení plyne, že $\Cal H_2$ v operaci {\bf DELE\-TE\-MIN} je 
@@ -915,9 +853,8 @@ Struktura binomiální haldy nepodporuje přímo operaci
 {\bf DELETE} -- ta se dá realizovat jedině jako posloupnost 
 operací {\bf DECREASE$(s,\infty )$} a {\bf DELETEMIN}.  
 Operace {\bf MAKEHEAP} se provádí opakováním operace {\bf INSERT}.
-\medskip
 
-\flushpar Výpočet časové složitosti operací pro binomiální haldy 
+Výpočet časové složitosti operací pro binomiální haldy 
 využívá několik známých faktů.  Ope\-race {\bf MERGE }
 simuluje sčítání přirozených čísel v binárním zápise a má 
 tedy stejnou složitost.  Odhad složitosti vytváření haldy využívá 
@@ -930,16 +867,13 @@ S$ má
 tolik stromů, kolik je jedniček v binárním zápise $
 |S|$, a 
 to je nejvýše $\log(|S|)$.  
-\medskip
 
-\flushpar Z tvrzení také plyne, že výška všech stromů v 
+Z tvrzení také plyne, že výška všech stromů v 
 binomiální haldě je $\le\log(|S|)$ a počet synů 
 kořene každého stromu je 
 také $\le\log(|S|)$, přičemž tento odhad se nedá zlepšit. Odtud 
 dostáváme složitost operací {\bf DECREASE} a {\bf INCREASE} v nejhorším 
 případě. Můžeme tedy shrnout:
-\medskip
-
 
 \proclaim{Věta}Pro binomiální haldy algoritmy operací 
 {\bf IN\-SERT}, {\bf MIN}, {\bf DELETEMIN}, {\bf DECREASE} a {\bf MERGE  }
@@ -947,30 +881,26 @@ vy\-ža\-dují čas $O(\log(|S|))$, algoritmus operace {\bf INCRE\-ASE }
 vy\-ža\-duje čas $O(\log^2(|S|))$ a algoritmus operace {\bf MAKEHEAP 
 }čas $O(|S|)$.
 \endproclaim
-\medskip
 
-
-\flushpar Z těchto výsledků je vidět, že předchozí 
+Z těchto výsledků je vidět, že předchozí 
 typy hald mají efektivnější chování než binomiální haldy. 
 Význam binomiálních hald tak spo\-čí\-vá především v 
 tom, že se dají dále zobecnit (tímto zobecněním jsou Fibonacciho 
 haldy) a že na nich lze krásně 
 ilustrovat princip, že s řadou úprav je výhodné počkat 
 a neprovádět je okamžitě.
-\bigskip
 
 \head
 Líná implentace operací
 \endhead
 
-\flushpar Následující algoritmy jsou založeny na ideji, že 
+Následující algoritmy jsou založeny na ideji, že 
 `vyvažování' stačí provádět jen při operacích {\bf MIN} a 
 {\bf DELETEMIN}, kdy je stejně zapotřebí prohledat všechny 
 stromy. Z tohoto důvodu zeslabíme podmínky na 
 binomiální haldy.
-\medskip
 
-\flushpar\emph{Líná} \emph{binomiální} \emph{halda} $\Cal H$ 
+\emph{Líná} \emph{binomiální} \emph{halda} $\Cal H$ 
 reprezentující množinu $S$ je seznam stromů 
 $\{T_1,T_2,\dots,T_k\}$ takový, že  
 \roster
@@ -985,19 +915,16 @@ realizováno funkcí $\key$;
 každý strom $T_i$ je izomorfní s nějakým stromem $H_
 j$.
 \endroster
-\medskip
 
-\flushpar V líné binomiální haldě je vynechán předpoklad 
+V líné binomiální haldě je vynechán předpoklad 
 neizo\-morf\-nosti stromů tvořících haldu. Tento fakt se 
 projeví ve velmi jednoduchém algoritmu pro operaci 
 {\bf MERGE}.
-\bigskip
 
 {\bf MERGE$(\Cal H_1,\Cal H_2)$}:\newline 
 Prove\v d konkatenaci seznamů $\Cal H_1$ a $\Cal H_2$
-\bigskip
 
-\flushpar Samotný algoritmus pro operaci {\bf INSERT} se nezmění, jen 
+Samotný algoritmus pro operaci {\bf INSERT} se nezmění, jen 
 provede tuto implementaci ope\-race {\bf MER\-GE}.  Ope\-race 
 {\bf MIN} a {\bf DELETE\-MIN} použijí následující pomocnou 
 proceduru {\bf vyvaz}.  Jejím vstu\-pem je soubor 
@@ -1005,7 +932,6 @@ seznamů $\{O_i\mid i=0,1,\dots,k\}$, kde seznam $O_i$
 obsahuje jen stromy izomorfní se stromem $H_i$.  
 Procedura {\bf vyvaz} pak z těchto stromů vytvoří 
 klasickou binomiální hal\-du. 
-\bigskip
 
 {\bf vyvaz$(\{O_i\mid i=0,1,\dots,k\})$}:\newline 
 $i:=0$, $\Cal H:=\emptyset$\newline 
@@ -1024,7 +950,6 @@ $O_i$\newline
 \phantom{---}$i:=i+1$\newline 
 {\bf enddo\newline 
 Výstup}: $\Cal H$
-\bigskip
 
 {\bf MIN}:\newline 
 Prohledej prvky reprezentované kořeny všech 
@@ -1034,7 +959,6 @@ v $\Cal H$\newline
 stromy rozděl do množin $O_i=\{$všechny stromy v 
 $\Cal H$ izomorfní s $H_i\}$\newline 
 {\bf vyvaz$(\{O_i\mid i=0,1,\dots,\lfloor\log(|S|)\rfloor \})$
-\bigskip
 
 DELETEMIN}:\newline 
 Prohledej prvky reprezentované kořeny všech 
@@ -1046,9 +970,8 @@ $\Cal H$ izomorfní s $H_i$ různé od $T\}\cup \{$podstrom $
 T$ určený nějakým synem kořene $T$ 
 izomorfní s $H_i\}$\newline 
 {\bf vyvaz$(\{O_i\mid i=0,1,\dots,\lfloor\log(|S|)\rfloor \})$
-\bigskip
 
-\flushpar}\v Casová složitost operací {\bf INSERT} a {\bf MER\-GE} při líné 
+}\v Casová složitost operací {\bf INSERT} a {\bf MER\-GE} při líné 
 implementaci je $O(1)$, ale časová složitost operací {\bf MIN} a 
 {\bf DELETEMIN} je v nejhorším případě $O(|S|)$. Tento odhad je 
 velmi špatný, ale ukážeme, že amortizovaná složitost má rozumné 
@@ -1084,18 +1007,15 @@ ohodnocení klasické binomiální haldy je nejvýše $\log
 $O(|\Cal H|-|\Cal H|+\log(|S|))=O(\log(|S|))$ a amortizovaná složitost 
 operace {\bf DELETEMIN} je $O(|\Cal H|+\log(|S|)-|\Cal H|+\log(|S
 |))=O(\log(|S|))$.
-\medskip
 
-\flushpar Protože si funkci ohodnocení volíme, 
+Protože si funkci ohodnocení volíme, 
 můžeme použít takové multiplikativní 
 koeficienty, aby jednotka času odpovídala jednotce v 
 amortizované složitosti. Proto lze $|\Cal H|$ od sebe odečíst.
-\bigskip
 
 \centerline{\bigbigrm{VI. Fibonacciho haldy}}
-\medskip
 
-\flushpar Význam Fibonacciho hald určuje fakt, že amortizovaná 
+Význam Fibonacciho hald určuje fakt, že amortizovaná 
 složitost operací {\bf INSERT} a {\bf DECREASE} v těchto haldách je 
 $O(1)$ a amortizovaná složitost operace {\bf DELETEMIN} je $
 O(\log(|S|)$. 
@@ -1109,9 +1029,8 @@ kterých jsou Fibonacciho
 haldy lepší než třeba $d$-regulární haldy, 
 ani nevíme, do jaké míry je to jen teoretický 
 výsledek a do jaké míry jsou opravdu prakticky použitelné. 
-\medskip
 
-\flushpar Neformálně řečeno, je Fibonacciho halda množina 
+Neformálně řečeno, je Fibonacciho halda množina 
 stromů, jejichž některé vrcholy různé od 
 kořenů jsou označeny, a kde existuje 
 jednoznačná korepondence mezi prvky $S$ a vrcholy 
@@ -1129,13 +1048,12 @@ ope\-race, a pak budeme
 definovat \emph{Fibonacciho} \emph{haldy} jako struktury 
 vzniklé z prázdné haldy aplikací posloupnosti 
 těchto algoritmů.
-\bigskip
 
 \head
 Algoritmy
 \endhead
 
-\flushpar V algoritmech předpokládáme, že Fibonacciho halda je 
+V algoritmech předpokládáme, že Fibonacciho halda je 
 seznam stromů, kde některé vrcholy různé od 
 kořenů jsou označeny.  Vrchol je označen, právě když není 
 kořen a když mu byl někdy dříve odtržen některý jeho syn. Toto se 
@@ -1149,9 +1067,8 @@ jeho kořen
 má $i$ synů. Tento fakt nahrazuje test používaný 
 v binomiálních 
 haldách, že strom je izomorfní se stromem $H_i$. 
-\medskip
 
-\flushpar Algoritmy pro operace {\bf MERGE}, {\bf INSERT}, {\bf MIN} a 
+Algoritmy pro operace {\bf MERGE}, {\bf INSERT}, {\bf MIN} a 
 {\bf DELE\-TEMIN} jsou založeny na stejných idejích jako algoritmy pro línou implementaci 
 v binomiálních haldách, pouze poža\-da\-vek, aby strom byl 
 izomorfní s $H_i$, je nahrazen požadavkem, že má rank $
@@ -1160,16 +1077,13 @@ Algoritmy pro ope\-race {\bf DECREASE}, {\bf INCREASE} a {\bf DELETE }
 vycházejí z algoritmů pro tyto operace v leftist 
 haldách. V algoritmech předpokládáme, že $c=\log^{-1}
 (\frac 32)$.
-\bigskip
 
 {\bf MERGE$(\Cal H_1,\Cal H_2)$}:\newline 
 Prove\v d konkatenaci seznamů $\Cal H_1$ a $\Cal H_2$
-\bigskip
 
 {\bf INSERT$(x)$}:\newline 
 Vytvoř haldu $\Cal H_1$ reprezentující $\{x\}$\newline 
 $\bold M\bold E\bold R\bold G\bold E(\Cal H,\Cal H_1)$
-\bigskip
 
 {\bf MIN}:\newline 
 Prohledej prvky reprezentované kořeny všech 
@@ -1179,7 +1093,6 @@ stromy rozděl do množin $O_i=\{$všechny stromy v
 $\Cal H$ s rankem $i\}$\newline 
 {\bf vyvaz1$(\{O_i\mid i=0,1,\dots,\lfloor c\log(\sqrt 5|S|+1)\rfloor 
 \})$
-\bigskip
 
 DELETEMIN}:\newline 
 Prohledej prvky reprezentované kořeny všech 
@@ -1192,7 +1105,6 @@ některým synem kořene $T$ s
 rankem $i$$\}$\newline 
 {\bf vyvaz1$(\{O_i\mid i=0,1,\dots,\lfloor c\log(\sqrt 5|S|+1)\rfloor 
 \})$
-\bigskip
 
 vyvaz1$(\{O_i\mid i=0,1,\dots,k\})$}:\newline 
 $i:=0$, $\Cal H:=\emptyset$\newline 
@@ -1211,7 +1123,6 @@ $O_i$\newline
 \phantom{{\rm ---}}$i:=i+1$\newline 
 enddo\newline 
 Výstup}: $\Cal H$
-\bigskip
 
 {\bf spoj$(T_1,T_2)$}:\newline 
 {\bf if} $f(\text{\rm kořen }T_1)>f(\text{\rm kořen }T_2)$ {\bf then\newline 
@@ -1220,7 +1131,6 @@ Výstup}: $\Cal H$
 }
 vytvoř nového syna $v$ kořene $T_1$\newline 
 $v:=$kořen $T_2$
-\bigskip
 
 {\bf DECREASE$(s,a)$}:\newline 
 $T:=$strom v $\Cal H$, který obsahuje vrchol reprezentující $
@@ -1234,7 +1144,6 @@ v$ {\bf endif\newline
 \phantom{{\rm ---}}}vlož $T'$ do $\Cal H$\newline 
 {\bf endif\newline 
 $f(v):=f(v)-a$
-\bigskip
 
 INCREASE$(s,a)$}:\newline 
 $T:=$strom v $\Cal H$, který obsahuje vrchol reprezentující $
@@ -1254,7 +1163,6 @@ a vlož je do $\Cal H$\newline
 v$\newline 
 {\bf endif\newline 
 $f(v):=f(v)+a$
-\bigskip
 
 DELETE$(s)$}:\newline 
 $T:=$strom v $\Cal H$, který obsahuje vrchol reprezentující $
@@ -1269,7 +1177,6 @@ vrcholu $v$ a vlož je do $\Cal H$\newline
 if} $v$ není kořen {\bf then vyvaz2$(T,v)$ endif\newline 
 }
 zruš vrchol $v$
-\bigskip
 
 {\bf vyvaz2$(T,v)$}:\newline 
 $u:=\otec v$\newline 
@@ -1279,9 +1186,9 @@ $u:=\otec v$\newline
 \phantom{---}vlož $T'$ do $\Cal H$, $u:=u'$\newline 
 {\bf enddo\newline 
 if} $u$ není kořen $T$ {\bf then} označ $u$ {\bf endif
-\bigskip
 
-}\flushpar Všimněme si, že když stromy $T_1$ a $T_2$ mají rank 
+}
+Všimněme si, že když stromy $T_1$ a $T_2$ mají rank 
 $i$, pak procedura {\bf spoj$(T_1,T_2)$} vytvoří strom s rankem 
 $i+1$.  Aby algoritmy pro operace {\bf MIN} a {\bf DELETEMIN} byly 
 korektní, musíme ukázat, že všechny stromy ve 
@@ -1298,19 +1205,17 @@ i celý podstrom tohoto vrcholu (tím se tento vrchol stane kořenem
 stromu).  Když se později stane tento vrchol zase 
 vrcholem různým od kořene, celý proces se 
 opakuje. 
-\bigskip
 
 \head
 Složitost operací
 \endhead
 
-\flushpar Naším cílem bude odhadnout amortizovanou složitost těchto 
+Naším cílem bude odhadnout amortizovanou složitost těchto 
 operací, protože složitost v nejhorším případě není 
 použitelný výsledek.  Abychom to mohli udělat, spočítáme parametry 
 složitosti jednotlivých operací:  
-\medskip
 
-\flushpar {\bf MERGE} -- časová složitost $O(1)$, nevzniká žádný 
+{\bf MERGE} -- časová složitost $O(1)$, nevzniká žádný 
 nový strom, 
 ozna\-če\-né vrcholy se nemění;\newline 
 {\bf INSERT} -- časová složitost $O(1)$, přibyl jeden strom, 
@@ -1341,9 +1246,8 @@ počet synů vrcholu $v$ reprezentujícího prvek,
 který se má odstranit. Bylo přidáno nejvýše $c+d$ 
 nových stromů a byl označen nejvýše jeden 
 vrchol.
-\medskip
 
-\flushpar Pro výpočet amortizované složitosti 
+Pro výpočet amortizované složitosti 
 musíme nejprve navrhnout funkci ohodnocující 
 konfigurace.  Při vyšetřování líné implementace binomiálních 
 hald se ukázalo, že vhodným ohodnocením je počet stromů 
@@ -1355,21 +1259,19 @@ nejen čas, ale i přírůstek stromů. To vede k
 následujícímu ohodnocení konfigurace: ohodnocení je počet 
 stromů v konfiguraci plus dvojnásobek počtu 
 označených vrcholů.
-\medskip
-\flushpar Nechť $\rho (n)$ je maximální 
+
+Nechť $\rho (n)$ je maximální 
 počet synů vrcholu ve Fibonacciho haldě 
 reprezentující $n$-prvkovou množinu.  Pak amortizovaná 
 složitost operací {\bf MERGE}, {\bf INSERT} a {\bf DECREASE} je $
 O(1)$ a 
 operací {\bf MIN}, {\bf DELETEMIN}, {\bf INCREASE} a {\bf DELETE} je $
 O(\rho (n))$.
-\medskip
 
-\flushpar Abychom spočítali odhad $\rho (n)$, využijeme toho, že 
+Abychom spočítali odhad $\rho (n)$, využijeme toho, že 
 Fibonacciho halda vznikla z prázdné haldy pomocí 
 popsaných algoritmů. Nejprve uvedeme jedno technické 
 lemma.
-\medskip
 
 \proclaim{Lemma}Nechť $v$ je vrchol stromu ve 
 Fibonacciho haldě a nechť $u$ je $i$-tý nejstarší syn 
@@ -1384,7 +1286,6 @@ synů (jinak by $u$ nebyl $i$-tý nejstarší syn), a
 protože se od $u$ mohl odtrhnout jen jeden syn, 
 dostáváme, že $u$ musí mít alespoň $i-2$ synů. \qed
 \enddemo
-\medskip
 
 \proclaim{Tvrzení}Nechť $v$ je vrchol stromu ve 
 Fibonacciho haldě, kte\-rý má právě $i$ synů. Pak 
@@ -1427,9 +1328,8 @@ Když shrneme tato fakta, dostáváme, že podstrom
 určený vrcholem $v$ má alespoň $F_{i+2}$ vrcholů, a 
 tvrzení je dokázáno. \qed
 \enddemo
-\medskip
 
-\flushpar Vezměme nyní nejmenší $i$ takové, že $
+Vezměme nyní nejmenší $i$ takové, že $
 n<F_i$. Protože 
 posloupnost $\{F_i\}_{i=1}^{\infty}$ je rostoucí, plyne z předchozího 
 tvrzení, že každý vrchol ve Fibonacciho haldě 
@@ -1467,10 +1367,8 @@ $$\frac {\log_2(\sqrt 5n+1)}{\log_2\frac 32}<i\quad\implies\frac {\log_
 <i.$$
 Proto když $\frac {\log_2(\sqrt 5n+1)}{\log_23-1}<i$, pak $n<F_
 i$, a tedy $\rho (n)<i-2$.
-\medskip
 
-\flushpar Výsledky shrneme do následující věty: 
-\medskip
+Výsledky shrneme do následující věty: 
 
 \proclaim{Věta}Ve Fibonacciho haldě, která   
 reprezentuje $n$-prvkovou množinu, má každý vrchol 
@@ -1482,9 +1380,8 @@ je $O(1)$ a amortizovaná složitost operací {\bf MIN},
 )$. Operace {\bf MIN }
 a {\bf DELETEMIN} jsou korektní.
 \endproclaim
-\medskip
 
-\flushpar Pro úplnost dokážeme, že $F_i=\frac {\big(\frac {
+Pro úplnost dokážeme, že $F_i=\frac {\big(\frac {
 1+\sqrt 5}2\big)^i-\big(\frac {1-\sqrt 5}2\big)^i}{\sqrt 5}$ .\newline 
 Pro $i=1$ platí 
 $$\frac {\big(\frac {1+\sqrt 5}2\big)^1-\big(\frac {1-\sqrt 5}2\big
@@ -1512,14 +1409,12 @@ $$\align&\frac {\big(\frac {1+\sqrt 5}2\big)^i-\big(\frac {1-\sqrt
 2\big)^{i-2}}{\sqrt 5}+\frac {\big(\frac {1+\sqrt 5}2\big)^{i-1}-\big
 (\frac {1-\sqrt 5}2\big)^{i-1}}{\sqrt 5}=F_{i-2}+F_{i-1}=F_i.\endalign$$
 Tedy indukcí dostáváme požadovaný vztah.
-\bigskip
 
 \head
 Aplikace 
 \endhead
 
-
-\flushpar Vrátíme se k Dijkstrově algoritmu.  
+Vrátíme se k Dijkstrově algoritmu.  
 Množinu $U$ bude\-me reprezentovat pomocí Fibonacciho haldy.  
 Protože ohodnocení je nezáporné a ohodnocení počáteční haldy 
 je $0$, dává odhad amortizované složitosti také odhad časové 
@@ -1528,9 +1423,8 @@ algoritmus s použitím
 Fibonacciho haldy vyžaduje v nejhorším případě čas 
 $O(|X|(1+\log|X|)+|R|)=O(|R|+|X|\log|X|)$.  Stejný výsledek 
 dostane\-me i pro konstrukci nejmenší napnuté kostry grafu.  
-\medskip
 
-\flushpar Otázka je, kdy v Dijkstrově algoritmu nebo v 
+Otázka je, kdy v Dijkstrově algoritmu nebo v 
 algoritmu konstruují\-cím nejmenší napnutou kostru použít Fibonacciho haldu a kdy 
 např.  $d$-regu\-lár\-ní haldy. Lze 
 říci, že Fibonacciho halda by měla být výrazně lepší pro 
@@ -1541,13 +1435,12 @@ grafy (tj. grafy, kde počet hran je $|X|^{1+\varepsilon}$ pro vhodné
 $\varepsilon >0$). Problém je, pro které hodnoty nastává zlom. 
 Nevím o žádných experimentálních ani teoretických 
 výsledcích tohoto typu.
-\bigskip
 
 \head
 Historický přehled
 \endhead
 
-\flushpar Binární neboli $2$-regulární haldy 
+Binární neboli $2$-regulární haldy 
 zavedl Williams 1964.  Jejich zobecnění na $d$-regulární haldy 
 pochází od Johnsona 1975.  Leftist haldy definoval Crane 1972 a 
 detailně popsal Knuth 1975.  Binomiální haldy navrhnl Vuillemin 
@@ -1557,9 +1450,8 @@ Tarjanem 1987.
 \newpage
 
 \centerline{\bigbigrm{VII. Třídicí algoritmy}}
-\bigskip
 
-\flushpar Jednou z nejčastěji řešených úloh při práci s 
+Jednou z nejčastěji řešených úloh při práci s 
 daty je setřídění 
 posloupnosti prvků nějakého typu. Proto velká pozornost byla a je věnována 
 třídicím algoritmům řešícím tuto úlohu, která 
@@ -1571,9 +1463,8 @@ studují za různých vstupních předpokladů.
 Kromě toho třídění je jedna z mála úloh, pro kterou 
 alespoň za jistých 
 předpokladů umíme spočítat dolní odhad složitosti.
-\medskip
 
-\flushpar Formulace úlohy:\newline 
+Formulace úlohy:\newline 
 Nechť $U$ je totálně uspořádané univerzum.\newline 
 Vstup: Prostá posloupnost $\{a_1,a_2,\dots,a_n\}$ prvků z 
 univerza $U$.\newline 
@@ -1586,24 +1477,21 @@ vstupem je prostá posloupnost. Pak jsou dvě varianty
 řešení -- bu\v d se ve výstupní posloupnosti odstraní 
 duplicity nebo výstupní posloupnost zachová četnost prvků ze 
 vstupní posloupnosti.
-\medskip
 
-\flushpar Základní algoritmy, které  řeší třídicí 
+Základní algoritmy, které  řeší třídicí 
 problém, jsou {\bf QUICKSORT}, {\bf MERGESORT} a {\bf HEAP\-SORT}. 
-\bigskip
 
 \head
 HEAPSORT
 \endhead
 
-\flushpar S algoritmem {\bf HEAPSORT} jsme se seznámili při 
+S algoritmem {\bf HEAPSORT} jsme se seznámili při 
 aplikacích hald.  Byl to první algoritmus používající haldy 
 (binární regulár\-ní haldy byly definovány právě při návrhu 
 {\bf HEAP\-SORTU}).  Podíváme se detailněji na jednu z jeho 
 implementací, která třídí takzvaně na místě. 
-\medskip
 
-\flushpar Třídicí algoritmy se často používají jako 
+Třídicí algoritmy se často používají jako 
 podprocedura při řešení jiných úloh. V takovém případě je 
 obvykle vstupní posloupnost uložena v poli v pracovní 
 paměti programu a poža\-dav\-kem  je setřídit ji 
@@ -1628,23 +1516,20 @@ aplikace operace {\bf DELETEMAX} zkrátí počáteční úsek pole
 reprezentujícího haldu o jedno místo 
 a zároveň o toto místo zvětší druhou část, ve které je uložena již 
 setříděná část posloupnosti. 
-\medskip
 
-\flushpar {\bf HEAPSORTU} je stále věnována velká pozornost a 
+{\bf HEAPSORTU} je stále věnována velká pozornost a 
 bylo navrže\-no několik jeho modifikací, snažících se 
 např. minimalizovat počet porovnání prvků apod.
-\bigskip
 
 \head
 MERGESORT
 \endhead
 
-\flushpar Nejstarší z uvedených algoritmů je 
+Nejstarší z uvedených algoritmů je 
 {\bf MERGESORT}, který je starší než je počítačová éra, 
 neboť některé jeho 
 verze se používaly už při mecha\-nickém třídění. Popíšeme 
 jednu jeho iterační verzi, tzv. přirozený {\bf MERGESORT}. 
-\bigskip
 
 {\bf MERGESORT$(a_1,a_2,\dots,a_n)$}:\newline 
 $Q$ je prázdná fronta, $i=1$\newline 
@@ -1662,7 +1547,6 @@ Q$\newline
 \phantom{---}{\bf MERGE$(P_1,P_2)$} vlož na konec $Q$\newline 
 {\bf enddo\newline 
 Výstup}: posloupnost z $Q$
-\bigskip
 
 {\bf MERGE$(P_1=(a_1,a_2,\dots,a_n),P_2=(b_1,b_2,\dots,b_m))$}:\newline 
 $P:=$ je prázdná posloupnost, $i:=1$, $j:=1$, $k:=1$\newline 
@@ -1680,9 +1564,8 @@ while} $j\le m$ {\bf do\newline
 \phantom{{\rm ---}}$c_k:=b_j$}, $j:=j+1$, $k:=k+1$\newline 
 {\bf enddo\newline 
 Výstup:} $P=(c_1,c_2,\dots,c_{n+m})$
-\bigskip
 
-\flushpar Všimněme si, že všechny posloupnosti v $Q$ jsou 
+Všimněme si, že všechny posloupnosti v $Q$ jsou 
 rostoucí a že sjednocením všech jejich prvků  
 je vždy na začátku běhu cyklu {\bf while 
 $|Q|>1$ do} množina $\{a_i\mid i=1,2,\dots,n\}$. 
@@ -1690,9 +1573,8 @@ Protože počet
 posloupností ve frontě $Q$ je nejvýše roven délce vstupní 
 posloupnosti a každý průběh tohoto 
 cyklu zmenší jejich počet o $1$, je algoritmus {\bf MERGE\-SORT} korektní.
-\medskip
 
-\flushpar Spočítáme časovou složitost {\bf MERGESORTU}. 
+Spočítáme časovou složitost {\bf MERGESORTU}. 
 Nejprve vyšetříme slo\-ži\-tost podprocedury {\bf MER\-GE}. Protože 
 určení prvku $c_k$ vyža\-du\-je čas $O(1)$ (provede se 
 nejvýše jedno porovnání) a 
@@ -1700,9 +1582,8 @@ protože maximální hodnota $k$ je $n+m$, dostáváme, že
 podprocedura {\bf MERGE} vyžaduje čas $O(n+m)$ (nejvýše $
 n+m$ 
 porovnání), kde $n$ a $m$ jsou délky vstupních posloupností.
-\medskip
 
-\flushpar Nyní vypočteme složitost hlavní procedury. 
+Nyní vypočteme složitost hlavní procedury. 
 Zřejmě první cyklus vyžaduje lineární čas. Vyšetříme 
 druhý cyklus probíhající přes frontu $Q$. Předpokládejme, že před prvním během 
 tohoto cyklu je na vrcholu $Q$ speciální znak $\natural$, který se vždy 
@@ -1718,9 +1599,8 @@ délku $\ge 2^{i-1}$. Proto počet přenosů je
 nejvýše $\lceil\log_2n\rceil$, a tedy algoritmus {\bf MERGESORT }
 vyžaduje čas $O(n\log n)$ (provede se nejvýše $n\log n$ 
 porovnání).
-\medskip
 
-\flushpar Vzhledem k 
+Vzhledem k 
 počtu porovnání je {\bf MERGESORT} optimální třídicí algoritmus. 
 Navíc v této verzi je adaptivní na předtříděné 
 posloupnosti, které mají jen malý počet dlouhých 
@@ -1729,18 +1609,16 @@ konstantním počtu běhů má složitost $O(n)$. Jiná
 jeho verze, která začíná slévání vždy od 
 jednoprvkových posloupností (tzv. přímý {\bf MERGESORT}) 
 tuto vlastnost nemá. 
-\bigskip
 
 \head
 QUICKSORT
 \endhead
 
-\flushpar Nyní popíšeme patrně vůbec 
+Nyní popíšeme patrně vůbec 
 nejpoužívanější třídicí algoritmus, kterým je {\bf QUICKSORT}. 
 Důvodem je, že pro obecnou posloupnost je 
 nejrychlejší, při rovnoměrném rozložení vstupních 
 polsoupností má nejmenší očekávaný čas. 
-\bigskip
 
 {\bf Quick$(a_i,a_{i+1},\dots,a_j)$}:\newline 
 {\bf if} $i=j$ {\bf then\newline 
@@ -1771,13 +1649,12 @@ a_{l-1}),a,$Quick$(a_{q+1},\dots,a_j))$\newline
 \phantom{{\rm ------}}endif\newline 
 \phantom{{\rm ---}}endif\newline 
 endif
-\bigskip
 
 QUICKSORT$(a_1,a_2,\dots,a_n)$}:\newline 
 {\bf Výstup$($Quick$(a_1,a_2,\dots,a_n))$
-\bigskip
 
-}\flushpar Algoritmus {\bf Quick} setřídí posloupnost 
+}
+Algoritmus {\bf Quick} setřídí posloupnost 
 $(a_i,a_{i+1},\dots,a_j)$ tak, že pro prvek $a=a_k$ vytvoří posloupnost 
 $(a_i,a_{i+1},\dots,a_{l-1})$ všech prvků menších než $
 a$ 
@@ -1789,9 +1666,8 @@ nejprve setříděnou první posloupnost, pak prvek $a$ a nakonec
 setříděnou druhou posloupnost. Korektnost procedury 
 {\bf Quick}  i algoritmu {\bf QUICKSORT} je tedy zřejmá, protože 
 $l\le j$ a $i\le q$. 
-\medskip
 
-\flushpar Procedura {\bf Quick} bez rekurzivního volání 
+Procedura {\bf Quick} bez rekurzivního volání 
 vyžaduje čas $O(j-i)$. Tedy kdyby $a_k$ byl medián (tj. 
 prostřední prvek) posloupnosti $(a_i,a_{i+1},\dots,a_j)$, pak 
 by algoritmus {\bf QUICKSORT} v nejhorším případě vy\-žadoval čas $
@@ -1823,9 +1699,8 @@ medián ze tří nebo pěti pevně zvolených prvků
 posloupnosti. Praxe ukázala, že tento výběr pivota je 
 nej\-praktičtější, dá se provést rychle a zajišťuje 
 dostatečnou ná\-hod\-nost.
-\medskip
 
-\flushpar Protože při každém volání má {\bf Quick} jako 
+Protože při každém volání má {\bf Quick} jako 
 argument kratší 
 vstupní posloupnost, lze ukázat, že:
 \roster
@@ -1838,15 +1713,13 @@ exi\-stují vstupní posloupnosti, které vyžadují čas $
 O(n^2)$,
 \item{}očekávaný čas je $O(n\log n)$.
 \endroster
-\medskip
 
-\flushpar Následná analý\-za očekávaného případu  
+Následná analý\-za očekávaného případu  
 je pro ná\-hod\-ně zvoleného pivota (bez dalšího před\-pokladu na 
 vstupní data) nebo pro případ, kdy pivot je pevně zvolen a data jsou 
 rovno\-měrně rozdě\-lena.
-\medskip
 
-\flushpar Ukážeme dva způsoby výpočty očekávaného času.  Jeden 
+Ukážeme dva způsoby výpočty očekávaného času.  Jeden 
 je založen na několika jednoduchých pozorováních a není v 
 něm mnoho počítání, druhý na rekurzivním výpočtu. Ten 
 je početně náročnější, ale postup je standardní. Hlavní idea v obou 
@@ -1856,9 +1729,8 @@ očekávanému počtu porovnání v algoritmu {\bf QUICKSORT}.
 Tento fakt plyne přímo z popisu algoritmu.  Budeme 
 tedy počítat  
 očeká\-vaný počet porovnání pro algoritmus {\bf QUICKSORT}.  
-\medskip
 
-\flushpar První způsob výpočtu:\newline 
+První způsob výpočtu:\newline 
 Každé dva prvky $a_i$ a $a_j$ algoritmus {\bf QUICKSORT} porovná 
 při třídění posloupnosti $(a_1,a_2,\dots,a_n)$ nejvýše jednou, 
 přičemž když porovnává $a_i$ a $a_j$, 
@@ -1868,9 +1740,8 @@ pivot, ale v předchozích bězích {\bf Quick} $a_i$ ani $
 a_j$ 
 nebyl pivotem (protože pivot je vždy vyřazen z následujících 
 volání této podprocedury).
-\medskip
 
-\flushpar Nechť $(b_1,b_2,\dots,b_n)$ je výsledná posloupnost.  
+Nechť $(b_1,b_2,\dots,b_n)$ je výsledná posloupnost.  
 Označme $X_{i,j}$ boolskou proměnou, která má hodnotu $
 1$, 
 když {\bf QUICKSORT} provedl porovnání mezi prvky $b_i$ a $
@@ -1887,9 +1758,8 @@ proměnných je součtem očekávaných hodnot, dostáváme, že
 očekávaný počet porovnání v algoritmu {\bf QUICKSORT} je
 $$\sum_{i=1}^n\sum_{j=i+1}^n\bold E(X_{i,j})=\sum_{i=1}^n\sum_{j=
 i+1}^np_{i,j}.$$
-\medskip
 
-\flushpar Abychom spočítali $p_{i,j}$, popíšeme chování algoritmu 
+Abychom spočítali $p_{i,j}$, popíšeme chování algoritmu 
 {\bf QUICKSORT} pomocí modifikace stromu výpočtu. Bude to binární 
 strom, v němž každý vrchol odpovídá jednomu 
 běhu podprocedury {\bf Quick}. Vrchol $v$ bude vnitřním 
@@ -1913,9 +1783,8 @@ ohodnoceny prvky z posloupnosti $(a_i,a_{i+1},\dots,a_{l-1})$ a vrcholy v
 podstromu pravého syna vrcholu $v$ jsou ohodnoceny prvky z posloupnosti 
 $(a_{q+1},\dots,a_j)$ (po přerovnání).
 Dále platí $\{a_l\mid i\le l\le j\}=\{b_l\mid i\le l\le j\}$.
-\medskip
 
-\flushpar Očíslujeme vrcholy tohoto stromu prohledáváním do 
+Očíslujeme vrcholy tohoto stromu prohledáváním do 
 šířky za předpokladu, že levý syn vrcholu předchází 
 pravému synu. Nechť $(c_1,c_2,\dots,c_n)$ je posloupnost 
 prvků $\{a_i\mid 1\le i\le n\}$ v pořadí daném tímto 
@@ -1928,9 +1797,8 @@ očekávaný počet porovnání v algoritmu {\bf QUICKSORT} je
 $$\sum_{i=1}^n\sum_{j=i+1}^np_{i,j}=\sum_{i=1}^n\sum_{j=i+1}^n\frac 
 2{j-i+1}=\sum_{i=1}^n\sum_{k=2}^{n-i+1}\frac 2k\le 2n(\sum_{k=2}^
 n\frac 1k)\le 2n\int_1^n\frac 1xdx=2n\ln n.$$
-\medskip
 
-\flushpar Druhý způsob výpočtu:\newline 
+Druhý způsob výpočtu:\newline 
 Označme $QS(n)$ očekávaný počet 
 porovnání provedených algoritmem {\bf QUICKSORT} při 
 třídění $n$-členné posloupnosti. Pak platí
@@ -1954,13 +1822,12 @@ n+1)\big(\sum_{i=2}^n\frac 1{i+1}\big)=2(n+1)\big(\sum_{i=3}^{n+1}\frac
 &2n\ln(n+1)+2\ln(n+1)-n-1.\endalign$$
 Pro dostatečně velká $n$ tedy platí 
 $$2n\ln(n+1)+2\ln(n+1)-n\le 2n\ln n.$$
-\bigskip
 
 \head
 Porovnání třídicích algoritmů
 \endhead
 
-\flushpar Nyní porovnáme složitost algoritmů 
+Nyní porovnáme složitost algoritmů 
 {\bf HEAPSORT}, {\bf MERGE\-SORT}, {\bf QUICKSORT}, {\bf A-sort} (byl popsán 
 v kapitole o $(a,b)-$stromech), 
 {\bf SELECTIONSORT} a {\bf INSERTIONSORT}.  Připomeňme si, že 
@@ -1976,9 +1843,8 @@ tak, že do již setříděného začátku
 posloupnosti vkládá další prvek, který pomocí výměn 
 zařadí na správné místo, a tento proces (začíná druhým 
 prvkem zleva) opakuje.  
-\medskip
 
-\flushpar {\bf QUICKSORT} v nejhorším případě vyžaduje čas 
+{\bf QUICKSORT} v nejhorším případě vyžaduje čas 
 $\Theta (n^2)$, oče\-kávaný čas je $9n\log n$, v 
 nej\-horším případě provádí $\frac {n^2}2$ porov\-nání,  
 očekávaný počet porov\-nání je $1.44n\log n$. 
@@ -2019,13 +1885,11 @@ $\frac {n^2}4$. Potřebuje $n+konst$ paměti, použí\-vá
 sekvenční přístup k paměti a má verzi, která je 
 adaptivní na předtříděné posloupnosti s malým počtem 
 inverzí.
-\medskip
 
-\flushpar Prezentované  výsledky byly spočítány 
+Prezentované  výsledky byly spočítány 
 pro model RAM (viz Mehlhorn 1984).
-\medskip
 
-\flushpar Očekávaný čas pro {\bf HEAPSORT} je prakticky stejný jako 
+Očekávaný čas pro {\bf HEAPSORT} je prakticky stejný jako 
 jeho nej\-horší čas.  Byly navrženy verze, které optimalizují 
 počet porov\-nání, ale většinou mají větší nároky na 
 čas, a proto až na výjimky ne\-jsou pro praktické 
@@ -2052,13 +1916,12 @@ klasických počítačích uvádí Mehlhorn (1984) jako
 $1$ : $1.33$ : $2.22$. To 
 však nemusí  být pravda pro současné procesory, 
 paměti a operační systémy. 
-\bigskip
 
 \head
 Slévání nestejně dlouhých posloupností
 \endhead
 
-\flushpar V algoritmu {\bf MERGESORT} jsme použili frontu, která 
+V algoritmu {\bf MERGESORT} jsme použili frontu, která 
 řídila proces slučování rostoucích posloupností.  Tato metoda je uspokojující a 
 dává optimální výsledek (ve smyslu časové náročnosti){\bf ,} pokud posloupnosti ve frontě jsou 
 stejně dlouhé.  Pokud se ale jejich délky hodně liší, 
@@ -2071,15 +1934,13 @@ nalezen v roce 1952. K optimálnímu řešení vede např.
 postup, který je kombinací `mergeování' a 
 optimalizace a používá metody dynamického programování.  
 Nejprve formálně popíšeme abstraktní verzi tohoto problému.  
-\medskip
 
-\flushpar Vstup: Množina rostoucích navzájem 
+Vstup: Množina rostoucích navzájem 
 disjunktních posloupností.\newline 
 Úkol:  Pomocí operace {\bf MERGE} co nejrychleji spojit 
 všechny tyto posloupnosti do jediné rostoucí posloupnosti.  
-\medskip
 
-\flushpar Předpokládejme, že máme postup, který z 
+Předpokládejme, že máme postup, který z 
 daných rostoucích posloupností vytvoří 
 jedinou rostoucí po\-sloupnost. Tento postup určuje úplný 
 binární strom $T$, jehož listy jsou ohodnoceny vstupními 
@@ -2103,15 +1964,13 @@ lehce dostaneme, že
 $$\sum \{l(P(v))\mid v\text{\rm \ vnitřní vrchol stromu }T
 \}=\sum_{\{t\text{\rm \ je list }T\}}d(t)l(P(t)),$$
 kde $d(t)$ je hloubka listu $t$.
-\medskip
 
-\flushpar Když tedy $T$ je úplný binární strom, jehož listy
+Když tedy $T$ je úplný binární strom, jehož listy
 jsou ohodnoceny navzájem disjunktními rostoucími  
 posloupnostmi, pak následující algoritmus {\bf Slevani} spojí tyto  
 posloupnosti do jediné rostoucí posloupnosti a procedury 
 {\bf MERGE} budou vyžadovat celkový čas 
 $$O(\sum_{\{t\text{\rm \ je list }T\}}d(t)l(P(t))).$$
-\bigskip
 
 {\bf Slevani$(T,\{P(l)\mid l\text{\rm \ je list }T\})$\newline 
 while} $P(\text{\rm kořen }T)$ není definováno {\bf do\newline 
@@ -2121,9 +1980,9 @@ definováno a\newline
 P(v_2)$ definovány\newline 
 \phantom{---}$P(v):=${\bf MERGE$(P(v_1),P(v_2))$\newline 
 enddo
-\bigskip
 
-}\flushpar Nyní můžeme přeformulovat původní 
+}
+Nyní můžeme přeformulovat původní 
 problém:\newline 
 Vstup: $n$ čísel $x_1,x_2,\dots,x_n$\newline 
 Výstup: úplný binární strom $T$ s $n$ listy a bijekce $
@@ -2133,9 +1992,8 @@ $\sum_{i=1}^nd(\phi (i))x_i$ je minimální (kde $d(\phi (i))$ je hloubka
 listu $\phi (i)$).\newline 
 \v Rekneme, že dvojice $(T,\phi )$ je \emph{optimální} 
 \emph{strom} vzhledem k $x_1,x_2,\dots,x_n$. 
-\medskip
 
-\flushpar V přeformulováné úloze už nepracujeme s 
+V přeformulováné úloze už nepracujeme s 
 posloupnostmi, ale jen s jejich délkami. 
 To znamená, že když pro původní úlohu 
 byly vstupem posloupnosti $P_1,P_2,\dots,
@@ -2147,9 +2005,8 @@ je použit v algoritmu {\bf Slevani}
 tak, že  posloupnost $P_i$ ohodnocuje list, který byl v 
 přeformulované úloze ohodnocen délkou $l(P_i)$, a hledaná posloupnost 
 v původní úloze ohodnocuje kořen stromu. 
-\medskip
 
-\flushpar Mějme množinu $\{x_i\mid i=1,2,\dots,n\}$.  Pro úplný binární 
+Mějme množinu $\{x_i\mid i=1,2,\dots,n\}$.  Pro úplný binární 
 strom $T$ s $n$ listy a bijekci $\phi$ z množiny $\{1,2,\dots,
 n\}$ do 
 listů stromu $T$ definujme 
@@ -2160,7 +2017,6 @@ Chceme zkonstruovat úplný binární strom s $n$ listy,
 který minimalizuje hodnotu $\Cont$. K řešení 
 použijeme následující algoritmus, který je upravenou verzí 
 hladového algoritmu pro náš problém.
-\medskip
 
 {\bf Optim$(x_1,x_2,\dots x_n)$}:\newline 
 $V$ je množina $n$ jednoprvkových stromů\newline 
@@ -2174,13 +2030,11 @@ v_1$ a $v_2$\newline
 \phantom{---}$c(v):=c(v_1)+c(v_2)$, strom $v$ vlož do $V$\newline 
 {\bf enddo\newline 
 Výstup}: $(T,\phi )$, kde $T$ je strom v množině $V$
-\bigskip
 
-\flushpar Vytvoření nového stromu $v$ spojením stromů 
+Vytvoření nového stromu $v$ spojením stromů 
 $v_1$ a $v_2$ znamená vytvoření nového vrcholu, který bude 
 kořenem stromu $v$ a jehož synové budou kořeny stromů 
 $v_1$ a $v_2$. To je analogické proceduře {\bf spoj}.
-\medskip
 
 \proclaim{Věta}Pro danou posloupnost čísel 
 $(x_1,x_2,\dots,x_n)$ algoritmus {\bf Optim} nalezne optimální strom 
@@ -2192,9 +2046,8 @@ $O(n)$.
 \demo{Důkaz}Důkaz má dvě části. V 
 první dokážeme korektnost algoritmu a ve druhé popíšeme 
 reprezentaci množiny $V$ a vypočteme časovou složitost.
-\medskip
 
-\flushpar Nejprve připomeňme, že $\phi (i)$ je list $T$ 
+Nejprve připomeňme, že $\phi (i)$ je list $T$ 
 pro každé $i\in \{1,2,\dots,n\}$.  Protože na začátku $
 V$ 
 obsahuje jen 
@@ -2263,9 +2116,8 @@ $$\gather\Cont(T,\phi )=\Cont(T,\psi )+x_1+x_2\text{\rm \ , }\\
 \Cont(U,\eta )=\Cont(U',\tau )+x_1+x_2\endgather$$
 pak závěr je, že $(T,\phi )$ je optimální strom pro 
 $(x_1,x_2,\dots,x_n)$.
-\medskip
 
-\flushpar Předpokládejme opět, že $x_1\le x_2\le\dots\le 
+Předpokládejme opět, že $x_1\le x_2\le\dots\le 
 x_n$ a že v daném 
 okamžiku jsou $v_1,v_2,\dots,v_k$ postupně vytvořené víceprvkové stromy
 (tj. strom $v_i$ byl vytvořen před stromem $v_j$, když $
@@ -2297,9 +2149,8 @@ ohodnocením. Můžeme tedy shrnout, že algoritmus
 n$ je počet 
 zadaných čísel $x_i$. \qed
 \enddemo
-\bigskip
 
-\flushpar Pro aplikaci na naši původní úlohu je 
+Pro aplikaci na naši původní úlohu je 
 třeba  
 ještě setřídit vstupní posloupnost délek pro přeformu\-lo\-vanou úlohu.
 Tato posloupnost je tvořena přirozenými čísly a 
@@ -2309,7 +2160,6 @@ popsán dále v textu), který
 vyžaduje čas $O(n+m)$, kde $n$ je počet posloupností a $
 m$ je 
 maximální délka posloupnosti.
-\medskip
 
 \proclaim{Věta}Uvedený algoritmus množinu 
 disjunktních rostoucích 
@@ -2318,12 +2168,10 @@ posloupností $P_1,P_2,\dots,P_n$ o délkách $l(P_1),l(P_2)
 do jediné rostoucí posloupnosti v čase 
 $O(\sum_{i=1}^nl(P_i))$.
 \endproclaim
-\bigskip
 
 \centerline{\bigbigrm{VIII. Rozhodovací stromy}}
-\medskip
 
-\flushpar Většina obecných třídicích algoritmů 
+Většina obecných třídicích algoritmů 
 používá jedinou primitivní operaci mezi prvky vstupní 
 posloupnosti, a to jejich vzá\-jemné porov\-nání.  
 To znamená, že práci 
@@ -2373,17 +2221,15 @@ posloupnosti. Dá\-le je třeba si uvědomit, že vztah mezi
 stromem pro $n$-prvkové posloupnosti a stromem pro 
 $(n+1)$-prvkové posloupnosti je dán konkrétním algoritmem a 
 nedá se popsat obecně. 
-\medskip
 
-\flushpar V nevhodném algoritmu se může stát, že 
+V nevhodném algoritmu se může stát, že 
 v některém listu neskončí žádná permutace. To  
 nastane, když strom pro $n$-prvkové posloupnosti má více 
 než $n!$ listů, nebo, jinak řečeno, když 
 porovnání dvou stejných prvků se na nějaké cestě 
 vyskytne alespoň dvakrát. 
-\medskip
 
-\flushpar Následující obrázek ilustruje naše úvahy na 
+Následující obrázek ilustruje naše úvahy na 
 {\bf SELECTIONSORTU} pro $3$-prvkové posloupnosti. Listy jsou 
 ohodnoceny permutacemi vstupní množiny 
 $\{a_1,a_2,a_3\}$, které v nich 
@@ -2393,7 +2239,6 @@ skončí, nebo jsou prázdné.
 \botcaption{Obr. 1}
 \endcaption
 \endinsert
-\medskip
 
 \definition{Definice}Mějme třídicí algoritmus {\bf A}, který 
 jako jedinou pri\-mitivní operaci s prvky vstupní 
@@ -2411,9 +2256,8 @@ algoritmem {\bf A} je stejná jako po\-sloupnost porovnání při
 průchodu permutace $\pi$ stromem $T$.
 \endroster
 \enddefinition
-\medskip
 
-\flushpar Pak korektnost algoritmu zajišťuje, že dvě různé 
+Pak korektnost algoritmu zajišťuje, že dvě různé 
 permutace množiny $\{1,2,\dots,n\}$ skončí v 
 různých listech stromu $T$ a dol\-ním odhadem pro 
 čas algoritmu {\bf A} v nej\-horším případě je délka nejdelší 
@@ -2422,9 +2266,8 @@ Při rovnoměrném
 rozdělení vstupních po\-sloupností je očekávaný čas 
 algoritmu {\bf A} roven průměrné délce cesty z kořene do 
 listu.  
-\medskip
 
-\flushpar Definujme\newline 
+Definujme\newline 
 $S(n)$ jako minimum přes všechny stromy $T$ s alespoň $n
 !$ listy z 
 délek nejdelších cest z kořene 
@@ -2433,9 +2276,8 @@ $A(n)$ jako minimum přes všechny stromy $T$ s alespoň $n
 !$ listy z
 průměrných délek cest z kořene do listu v $T$.\newline 
 Naším cílem je spočítat dolní odhady těchto veličin.
-\medskip
 
-\flushpar Když nejdelší cesta z kořene do listu v 
+Když nejdelší cesta z kořene do listu v 
 binárním stromě $T$ má délku $k$, pak $T$ má nejvýše $
 2^k$ 
 listů. Proto $n!\le 2^{S(n)}$. Odtud plyne, že $S(n)\ge\log_
@@ -2453,9 +2295,8 @@ Protože
 $$e^1=e=2^{\log_2e}=(e^{\ln2})^{\log_2e}=e^{\ln2\log_2e},$$
 platí, že $\frac 1{\ln2}=\log_2e$, a tedy  
 $$S(n)\ge\log_2n!\ge (n+\frac 12)\log_2n-\frac n{\ln2}.$$
-\medskip
 
-\flushpar Dále pro binární strom $T$ označme $B(T)$ součet všech 
+Dále pro binární strom $T$ označme $B(T)$ součet všech 
 délek cest z kořene do listů a položme 
 $$B(k)=\min\{B(T)\mid T\text{\rm\ je binární strom s $k$ listy}
 \}.$$
@@ -2482,9 +2323,8 @@ i\log_2k_i$.
 Odtud 
 $$B(T)=k_1+B(T_1)+k_2+B(T_2)\ge k+B(k_1)+B(k_2)\ge k+k_1\log_2k_1
 +k_2\log_2k_2.$$
-\medskip
 
-\flushpar Tedy stačí ukázat, že 
+Tedy stačí ukázat, že 
 $$k+k_1\log_2k_1+k_2\log_2k_2\ge k\log_2k$$
 pro všechna $k_1,k_2>0$ taková, že $k=k_1+k_2$. To je 
 ekvivalentní s tvrzením, že pro $k>0$ platí 
@@ -2501,7 +2341,6 @@ intervalu rostoucí. Odtud plyne, že $f(x)\ge 0$ pro $x\in
 Tím jsme dokázali, že $A(n)\ge (n+\frac 12)\log_2n-\frac 
 n{\ln2}$. Shrneme 
 naše výsledky.
-\medskip
 
 \proclaim{Věta}Každý třídicí algoritmus, jehož jedinou 
 primitivní ope\-rací s prvky vstupní posloupnosti je 
@@ -2513,9 +2352,8 @@ porovnání a očekávaný počet porovnání při rovnoměrném
 rozdělení vstupních posloupností je alespoň 
 $(n+\frac 12)\log_2n-\frac n{\ln2}$.  
 \endproclaim
-\medskip
 
-\flushpar Tato věta 
+Tato věta 
 platí i pro širší třídu primitivních operací, proto v ní 
 lze oslabit předpklady. 
 Dolní odhad (v nejhorším i průměrném případě) 
@@ -2529,13 +2367,10 @@ Tato metoda pro
 nalezení dolního odhadu se používá i pro vyčíslování 
 algebraických funkcí a při algoritmickém řešení 
 geometrických úloh.
-\bigskip
 
 \centerline{\bigbigrm{IX. Přihrádkové třídění}}
-\bigskip
 
-
-\flushpar V následujících algoritmech 
+V následujících algoritmech 
 před\-po\-klá\-dáme, že $Q_i$ jsou spojové seznamy, nový 
 prvek se vkládá na konec seznamu a konkatenace 
 seznamů závisí na jejich pořadí. V 
@@ -2543,7 +2378,6 @@ seznamech máme okamžitý přístup k prvnímu a poslednímu
 prvku (pomocí ukazatelů na tyto prvky). 
 Algoritmus {\bf BUCKETSORT} třídí posloupnost přirozených 
 čísel $a_1,a_2,\dots,a_n$ z intervalu $<0,m>$.
-\bigskip
 
 {\bf BUCKETSORT$(a_1,a_2,\dots,a_n,m)$}:\newline 
 {\bf for every} $i=0,1,\dots,m$ {\bf do} $Q_i=\emptyset$ {\bf enddo\newline 
@@ -2556,9 +2390,8 @@ $i:=0$}, $P:=\emptyset$\newline
 {\bf enddo\newline 
 Výstup: $P$} je neklesající posloupnost prvků 
 $a_1,a_2,\dots,a_n$
-\bigskip
 
-\flushpar Algoritmus nevyžaduje, aby prvky ve 
+Algoritmus nevyžaduje, aby prvky ve 
 vstupní posloupnosti by\-ly různé. Ve výstupní 
 posloupnosti se daný prvek opakuje tolikrát, kolikrát se 
 opakoval ve vstupní posloupnosti, se zachováním pořadí 
@@ -2572,14 +2405,12 @@ předchozího odstavce.
 Důvodem je, 
 že nejsou splněny předpoklady, protože druhý cyklus 
 používá nepřímé adresování.
-\medskip
 
-\flushpar Nyní uvedeme dvě sofistikovanější verze tohoto 
+Nyní uvedeme dvě sofistikovanější verze tohoto 
 algoritmu. V první předpokládáme, že 
 $a_1,a_2,\dots,a_n$ je posloupnost navzájem různých reálných 
 čísel z intervalu $<0,1>$ a $\alpha$ je pevně zvolené kladné 
 reálné číslo.
-\medskip
 
 {\bf HYBRIDSORT$(a_1,a_2,\dots,a_n)$}:\newline 
 $k:=\alpha n$\newline 
@@ -2595,7 +2426,6 @@ $P:=$}konkatenace $P$ a $Q_i$, $i:=i+1$\newline
 {\bf enddo\newline 
 Výstup: $P$} je rostoucí posloupnost prvků 
 $a_1,a_2,\dots,a_n$
-\bigskip
 
 \proclaim{Věta}Algoritmus {\bf HYBRIDSORT} setřídí 
 posloupnost reál\-ných čísel z intervalu $<0,1>$ v 
@@ -2604,7 +2434,6 @@ a_i$
 mají rovnoměrné rozložení a jsou na sobě nezá\-vislé, 
 pak očekávaný čas je $O(n)$.
 \endproclaim
-\medskip
 
 \demo{Důkaz}První dva cykly v algoritmu 
 vyžadují čas $O(n)$, $i$-tý běh třetího cyklu vyžaduje 
@@ -2613,9 +2442,8 @@ $$O(\sum_{i=0}^k(1+|Q_i|\log|Q_i|)=O(\sum_{i=0}^k(1+|Q_i|\log n)=
 O(k+(\sum_{i=0}^k|Q_i|)\log n)=O(n\log n)$$
 a celkový čas {\bf HYBRIDSORTU} v nejhorším případě je nejvýše $
 O(n\log n)$.
-\medskip
 
-\flushpar Nyní odhadneme očekávaný čas. Položme 
+Nyní odhadneme očekávaný čas. Položme 
 $X_i=|Q_i|$. Pak 
 $X_i$ je ná\-hodná proměnná a 
 protože pravděpodobnost, že $x\in Q_i$, je $\frac 1k$, dostá\-váme, že 
@@ -2629,17 +2457,15 @@ n-1}{q-1}.$$
 (Jedná se vlastně o známý výpočet 2. momentu 
 binomického rozdělení). \qed
 \enddemo
-\medskip
 
-\flushpar Poznámka: V důkazu jsme použili odhad 
+Poznámka: V důkazu jsme použili odhad 
 $q\log q\le q^2$ a důsledkem toho je, že jsme 
 dokázali, že očekávaná složitost {\bf HYBRIDSORTU }
 zůstane lineární, i kdybychom v něm místo 
 {\bf HEAPSORTU} použili nějaký třídicí algoritmus s 
 kvadratickou složitostí, např. {\bf INSERTIONSORT}.
-\medskip
 
-\flushpar Nyní použijeme modifikaci {\bf BUCKETSORTU} pro 
+Nyní použijeme modifikaci {\bf BUCKETSORTU} pro 
 třídění slov.  Máme totálně 
 uspořádanou abecedu a chceme lexikograficky setřídit slova 
 $a_1,a_2,\dots,a_n$ nad touto abecedou. Připo\-meň\-me, že když 
@@ -2652,7 +2478,6 @@ i<\min\{n,m\}$
 a $x_{i+1}<y_{i+1}$. Předpokládejme, že $a_i=a_i^1a_i^2\dots 
 a_i^{l(i)}$, kde 
 $a_i^j\in\Sigma$ a $l(i)$ je délka $i$-tého slova $a_i$.
-\bigskip
 
 {\bf WORDSORT$(a_1,a_2,\dots,a_n)$}:\newline 
 {\bf for every} $i=1,2,\dots,n$ {\bf do} $l(i):=$délka slova $a_
@@ -2700,9 +2525,8 @@ T_s$\newline
 enddo\newline 
 Výstup: $T$} je setříděná posloupnost slov $a_1,a_2
 ,\dots,a_n$
-\bigskip
 
-\flushpar Uvažujme jeden běh posledního cyklu algortimu 
+Uvažujme jeden běh posledního cyklu algortimu 
 pro určité $i$. Po 
 jeho skončení jsou v $T$ všechna slova z množiny 
 $a_1,a_2,\dots,a_n$, která mají délku alespoň $i$, a když slovo 
@@ -2714,9 +2538,8 @@ vlastností algoritmu {\bf BUCKETSORT} indukcí podle $i$. Jediný a
 hlavní rozdíl proti {\bf BUCKETSORTU} je, že neprocházíme 
 všechny přihrádky $T_x$, ale pouze neprázdné. 
 To nám zajišťuje množina $S_i$ (viz Komentář). 
-\medskip
 
-\flushpar Označme $L=\sum_{i=1}^nl(i)$ a připomeňme, že 
+Označme $L=\sum_{i=1}^nl(i)$ a připomeňme, že 
 $l=\max\{l(i)\mid i=1,2,\dots,n\}$. Pak první cyklus (výpočet  
 délek slov) vy\-žaduje čas $O(L)$. Druhý cyklus (inicializace 
 seznamů $L_i$) vyžaduje 
@@ -2740,12 +2563,10 @@ cyklu vyžaduje čas $O(m_i)$ a druhý vnitřní cyklus
 celkový čas algoritmu je $O(L+m)$, kde $m=|\Sigma |$ a $L$ 
 je součet délek všech slov z množiny $a_1,a_2,\dots,a_
 n$.
-\bigskip
 
 \centerline{\bigbigrm{X. Pořádkové statistiky}}
-\bigskip
 
-\flushpar Na závěr popíšeme dva algoritmy pro hledání $
+Na závěr popíšeme dva algoritmy pro hledání $
 k$-tého 
 nejmenší\-ho prvku v dané podmnožině totálně 
 uspořádané\-ho univerza. Prv\-ní z nich využívá  
@@ -2753,9 +2574,8 @@ stejný princip jako {\bf QUICKSORT}. Nejprve zadáme
 přesné zně\-ní naší úlohy (úloha i algoritmy se dají 
 snadno přeformulovat pro případ, kdy hledáme $k-$tý 
 největší prvek).
-\medskip
 
-\flushpar Pracujeme s totálně uspořádaným univerzem $
+Pracujeme s totálně uspořádaným univerzem $
 U$.\newline 
 Vstup: množina prvků $M=\{a_1,a_2,\dots,a_n\}\subseteq 
 U$ a číslo $i$ takové, 
@@ -2763,7 +2583,6 @@ U$ a číslo $i$ takové,
 Výstup: prvek $a_k$ takový, že 
 $|\{j\mid 1\le j\le n,\,a_j\le a_k\}|=i$.\newline 
 Když $i=\frac n2$, pak $a_k$ se nazývá \emph{medián}.
-\bigskip
 
 {\bf FIND$(M=(a_1,a_2,\dots,a_n),i)$}:\newline 
 zvol $a\in M$\newline
@@ -2778,9 +2597,8 @@ else\newline
 \phantom{{\rm------}}Výstup: $a$} je hledaný prvek\newline 
 \phantom{---}{\bf endif\newline 
 endif}
-\bigskip
 
-\flushpar Důkaz korektnosti algoritmu je založen na následujícím 
+Důkaz korektnosti algoritmu je založen na následujícím 
 jednoduchém pozorování: mějme množinu $M$ a prvek $
 x$ a 
 položme $M_1=\{m\in M\mid m<x\}$. Když $k\le |M_1|$, pak $k$-tý 
@@ -2791,8 +2609,8 @@ $k>|M_1|$, pak $(k-|M_1|)$-tý nejmenší prvek v $M\setminus
 M_1$ je $k$-tý 
 nejmenší prvek v $M$.  
 Zbývá vyšetřit složitost.
-\medskip
-\flushpar V nejhorším případě 
+
+V nejhorším případě 
 voláme {\bf FIND} $n$-krát a jedno volání vyžaduje čas $
 O(|M|)$.  
 Tedy časová složitost algoritmu 
@@ -2826,7 +2644,6 @@ Protože tento odhad platí také pro $n=1$ a $n=2$, dokázali
 jsme indukcí, že $T(n,i)\le 4n$ pro všechna $n$ a všechna $
 i$ 
 taková, že $1\le i\le n$. Platí tedy 
-\medskip
 
 \proclaim{Věta}Algoritmus {\bf FIND} nalezne $i$-tý nejmenší 
 prvek v $n$ prv\-kové totálně uspořádané mno\-ži\-ně a v nejhorším 
@@ -2834,23 +2651,20 @@ případě vyža\-du\-je čas $O(n^2)$. Když se pivot volí
 náhodně nebo když všechny vstupní množiny mají stejnou 
 pravděpodobnost, pak očekávaný čas je $O(n)$.
 \endproclaim
-\medskip
 
-\flushpar Pro velmi malá $i$ nebo pro $i$ velmi blízká $n$ 
+Pro velmi malá $i$ nebo pro $i$ velmi blízká $n$ 
 pracuje rychleji přímý přirozený algoritmus (udržuje si 
 posloupnost $i$ nejmen\-ších nebo $n-i$ největších prvků 
 a k ní přidává další tak, že ten prvek, který pře\-kročil 
 danou hranici, je 
 zapomenut). Tento algoritmus však není 
 efektivní pro obecná $i$. 
-\medskip
 
-\flushpar Následující algoritmus nalezne $i$-tý nejmenší 
+Následující algoritmus nalezne $i$-tý nejmenší 
 prvek v lineárním čase i v nejhorším případě.  Vstupem 
 je opět podmnožina $M$ totálně 
 uspořádaného univerza $U$ a přirozené číslo $i$ takové, že 
 $1\le i\le |M|$.  
-\medskip
 
 {\bf SELECT$(M,i)$}:\newline 
 $n:=|M|$\newline 
@@ -2879,13 +2693,12 @@ M\mid\bar {m}<m\}$\newline
 \phantom{{\rm ---}}endif\newline 
 \phantom{{\rm ---}}Výstup}: $m$\newline 
 {\bf endif
-\medskip
 
-}\flushpar Důkaz korektnosti algoritmu je stejný 
+}
+Důkaz korektnosti algoritmu je stejný 
 jako u algoritmu {\bf FIND}. 
 Zbývá vyšetřit složitost. Nej\-prve dokážeme následující 
 lemma.
-\medskip
 
 \proclaim{Lemma}Když $n\ge 100$, pak $|M_1|,|M_2|\le\frac {8n}{
 11}$.
@@ -2906,7 +2719,7 @@ $M_1\cup M_2=M\setminus \{\bar {m}\}$ a protože $\frac {8n}{11}
 když $n>100$, dostáváme požadovaný odhad. \qed
 \enddemo
 
-\flushpar Maximální čas vyžadovaný algoritmem  
+Maximální čas vyžadovaný algoritmem  
 {\bf SELECT$(M,i)$} pro $|M|=n$ označme $T(n)$.  Když $n\le 
 100$, pak zřejmě 
 exis\-tuje konstanta $a$ taková, že $T(n)\le an$.  Když $
@@ -2927,14 +2740,12 @@ dostáváme
 $$T(n)\le c\frac {21n}{100}+c\frac {8n}{11}+bn=(\frac {1031c}{110
 0}+b)n\le cn.$$
 Tedy
-\medskip
 
 \proclaim{Věta}Algoritmus {\bf SELECT} nalezne $i$-tý nejmenší 
 prvek v lineárním čase.
 \endproclaim
-\medskip
 
-\flushpar Algoritmus {\bf FIND} je ve velké většině 
+Algoritmus {\bf FIND} je ve velké většině 
 případů 
 rychlejší než algoritmus {\bf SELECT}, proto je v praxi 
 doporučován, i když existují 
@@ -2944,13 +2755,12 @@ méně než $3n$ porovnáními a že každý algoritmus hledající
 medián a používající porovnání jako jedinou primitivní 
 operaci mezi prvky množiny vyžaduje více než $2n$ 
 porovnání.
-\bigskip
 
 \head
 Historický přehled
 \endhead
 
-\flushpar Algoritmus {\bf HEAPSORT }
+Algoritmus {\bf HEAPSORT }
 navrhl v roce 1964 Williams a vylepšil Floyd (rovněž 1964).  Návrh 
 na použití $d$-regulár\-ních hald je folklor stejně tak jako  
 algoritmus {\bf MER\-GESORT}.  Algoritmy {\bf QUICKSORT} a {\bf FIND }
