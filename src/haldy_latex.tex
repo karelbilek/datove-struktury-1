@@ -350,11 +350,11 @@ hloubce $i$ má výšku nejvýše $k-i$.  Tedy operace {\bf MAKEHEAP }
 vyžaduje čas $O(\sum_{i=0}^{k-1}d^i(k-i)d)=O(\sum_{i=0}^{k-
 1}d^{i+1}(k-i))$.  Oz\-nač\-me 
 $A=\sum_{i=0}^{k-1}d^{i+1}(k-i)$, pak 
-$$\align dA-A=&\sum_{i=0}^{k-1}d^{i+2}(k-i)-\sum_{i=0}^{k-1}d^{i+
+\begin{align*} dA-A=&\sum_{i=0}^{k-1}d^{i+2}(k-i)-\sum_{i=0}^{k-1}d^{i+
 1}(k-i)=\sum_{i=2}^{k+1}d^i(k-i+2)-\sum_{i=1}^kd^i(k-i+1)=\\
 &d^{k+1}+\sum_{i=2}^kd^i(k-i+2-k+i-1)-dk=d^{k+1}+\sum_{i=2}^kd^i-
 dk=\\
-&d^{k+1}+d^2\frac {d^{k-1}-1}{d-1}-dk.\endalign$$
+&d^{k+1}+d^2\frac {d^{k-1}-1}{d-1}-dk.\end{align*}
 Tedy $A=\frac {d^{k+1}}{d-1}+\frac {d^{k+1}-d^2}{(d-1)^2}-\frac {
 dk}{d-1}$. Protože 
 $k=\lceil\log_d(|S|(d-1)+1)\rceil$, 
@@ -1416,7 +1416,7 @@ $$\frac {\big(\frac {1+\sqrt 5}2\big)^2-\big(\frac {1-\sqrt 5}2\big
 )^2}{\sqrt 5}=\frac {1+2\sqrt 5+5-1+2\sqrt 5-5}{4\sqrt 5}=\frac {
 4\sqrt 5}{4\sqrt 5}=1=F_2.$$
 Indukční krok:
-$$\align&\frac {\big(\frac {1+\sqrt 5}2\big)^i-\big(\frac {1-\sqrt 
+\begin{align*}&\frac {\big(\frac {1+\sqrt 5}2\big)^i-\big(\frac {1-\sqrt 
 5}2\big)^i}{\sqrt 5}=\frac {\big(\frac {1+\sqrt 5}2\big)^{i-2}\big
 (\frac {1+\sqrt 5}2\big)^2-\big(\frac {1-\sqrt 5}2\big)^{i-2}\big
 (\frac {1-\sqrt 5}2\big)^2}{\sqrt 5}=\\
@@ -1431,7 +1431,7 @@ $$\align&\frac {\big(\frac {1+\sqrt 5}2\big)^i-\big(\frac {1-\sqrt
 5}2\big)^{i-1}}{\sqrt 5}=\\
 &\frac {\big(\frac {1+\sqrt 5}2\big)^{i-2}-\big(\frac {1-\sqrt 5}
 2\big)^{i-2}}{\sqrt 5}+\frac {\big(\frac {1+\sqrt 5}2\big)^{i-1}-\big
-(\frac {1-\sqrt 5}2\big)^{i-1}}{\sqrt 5}=F_{i-2}+F_{i-1}=F_i.\endalign$$
+(\frac {1-\sqrt 5}2\big)^{i-1}}{\sqrt 5}=F_{i-2}+F_{i-1}=F_i.\end{align*}
 Tedy indukcí dostáváme požadovaný vztah.
 
 \subsection{
@@ -1838,12 +1838,12 @@ Od této rovnice odečteme rovnici předchozí a po
 jednoduché úpravě získáme rekurentní vztah
 $$QS(n+1)=\frac {2n}{n+1}+\frac {n+2}{n+1}QS(n).$$
 Postupným dosazováním dostaneme řešení 
-$$\align QS(n)=&\sum_{i=2}^n\frac {n+1}{i+1}\frac {2(i-1)}i\le 2(
+\begin{align*} QS(n)=&\sum_{i=2}^n\frac {n+1}{i+1}\frac {2(i-1)}i\le 2(
 n+1)\big(\sum_{i=2}^n\frac 1{i+1}\big)=2(n+1)\big(\sum_{i=3}^{n+1}\frac 
 1i\big)=\\
 &2(n+1)\big(\sum_{i=2}^{n+1}\frac 1i-\frac 12\big)\le 2(n+1)\big(
 (\int_{i=1}^{n+1}\frac 1xdx)-\frac 12\big)=\\
-&2n\ln(n+1)+2\ln(n+1)-n-1.\endalign$$
+&2n\ln(n+1)+2\ln(n+1)-n-1.\end{align*}
 Pro dostatečně velká $n$ tedy platí 
 $$2n\ln(n+1)+2\ln(n+1)-n\le 2n\ln n.$$
 
@@ -2655,11 +2655,11 @@ vyžaduje čas $O(n)$. Předpoklá\-dej\-me, že $T(m,i)
 \le 4m$ 
 pro každé $m<n$ a každé $i$ takové, že $1\le i\le 
 m$. Pak 
-$$\align T(n,i)=&n+\frac 1n(\sum_{k=1}^{i-1}T(n-k,i-k)+\sum_{k=i+
+\begin{align*} T(n,i)=&n+\frac 1n(\sum_{k=1}^{i-1}T(n-k,i-k)+\sum_{k=i+
 1}^nT(k,i))\le n+\frac 1n(\sum_{k=1}^{i-1}4(n-k)+\sum_{k=i+1}^n4k
 )=\\
 &n+\frac 4n(\frac {(2n-i)(i-1)}2+\frac {(n+i+1)(n-i)}2)=n+\frac 4
-n(\frac {n^2+2ni-n-2i^2}2).\endalign$$
+n(\frac {n^2+2ni-n-2i^2}2).\end{align*}
 Výraz v čitateli zlomku nabývá svého maxima pro 
 $i=\frac n2$ a jeho maximalní hodnota je 
 $\frac 32n^2-n=\frac {3n^2-2n}2$. Tedy
