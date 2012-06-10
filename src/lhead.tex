@@ -43,7 +43,12 @@
 % These macros allow text labels to be drawn at given coordinates in a 
 % picture.  We use "bp" (big points) to match the dvips default scale
 % of 72 units per inch.
-\def\atxy #1 #2 #3 {\smash{\rlap{\kern#1bp\raise#2bp\hbox to0pt{#3}}}}
+\def\atxy #1 #2 #3 {
+\count1=#1
+\count2=#2
+\advance\count1 by -10
+\advance\count2 by -10
+\smash{\rlap{\kern\count1 bp\raise\count2 bp\hbox to0pt{#3}}}}
 \def\LText#1%
 {{\vbox to 0pt{\vss\vbox{\hbox to0pt{#1\hss}\vbox{}}\vss}}}
 \def\RText#1%
