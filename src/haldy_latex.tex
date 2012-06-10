@@ -74,7 +74,7 @@ skutečných rychlostech operací a podle toho si vybrat
 vhodnou strukturu. 
 
 Zadání problému: Nechť $U$ je univerzum. Je dána množina 
-$S\subseteq U$ a funkce $f:S@>>>\Bbb R$, kde $\Bbb R$ jsou reálná čísla (tato 
+$S\subseteq U$ a funkce $f:S@>>>\mathbb R$, kde $\mathbb R$ jsou reálná čísla (tato 
 funkce realizuje uspořádání na univerzu $U$ -- pro $u,
 v\in U$ platí 
 $u\le v$, právě když $f(u)\le f(v)$; změna uspořádání se pak realizuje 
@@ -222,9 +222,9 @@ $d$-regulárního stromu předpo\-klá\-dáme, že známe přirozené
 očíslování, a fráze `poslední vrchol', `před\-cházející vrchol' atd.  
 se vztahují k tomuto očíslování.  
 
-\head
+\subsection{
 Algoritmy
-\endhead
+}
 
 Pro $d$-regulární haldy není známa efektivní implementace operace 
 {\bf MERGE}.  Efektivní implementace 
@@ -322,9 +322,9 @@ provede proceduru {\bf DOWN$(v)$}, pak je podmínka
 Operace {\bf MAKEHEAP} končí provedením operace {\bf DOWN} na 
 kořen a odtud plyne její korektnost.
 
-\head
+\subsection{
 Složitost operací
-\endhead
+}
 
 Vypočteme časovou složitost operací:  Jeden běh cyklu 
 v operaci {\bf UP} vyžaduje čas $O(1)$ a v operaci {\bf DOWN }čas $
@@ -363,9 +363,9 @@ dostáváme, že $d^{k+1}\le d^2((d-1)|S|+1)$, a proto $A\le
 {\bf MAKEHEAP} vyžaduje v nejhorším případě jen čas 
 $O(d^2|S|)$. 
 
-\head
+\subsection{
 Aplikace 
-\endhead
+}
 
 Třídění: prostou posloupnost 
 čísel $x_1,x_2,\dots,x_n$ lze setřídit následujícím 
@@ -460,7 +460,7 @@ označme $\npl(v)$ délku nejkratší cesty z $v$ do vrcholu, který má
 nejvýše jednoho syna, takže např. pro list $l$ platí $\npl
 (l)=0$. 
 
-Mějme $S\subseteq U$ a funkci $f:S@>>>\Bbb R$. Pak binární strom 
+Mějme $S\subseteq U$ a funkci $f:S@>>>\mathbb R$. Pak binární strom 
 $(T,r)$ takový, že
 \begin{enumerate}
 \item
@@ -503,9 +503,9 @@ délka pravé cesty z každého vrcholu $v$ nejvýše rovna
 $$\log(\text{\rm velikost podstromu určeného vrcholem }v).$$
 \end{tvrzeni}
 
-\head
+\subsection{
 Algoritmy a složitost operací
-\endhead
+}
 
 Základní operací pro leftist haldy je {\bf MERGE}. Tato 
 operace je definována rekurzivně a hloubka rekurze je omezena 
@@ -784,9 +784,9 @@ Tato halda obsahuje strom izomorfní s $H_i$, právě když v
 binárním zápise čísla $|S|$ je na $i$-tém místě zprava $
 1$.
 
-\head
+\subsection{
 Algoritmy a složitost operací
-\endhead
+}
 
 Operace pro binomiální haldy jsou  
 stejně jako pro leftist haldy založeny na ope\-raci {\bf MER\-GE}. Ope\-race 
@@ -914,9 +914,9 @@ haldy) a že na nich lze krásně
 ilustrovat princip, že s řadou úprav je výhodné počkat 
 a neprovádět je okamžitě.
 
-\head
+\subsection{
 Líná implentace operací
-\endhead
+}
 
 Následující algoritmy jsou založeny na ideji, že 
 `vyvažování' stačí provádět jen při operacích {\bf MIN} a 
@@ -1073,9 +1073,9 @@ definovat \emph{Fibonacciho} \emph{haldy} jako struktury
 vzniklé z prázdné haldy aplikací posloupnosti 
 těchto algoritmů.
 
-\head
+\subsection{
 Algoritmy
-\endhead
+}
 
 V algoritmech předpokládáme, že Fibonacciho halda je 
 seznam stromů, kde některé vrcholy různé od 
@@ -1230,9 +1230,9 @@ stromu).  Když se později stane tento vrchol zase
 vrcholem různým od kořene, celý proces se 
 opakuje. 
 
-\head
+\subsection{
 Složitost operací
-\endhead
+}
 
 Naším cílem bude odhadnout amortizovanou složitost těchto 
 operací, protože složitost v nejhorším případě není 
@@ -1434,9 +1434,9 @@ $$\align&\frac {\big(\frac {1+\sqrt 5}2\big)^i-\big(\frac {1-\sqrt
 (\frac {1-\sqrt 5}2\big)^{i-1}}{\sqrt 5}=F_{i-2}+F_{i-1}=F_i.\endalign$$
 Tedy indukcí dostáváme požadovaný vztah.
 
-\head
+\subsection{
 Aplikace 
-\endhead
+}
 
 Vrátíme se k Dijkstrově algoritmu.  
 Množinu $U$ bude\-me reprezentovat pomocí Fibonacciho haldy.  
@@ -1460,9 +1460,9 @@ $\varepsilon >0$). Problém je, pro které hodnoty nastává zlom.
 Nevím o žádných experimentálních ani teoretických 
 výsledcích tohoto typu.
 
-\head
+\subsection{
 Historický přehled
-\endhead
+}
 
 Binární neboli $2$-regulární haldy 
 zavedl Williams 1964.  Jejich zobecnění na $d$-regulární haldy 
@@ -1505,9 +1505,9 @@ vstupní posloupnosti.
 Základní algoritmy, které  řeší třídicí 
 problém, jsou {\bf QUICKSORT}, {\bf MERGESORT} a {\bf HEAP\-SORT}. 
 
-\head
+\subsection{
 HEAPSORT
-\endhead
+}
 
 S algoritmem {\bf HEAPSORT} jsme se seznámili při 
 aplikacích hald.  Byl to první algoritmus používající haldy 
@@ -1545,9 +1545,9 @@ setříděná část posloupnosti.
 bylo navrže\-no několik jeho modifikací, snažících se 
 např. minimalizovat počet porovnání prvků apod.
 
-\head
+\subsection{
 MERGESORT
-\endhead
+}
 
 Nejstarší z uvedených algoritmů je 
 {\bf MERGESORT}, který je starší než je počítačová éra, 
@@ -1634,9 +1634,9 @@ jeho verze, která začíná slévání vždy od
 jednoprvkových posloupností (tzv. přímý {\bf MERGESORT}) 
 tuto vlastnost nemá. 
 
-\head
+\subsection{
 QUICKSORT
-\endhead
+}
 
 Nyní popíšeme patrně vůbec 
 nejpoužívanější třídicí algoritmus, kterým je {\bf QUICKSORT}. 
@@ -1847,9 +1847,9 @@ n+1)\big(\sum_{i=2}^n\frac 1{i+1}\big)=2(n+1)\big(\sum_{i=3}^{n+1}\frac
 Pro dostatečně velká $n$ tedy platí 
 $$2n\ln(n+1)+2\ln(n+1)-n\le 2n\ln n.$$
 
-\head
+\subsection{
 Porovnání třídicích algoritmů
-\endhead
+}
 
 Nyní porovnáme složitost algoritmů 
 {\bf HEAPSORT}, {\bf MERGE\-SORT}, {\bf QUICKSORT}, {\bf A-sort} (byl popsán 
@@ -1941,9 +1941,9 @@ $1$ : $1.33$ : $2.22$. To
 však nemusí  být pravda pro současné procesory, 
 paměti a operační systémy. 
 
-\head
+\subsection{
 Slévání nestejně dlouhých posloupností
-\endhead
+}
 
 V algoritmu {\bf MERGESORT} jsme použili frontu, která 
 řídila proces slučování rostoucích posloupností.  Tato metoda je uspokojující a 
@@ -2780,9 +2780,9 @@ medián a používající porovnání jako jedinou primitivní
 operaci mezi prvky množiny vyžaduje více než $2n$ 
 porovnání.
 
-\head
+\subsection{
 Historický přehled
-\endhead
+}
 
 Algoritmus {\bf HEAPSORT }
 navrhl v roce 1964 Williams a vylepšil Floyd (rovněž 1964).  Návrh 
