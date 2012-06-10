@@ -58,6 +58,9 @@
 \date{}
 \maketitle
 
+\tableofcontents
+
+
 \section{Úvod}
 
 V praxi se často setkáváme s následujícím 
@@ -77,7 +80,7 @@ skutečných rychlostech operací a podle toho si vybrat
 vhodnou strukturu. 
 
 Zadání problému: Nechť $U$ je univerzum. Je dána množina 
-$S\subseteq U$ a funkce $f:S@>>>\mathbb R$, kde $\mathbb R$ jsou reálná čísla (tato 
+$S\subseteq U$ a funkce $f:S\to\mathbb R$, kde $\mathbb R$ jsou reálná čísla (tato 
 funkce realizuje uspořádání na univerzu $U$ -- pro $u,
 v\in U$ platí 
 $u\le v$, právě když $f(u)\le f(v)$; změna uspořádání se pak realizuje 
@@ -462,7 +465,7 @@ označme $\npl(v)$ délku nejkratší cesty z $v$ do vrcholu, který má
 nejvýše jednoho syna, takže např. pro list $l$ platí $\npl
 (l)=0$. 
 
-Mějme $S\subseteq U$ a funkci $f:S@>>>\mathbb R$. Pak binární strom 
+Mějme $S\subseteq U$ a funkci $f:S\to\mathbb R$. Pak binární strom 
 $(T,r)$ takový, že
 \begin{enumerate}
 \item
@@ -678,7 +681,7 @@ t(o)$ je
 čas potřebný pro provedení operace $o$. Předpokládejme, 
 že chceme provést posloupnost operací $o_1,o_2,\dots,o_n$ na 
 konfiguraci $D_0$. Znázorníme si to takto:
-$$D_0@>{o_1}>>D_1@>{o_2}>>D_2@>{o_3}>>\dots@>{o_n}>>D_n.$$
+$$D_0\to^{o_1}D_1\to^{o_2}D_2\to^{o_3}\dots\to^{o_n}D_n.$$
 Předpokládejme, že pro každé $i=1,2,\dots,n$ máme odhad 
 $c(o_i)$ amortizované složitos\-ti operace $o_i$, tj. $am(o_
 i)\le c(o_i)$ 
