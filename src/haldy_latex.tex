@@ -15,6 +15,30 @@
  \setlength{\parindent}{0in}
  \setlength{\parskip}{0.1in}
  
+ \def \emph#1{\underbar{#1}}
+ 
+ 
+
+ 
+ \DeclareMathOperator*{\Prob}{Prob}
+ \DeclareMathOperator*{\countop}{count}
+ \DeclareMathOperator*{\NIL}{NIL}
+ \DeclareMathOperator*{\otec}{otec}
+ \DeclareMathOperator*{\listop}{list}
+ \DeclareMathOperator*{\Prv}{Prv}
+ \DeclareMathOperator*{\Nasl}{Nasl}
+ \DeclareMathOperator*{\levy}{levy}
+ \DeclareMathOperator*{\pravy}{pravy}
+ \DeclareMathOperator*{\key}{key}
+ \DeclareMathOperator*{\Prst}{Prst}
+ \DeclareMathOperator*{\hloubka}{hloubka}
+ \DeclareMathOperator*{\bratr}{bratr}
+ \DeclareMathOperator*{\npl}{npl}
+ \DeclareMathOperator*{\Cont}{Cont}
+ 
+ \input lhead
+ 
+ 
  \begin{document}
      
 
@@ -83,11 +107,11 @@ reprezentují prvky z $S$ a splňují lokální podmínku na
 $f$. Obvykle se používá následující podmínka nebo její 
 duální verze:
 
-\roster
-\item"{(usp)}"
+\begin{enumerate}
+\item[(usp)]
 Pro každý vrchol $v$ platí: když $v$ reprezentuje prvek 
 $s\in S$ a $\otec(v)$ reprezentuje $t\in S$, pak $f(t)\le f(s)$.
-\endroster
+\end{enumerate}
 
 Probereme několik verzí hald a budeme 
 předpokládat, že vždy splňují tuto podmínku a že požadavek na 
@@ -119,7 +143,7 @@ $(T,r)$, pro který existuje pořadí synů
 jednotlivých vnitřních vrcholů takové, že 
 očíslování vrcholů pro\-hle\-dá\-váním do šířky 
 (kořen $r$ je číslován $1$) splňuje následující vlastnosti
-\roster
+\begin{enumerate}
 \item
 každý vrchol má nejvýše $d$ synů,
 \item
@@ -128,7 +152,7 @@ když vrchol není list, tak všechny vrcholy s menším
 \item
 když vrchol má méně než $d$ synů, pak všechny 
 vrcholy s většími čísly jsou listy.
-\endroster
+\end{enumerate}
 Toto očíslování se nazývá \emph{přirozené} 
 \emph{očíslování} $d$-regulárního stromu. 
 
@@ -283,12 +307,12 @@ všechny vrcholy s výjimkou vrcholu $v$ a její splnění
 opět zajistí operace {\bf UP }
 resp. {\bf DOWN}.  Pro operaci {\bf MAKEHEAP }
 budeme uvažovat duální formulaci podmínky \thetag{usp}:  
-\roster
+\begin{enumerate}
 \item"{(d-usp)}"
 když $s$ je prvek reprezentovaný vrcholem $v$, pak 
 $f(s)\le f(t)$ pro všechny prvky reprezentované syny 
 vrcholu $v$. 
-\endroster
+\end{enumerate}
 Pokud každý vrchol splňuje podmínku \thetag{d-usp}, pak 
 splňuje i pod\-mínku \thetag{usp}. Zřejmě každý list splňuje 
 podmínku \thetag{d-usp} a když ope\-race {\bf MAKEHEAP }
@@ -438,7 +462,7 @@ nejvýše jednoho syna, takže např. pro list $l$ platí $\npl
 
 Mějme $S\subseteq U$ a funkci $f:S@>>>\Bbb R$. Pak binární strom 
 $(T,r)$ takový, že
-\roster
+\begin{enumerate}
 \item
 když vrchol $v$ má jen jednoho syna, pak je to levý syn,
 \item
@@ -450,7 +474,7 @@ vrcholům $T$, které splňuje podmínku \thetag{usp}
 (toto přiřazení 
 je reprezentováno funkcí $\key$, která vrcholu $v$ přiřadí prvek 
 z množi\-ny $S$ reprezentovaný vrcholem $v$)
-\endroster
+\end{enumerate}
 je \emph{leftist} \emph{halda} 
 reprezentující množinu $S$ a funkci $f$. 
 
@@ -704,7 +728,7 @@ stromů.
 \proclaim{Tvrzení}Pro každé přirozené číslo $
 i=0,1,\dots$ 
 platí:
-\roster
+\begin{enumerate}
 \item
 strom $H_i$ má $2^i$ vrcholů,
 \item
@@ -715,7 +739,7 @@ $i$ (tj. výška $H_i$ je $i$),
 \item
 podstromy určené syny kořene stromu $H_i$ jsou izomorf\-ní 
 se stromy $H_0,H_1,\dots,H_{i-1}$.
-\endroster
+\end{enumerate}
 \endproclaim
 
 \demo{Důkaz}Tvrzení platí pro strom $H_0$ a 
@@ -734,7 +758,7 @@ důkaz kompletní. \qed
 množinu $S$ je soubor (seznam) stromů $\{T_1,T_2,\dots
 ,T_k\}$ 
 takový, že 
-\roster
+\begin{enumerate}
 \item"{}"
 celkový počet vrcholů v těchto stromech je 
 roven velikosti $S$ a 
@@ -748,7 +772,7 @@ každý strom $T_i$ je izomorfní s nějakým stromem $H_
 j$;
 \item"{}"
 $T_i$ není izomorfní s žádným $T_j$ pro $i\ne j$.
-\endroster
+\end{enumerate}
 
 Z binárního zápisu přirozených čísel plyne, že 
 pro každé přiro\-ze\-né číslo $n>0$ existuje prostá 
@@ -903,7 +927,7 @@ binomiální haldy.
 \emph{Líná} \emph{binomiální} \emph{halda} $\Cal H$ 
 reprezentující množinu $S$ je seznam stromů 
 $\{T_1,T_2,\dots,T_k\}$ takový, že  
-\roster
+\begin{enumerate}
 \item"{}"
 celkový počet vrcholů v těchto stromech je 
 roven velikosti $S$ a 
@@ -914,7 +938,7 @@ realizováno funkcí $\key$;
 \item"{}"
 každý strom $T_i$ je izomorfní s nějakým stromem $H_
 j$.
-\endroster
+\end{enumerate}
 
 V líné binomiální haldě je vynechán předpoklad 
 neizo\-morf\-nosti stromů tvořících haldu. Tento fakt se 
@@ -1703,7 +1727,7 @@ dostatečnou ná\-hod\-nost.
 Protože při každém volání má {\bf Quick} jako 
 argument kratší 
 vstupní posloupnost, lze ukázat, že:
-\roster
+\begin{enumerate}
 \item{}při každé volbě 
 pivota je nejhorší čas algoritmu {\bf QUICKSORT} $O(n^2
 )$,
@@ -1712,7 +1736,7 @@ způsobem (to platí, i když se volí náhodně), pak
 exi\-stují vstupní posloupnosti, které vyžadují čas $
 O(n^2)$,
 \item{}očekávaný čas je $O(n\log n)$.
-\endroster
+\end{enumerate}
 
 Následná analý\-za očekávaného případu  
 je pro ná\-hod\-ně zvoleného pivota (bez dalšího před\-pokladu na 
@@ -1949,12 +1973,12 @@ posloupností, která je sloučením vstupních posloupností
 ohodnocujících listy v podstromu určeném tímto 
 vr\-cholem. Tedy kořen je ohodnocen výstupní posloupností. 
 Formálně pro každý vnitřní vr\-chol  $v$ platí:
-\roster
+\begin{enumerate}
 \item"{}"
 když  $v_1$ a $v_2$ jsou synové $v$ a $P(v)$ je posloupnost 
 ohodnocující vrchol $v$,  pak\newline 
 $P(v)=${\bf MERGE$(P(v_1),P(v_2))$}.
-\endroster
+\end{enumerate}
 Označme $l(P)$ délku posloupnosti $P$. Pak součet 
 časů, které v tomto procesu vyžaduje 
 podprocedura {\bf MERGE},
@@ -2182,7 +2206,7 @@ porovnáními dvojic prvků vstupní posloupnosti
 vstupní posloupnost je permutace $\pi$
 množiny $\{1,2,\dots,n\}$. Tato permutace prochází 
 stromem takto:
-\roster
+\begin{enumerate}
 \item"{}"
 Začíná v kořeni stromu. Když je ve vnitřním vrcholu $
 v$ 
@@ -2192,7 +2216,7 @@ pokračuje v levém synu vrcholu $v$, a když $\pi (j)<\pi (
 i)$, 
 pokračuje v pravém synu vrcholu $v$. Proces 
 třídění končí, když se dostane do listu.
-\endroster
+\end{enumerate}
 Aby byl algoritmus korektní, musí platit, že dvě 
 různé permutace skončí v různých 
 listech.  Tedy strom popisující korektní algoritmus 
@@ -2248,13 +2272,13 @@ porovnáními  $a_i\le a_j$ pro $i,j=1,2,\dots,n$, $i\ne j$, je
 \emph{rozhodovacím} \emph{stromem} algoritmu {\bf A} pro 
 $n$-prvkové posloupnosti, když pro každou permutaci $\pi$
 $n$-prvkové množiny platí 
-\roster
+\begin{enumerate}
 \item"{}"
 posloupnost porovnání při třídění permutace $
 \pi$ 
 algoritmem {\bf A} je stejná jako po\-sloupnost porovnání při 
 průchodu permutace $\pi$ stromem $T$.
-\endroster
+\end{enumerate}
 \enddefinition
 
 Pak korektnost algoritmu zajišťuje, že dvě různé 
