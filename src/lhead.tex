@@ -20,7 +20,7 @@
 \hbox to #1cm{\vbox to#2cm{%
 \offinterlineskip\vfill\hbox to #1cm{%
 \hbox{}\ignorespaces#6%
-\hbox{}\special{psfile=#3}%
+\hbox{}\includegraphics{#3}%
 \hfil}%
 }\hfil}%
 \hbox to #1cm{\hfil#4 #5\hfil}}\hfil}}
@@ -37,7 +37,7 @@
 \def\Lpic #1 #2 #3 #4{%
 \vbox to 0cm%
 {\offinterlineskip\vfill\hbox to\hsize{\hfill\hbox to#1cm{%
-\hbox{}\hbox to0pt{\special{psfile=#3}}\hbox to0pt{\ignorespaces#4}%
+\hbox{}\hbox to0pt{\includegraphics{#3}}\hbox to0pt{\ignorespaces#4}%
 \hfill}\hfill}}}
 %%%%%%%%%%%
 % These macros allow text labels to be drawn at given coordinates in a 

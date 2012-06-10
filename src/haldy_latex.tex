@@ -7,6 +7,7 @@
  \usepackage[utf8]{inputenc}
  \usepackage[czech]{babel}
  \usepackage{hyperref}
+ \usepackage{graphicx} 
  
  \setlength{\hoffset}{-3cm} 
  \setlength{\voffset}{-3cm}
@@ -716,11 +717,12 @@ disjunktních stromů $H_i$, kde kořen jednoho stromu
 se stane dalším synem (nejlevějším nebo nejpravějším) kořene druhého stromu.  Viz 
 Obr.  1. 
 
-\midinsert
-\centerline{\input fig10.tex}
-\botcaption{Obr. 1}
-\endcaption
-\endinsert
+\begin{figure}[h!]
+  \centerline{
+    \input fig10.tex
+    }
+  \caption{Obr. 1}
+\end{figure}
 
 Nejprve uvedeme základní vlastnosti těchto 
 stromů.
