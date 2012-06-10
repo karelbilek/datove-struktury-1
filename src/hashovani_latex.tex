@@ -326,7 +326,7 @@ a následující lemma.
 \ln n-\frac{\ln n(\ln\ln\ln n)}{\ln\ln n}-\frac{\ln n}{\ln\ln n}=\\&\ln n(1-\frac{\ln\ln\ln n}{\ln\ln n}-
 \frac 1{\ln\ln n})=(1+o(1))\ln n,\end{align*}
 protože $\lim_{n\mapsto\infty}\frac{\ln\ln\ln n}{\ln\ln n}=0=\lim_{n\mapsto\infty}\frac 1{\ln\ln n}$. 
-Odtud plyne $$\lim_{n\mapsto\infty}\left(\frac{\frac{\ln n}{\ln\ln n}}e\right)=e^{(1+o(1))\ln n}=n.$$ Protože $(\frac qe)^q$ je rostoucí funkce, tak dostáváme, že $q\le(1+o(1))(\frac{\ln n}{\ln\ln n})$. \qed
+Odtud plyne $$\lim_{n\mapsto\infty}\left(\frac{\frac{\ln n}{\ln\ln n}}e\right)=e^{(1+o(1))\ln n}=n.$$ Protože $(\frac qe)^q$ je rostoucí funkce, tak dostáváme, že $q\le(1+o(1))(\frac{\ln n}{\ln\ln n})$.
 \end{proof}
 
 Protože $\frac nm\le1$, tak platí, že 
@@ -1984,7 +1984,7 @@ $$\ln m+\ln(\ln m+\ln\ln m)<\ln N,$$
 a odtud plyne, že 
 $$t\ln p_t<t\ln(t(\ln t+\ln\ln t))\le m(\ln m+\ln(\ln m+\ln\ln m)
 )<m\ln N$$
-a to je spor s definicí $t$. Tedy $m<\frac {p_t}{\ln t}$. \qed
+a to je spor s definicí $t$. Tedy $m<\frac {p_t}{\ln t}$.
 \end{proof}
 
 Nyní zkombinujeme Větu o odhadu velikosti prvočísel, 
@@ -2035,7 +2035,7 @@ plyne $(\sum_{i=0}^{m-1}b_i)^2=b^2\le m(\sum_{i=0}^{m-1}b_i^2)$, stačí položi
 $x_i=b_i$ a $y_i=1$, a tedy $\frac {b^2}m\le\sum_{i=0}^{m-1}b_i^2$. Odtud
 $$\sum_{i=0}^{m-1}b_i(b_i-1)=\sum_{i=0}^{m-1}b_i^2-\sum_{i=0}^{m-
 1}b_i=\sum_{i=0}^{m-1}b_i^2-b\ge\frac {b^2}m-b=b(\frac bm-1)$$
-a lemma je dokázáno. \qed
+a lemma je dokázáno.
 \end{proof}
 
 \begin{proof}[Důkaz Věty]Mějme funkci $f:U@>>>T$, kde $U$ má 
@@ -2059,7 +2059,7 @@ lemmatu dostáváme
 &\sum_{(x,y)\in U\times U,x\ne y}c\frac {|I|}m=N(N-1)c\frac {|I|}
 m.\end{align*}
 Odtud plyne, že $N-m\le c(N-1)$, a tedy 
-$$c\ge\frac {N-m}{N-1}>\frac {N-m}N=1-\frac mN.\qed$$
+$$c\ge\frac {N-m}{N-1}>\frac {N-m}N=1-\frac mN.$$
 \end{proof}
 
 \subsection{
@@ -2428,7 +2428,7 @@ $m=2n(n-1)$, pak pro náhodně zvolené $k$ platí s
 pravděpodobností $\le\frac 14$, že 
 $$\sum_{i=0}^{m-1}(b_i^k)^2\le\frac {3n(n-1)}{2n(n-1)}+n<n+2.$$
 Algoritmus splňující tvrzení d) je stejný jako 
-v případě b) (jen $m=2n(n-1)$). \qed
+v případě b) (jen $m=2n(n-1)$).
 \end{proof}
 
 Takto zkonstruované perfektní hašovací funkce 
@@ -2485,7 +2485,7 @@ $$d_m=\sum_{i=0}^{m-1}c_i\le\sum_{i=0}^{m-1}(2|S_i|^2-2|S_i|)=2\sum_{
 i=0}^{m-1}(b_i^k)^2-2\sum_{i=0}^{m-1}b_i^k<8n-2n=6n$$
 (protože $|S_i|=b_i^k$ a $\sum_{i=0}^{m-1}b_i^k=n$). Protože $
 k$ nalezneme v čase $O(n)$ a $k_i$ v čase $O(|S_i|)$, dostaneme, že 
-že $g$ nalezneme v čase $O(n)$. Zbytek je jasný. \qed
+že $g$ nalezneme v čase $O(n)$. Zbytek je jasný.
 \end{proof}
 
 Tedy zkonstruovaná hašovací funkce splňuje požadavky 
@@ -2741,7 +2741,7 @@ $$\sum_{j=0}^{m-1}(b^i_j)^2\le\frac {(c+a)n(n-1)}{\frac {(c+a)n(n
 -1)}2+1}+n<2+n.$$
 Z důsledku plyne, že $h_i$ je perfektní.  Analýza 
 očekávaného počtu iterací je stejná jako u předchozího tvrzení 
-pro pravděpodobnostní algoritmus.  \qed
+pro pravděpodobnostní algoritmus. 
 \end{proof}
 
 Další postup konstrukce perfektní hašovací funkce už 
