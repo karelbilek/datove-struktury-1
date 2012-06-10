@@ -156,7 +156,7 @@ vrcholy s většími čísly jsou listy.
 Toto očíslování se nazývá \emph{přirozené} 
 \emph{očíslování} $d$-regulárního stromu. 
 
-\proclaim{Tvrzení}Každý $d$-regulární strom má nejvýše jeden 
+\begin{tvrzeni}Každý $d$-regulární strom má nejvýše jeden 
 vrchol, který není list a má méně než $d$ synů. Když 
 $d$-regulární strom má $n$ vrcholů, pak jeho 
 výška je $\lceil\log_d(n(d-1)+1)\rceil$. Nechť $o$ je přirozené očíslování 
@@ -165,7 +165,7 @@ $v$ je $o(v)=k$, pak vrchol $w$ je syn vrcholu $v$, právě
 když $o(w)\in \{(k-1)d+2,(k-1)d+3,\dots,kd+1\}$, a vrchol $u$ je 
 otcem vrcholu $v$, právě když $o(u)=1+\lfloor\frac {k-2}d
 \rfloor$. 
-\endproclaim
+\end{tvrzeni}
 
 \demo{Důkaz}První část tvrzení plyne přímo z požadavku 2) na 
 $d$-regulární strom. Má-li $d$-regulární strom výšku $
@@ -498,10 +498,10 @@ pravého syna. Pak podstrom vrcholu $v$ do hloubky $k$ je
 úplný binární strom a má tedy  
 alespoň $2^{k+1}-1$ vrcholů. Proto platí 
 
-\proclaim{Tvrzení}V leftist haldě je 
+\begin{tvrzeni}V leftist haldě je 
 délka pravé cesty z každého vrcholu $v$ nejvýše rovna 
 $$\log(\text{\rm velikost podstromu určeného vrcholem }v).$$
-\endproclaim
+\end{tvrzeni}
 
 \head
 Algoritmy a složitost operací
@@ -651,14 +651,14 @@ $O(\log(|S|)$ a protože zbylé části algoritmů pro operace
 1)$ času, 
 můžeme shrnout výsledky:  
 
-\proclaim{Věta}V leftist haldách existuje implementace operace 
+\begin{veta}V leftist haldách existuje implementace operace 
 {\bf MIN}, která v nejhorším případě vyžaduje čas $
 O(1)$, 
 implementace ope\-rací {\bf INSERT}, {\bf DELETEMIN}, {\bf DELETE}, 
 {\bf MER\-GE}, {\bf DECREA\-SE} a {\bf INCREA\-SE}, které vyžadují v nejhorším 
 pří\-pa\-dě čas $O(\log(|S|))$, a implementace operace {\bf MAKE\-HEAP},
 která vyžaduje čas $O(|S|)$, kde $S$ je reprezentovaná množina.
-\endproclaim
+\end{veta}
 
 \section{{Amortizovaná složitost}}
 
@@ -725,7 +725,7 @@ Obr.  1.
 Nejprve uvedeme základní vlastnosti těchto 
 stromů.
 
-\proclaim{Tvrzení}Pro každé přirozené číslo $
+\begin{tvrzeni}Pro každé přirozené číslo $
 i=0,1,\dots$ 
 platí:
 \begin{enumerate}
@@ -740,7 +740,7 @@ $i$ (tj. výška $H_i$ je $i$),
 podstromy určené syny kořene stromu $H_i$ jsou izomorf\-ní 
 se stromy $H_0,H_1,\dots,H_{i-1}$.
 \end{enumerate}
-\endproclaim
+\end{tvrzeni}
 
 \demo{Důkaz}Tvrzení platí pro strom $H_0$ a 
 jednoduchou indukcí se dokáže i pro další stromy. 
@@ -899,12 +899,12 @@ také $\le\log(|S|)$, přičemž tento odhad se nedá zlepšit. Odtud
 dostáváme složitost operací {\bf DECREASE} a {\bf INCREASE} v nejhorším 
 případě. Můžeme tedy shrnout:
 
-\proclaim{Věta}Pro binomiální haldy algoritmy operací 
+\begin{veta}Pro binomiální haldy algoritmy operací 
 {\bf IN\-SERT}, {\bf MIN}, {\bf DELETEMIN}, {\bf DECREASE} a {\bf MERGE  }
 vy\-ža\-dují čas $O(\log(|S|))$, algoritmus operace {\bf INCRE\-ASE }
 vy\-ža\-duje čas $O(\log^2(|S|))$ a algoritmus operace {\bf MAKEHEAP 
 }čas $O(|S|)$.
-\endproclaim
+\end{veta}
 
 Z těchto výsledků je vidět, že předchozí 
 typy hald mají efektivnější chování než binomiální haldy. 
@@ -1297,10 +1297,10 @@ Fibonacciho halda vznikla z prázdné haldy pomocí
 popsaných algoritmů. Nejprve uvedeme jedno technické 
 lemma.
 
-\proclaim{Lemma}Nechť $v$ je vrchol stromu ve 
+\begin{lemma}Nechť $v$ je vrchol stromu ve 
 Fibonacciho haldě a nechť $u$ je $i$-tý nejstarší syn 
 vrcholu $v$. Pak $u$ má aspoň $i-2$ synů.
-\endproclaim
+\end{lemma}
 
 \demo{Důkaz}V momentě, kdy se $u$ stával synem $v$, se 
 aplikovala operace {\bf spoj}, $u$ a $v$ byly kořeny 
@@ -1311,11 +1311,11 @@ protože se od $u$ mohl odtrhnout jen jeden syn,
 dostáváme, že $u$ musí mít alespoň $i-2$ synů. \qed
 \enddemo
 
-\proclaim{Tvrzení}Nechť $v$ je vrchol stromu ve 
+\begin{tvrzeni}Nechť $v$ je vrchol stromu ve 
 Fibonacciho haldě, kte\-rý má právě $i$ synů. Pak 
 podstrom určený vrcholem $v$ má aspoň $F_{i+2}$ 
 vrcholů.
-\endproclaim
+\end{tvrzeni}
 
 \demo{Důkaz}Tvrzení dokážeme indukcí 
 podle maximální délky cesty z vrcholu $v$ do některého 
@@ -1394,7 +1394,7 @@ i$, a tedy $\rho (n)<i-2$.
 
 Výsledky shrneme do následující věty: 
 
-\proclaim{Věta}Ve Fibonacciho haldě, která   
+\begn{veta}Ve Fibonacciho haldě, která   
 reprezentuje $n$-prvkovou množinu, má každý vrchol 
 stu\-peň menší než 
 $$\frac {\log_2(\sqrt 5n+1)}{(\log_23)-1}-2.$$
@@ -1403,7 +1403,7 @@ je $O(1)$ a amortizovaná složitost operací {\bf MIN},
 {\bf DE\-LE\-TE\-MIN}, {\bf INCREASE} a {\bf DELETE} je $O(\log n
 )$. Operace {\bf MIN }
 a {\bf DELETEMIN} jsou korektní.
-\endproclaim
+\end{veta}
 
 Pro úplnost dokážeme, že $F_i=\frac {\big(\frac {
 1+\sqrt 5}2\big)^i-\big(\frac {1-\sqrt 5}2\big)^i}{\sqrt 5}$ .\newline 
@@ -2060,12 +2060,12 @@ $v_1$ a $v_2$ znamená vytvoření nového vrcholu, který bude
 kořenem stromu $v$ a jehož synové budou kořeny stromů 
 $v_1$ a $v_2$. To je analogické proceduře {\bf spoj}.
 
-\proclaim{Věta}Pro danou posloupnost čísel 
+\begin{veta}Pro danou posloupnost čísel 
 $(x_1,x_2,\dots,x_n)$ algoritmus {\bf Optim} nalezne optimální strom 
 pro množinu $x_1,x_2,\dots,x_n$ a pokud je posloupnost 
 $(x_1,x_2,\dots,x_n)$ neklesající, pak vyža\-du\-je čase 
 $O(n)$.  
-\endproclaim
+\end{veta}
 
 \demo{Důkaz}Důkaz má dvě části. V 
 první dokážeme korektnost algoritmu a ve druhé popíšeme 
@@ -2185,13 +2185,13 @@ vyžaduje čas $O(n+m)$, kde $n$ je počet posloupností a $
 m$ je 
 maximální délka posloupnosti.
 
-\proclaim{Věta}Uvedený algoritmus množinu 
+\begin{veta}Uvedený algoritmus množinu 
 disjunktních rostoucích 
 posloupností $P_1,P_2,\dots,P_n$ o délkách $l(P_1),l(P_2)
 ,\dots,l(P_n)$ spojí 
 do jediné rostoucí posloupnosti v čase 
 $O(\sum_{i=1}^nl(P_i))$.
-\endproclaim
+\end{veta}
 
 \section{{Rozhodovací stromy}}
 
@@ -2366,7 +2366,7 @@ Tím jsme dokázali, že $A(n)\ge (n+\frac 12)\log_2n-\frac
 n{\ln2}$. Shrneme 
 naše výsledky.
 
-\proclaim{Věta}Každý třídicí algoritmus, jehož jedinou 
+\begin{veta}Každý třídicí algoritmus, jehož jedinou 
 primitivní ope\-rací s prvky vstupní posloupnosti je 
 porovnání, vyžaduje v nejhorším i v očekávaném případě 
 alespoň $cn\log n$ času pro nějakou konstantu $c>0$.  V 
@@ -2375,7 +2375,7 @@ nejhorším případě použije alespoň $\lceil
 porovnání a očekávaný počet porovnání při rovnoměrném 
 rozdělení vstupních posloupností je alespoň 
 $(n+\frac 12)\log_2n-\frac n{\ln2}$.  
-\endproclaim
+\end{veta}
 
 Tato věta 
 platí i pro širší třídu primitivních operací, proto v ní 
@@ -2451,13 +2451,13 @@ $P:=$}konkatenace $P$ a $Q_i$, $i:=i+1$\newline
 Výstup: $P$} je rostoucí posloupnost prvků 
 $a_1,a_2,\dots,a_n$
 
-\proclaim{Věta}Algoritmus {\bf HYBRIDSORT} setřídí 
+\begin{veta}Algoritmus {\bf HYBRIDSORT} setřídí 
 posloupnost reál\-ných čísel z intervalu $<0,1>$ v 
 nejhorším případě v čase $O(n\log n)$. Když prvky $
 a_i$ 
 mají rovnoměrné rozložení a jsou na sobě nezá\-vislé, 
 pak očekávaný čas je $O(n)$.
-\endproclaim
+\end{veta}
 
 \demo{Důkaz}První dva cykly v algoritmu 
 vyžadují čas $O(n)$, $i$-tý běh třetího cyklu vyžaduje 
@@ -2669,12 +2669,12 @@ jsme indukcí, že $T(n,i)\le 4n$ pro všechna $n$ a všechna $
 i$ 
 taková, že $1\le i\le n$. Platí tedy 
 
-\proclaim{Věta}Algoritmus {\bf FIND} nalezne $i$-tý nejmenší 
+\begin{veta}Algoritmus {\bf FIND} nalezne $i$-tý nejmenší 
 prvek v $n$ prv\-kové totálně uspořádané mno\-ži\-ně a v nejhorším 
 případě vyža\-du\-je čas $O(n^2)$. Když se pivot volí 
 náhodně nebo když všechny vstupní množiny mají stejnou 
 pravděpodobnost, pak očekávaný čas je $O(n)$.
-\endproclaim
+\end{veta}
 
 Pro velmi malá $i$ nebo pro $i$ velmi blízká $n$ 
 pracuje rychleji přímý přirozený algoritmus (udržuje si 
@@ -2724,9 +2724,9 @@ jako u algoritmu {\bf FIND}.
 Zbývá vyšetřit složitost. Nej\-prve dokážeme následující 
 lemma.
 
-\proclaim{Lemma}Když $n\ge 100$, pak $|M_1|,|M_2|\le\frac {8n}{
+\begin{lemma}Když $n\ge 100$, pak $|M_1|,|M_2|\le\frac {8n}{
 11}$.
-\endproclaim
+\end{lemma}
 
 \demo{Důkaz} Pro $j\le\lfloor\frac n5\rfloor$ platí, že když $
 m_j<\bar {m}$, pak 
@@ -2765,9 +2765,9 @@ $$T(n)\le c\frac {21n}{100}+c\frac {8n}{11}+bn=(\frac {1031c}{110
 0}+b)n\le cn.$$
 Tedy
 
-\proclaim{Věta}Algoritmus {\bf SELECT} nalezne $i$-tý nejmenší 
+\begin{veta}Algoritmus {\bf SELECT} nalezne $i$-tý nejmenší 
 prvek v lineárním čase.
-\endproclaim
+\end{veta}
 
 Algoritmus {\bf FIND} je ve velké většině 
 případů 
