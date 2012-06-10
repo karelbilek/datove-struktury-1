@@ -1,34 +1,67 @@
-%%AmSTeX
-\input amstex
-\input amsppt.sty
+\documentclass[a4paper,12pt]{article}
+ \usepackage{amsmath}
+ \usepackage{amsthm}
+ \usepackage{amsfonts}
+ 
+ 
+ \usepackage[utf8]{inputenc}
+ \usepackage[czech]{babel}
+ \usepackage{hyperref}
+ \usepackage{graphicx} 
+ 
+ \setlength{\hoffset}{-3cm} 
+ \setlength{\voffset}{-3cm}
+ \setlength{\textheight}{26.0cm} 
+ \setlength{\textwidth}{19cm}
+ \setlength{\parindent}{0in}
+ \setlength{\parskip}{0.1in}
+ 
+ \def \emph#1{\underbar{#1}}
+ 
+ 
 
-%\documentstyle{amsppt}
+ 
+ \DeclareMathOperator*{\Prob}{Prob}
+ \DeclareMathOperator*{\countop}{count}
+ \DeclareMathOperator*{\NIL}{NIL}
+ \DeclareMathOperator*{\otec}{otec}
+ \DeclareMathOperator*{\listop}{list}
+ \DeclareMathOperator*{\Prv}{Prv}
+ \DeclareMathOperator*{\Nasl}{Nasl}
+ \DeclareMathOperator*{\levy}{levy}
+ \DeclareMathOperator*{\pravy}{pravy}
+ \DeclareMathOperator*{\key}{key}
+ \DeclareMathOperator*{\Prst}{Prst}
+ \DeclareMathOperator*{\hloubka}{hloubka}
+ \DeclareMathOperator*{\bratr}{bratr}
+ \DeclareMathOperator*{\npl}{npl}
+ \DeclareMathOperator*{\Cont}{Cont}
+ 
+ \input lhead
+ 
+ 
+ \begin{document}
+     
 
-\magnification=\magstep1
-\NoPageNumbers
-\nopagenumbers
-\pagewidth{5.4in}
+\newtheorem*{dusledek}{Důsledek}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{veta}{Věta}
+\newtheorem*{tvrzeni}{Tvrzení}
+\newtheorem*{definice}{Definice}
 
 
 \def \emph#1{\underbar{#1}}
 \def \Prob{\operatorname{Prob}}
-\def \count{\operatorname{count}}
-\def \NIL{\operatorname{NIL}}
-\def \otec{\operatorname{otec}}
-\def \list{\operatorname{list}}
-\def \Prv{\operatorname{Prv}}
-\def \Nasl{\operatorname{Nasl}}
-\def \levy{\operatorname{levy}}
-\def \pravy{\operatorname{pravy}}
-\def \bratr{\operatorname{bratr}}
-\def \Prst{\operatorname{Prst}}
-\def \key{\operatorname{key}}
-\def \hloubka{\operatorname{hloubka}}
-\input lhead
+\def \var{\operatorname{var}}
 
-\heading
-Uspo\v r\'adan\'y slovn\'\i kov\'y probl\'em
-\endheading
+\title{Datové struktury - stromy}
+\date{}
+\maketitle
+
+\tableofcontents
+
+
+\section{Uspořádaný slovníkový problém}
 
 \flushpar Jedn\'a se o roz\v s\'\i\v ren\'\i\ z\'akladn\'\i ho slovn\'\i kov\'eho probl\'emu. Je 
 d\'ano tot\'aln\v e uspo\v r\'adan\'e univerzum $U$ (tj. pro ka\v zd\'e dva 
@@ -2796,4 +2829,4 @@ Priorita AVL-strom\accent23u se odr\'a\v z\'\i\ v
 jejim hojn\'em pou\v z\'\i v\'an\'\i , i kdy\v z \v cerveno-\v cern\'e stromy 
 jsou efektivn\v ej\v s\'\i . 
 
-\end
+\end{document}
