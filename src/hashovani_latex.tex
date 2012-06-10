@@ -85,9 +85,7 @@ J.~S.~Vitter, W.-Ch.~Chen: Design and Analysis of
 Coalesced Hashing, Oxford Univ. Press, 1987
 \newpage
 
-\heading
-Hašování
-\endheading
+\section{Hašování}
 
 Pomocí bitového pole můžeme rychle 
 implementovat operace {\bf MEMBER}, {\bf INSERT} a {\bf DELETE}. 
@@ -484,9 +482,7 @@ Velikost $\alpha$ je doporučována menší než $
 1$, ale nemá být 
 hodně malá, protože by pamě\v t nebyla efektivně využita. 
 
-\heading
-Hašování s uspořádanými separovanými řetězci
-\endheading
+\section{Hašování s uspořádanými separovanými řetězci}
 
 Vylepšení metody: hašování s uspořádanými řetězci.
 Rozdíl proti původní metodě -- řetězce jsou 
@@ -584,9 +580,7 @@ dvojité hašování a hašování s lineárním
 přidáváním.
 \endroster
 
-\heading
-Hašování s přemís\v továním
-\endheading
+\section{Hašování s přemís\v továním}
 
 Položky pro práci s tabulkou: next, previous\newline 
 \phantom{---}položka next -- číslo řádku tabulky 
@@ -685,9 +679,7 @@ m)^n+\frac nm\approx e^{-\alpha}+\alpha$,\newline
 kde $m=$ velikost tabulky, $n=$ velikost $S$, tj. počet uložených 
 prvků, $\alpha =\frac nm=$ faktor zaplnění.
 
-\heading
-Hašování s dvěma ukazateli
-\endheading
+\section{Hašování s dvěma ukazateli}
 
 Nevýhodou hašování s přemís\v továním je v operaci 
 {\bf INSERT} případ, že $previous$ $h(i)$-tého řádku je neprázdný. Pak přemís\v tujeme položku na $h(i)$-tém řádku na volný řádek a to vyžaduje více času -- operace s přemístěním 
@@ -787,9 +779,7 @@ Očekávaný počet testů:\newline
 \phantom{---}neúspěšný případ: $\approx 1+\frac {
 \alpha^2}2+\alpha +e^{-\alpha}(2+\alpha )-2$.
 
-\heading
-Srůstající hašování
-\endheading
+\section{Srůstající hašování}
 
 Srůstající hašování se dělí podle práce s 
 pamětí na standardní a na srůstající hašování 
@@ -1262,9 +1252,7 @@ když $\alpha\ge\lambda\beta$.
 Chyba aproximace pro tyto odhady je $O(\log\frac {m'}{\sqrt {
 m'}})$.
 
-\heading
-Hašování s lineárním přidáváním
-\endheading
+\section{Hašování s lineárním přidáváním}
 
 Tabulka má jedinou položku -- key
 
@@ -1322,9 +1310,7 @@ počet testů:\newline
 \phantom{---}úspěšný případ: $\approx\frac 12(1+\frac 
 1{1-\alpha})$.
 
-\heading
-Dvojité hašování
-\endheading
+\section{Dvojité hašování}
 
 Základní nevýhoda předchozí metody je způsob 
 výběru dal\-ší\-ho řádku. Je velmi determinován a 
@@ -1454,9 +1440,7 @@ Následující tabulka ukazuje tyto hodnoty v závislosti na
 velikosti $\alpha$. 
 $$\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule\ # & \vrule\ # & \vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}hodnota $\alpha$ & 0.5 & 0.7 & 0.9 & 0.95 & 0.99 & 0.999 \hfill \cr\noalign{\hrule}$\frac 1{1-\alpha}$ & 2 & 3.3 & 10 & 20 & 100 & 1000 \cr\noalign{\hrule} $\frac 1{\alpha}\ln(\frac 1{1-\alpha})$ & 1.38 & 1.70 & 2.55 & 3.15 & 4.65 & 6.9 \cr\noalign{\hrule}}}$$
 
-\heading
-Porovnání efektivity
-\endheading
+\section{Porovnání efektivity}
 
 Pořadí metod hašování podle očekávaného počtu 
 testů:
@@ -1539,9 +1523,7 @@ pomocné části). Metoda s přemís\v továním a metoda
 dvojitého hašování vyžadují více času -- na přemístění 
 prvku a na výpočet druhé hašovací funkce.
 
-\heading
-Další otázky
-\endheading
+\section{Další otázky}
 
 Jak nalézt volný řádek.\newline 
 Za nejlepší metodu se považuje mít seznam (zásobník) 
@@ -1639,9 +1621,7 @@ použitou hašovací funkci. Důsledek -- na počátku
 který by se vyhnul uvedenému problému s bodem 3). Nalezenému 
 řešení je věnován následující text.
 
-\heading
-Univerzální hašování
-\endheading
+\section{Univerzální hašování}
 
 Řešení navrhli Carter a Wegman (1977), když přišli s 
 metodou univerzálního hašování, která obchází poža\-davek 3).  
@@ -2144,9 +2124,7 @@ lineárním přidáváním je třeba dát silnější podmínky na velikost $
 |S|$. V poslední době se této tématice 
 věnuje pozornost a byla dosažena řada zajímavých výsledků.
 
-\heading
-Perfektní hašování
-\endheading
+\section{Perfektní hašování}
 
 Jiné řešení kolizí je perfektní hašování. Idea 
 je nalézt pro danou množinu hašovací funkci, která 
@@ -3007,9 +2985,7 @@ požadavků na perfektní hašovací funkci je opět
 problémem splnění poža\-davku 4).  Nevím, jak je uvedená 
 metoda prakticky pou\-ži\-telná a zda se někde používá.  
 
-\heading
-Externí hašování
-\endheading
+\section{Externí hašování}
 
 Navržený postup je také znám pod názvem Faginův algoritmus. Tímto problémem se jako první asi zabýval Larsson.
 
