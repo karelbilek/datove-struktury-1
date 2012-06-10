@@ -64,7 +64,7 @@ metodami pro jejich řešení. Nejprve si zadefinujeme asi
 nejzákladnější problém, který řešíme v datových strukturách. 
 \medskip
 
-\flushpar\v Rešíme tzv. slovníkový problém: Dáno 
+\flushparŘešíme tzv. slovníkový problém: Dáno 
 univerzum $U$, máme reprezentovat $S\subseteq U$ a navrhnout algoritmy pro 
 násle\-dující operace\newline 
 {\bf MEMBER$(x)$} -- zjistí, zda $x\in S$, a nalezne jeho 
@@ -588,7 +588,7 @@ if} $t=x$ {\bf then} odstraníme $x$ z $i$-tého seznamu {\bf endif
 \phantom{---}nevyužití alokované paměti (nehospodárné)\newline 
 \phantom{---}používání ukazatelů (cache).\newline 
 
-\flushpar\v Rešení: využít pro řetězce původní tabulku. Pak řádky tabulky musí mít strukturu, která umožňuje prohledávat řetězce, a velikost reprezentované množiny 
+\flushparŘešení: využít pro řetězce původní tabulku. Pak řádky tabulky musí mít strukturu, která umožňuje prohledávat řetězce, a velikost reprezentované množiny 
 může být nejvýše rovna velikosti tabulky.  
 \medskip
 \flushpar Položky tabulky:\newline 
@@ -964,11 +964,11 @@ $$\frac {\sum C(a_1,a_2,\dots,a_n;a_{n+1})}{m^{n+1}},$$
 kde se sčítá přes všechny posloupnosti $a_1,a_2,\dots
 ,a_{n+1}$ -- 
 a těch je $m^{n+1}$. \newline 
-\v Retězec délky $l$ v množině $S$ je maximální posloupnost 
+Řetězec délky $l$ v množině $S$ je maximální posloupnost 
 adres $(b_1,b_2,\dots,b_l)$ taková, že $b_i.next=b_{i+1}$ pro 
 $i=1,2,\dots,l-1$.
 Když adresa $a_{n+1}$ je $i$-tý prvek v řetězci, pak počet 
-testů je $l-i+1$. \v Retězec délky $l$ přispěl k součtu 
+testů je $l-i+1$. Řetězec délky $l$ přispěl k součtu 
 $\sum C(a_1,a_2,\dots,a_n;a_{n+1})$ počtem testů $1+2+\dots+l=l+\binom l2$. 
 
 \flushpar$c_n(l)=$ počet všech řetězců délky $
@@ -1638,7 +1638,7 @@ Použít ideu tzv. `falešného {\bf DELETE}'.
 Odstranit prvek, ale řádek neuvolnit (i v klíči nechat 
 nějakou hodnotu, která bude znamenat, že řádek je 
 prázdný, položky podporující práci s tabulkami neměnit). 
-\v Rádek nebude v seznamu volných řádků, ale 
+Řádek nebude v seznamu volných řádků, ale 
 operace {\bf INSERT}, když testuje tento řádek, tam 
 může vložit nový prvek. Když je alespoň 
 polovina použitých řádků takto blokována, je 
@@ -1718,7 +1718,7 @@ který by se vyhnul uvedenému problému s bodem 3). Nalezenému
 Univerzální hašování
 \endheading
 
-\flushpar\v Rešení navrhli Carter a Wegman (1977), když přišli s 
+\flushparŘešení navrhli Carter a Wegman (1977), když přišli s 
 metodou univerzálního hašování, která obchází poža\-davek 3).  
 To vedlo k novému rozsáhlému používání hašování.  
 \medskip
@@ -1738,7 +1738,7 @@ znalost velikosti množiny $H$. Rychlá vyčíslitelnost $
 h(x)$ 
 vyžaduje ana\-lytické zadání funkcí v $H$, ale zjištění rovnosti 
 dvou analy\-ticky zadaných funkcí na univerzu $U$ je 
-problematické. \v Rešením problému je použití indexové množiny. 
+problematické. Řešením problému je použití indexové množiny. 
 To znamená, že $H=\{h_i\mid i\in I\}$ a dvě funkce jsou různé, 
 když mají různé indexy. Pak velikost systému bude 
 velikost indexové množiny. Místo zvolení hašovací funkce 
@@ -3166,7 +3166,7 @@ Externí hašování
 \flushpar Navržený postup je také znám pod názvem Faginův algoritmus. Tímto problémem se jako první asi zabýval Larsson.
 \medskip
 
-\flushpar\v Rešíme jiný problém -- uložení dat v externí 
+\flushparŘešíme jiný problém -- uložení dat v externí 
 pamě\v ti. Hlavní problém -- minimalizovat přístupy na 
 externí pamě\v t. 
 \medskip
@@ -3199,7 +3199,7 @@ hašovací funkce (to znamená, že hašovací funkce je přejmenování prvků)
 menší než $k$ definujme 
 $$h^{-1}_S(\alpha )=\{s\in S\mid\alpha\text{\rm\ je prefix }h(s)\}
 .$$
-\v Rekneme, že $\alpha$ je \emph{kritické} \emph{slovo}, když 
+Řekneme, že $\alpha$ je \emph{kritické} \emph{slovo}, když 
 $0<|h^{-1}_S(\alpha )|\le b$ a pro každý vlastní prefix $
 \alpha'$ slova $\alpha$ platí 
 $|h^{-1}_S(\alpha')|>b$.  Pro každé $s\in S$ existuje právě jedno 
@@ -3217,7 +3217,7 @@ $h^{-1}_S(\alpha )$.
 
 \flushpar Problém: jak nalézt stránku kritického slova 
 $\alpha$?\newline 
-\v Rešení: Adresář je funkce, která každému slovu $
+Řešení: Adresář je funkce, která každému slovu $
 \alpha$ o 
 délce $d(S)$ přiřadí adresu stránky předpisem
 \roster
