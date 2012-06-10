@@ -756,7 +756,7 @@ $H_{i+1}$, je izomorfní s $H_i$ a jinak se nic neměnilo, je
 důkaz kompletní. \qed
 \end{proof}
 
-\emph{Binomiální} \emph{halda} $\Cal H$ reprezentující 
+\emph{Binomiální} \emph{halda} $\mathcal H$ reprezentující 
 množinu $S$ je soubor (seznam) stromů $\{T_1,T_2,\dots
 ,T_k\}$ 
 takový, že 
@@ -795,18 +795,18 @@ stejně jako pro leftist haldy založeny na ope\-raci {\bf MER\-GE}. Ope\-race
 {\bf MERGE} pro binomiální haldy je analogií sčítání 
 přirozených čísel v binár\-ním zápise.
 
-{\bf MERGE$(\Cal H_1,\Cal H_2)$}:\newline 
-(komentář: $\Cal H_i$ reprezentuje množinu $S_i$ pro $i=1
+{\bf MERGE$(\mathcal H_1,\mathcal H_2)$}:\newline 
+(komentář: $\mathcal H_i$ reprezentuje množinu $S_i$ pro $i=1
 ,2$ a $S_1\cap S_2=\emptyset$)\newline 
-$i:=0$, $T:=$prázdný strom, $\Cal H:=\emptyset$\newline 
+$i:=0$, $T:=$prázdný strom, $\mathcal H:=\emptyset$\newline 
 {\bf while} $i<\log(|S_1|+|S_2|)$ {\bf do\newline 
-\phantom{{\rm ---}}if} existuje $U\in \Cal H_1$ izomorfní s $
+\phantom{{\rm ---}}if} existuje $U\in \mathcal H_1$ izomorfní s $
 H_i$ {\bf then\newline 
 \phantom{{\rm ------}}$U_1:=U$\newline 
 \phantom{{\rm ---}}else\newline 
 \phantom{{\rm ------}}$U_1:=$}prázdný strom\newline 
 \phantom{---}{\bf endif\newline 
-\phantom{{\rm ---}}if} existuje $U\in \Cal H_2$ izomorfní s $
+\phantom{{\rm ---}}if} existuje $U\in \mathcal H_2$ izomorfní s $
 H_i$ {\bf then\newline 
 \phantom{{\rm ------}}$U_2:=U$\newline 
 \phantom{{\rm ---}}else\newline 
@@ -815,18 +815,18 @@ H_i$ {\bf then\newline
 \phantom{{\rm ---}}case\newline 
 \phantom{{\rm ------}}}(existuje právě jeden neprázdný strom 
 $V\in \{T,U_1,U_2\}$) {\bf do}:\newline 
-\phantom{---------}vlož $V$ do $\Cal H$, $T:=$prázdný strom\newline 
+\phantom{---------}vlož $V$ do $\mathcal H$, $T:=$prázdný strom\newline 
 \phantom{------}(existují právě dva neprázdné stromy 
 $V_1,V_2\in \{T,U_1,U_2\})$ {\bf do}:\newline 
 \phantom{---------}$T:=${\bf spoj$(V_1,V_2)$\newline 
 \phantom{{\rm ------}}}(všechny stromy $T$, $U_1$ a $U_2$ jsou neprázdné) {\bf do}:\newline 
-\phantom{---------}vlož $T$ do $\Cal H$, $T:=${\bf spoj$(U_1,U_
+\phantom{---------}vlož $T$ do $\mathcal H$, $T:=${\bf spoj$(U_1,U_
 2)$\newline 
 \phantom{{\rm ---}}endcase\newline 
 \phantom{{\rm ---}}$i:=i+1$\newline 
 enddo\newline 
-if} $T\ne$prázdný strom {\bf then} vlož $T$ do $\Cal H$ {\bf endif\newline 
-Výstup}:$\Cal H$
+if} $T\ne$prázdný strom {\bf then} vlož $T$ do $\mathcal H$ {\bf endif\newline 
+Výstup}:$\mathcal H$
 
 {\bf spoj$(T_1,T_2)$}:\newline 
 {\bf if} $f(\text{\rm kořen }T_1)>f(\text{\rm kořen }T_2)$ {\bf then\newline 
@@ -839,7 +839,7 @@ $v:=$kořen $T_2$
 Je vidět, že když oba stromy $T_1$ a $T_2$ jsou izomorfní 
 s $H_i$, pak výsledný strom operace {\bf spoj} je izomorfní 
 s $H_{i+1}$. Korektnost ope\-race {\bf MERGE} plyne z tohoto 
-pozorování a z faktu, že $\Cal H_j$ obsahuje strom izomorfní s 
+pozorování a z faktu, že $\mathcal H_j$ obsahuje strom izomorfní s 
 $H_i$, právě když v binárním zápise čísla $
 |S_j|$ je na $i$-tém 
 místě zprava $1$, a že $T$ je neprázdný strom, když se 
@@ -849,28 +849,28 @@ $O(\log(|S_1|+|S_2|))$. Implementace dalších algoritmů
 je podobná jako pro leftist haldy. 
 
 {\bf INSERT$(x)$}:\newline 
-Vytvoř haldu $\Cal H_1$ reprezentující $\{x\}$\newline 
-$\bold M\bold E\bold R\bold G\bold E(\Cal H,\Cal H_1)$
+Vytvoř haldu $\mathcal H_1$ reprezentující $\{x\}$\newline 
+$\bold M\bold E\bold R\bold G\bold E(\mathcal H,\mathcal H_1)$
 
 {\bf MIN}:\newline 
 Prohledej prvky reprezentované kořeny všech stromů 
-v $\Cal H$\newline 
+v $\mathcal H$\newline 
 {\bf Výstup}: nejmenší z těchto prvků  
 
 {\bf DELETEMIN}:\newline 
 Prohledej prvky reprezentované kořeny všech stromů 
-v $\Cal H$\newline 
+v $\mathcal H$\newline 
 $T:=$ strom, jehož kořen reprezentuje nejmenší prvek\newline 
-$\Cal H_1:=\Cal H\setminus \{T\}$\newline 
-$\Cal H_2:=$ halda tvořená podstromy $T$ určenými syny kořene $
+$\mathcal H_1:=\mathcal H\setminus \{T\}$\newline 
+$\mathcal H_2:=$ halda tvořená podstromy $T$ určenými syny kořene $
 T$\newline 
-{\bf MERGE$(\Cal H_1,\Cal H_2)$
+{\bf MERGE$(\mathcal H_1,\mathcal H_2)$
 
 }
 Z podmínky \thetag{usp} je zřejmé, že 
 nejmenší prvek v $S$ je reprezentován v kořeni nějakého  
 stromu haldy. Tím je dána korekt\-nost operace {\bf MIN}.
-Z úvodního tvrzení plyne, že $\Cal H_2$ v operaci {\bf DELE\-TE\-MIN} je 
+Z úvodního tvrzení plyne, že $\mathcal H_2$ v operaci {\bf DELE\-TE\-MIN} je 
 binomiální halda, a odtud plyne korekt\-nost ope\-race 
 {\bf DE\-LE\-TEMIN}. Operace {\bf DECREASE} se implementuje pomocí 
 ope\-race {\bf UP} a ope\-race {\bf INCREASE} pomocí 
@@ -926,7 +926,7 @@ Následující algoritmy jsou založeny na ideji, že
 stromy. Z tohoto důvodu zeslabíme podmínky na 
 binomiální haldy.
 
-\emph{Líná} \emph{binomiální} \emph{halda} $\Cal H$ 
+\emph{Líná} \emph{binomiální} \emph{halda} $\mathcal H$ 
 reprezentující množinu $S$ je seznam stromů 
 $\{T_1,T_2,\dots,T_k\}$ takový, že  
 \begin{enumerate}
@@ -947,8 +947,8 @@ neizo\-morf\-nosti stromů tvořících haldu. Tento fakt se
 projeví ve velmi jednoduchém algoritmu pro operaci 
 {\bf MERGE}.
 
-{\bf MERGE$(\Cal H_1,\Cal H_2)$}:\newline 
-Prove\v d konkatenaci seznamů $\Cal H_1$ a $\Cal H_2$
+{\bf MERGE$(\mathcal H_1,\mathcal H_2)$}:\newline 
+Prove\v d konkatenaci seznamů $\mathcal H_1$ a $\mathcal H_2$
 
 Samotný algoritmus pro operaci {\bf INSERT} se nezmění, jen 
 provede tuto implementaci ope\-race {\bf MER\-GE}.  Ope\-race 
@@ -960,7 +960,7 @@ Procedura {\bf vyvaz} pak z těchto stromů vytvoří
 klasickou binomiální hal\-du. 
 
 {\bf vyvaz$(\{O_i\mid i=0,1,\dots,k\})$}:\newline 
-$i:=0$, $\Cal H:=\emptyset$\newline 
+$i:=0$, $\mathcal H:=\emptyset$\newline 
 {\bf while} existuje $O_i\ne\emptyset$ {\bf do\newline 
 \phantom{{\rm ---}}while} $|O_i|>1$ {\bf do\newline 
 \phantom{{\rm ------}}}vezmi dva různé stromy $T_1$ a $
@@ -971,28 +971,28 @@ $O_i$\newline
 \phantom{---}{\bf enddo\newline 
 \phantom{{\rm ---}}if} $O_i\ne\emptyset$ {\bf then\newline 
 \phantom{{\rm ------}}}strom $T\in O_i$ odstraň z $O_i$ a vlož do $
-\Cal H$\newline 
+\mathcal H$\newline 
 \phantom{---}{\bf endif},\newline 
 \phantom{---}$i:=i+1$\newline 
 {\bf enddo\newline 
-Výstup}: $\Cal H$
+Výstup}: $\mathcal H$
 
 {\bf MIN}:\newline 
 Prohledej prvky reprezentované kořeny všech 
 stromů  
-v $\Cal H$\newline 
+v $\mathcal H$\newline 
 {\bf Výstup}: nejmenší z těchto prvků\newline 
 stromy rozděl do množin $O_i=\{$všechny stromy v 
-$\Cal H$ izomorfní s $H_i\}$\newline 
+$\mathcal H$ izomorfní s $H_i\}$\newline 
 {\bf vyvaz$(\{O_i\mid i=0,1,\dots,\lfloor\log(|S|)\rfloor \})$
 
 DELETEMIN}:\newline 
 Prohledej prvky reprezentované kořeny všech 
-stromů v $\Cal H$\newline 
+stromů v $\mathcal H$\newline 
 $T:=$ strom, jehož kořen repre\-zentuje nejmenší 
 prvek\newline 
 stromy rozděl do množin $O_i=\{$všechny stromy v 
-$\Cal H$ izomorfní s $H_i$ různé od $T\}\cup \{$podstrom $
+$\mathcal H$ izomorfní s $H_i$ různé od $T\}\cup \{$podstrom $
 T$ určený nějakým synem kořene $T$ 
 izomorfní s $H_i\}$\newline 
 {\bf vyvaz$(\{O_i\mid i=0,1,\dots,\lfloor\log(|S|)\rfloor \})$
@@ -1020,24 +1020,24 @@ O(1)$
 a zmenší počet stromů v seznamech $O_i$ o $1$, 
 ope\-ra\-ce {\bf vyvaz} vyžaduje čas $O(k+\sum_{i=0}^k|O_i|
 )$. Ope\-ra\-ce {\bf MIN}
-bez podprocedury {\bf vyvaz} vyžaduje čas $O(|\Cal H|)$ a operace 
-{\bf DELETEMIN} bez podprocedury {\bf vyvaz }čas $O(\Cal H+i)$ pro 
+bez podprocedury {\bf vyvaz} vyžaduje čas $O(|\mathcal H|)$ a operace 
+{\bf DELETEMIN} bez podprocedury {\bf vyvaz }čas $O(\mathcal H+i)$ pro 
 takové $i$, že $T$ je izomorfní s $H_i$. Podle tvrzení je $
 i\le\log(|S|)$, a 
-tedy ope\-ra\-ce {\bf MIN} vyžaduje čas $O(|\Cal H|)$ a ope\-race 
-{\bf DELETEMIN }čas $O(|\Cal H|+\log(|S|))$. Protože  
+tedy ope\-ra\-ce {\bf MIN} vyžaduje čas $O(|\mathcal H|)$ a ope\-race 
+{\bf DELETEMIN }čas $O(|\mathcal H|+\log(|S|))$. Protože  
 ohodnocení klasické binomiální haldy je nejvýše $\log
 (|S|)$ 
 (obsahuje tolik stromů, kolik je $1$ v binárním zápise 
 čísla $|S|$), dostáváme, že amortizovaná složitost ope\-race {\bf MIN} je 
-$O(|\Cal H|-|\Cal H|+\log(|S|))=O(\log(|S|))$ a amortizovaná složitost 
-operace {\bf DELETEMIN} je $O(|\Cal H|+\log(|S|)-|\Cal H|+\log(|S
+$O(|\mathcal H|-|\mathcal H|+\log(|S|))=O(\log(|S|))$ a amortizovaná složitost 
+operace {\bf DELETEMIN} je $O(|\mathcal H|+\log(|S|)-|\mathcal H|+\log(|S
 |))=O(\log(|S|))$.
 
 Protože si funkci ohodnocení volíme, 
 můžeme použít takové multiplikativní 
 koeficienty, aby jednotka času odpovídala jednotce v 
-amortizované složitosti. Proto lze $|\Cal H|$ od sebe odečíst.
+amortizované složitosti. Proto lze $|\mathcal H|$ od sebe odečíst.
 
 \section{{Fibonacciho haldy}}
 
@@ -1104,36 +1104,36 @@ vycházejí z algoritmů pro tyto operace v leftist
 haldách. V algoritmech předpokládáme, že $c=\log^{-1}
 (\frac 32)$.
 
-{\bf MERGE$(\Cal H_1,\Cal H_2)$}:\newline 
-Prove\v d konkatenaci seznamů $\Cal H_1$ a $\Cal H_2$
+{\bf MERGE$(\mathcal H_1,\mathcal H_2)$}:\newline 
+Prove\v d konkatenaci seznamů $\mathcal H_1$ a $\mathcal H_2$
 
 {\bf INSERT$(x)$}:\newline 
-Vytvoř haldu $\Cal H_1$ reprezentující $\{x\}$\newline 
-$\bold M\bold E\bold R\bold G\bold E(\Cal H,\Cal H_1)$
+Vytvoř haldu $\mathcal H_1$ reprezentující $\{x\}$\newline 
+$\bold M\bold E\bold R\bold G\bold E(\mathcal H,\mathcal H_1)$
 
 {\bf MIN}:\newline 
 Prohledej prvky reprezentované kořeny všech 
-stromů v $\Cal H$\newline 
+stromů v $\mathcal H$\newline 
 {\bf Výstup}: nejmenší z těchto prvků\newline 
 stromy rozděl do množin $O_i=\{$všechny stromy v 
-$\Cal H$ s rankem $i\}$\newline 
+$\mathcal H$ s rankem $i\}$\newline 
 {\bf vyvaz1$(\{O_i\mid i=0,1,\dots,\lfloor c\log(\sqrt 5|S|+1)\rfloor 
 \})$
 
 DELETEMIN}:\newline 
 Prohledej prvky reprezentované kořeny všech 
-stromů v $\Cal H$\newline 
+stromů v $\mathcal H$\newline 
 $T:=$ strom, jehož kořen reprezentuje nejmenší 
 prvek\newline 
 stromy rozděl do množin $O_i=\{$všechny stromy v 
-$\Cal H$ s rankem $i$ různé od $T\}\cup \{$podstrom $T$ určený 
+$\mathcal H$ s rankem $i$ různé od $T\}\cup \{$podstrom $T$ určený 
 některým synem kořene $T$ s 
 rankem $i$$\}$\newline 
 {\bf vyvaz1$(\{O_i\mid i=0,1,\dots,\lfloor c\log(\sqrt 5|S|+1)\rfloor 
 \})$
 
 vyvaz1$(\{O_i\mid i=0,1,\dots,k\})$}:\newline 
-$i:=0$, $\Cal H:=\emptyset$\newline 
+$i:=0$, $\mathcal H:=\emptyset$\newline 
 {\bf while} existuje $O_i\ne\emptyset$ {\bf do\newline 
 \phantom{{\rm ---}}while} $|O_i|>1$ {\bf do\newline 
 \phantom{{\rm ------}}}vezmi dva různé stromy $T_1$ a $
@@ -1144,11 +1144,11 @@ $O_i$\newline
 \phantom{---}{\bf enddo\newline 
 \phantom{{\rm ---}}if} $O_i\ne\emptyset$ {\bf then\newline 
 \phantom{{\rm ------}}}strom $T\in O_i$ odstraň z $O_i$ a vlož ho do $
-\Cal H$\newline 
+\mathcal H$\newline 
 \phantom{---}{\bf endif\newline 
 \phantom{{\rm ---}}$i:=i+1$\newline 
 enddo\newline 
-Výstup}: $\Cal H$
+Výstup}: $\mathcal H$
 
 {\bf spoj$(T_1,T_2)$}:\newline 
 {\bf if} $f(\text{\rm kořen }T_1)>f(\text{\rm kořen }T_2)$ {\bf then\newline 
@@ -1159,7 +1159,7 @@ vytvoř nového syna $v$ kořene $T_1$\newline
 $v:=$kořen $T_2$
 
 {\bf DECREASE$(s,a)$}:\newline 
-$T:=$strom v $\Cal H$, který obsahuje vrchol reprezentující $
+$T:=$strom v $\mathcal H$, který obsahuje vrchol reprezentující $
 s$\newline 
 $v:=$vrchol stromu $T$ reprezentující $s$\newline 
 {\bf if} $v$ není kořen {\bf then \newline 
@@ -1167,12 +1167,12 @@ $v:=$vrchol stromu $T$ reprezentující $s$\newline
 \phantom{---}{\bf vyvaz2$(T,v)$\newline 
 \phantom{{\rm ---}}if} $v$ byl označen {\bf then} zruš označení $
 v$ {\bf endif\newline 
-\phantom{{\rm ---}}}vlož $T'$ do $\Cal H$\newline 
+\phantom{{\rm ---}}}vlož $T'$ do $\mathcal H$\newline 
 {\bf endif\newline 
 $f(v):=f(v)-a$
 
 INCREASE$(s,a)$}:\newline 
-$T:=$strom v $\Cal H$, který obsahuje vrchol reprezentující $
+$T:=$strom v $\mathcal H$, který obsahuje vrchol reprezentující $
 s$\newline 
 $v:=$vrchol stromu $T$ reprezentující $s$\newline 
 {\bf if} $v$ není list {\bf then \newline 
@@ -1184,21 +1184,21 @@ v$ {\bf endif\newline
 \phantom{{\rm ---}}}zruš označení všech synů vrcholu $
 v$\newline 
 \phantom{---}odtrhni podstromy $T'$ určené všemi syny $v$ 
-a vlož je do $\Cal H$\newline 
-\phantom{{\bf ---}}do $\Cal H$ vlož strom mající jen vrchol $
+a vlož je do $\mathcal H$\newline 
+\phantom{{\bf ---}}do $\mathcal H$ vlož strom mající jen vrchol $
 v$\newline 
 {\bf endif\newline 
 $f(v):=f(v)+a$
 
 DELETE$(s)$}:\newline 
-$T:=$strom v $\Cal H$, který obsahuje vrchol reprezentující $
+$T:=$strom v $\mathcal H$, který obsahuje vrchol reprezentující $
 s$\newline 
 $v:=$vrchol stromu $T$ reprezentující $s$\newline 
 {\bf if} $v$ není list {\bf then\newline 
 \phantom{{\rm ---}}}zruš označení synů vrcholu $
 v$\newline 
 \phantom{---}odtrhni podstromy určené všemi syny 
-vrcholu $v$ a vlož je do $\Cal H$\newline 
+vrcholu $v$ a vlož je do $\mathcal H$\newline 
 {\bf endif\newline 
 if} $v$ není kořen {\bf then vyvaz2$(T,v)$ endif\newline 
 }
@@ -1209,7 +1209,7 @@ $u:=\otec v$\newline
 {\bf while} $u$ je označen {\bf do\newline 
 \phantom{{\rm ---}}$u':=\otec(u)$}, zruš označení $u$\newline 
 \phantom{---}odtrhni podstrom $T'$ určený vrcholem $u$\newline 
-\phantom{---}vlož $T'$ do $\Cal H$, $u:=u'$\newline 
+\phantom{---}vlož $T'$ do $\mathcal H$, $u:=u'$\newline 
 {\bf enddo\newline 
 if} $u$ není kořen $T$ {\bf then} označ $u$ {\bf endif
 
@@ -1218,7 +1218,7 @@ Všimněme si, že když stromy $T_1$ a $T_2$ mají rank
 $i$, pak procedura {\bf spoj$(T_1,T_2)$} vytvoří strom s rankem 
 $i+1$.  Aby algoritmy pro operace {\bf MIN} a {\bf DELETEMIN} byly 
 korektní, musíme ukázat, že všechny stromy ve 
-Fibonacciho haldě $\Cal H$ reprezentující množinu $
+Fibonacciho haldě $\mathcal H$ reprezentující množinu $
 S$ mají rank 
 nejvýše $c\log(\sqrt 5|S|+1)$. Jen tak zajistíme, aby výsledná 
 halda reprezentovala $S$, res\-pektive 
@@ -1246,10 +1246,10 @@ nový strom,
 ozna\-če\-né vrcholy se nemění;\newline 
 {\bf INSERT} -- časová složitost $O(1)$, přibyl jeden strom, 
 označené vrcholy se nemění;\newline 
-{\bf MIN} -- časová složitost $O(|\Cal H|)$, po provedení operace 
+{\bf MIN} -- časová složitost $O(|\mathcal H|)$, po provedení operace 
 různé stro\-my v haldě mají různé 
 ranky, označené vrcholy se nemění;\newline 
-{\bf DELETEMIN} -- časová složitost $O(|\Cal H|+\text{\rm počet synů }
+{\bf DELETEMIN} -- časová složitost $O(|\mathcal H|+\text{\rm počet synů }
 v)$,
 kde $v$ reprezentoval prvek s nej\-menší hodnotou $f$. Po 
 provedení ope\-ra\-ce různé stromy v haldě mají 
