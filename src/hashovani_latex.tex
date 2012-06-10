@@ -121,9 +121,9 @@ funkce je $h(x)=x\bmod10$. Pak
 P(7)=<7>,\quad P(3)=<53,73>,\quad P(1)=<1,141,11,161>.\end{gather*}
 Seznamy nemusí být uspořádané.  
 
-\subhead
+\subsection{
 Algoritmy operací
-\endsubhead
+}
 
 {\bf MEMBER$(x)$}\newline 
 Spočítáme $i:=h(x)$, $t:=NIL$\newline 
@@ -223,9 +223,9 @@ ve všech uvažovaných případech je $Prob(h(x)=i)$ přibližně
 $\frac 1m$, a můžeme tuto pravděpodobnost aproximovat 
 hodnotou $\frac 1m$.
 
-\subhead
+\subsection{
 Očekávaná délka řetězců
-\endsubhead
+}
 $$\align E(l)=&\sum_{l=0}^nlp_{n,l}=\sum_{l=0}^nl\binom nl(\frac 
 1m)^l(1-\frac 1m)^{n-l}=\\
 &\sum_{l=0}^nl\frac {n!}{l!(n-l)!}(\frac 1m)^l(1-\frac 1m)^{n-l}=\\
@@ -239,9 +239,9 @@ $$\align E(l)=&\sum_{l=0}^nlp_{n,l}=\sum_{l=0}^nl\binom nl(\frac
 Toto je standardní elementární výpočet 
 očekávané hodnoty binomiálního rozdělení.  
 
-\subhead
+\subsection{
 Výpočet druhého momentu
-\endsubhead
+}
 
 $$\align E(l^2)=&E(l(l-1))+E(l),\\
 E(l(l-1&))=\sum_{l=0}^nl(l-1)\binom nl(\frac 1m)^l(1-\frac 1m)^{n
@@ -252,9 +252,9 @@ E(l(l-1&))=\sum_{l=0}^nl(l-1)\binom nl(\frac 1m)^l(1-\frac 1m)^{n
 1m)^{n-2-l}=\\
 &\frac {n(n-1)}{m^2},\\
 E(l^2)=&\frac {n(n-1)}{m^2}+\frac nm=\frac nm(1+\frac {n-1}m).\endalign$$
-\subhead
+\subsection{
 Výpočet rozptylu
-\endsubhead
+}
 
 $$\align\var(l)=&E(l-E(l))^2=E(l^2)-(E(l))^2=\\
 &\frac nm(1+\frac {n-1}m)-(\frac nm)^2=\frac nm(1-\frac 1m).\endalign$$
@@ -265,9 +265,9 @@ Očekávaná délka řetězců je $\frac nm$ a rozptyl délky
 Toto jsou standardní elementární odvození druhého momentu
 a rozptylu binomiálního rozdělení.
 
-\subhead
+\subsection{
 Očekávaný nejhorší případ
-\endsubhead
+}
 
 Spočítáme $E(NP)$ očekávanou délku maximálního 
 řetězce.\newline 
@@ -359,9 +359,9 @@ maximálního ře\-těz\-ce $O(\frac {\log n}{\log\log n}
 Když $0.5\le\alpha\le 1$, je to zároveň i dolní odhad.
 \endproclaim
 
-\subhead
+\subsection{
 Očekávaný počet testů
-\endsubhead
+}
 
 Test je porovnání argumentu operace s 
 prvkem na daném místě řetězce nebo zjiště\-ní, 
@@ -373,9 +373,9 @@ operace je mezi prvky reprezentované množiny,\newline
 \phantom{---}\emph{neúspěšné} \emph{vyhledávání} -- argument 
 operace není mezi prv\-ky reprezentované mno\-žiny.
 
-\subhead
+\subsection{
 Neúspěšné vyhledávání
-\endsubhead
+}
 
 Očekávaný počet testů:
 $$\align E(T)=&\Prob(\ell (i)=0)+\sum_ll\Prob(\ell (i)=l)=\\
@@ -390,9 +390,9 @@ vyšetřujeme, stačí psát obecně $i$. $\sum_llp_{
 n,l}$ jsme spočítali 
 při výpočtu očekávané délky řetězce.
 
-\subhead
+\subsection{
 \'Uspěšné vyhledávání
-\endsubhead
+}
 
 Zvolme jeden řetězec prvků o délce $l$. 
 Počet testů při vyhledání všech prvků 
@@ -507,9 +507,9 @@ přibližně $1+\frac {\alpha}2.$
 Uvedeme algoritmy pro operace s uspořádanými 
 ře\-těz\-ci.
 
-\subhead
+\subsection{
 Algoritmy
-\endsubhead
+}
 
 {\bf MEMBER$(x)$}\newline 
 Spočítáme $i:=h(x)$, $t:=NIL$\newline 
@@ -605,9 +605,9 @@ operací:\newline
 {\bf INSERT$(53)$},\newline 
 {\bf INSERT$(7)$}, {\bf INSERT$(161)$}. 
 
-\subhead
+\subsection{
 Algoritmy
-\endsubhead
+}
 
 {\bf MEMBER$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
@@ -704,9 +704,9 @@ operací:\newline
 (73)$}, 
 {\bf INSERT$(53)$}, {\bf INSERT$(7)$}, {\bf INSERT$(161)$}. 
 
-\subhead
+\subsection{
 Algoritmy
-\endsubhead
+}
 
 {\bf MEMBER$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
@@ -800,9 +800,9 @@ pokud už tam byl uložen
 nějaký údaj, pak řetězec tohoto údaje sroste s řetězcem 
 začínajícím na tomto řádku. To znamená, že prvky řetězce, který začíná na tomto místě, budou uloženy v řetězci, který už je uložen na tomto místě, ale jen od tohoto místa dál.
 
-\subhead
+\subsection{
 Metody EISCH a LISCH
-\endsubhead
+}
 
 \phantom{---}EISCH -- early-insertion standard coalesced hashing\newline 
 \phantom{---}LISCH -- late-insertion standard coalesced hashing.
@@ -836,9 +836,9 @@ Provedeme {\bf INSERT$(28)$}, přidáváme do čvrtého rádku, vý\-sled\-ná t
 LISCH, vpravo pro metodu EISCH.
 $$\vbox {\hbox{\vtop{\offinterlineskip\halign{\strut\vrule\ # & \vrule\ # & \vrule\hfil# \hfil\vrule\cr\noalign{\hrule}řádek & key & next \hfil\cr\noalign{\hrule}P(0) & &\hfill \cr\noalign{\hrule}P(1) & 1 & 9 \cr\noalign{\hrule}P(2) & &\hfill \cr\noalign{\hrule}P(3) & 73 & 6 \cr\noalign{\hrule}P(4) & 28 &\hfill \cr\noalign{\hrule}P(5) & 7 & 4 \cr\noalign{\hrule}P(6) & 53 &\hfill \cr\noalign{\hrule}P(7) & 161 & 5 \cr\noalign{\hrule}P(8) & 11 & 7 \cr\noalign{\hrule}P(9) & 141 & 8 \cr\noalign{\hrule}}}\qquad\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}řádek & key & next \hfil \cr\noalign{\hrule}P(0) & &\hfill \cr\noalign{\hrule}P(1) & 1 & 9 \cr\noalign{\hrule}P(2) & &\hfill \cr\noalign{\hrule}P(3) & 73 & 6 \cr\noalign{\hrule}P(4) & 28 & 7 \cr\noalign{\hrule}P(5) & 7 & \hfill \cr\noalign{\hrule}P(6) & 53 & \hfill \cr\noalign{\hrule}P(7) & 161 & 5 \cr\noalign{\hrule}P(8) & 11 & 4  \cr\noalign{\hrule}P(9) & 141 & 8 \cr\noalign{\hrule}}}}}$$
 
-\subhead
+\subsection{
 Algoritmy
-\endsubhead
+}
 
 Algoritmus operace {\bf MEMBER} je pro obě metody stejný.
 \bigskip
@@ -884,9 +884,9 @@ Efektivní operace {\bf DELETE}  není známá, ale i primitivní
 algoritmy pro operaci {\bf DELETE} mají rozumnou očekávanou 
 časovou složitost.
 
-\subhead
+\subsection{
 Analýza složitosti těchto algoritmů
-\endsubhead
+}
 
 Popis situace: Uložena množina 
 $S=\{s_1,s_2,\dots,s_n\}$ do ta\-bulky velikosti $m$, je dán 
@@ -898,9 +898,9 @@ Předpoklad: všechny posloupnosti $a_1,a_2,\dots,a_{n+1}$ jsou
 pevně daný, to znamená, že při stejně obsazených 
 řadcích dostaneme vždy stejný prázdný řádek.  
 
-\subhead
+\subsection{
 Neúspěšné vyhledávání ($s_{n+1}\notin S$) 
-\endsubhead
+}
 
 Označení: $C(a_1,a_2,\dots,a_n;a_{n+1})$ označuje počet 
 testů pro zjiš\-tění, že $s_{n+1}\notin S$. Platí: 
@@ -1006,9 +1006,9 @@ Tento odhad je stejný pro obě metody -- LISCH i EISCH,
 protože mají stejné posloupnosti adres (liší se jen pořadím 
 prvků v jednotlivých řetězcích).
 
-\subhead
+\subsection{
 \'Uspěšný případ ($s_{n+1}\in S$)
-\endsubhead
+}
 
 Očekávaný počet testů při úspěšném 
 vyhledávání v modelu LISCH spočítáme stejnou meto\-dou jako 
@@ -1051,9 +1051,9 @@ $$\frac mn\big((1+\frac 1m)^n-1\big)\sim\frac 1{\alpha}(e^{\alpha}
 Výpočet je ale komplikovanější, musí se použít složitější metoda (metoda EISCH dává nový prvek hned za místo, kde má být uložen). Chyba aproximace 
 pro tyto odhady je $O(\frac 1m)$. 
 
-\subhead
+\subsection{
 Metody LICH, EICH, VICH
-\endsubhead
+}
 
 \phantom{---}LICH -- late-insertion coalesced hashing\newline 
 \phantom{---}EICH -- early-insertion coalesced hashing\newline 
@@ -1115,9 +1115,9 @@ prostředku a metodou EICH je na pravé straně.
 
 $\vbox {\hbox{\vtop{\offinterlineskip\halign{\strut\vrule\ # & \vrule\ # & \vrule\hfil # \hfil\vrule\cr\noalign{\hrule}řádek & key & next \hfil\cr\noalign{\hrule}P(0) & &\hfill \cr\noalign{\hrule}P(1) & 1 & 10 \cr\noalign{\hrule}P(2) & &\hfill \cr\noalign{\hrule}P(3) & 73 & 11 \cr\noalign{\hrule}P(4) & 28 & 9 \cr\noalign{\hrule}P(5) & 7 & 4 \cr\noalign{\hrule}P(6) &  &\hfill \cr\noalign{\hrule}P(7) & 161 & 5 \cr\noalign{\hrule}P(8) & 11 & 7 \cr\noalign{\hrule}P(9) & 31 &\hfill \cr\noalign{\hrule}\noalign{\hrule}P(10) & 141 & 8 \cr\noalign{\hrule}P(11) & 53 & \hfill \cr\noalign{\hrule}}}\,\vtop{\offinterlineskip\halign{\strut\vrule\ # & \vrule\ # & \vrule\hfil# \hfil\vrule\cr\noalign{\hrule}řádek & key & next \hfil\cr\noalign{\hrule}P(0) & &\hfill \cr\noalign{\hrule}P(1) & 1 & 10 \cr\noalign{\hrule}P(2) & &\hfill \cr\noalign{\hrule}P(3) & 73 & 11 \cr\noalign{\hrule}P(4) & 28 & 7 \cr\noalign{\hrule}P(5) & 7 & \hfill \cr\noalign{\hrule}P(6) &  &\hfill \cr\noalign{\hrule}P(7) & 161 & 5 \cr\noalign{\hrule}P(8) & 11 & 4 \cr\noalign{\hrule}P(9) & 31 & 8 \cr\noalign{\hrule}\noalign{\hrule}P(10) & 141 & 9 \cr\noalign{\hrule}P(11) & 53 & \hfill \cr\noalign{\hrule}}}\,\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}řádek & key & next \hfil \cr\noalign{\hrule}P(0) & &\hfill \cr\noalign{\hrule}P(1) & 1 & 9 \cr\noalign{\hrule}P(2) & &\hfill \cr\noalign{\hrule}P(3) & 73 & 11 \cr\noalign{\hrule}P(4) & 28 & 7 \cr\noalign{\hrule}P(5) & 7 & \hfill \cr\noalign{\hrule}P(6) & & \hfill \cr\noalign{\hrule}P(7) & 161 & 5 \cr\noalign{\hrule}P(8) & 11 & 4  \cr\noalign{\hrule}P(9) & 31 & 10 \cr\noalign{\hrule}\noalign{\hrule}P(10) & 141 & 8 \cr\noalign{\hrule}P(11) & 53 & \hfill \cr\noalign{\hrule}}}}}$
 
-\subhead
+\subsection{
 Algoritmy
-\endsubhead
+}
 
 Algoritmus operace {\bf MEMBER} je pro tyto metody 
 stejný jako pro LISCH a EISCH
@@ -1336,9 +1336,9 @@ speciál\-ní případ dvojitého hašování, kde $
 h_2(x)=1$ pro 
 každé $x\in U$.
 
-\subhead
+\subsection{
 Algoritmy
-\endsubhead
+}
 \bigskip
 
 {\bf MEMBER$(x)$}\newline 
@@ -1377,9 +1377,9 @@ Tabulka vznikla posloupností operací:\newline
 
 Analýza vyhledávání v dvojitém hašování.
 
-\subhead
+\subsection{
 Neúspěšný případ
-\endsubhead
+}
 
  
 
@@ -1415,9 +1415,9 @@ Očekávaný počet dotazů při neúspěšném
 vyhledávání v tabulce s $m$ řádky, z nichž $n$ je obsazeno, 
 je $\frac {m+1}{m-n+1}$.
 
-\subhead
+\subsection{
 \'Uspěšný případ
-\endsubhead
+}
 
  
 
@@ -1444,9 +1444,9 @@ $$\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule\ # & \vru
 
 Pořadí metod hašování podle očekávaného počtu 
 testů:
-\subhead
+\subsection{
 Neúspěšné vyhledávání
-\endsubhead
+}
 
 \phantom{---}Hašování s uspořádanými řetězci,\newline 
 \phantom{---}Hašování s řetězci=Hašování s přemís\v továním,\newline 
@@ -1457,9 +1457,9 @@ Neúspěšné vyhledávání
 \phantom{---}Dvojité hašování,\newline 
 \phantom{---}Hašování s lineárním přidáváním.
 
-\subhead
+\subsection{
 \'Uspěšné vyhledávání
-\endsubhead
+}
 
 \phantom{---}Hašování s uspořádanými řetězci=Hašování s 
 řetězci=Hašo\-vá\-ní s přemís\v továním,\newline 
@@ -1483,10 +1483,10 @@ EICH a o 15\% než metody LISCH a EISCH. Při úspěšném vyhledávání
 je VICH nepatrně lepší než LICH a EICH o 3\% lepší než 
 EISCH a o 7\% lepší než LISCH.
 
-\subhead
+\subsection{
 Očekávaný počet testů při úplně zaplněné 
 tabulce
-\endsubhead
+}
 
 \phantom{---}Metoda s přemís\v továním: neúspěšné vyhledávání 1.5, úspěšné 
 vyhledávání 1.4.\newline 
@@ -1562,9 +1562,9 @@ polovina použitých řádků takto blokována, je
 vhodné celou strukturu přehašovat. Prav\-děpodobnostní 
 analýzu tohoto modelu neznám.
 
-\subhead
+\subsection{
 Otevřené problémy
-\endsubhead
+}
 
 Jak využít ideje z hašování s uspořádanými 
 řetězci pro ostatní metody řešení kolizí 
@@ -1578,9 +1578,9 @@ Jak nalézt druhou hašovací funkci pro metodu
 dvojitého hašo\-vá\-ní, aby vzniklé posloupnosti adres při operaci 
 {\bf INSERT} se chovaly jako náhodné.
 
-\subhead
+\subsection{
 Závěr
-\endsubhead
+}
 
 Připomeňme si předpoklady pro předchozí uvedené 
 výsledky o hašování:
@@ -1672,9 +1672,9 @@ systémů, \newline
 vlastnosti $c$-univerzálních systémů (zda splňují 
 požadované ide\-je).
 
-\subhead
+\subsection{
 Existence univerzálních systémů
-\endsubhead
+}
 
 Univerzum $U=\{0,1,\dots,N-1\}$ pro prvočíslo $N$,\newline 
 $H=\{h_{a,b}\mid (a,b)\in U\times U\}$,\newline 
@@ -1724,9 +1724,9 @@ považovat za univerzum tvaru $\{0,1,\dots,N-1\}$ pro nějaké
 $N$ a že mezi čísly $N$ a $2N$ vždy existuje nějaké 
 prvočíslo.
 
-\subhead
+\subsection{
 Vlastnosti univerzálního hašování
-\endsubhead
+}
 
 Předpoklad: $H=\{h_i\mid i\in I\}$ je $c$-univerzální systém funkcí\newline 
 Označení: Pro $i\in I$ a prvky $x,y\in U$ 
@@ -1781,9 +1781,9 @@ vstupních dat nikoliv.}  Můžeme zajistit rovno\-měr\-né
 rozdělení výběru $i$ z $I$ nebo se k tomuto rozdělení hodně 
 přiblížit.  
 
-\subhead
+\subsection{
 Markovova nerovnost
-\endsubhead
+}
 
 Předpoklady: Je dána množina $S\subseteq U$, prvek $
 x\in U$. 
@@ -1812,9 +1812,9 @@ Poznámka: Toto tvrzení platí obecně a nazývá
 se Markovova nerovnost. Uvedený důkaz 
 ilustruje jednoduché tvrzení pro ko\-neč\-ný případ.
 
-\subhead
+\subsection{
 Problémy
-\endsubhead
+}
 
 Hlavní problém: Zajištění rovnoměrného rozdělení 
 výběru $i$ z $I$.
@@ -1842,9 +1842,9 @@ posloupnost pravidelnější (tj. méně náhodná).
 Důsledky: Nalézt co nejmenší $c$-univerzální 
 systémy. Nalézt dolní odhady na jejich velikost.
 
-\subhead
+\subsection{
 Dolní odhady na velikost
-\endsubhead
+}
 
 Předpoklady: Nech\v t $U$ je univerzum velikosti $N$ a nech\v t 
 $H=\{h_i\mid i\in I\}$ je $c$-univerzální systém funkcí hašujících do tabulky velikosti 
@@ -1885,9 +1885,9 @@ délku alespoň $\lceil (\log m-\log c+\log\log N-\log\log m)\rceil$ (zde všech
 jsou o základu $2$).
 \endproclaim
 
-\subhead
+\subsection{
 Malý univerzální systém
-\endsubhead
+}
 
 Zkonstruujeme $c$-univerzální systém takový, 
 že logaritmus z velikosti jeho indexové množiny pro velká 
@@ -1932,9 +1932,9 @@ t$, tj. $t\ge 16$) platí,
 že $t\le m\ln N$, když $\ln p_t\ge 1$ (tj.  $p_t\ge 3$).\newline 
 Závěr: $\log(|I|)\le 4+4(\log m+\log\log N)$. 
 
-\subhead
+\subsection{
 Univerzalita malého systému
-\endsubhead
+}
 
 Zvolme různá $x$ a $y$ z univerza $U$. 
 Označme
@@ -2011,9 +2011,9 @@ H_1$ je
 $3.25$-univerzální. Bez jakýchkoliv předpokladů lze 
 ukázat, že $H_1$ je $5$-univerzální.
 
-\subhead
+\subsection{
 Odhad na velikost $c$
-\endsubhead
+}
 
 \proclaim{Věta}Když $H$ je $c$-univerzální 
 systém univerza $U$ o velikosti $N$ hašující do tabulky s $
@@ -2063,9 +2063,9 @@ Odtud plyne, že $N-m\le c(N-1)$, a tedy
 $$c\ge\frac {N-m}{N-1}>\frac {N-m}N=1-\frac mN.\qed$$
 \enddemo
 
-\subhead
+\subsection{
 Problémy univerzálního hašování
-\endsubhead
+}
 
 Použít jiné metody na řešení kolizí než 
 separované řetězce. Jak to ovlivní použitelnost 
@@ -2181,9 +2181,9 @@ vyšetříme mno\-ži\-ny perfektních hašovacích
 funkcí. Vyšetříme vlastnosti $(N,m,n)$-perfektních 
 souborů funkcí.
 
-\subhead
+\subsection{
 Dolní odhady na velikost $(N,m,n)$-perfektního souboru
-\endsubhead
+}
 
 Předpokládejme, že $H$  je $(N,m,n)$-perfektní 
 systém pro $U=\{0,1,\dots,N-1\}$ a nejprve nalezneme dolní 
@@ -2235,9 +2235,9 @@ $$|H|\ge\max\{\frac {\binom Nn}{\binom mn(\frac Nm)^n},\frac {\log
 N}{\log m}\}.$$
 \endproclaim
 
-\subhead
+\subsection{
 Existence $(N,m,n)$-perfektního souboru
-\endsubhead
+}
 
 Mějme univerzum $U=\{0,1,\dots,N-1\}$ a soubor 
 funkcí $H=\{h_1,h_2,\dots,h_t\}$ z univerza $U$ do množiny 
@@ -2293,9 +2293,9 @@ nezaručuje splnění požadavků 2), 3) a 4).
 Abychom uspěli, použijeme ideu z metody univerzálního 
 hašování.  
 
-\subhead
+\subsection{
 Konstrukce perfektní hašovací funkce
-\endsubhead
+}
 
 Předpoklady:  $U=\{0,1,\dots,N-1\}$, kde $N$ je 
 prvočíslo.  Mějme $S\subseteq U$ o velikosti $n$.  Budeme 
@@ -2634,9 +2634,9 @@ $O(n\log n(\log n+\log\log N))$.
 
 Tuto metodu navrhli Fredman, Koml\'os a Szemerédi.
 
-\subhead
+\subsection{
 Univerzální a perfektní hašování
-\endsubhead
+}
 
 Předchozí hlavní konstrukce perfektní hašovací funkce 
 vycházela z idejí použitých v univerzálním hašování.  Ukážeme, 
@@ -2748,9 +2748,9 @@ pro pravděpodobnostní algoritmus.  \qed
 Další postup konstrukce perfektní hašovací funkce už 
 nesouvisí s $c$-univerzálními systémy. 
 
-\subhead
+\subsection{
 Dynamické perfektní hašování
-\endsubhead
+}
 
 Jedna z velkých nevýhod perfektního hašovaní je 
 neznalost efektivních aktualizačních ope\-rací. Existují sice 
@@ -2794,9 +2794,9 @@ zvolme $c>1$ a položme $s=\sigma (|S|)$, kde $\sigma (n)=\frac
 43\sqrt 6(1+c)n$ pro 
 každé $n$. Nyní popíšeme algoritmy. Zde $n$ je velikost reprezentované množiny, $s=\sigma(n)$ a $2m(j)$ je velikost tabulky $T_j$ pro $j=0,1,\dots,s-1$.
 
-\subhead
+\subsection{
 Algoritmy
-\endsubhead
+}
 \bigskip
 
 {\bf INSERT$(x)$}: \newline 
@@ -3121,9 +3121,9 @@ $$00\mapsto \{00000,00010\},\quad 01\mapsto \{01000\},\quad 10\mapsto
 Opět platí $c(00)=00$, $c(01)=01$ a $c(10)=c(11)=1$.
 V adresáři je také uloženo $d(S)$.
 
-\subhead
+\subsection{
 Algoritmy
-\endsubhead
+}
 \bigskip
 
 Uvedeme zde jen slovní popis operací. Předpokládáme, že adresář 
