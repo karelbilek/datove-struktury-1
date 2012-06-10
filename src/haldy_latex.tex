@@ -167,7 +167,7 @@ otcem vrcholu $v$, právě když $o(u)=1+\lfloor\frac {k-2}d
 \rfloor$. 
 \end{tvrzeni}
 
-\demo{Důkaz}První část tvrzení plyne přímo z požadavku 2) na 
+\begin{proof}První část tvrzení plyne přímo z požadavku 2) na 
 $d$-regulární strom. Má-li $d$-regulární strom výšku $
 k$, 
 pak má alespoň $\Sigma_{i=0}^{k-1}d^i+1$ a nejvýše $\Sigma_{
@@ -188,7 +188,7 @@ mají čísla $kd+2,kd+3,\dots,kd+d+1$, což odpovídá
 tvrzení platí. Poslední část pak plyne z toho, že když $
 i\in \{(k-1)d+2,(k-1)d+3,\dots,kd+1\}$, pak 
 $1+\lfloor\frac {i-2}d\rfloor =k$. \qed
-\enddemo
+\end{proof}
 
 Všimněme si, že speciálně pro $d=2$ mají synové vrcholu s číslem $
 k$ 
@@ -742,7 +742,7 @@ se stromy $H_0,H_1,\dots,H_{i-1}$.
 \end{enumerate}
 \end{tvrzeni}
 
-\demo{Důkaz}Tvrzení platí pro strom $H_0$ a 
+\begin{proof}Tvrzení platí pro strom $H_0$ a 
 jednoduchou indukcí se dokáže i pro další stromy. 
 Skutečně, když $H_i$ má $2^i$ vrcholů, pak $H_{
 i+1}$ má 
@@ -752,7 +752,7 @@ syna více než kořen stromu $H_i$ a nejdelší cesta do listu je o $
 delší. Protože podstrom syna, který přibyl kořeni stromu 
 $H_{i+1}$, je izomorfní s $H_i$ a jinak se nic neměnilo, je 
 důkaz kompletní. \qed
-\enddemo
+\end{proof}
 
 \emph{Binomiální} \emph{halda} $\Cal H$ reprezentující 
 množinu $S$ je soubor (seznam) stromů $\{T_1,T_2,\dots
@@ -1302,14 +1302,14 @@ Fibonacciho haldě a nechť $u$ je $i$-tý nejstarší syn
 vrcholu $v$. Pak $u$ má aspoň $i-2$ synů.
 \end{lemma}
 
-\demo{Důkaz}V momentě, kdy se $u$ stával synem $v$, se 
+\begin{proof}V momentě, kdy se $u$ stával synem $v$, se 
 aplikovala operace {\bf spoj}, $u$ a $v$ byly kořeny 
 stromů a měly stejný počet synů. 
 Podle předpokladů měl vrchol $v$ alespoň $i-1$ 
 synů (jinak by $u$ nebyl $i$-tý nejstarší syn), a 
 protože se od $u$ mohl odtrhnout jen jeden syn, 
 dostáváme, že $u$ musí mít alespoň $i-2$ synů. \qed
-\enddemo
+\end{proof}
 
 \begin{tvrzeni}Nechť $v$ je vrchol stromu ve 
 Fibonacciho haldě, kte\-rý má právě $i$ synů. Pak 
@@ -1317,7 +1317,7 @@ podstrom určený vrcholem $v$ má aspoň $F_{i+2}$
 vrcholů.
 \end{tvrzeni}
 
-\demo{Důkaz}Tvrzení dokážeme indukcí 
+\begin{proof}Tvrzení dokážeme indukcí 
 podle maximální délky cesty z vrcholu $v$ do některého 
 listu.  Tato délka je $0$, právě když $v$ je list.  V tom 
 případě $v$ nemá syna a podstrom určený vrcholem $
@@ -1351,7 +1351,7 @@ $$1+\sum_{i=1}^nF_i=1+\sum_{i=1}^{n-1}F_i+F_n=F_{n+1}+F_n=F_{n+2}
 Když shrneme tato fakta, dostáváme, že podstrom 
 určený vrcholem $v$ má alespoň $F_{i+2}$ vrcholů, a 
 tvrzení je dokázáno. \qed
-\enddemo
+\end{proof}
 
 Vezměme nyní nejmenší $i$ takové, že $
 n<F_i$. Protože 
@@ -2067,7 +2067,7 @@ $(x_1,x_2,\dots,x_n)$ neklesající, pak vyža\-du\-je čase
 $O(n)$.  
 \end{veta}
 
-\demo{Důkaz}Důkaz má dvě části. V 
+\begin{proof}Důkaz má dvě části. V 
 první dokážeme korektnost algoritmu a ve druhé popíšeme 
 reprezentaci množiny $V$ a vypočteme časovou složitost.
 
@@ -2172,7 +2172,7 @@ ohodnocením. Můžeme tedy shrnout, že algoritmus
 {\bf Optim} konstruuje optimální stromy v čase $O(n)$, kde $
 n$ je počet 
 zadaných čísel $x_i$. \qed
-\enddemo
+\end{proof}
 
 Pro aplikaci na naši původní úlohu je 
 třeba  
@@ -2459,7 +2459,7 @@ mají rovnoměrné rozložení a jsou na sobě nezá\-vislé,
 pak očekávaný čas je $O(n)$.
 \end{veta}
 
-\demo{Důkaz}První dva cykly v algoritmu 
+\begin{proof}První dva cykly v algoritmu 
 vyžadují čas $O(n)$, $i$-tý běh třetího cyklu vyžaduje 
 nejvýše čas $O(1+|Q_i|\log|Q_i|)$. Proto čas celého třetího cyklu je 
 $$O(\sum_{i=0}^k(1+|Q_i|\log|Q_i|)=O(\sum_{i=0}^k(1+|Q_i|\log n)=
@@ -2480,7 +2480,7 @@ $$q^2\binom nq=(q(q-1)+q)\binom nq=n(n-1)\binom {n-2}{q-2}+n\binom {
 n-1}{q-1}.$$
 (Jedná se vlastně o známý výpočet 2. momentu 
 binomického rozdělení). \qed
-\enddemo
+\end{proof}
 
 Poznámka: V důkazu jsme použili odhad 
 $q\log q\le q^2$ a důsledkem toho je, že jsme 
@@ -2728,7 +2728,7 @@ lemma.
 11}$.
 \end{lemma}
 
-\demo{Důkaz} Pro $j\le\lfloor\frac n5\rfloor$ platí, že když $
+\begin{proof} Pro $j\le\lfloor\frac n5\rfloor$ platí, že když $
 m_j<\bar {m}$, pak 
 $|A_j\cap M_1|\ge 3$, když $m_j>\bar {m}$, pak $|A_j\cap M_2|\ge 
 3$, když $m_j=\bar {m}$, 
@@ -2741,7 +2741,7 @@ dostáváme, že $|M_1|,|M_2|\ge\lfloor\frac {3n}{10}\rfloor
 $M_1\cup M_2=M\setminus \{\bar {m}\}$ a protože $\frac {8n}{11}
 +\lfloor\frac {3n}{10}\rfloor -1\ge\frac {113n}{110}-2\ge n$ 
 když $n>100$, dostáváme požadovaný odhad. \qed
-\enddemo
+\end{proof}
 
 Maximální čas vyžadovaný algoritmem  
 {\bf SELECT$(M,i)$} pro $|M|=n$ označme $T(n)$.  Když $n\le 
