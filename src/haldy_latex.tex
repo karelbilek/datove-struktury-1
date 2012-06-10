@@ -1828,9 +1828,9 @@ Druhý způsob výpočtu:\newline
 Označme $QS(n)$ očekávaný počet 
 porovnání provedených algoritmem {\bf QUICKSORT} při 
 třídění $n$-členné posloupnosti. Pak platí
-$$\gather QS(0)=QS(1)=0\text{\rm\ a }\\
+\begin{gather*} QS(0)=QS(1)=0\text{\rm\ a }\\
 QS(n)=\frac 1n\big(\sum_{k=0}^{n-1}n-1+QS(k)+QS(n-k-1)\big)=n-1+\frac 
-2n(\sum_{k=0}^{n-1}QS(k)).\endgather$$
+2n(\sum_{k=0}^{n-1}QS(k)).\end{gather*}
 Z toho dostáváme, že 
 $$nQS(n)=n(n-1)+2\sum_{k=0}^{n-1}QS(k).$$
 Přepíšeme ještě jednou tuto rovnici s $n+1$ místo $
@@ -2138,8 +2138,8 @@ protože $(T',\psi )$ je optimální strom pro $(y_1,y_2,\dots
 platí, že 
 $$\Cont(T',\psi )\le\Cont(U',\tau ).$$
 Protože  
-$$\gather\Cont(T,\phi )=\Cont(T,\psi )+x_1+x_2\text{\rm \ , }\\
-\Cont(U,\eta )=\Cont(U',\tau )+x_1+x_2\endgather$$
+\begin{gather*}\Cont(T,\phi )=\Cont(T,\psi )+x_1+x_2\text{\rm \ , }\\
+\Cont(U,\eta )=\Cont(U',\tau )+x_1+x_2\end{gather*}
 pak závěr je, že $(T,\phi )$ je optimální strom pro 
 $(x_1,x_2,\dots,x_n)$.
 
@@ -2260,11 +2260,13 @@ Následující obrázek ilustruje naše úvahy na
 ohodnoceny permutacemi vstupní množiny 
 $\{a_1,a_2,a_3\}$, které v nich 
 skončí, nebo jsou prázdné. 
-\midinsert
-\centerline{\input fig11.tex}
-\botcaption{Obr. 1}
-\endcaption
-\endinsert
+
+\begin{figure}[h!]
+  \centerline{
+    \input fig11.tex
+    }
+  \caption{SELECTIONSORT - postup}
+\end{figure}
 
 \definition{Definice}Mějme třídicí algoritmus {\bf A}, který 
 jako jedinou pri\-mitivní operaci s prvky vstupní 
@@ -2799,5 +2801,6 @@ vylepše\-ná verze {\bf BUCKETSORTU} (nazvaná {\bf WORDSORT})
 pochází od Aho, Hopcrofta a Ullmana (1974). Algoritmus {\bf SELECT} byl 
 navržen Blumem, Floydem, Prattem, Rivestem a 
 Tarjanem (1972).
+
 
 \end{document}
