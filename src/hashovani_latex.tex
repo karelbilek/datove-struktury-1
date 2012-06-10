@@ -2642,7 +2642,7 @@ vycházela z idejí použitých v univerzálním hašování.  Ukážeme,
 že to není náhodná shoda. Dokážeme, že každý $
 c$-univerzální 
 systém funkcí umožňuje základní konstrukci perfektní hašovací 
-funkce.  Pro každé $m$ nechť $\Cal H_m=\{h_i\mid i\in I\}$ je $
+funkce.  Pro každé $m$ nechť $\mathcal H_m=\{h_i\mid i\in I\}$ je $
 c$-univerzální 
 systém funkcí hašujících do ta\-bulky velikosti $
 m$. Pro 
@@ -2681,32 +2681,32 @@ nějaké kladné číslo $b$. Pak platí
 )>\\
 &\sum_{i\in I'}\frac {(c+a)n(n-1)}m\ge\frac {(c+a)n(n-1)b|I|}m.\end{align*}
 Odtud plyne, že $c>(c+a)b$, a proto $b<\frac c{c+a}$. Když tedy vybíráme  
-$h_i\in \Cal H_m$ náhodně s rovnoměrným rozdělením (vzhledem k $
+$h_i\in \mathcal H_m$ náhodně s rovnoměrným rozdělením (vzhledem k $
 i\in I$), pak 
 pravděpo\-dobnost, že bude platit $\sum_{j=0}^{m-1}(b^i_j)^
 2>\frac {(c+a)n(n-1)}m+n$, je 
 menší než $\frac c{c+a}$. Stejně jako v předchozí sekci shrneme tato fakta do tvrzení 
 
 \begin{tvrzeni}Pro přirozené číslo $m$ mějme $
-c$-univerzální systém funkcí $\Cal H_m=\{h_i\mid i\in 
+c$-univerzální systém funkcí $\mathcal H_m=\{h_i\mid i\in 
 I\}$ hašujících do tabulky o velikosti 
 $m$. Pro $m=n$ existuje deterministický algoritmus, 
-který v čase $O(|I|n)$ nalezne $h_i\in \Cal H_m$ takovou, že $
+který v čase $O(|I|n)$ nalezne $h_i\in \mathcal H_m$ takovou, že $
 \sum_{j=0}^{m-1}(b^i_j)^2\le c(n-1)+n$, 
 a existuje pravděpodobnostní algoritmus, který pro kladné číslo 
-$a$ v čase $O(n)$ nalezne $h_i\in \Cal H_m$ takové, že 
+$a$ v čase $O(n)$ nalezne $h_i\in \mathcal H_m$ takové, že 
 $$\sum_{j=0}^{m-1}(b^i_j)^2<(c+a)(n-1)+n,$$
 a očekávaný počet iterací při hledání $h_i$ je menší než $\frac {
 c+a}a$.   
 
 Pro $m=\frac {cn(n-1)}2+1$ existuje deterministický algoritmus, 
-který nalezne perfektní hašovací funkci  $h\in \Cal H_
+který nalezne perfektní hašovací funkci  $h\in \mathcal H_
 m$ pro množinu $S$ 
 velikosti $n$ v čase $O(n|I|)$.
 
 Pro $a>0$ a pro $m=\frac {(c+a)n(n-1)}2+1$ existuje 
 pravděpodobnostní algoritmus, který nalezne perfektní hašovací 
-funkci $h\in \Cal H_m$ pro množinu $S$ v čase $O(n)$ a očekávaný počet 
+funkci $h\in \mathcal H_m$ pro množinu $S$ v čase $O(n)$ a očekávaný počet 
 iterací je menší než $\frac {c+a}a$.  
 \end{tvrzeni}
 
@@ -2714,11 +2714,11 @@ iterací je menší než $\frac {c+a}a$.
 hašovací funkci ověříme, zda $\sum_{j=0}^{m-1}(b^
 i_j)^2\le c(n-1)+n$, respektive 
 $\sum_{j=0}^{m-1}(b^i_j)^2\le (c+a)(n-1)+n$.  V prvním případě víme, že taková 
-funkce v souboru $\Cal H_m$ existuje, a systematickým prohledáváním 
-všech funkcí v daném $c$-univerzálním systému $\Cal H_
+funkce v souboru $\mathcal H_m$ existuje, a systematickým prohledáváním 
+všech funkcí v daném $c$-univerzálním systému $\mathcal H_
 m$ ji nalezneme 
 v čase $O(n|I|)$.  Pro pravděpodobnostní algoritmus budeme 
-vybírat funkci ze souboru $\Cal H_m$ náhodně s rovnoměrným 
+vybírat funkci ze souboru $\mathcal H_m$ náhodně s rovnoměrným 
 rozdělením.  Pak očekávaný počet iterací než uspějeme je 
 \begin{align*}\sum_{i=1}^{\infty}&i(\frac c{c+a})^{i-1}(1-\frac c{c+a})
 \le\sum_{i=1}^{\infty}i(\frac c{c+a})^{i-1}-\sum_{i=1}^{\infty}i(\frac 
@@ -2728,13 +2728,13 @@ c{c+a})^i=\\
 
 Pro hledání perfektní hašovací funkce opět použijeme 
 syste\-ma\-tické prohledávání $c$-univer\-zál\-ního systému, protože 
-víme, že existuje funkce $h_i\in \Cal H_m$ taková, že 
+víme, že existuje funkce $h_i\in \mathcal H_m$ taková, že 
 $\sum_{j=1}^{m-1}(b^i_j)^2\le\frac {cn(n-1)}{\frac {cn(n-1)}2+1}+
 n<n+2$, a tedy je tato funkce perfektní. 
 To vyžaduje čas $O(n|I|)$. 
 
 Když máme $a>1$ a $m=\frac {(c+a)n(n-1)}2+1$ 
-a když budeme volit funkce z $\Cal H_m$ 
+a když budeme volit funkce z $\mathcal H_m$ 
 náhodně s rovnoměrným rozdělením, pak s pravděpodobností 
 $\frac a{c+a}$ do\-sta\-ne\-me funkci $h_i$ takovou, že 
 $$\sum_{j=0}^{m-1}(b^i_j)^2\le\frac {(c+a)n(n-1)}{\frac {(c+a)n(n
@@ -2767,7 +2767,7 @@ předchozí části, na kterých je tato metoda založena.
 Předpokládáme, že $U=\{0,1,\dots,N-1\}$ je univerzum, kde $
 N$ je 
 prvočíslo, a že je dáno číslo $s<N$. Označme 
-$\Cal H_s=\{h_k\mid k=1,2,\dots,N-1\}$ množinu funkcí z $U$ do 
+$\mathcal H_s=\{h_k\mid k=1,2,\dots,N-1\}$ množinu funkcí z $U$ do 
 $\{0,1,\dots,s-1\}$, kde $h_k(x)=(kx\bmod N)\bmod s$ pro každé $
 x\in U$. 
 Když zvolíme náhodně $k=1,2,\dots,N-1$, pak s pravděpodobností 
@@ -2777,7 +2777,7 @@ Skutečně, když pro méně než $\frac{N-1}2$ hodnot $k$ platí $\sum_{i=0}^m-
 $$\sum_{k=1}^{N-1}\left((\sum_{i=0}^{m-1}(b^k_i)^2)-n\right)\ge2(N-1)\frac{n^2}m$$ 
 a to je spor. Budeme předpokládat, 
 že takové $k$ máme, a pak pro každé $i=0,1,\dots,s-1$ 
-předpokládáme, že náhodně zvolíme $j_i\in \Cal H_{
+předpokládáme, že náhodně zvolíme $j_i\in \mathcal H_{
 2(b_i^k)^2}$ takové, že 
 $h_{j_i}$ je prostá na množině $S_i=\{s\in S\mid h_k(s)=i
 \}$ (z předchozího textu víme, že když zvolíme náhodně 
@@ -2811,12 +2811,12 @@ j$ je obsazená {\bf then}\newline
 \phantom{---------}vytvoříme seznam $S_j$ prvků v tabulce $
 T_j$\newline 
 \phantom{---------}vyprázdníme tabulku $T_j$\newline 
-\phantom{---------}zvolíme náhodně funkci $h_j\in \Cal H_{
+\phantom{---------}zvolíme náhodně funkci $h_j\in \mathcal H_{
 m(j)^2}$\newline 
 \phantom{---------}{\bf while} $h_j$ není prostá na množině $
 S_j$ {\bf do}\newline 
 \phantom{------------}zvolíme náhodně funkci $h_j
-\in \Cal H_{m(j)^2}$\newline 
+\in \mathcal H_{m(j)^2}$\newline 
 \phantom{---------}{\bf enddo}\newline 
 \phantom{---------}{\bf for every} $y\in S_j$ {\bf do} vložíme $
 y$ do $T_j$ na pozici $h_j(y)$ {\bf enddo}\newline 
@@ -2832,12 +2832,12 @@ $$\sum_{i=0}^{\sigma (m)-1}(m(i))^2\ge\frac {4n^2}{\sigma (n)}+n$$
 T_j$ \newline 
 \phantom{------------}vytvoříme seznam $S_j$ prvků ze staré tabulky $
 T_j$ a zrušíme ji\newline 
-\phantom{------------}zvolíme náhodně funkci $h_j\in \Cal H_{
+\phantom{------------}zvolíme náhodně funkci $h_j\in \mathcal H_{
 m(j)^2}$\newline 
 \phantom{------------}{\bf while} $h_j$ není prostá na množině $
 S_j$ {\bf do}\newline 
 \phantom{---------------}zvolíme náhodně funkci $
-h_j\in \Cal H_{m(j)^2}$\newline 
+h_j\in \mathcal H_{m(j)^2}$\newline 
 \phantom{------------}{\bf enddo}\newline 
 \phantom{------------}{\bf for every} $y\in S_j$ {\bf do} vložíme $
 y$ do $T_j$ na pozici $h_j(y)$ {\bf enddo}\newline 
@@ -2853,11 +2853,11 @@ endif}
 projdeme tabulku $T$ a tabulky $T_i$ a vytvoříme seznam 
 prvků z množiny $S$\newline 
 $s:=\sigma(n)$\newline 
-zvolme náhodně $h\in \Cal H_s$ \newline 
+zvolme náhodně $h\in \mathcal H_s$ \newline 
 {\bf for every} $i=0,1,\dots,s-1$ {\bf do} $S_i:=\{x\in 
 S\mid h(x)=i\}$ {\bf enddo\newline 
 while} $\sum_{i=0}^{s-1}2(|S_i|)^2>\frac {8n^2}s+2n$ {\bf do}\newline 
-\phantom{---}zvolme náhodně $h\in \Cal H_s$ \newline 
+\phantom{---}zvolme náhodně $h\in \mathcal H_s$ \newline 
 \phantom{---}{\bf for every} $i=0,1,\dots,s-1$ {\bf do} $
 S_i:=\{x\in S\mid h(x)=i\}$ {\bf enddo}\newline 
 {\bf enddo}\newline
@@ -2866,11 +2866,11 @@ funkcí $h$ \newline
 $n:=0$ \newline 
 {\bf for every} $i=0,1,\dots,s-1$ {\bf do}\newline 
 \phantom{---}$m(i):=2|S_i|$\newline 
-\phantom{---}zvolíme náhodně $h_i\in \Cal H_{m(i
+\phantom{---}zvolíme náhodně $h_i\in \mathcal H_{m(i
 )^2}$\newline 
 \phantom{---}{\bf while} $h_i$ není prostá na množině $
 S_i$ {\bf do}\newline 
-\phantom{------}zvolíme náhodně $h_i\in \Cal H_{m(i)^2}$\newline 
+\phantom{------}zvolíme náhodně $h_i\in \mathcal H_{m(i)^2}$\newline 
 \phantom{---}{\bf enddo\newline 
 enddo\newline 
 for every} $x\in S$ {\bf do INSERT$(x)$ enddo}
