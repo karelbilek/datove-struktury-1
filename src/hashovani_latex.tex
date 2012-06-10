@@ -49,7 +49,7 @@ výhodnější.
 Cílem této přednášky není pouze seznámit vás s algoritmy 
 pro řešení těchto problémů, protože s těmi jste se 
 seznámili už v přednášce `Algoritmy a datové struktury'. Hlavním cílem 
-je ukázat vám prostředky a metody, jak měřit a zjiš\v tovat 
+je ukázat vám prostředky a metody, jak měřit a zjišťovat 
 jejich efektivitu, a tím vám ukázat prostřed\-ky, které vám 
 umožní rozhodnout se v dané situaci pro určitý algoritmus. 
 Proto hlavní náplní této přednášky bude počítání efektivity 
@@ -93,7 +93,7 @@ Nevýhoda: když je velké univerzum, pak je prostorová
 složitost v nejlepším případě ohrom\-ná, ve špatném 
 případě nelze pole zadat do počítače.\newline 
 Hašování chce zachovat rychlost operací, ale odstranit 
-pamě\v to\-vou náročnost. První publikovaný článek o 
+paměťo\-vou náročnost. První publikovaný článek o 
 hašování je od Dumney z roku 1956, první analýza hašování 
 pochází od Petersona z roku 1957, ale existuje technická  
 zpráva od IBM o hašování z roku 1953.
@@ -161,10 +161,10 @@ je spočitatelná v čase $O(1)$.\newline
 V nejhorším případě operace vyžadují čas $
 O(|S|)$ 
 (všechny prv\-ky jsou v jednom seznamu). \newline 
-Požadovaná pamě\v tová náročnost $O(m+|S|)$ 
-(předpokládáme, že reprezentace prvku $s\in S$ vyžaduje pamě\v t $
+Požadovaná paměťová náročnost $O(m+|S|)$ 
+(předpokládáme, že reprezentace prvku $s\in S$ vyžaduje paměť $
 O(1)$)\newline 
-Pamě\v t není efektivně využitá.
+Paměť není efektivně využitá.
 
 Spočítáme očekávanou délku řetězců za 
 předpokladů
@@ -449,7 +449,7 @@ n$,
 kdežto při neúspěšném vy\-hledávání proti $
 m$. Ilustrujeme 
 to na následujícím příkladu:\newline 
-Nech\v t $n=\frac m2$ a nech\v t polovina neprázdných 
+Nechť $n=\frac m2$ a nechť polovina neprázdných 
 řetězců má délku $1$ a polovina má délku $
 2$. \newline 
 Očekávaný počet testů při neúspěšném 
@@ -479,7 +479,7 @@ Očekávaný počet testů je $\frac 1n(1\frac {2n}
 
 Velikost $\alpha$ je doporučována menší než $
 1$, ale nemá být 
-hodně malá, protože by pamě\v t nebyla efektivně využita. 
+hodně malá, protože by paměť nebyla efektivně využita. 
 
 \section{Hašování s uspořádanými separovanými řetězci}
 
@@ -570,7 +570,7 @@ data budou pouze klíč).
 Podle řešení kolize dělíme dál hašování:
 \roster
 \item"{}"
-hašování s přemís\v továním, hašování s dvěma 
+hašování s přemísťováním, hašování s dvěma 
 ukazateli, 
 \item"{}"
 srůstající hašování,
@@ -579,7 +579,7 @@ dvojité hašování a hašování s lineárním
 přidáváním.
 \endroster
 
-\section{Hašování s přemís\v továním}
+\section{Hašování s přemísťováním}
 
 Položky pro práci s tabulkou: next, previous\newline 
 \phantom{---}položka next -- číslo řádku tabulky 
@@ -646,7 +646,7 @@ Spočítáme $i:=h(x)$\newline
 \phantom{---}{\bf if} neexistuje prázdný řádek tabulky {\bf then}\newline 
 \phantom{------}{\bf Výstup}: přeplnění\newline 
 \phantom{---}{\bf else}\newline 
-\phantom{------}nech\v t $j$ je volný řádek tabulky\newline 
+\phantom{------}nechť $j$ je volný řádek tabulky\newline 
 \phantom{------}$j.key:=i.key$, $j.previous:=i.previous$, $j.next:=i.next$, $(j.previous).next:=j$\newline 
 \phantom{------}{\bf if} $j.next\ne NIL$ {\bf then} $(j.next).previous:=j$ {\bf endif}\newline 
 \phantom{---------}$i,key:=x$, $i.next:=i.previous:=$prázdné\newline 
@@ -658,7 +658,7 @@ else}\newline
 \phantom{------}{\bf if} neexistuje prázdný řádek tabulky {\bf then}\newline 
 \phantom{---------}{\bf Výstup}: přeplnění\newline 
 \phantom{------}{\bf else}\newline 
-\phantom{---------}nech\v t $j$ je volný řádek tabulky\newline 
+\phantom{---------}nechť $j$ je volný řádek tabulky\newline 
 \phantom{---------}$i.next:=j$, $j.key:=x$, $j.previous:=i$\newline 
 \phantom{------}{\bf endif}\newline 
 \phantom{---}{\bf endif\newline
@@ -680,8 +680,8 @@ prvků, $\alpha =\frac nm=$ faktor zaplnění.
 
 \section{Hašování s dvěma ukazateli}
 
-Nevýhodou hašování s přemís\v továním je v operaci 
-{\bf INSERT} případ, že $previous$ $h(i)$-tého řádku je neprázdný. Pak přemís\v tujeme položku na $h(i)$-tém řádku na volný řádek a to vyžaduje více času -- operace s přemístěním 
+Nevýhodou hašování s přemísťováním je v operaci 
+{\bf INSERT} případ, že $previous$ $h(i)$-tého řádku je neprázdný. Pak přemísťujeme položku na $h(i)$-tém řádku na volný řádek a to vyžaduje více času -- operace s přemístěním 
 položky. Toto odstraňuje další implementace hašování se 
 separujícími řetězci.
 
@@ -744,7 +744,7 @@ Spočítáme $i:=h(x)$\newline
 \phantom{------}{\bf if} neexistuje prázdný řádek tabulky {\bf then}\newline 
 \phantom{---------}{\bf Výstup}: přeplnění\newline 
 \phantom{------}{\bf else}\newline 
-\phantom{---------}nech\v t $j$ je volný řádek tabulky\newline 
+\phantom{---------}nechť $j$ je volný řádek tabulky\newline 
 \phantom{---------}$j.key=x$, $i.begin:=j$\newline 
 \phantom{------}{\bf endif}\newline 
 \phantom{---}{\bf endif\newline 
@@ -755,7 +755,7 @@ else}\newline
 \phantom{------}{\bf if} neexistuje prázdný řádek tabulky {\bf then}\newline 
 \phantom{---------}{\bf Výstup}: přeplnění\newline 
 \phantom{------}{\bf else}\newline 
-\phantom{---------}nech\v t $j$ je volný řádek tabulky\newline 
+\phantom{---------}nechť $j$ je volný řádek tabulky\newline 
 \phantom{---------}$i.next:=j$, $j.key:=x$\newline 
 \phantom{------}{\bf endif}\newline 
 \phantom{---}{\bf endif\newline 
@@ -768,7 +768,7 @@ V příkladu provedeme {\bf INSERT$(28)$}, nový řádek je 4.
 $$\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}řádek & key & next & begin\hfil \cr\noalign{\hrule}P(0) & & &\hfill \cr\noalign{\hrule}P(1) & 1 & 9 & 1 \cr\noalign{\hrule}P(2) & & &\hfill \cr\noalign{\hrule}P(3) & 73 & 7 & 3 \cr\noalign{\hrule}P(4) & 28 &  &\hfill \cr\noalign{\hrule}P(5) & 161 & & \hfill \cr\noalign{\hrule}P(6) & 7 & &\hfill \cr\noalign{\hrule}P(7) & 53 & & 6 \cr\noalign{\hrule}P(8) & 11 & 5 & 4  \cr\noalign{\hrule}P(9) & 141 & 8 & \hfill \cr\noalign{\hrule}}}$$
 
 Algoritmus při práci s položkami je rychlejší než při 
-hašování s přemís\v továním, ale začátek řetězce v 
+hašování s přemísťováním, ale začátek řetězce v 
 jiném místě tabulky přidává jeden test. Výsledek bez 
 odvozování:\newline 
 Očekávaný počet testů:\newline 
@@ -858,7 +858,7 @@ if} $i.key\ne x$ {\bf then}\newline
 \phantom{---}{\bf if} neexistuje prázdný řádek tabulky {\bf then}\newline 
 \phantom{------}{\bf Výstup}: přeplnění\newline 
 \phantom{---}{\bf else}\newline 
-\phantom{------}nech\v t $j$ je prázdný řádek $j.
+\phantom{------}nechť $j$ je prázdný řádek $j.
 key:=x$, 
 $i.next:=j$\newline 
 \phantom{---}{\bf endif\newline 
@@ -873,7 +873,7 @@ if} $i.key\ne x$ {\bf then}\newline
 \phantom{---}{\bf if} neexistuje prázdný řádek tabulky {\bf then}\newline 
 \phantom{------}{\bf Výstup}: přeplnění\newline 
 \phantom{---}{\bf else}\newline 
-\phantom{------}nech\v t $j$ je volný řádek tabulky\newline 
+\phantom{------}nechť $j$ je volný řádek tabulky\newline 
 \phantom{------}$j.next:=k.next$, $k.next:=j$, $j.key:=x$\newline 
 \phantom{---}{\bf endif\newline 
 endif}
@@ -1058,9 +1058,9 @@ Metody LICH, EICH, VICH
 \phantom{---}EICH -- early-insertion coalesced hashing\newline 
 \phantom{---}VICH -- varied-insertion coalesced hashing.
 
-Základní idea: Metody používají pomocnou pamě\v t. 
+Základní idea: Metody používají pomocnou paměť. 
 Tabulka je rozdělená na adresovací část a na pomocnou 
-pamě\v t, která není dostupná pomocí hašovací funkce, 
+paměť, která není dostupná pomocí hašovací funkce, 
 ale pomáhá při řešení kolizí. Metody se liší operací 
 {\bf INSERT}. Všechny metody při kolizi nejprve použijí řádek 
 tabulky z pomocné části a teprve, když je pomocná část 
@@ -1146,7 +1146,7 @@ if} $i.key\ne x$ {\bf then}\newline
 \phantom{---}{\bf if} neexistuje prázdný řádek tabulky {\bf then}\newline 
 \phantom{------}{\bf Výstup}: přeplnění\newline 
 \phantom{---}{\bf else}\newline 
-\phantom{------}nech\v t $j$ je prázdný řádek, $j
+\phantom{------}nechť $j$ je prázdný řádek, $j
 .key:=x$, $i.next:=j$\newline 
 \phantom{---}{\bf endif\newline 
 endif}
@@ -1160,7 +1160,7 @@ if} $i.key\ne x$ {\bf then}\newline
 \phantom{---}{\bf if} neexistuje prázdný řádek tabulky {\bf then}\newline 
 \phantom{------}{\bf Výstup}: přeplnění\newline 
 \phantom{---}{\bf else}\newline 
-\phantom{------}nech\v t $j$ je volný řádek tabulky\newline 
+\phantom{------}nechť $j$ je volný řádek tabulky\newline 
 \phantom{------}$j.next:=k.next$, $k.next:=j$, $j.key:=x$\newline 
 \phantom{---}{\bf endif\newline 
 endif}
@@ -1180,7 +1180,7 @@ if} $i.key\ne x$ {\bf then}\newline
 \phantom{---}{\bf if} neexistuje prázdný řádek {\bf then}\newline 
 \phantom{------}{\bf Výstup}: přeplnění\newline 
 \phantom{---}{\bf else}\newline 
-\phantom{------}nech\v t $j$ je volný řádek, $j.key:=x$\newline 
+\phantom{------}nechť $j$ je volný řádek, $j.key:=x$\newline 
 \phantom{------}{\bf if} $k$ není definováno {\bf then}\newline 
 \phantom{---------}$i.next:=j$\newline 
 \phantom{------}{\bf else}\newline 
@@ -1448,7 +1448,7 @@ Neúspěšné vyhledávání
 }
 
 \phantom{---}Hašování s uspořádanými řetězci,\newline 
-\phantom{---}Hašování s řetězci=Hašování s přemís\v továním,\newline 
+\phantom{---}Hašování s řetězci=Hašování s přemísťováním,\newline 
 \phantom{---}Hašování s dvěma ukazateli,\newline 
 \phantom{---}VICH=LICH,\newline 
 \phantom{---}EICH,\newline 
@@ -1461,7 +1461,7 @@ Neúspěšné vyhledávání
 }
 
 \phantom{---}Hašování s uspořádanými řetězci=Hašování s 
-řetězci=Hašo\-vá\-ní s přemís\v továním,\newline 
+řetězci=Hašo\-vá\-ní s přemísťováním,\newline 
 \phantom{---}Hašování s dvěma ukazateli,\newline 
 \phantom{---}VICH,\newline 
 \phantom{---}LICH,\newline 
@@ -1487,7 +1487,7 @@ Očekávaný počet testů při úplně zaplněné
 tabulce
 }
 
-\phantom{---}Metoda s přemís\v továním: neúspěšné vyhledávání 1.5, úspěšné 
+\phantom{---}Metoda s přemísťováním: neúspěšné vyhledávání 1.5, úspěšné 
 vyhledávání 1.4.\newline 
 \phantom{---}Metoda s dvěma ukazateli: úspěšné i neúspěšné vyhledávání  1.6.\newline 
 \phantom{---}VICH: neúspěšné vyhledávání 1.79, úspěšné vyhledávání 
@@ -1518,7 +1518,7 @@ výsledky byly pro tuto hodnotu $\beta ).$
 Komentář: Metody se separujícími řetězci a 
 srůstající hašování používají více paměti (při 
 srůstajícím hašování součet adresovací a 
-pomocné části). Metoda s přemís\v továním a metoda 
+pomocné části). Metoda s přemísťováním a metoda 
 dvojitého hašování vyžadují více času -- na přemístění 
 prvku a na výpočet druhé hašovací funkce.
 
@@ -1652,7 +1652,7 @@ I$ do
 reálných čísel bude průměr přes $I$, tj. $\frac {
 \sum_{i\in I}f(i)}{|I|}$.
 
-Formálně: Nech\v t  $U$ je univerzum. Soubor  
+Formálně: Nechť  $U$ je univerzum. Soubor  
 funkcí $H=\{h_i\mid i\in I\}$ z univerza $U$ do množiny $\{
 0,1,\dots,m-1\}$ se 
 nazývá $c$-\emph{univerzální} ($c$ je kladné reálné číslo), 
@@ -1845,23 +1845,23 @@ systémy. Nalézt dolní odhady na jejich velikost.
 Dolní odhady na velikost
 }
 
-Předpoklady: Nech\v t $U$ je univerzum velikosti $N$ a nech\v t 
+Předpoklady: Nechť $U$ je univerzum velikosti $N$ a nechť 
 $H=\{h_i\mid i\in I\}$ je $c$-univerzální systém funkcí hašujících do tabulky velikosti 
 $m$. Můžeme předpoklá\-dat, že 
 $$I=\{0,1,\dots,|I|-1\}.$$
 
 Indukcí definujme množiny $U_0,U_1,\dots$ tak, že: 
 $U_0=U$.\newline 
-Nech\v t $U_1$ je největší podmnožina $U_0$ vzhledem k počtu 
+Nechť $U_1$ je největší podmnožina $U_0$ vzhledem k počtu 
 prvků taková, že $h_0(U_1)$ je jednoprvková 
 množina. \newline 
-Nech\v t $U_2$ je největší podmnožina $U_1$ vzhledem k počtu 
+Nechť $U_2$ je největší podmnožina $U_1$ vzhledem k počtu 
 prvků taková, že $h_1(U_2)$ je jednoprvková 
 množina. \newline 
-Nech\v t $U_3$ je největší podmnožina $U_2$ vzhledem k počtu 
+Nechť $U_3$ je největší podmnožina $U_2$ vzhledem k počtu 
 prvků taková, že $h_2(U_3)$ je jednoprvková 
 množina. \newline 
-Obecně, nech\v t $U_i$ je největší podmnožina $U_{
+Obecně, nechť $U_i$ je největší podmnožina $U_{
 i-1}$ vzhledem k počtu 
 prvků taková, že $h_{i-1}(U_i)$ je jednoprvková 
 množina. 
@@ -1894,10 +1894,10 @@ univerza je až na aditivní konstantu menší než
 $4(\log m+\log\log N)$, kde $N$ je velikost univerza a $m$ je počet 
 řádků v tabulce.  
 
-Nech\v t $p_1,p_2,\dots$ je rostoucí posloupnost všech 
+Nechť $p_1,p_2,\dots$ je rostoucí posloupnost všech 
 prvočísel. Měj\-me velikost tabulky $m$ a univerzum $U=
 \{0,1,\dots,N-1\}$ pro 
-nějaké přirozené číslo $N$ (nemusí být prvočíslo). Nech\v t $
+nějaké přirozené číslo $N$ (nemusí být prvočíslo). Nechť $
 t$ je 
 nejmenší číslo takové, že $t\ln p_t\ge m\ln N$. Definujme 
 $$H_1=\{g_{c,d}(h_{\ell})\mid t<\ell\le 2t,\,c,d\in \{0,1,\dots,p_{
@@ -2024,7 +2024,7 @@ Nejprve dokážeme technické lemma.
 
 \proclaim{Lemma}Mějme reálná čísla $b_i$ pro $i=0,1
 ,\dots,m-1$ a 
-nech\v t $b=\sum_{i=0}^{m-1}b_i$. Pak 
+nechť $b=\sum_{i=0}^{m-1}b_i$. Pak 
 $$\sum_{i=0}^{m-1}b_i(b_i-1)\ge b(\frac bm-1).$$
 \endproclaim
 
@@ -2491,14 +2491,14 @@ k$ nalezneme v čase $O(n)$ a $k_i$ v čase $O(|S_i|)$, dostaneme, že
 Tedy zkonstruovaná hašovací funkce splňuje požadavky 
 1), 2) a 3), ale požadavek 4) není splněn. 
 
-Mějme přirozené číslo $m$ a nech\v t $q$ je počet všech prvočísel 
+Mějme přirozené číslo $m$ a nechť $q$ je počet všech prvočísel 
 dělících $m$ ($p_1,p_2,\dots$ je rostoucí posloupnost všech 
 prvočísel). Pak
 $$m\ge\prod_{i=1}^qp_i>q!=e^{\sum_{i=1}^q\ln i}\ge e^{\int_1^q\ln 
 xdx}=e^{q\ln(\frac qe)+1}\ge (\frac qe)^q.$$
 Proto existuje konstanta $c$, že $q\le c\frac {\ln m}{\ln\ln m}$ (viz Lemma v odstavci Očekávaný 
 nejhorší případ na stránce 6). Platí tedy  
-\proclaim{Věta}Nech\v t $\delta (m)=$počet prvočísel, která dělí 
+\proclaim{Věta}Nechť $\delta (m)=$počet prvočísel, která dělí 
 $m$. Pak $\delta (m)=O(\frac {\log m}{\log\log m})$.
 \endproclaim
 
@@ -2612,7 +2612,7 @@ Funkce $h_l$ je určena čísly $q_1\in O(n^2)$ a $l\in O(
 q_0)$. Funkce $g$ 
 je určena $n+1$ čísly velikosti $O(q_1)$. Tedy zadání $
 f$ 
-vyžaduje pamě\v t o velikosti 
+vyžaduje paměť o velikosti 
 $$O(\log n+\log\log N+n\log n)=O(n\log n+\log\log N).$$
 Lze říct, že požadavek 4) je splněn. 
 
@@ -2642,7 +2642,7 @@ vycházela z idejí použitých v univerzálním hašování.  Ukážeme,
 že to není náhodná shoda. Dokážeme, že každý $
 c$-univerzální 
 systém funkcí umožňuje základní konstrukci perfektní hašovací 
-funkce.  Pro každé $m$ nech\v t $\Cal H_m=\{h_i\mid i\in I\}$ je $
+funkce.  Pro každé $m$ nechť $\Cal H_m=\{h_i\mid i\in I\}$ je $
 c$-univerzální 
 systém funkcí hašujících do ta\-bulky velikosti $
 m$. Pro 
@@ -2897,8 +2897,8 @@ x$ je prvkem $S$. Velikost reprezentované množiny je $n$.
 
 Uvedu složitost této metody bez důkazu.
 
-\proclaim{Věta}Popsaná metoda vyžaduje lineární pamě\v t 
-(neuvažuje se pamě\v t potřebná pro zak\'odo\-vá\-ní hašovacích funkcí), operace {\bf MEMBER }
+\proclaim{Věta}Popsaná metoda vyžaduje lineární paměť 
+(neuvažuje se paměť potřebná pro zak\'odo\-vá\-ní hašovacích funkcí), operace {\bf MEMBER }
 v nej\-horším případě vyžaduje čas $O(1)$ a očekávaná 
 amortizovaná složitost operací {\bf INSERT} a {\bf DELETE} je také $
 O(1)$.
@@ -2911,7 +2911,7 @@ a Tarjan.
 
 Další nevýhoda Fredman-Koml\'os-Szemerédiho metody:\newline 
 Navržená metoda pracuje pro $m<3n$, ale nezajistí $m=n$. 
-Lze říct, že pamě\v t je efektivně využita? Existuje 
+Lze říct, že paměť je efektivně využita? Existuje 
 metoda, která by umožnila návrh perfektní hašovací 
 funkce pro $m=n$? Z výsledků pro 
 $(N,m,n)$-perfektní soubory funkcí plyne existence 
@@ -2989,10 +2989,10 @@ metoda prakticky pou\-ži\-telná a zda se někde používá.
 Navržený postup je také znám pod názvem Faginův algoritmus. Tímto problémem se jako první asi zabýval Larsson.
 
 Řešíme jiný problém -- uložení dat v externí 
-pamě\v ti. Hlavní problém -- minimalizovat přístupy na 
-externí pamě\v t. 
+paměťi. Hlavní problém -- minimalizovat přístupy na 
+externí paměť. 
 
-Předpoklady:  Externí pamě\v t je rozdělena na 
+Předpoklady:  Externí paměť je rozdělena na 
 stránky, každá stránka obsahuje $b$ položek (dat) 
 (předpokládáme, že $b>1$, jinak to nemá smysl).  Vždy v 
 jednom kroku načteme celou stránku do interní paměti 
@@ -3012,7 +3012,7 @@ Předpokládejme, že $h:U@>>>\{0,1\}^{*}$ je prosté
 zobrazení takové, že délka $h(u)$ je stejná pro všechny prvky 
 univerza $U$.  Označme $k$ délku $h(u)$ pro $u\in U$. Pak $
 h$ je 
-hašovací funkce (to znamená, že hašovací funkce je přejmenování prvků).  Nech\v t $S\subseteq U$, pak pro slovo $
+hašovací funkce (to znamená, že hašovací funkce je přejmenování prvků).  Nechť $S\subseteq U$, pak pro slovo $
 \alpha$ délky 
 menší než $k$ definujme 
 $$h^{-1}_S(\alpha )=\{s\in S\mid\alpha\text{\rm\ je prefix }h(s)\}
@@ -3254,7 +3254,7 @@ podobu
 $$0\mapsto \{00000,00010\},1\mapsto \{10000\}.$$
 
 Vzniká otázka, jak je tato metoda efektivní. 
-Hlavně jak efektivně využívá pamě\v t. Platí
+Hlavně jak efektivně využívá paměť. Platí
 
 \proclaim{Věta}Když velikost repre\-zentované množiny je $
 n$, pak 
