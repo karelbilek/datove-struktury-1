@@ -168,7 +168,7 @@ Paměť není efektivně využitá.
 
 Spočítáme očekávanou délku řetězců za 
 předpokladů
-\roster
+\begin{enumerate}
 \item
 $h$ je rychle spočitatelná (tj. $O(1)$) a neměnná během 
 výpočtu;
@@ -185,21 +185,21 @@ argumentem operace;
 \item
 velikost reprezentované množiny je výrazně menší než 
 velikost univerza.
-\endroster
+\end{enumerate}
 
 Použité značení: $|S|=n$, $m=$počet 
 řetězců, $|U|=N$,\newline 
 $\ell (i)=$délka $i$-tého řetězce, $\alpha =\frac nm$ faktor naplnění (load factor)
 
 Důsledky předpokladů:
-\roster
+\begin{enumerate}
 \item"{}"
 $\Prob(h(x)=i)=\frac 1m$ pro všechna $x\in U$ a všechna 
 $i=0,1,\dots,m-1$; 
 \item"{}"
 $\Prob(\ell (i)=l)=p_{n,l}=\binom nl(\frac 1m)^l(1-\frac 1m)^{n-l}$ 
 pro všechna $i=0,1,\dots,m-1$.
-\endroster
+\end{enumerate}
 
 Vysvětlení: $i$-tý řetězec má délku $
 l$, právě když existuje 
@@ -454,26 +454,26 @@ Nechť $n=\frac m2$ a nechť polovina neprázdných
 2$. \newline 
 Očekávaný počet testů při neúspěšném 
 vyhledávaní:
-\roster
+\begin{enumerate}
 \item"{}"
 $1$ test pro prázdné řetězce a řetězce 
 délky $1$ -- těchto případů je $\frac {5m}6$
 \item"{}"
 $2$ testy pro řetězce délky $2$ -- těchto případů je 
 $\frac m6$.
-\endroster
+\end{enumerate}
 Očekávaný počet testů je 
 $\frac 1m(1\frac {5m}6+2\frac m6)=\frac 76$.\newline 
 Očekávaný počet testů při úspěšném 
 vyhledávání: 
-\roster
+\begin{enumerate}
 \item"{}"
 $1$ test pro prvky na prvním místě řetězce -- těchto 
 případů je $\frac {2n}3$
 \item"{}"
 $2$ testy pro prvky, které jsou na druhém místě řetězce -- těchto 
 případů je $\frac n3$.
-\endroster
+\end{enumerate}
 Očekávaný počet testů je $\frac 1n(1\frac {2n}
 3+2\frac n3)=\frac 43$.
 
@@ -568,7 +568,7 @@ Při popisu práce s tabulkou tuto část budeme vynechávat (tj.
 data budou pouze klíč).
 
 Podle řešení kolize dělíme dál hašování:
-\roster
+\begin{enumerate}
 \item"{}"
 hašování s přemísťováním, hašování s dvěma 
 ukazateli, 
@@ -577,7 +577,7 @@ srůstající hašování,
 \item"{}"
 dvojité hašování a hašování s lineárním 
 přidáváním.
-\endroster
+\end{enumerate}
 
 \section{Hašování s přemísťováním}
 
@@ -1583,7 +1583,7 @@ Závěr
 
 Připomeňme si předpoklady pro předchozí uvedené 
 výsledky o hašování:
-\roster
+\begin{enumerate}
 \item
 Hašovací funkce se rychle spočítá (v čase 
 $O(1)$);
@@ -1593,7 +1593,7 @@ hašovací funkce platí $-1\le |h^{-1}(i)|-|h^{-1}(j)|\le
 1$); 
 \item
 Vstupní data jsou rovnoměrně rozdělená.
-\endroster
+\end{enumerate}
 
 Diskutujme splnitelnost těchto předpokladů.\newline 
 Předpoklad 1) je jasný.\newline 
@@ -2140,7 +2140,7 @@ používá při navrhování kompilátorů.
 Zadání úlohy: Pro danou množinu $S\subseteq 
 U$ chceme 
 nalézt hašo\-va\-cí funkci $h$ takovou, že
-\roster
+\begin{enumerate}
 \item
 pro $s,t\in S$ takové, že $s\ne t$, platí $h(s)\ne h(t)$ (tj. $
 h$ je \emph{perfektní} \emph{hašovací} \emph{funkce} pro 
@@ -2160,7 +2160,7 @@ h$ bude
 vyžadovat moc paměti, např. když by byla dána tabulkou, 
 pak se ztrácí důvod k použití stejně jako v 
 bodě 2).
-\endroster
+\end{enumerate}
 
 Kompenzace: Nalezení hašovací funkce 
 může spotřebovat více času. Provádí se jen na 
@@ -2377,7 +2377,7 @@ $$\Prob\{\sum_{i=0}^{m-1}(b_i^k)^2<\frac {3n(n-1)}m+n\mid k\in \{
 1,2,\dots,N-1\}\}\ge\frac 14.$$
 
 \proclaim{Tvrzení}Když $n=m$, pak 
-\roster
+\begin{enumerate}
 \item"{(a)}"
 existuje deterministický algoritmus, jenž v čase $O(nN)$ 
 nalezne $k$ takové, že 
@@ -2387,9 +2387,9 @@ existuje pravděpodobnostní algoritmus, který
 nalezne v čase $O(n)$ takové $k$, že $\sum_{i=0}^{m-1}(b_
 i^k)^2<4n$ -- očekávaný počet iterací výpočtu je nejvýše $
 4$.
-\endroster
+\end{enumerate}
 Dále 
-\roster
+\begin{enumerate}
 \item"{(c)}"
 existuje deterministický algoritmus, jenž v čase $O(nN)$ pro 
 $m=n(n-1)+1$ nalezne takové $k$, že $h_k$ je 
@@ -2399,7 +2399,7 @@ existuje pravděpodobnostní algoritmus, který pro
 $m=2n(n-1)$ v čase $O(n)$ nalezne $k$ takové, že $h_k$ je 
 perfektní -- očekávaný počet iterací výpočtu 
 je nejvýše $4$.
-\endroster
+\end{enumerate}
 \endproclaim
 
 \demo{Důkaz}Mějme $n=m$. Protože spočítání 
@@ -2540,12 +2540,12 @@ pro nalezení $p$. Pro dostatečně velké $n$ mezi
 prvními $9c\ln D$ čísly je alespoň polovina tako\-vých 
 prvočísel $p$, že $\phi_p$ je perfektní pro $S$. Algoritmus pak 
 opakuje následující krok, dokud nenalezne perfektní funkci
-\roster
+\begin{enumerate}
 \item"{}"
 vyberme náhodně číslo $p$ mezi prvními $9cn^2\ln 
 N$ 
 čísly a otestujme, zda $p$ je prvočíslo a $\phi_p$ je perfektní
-\endroster
+\end{enumerate}
 
 Odhad očekávaného počtu neúspěšných kroků.\newline 
 Náhodně zvolené číslo $p\le 9cn^2\ln N$ je prvočíslo s 
@@ -2575,7 +2575,7 @@ větší, ale jeho velikost je omezena $9cn^2\log N$.
 Nyní navrhneme postup na konstrukci perfektní 
 hašovací funk\-ce pro množinu $S\subseteq U$.
 
-\roster
+\begin{enumerate}
 \item
 Nalezneme prvočíslo $q_0\in O(n^2\log N)$ takové, že 
 $\phi_{q_0}(x)=x\bmod q_0$ je perfektní funkce pro $S$. Položme 
@@ -2594,7 +2594,7 @@ $S_2\subseteq \{0,1,\dots,q_1-1\}$ do tabulky s méně než $
 3n$ řádky. 
 Položme $f(x)=g(h_l(\phi_{q_0}(x)))$. Konstruovaná hašovací 
 funkce je $f$.
-\endroster
+\end{enumerate}
 
 Výsledek: $f$ je perfektní hašovací funkce pro $
 S$, protože 
@@ -3038,13 +3038,13 @@ $\alpha$?\newline
 Řešení: Adresář je funkce, která každému slovu $
 \alpha$ o 
 délce $d(S)$ přiřadí adresu stránky předpisem
-\roster
+\begin{enumerate}
 \item"{}"když kritické slovo $\beta$ je prefixem $\alpha$, pak k $
 \alpha$ je 
 přiřazena strán\-ka korespondující s $\beta$, jinak je k $
 \alpha$ 
 přiřazena strán\-ka $NIL$ -- speciální prázdná stránka.
-\endroster
+\end{enumerate}
 
 Korektnost: Pro různá kritická slova 
 $\beta$ a $\gamma$ platí $h^{-1}_S(\beta )\cap h^{-1}_S(\gamma 
@@ -3052,7 +3052,7 @@ $\beta$ a $\gamma$ platí $h^{-1}_S(\beta )\cap h^{-1}_S(\gamma
 délky $d(S)$ existuje nejvýše jedno kritické slovo, které 
 je prefixem $\alpha$. Když $\alpha$ je slovo délky $d(S)$, pak nastane 
 jeden z těchto tří případů:
-\roster
+\begin{enumerate}
 \item
 $h^{-1}_S(\alpha )\ne\emptyset$, pak $0<|h^{-1}_S(\alpha )|\le b$ a existuje právě jedno kritické slovo $
 \beta$, 
@@ -3068,7 +3068,7 @@ $h^{-1}_S(\alpha )=\emptyset$ a pro každý prefix $\alpha'$ slova $
 $h^{-1}_S(\alpha')=\emptyset$ nebo $|h^{-1}_S(\alpha')|>b$ (pak k $
 \alpha$ je přiřazena 
 stránka $NIL$).
-\endroster
+\end{enumerate}
 
 Mějme slovo $\alpha$ o délce $d(S)$. Označme $c
 (\alpha )$ nejkratší 
@@ -3077,7 +3077,7 @@ za prefix, je přiřazená stejná stránka jako slovu $\alpha$. Všimněme si, 
 -1}_S(\alpha )\ne\emptyset$, pak $c(\alpha )$ je 
 kritické slovo. Platí silnější tvrzení, které tvrdí, že 
 následující podmínky jsou ekvivalentní:
-\roster
+\begin{enumerate}
 \item
 stránka přiřazená slovu $\alpha$ je různá od $
 NIL$;
@@ -3085,7 +3085,7 @@ NIL$;
 $c(\alpha )$ je kritické slovo;
 \item
 nějaký prefix $\alpha$ je kritické slovo.
-\endroster
+\end{enumerate}
 Všimněme si, že znalost adresáře umožňuje nalézt slovo 
 $c(\alpha )$ pro každé slovo o délce $d(S)$.
 
