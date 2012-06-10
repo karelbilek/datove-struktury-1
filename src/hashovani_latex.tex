@@ -548,7 +548,7 @@ Spočítáme $i:=h(x)$, $t:=NIL$\newline
 \phantom{---}{\bf enddo\newline 
 endif\newline 
 if} $t=x$ {\bf then} odstraníme $x$ z $i$-tého seznamu {\bf endif
-\bigskip
+
 
 }
 Nevýhody hašovaní se separovanými řetězci --\newline 
@@ -638,7 +638,7 @@ ext).previous:=i.previous$ {\bf endif}\newline
 \phantom{------}{\bf endif}\newline 
 \phantom{---}{\bf endif\newline 
 endif
-\bigskip
+
 
 INSERT$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline
@@ -664,7 +664,7 @@ else}\newline
 \phantom{------}{\bf endif}\newline 
 \phantom{---}{\bf endif\newline
 endif}
-\bigskip
+
 
 V příkladu provedeme {\bf INSERT$(28)$}, nový řádek je 4. řádek\newline 
 -- výsledná hašovací tabulka
@@ -714,7 +714,7 @@ Spočítáme $i:=h(x)$\newline
 while} $i.next\ne$prázdné a $i.key\ne x$ {\bf do} $i:=i.next$ {\bf enddo \newline 
 if} $i.key=x$ {\bf then Výstup}: $x\in S$ {\bf else Výstup}: $
 x\notin S$ {\bf endif
-\bigskip
+
 
 DELETE$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
@@ -734,7 +734,7 @@ if} $i.key=x$ {\bf then\newline
 \phantom{{\rm ---}}endif\newline 
 \phantom{{\rm ---}}$i.key:=i.next:=$}prázdné\newline 
 {\bf endif
-\bigskip
+
 
 INSERT$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
@@ -761,7 +761,7 @@ else}\newline
 \phantom{------}{\bf endif}\newline 
 \phantom{---}{\bf endif\newline 
 endif}
-\bigskip
+
 
 V příkladu provedeme {\bf INSERT$(28)$}, nový řádek je 4. 
 řádek\newline 
@@ -841,7 +841,7 @@ Algoritmy
 }
 
 Algoritmus operace {\bf MEMBER} je pro obě metody stejný.
-\bigskip
+
 
 {\bf MEMBER$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
@@ -849,7 +849,7 @@ Spočítáme $i:=h(x)$\newline
 next$ {\bf enddo \newline 
 if} $i.key=x$ {\bf then Výstup}: $x\in S$ {\bf else Výstup}: $
 x\notin S$ {\bf endif}
-\bigskip
+
 
 Metoda LISCH -- {\bf INSERT$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
@@ -864,7 +864,7 @@ key:=x$,
 $i.next:=j$\newline 
 \phantom{---}{\bf endif\newline 
 endif}
-\bigskip
+
 
 Metoda EISCH -- {\bf INSERT$(x)$}\newline 
 Spočítáme $k:=i:=h(x)$\newline 
@@ -878,7 +878,7 @@ if} $i.key\ne x$ {\bf then}\newline
 \phantom{------}$j.next:=k.next$, $k.next:=j$, $j.key:=x$\newline 
 \phantom{---}{\bf endif\newline 
 endif}
-\bigskip
+
 
 Efektivní operace {\bf DELETE}  není známá, ale i primitivní 
 algoritmy pro operaci {\bf DELETE} mají rozumnou očekávanou 
@@ -1121,7 +1121,7 @@ Algoritmy
 
 Algoritmus operace {\bf MEMBER} je pro tyto metody 
 stejný jako pro LISCH a EISCH
-\bigskip
+
 
 {\bf MEMBER$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
@@ -1137,7 +1137,7 @@ pro metodu EISCH s jediným doplňkem, pokud existuje
 prázdný řádek v pomocné části, tak $j$-tý řádek je z 
 pomocné části. Tento předpoklad je i pro algoritmus 
 {\bf INSERT} pro metodu VICH.
-\bigskip
+
 
 Metoda LICH -- {\bf INSERT$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
@@ -1151,7 +1151,7 @@ if} $i.key\ne x$ {\bf then}\newline
 .key:=x$, $i.next:=j$\newline 
 \phantom{---}{\bf endif\newline 
 endif}
-\bigskip
+
 
 Metoda EICH -- {\bf Insert$(x)$}\newline 
 Spočítáme $k:=i:=h(x)$\newline 
@@ -1165,7 +1165,7 @@ if} $i.key\ne x$ {\bf then}\newline
 \phantom{------}$j.next:=k.next$, $k.next:=j$, $j.key:=x$\newline 
 \phantom{---}{\bf endif\newline 
 endif}
-\bigskip
+
 
 Metoda VICH -- {\bf INSERT$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
@@ -1189,7 +1189,7 @@ if} $i.key\ne x$ {\bf then}\newline
 \phantom{------}{\bf endif}\newline 
 \phantom{---}{\bf endif\newline 
 endif}
-\bigskip
+
 
 Složitost algoritmů pro srůstající hašování.\newline 
 Značení: $n$ -- velikost uložené množiny,\newline 
@@ -1270,7 +1270,7 @@ Metoda nepodporuje efektivní implementaci operace {\bf DELETE}.
 Při vy\-hle\-dá\-vá\-ní je třeba testovat, zda nevyšetřujeme 
 podruhé první vyšetřovaný řádek, a pro zjištění přeplnění je 
 vhodné mít uložen počet vyplněných řádků v tabulce. Pro standarní paměti není výhodná. Při použití cache-paměti se výrazně mění její hodnocení. Důvodem je, že v tomto případě hraje klíčovou roli nikoliv počet testů, ale počet přechodů mezi různými úrovněmi paměti. Protože tabulka je reprezentovaná polem, tak je tento počet menší než u jiných metod. Proto se tato metoda doporučuje pro počítače s cache-pamětí.
-\bigskip
+
 
 {\bf MEMBER$(x)$}\newline 
 Spočítáme $i:=h(x)$, $h:=i$\newline 
@@ -1281,7 +1281,7 @@ while} $i.key\ne$prázdný a $i.key\ne x$ a $i\ne h$ {\bf do} $
 i:=i+1\bmod m$ {\bf enddo\newline 
 if} $i.key=x$ {\bf then Výstup}: $x\in S$ {\bf else Výstup}: $
 x\notin S$ {\bf endif
-\bigskip
+
 
 INSERT$(x)$}\newline 
 Spočítáme $i:=h(x)$, $j:=0$\newline 
@@ -1289,7 +1289,7 @@ Spočítáme $i:=h(x)$, $j:=0$\newline
 i:=i+1\bmod m${\bf ,} $j:=j+1$ {\bf enddo\newline 
 if} $j=m$ {\bf then Výstup}: přeplnění, stop {\bf endif\newline 
 if} $i.key=$prázdný {\bf then} $i.key:=x$ {\bf endif}
-\bigskip
+
 
 Příklad: Máme universum $U=\{1,2,\dots,1000\}$, 
 hašovací funk\-ci $h(x)=x\bmod10$ a množinu  
@@ -1339,7 +1339,7 @@ každé $x\in U$.
 \subsection{
 Algoritmy
 }
-\bigskip
+
 
 {\bf MEMBER$(x)$}\newline 
 Spočítáme $i:=h_1(x)$, $h:=h_2(x)$, $j:=0$\newline 
@@ -1347,7 +1347,7 @@ Spočítáme $i:=h_1(x)$, $h:=h_2(x)$, $j:=0$\newline
 i:=i+h\bmod m$, $j:=j+1$ {\bf enddo\newline 
 if} $i.key=x$ {\bf then Výstup}: $x\in S$ {\bf else Výstup}: $
 x\notin S$ {\bf endif
-\bigskip
+
 
 INSERT$(x)$}\newline 
 Spočítáme $i:=h_1(x)$, $h:=h_2(x)$, $j:=0$\newline 
@@ -1355,7 +1355,7 @@ Spočítáme $i:=h_1(x)$, $h:=h_2(x)$, $j:=0$\newline
 i:=i+h\bmod m$, $j:=j+1$ {\bf enddo\newline 
 if} $j=m$ {\bf then Výstup}: přeplnění, stop {\bf endif\newline 
 if} $i.key=$prázdný {\bf then} $i.key:=x$ {\bf endif}
-\bigskip
+
 
 Příklad: Mějme universum $U=\{1,2,\dots,1000
 \}$. 
@@ -2630,7 +2630,7 @@ $g$, $h_l$ a $\phi_{q_0}$. Pak hašujeme do tabulky s méně než $
 6n$ 
 řádky, ale očekávaný čas pro nalezení $f$ je 
 $O(n\log n(\log n+\log\log N))$.
-\bigskip
+
 
 Tuto metodu navrhli Fredman, Koml\'os a Szemerédi.
 
@@ -2797,7 +2797,7 @@ každé $n$. Nyní popíšeme algoritmy. Zde $n$ je velikost reprezentované mno
 \subsection{
 Algoritmy
 }
-\bigskip
+
 
 {\bf INSERT$(x)$}: \newline 
 $n:=n+1$ \newline 
@@ -2848,7 +2848,7 @@ y$ do $T_j$ na pozici $h_j(y)$ {\bf enddo}\newline
 \phantom{------}{\bf RehashAll}\newline 
 \phantom{---}{\bf endif\newline 
 endif}
-\bigskip
+
 
 {\bf RehashAll}:\newline 
 projdeme tabulku $T$ a tabulky $T_i$ a vytvoříme seznam 
@@ -2875,13 +2875,13 @@ S_i$ {\bf do}\newline
 \phantom{---}{\bf enddo\newline 
 enddo\newline 
 for every} $x\in S$ {\bf do INSERT$(x)$ enddo}
-\bigskip
+
 
 {\bf DELETE$(x)$}:\newline 
 $j:=h(x)$, $n:=n-1$, $|S_j|:=|S_j|-1$\newline 
 odstraníme $x$ z pozice $h_j(x)$ v tabulce $T_j$, pozice bude prázdná \newline 
 {\bf if} $n<\frac m{1+2c}$ {\bf then RehashAll endif}
-\bigskip
+
 
 {\bf MEMBER$(x)$}: \newline 
 $j:=h(x)$\newline 
@@ -2890,7 +2890,7 @@ $j:=h(x)$\newline
 {\bf else}\newline 
 \phantom{---}{\bf Výstup}: $x$ není prvkem $S$\newline 
 {\bf endif}
-\bigskip
+
 
 Algoritmy předpokládají, že při operaci {\bf INSERT$
 (x)$} prvek $x$ nepatří do $S$ a při operaci {\bf DELETE$(x)$} $
@@ -2908,7 +2908,7 @@ O(1)$.
 Toto zobecnění Fredman-Koml\'os-Szemerédiho metody navrhli 
 Dietzfelbinger, Karlin, Mehl\-horn, Meyer auf der Heide, Rohnert 
 a Tarjan.
-\bigskip
+
 
 Další nevýhoda Fredman-Koml\'os-Szemerédiho metody:\newline 
 Navržená metoda pracuje pro $m<3n$, ale nezajistí $m=n$. 
@@ -3124,7 +3124,7 @@ V adresáři je také uloženo $d(S)$.
 \subsection{
 Algoritmy
 }
-\bigskip
+
 
 Uvedeme zde jen slovní popis operací. Předpokládáme, že adresář 
 je uložen v externí paměti na jedné stránce.
@@ -3214,7 +3214,7 @@ adresy stránek přiřazené $(2i+1)$-ímu slovu a $(2i+
 slovu o délce $d(S)$ jsou stejné pro všechna $i$, 
 pak se tato slova spojí a $d(S)$ se zmenší o $1$). Upravený 
 adresář {\bf uložíme}. Konec.
-\bigskip
+
 
 Následující věta ukazuje, že jsme náš hlavní cíl splnili. Pro jednoduchost předpokládáme, že 
 adresář je také uložen na externí paměti a že v 
