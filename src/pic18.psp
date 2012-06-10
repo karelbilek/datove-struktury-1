@@ -1,4 +1,5 @@
 %!ps
+%%BoundingBox: 13 6 163 148
 /LDiff {
 % Compute the difference between two points
 % x0 y0 x1 y1
@@ -398,6 +399,3 @@ p50 p6 LVector
 p51 p52 p53 p26 LSpline
 p54 p26 LVector
 LEnd
-
-
-

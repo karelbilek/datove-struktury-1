@@ -1,4 +1,5 @@
 %!ps
+%%BoundingBox: 15 20 285 301
 /LDiff {
 % Compute the difference between two points
 % x0 y0 x1 y1
