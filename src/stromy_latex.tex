@@ -49,7 +49,6 @@
 \newtheorem*{tvrzeni}{Tvrzení}
 \newtheorem*{definice}{Definice}
 
-
 \def \emph#1{\underbar{#1}}
 \def \Prob{\operatorname{Prob}}
 \def \var{\operatorname{var}}
@@ -60,10 +59,9 @@
 
 \tableofcontents
 
-
 \section{Uspořádaný slovníkový problém}
 
-\flushpar Jedná se o rozšíření základního slovníkového problému. Je 
+Jedná se o rozšíření základního slovníkového problému. Je 
 dáno totálně uspořádané univerzum $U$ (tj. pro každé dva 
 různé prvky $u,v\in U$ platí buď $u<v$ nebo $v<
 u$). Cílem 
@@ -84,9 +82,8 @@ $\bold J\bold O\bold I\bold N\bold 3(S_1,x,S_2)$ -- jsou dány reprezentace mno�
 S_1$ a $S_2$ a 
 prvek $x\in U$ tak, že je splněno $\max S_1<x<\min S_2$, vytvoří 
 se reprezentace množiny $S=S_1\cup \{x\}\cup S_2$.
-\smallskip
 
-\flushpar Je vidět, že operace {\bf JOIN2} a {\bf JOIN3} lze pomocí ope\-rací 
+Je vidět, že operace {\bf JOIN2} a {\bf JOIN3} lze pomocí ope\-rací 
 {\bf INSERT} a {\bf DELETE} převést jednu na druhou. Proto často budeme 
 popisovat pro danou strukturu jen jednu z nich. 
 Občas se také používá operace\newline 
@@ -98,12 +95,9 @@ ope\-race {\bf ord$(k)$},
 přesně {\bf MIN} je operace $\bold o\bold r\bold d(1)$ a {\bf MAX} je operace $
 \bold o\bold r\bold d(|S|)$.
 
+\section{$(a,b)$-stromy}
 
-\heading
-$(a,b)$-stromy
-\endheading
-
-\flushpar Důležitou datovou strukturou vhodnou pro 
+Důležitou datovou strukturou vhodnou pro 
 řešení uspořá\-dané\-ho slovní\-ko\-vé\-ho problému jsou 
 $(a,b)$-stromy. Tuto datovou strukturu lze použít pro interní i 
 pro externí paměť. Je to struktura založená na stromech. 
@@ -137,15 +131,13 @@ synů;
 všechny cesty z kořene do libovolného listu mají 
 stejnou délku.
 \endroster
-\medskip
 
-\flushpar Výhody našich $(a,b)$-stromů:\newline 
+Výhody našich $(a,b)$-stromů:\newline 
 Když má $(a,b)$-strom \emph{výšku} $h>0$ (tj. délka každé 
 cesty z kořene do libovolného listu je $h$), pak 
 strom má alespoň $2a^{h-1}$ listů a nejvýše $b^
 h$ 
 listů.
-
 
 \proclaim{Tvrzení}Mějme přirozená čísla $a$ a $
 b$ taková, 
@@ -158,8 +150,7 @@ n2)$ a
 je alespoň $\log_bn$. Tedy výška stromu je $O(\log n)$.
 \endproclaim
 
-
-\flushpar Mějme kořenový strom $(T,t)$ takový, že pro každý 
+Mějme kořenový strom $(T,t)$ takový, že pro každý 
 vnitřní vrchol $v$ platí:\newline 
 když $v$ má $\rho (v)$ synů, pak jsou očíslovány od $
 1$ do 
@@ -172,15 +163,13 @@ na $h$-té hladině je definováno rekurzivně:\newline
 $v\le w$, právě když buď $\otec(v)<\otec(w)$ nebo 
 $\otec(v)=\otec(w)$ a když $v$ je $i$-tý syn $\otec(v)$ a $w$ je 
 $j$-tý syn $\otec(v),$ pak $i\le j$.  
-\medskip
 
-\flushpar Předpokládáme, že v $(a,b)$-stromu  
+Předpokládáme, že v $(a,b)$-stromu  
 synové každého vnitřního vrcholu jsou uspořádány. Listy 
 tvoří hladinu $h$, kde $h$ je hloub\-ka $(a,b)$-stromu, a je na nich 
 definováno lexikografické uspořá\-dá\-ní.
-\medskip
 
-\flushpar Mějme lineárně uspořádané univerzum $U$ a 
+Mějme lineárně uspořádané univerzum $U$ a 
 množinu $S\subseteq U$.  Pak $(a,b)$-strom $(T,t)$ 
 \emph{reprezentuje} množinu $S$, když má přesně $|S
 |$ 
@@ -191,9 +180,8 @@ splňuje $s\le t$ v $U$, právě když $\key^{-1}(s)\le\key^{
 -1}(t)$ v 
 lexikografickém uspořádání na množině listů 
 stromu $T$).  
-\medskip
 
-\flushpar Struktura vnitřních vrcholů 
+Struktura vnitřních vrcholů 
 $(a,b)$-stromu $(T,t)$ reprezentující\-ho množinu 
 $S\subseteq U$:\newline 
 $\rho (v)$ -- počet synů vrcholu $v$,\newline 
@@ -209,18 +197,15 @@ i$-tého
 syna vrcholu $v$ je menší nebo roven $H_v(i)$ a to je menší  
 než nejmenší prvek reprezentovaný v podstromu $(i+1)$-ního 
 syna vrcholu $v$).
-\medskip
 
-\flushpar Struktura listů:\newline 
+Struktura listů:\newline 
 listu $v$ je přiřazen prvek $\key(v)\in S$.
-\medskip
 
-\flushpar Někdy je ve struktuře každého vrcholu $v$ 
+Někdy je ve struktuře každého vrcholu $v$ 
 $(a,b)$-stromu různého od kořene ještě ukazatel 
 $\otec(v)$ na otce vrcholu $v$.
-\medskip
 
-\flushpar Když $H_v(i)$ jsou prvky z reprezentované 
+Když $H_v(i)$ jsou prvky z reprezentované 
 množiny, pak pro každý prvek $s\in S$ kromě největšího 
 existuje právě jeden vnitř\-ní vrchol $v$ $(a,b)$-stromu 
 a jedno $i$, že $H_v(i)=s$, a největší prvek v $S$ není prvek 
@@ -233,16 +218,14 @@ formální největší prvek (a ten je pak "uložen" zvlášť). Je to prostorov
 efektivnější reprezentace množiny $S$, ale je technicky 
 nepřehledná. Proto při práci s $(a,b)$-stromy používám 
 verzi s listy.
-\medskip
 
-\flushpar Nyní uvedeme algoritmy pro $(a,b)$-stromy.
+Nyní uvedeme algoritmy pro $(a,b)$-stromy.
 
 \subhead 
 Algoritmy
 \endsubhead
 
-\flushpar Pomocný algoritmus
-\bigskip
+Pomocný algoritmus
 
 {\bf Vyhledej$(x)$\newline 
 $t:=$}kořen stromu $T$, $w:=NIL$\newline 
@@ -251,12 +234,10 @@ $t:=$}kořen stromu $T$, $w:=NIL$\newline
 \phantom{---}{\bf while} $H_t(i)<x$ a $i<\rho (t)$ {\bf do} $i:=i+1$ {\bf enddo}\newline 
 \phantom{---}{\bf if} $H_t(i)=x$ {\bf then} $w:=t$ {\bf endif}\newline 
 $t:=S_t(i)$ {\bf enddo Výstup}: $t$ a $w$.
-\medskip
 
 {\bf MEMBER$(x)$\newline 
 Vyhledej$(x)$\newline 
 if} $\key(t)=x$ {\bf then Výstup}: $x\in S$ {\bf else Výstup}: $x\notin S$ {\bf endif
-\medskip
 
 INSERT$(x)$\newline
 Vyhledej$(x)$\newline 
@@ -277,7 +258,6 @@ if} $\key(t)\ne x$ {\bf then}\newline
 \phantom{---}$t:=u$\newline 
 \phantom{---}{\bf while} $\rho (t)>b$ {\bf do Štěpení$(t)$ enddo\newline 
 endif}
-\medskip
 
 {\bf Štěpení$(t)$\newline 
 if} $t$ je kořen stromu {\bf then}\newline 
@@ -297,7 +277,6 @@ $j:=\rho (u)-1$, $\rho (u):=\rho (u)+1$,\newline
 {\bf enddo\newline 
 $S_u(i+1):=t'$}, $H_u(i+1):=H_u(i)$, $H_u(i):=H_t(\rho (t))$, 
 $t:=u$
-\medskip
 
 {\bf DELETE$(x)$\newline 
 Vyhledej$(x)$\newline 
@@ -315,7 +294,6 @@ if} $\key(t)=x$ {\bf then}\newline
 (t,y)$ endif}\newline 
 \phantom{---}{\bf enddo\newline 
 endif}
-\medskip
 
 {\bf Spojení$(t,y)$\newline 
 $u:=\otec(t)$}, najdi $i$, že $S_u(i)=t$, $j:=1$\newline 
@@ -334,7 +312,6 @@ $\rho (u):=\rho (u)-1$\newline
 {\bf else}\newline 
 \phantom{---}$t:=u$\newline 
 {\bf endif}
-\medskip
 
 {\bf Přesun$(t,y)$\newline 
 $u:=\otec(t)$}, najdi $i$ takové, že $S_u(i)=t$\newline 
@@ -355,19 +332,16 @@ $u:=\otec(t)$}, najdi $i$ takové, že $S_u(i)=t$\newline
 1)$,\newline 
 \phantom{---}$H_u(i-1):=H_y(\rho (y)-1)$, $\rho (y):=\rho (y)-1$\newline 
 {\bf endif}
-\medskip
 
 {\bf MIN\newline 
 $t:=$}kořen stromu\newline 
 {\bf while} $t$ není list {\bf do} $t:=S_t(1)$ {\bf enddo}\newline 
 $\key(t)$ je nejmenší prvek $S$
-\medskip
 
 {\bf MAX\newline 
 $t:=$}kořen stromu\newline 
 {\bf while} $t$ není list {\bf do} $t:=S_t(\rho (t))$ {\bf enddo}\newline 
 $\key(t)$ je největší prvek $S$
-\medskip
 
 {\bf JOIN2$(T_1,T_2)$}\newline
 Předpoklad $T_i$ je $(a,b)$-strom reprezentující 
@@ -385,7 +359,6 @@ else}\newline
 \phantom{---}{\bf while} $k>0$ {\bf do} $t:=S_t(1)$, $k:=k-1$ {\bf enddo}\newline \phantom{---}{\bf Spojení$(t,$}kořen $T_1)$, $t:=\otec(t)$\newline 
 \phantom{---}{\bf while} $\rho (t)>b$ {\bf do Štěpení$(t)$ enddo\newline 
 endif}
-\medskip
 
 {\bf SPLIT$(T,x)$\newline 
 $Z_1$}, $Z_2$ prázdné zásobníky, $t:=$kořen $T$\newline 
@@ -429,17 +402,15 @@ $T_2:=\text{ vrchol }Z_2$, odstraň $T_2$ ze $Z_2$\newline
 {\bf while} $Z_2\ne\emptyset$ {\bf do}\newline 
 $T':=\text{ vrchol }Z_2$, odstraň $T'$ ze $Z_2$, $T_2:=${\bf JOIN$(T_2,T')$\newline 
 enddo}
-\medskip
 
-\flushpar Poznámky k algoritmům. \newline 
+Poznámky k algoritmům. \newline 
 Odkaz na otce vrcholu: buď je v každém vrcholu $v$ 
 stromu $T$ přímo odkaz na $\otec(v)$, nebo se v proceduře 
 {\bf Vyhledej} vkláda\-jí vrcholy do zásobníku a $\otec
 (v)$ 
 je vrchol v zásobníku před vrcholem $v$.
-\smallskip
 
-\flushpar Při operaci {\bf SPLIT} se zásobníky používají 
+Při operaci {\bf SPLIT} se zásobníky používají 
 jednoprůchodově -- nejprve se naplní a v této části 
 algoritmu se nepoužije operace {\bf pop}, pak se vyprázdní a v této 
 fázi se nepoužívá operace {\bf push}. V okamžiku, když jsou 
@@ -460,16 +431,15 @@ když $T_i$ a $T_{i+1}$ jsou dva po sobě následující $
 zásobníku $Z_j$ pro $j=1,2$, které mají stejnou výšku, pak 
 následující strom v zásobníku $Z_j$ má ostře menší výšku.
 \endroster
-\flushpar Toto plyne z první fáze algoritmu operace {\bf SPLIT} a zajišťuje 
-korektnost druhé fáze algoritmu. 
-\medskip
 
-\flushpar Dále si všimněme, že podprocedury {\bf Štěpení}, {\bf Spojení} a {\bf Pře\-sun }
+Toto plyne z první fáze algoritmu operace {\bf SPLIT} a zajišťuje 
+korektnost druhé fáze algoritmu. 
+
+Dále si všimněme, že podprocedury {\bf Štěpení}, {\bf Spojení} a {\bf Pře\-sun }
 vyžadují čas $O(1)$, a proto algoritmy pro operace {\bf MEMBER}, 
 {\bf INSERT}, {\bf DELETE}, {\bf MIN}, {\bf MAX}, {\bf JOIN2} a pro první fázi algoritmu 
 {\bf SPLIT} vyžadují čas $O(1)$ pro práci v dané hladině.  Protože 
 hladin je nejvýše $\log_a|S|$, můžeme shrnout: 
-
 
 \proclaim{Věta}Algoritmy pro operace {\bf MEMBER}, {\bf INSERT}, 
 {\bf DE\-LETE}, {\bf MIN}, {\bf MAX}, {\bf JOIN2} a {\bf SPLIT} v $
@@ -479,8 +449,7 @@ S$ je
 re\-pre\-zen\-tovaná množina.  
 \endproclaim
 
-
-\flushpar Je třeba ještě odhadnout spotřebovaný čas ve druhé fázi 
+Je třeba ještě odhadnout spotřebovaný čas ve druhé fázi 
 algoritmu pro operaci {\bf SPLIT}. Nejprve si všimněme, že 
 algoritmus {\bf JOIN2$(T_1,T_2)$} vyžaduje ve skutečnosti jen čas 
 rovný 
@@ -496,9 +465,8 @@ U_i$ pro
 $i=1,2,\dots,k$. Protože výška stromu $U_1$ je nejvýše rovna výšce 
 stromu $T$, dostáváme, že druhá fáze algoritmu {\bf SPLIT} vyžaduje 
 čas $O(\log_a|S|)$ a důkaz je kompletní. 
-\medskip
 
-\flushpar Nyní popíšeme algoritmus pro operaci {\bf ord$
+Nyní popíšeme algoritmus pro operaci {\bf ord$
 (k)$}. Tato 
 operace se často nazývá $k$-tá pořádko\-vá statistika
 Tato operace není podporována navrženou 
@@ -506,13 +474,13 @@ strukturou, pro její efektivní implementaci musíme
 rozšířit strukturu vnitřního vrcholu $v$ o pole\newline 
 $P_v(1..\rho (v)-1)$, kde $P_v(i)$ je počet prvků $S$ reprezentovaných 
 v podstromu $i$-tého syna vrcholu $v$.
-\smallskip
+
  
-\flushpar Udržovat pole $P_v$ v aktuálním stavu znamená při úspěšném 
+
+Udržovat pole $P_v$ v aktuálním stavu znamená při úspěšném 
 pro\-vedení aktualizační operace projít cestu z vrcholu do koře\-ne 
 a aktualizovat pole $P$. Uvedeme algoritmus pro 
 naleze\-ní $k$-té pořádkové statistiky.
-\medskip
 
 {\bf ord$(k)$\newline 
 if} $k>|S|$ {\bf then} neexistuje $k$-tý nejmenší prvek, konec 
@@ -526,15 +494,13 @@ $t:=$}kořen stromu\newline
 \phantom{---}$t:=S_t(i)$\newline 
 {\bf enddo}\newline 
 $\key(t)$ je hledaný $k$-tý nejmenší prvek
-\bigskip
 
-\flushpar Invariant algoritmu: V každém okamžiku platí, 
+Invariant algoritmu: V každém okamžiku platí, 
 že původní $k$ se rovná aktuální $k+$počet prvků z 
 $S$, které jsou v podstromech vrcholů stromu, které v 
 lexikografickém uspořádání předcházejí $i$-tému synu 
 vrcholu $t$. Korektnost algoritmu plyne z tohoto 
 invariantu.
-
 
 \proclaim{Věta}Algoritmy pro operace {\bf MEMBER}, {\bf INSERT}, 
 {\bf DE\-LETE}, {\bf MIN}, {\bf MAX}, {\bf SPLIT}, {\bf JOIN2} a {\bf ord$
@@ -544,8 +510,7 @@ nejhorším pří\-pa\-dě čas $O(\log|S|)$, kde $S$ je reprezentovaná
 množina.  
 \endproclaim
 
-
-\flushpar $(a,b)$-stromy se používají jak v interní tak v 
+$(a,b)$-stromy se používají jak v interní tak v 
 externí paměti. Jaké hodnoty $a$ a $b$ je vhodné 
 používat?\newline 
 Pro interní paměť jsou doporučené hodnoty $a=2$, $
@@ -554,9 +519,8 @@ nebo $a=3$ a $b=6$.\newline
 Pro externí paměť jsou doporučené hodnoty $a\approx 
 100$, 
 $b=2a$.
-\medskip
 
-\flushpar Když je množina reprezentovaná $(a,b)$-stromem 
+Když je množina reprezentovaná $(a,b)$-stromem 
 uložena na serveru a má k ní přístup více 
 uživatelů, vzniká problém s aktualizačními 
 operacemi. Tyto operace mění strukturu $(a,b)$-stromu a 
@@ -564,15 +528,15 @@ v důsledku toho se v něm jiný uživatel
 může ztratit. Tento problém se dá  
 řešit tak, že při aktu\-alizačních operacích 
 se uzavře celý strom.
-\medskip 
 
-\flushpar Nevýhoda: ostatní uživatelé  
+ 
+
+Nevýhoda: ostatní uživatelé  
 do něho nemají přístup a nemohou pracovat. Tzv. paralelní 
 implementace operací {\bf INSERT} a {\bf DELETE} nabízí jiné, 
 efektivnější řešení.
-\medskip
 
-\flushpar Předpoklad: $b\ge 2a$. \newline 
+Předpoklad: $b\ge 2a$. \newline 
 Při operaci {\bf INSERT} jsou ve vyhledávací fázi vždy 
 uzavřeny vrcholy $t$, $\otec(t)$ a synové vrcholu $t$. 
 Algoritmus zjistí, ve kterém synu vrcholu $t$ má 
@@ -581,9 +545,8 @@ pokračovat, a pak, když $\rho (t)=b$, provede {\bf Štěpení }
 zase $(a,b)$-strom). V algoritmu pak odpadne vyva\-žo\-vací 
 část (tj. {\bf Štěpení} při cestě vzhůru ke 
 kořeni).
-\medskip
 
-\flushpar Při operaci {\bf DELETE} jsou ve vyhledávací fázi uzavřeny 
+Při operaci {\bf DELETE} jsou ve vyhledávací fázi uzavřeny 
 vrcholy $t$, $\otec(t)$, bezprostřední bratr $y$ vrcholu $
 t$ a 
 jejich synové. 
@@ -593,21 +556,18 @@ y)>a$) nebo
 {\bf Spojení} (když $\rho (y)=a$). Stejně jako při operaci 
 {\bf INSERT} se vynechá vyva\-žo\-vací část 
 uzavírající původní algoritmus.
-\medskip
 
-\flushpar Tato úprava vyžaduje sice více {\bf Štěpení}, {\bf Spojení} a
+Tato úprava vyžaduje sice více {\bf Štěpení}, {\bf Spojení} a
 {\bf Přesunů}, ale asymptoticky vychází čas stejný 
 (jen je větší multiplikativní konstanta). Doporučené 
 hodnoty $a$ a $b$ jsou $a\approx 100$ a $b=2a+2$ při uložení na serveru 
 v externí paměti, ve vnitřní paměti 
 se doporučuje $a=2$, $b=6$.
-\medskip
 
-\flushpar Operace {\bf JOIN2} lze také paralelizovat, ale operaci {\bf SPLIT  }
+Operace {\bf JOIN2} lze také paralelizovat, ale operaci {\bf SPLIT  }
 paralelizovat nelze.
-\medskip
 
-\flushpar$(a,b)$-stromy dávají také zajímavé aplikace pro 
+$(a,b)$-stromy dávají také zajímavé aplikace pro 
 třídicí 
 algoritmy. Použití $(a,b)$-stromů pro setřídění 
 náhodné posloupnosti není vhodné, režie na udržování 
@@ -625,9 +585,8 @@ posloupnosti. Na rozdíl od nich algoritmus $A$-{\bf sort }
 založený na $(a,b)$-stromech je schopen předtříděnost 
 využít a má na předtříděných posloupnostech lepší 
 výsledky než klasické algoritmy.
-\medskip
 
-\flushpar Modifikace $(a,b)$-stromů pro algoritmus 
+Modifikace $(a,b)$-stromů pro algoritmus 
 $A$-{\bf sort}. Máme $(a,b)$-strom reprezentující vstupní 
 posloupnost, je dán ukazatel $\Prv$ na první list, listy 
 $(a,b)$-stromu jsou propojeny do seznamu v rostoucím 
@@ -636,7 +595,6 @@ $\Nasl$) a je dána cesta z prvního listu do kořene (to
 znamená, že na cestě z prvního listu do kořene známe 
 pro každý vrchol $v$ jeho otce). Nyní uvedeme algoritmus 
 $A$-{\bf sort}. 
-\bigskip
 
 $A$-{\bf sort$(x_1,x_2,\dots,x_n)$\newline 
 $i:=n-1$}, vytvoř jednoprvkovy strom s vrcholem $t$\newline 
@@ -648,7 +606,6 @@ $y_1:=\key(\Prv)$\newline
 {\bf enddo\newline 
 Výstup}: $(y_1,y_2,\dots,y_n)$ setříděná posloupnost $
 (x_1,x_2,\dots,x_n)$
-\medskip
 
 $A$-{\bf Insert$(x)$\newline 
 $t:=\Prv$\newline
@@ -689,18 +646,16 @@ if} $\key(t)\ne x$ {\bf then\newline }
 \phantom{------}{\bf while} $\rho (t)>b$ {\bf do Štěpení$(t)$ enddo}\newline 
 \phantom{---}{\bf endif\newline 
 endif}
-\medskip
 
-\flushpar Korektnost algoritmu plyne z faktu, že $\key$ je 
+Korektnost algoritmu plyne z faktu, že $\key$ je 
 izomorfismus uspo\-řá\-dání a seznam listů je v 
 rostoucím pořadí. Protože $v$ je vždy bez\-prost\-řední 
 předchůdce $t$, je seznam korektně definován. 
 U\-ka\-zatel $\otec(t)$ je dán na cestě z vrcholu $\Prv$ do 
 kořene, pro ostatní vrcholy se řeší stejným 
 způsobem jako pro $(a,b)$-stromy.
-\medskip
 
-\flushpar Složitost algoritmu: Algoritmus $A$-{\bf sort} vyžaduje více 
+Složitost algoritmu: Algoritmus $A$-{\bf sort} vyžaduje více 
 času i více paměti než klasické třídicí algoritmy, ale jejich 
 asymptotická složitost je stejná. Jeho výhoda je v použití 
 na před\-tří\-děné posloupnosti. Mějme posloupnost $
@@ -713,9 +668,8 @@ n2$ a $F=\binom n2$, právě
 když je posloupnost $(x_1,x_2,\dots,x_n)$ klesající. To vede k tomu 
 brát $F$ jako míru předtříděnosti posloupnosti. Spočítáme 
 složitost algoritmu $A$-{\bf sort} v závislosti na $n$ a $F$
-\medskip
 
-\flushpar Zřejmě algoritmus $A$-{\bf sort v} nejhorším případě vyžaduje čas, 
+Zřejmě algoritmus $A$-{\bf sort v} nejhorším případě vyžaduje čas, 
 který potřebuje $A$-{\bf Insert}, plus $O(n)$.  Algoritmus $
 A$-{\bf Insert$(x)$ }
 vyžaduje čas potřebný na nalezení místa, kam vložit $
@@ -739,21 +693,18 @@ procedury $A$-{\bf Insert$(x)$}, které jsou menší než $
 x$, je počet $j$ takových, že $i<j$ a $x_j<x_i$.
 Označme $f_i$ tento počet. Pak platí 
 $$a^{h-1}\le f_i\implies h-1\le\log_af_i\implies h\in O(\log f_i).$$
-\medskip
 
-\flushpar Proto v nejhorším případě čas potřebný pro nalezení 
+Proto v nejhorším případě čas potřebný pro nalezení 
 pozice $x_i$ je $O(\log f_i)$. Odtud plyne, že čas algoritmu potřebný k 
 běhu algoritmu $A$-{\bf sort} je 
 $$O((\sum_{i=1}^n\log f_i)+n).$$
-\medskip
 
-\flushpar Zřejmě $\sum_{i=1}^nf_i=F$ a nyní využijeme toho, že geometrický 
+Zřejmě $\sum_{i=1}^nf_i=F$ a nyní využijeme toho, že geometrický 
 průměr je vždy menší nebo roven aritmetickému 
 průměru, a odtud dostáváme 
 $$\align\sum_{i=1}^n\log f_i=&\log\prod_{i=1}^nf_i=n\log(\prod_{i
 =1}^nf_i)^{\frac 1n}\le\\
 &n\log\frac {\sum_{i=1}^nf_i}n=n\log\frac Fn.\endalign$$
-
 
 \proclaim{Věta}Algoritmus $A$-{\bf sort} na setřídění $
 n$-členné 
@@ -762,8 +713,7 @@ $O(n+n\log\frac Fn)$, kde $F$ je míra setříděnosti vstupní
 posloupnosti.
 \endproclaim
 
-
-\flushpar Zhodnocení: Protože $A$-{\bf sort} nepoužívá operaci 
+Zhodnocení: Protože $A$-{\bf sort} nepoužívá operaci 
 {\bf DELETE}, doporučuje se použít $(2,3)$-stromy. Když se 
 budou třídit posloupnosti s mírou $F\le n\log n$, pak 
 algoritmus $A$-{\bf sort} bude potře\-bo\-vat v nejhorším případě 
@@ -775,7 +725,7 @@ algoritmus {\bf Quicksort}.
 Propojené stromy s prstem
 \endsubhead
 
-\flushpar\emph{Hladinově} \emph{propojený} $(a,b)$-\emph{strom} \emph{s} 
+\emph{Hladinově} \emph{propojený} $(a,b)$-\emph{strom} \emph{s} 
 \emph{prstem} je $(a,b)$-strom, kde struktura vnitřního 
 vrcholu různého od kořene je 
 rozšířena (proti klasickému $(a,b)$-stromu) o 
@@ -789,9 +739,8 @@ uspořá\-dá\-ní) ve stejné hladině jako $v$, který je větší než
 $v$ (když ne\-existuje, tak je to $NIL$).\newline 
 Navíc je dán ukazatel 
 $\Prst$ na některý list. 
-\medskip
 
-\flushpar Zde se liší hlavně vyhledávání, které je zobecněním 
+Zde se liší hlavně vyhledávání, které je zobecněním 
 postupu $A$-{\bf sortu}. Začínáme od listu $p$, na který ukazuje 
 $\Prst$. Když $x$ je menší než prvek reprezentovaný tímto 
 listem, pak se pokračuje v jeho otci $v$, a když $p$ 
@@ -808,23 +757,21 @@ vrchol, v jehož podstromu má $x$ ležet, pak se aplikuje od
 tohoto vrcholu (místo od kořene) procedura {\bf Vyhledej}.
 \newpage
 
-\flushpar Struktura kromě operací uspořádaného 
+Struktura kromě operací uspořádaného 
 slovníkového prob\-lé\-mu 
 ještě používá přidanou ope\-raci {\bf PRST$(x)$}, která nastaví ukazatel 
 $\Prst$ na list, který reprezentuje nejmenší prvek větší 
 nebo rovný $x$ (pokud $x>\max S$, tak ukazatel $\Prst$ bude 
 ukazovat na největší list). Operace provedou vyhledání a 
 pak pokračují klasickým způsobem.
-\medskip
 
-\flushpar Použití: Tato struktura je velmi výhodná pro 
+Použití: Tato struktura je velmi výhodná pro 
 úlohy, kde vždy skupina po sobě jdoucích ope\-rací  
 pracuje v blízkém okolí něja\-ké\-ho $x\in U$. Pak 
 vyhledání prvku je rychlejší než v klasickém 
 $(a,b)$-stromu, viz $A$-{\bf sort}.
-\medskip
 
-\flushpar Vyvažovací operace {\bf Štěpení, Spojování, Přesun }
+Vyvažovací operace {\bf Štěpení, Spojování, Přesun }
 vyžadují čas $O(1)$, ale ve skutečnosti jsou nejpomalejší 
 částí 
 algoritmů pro operace {\bf INSERT} a {\bf DELETE}.  Omezení 
@@ -841,14 +788,12 @@ případě tyto od\-ha\-dy nejdou zlepšit.  Pro vhodný typ
 $(a,b)$-stromu však amortizovaný počet vyvažovacích 
 ope\-rací (začínáme-li s  
 pů\-vod\-ně práz\-dným stromem) je konstantní.
-\medskip
 
-\flushpar Pro pevné $a$ a $b$ označme 
+Pro pevné $a$ a $b$ označme 
 $$c=\min\{\min\{2a-1,\lceil\frac {b+1}2\rceil \}-a,b-\max\{2a-1,\lfloor\frac {
 b+1}2\rfloor \}\}.$$
 Připomínáme, že \emph{výška} \emph{vrcholu} v kořenovém stromě je 
 maximální délka cesty z něho do některého listu.
-\medskip
 
 \proclaim{Věta}Nechť $b\ge 2a$ a $a\ge 2$. Nechť $\Cal P$ je 
 posloupnost $n$ operací {\bf INSERT} a {\bf DELETE}, aplikujme ji na 
@@ -870,26 +815,22 @@ $$St_h+Sp_h+P_h\le\frac {2(c+2)n}{(c+1)^h}.$$
 \endroster
 \endproclaim
 
-
-\flushpar Z definice plyne, že $c\ge 1$, a protože $a\ge 2$, z 1) dostaneme
+Z definice plyne, že $c\ge 1$, a protože $a\ge 2$, z 1) dostaneme
 $$St+Sp\le\frac nc+1+\frac {n-2}a\le n+1+\frac {n-2}2\le\frac {3n}
 2.$$
 Amortizovaný počet vyvažovacích operací splňuje tedy 
 $$\frac {P+St+Sp}n\le\frac 52.$$
-\medskip
 
-\flushpar Důkaz je založen na bankovním principu -- 
+Důkaz je založen na bankovním principu -- 
 navrhneme kvantitativní ohodnocení $(a,b)$-stromu, 
 nalezneme jeho horní odhad a popíšeme, jak 
 toto ohodnocení mohou změnit vyvažo\-vací ope\-race. Srovnání 
 těchto odhadů dá požadovaný výsledek.
-\medskip
 
-\flushpar Mějme $(a,b)$-strom $T$, pro vnitřní vrchol 
+Mějme $(a,b)$-strom $T$, pro vnitřní vrchol 
 $v$ různý od kořene definuj\-me 
 $b(v)=\min\{\rho (v)-a,b-\rho (v),c\}$, pro 
 kořen $r$ definuj\-me $b(r)=\min\{\rho (r)-2,b-\rho (r),c\}$. 
-\medskip
 
 \proclaim{Pozorování}Pro vnitřní vrchol stromu $v$  
 různý od kořene platí
@@ -913,7 +854,7 @@ pro kořen $r$ platí $b(r)\le c$.
 \endroster
 \endproclaim
 
-\flushpar Strom $(T,r)$ ohodnotíme 
+Strom $(T,r)$ ohodnotíme 
 $$\align b_h(T)=&\sum \{b(v)\mid v\ne r\text{\rm\ vnitřní vrchol stromu }\text{\rm\ ve výšce }
 h\}\\
 b(T)=&\sum_{h=1}^{\infty}b_h(T)+b(r).\endalign$$
@@ -934,13 +875,11 @@ $$a\le\rho (t)\le b;$$
 všechny cesty z kořene $r$ do nějakého listu mají stejnou 
 délku.
 \endroster
-\medskip
 
-\flushpar Nyní rozložíme operace {\bf INSERT} a {\bf DELETE} do 
+Nyní rozložíme operace {\bf INSERT} a {\bf DELETE} do 
 jednotlivých akcí se stromem a vyšetří\-me vliv těchto 
 akcí na jeho ohodnocení. Důkazy lemmat jsou 
 založené na následujícím pozorování
-\medskip
 
 \proclaim{Pozorování}Mějme dva stromy $T$ a $T'$, které mají 
 stejnou množinu vrcholů ve výšce $h$. Pak platí:
@@ -967,7 +906,6 @@ h>1;\\
 b(T')\ge&b(T)-1.\endalign$$
 \endproclaim
 
-
 \proclaim{Lemma 2}Nechť $(T,r,v)$ je parciální $(a,b)$-strom, 
 $\rho (v)=b+1$ a $v$ je ve výšce $l\ge 1$. Když $T'$ vznikne z $
 T$ 
@@ -987,7 +925,6 @@ $$\align b_l(T')\ge&b_l(T)+c+1,\text{\rm\ }b_{l+1}(T')\ge b_{l+1}
 b_h(T')=&b_h(T)\text{\rm\ pro }h\ne l,l+1;\quad b(T')\ge b(T)+c.\endalign$$
 \endproclaim
 
-
 \proclaim{Lemma 4} Nechť $(T,r,v)$ je parciální $(a,b)$-strom, 
 $\rho (v)=a-1$, $v$ je výšce $l\ge 1$ a $y$ je bezprostřední bratr $v$ takový, že $\rho(y)>a$. 
 Když $T'$ vznikne z $T$ operací {\bf Přesun$(v,y)$}, 
@@ -996,11 +933,9 @@ $$b_l(T')\ge b_l(T)\text{\rm\ a }b_h(T')=b_h(T)\text{\rm\ pro }h\ne
 l;\quad b(T')\ge b(T).$$
 \endproclaim
 
-
-\flushpar Označme $T_k$ $(a,b)$-strom vzniklý provedením posloupnosti 
+Označme $T_k$ $(a,b)$-strom vzniklý provedením posloupnosti 
 $\Cal P$ na prázdný $(a,b)$-strom. Sečtením předchozích 
 výsledků dostá\-váme
-\medskip
 
 \proclaim{Důsledek 5}Když položíme 
 $$\gather St_0+Sp_0=\text{\rm počet listů v }T_k\le n
@@ -1011,7 +946,7 @@ Dále $b(T_k)\ge (2c-1)St+cSp-n$, kde $n$ je délka posloupnosti $
 \Cal P$.
 \endproclaim
 
-\flushpar První výraz upravíme (využíváme, že $
+První výraz upravíme (využíváme, že $
 c\ge 1$):
 $$\align St_h+Sp_h\le&\frac {b_h(T_k)}{c+1}+\frac {St_{h-1}+Sp_{h
 -1}}{c+1}\le\\
@@ -1021,10 +956,8 @@ $$\align St_h+Sp_h\le&\frac {b_h(T_k)}{c+1}+\frac {St_{h-1}+Sp_{h
 h}=\\
 &\frac n{(c+1)^h}+\sum_{l=1}^hb_l(T_k)\frac {(c+1)^l}{(c+1)^{h+1}}
 .\endalign$$
-\medskip
 
-\flushpar Nyní odhadneme shora $b(T_k)$.
-\medskip
+Nyní odhadneme shora $b(T_k)$.
 
 \proclaim{Lemma 6}Když $T$ je $(a,b)$-strom s $m$ listy, pak 
 $0\le b(T)\le c+(m-2)\frac c{a+c-1}$.
@@ -1052,8 +985,7 @@ a+j-1)m_j\le\\
 a lemma je dokázáno. \qed
 \enddemo
 
-
-\flushpar Nyní dokážeme tvrzení (1) Věty. Protože každá operace 
+Nyní dokážeme tvrzení (1) Věty. Protože každá operace 
 {\bf DE\-LETE} použije nejvýše jednu operaci {\bf Přesun} (a operace 
 {\bf INSERT} operaci {\bf Přesun} nepoužívá) dostáváme, že 
 $$P\le\text{\rm počet operací {\bf DELETE}}\le n$$
@@ -1063,10 +995,8 @@ tvrzení v Důsledku 5 a Lemma 6 ($T_k$ má nejvýše
 $n$ listů) 
 $$(2c-1)St+cSp-n\le b(T_k)\le c+(n-2)\frac c{a+c-1}$$
 Odtud plyne požadovaná nerovnost a (1) je dokázáno.
-\medskip
 
-\flushpar Důkaz (2) využije následující odhad.
-\medskip
+Důkaz (2) využije následující odhad.
 
 \proclaim{Lemma 7}Pro každé $h\ge 1$ a pro každý 
 $(a,b)$-strom $T$ s $m$ listy platí 
@@ -1100,7 +1030,8 @@ nerovnost plyne z toho, že $\frac a{c+1}\ge 1$, a tedy druhý sčítanec
 v předchozím výrazu není kladný. \qed
 \enddemo
  
-\flushpar Zkombinujeme odhad $St_h+Sp_h$ s Lemmatem 7 a 
+
+Zkombinujeme odhad $St_h+Sp_h$ s Lemmatem 7 a 
 dostaneme
 $$\align St_h+Sp_h\le&\frac n{(c+1)^h}+\sum_{l=1}^hb_l(T_k)\frac {
 (c+1)^l}{(c+1)^{h+1}}\le\\
@@ -1113,9 +1044,8 @@ $$\align St_h+Sp_h+P_h\le&\frac {2n}{(c+1)^h}+\frac {2n}{(c+1)^{h
 -1}}=\frac {2n+2n(c+1)}{(c+1)^h}=\\
 &\frac {2n(c+2)}{(c+1)^h}\endalign$$
 a důkaz (2) ve Větě je hotov.
-\medskip
 
-\flushpar Věta vysvětluje, proč jsou doporučené hodnoty $
+Věta vysvětluje, proč jsou doporučené hodnoty $
 b\ge 2a$ -- 
 pak je počet vyvažovacích ope\-rací během posloupnosti 
 operací {\bf INSERT} a {\bf DELETE} lineární vzhledem k délce 
@@ -1139,8 +1069,7 @@ $$O(\log(n)+\text{\rm\ čas na vyhledání prvků})
 .$$
 \endproclaim
 
-
-\flushpar Vysvětlení: Začínáme v libovolném 
+Vysvětlení: Začínáme v libovolném 
 propojeném $(a,b)$-stro\-mě $T$, proto jeho struktura 
 může být nevýhodná pro danou pos\-loupnost operací $
 \Cal P$. 
@@ -1148,9 +1077,8 @@ Abychom se dostali do vhodného režimu, může
 být třeba až $\log(n)$ vyvažovacích operací. Čas na 
 vy\-hledává\-ní nemůžeme ovlivnit, ten musí 
 ovlivnit uživatel.
-\medskip
 
-\flushpar Aplikace: analýza hladinově propojených stromů s prstem 
+Aplikace: analýza hladinově propojených stromů s prstem 
 u\-mož\-nila návrh algoritmu, který pro dvě množiny $
 S_1$ a $S_2$ 
 repre\-zentované propojenými $(a,b)$-stromy, kde $b\ge 2a$ a 
@@ -1162,27 +1090,22 @@ $S_1\cap S_2$ nebo $S_1\setminus S_2$) v čase $O(\log\binom {n
 +m}m)$, kde 
 $n=\max\{|S_1|,|S_2|\}$ a $m=\min\{|S_1|,|S_2|\}$. Detaily budou v letním 
 semestru.
-\medskip
 
-\flushpar Vyvažování při operaci {\bf INSERT} lze provádět 
+Vyvažování při operaci {\bf INSERT} lze provádět 
 tak, že operace {\bf Štěpení$(t)$} se provede, jen když oba 
 bratři vrcholu $t$ mají $b$ synů. Jinak se provádí 
 operace {\bf Přesun}. Nevím o žádném seriózním pokusu tyto 
 alternativy porovnat.   
-\medskip
 
-\heading
-Vyhledávání v uspořádaném poli
-\endheading
+\section{Vyhledávání v uspořádaném poli}
 
-\flushpar Zadání úlohy: Máme podmnožinu $S$ lineárně 
+Zadání úlohy: Máme podmnožinu $S$ lineárně 
 uspořádaného univerza a $S$ je uložena v poli 
 $A[1..|S|]$ tak, že pro $i<j$ je $A(i)<A(j)$. Pro dané $x\in 
 U$ 
 máme zjistit, zda $x\in S$ (operace {\bf MEMBER$(x)$}).
-\medskip
 
-\flushparŘešení:  Pokud $x<A(1)$ nebo $A(|S|)<x$, pak $
+Řešení:  Pokud $x<A(1)$ nebo $A(|S|)<x$, pak $
 x$ 
 není prvkem $S$.  V opačném případě buď $x=
 A(1)$ nebo 
@@ -1195,7 +1118,6 @@ položíme $d=n$) a proces opakujeme.  Končíme, když
 $d+1\ge h$, pak $x\notin S$. Na začátku položíme $d=1$ a $
 h=|S|$.
 Formální zápis algoritmu:
-\bigskip
 
 {\bf MEMBER$(x)$\newline 
 if} $x=A(1)$ {\bf then}\newline 
@@ -1225,9 +1147,8 @@ while} $d+1<h$ {\bf do}\newline
 \phantom{---}{\bf endif\newline 
 enddo\newline 
 Výstup}: $x\notin S$ stop
-\medskip
 
-\flushpar V tomto metaalgoritmu je {\bf next$(d,h)$} funkce, která 
+V tomto metaalgoritmu je {\bf next$(d,h)$} funkce, která 
 nalezne hodnotu $n$ takovou, že $d<n<h$. Korektnost plyne 
 z pozorování, že když $d+1=h$, pak $A(d)<x<A(h)$ 
 implikuje, že neexistuje $i$ takové, že $x=A(i)$, a tedy 
@@ -1235,27 +1156,24 @@ $x\notin S$. Efektivita algoritmu záleží na fukci {\bf next}.
 Zpracování dotazu vyžaduje čas $O(1)$ a počet 
 dotazů je 
 počet volání funkce {\bf next}. 
-\medskip
 
-\flushpar Unární vyhledávání: {\bf next$(d,h)=d+1$}, pak každý 
+Unární vyhledávání: {\bf next$(d,h)=d+1$}, pak každý 
 dotaz zvětší $d$ o $1$, a tedy největší počet 
 dotazů je $|S|$. Algoritmus v nej\-horším případě 
 vyžaduje čas $O(|S|)$ a očekávaný počet dotazů při 
 rovnoměrném rozložení množiny $S$ a prvku $x$ je $\frac {
 |S|}2$ 
 (tedy očekávaný čas je $O(|S|)$). 
-\medskip
 
-\flushpar Poznámka: Duální přístup je, když 
+Poznámka: Duální přístup je, když 
 {\bf next$(d,h)=h-1$}, výsled\-ky se nezmění. Při aplikacích je 
 někdy výhodné použít funkci {\bf next$(d,h)=\min\{d
 +c,h-1\}$}, 
 kde $c$ je nějaká konstanta (pak krok není $1$, ale $c$). Jak 
 uvidíme později, jsou situace, kdy je výhodné  
 takovéto unární vyhledávání použít.
-\medskip
 
-\flushpar Binární vyhledávání: {\bf next$(d,h)=\lceil\frac {
+Binární vyhledávání: {\bf next$(d,h)=\lceil\frac {
 d+h}2\rceil$}, pak 
 každý dotaz zmenší rozdíl $h-d$ přibližně na polovinu. 
 Počet dotazů je nejvýše $3+\log(|S|-2)$, 
@@ -1264,9 +1182,8 @@ nejhorším případě vyžaduje čas $O(\log|S|)$ a
 očekávaný čas při rovnoměrném roz\-ložení množiny $
 S$ a 
 $x\in U$ je také $O(\log|S|)$.
-\medskip
 
-\flushpar Interpolační vyhledávání: 
+Interpolační vyhledávání: 
 {\bf next$(d,h)=d+\lceil\frac {x-A(d)}{A(h)-A(d)}(h-d)\rceil$}. V nejhorším případě 
 musíme položit více než $\frac {|S|}2$ dotazů, a proto čas 
 v nejhorším případě je $O(|S|)$, ale při rovnoměrném 
@@ -1275,15 +1192,13 @@ $O(\log\log|S|)$. To je založeno na faktu, že hodnota {\bf next }
 závisí i na velikosti $x$. Když $x$ je velké, tak hodnota 
 {\bf next} je posunuta do větších hodnot, když $x$ je malé, 
 pak je posunuta do menších hodnot.
-\medskip
 
-\flushpar Poznámka: Když rozložení prvků není 
+Poznámka: Když rozložení prvků není 
 rovnoměrné, ale je zná\-mé, pak podle toho můžeme  
 upravit funkci {\bf next} a očekávaný čas algoritmu se 
 nezmění.
-\medskip
 
-\flushpar Pro následující funkci {\bf next} bude 
+Pro následující funkci {\bf next} bude 
 jednodušší spočítat očekáva\-ný počet dotazů než 
 pro interpolační vyhledávání, ale výsledek je 
 asymptoticky stejný.
@@ -1292,7 +1207,7 @@ asymptoticky stejný.
 Zobecněné kvadratické vyhledávání
 \endsubhead
 
-\flushpar Funkce {\bf next }
+Funkce {\bf next }
 je zde definována složitější procedurou, jejíž vý\-sle\-dek 
 závisí i na předcho\-zích situacích a na výsledku dotazu.
 Procedura zadává dotazy v blocích. První dotaz v bloku je 
@@ -1317,7 +1232,6 @@ bloku. Hodnoty těchto pro\-měn\-ných se předávají z jednoho
 volání procedury do dalšího volání (tj. jsou to 
 globální proměnné, které se neinicializují voláním 
 procedury {\bf next}). 
-\medskip
 
 {\bf next$(d,h)$\newline 
 if} $blok$ {\bf then}\newline 
@@ -1349,15 +1263,13 @@ else}\newline
 \phantom{---}{\bf endif}\newline 
 \phantom{---}$typ:=true$, $blok:=true$\newline 
 {\bf endif}
-\bigskip
 
-\flushpar Po dvou dotazech klesne $h-d$ buď pod $\sqrt {h-d}$ nebo pod 
+Po dvou dotazech klesne $h-d$ buď pod $\sqrt {h-d}$ nebo pod 
 $\frac {h+d}2$. Proto procedura v nejhorším případě použije 
 nejvýše $8+2\log(|S|-1)+2\log\log|S|$ dotazů, a tedy v nejhorším 
 případě vyžaduje čas $O(\log|S|)$.
-\medskip
 
-\flushpar Nyní spočítáme očekávaný počet dotazů 
+Nyní spočítáme očekávaný počet dotazů 
 během jednoho bloku za předpokladu rovnoměr\-ného rozdělení dat. Nechť $p_i$ je prav\-dě\-podobnost, že 
 v rámci bloku se položí ales\-poň $i$ dotazů. Pak 
 očekávaný počet dotazů v rámci bloku je 
@@ -1380,9 +1292,8 @@ proměn\-nou $X$. Když $Y$ je náhodná proměnná s očekávanou
 nerovnost říká, že 
 $$\Prob(|Y-\mu |\ge t)\le\frac {\sigma^2}{t^2}\qquad\text{\rm pro každé }
 t>0.$$
-\medskip
 
-\flushpar Uvažujme okamžik, kdy jsme na začátku nějakého 
+Uvažujme okamžik, kdy jsme na začátku nějakého 
 bloku. Pro\-tože $S$ je vybraná s rovno\-měr\-ným rozdělením, je 
 pravděpodob\-nost, že $A(i)<x$ pro $d<i<h$, rovna 
 $p=\frac {x-A(d)}{A(h)-A(d)}$, a pak pravděpodobnost, že 
@@ -1405,15 +1316,13 @@ $$\align E(C)=&\sum_{i\ge 1}p_i\le 2+2\sum_{i\ge 3}\frac 1{(i-2)^2}=
 &2+2\frac {\pi^2}6=2+\frac {\pi^2}3\approx 5.3\endalign$$
 Závěr: očekávaný počet dotazů v bloku je menší než $
 6$.
-\medskip
 
-\flushpar Když $E(T(n))$ je očekávaný počet dotazů pro operaci 
+Když $E(T(n))$ je očekávaný počet dotazů pro operaci 
 {\bf MEMBER} a když $|S|=n$, pak platí 
 $$E(T(n))\le E(C)+E(T(\sqrt n)).$$
 Protože $E(T(1))=1$ a $E(T(2))\le 2$, dostáváme z rekurentního 
 vzorce, že 
 $$E(T(n))\le 2+E(C)\log\log n\qquad\text{\rm pro }n\ge 2.$$
-
 
 \proclaim{Věta}Čas operace {\bf MEMBER} v uspořádaném poli délky $
 n$ při 
@@ -1422,7 +1331,7 @@ přípa\-dě $O(\log n)$. Když rozdělení vstupních dat je
 rovno\-měr\-né, pak očekávaný čas je $O(\log\log n)$. 
 \endproclaim
 
-\flushpar Nevýhoda této datové struktury 
+Nevýhoda této datové struktury 
 spočívá v neexistenci přiroze\-ných efektivních implementací 
 ope\-rací {\bf INSERT}, {\bf DELETE}, {\bf SPLIT} a {\bf JOIN}. Přirozené 
 implementace těchto ope\-rací vyža\-dují čas 
@@ -1430,18 +1339,15 @@ $O(|S|)$, zhruba řečeno musíme pohybovat s téměř kaž\-dým prvkem.
 Pokusem o řešení 
 tohoto problému byl návrh binár\-ních vyhledávacích 
 stromů.
-\medskip
 
-\heading 
-Binární vyhledávací stromy
-\endheading
+\section{Binární vyhledávací stromy}
 
-\flushpar Binární vyhledávací strom je struktura pro binár\-ní 
+Binární vyhledávací strom je struktura pro binár\-ní 
 vyhledávání v uspořáda\-ném poli rozta\-ženém do roviny a 
 vyhledávání odpo\-ví\-dá cestě ve stro\-mě. Formální 
 definice:
 
-\flushpar Předpokládáme, že $U$ je lineárně uspořádané 
+Předpokládáme, že $U$ je lineárně uspořádané 
 univerzum a $S\subseteq U$.  \emph{Binární} \emph{vyhledávací} 
 \emph{strom} $T$ \emph{reprezentující} množinu $S$ je úplný 
 binární strom (tj. každý vrchol je buď listem nebo má 
@@ -1457,18 +1363,16 @@ w$ v
 podstromu pravého syna vrcholu $v$ je přiřazen prvek z $S$ 
 větší než $s$.
 \endroster
-\medskip
 
-\flushpar Strukura vnitřního vrcholu $v$:\newline 
+Strukura vnitřního vrcholu $v$:\newline 
 ukazatel $\otec(v)$ na otce vrcholu $v$,\newline 
 ukazatel $\levy(v)$ na levého syna vrcholu $v$,\newline 
 ukazatel $\pravy(v)$ na pravého syna vrcholu $v$,\newline 
 atribut $\key(v)$ -- prvek z $S$ přiřazený vrcholu $v$.
 Když $v$ je kořen stromu, pak hodnota ukazatele $\otec(v)$ 
 je $NIL$. List má ukazatele pouze na otce.
-\medskip
 
-\flushpar Každý list reprezentuje interval mezi dvěma 
+Každý list reprezentuje interval mezi dvěma 
 sousedními prvky z $S$ -- přesně, když $u$ je list a je 
 levým synem vrcholu $v$, nalezneme vrchol na cestě z $u$ 
 do kořene nejblíže $u$ takový, že je pravým synem 
@@ -1482,33 +1386,28 @@ interval $(\key(v),\key(w))$ a když takový vrchol $w$ neexistuje,
 pak $u$ repre\-zentuje interval $(\key(v),+\infty )$ a prvek $\key
 (v)$ 
 je největší prvek v $S$.  
-\medskip
 
-\flushpar Při implementaci binárních vyhledávácích 
+Při implementaci binárních vyhledávácích 
 stromů je výhodné vynechat listy (místo nich bude 
 ukazatel $NIL$). Při návrhu algoritmů je však 
 naopak výhodné 
 pracovat s listy (vyhlíží to logičtější). Proto při návrhu 
 algoritmů budeme předpokládat, že stromy mají 
 listy reprezentující intervaly.
-\medskip
 
-\flushpar Navrhneme algoritmy pro binární vyhledávací stromy 
+Navrhneme algoritmy pro binární vyhledávací stromy 
 rea\-lizují\-cí operace z uspořádaného slovníkového problému.
-\medskip
 
 {\bf Vyhledej$(x)$\newline 
 $t:=$}kořen stromu\newline 
 {\bf while} $t$ není list a $\key(t)\ne x$ {\bf do}\newline 
 \phantom{---}{\bf if} $\key(t)>x$ {\bf then} $t:=\levy(t)$ {\bf else} $t:=\pravy(t)$ {\bf endif\newline 
 enddo
-\medskip
 
 MEMBER$(x)$\newline 
 Vyhledej$(x)$\newline 
 if} $t$ není list {\bf then Výstup}: $x\in S$ {\bf else Výstup}: $
 x\notin S$ {\bf endif
-\medskip
 
 INSERT$(x)$\newline 
 Vyhledej$(x)$\newline 
@@ -1516,7 +1415,6 @@ if} $t$ je list {\bf then}\newline
 $t$ se změní na vnitřní vrchol, $\key(t):=x$,\newline 
 $\levy(t)$ a $\pravy(t)$ jsou nové listy, jejichž otcem je $t$\newline 
 {\bf endif
-\medskip
 
 DELETE$(x)$\newline 
 Vyhledej$(x)$\newline 
@@ -1543,21 +1441,18 @@ if} $t$ není list {\bf then}\newline
 \phantom{------}odstraníme vrchol $u$\newline 
 \phantom{---}{\bf endif\newline 
 endif}
-\medskip
 
 {\bf MIN\newline 
 $t:=$}kořen stromu\newline 
 {\bf while} levý syn $t$ není list {\bf do} $t:=\levy(t)$ {\bf enddo\newline 
 Výstup}: prvek reprezentovaný $t$ je nejmenší prvek v $
 S$
-\medskip
 
 {\bf MAX\newline 
 $t:=$}kořen stromu\newline 
 {\bf while} pravý syn $t$ není list {\bf do} $t:=\pravy(t)$ {\bf enddo\newline 
 Výstup}: prvek reprezentovaný $t$ je největší prvek v $
 S$
-\medskip
 
 {\bf SPLIT$(x)$}:\newline 
 $T_1$ a $T_2$ jsou prázdné stromy\newline 
@@ -1592,7 +1487,6 @@ Komentář: $T_1$ je binární vyhledávací strom reprezentující
 mno\-ži\-nu 
 $\{s\in S\mid s<x\}$ a $T_2$ je binární vyhledávací strom 
 reprezentující množinu $\{s\in S\mid s>x\}$.
-\medskip
 
 {\bf JOIN3$(T_1,x,T_2)$} -- předpokládáme, že když $
 T_i$ reprezentuje 
@@ -1600,10 +1494,8 @@ množinu $S_i$ pro $i=1,2$, pak $\max S_1<x<\min S_2$\newline
 vytvořme nový vrchol $u$, $\key(u)=x$, $\otec(u):=NIL$, \newline 
 $\otec(\text{kořene }T_1):=u$, $\otec(\text{kořene }T_2):=u$, \newline 
 $\levy(u):=$kořen $T_1$, $\pravy(u):=$kořen $T_2$.
-\medskip
 
-
-\flushpar Abych dokázali korektnost algoritmu {\bf Vyhledej} -- 
+Abych dokázali korektnost algoritmu {\bf Vyhledej} -- 
 jedná se o modifikaci vyhledávání v uspořádaném poli --
 popíšeme po\-drobněji vlastnosti binárního vyhledávacího 
 stromu. Nej\-prve rozšíříme universum o dva nové prvky, o nový 
@@ -1615,7 +1507,6 @@ Když hodnoty $\lambda(t)$ a $\pi(t)$ jsou pro vrchol $t$ definovány, pak pro l
 a pro pravého syna $w$ vrcholu $t$ definujeme $\lambda(w)=\key(t)$ a $\pi(w)=\pi(t)$.
 Nyní dokážeme
 
-
 \proclaim{Lemma}Je-li $T'$ podstrom binárního vyhledávacího 
 stromu $T$ určený vrcholem $t$, pak $T'$ reprezentuje množinu 
 $S\cap (\lambda (t),\pi (t))$. Navíc interval $(\lambda (t),\pi 
@@ -1623,7 +1514,6 @@ $S\cap (\lambda (t),\pi (t))$. Navíc interval $(\lambda (t),\pi
 který obsahuje jenom prvky z $S$, které jsou reprezentovány 
 vrcholy podstromu $T'$. Navíc, když $t$ je list, pak $<\lambda(t),\pi(t)>$ je interval repreyentovaný listem $t$.
 \endproclaim
-
 
 \demo{Důkaz}Tvrzení dokážeme indukcí.  Zřejmě platí, 
 když $t$ je kořen stromu $T$.  Předpokládej\-me, že platí pro vrchol 
@@ -1635,9 +1525,8 @@ vrchol v podstromu $T$ určeném vrcholem $t_p$, pak
 $\key(u)<\key(t)<\key(v)$.  Nyní platnost tvrzení pro $t$ 
 implikuje platnost tvrzení i pro vrcholy $t_l$ a $t_p$.  \qed
 \enddemo
-\medskip
 
-\flushpar Korektnost podprocedury {\bf Vyhledej} plyne z 
+Korektnost podprocedury {\bf Vyhledej} plyne z 
 následujícího invariantu:
 \roster
 \item"{}"
@@ -1657,9 +1546,8 @@ odstranění vrcholů $u$ a $v$ dává binární vyhledávací strom reprezentuj
 Protože $(y,x)\cap S=\emptyset$, tak příkaz $\key(t):=y$ dává binární 
 vyhledávací strom reprezentující $S\setminus \{x\}$ a proto operace 
 {\bf DELETE} je korektní. 
-\medskip
 
-\flushpar Korektnost operací {\bf MIN}, {\bf MAX} a {\bf JOIN3} plyne z definice 
+Korektnost operací {\bf MIN}, {\bf MAX} a {\bf JOIN3} plyne z definice 
 binárního vyhledavacího stromu.  Korektnost operace {\bf SPLIT }
 plyne z korektnosti algoritmu {\bf Vyhledej} a z faktu, že $u_
 1$ je otec 
@@ -1670,14 +1558,12 @@ T_1$, a ke
 stromu $T_2$ se přidává část stromu $T$ reprezentující prvky, 
 které jsou menší než prvky reprezentované v $T_2$, korektnost 
 algoritmu pro operaci {\bf SPLIT} je jasná.  
-\medskip
 
-\flushpar Zpracování jednoho vrcholu vyžaduje čas $O(
+Zpracování jednoho vrcholu vyžaduje čas $O(
 1)$ a 
 algoritmus se pohybuje po jedné cestě z kořene do 
 nějakého listu. Označme $\hloubka(T)$ délku nejdelší cesty 
 z kořene do nějakého listu. Pak dostáváme
-\medskip
 
 \proclaim{Věta}Algoritmy pro operace {\bf MEMBER}, {\bf INSERT}, {\bf DE\-LE\-TE}, {\bf MIN}, {\bf MAX}, 
 {\bf JOIN3} a {\bf SPLIT} v binár\-ním vy\-hledá\-va\-cím stro\-mě $
@@ -1685,7 +1571,7 @@ T$ vyžadují
 čas $O(\hloubka(T))$. 
 \endproclaim
 
-\flushpar Bohužel ani struktura binárních vyhledávacích 
+Bohužel ani struktura binárních vyhledávacích 
 stromů nepodporuje efektivní implementaci operace 
 {\bf ord$(k)$}. Pro její efektivní implentaci je vhodné rozšířit 
 datovou strukturu tak, že u každého vrcholu $t$ je deklarován 
@@ -1694,7 +1580,6 @@ vrcholem $t$. Po provedení operací {\bf INSERT}, {\bf DELETE}, {\bf JOIN3} a
 {\bf SPLIT} je pak nutné aktualizovat tuto položku na cestě z 
 vrcholu do kořene. Následující algoritmus pak 
 realizuje operaci {\bf ord}$(k)$.
-\medskip
 
 {\bf ord$(k)$ \newline 
 $t:=$}kořen stromu \newline 
@@ -1710,9 +1595,8 @@ while} true {\bf do}\newline
 \phantom{------}{\bf endif}\newline 
 \phantom{---}{\bf endif\newline 
 enddo}
-\bigskip
 
-\flushpar Korektnost algoritmu plyne z následujícího invariantu:  
+Korektnost algoritmu plyne z následujícího invariantu:  
 Když algoritmus má v daném okamžiku v proměnné $t$ vrchol $
 v$ 
 a hodnota proměnné $k$ je $k'$, pak $k$-tý prvek v $S$ se rovná 
@@ -1746,8 +1630,7 @@ vy\-hledávacích stromech vyžadují čas $O(\hloubka
 reprezentující strom. 
 \endproclaim
 
-
-\flushpar Tento výsledek motivuje používání binárních 
+Tento výsledek motivuje používání binárních 
 vyhledávacích stromů, které splňují další 
 podmínku, která má zajistit, že 
 $\hloubka(T)=O(\log|S|)$.  V takovémto případě mluvíme o 
@@ -1758,9 +1641,8 @@ kroky, které
 zaručí, že po jejich provedení strom opět splňuje 
 požadované podmínky.  To vede k požadavku, aby 
 vyvažovací operace byly rychlé a provádělo se jich málo.  
-\medskip
 
-\flushpar Při náhodné posloupnosti operací {\bf INSERT} a {\bf DELETE} je 
+Při náhodné posloupnosti operací {\bf INSERT} a {\bf DELETE} je 
 velká pravděpodobnost, že dostaneme náhodný binární 
 vy\-hledávací strom.  Je známo, že očekávaná hodnota proměn\-né 
 $\hloubka(T)$ je $O(\log|S|)$.  Protože se nepoužívají vyvažovací 
@@ -1769,9 +1651,8 @@ vyvá\-žené binár\-ní vyhledávací stromy.  Tento problém se teď
 intenzivně studu\-je.  Velká pozornost je věnována 
 pravděpodobnost\-ním modifikacím binárních vyhledávacích 
 stromů.  Hledají se však i další možnosti.  
-\medskip
 
-\flushpar Studují se tzv.  samoupravující struktury.  Zde se 
+Studují se tzv.  samoupravující struktury.  Zde se 
 pracuje s datovou strukturou bez dodatečných informací, ale 
 operace nad touto strukturou provádí vyvažování v závislosti 
 na argumentu operace.  Dokázalo se, že existuje strategie 
@@ -1784,26 +1665,22 @@ poměrně stará, strategie je zalo\-že\-na na předpokladu, že
 známe rozdělení vstupních dat.  Zde se datová struktura 
 předem upravuje pro toto rozdělení.  Ukazuje se, že tyto 
 strategie mají úspěch.  Další podrobnosti v letním semestru.  
-\medskip
 
-\flushpar Nyní si ukážme dvě operace se stromy, na nichž jsou 
+Nyní si ukážme dvě operace se stromy, na nichž jsou 
 založeny  vyvažovací operace pro binární vyhledávací 
 stromy. Obě ope\-race vyžadují čas $O(1)$.
-\medskip
 
-\flushpar Mějme vrchol $v$ binárního vyhledávacího stromu $
+Mějme vrchol $v$ binárního vyhledávacího stromu $
 T$ a 
 jeho syna $u$, který je vnitřní vrchol.  Pak {\bf Rotace$
 (v,u)$} je 
 znázorněna na obrázku a provádí ji následující algoritmus.  
-\bigskip
 
 \midinsert
 \centerline{\input fig1.tex}
 \botcaption{Obr. 1}
 \endcaption
 \endinsert
-\medskip
 
 {\bf Rotace$(v,u)$\newline} 
 $\otec(u):=\otec(v)$,\newline 
@@ -1818,16 +1695,14 @@ if} $u=\levy(v)$ {\bf then}\newline
 {\bf else}\newline 
 \phantom{---}$\otec(\levy(u)):=v$, $\pravy(v):=\levy(u)$, $\levy(u):=v$\newline 
 {\bf endif}
-\medskip
 
-\flushpar Všimněme si, že při {\bf Rotace} můžeme 
+Všimněme si, že při {\bf Rotace} můžeme 
 aktualizovat i funkci $p$. Pro vrchol $w\ne u,v$ se její hodnota 
 nemění, nová hodnota $p(u)$ je rovná původní hodnotě 
 $p(v)$ a novou hodnotu $p(v)$ dostaneme jako 
 $p(\levy(v))+p(\pravy(v))$.
-\medskip
 
-\flushpar Mějme vrchol $w$ stromu $T$, jeho syna $v$ a jeho 
+Mějme vrchol $w$ stromu $T$, jeho syna $v$ a jeho 
 syna $u$ takového, že $u$ není list a $v$ je pravý syn 
 vrcholu $w$, právě když $u$ je levý syn vrcholu $v$. Pak 
 {\bf Dvojita}-{\bf rotace$(w,v,u)$} je znázorněna na obrázku a provádí 
@@ -1838,7 +1713,6 @@ ji následující algoritmus.
 \botcaption{Obr. 2}
 \endcaption
 \endinsert
-\medskip
 
 {\bf Dvojita}-{\bf rotace$(w,v,u)$\newline 
 $\otec(u):=\otec(w)$\newline 
@@ -1854,9 +1728,8 @@ $\otec(v):=u$, $\otec(w):=u$\newline
 \phantom{---}$\pravy(w):=\levy(u)$, $\otec(\levy(u)):=w$, $\levy(v):=\pravy(u)$\newline 
 \phantom{---}$\otec(\pravy(u)):=v$, $\levy(u):=w$, $\pravy(u):=v$\newline 
 {\bf endif}
-\medskip
 
-\flushpar Také zde můžeme v čase $O(1)$ spočítat nové hodnoty $
+Také zde můžeme v čase $O(1)$ spočítat nové hodnoty $
 p$. 
 Pro vrchol $x\ne u,v,w$ se hodnota nemění, nová hodnota 
 $p(u)$ je 
@@ -1865,23 +1738,21 @@ p(v)$
 a $p(w)$ 
 získáme pod\-le stejného vzorce  jako v {\bf Rotace}.
 
-\heading
-AVL-stromy
-\endheading
+\section{AVL-stromy}
 
-\flushpar Binární vyhledávací strom je 
+Binární vyhledávací strom je 
 \emph{AVL}-\emph{strom}, když pro každý vnitř\-ní vrchol 
 $v$ se délka nejdelší cesty z jeho levého syna do 
 listu a délka nejdelší cesty z jeho pravého syna do listu 
 liší nejvýše o $1$.  
-\medskip
 
-\flushpar Pro vnitřní vrchol $v$ stromu $T$ označme $\eta 
+Pro vnitřní vrchol $v$ stromu $T$ označme $\eta 
 (v)$ 
 délku nejdelší cesty z vrcholu $v$ do listu.
-\medskip
+
  
-\flushpar Struktura vnitřních vrcholů v 
+
+Struktura vnitřních vrcholů v 
 AVL-stromech je rozšířena o hodnotu $\omega$:\newline 
 $\omega (v)=-1$, když 
 $$\eta (\text{\rm levý syn vrcholu }v)=\eta (\text{\rm pravý syn vrcholu }
@@ -1892,17 +1763,15 @@ v);$$
 $\omega (v)=+1$, když
 $$\eta (\text{\rm levý syn vrcholu }v)+1=\eta (\text{\rm pravý syn vrcholu }
 v).$$
-\medskip
 
-\flushpar Všimněme si, že hodnota $\eta (v)$ pro vnitřní vrcholy 
+Všimněme si, že hodnota $\eta (v)$ pro vnitřní vrcholy 
 $v$ stromu $T$ není nikde uložena.  Hodnoty $\eta$ jsme schopni 
 spočítat z hodnot $\omega$, ale není to třeba.  Stačí, když po 
 aktualizačních operacích budeme umět aktualizovat 
 hodnoty $\omega$ a upravit binární vy\-hledávací strom tak, 
 aby byl opět AVL-strom.
-\medskip
 
-\flushpar Odhad velikosti $\eta (\text{\rm kořen }T)$ v závislosti na 
+Odhad velikosti $\eta (\text{\rm kořen }T)$ v závislosti na 
 velikosti reprezentované množiny $S$.\newline 
 Když $T$ je AVL-strom a $v$ je vnitřní vrchol $T$, pak 
 podstrom $T$ určený vrcholem $v$ je opět AVL-strom. 
@@ -1915,39 +1784,34 @@ Z definice AVL-stromu plynou rekurze
 $$\gather mn(i)=mn(i-1)+mn(i-2)+1,\,mx(i)=2mx(i-1)+1,\\
 \text{a }mn(1)=mx(1)=1,\quad mn(2)=2,\quad mx(2)=3.\endgather$$
 Nejprve spočítáme $mx$.
-\medskip
 
-\flushpar Dokážeme, že $mx(i)=2^i-1$. Tento vzorec je 
+Dokážeme, že $mx(i)=2^i-1$. Tento vzorec je 
 splněn pro $i=1,2$. Dále 
 $$mx(i+1)=2mx(i)+1=2(2^i-1)+1=2^{i+1}-1.$$
 Tím je vzorec dokázán. 
-\medskip
 
-\flushpar Abychom spočítali $mn$, připomeneme si definici Fibonacciho čísel. \emph{Fibonacciho} 
+Abychom spočítali $mn$, připomeneme si definici Fibonacciho čísel. \emph{Fibonacciho} 
 \emph{číslo} $F_i$ je definováno rekurencí
 $$F_1=F_2=1\text{\rm\ a }F_{i+2}=F_i+F_{i+1}\text{\rm\ pro všechna }
 i\ge 3.$$
 Pak platí vzorec $F_i=\frac {\big(\frac {1+\sqrt 5}2\big)^i-\big
 (\frac {1-\sqrt 5}2\big)^i}{\sqrt 5}$ pro všechna $i\ge 1$ 
 (dokážeme si ho v části o haldách). 
-\medskip
 
-\flushpar Protože 
+Protože 
 $-1<\frac {1-\sqrt 5}2<0$ a $\frac {1+\sqrt 5}2>1$, dostáváme, že 
 $$\lim_{n\mapsto\infty}F_n\sqrt 5(\frac {1+\sqrt 5}2)^{-n}=1.$$
 Proto existují konstanty $0<c_1<c_2$ takové, že 
 $$c_1(\frac {1+\sqrt 5}2)^i<\sqrt 5F_i<c_2(\frac {1+\sqrt 5}2)^i.$$
-\medskip
 
-\flushpar Dokážeme, že $mn(i)=F_{i+2}-1$. Protože $F_3
+Dokážeme, že $mn(i)=F_{i+2}-1$. Protože $F_3
 =2$ a 
 $F_4=3$, 
 tvrzení platí pro $i=1$ a $i=2$. Dále 
 $$\align mn(i+2)=&mn(i+1)+mn(i)+1=\\&F_{i+3}-1+F_{i+2}-1+1=F_{i+4}-1.\endalign$$
 Z toho indukcí plyne požadovaný vztah. 
-\medskip
 
-\flushpar Když AVL-strom $T$ o výšce $i$ reprezentuje množinu $
+Když AVL-strom $T$ o výšce $i$ reprezentuje množinu $
 S$ o 
 velikosti $n$, pak platí 
 $$\frac {c_1}{\sqrt 5}(\frac {1+\sqrt 5}2)^{i+2}-1<F_{i+2}-1\le n
@@ -1959,9 +1823,8 @@ Protože $\log(\frac {1+\sqrt 5}2)\approx 0.69\approx\frac 1{1.
 44}$ dostáváme, že pro dostatečně velká $n$ 
 platí, že $0.69i<\log(n+1)\le i$. Odtud plyne, že 
 $\log(n+1)\le i\le 1.44\log(n)$, a tedy $i=\Theta (\log(n))$.
-\medskip
 
-\flushpar Operace {\bf MEMBER$(x)$} pro AVL-stromy je stejná jako 
+Operace {\bf MEMBER$(x)$} pro AVL-stromy je stejná jako 
 ope\-race {\bf MEMBER$(x)$} pro nevy\-vá\-žené binární vyhledávací 
 stro\-my. Aktualizační operace pro AVL-stromy nejprve provedou 
 příslušnou ope\-raci pro nevyvážené binární vyhledávací stromy 
@@ -1977,22 +1840,20 @@ $\eta (t)=0$ a teď je $\eta (t)=1$), zavoláme proceduru
 funkce $\omega$ pro otce $t$. Navíc, když zjistí, že se zvětšila 
 hodnota $\eta$ vrcholu otce $t$, pak zavolá sama sebe na vrchol 
 otec $t$. Nejprve provedeme analýzu situace. 
-\medskip
 
-\flushpar Mějme vrchol $t$, jeho $\eta (t)=a$ (ale $a$ neznáme), na 
+Mějme vrchol $t$, jeho $\eta (t)=a$ (ale $a$ neznáme), na 
 začátku 
 ope\-ra\-ce {\bf INSERT} bylo $\eta (t)=a-1$.  V podstromu určeném 
 vrcholem $t$ máme už správné hodnoty $\omega$.  Vrchol $
 v$ je otcem $t$, 
 $t=\levy(v)$ a $\omega (v)$ má ještě původní hodnotu.  
-\medskip
 
 \proclaim{Lemma}Když se hodnota $\eta (t)$ při operaci {\bf INSERT }
 zvětšila a $t$ nebyl listem před operaci, pak po operaci 
 neplatí $\omega (t)=0$.
 \endproclaim
 
-\flushpar Označme $u=\pravy(v)$ a uvažme případy:\newline 
+Označme $u=\pravy(v)$ a uvažme případy:\newline 
 A) $\omega (v)=1$, pak $\eta (u)=a$ a $\eta (v)=a+1$ se nezměnilo, 
 tedy stačí položit $\omega (v)=0$.\newline 
 B) $\omega (v)=0$, pak $\eta (u)=a-1$ a $\eta (v)=a+1$ se změnilo, 
@@ -2020,7 +1881,6 @@ stačí položit $\omega (v)=1$, $\omega (t_2)=\omega (t)=
 0$, protože $\eta (t_2)=a$.\newline 
 Když $t$ je pravý syn $v$, pak situace je symetrická.\newline 
 Popíšeme proceduru {\bf Kontrola-INSERT}.
-\medskip
 
 {\bf Kontrola-INSERT$(t)$\newline 
 $v:=\otec(t)$\newline 
@@ -2073,9 +1933,8 @@ else}\newline
 \phantom{------}{\bf endif}\newline 
 \phantom{---}{\bf endif\newline 
 endif}
-\bigskip
 
-\flushpar Všimněme si, že po provedení {\bf Rotace} nebo
+Všimněme si, že po provedení {\bf Rotace} nebo
 {\bf Dvojita-rotace} vyvažování v operaci {\bf INSERT} končí. Tedy 
 operace {\bf INSERT} provádí nejvýše jednu proceduru {\bf Rotace }
 nebo {\bf Dvojita-rota\-ce}. Korektnost vyvažovací operace je 
@@ -2084,9 +1943,8 @@ založena na faktu, že když se zvětší hodnota $
 nemůže být $\omega (t)=0$. Tento fakt se využívá  v 
 {\bf if}-příkazu na 5-tém a 6-tém řádku a na 13-tém a 14-tém  
 řádku programu.
-\medskip
 
-\flushpar Popíšeme vyvažovací operaci pro operaci 
+Popíšeme vyvažovací operaci pro operaci 
 {\bf DELETE}.  Před\-po\-kládejme, že $t$ je vrchol, jehož otec se 
 odstranil (tj.  bratr $t$ byl list) a hodnota $\eta (t)$ je menší 
 než byla hodnota $\eta (\otec(t))$.  Proto zavoláme proceduru 
@@ -2095,16 +1953,14 @@ hodnotu funkce $\omega$ pro otce $t$.  Navíc, když zjistí, že se
 zmenšila hodnota $\eta$ vrcholu otce $t$, pak zavolá sama sebe 
 na vrchol otec $t$. Popíšeme analýzu situace, na níž je 
 založena korektnost procedury {\bf Kontrola-DELETE$(t)$}.  
-\medskip
 
-\flushpar V analýze je důležité, že když procedura {\bf Kontrola-DELETE }
+V analýze je důležité, že když procedura {\bf Kontrola-DELETE }
 přesune vrchol $x$ na místo vrcholu $y$, pak skutečná hodnota $
 \eta (x)$ 
 je buď původní hodnota $\eta (y)$ nebo je přesně o $
 1$ menší. Všimněte si, že to platí. 
-\medskip
 
-\flushpar Dán vrchol $t$, jehož hodnota $\eta (t)$ se zmenšila (o $
+Dán vrchol $t$, jehož hodnota $\eta (t)$ se zmenšila (o $
 1$).  V 
 podstromu určeném vrcholem $t$ jsou hodnoty $\omega$ aktualizovány, 
 $v=\otec(t)$ a $\omega (v)$ je původní.  Předpokládejme 
@@ -2124,9 +1980,10 @@ A2) $\omega (u)=0\implies\eta (u_1)=\eta (u_2)=a+1$. Provedeme
 $\eta (t)=a$, $\eta (u_1)=a+1=\eta (u_2)$, $\eta (v)=a+2$, $\eta 
 (u)=a+3$. Položme 
 $\omega (v)=1$, $\omega (u)=-1$ a končíme.
-\medskip
+
  
-\flushpar A3) $\omega (u)=-1\implies\eta (u_1)=a+1,\,\eta (u_2)=a$.  Provedeme 
+
+A3) $\omega (u)=-1\implies\eta (u_1)=a+1,\,\eta (u_2)=a$.  Provedeme 
 {\bf Dvojita-rotace$(v,u,u_1)$}.  Pro $u_3=\levy(u_1)$, 
 $u_4=\pravy(u_1)$ nastanou případy:\newline 
 A3i) $\omega (u_1)=-1\implies\eta (u_3)=a,\,\eta (u_4)=a-1$ a tedy 
@@ -2146,7 +2003,6 @@ Stačí položit $\omega (v)=1$ a skončit.\newline
 C) když $\omega (v)=-1$, pak $\eta (u)=a$ a $\eta (v)=a+2$. 
 Nyní položíme $\omega (v)=0$ a 
 zavoláme proceduru {\bf Kontrola-DELETE} na vrchol $v$.
-\medskip
 
 {\bf Kontrola-DELETE$(t)$\newline 
 $v:=\otec(t)$\newline 
@@ -2209,9 +2065,8 @@ else}\newline
 \phantom{---------}$\omega (v):=0$, $t:=v$, {\bf Kontrola-DELETE}$(t)$\newline \phantom{------}{\bf endif}\newline 
 \phantom{---}{\bf endif\newline 
 endif}
-\medskip
 
-\flushpar V operaci {\bf DELETE} se může stát, že procedury 
+V operaci {\bf DELETE} se může stát, že procedury 
 {\bf Rotace} nebo {\bf Dvojita-rotace} jsou volány až $\log(
 |S|)$-krát. 
 To je výrazný rozdíl proti operaci {\bf INSERT}. Proto operace 
@@ -2226,13 +2081,10 @@ S$ je
 reprezentovaná množina).  Ope\-race {\bf INSERT} zavolá 
 nejvýše jednu proceduru {\bf Rotace} nebo {\bf Dvo\-ji\-ta-rotace}.  
 \endproclaim
-\medskip
 
-\heading 
-Červeno-černé stromy
-\endheading
+\section{Červeno-černé stromy}
 
-\flushpar Binární vyhledávací strom $T$ reprezentující 
+Binární vyhledávací strom $T$ reprezentující 
 množinu $S$, jehož vrcholy jsou obarveny červeně nebo 
 černě (každý vrchol má právě jednu barvu) tak, že jsou 
 splněny podmínky:
@@ -2247,9 +2099,8 @@ všechny cesty z kořene do listů mají stejný
 počet čer\-ných vrcholů
 \endroster
 se nazývá \emph{červeno}-\emph{černý} \emph{strom}. 
-\medskip
 
-\flushpar Nejprve ukážeme, že červeno-černé stromy jsou 
+Nejprve ukážeme, že červeno-černé stromy jsou 
 vyvážené stro\-my, tj. $$\hloubka(T)=O(\log(|S|).$$
 Předpokládejme, že $T$ je červeno-černý strom, který má 
 na cestě z kořene do listu právě $k$ černých 
@@ -2268,13 +2119,12 @@ dostáváme, že $\#T=2|S|+1$. Z vlastností červeno-černých
 stromů plyne, že 
 $$k\le\hloubka(T)\le 2k.$$
 Tedy
-\medskip
 
 \proclaim{Tvrzení}Když červeno-černý strom $T$ 
 reprezentuje množinu $S$, pak $$\hloubka(T)\le 2\log(2|S|+2)=1+\log(|S|+1).$$
 \endproclaim
 
-\flushpar Pro červeno-černé stromy navrhneme algoritmy 
+Pro červeno-černé stromy navrhneme algoritmy 
 realizující ope\-race z uspořádaného slovní\-ko\-vého problému.  
 Operace {\bf MEMBER} pro červeno-černé stromy je stejná jako pro 
 nevyvážené binární vyhledávací stromy. Operace 
@@ -2297,9 +2147,8 @@ v $(a,b)$-stromech) a na tyto stromy pak aplikuje operaci {\bf JOIN }
 a zkonstruuje hledané červeno-černé stromy. Algoritmy pro 
 ope\-race {\bf MIN} a {\bf MAX} jsou stejné jako pro nevyvážené binární 
 vyhledávací stromy.
-\medskip
 
-\flushpar Nejprve popíšeme vyvažovací operace. 
+Nejprve popíšeme vyvažovací operace. 
 Dvojice $(T,v)$ se nazývá 2-\emph{parciální}
 \emph{červeno}-\emph{černý} \emph{strom}, když $T$ je 
 binární vyhledávací strom, každý vrchol je obarven 
@@ -2315,9 +2164,8 @@ stromu nebo $t=v$ nebo jeho otec je obarven černě,
 všechny cesty z kořene do listů mají stejný 
 počet čer\-ných vrcholů.
 \endroster
-\medskip
 
-\flushpar Vyvažování 2-parciálního červeno-černého stromu $(T',v)$ 
+Vyvažování 2-parciálního červeno-černého stromu $(T',v)$ 
 pro\-vá\-dí procedura {\bf Vyvaz-IN\-SERT$(v)$}.  Po jejím 
 provedení buď do\-sta\-neme čer\-ve\-no-černý strom nebo 
 je procedura {\bf Vyvaz-IN\-SERT} zavolána na vrchol $
@@ -2326,18 +2174,15 @@ v'$ takový,
 v'$ je děd $v$ 
 (tj.  je o dvě hladiny blíž ke kořeni než vrchol $
 v$). 
-\medskip
 
-\flushpar Obarvení je realizováno rozšířením struktury vrcholu $v$ 
+Obarvení je realizováno rozšířením struktury vrcholu $v$ 
 o boolskou proměnnou $b(v)$, kde $b(v)=0$ znamená, že $v$ je obarven 
 červeně, a $b(v)=1$ znamená, že $v$ je obarven černě.
-\medskip
 
-\flushpar Popíšeme proceduru {\bf Vyvaz-INSERT$(v)$} (předpokládáme, že 
+Popíšeme proceduru {\bf Vyvaz-INSERT$(v)$} (předpokládáme, že 
 $v$ je obarven červeně). Pro zjednodušení $s(v
 )=levy$, když $v=\levy(\otec(v))$, a $s(v)=pravy$ pro  
 $v=\pravy(\otec(v))$.
-\bigskip
 
 {\bf Vyvaz-INSERT$(v)$}.\newline 
 {\bf if} $v$ není kořen $T'$ a $b(\otec(v))=0$ {\bf then}\newline 
@@ -2358,11 +2203,9 @@ $v=\pravy(\otec(v))$.
 \phantom{------}{\bf endif}\newline 
 \phantom{---}{\bf endif\newline 
 endif}
-\medskip
 
-\flushpar Na obrázku $b$ značí černou barvu a $r$ značí červenou 
+Na obrázku $b$ značí černou barvu a $r$ značí červenou 
 barvu. Otec vrcholu $w$ je označen $t$. 
-\medskip
 
 \midinsert
 \centerline{\input fig3.tex}
@@ -2383,13 +2226,12 @@ barvu. Otec vrcholu $w$ je označen $t$.
 \endcaption
 \endinsert
 
-\flushpar$2$-parciální červeno-černé stromy vznikají při 
+$2$-parciální červeno-černé stromy vznikají při 
 operacích {\bf INSERT} a {\bf JOIN.}  Při operaci {\bf DELETE} se poruší 
 struktura červeno-černých stromů jiným 
 způsobem a vznikne 3-parciální červeno-čer\-ný strom.  
-\medskip
 
-\flushparŘekneme, že dvojice $(T,v)$ je \emph{3}-\emph{parciální} 
+Řekneme, že dvojice $(T,v)$ je \emph{3}-\emph{parciální} 
 \emph{červeno}-\emph{černý} \emph{strom}, když $T$ je binární 
 vy\-hledávací strom, každému vrcholu je při\-řazena právě jedna z 
 dvojice barev červená -- černá, $v$ je vrchol ve stromu $
@@ -2409,9 +2251,8 @@ listů prochá\-ze\-jí\-cí vrcholem $v$ obsahují $
 k-1$ černých 
 vrcholů.
 \endroster
-\medskip
 
-\flushpar Popíšeme proceduru {\bf Vyvaz-DELETE$(v)$}, která se 
+Popíšeme proceduru {\bf Vyvaz-DELETE$(v)$}, která se 
 použije na 3-parciální červeno-černý strom $(T,v)$, když $
 v$ není jeho 
 kořen.  Výsledkem procedury bude buď červeno-černý strom 
@@ -2420,7 +2261,6 @@ vrcholu $v$.  Z faktu, že když $(T,v)$ je 3-parciální červeno-černý
 strom a $v$ je jeho kořen, pak $T$ je červeno-černý strom, plyne, 
 že aplikací {\bf Vyvaz-DELETE$(v)$} na 3-parciální červeno-černý strom 
 $(T,v)$ dostaneme červeno-černý strom.  
-\medskip
 
 {\bf Vyvaz-DELETE$(v)$\newline 
 $u:=\bratr(v)$}, $t:=\otec(v)$\newline 
@@ -2445,17 +2285,14 @@ $w_1$ je syn $u$ takový, že $s(v)=s(w_1)$, $w_2:=\bratr(w_1)$\newline
 \phantom{------}{\bf Dvojita-rotace}$(t,u,w_1)$, $b(w_1):=b(t)$, $b(t):=1$ (Viz Obr. 7)\newline
 \phantom{---}{\bf endif\newline 
 endif}
-\bigskip
 
-\flushpar V následujících obrázcích jsou vrcholy, které 
+V následujících obrázcích jsou vrcholy, které 
 nemají specifikovanou barvu (mohou být jak červené tak černé).
 Tyto barvy budeme označovat $a$, $a'$. Důvod je, že se 
 tato barva může přenést do cílového stromu, ale 
 i na jiný vrchol. V tomto smyslu jsou tyto barvy určeny vstupním 
 stromem a specifikují tyto barvy v cílovém stromě. V Obr. 5 
 se barva $a$ v cílovém stromě neobjevuje.
-\medskip
-
 
 \midinsert
 \centerline{\input fig6.tex}
@@ -2482,8 +2319,7 @@ se barva $a$ v cílovém stromě neobjevuje.
 \endcaption
 \endinsert
 
-
-\flushpar Nyní popíšeme algoritmy realizující operace {\bf INSERT}, 
+Nyní popíšeme algoritmy realizující operace {\bf INSERT}, 
 {\bf DE\-LE\-TE}, {\bf JOIN3} a {\bf SPLIT} pro červeno-černé stromy.  
 Před\-po\-klá\-dejme, že $T$ je červeno-černý strom reprezentující 
 množinu $S$ a pro\-vá\-dí\-me operaci {\bf INSERT$(x)$} pro $
@@ -2494,14 +2330,12 @@ v$
 obar\-ví\-me červeně a syny $v$ (jsou to listy) obarvíme černě.  
 Dostáváme, že $(T',v)$ je 2-parciální červeno-černý strom, a pak 
 aplikujeme proceduru {\bf Vyvaz-INSERT}.  
-\medskip
 
-\flushpar Operace {\bf INSERT} v červeno-černých stromech 
+Operace {\bf INSERT} v červeno-černých stromech 
 volá nejvýše $2+\log(|S|)$-krát proceduru {\bf Vyvaz-INSERT} a 
 provede nejvýše jednu rotaci nebo dvojitou rotaci.
-\medskip
 
-\flushpar Operace {\bf DELETE} je řešena stejným způsobem 
+Operace {\bf DELETE} je řešena stejným způsobem 
 jako ope\-race {\bf INSERT}, ale při operaci {\bf DELETE} je porušena třetí 
 pod\-mín\-ka v definici červeno-černých stro\-mů a 
 vyvažování je technicky náročnější.  
@@ -2524,9 +2358,8 @@ Nyní aplikujeme proceduru {\bf Vyvaz-DELETE}.
 Analýza poskytuje rychlý test na to, zda 
 vznikne červeno-černý strom nebo 3-parciální 
 červeno-černý strom (pak $v$ je list). 
-\medskip
 
-\flushpar Mějme červeno-černé stromy $T_1$ a $T_2$ reprezentující 
+Mějme červeno-černé stromy $T_1$ a $T_2$ reprezentující 
 množiny $S_1$ a $S_2$ a mějme prvek $x\in U$ takový, že 
 $\max S_1<x<\min S_2$.  Nejprve zajistíme, že kořeny $T_
 1$ i $T_2$ jsou 
@@ -2549,9 +2382,8 @@ $T_1$ místo podstromu určeného vrcholem $v$. Pak $(T_1,w
 )$ je 
 $2$-parciální červeno-černý strom a aplikujeme proceduru 
 {\bf Vyvaz-INSERT}. Případ $k_2>k_1$ se řeší symetricky. 
-\medskip
 
-\flushpar Algoritmus pro operaci {\bf SPLIT} je velmi podobný 
+Algoritmus pro operaci {\bf SPLIT} je velmi podobný 
 algoritmu pro $(a,b)$-stromy. Vy\-hledává\-me vrchol 
 reprezentující $x$. Když jsme ve vrcholu $t$ a pokračujme akcí 
 $t:=\levy(t)$, pak dvojici $\key(t)$ a podstrom $T$ určený pravým 
@@ -2566,10 +2398,8 @@ Z_2$ vložíme
 jednoprvkové stromy. Ze zásobníku $Z_1$ pomocí operace {\bf JOIN3 }
 vytvoříme strom $T_1$ a ze zásobníku $Z_2$ pomocí operace {\bf JOIN3 }
 dostaneme strom $T_2$. 
-\medskip
 
-\flushpar Nyní popíšeme algoritmy pro tyto operace.
-\medskip
+Nyní popíšeme algoritmy pro tyto operace.
 
 {\bf INSERT$(x)$\newline 
 Vyhledej$(x)$\newline 
@@ -2578,7 +2408,6 @@ if} $t$ je list {\bf then}\newline
 \phantom{---}pro vrchol $t$ vytvořme syny $\levy(t)$ a $\pravy(t)$\newline 
 \phantom{---}$b(t):=0$, $b(\levy(t)):=1$, $b(\pravy(t)):=1$, {\bf Vyvaz-INSERT$(t)$\newline
 endif
-\medskip
 
 DELETE$(x)$\newline 
 Vyhledej$(x)$\newline 
@@ -2613,7 +2442,6 @@ if} $t$ není list {\bf then}\newline
 \phantom{---}{\bf endif} \newline 
 \phantom{---}{\bf if} $vyv$ {\bf then Vyvaz-DELETE$(v)$ endif\newline 
 endif}
-\medskip
 
 {\bf JOIN3$(T_1,x,T_2)$\newline 
 if} $b(\text{kořen }T_1)=0$ {\bf then} $b(\text{kořen }T_1)
@@ -2645,7 +2473,6 @@ else}\newline
 \phantom{---}$\otec(\text{kořen }T_1):=u$, $\levy(u):=\text{ kořen }T_1$ \newline 
 \phantom{---}$\pravy(u):=t$, {\bf Vyvaz-INSERT}$(T_2,u)$\newline 
 {\bf endif}
-\medskip
 
 {\bf SPLIT$(x)$\newline 
 $Z_1$} a $Z_2$ jsou prázdné zásobníky, $t:=\text{ kořen }T$\newline 
@@ -2672,9 +2499,8 @@ while} $Z_2\ne\emptyset$ {\bf do}\newline
 \phantom{---}$T'$ je podstrom $T$ určený $t$, $T_2:=${\bf JOIN3$(T_2,x,T'
 )$ \newline 
 enddo}
-\medskip
 
-\flushpar Korektnost algoritmů je vidět z 
+Korektnost algoritmů je vidět z 
 obrázků. Všimněme si při ope\-raci {\bf DELETE}, že když $
 u$ je 
 obarven červeně, pak po provedení {\bf Rotace$(t,u)$} bude $
@@ -2682,7 +2508,6 @@ obarven červeně, pak po provedení {\bf Rotace$(t,u)$} bude $
 3-parciální červeno-černý strom a vrchol $t$ bude obarven červeně.  
 Pak z Obr.  5 je vidět, že dostaneme červeno-černý 
 strom. Tedy můžeme shrnout:
-
 
 \proclaim{Věta}Algoritmy operací {\bf MEMBER}, {\bf INSERT}, 
 {\bf DE\-LE\-TE}, {\bf MIN}, {\bf MAX}, {\bf JOIN3} a {\bf SPLIT} pro červeno-černé 
@@ -2694,16 +2519,15 @@ nejvýše jednou buď {\bf Rotace} nebo {\bf Dvojita-rota\-ce} a operace
 {\bf Dvojita-ro\-ta\-ce}.  
 \endproclaim
 
-\flushpar Všimněte si, že operace {\bf JOIN3} ve skutečnosti 
+Všimněte si, že operace {\bf JOIN3} ve skutečnosti 
 vyžaduje čas $O(|k_1-k_2|+1)$. Protože $Z_1$ a $Z_2$ obsahují nejvýše 
 $\log(|S|)$ položek, tak se odhad časové složitosti operace {\bf SPLIT }
 prove\-de stejným způsobem jako v $(a,b)$-stromech. 
 V ostatních pří\-pa\-dech je odhad časové složitosti vidět z toho, 
 že $\hloubka(T)=O(\log(|S|))$ a akce na každé hladině vyžadují jen 
 $O(1)$ času.
-\medskip
 
-\flushpar Pokud chceme mít i algoritmus pro operaci {\bf ord$
+Pokud chceme mít i algoritmus pro operaci {\bf ord$
 (k)$}, pak 
 musíme rozšířit strukturu o funkci $p$. Pak lze použít přímo 
 algoritmus pro {\bf ord$(k)$} v nevyvážených binárních vyhledávacích 
@@ -2719,8 +2543,7 @@ množina.  Operace {\bf INSERT} a {\bf JOIN3} zavolají nejvýše jednou buď
 {\bf Rotace} nebo {\bf Dvojita-rota\-ce} a operace {\bf DELETE} zavolá nejvýše 
 dvakrát {\bf Rotace} nebo jednou {\bf Rotace} a {\bf Dvojita-rotace}.  \endproclaim
 
-
-\flushpar Vzniká otázka, proč se tolik pozornosti věnuje 
+Vzniká otázka, proč se tolik pozornosti věnuje 
 procedurám {\bf Rotace} a {\bf Dvojita-rotace}. Sice vyžadují čas 
 $O(1)$, ale jsou to nej\-složitější akce vyžadující nejvíce času. 
 V mnoha aplikacích (pou\-žívají se hlavně ve výpočetní geometrii), 
@@ -2731,13 +2554,10 @@ stromu, kdežto posun směrem ke kořeni pouze mění
 obarvení. V tomto případě pak {\bf Rotace} nebo {\bf Dvo\-ji\-ta-rotace }
 vyžaduje čas $O(|S|)$ (obvykle je třeba prohlédnout celý 
 strom) a nikoliv $O(1)$.
-\medskip
 
-\heading
-Váhově vyvážené stromy
-\endheading
+\section{Váhově vyvážené stromy}
 
-\flushpar V osmdesátých letech se ve výpočetní geometrii 
+V osmdesátých letech se ve výpočetní geometrii 
 hodně použí\-va\-ly $BB(\alpha )$-stromy, proto se o nich alespoň 
 orientačně zmíníme. Mějme reálné číslo $
 \alpha$ takové, že 
@@ -2751,13 +2571,12 @@ kde $T_v$ je podstrom $T$ určený vrcholem $v$, $T_l$ je podstrom
 $T$ určený levým synem vrcholu $v$, $T_r$ je podstrom $T$ 
 určený pravým synem vrcholu $v$. Platí
 
-
 \proclaim{Tvrzení}Když $T$ je $BB(\alpha )$-strom reprezentující 
 $n$-prvkovou množinu, pak 
 $$\hloubka(T)\le 1+\frac {\log(n+1)-1}{\log\frac 1{1-\alpha}}.$$
 \endproclaim
 
-\flushpar Důsledek je, že $BB(\alpha )$-stromy patří do 
+Důsledek je, že $BB(\alpha )$-stromy patří do 
 skupiny vyvážených binárních vyhledávacích 
 stro\-mů.  Vyvažování se provadí opět pomocí 
 {\bf Rotace} a {\bf Dvojita-rotace} a popisuje ho následu\-jí\-cí 
@@ -2784,7 +2603,7 @@ $BB(\alpha )$-strom (zde $\rho =\frac {p(T')}{p(T_r
 pravé\-ho syna kořene $t$).  
 \endproclaim
 
-\flushpar Toto tvrzení a jeho symetrické verze jednoznačně ukazují, 
+Toto tvrzení a jeho symetrické verze jednoznačně ukazují, 
 jak vyvažovat $BB(\alpha )$-stromy při aktualizačních 
 operacích (podstrom $BB(\alpha )$-stromu je $BB(\alpha )$-strom). Pak dostáváme:
 
@@ -2793,7 +2612,7 @@ případě čas $O(\log(|S|))$, kde $S$ je
 reprezentovaná množina.
 \endproclaim
 
-\flushpar Obliba $BB(\alpha )$-stromů byla zapříčiněna 
+Obliba $BB(\alpha )$-stromů byla zapříčiněna 
 platností následující věty, která je analogií věty o 
 vyvažovacích operacích pro $(a,b)$-stromy.
 
@@ -2805,20 +2624,18 @@ o délce $m$ aplikovaná na prázdný $BB(\alpha )$-strom volá
 nejvýše $cm$ procedur {\bf Rotace} a {\bf Dvojita-rotace}.
 \endproclaim
 
-\heading
-Historický přehled:
-\endheading
+\section{Historický přehled:}
 
 $(a,b)$-stromy zavedli Bayer a McGreght (1972),\newline 
 věty o počtu vyvažovacích operací pro $(a,b)$-stromy dokázali 
 Huddleston a Mehlhorn (1982).\newline 
 $A$-sort analyzovali Guibas, McGreight, Plass a Roberts (1977).
-\smallskip
-\flushpar Analýza interpolačního vyhledávání pochází od Perla, 
+
+Analýza interpolačního vyhledávání pochází od Perla, 
 Itai a Avniho (1978),\newline 
 kvadratické vyhledávání analyzovali Perl a Reingold (1977).
-\smallskip
-\flushpar Adelson-Velskij a Landis (1962) definovali 
+
+Adelson-Velskij a Landis (1962) definovali 
 AVL-stromy,\newline 
 červeno-černé stromy definovali Guibas a Sedgewick 
 (1978),\newline 
