@@ -201,7 +201,7 @@ k$
 $\lfloor\frac k2\rfloor$. Tedy pro $2$-regulární stromy je předpis pro nalezení 
 synů a otce zvláště jednoduchý.  
 
-\v Rekneme, že množina $S$ s funkcí $f$ je reprezentována 
+Řekneme, že množina $S$ s funkcí $f$ je reprezentována 
 $d$-regulár\-ní haldou $H$, kde $H$ je $d$-regulární strom $
 (T,r)$, když 
 přiřazení prvků množiny $S$ vrcholům stromu 
@@ -396,7 +396,7 @@ Pro delší posloupnosti se optimální
 hodnota $d$ může zmenšit.
 
 Dalším příkladem je nalezení nejkratších cest v grafu z daného 
-bodu. \v Rešme následující úlohu: \newline 
+bodu. Řešme následující úlohu: \newline 
 Vstup: orientovaný ohodnocený graf $(X,R,c)$, kde $c$ je funkce z $
 R$ do množiny kladných 
 reálných čísel, a vrchol $z\in X$.\newline 
@@ -585,7 +585,7 @@ Proto ve frontě $Q$ je $\big\lceil \frac {|S|}{2^{k-1}}\big\rceil $ hald a jeli
 {\bf MAKEHEAP} potřebuje čas 
 $$O(\sum_{k=1}^{\infty}k\frac {|S|}{2^{k-1}})=O(|S|\sum_{k=1}^{\infty}\frac 
 k{2^{k-1}})=O(|S|).$$
-\v Rada $\sum_{k=1}^{\infty}$$\frac k{2^{k-1}}$ konverguje např. podle podílového d'Alambertova 
+Řada $\sum_{k=1}^{\infty}$$\frac k{2^{k-1}}$ konverguje např. podle podílového d'Alambertova 
 kritéria a lze jednoduše spočítat (např. stejnou metodou 
 jako pro regulární haldy), že součet je $4$.
 
@@ -952,7 +952,7 @@ projeví ve velmi jednoduchém algoritmu pro operaci
 {\bf MERGE}.
 
 {\bf MERGE$(\mathcal H_1,\mathcal H_2)$}:\newline 
-Prove\v d konkatenaci seznamů $\mathcal H_1$ a $\mathcal H_2$
+Proveď konkatenaci seznamů $\mathcal H_1$ a $\mathcal H_2$
 
 Samotný algoritmus pro operaci {\bf INSERT} se nezmění, jen 
 provede tuto implementaci ope\-race {\bf MER\-GE}.  Ope\-race 
@@ -1001,7 +1001,7 @@ T$ určený nějakým synem kořene $T$
 izomorfní s $H_i\}$\newline 
 {\bf vyvaz$(\{O_i\mid i=0,1,\dots,\lfloor\log(|S|)\rfloor \})$
 
-}\v Casová složitost operací {\bf INSERT} a {\bf MER\-GE} při líné 
+}Časová složitost operací {\bf INSERT} a {\bf MER\-GE} při líné 
 implementaci je $O(1)$, ale časová složitost operací {\bf MIN} a 
 {\bf DELETEMIN} je v nejhorším případě $O(|S|)$. Tento odhad je 
 velmi špatný, ale ukážeme, že amortizovaná složitost má rozumné 
@@ -1092,7 +1092,7 @@ vrchol stane kořenem (odtržením podstromu určeného
 tímto vrcholem),  
 zapomene  se tento údaj a začne se znovu zaznamenávat, 
 až když vrchol přestane 
-být kořenem. \v Rekneme, že strom má \emph{rank} $i$, když 
+být kořenem. Řekneme, že strom má \emph{rank} $i$, když 
 jeho kořen 
 má $i$ synů. Tento fakt nahrazuje test používaný 
 v binomiálních 
@@ -1109,7 +1109,7 @@ haldách. V algoritmech předpokládáme, že $c=\log^{-1}
 (\frac 32)$.
 
 {\bf MERGE$(\mathcal H_1,\mathcal H_2)$}:\newline 
-Prove\v d konkatenaci seznamů $\mathcal H_1$ a $\mathcal H_2$
+Proveď konkatenaci seznamů $\mathcal H_1$ a $\mathcal H_2$
 
 {\bf INSERT$(x)$}:\newline 
 Vytvoř haldu $\mathcal H_1$ reprezentující $\{x\}$\newline 
@@ -1503,7 +1503,7 @@ Tento problém se nazývá \emph{třídění}.
 V praxi se setkáváme s řadou jeho modifikací, a nichž 
 asi nejběžnější je vynechání předpokladu, že 
 vstupem je prostá posloupnost. Pak jsou dvě varianty 
-řešení -- bu\v d se ve výstupní posloupnosti odstraní 
+řešení -- buď se ve výstupní posloupnosti odstraní 
 duplicity nebo výstupní posloupnost zachová četnost prvků ze 
 vstupní posloupnosti.
 
@@ -1819,7 +1819,7 @@ pravému synu. Nechť $(c_1,c_2,\dots,c_n)$ je posloupnost
 prvků $\{a_i\mid 1\le i\le n\}$ v pořadí daném tímto 
 očíslováním. Pak platí, že $X_{i,j}=1$, právě když první 
 prvek v posloupnosti $(c_1,c_2,\dots,c_n)$ z množi\-ny 
-$\{b_l\mid i\le l\le j\}$ je bu\v d $b_i$ nebo $b_j$. Pravděpodobnost tohoto 
+$\{b_l\mid i\le l\le j\}$ je buď $b_i$ nebo $b_j$. Pravděpodobnost tohoto 
 jevu je $\frac 2{j-i+1}$, tedy $p_{i,j}=\frac 2{j-i+1}$ pro $1\le 
 i<j\le n$. Odtud 
 očekávaný počet porovnání v algoritmu {\bf QUICKSORT} je
@@ -1958,7 +1958,7 @@ nedosáhneme tímto způsobem
 optimálního výsledku.  Přitom různé verze tohoto 
 problému se vyskytují v mnoha úlohách. Jednou z prvních úloh, 
 kde jsme se s ním setkali, je konstrukce 
-Huffmanova k\'odu -- to je minimální redundantní k\'od, který byl 
+Huffmanova kódu -- to je minimální redundantní kód, který byl 
 nalezen v roce 1952. K optimálnímu řešení vede např. 
 postup, který je kombinací `mergeování' a 
 optimalizace a používá metody dynamického programování.  
@@ -2019,7 +2019,7 @@ Výstup: úplný binární strom $T$ s $n$ listy a bijekce $
 množiny $\{1,2,\dots,n\}$ do listů $T$ taková, že 
 $\sum_{i=1}^nd(\phi (i))x_i$ je minimální (kde $d(\phi (i))$ je hloubka 
 listu $\phi (i)$).\newline 
-\v Rekneme, že dvojice $(T,\phi )$ je \emph{optimální} 
+Řekneme, že dvojice $(T,\phi )$ je \emph{optimální} 
 \emph{strom} vzhledem k $x_1,x_2,\dots,x_n$. 
 
 V přeformulováné úloze už nepracujeme s 
@@ -2273,7 +2273,7 @@ skončí, nebo jsou prázdné.
 
 \begin{definice}Mějme třídicí algoritmus {\bf A}, který 
 jako jedinou pri\-mitivní operaci s prvky vstupní 
-posloupnosti používá jejich porov\-nání. \v Rekneme, že binární 
+posloupnosti používá jejich porov\-nání. Řekneme, že binární 
 strom $T$, jehož vnitřní vrcholy jsou ohodnoceny 
 porovnáními  $a_i\le a_j$ pro $i,j=1,2,\dots,n$, $i\ne j$, je 
 \emph{rozhodovacím} \emph{stromem} algoritmu {\bf A} pro 
@@ -2504,7 +2504,7 @@ $a=x_1x_2\dots x_n$ a $b=y_1y_2\dots y_m$ jsou dvě slova nad totálně
 uspořá\-danou abecedou $\Sigma$, pak $a<b$ v lexikografickém 
 uspořádání, právě když existuje $i=0,1,\dots,\min
 \{n,m\}$ takové, že 
-$x_j=y_j$  pro každé $j=1,2,\dots,i$ a bu\v d $n=i<m$ nebo $
+$x_j=y_j$  pro každé $j=1,2,\dots,i$ a buď $n=i<m$ nebo $
 i<\min\{n,m\}$ 
 a $x_{i+1}<y_{i+1}$. Předpokládejme, že $a_i=a_i^1a_i^2\dots 
 a_i^{l(i)}$, kde 
@@ -2563,7 +2563,7 @@ jeho skončení jsou v $T$ všechna slova z množiny
 $a_1,a_2,\dots,a_n$, která mají délku alespoň $i$, a když slovo 
 $a_r$ je před $a_q$ v seznamu $T$, pak existuje $j=i-1,i,\dots
 ,l$
-takové, že $a^k_r=a^k_q$ pro každé $k=i,i+1,\dots,j$ a bu\v d 
+takové, že $a^k_r=a^k_q$ pro každé $k=i,i+1,\dots,j$ a buď 
 $l(r)=j\le l(q)$ nebo $j<\min\{l(r),l(q)\}$ a $a_r^{j+1}<a_q^{j+1}$. To plyne z 
 vlastností algoritmu {\bf BUCKETSORT} indukcí podle $i$. Jediný a 
 hlavní rozdíl proti {\bf BUCKETSORTU} je, že neprocházíme 
@@ -2700,7 +2700,7 @@ $1\le i\le |M|$.
 {\bf SELECT$(M,i)$}:\newline 
 $n:=|M|$\newline 
 {\bf if} $n\le 100$ {\bf then\newline 
-\phantom{{\rm---}}}setři\v d množinu $M$, $m:=$ $i$-tý nejmenší 
+\phantom{{\rm---}}}setřiď množinu $M$, $m:=$ $i$-tý nejmenší 
 prvek $M$\newline 
 {\bf else\newline 
 \phantom{{\rm---}}}rozděl $M$ do navzájem disjunktních 

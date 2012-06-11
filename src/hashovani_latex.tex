@@ -392,7 +392,7 @@ n,l}$ jsme spočítali
 při výpočtu očekávané délky řetězce.
 
 \subsection{
-\'Uspěšné vyhledávání
+Úspěšné vyhledávání
 }
 
 Zvolme jeden řetězec prvků o délce $l$. 
@@ -1008,7 +1008,7 @@ protože mají stejné posloupnosti adres (liší se jen pořadím
 prvků v jednotlivých řetězcích).
 
 \subsection{
-\'Uspěšný případ ($s_{n+1}\in S$)
+Úspěšný případ ($s_{n+1}\in S$)
 }
 
 Očekávaný počet testů při úspěšném 
@@ -1417,7 +1417,7 @@ vyhledávání v tabulce s $m$ řádky, z nichž $n$ je obsazeno,
 je $\frac {m+1}{m-n+1}$.
 
 \subsection{
-\'Uspěšný případ
+Úspěšný případ
 }
 
  
@@ -1459,7 +1459,7 @@ Neúspěšné vyhledávání
 \phantom{---}Hašování s lineárním přidáváním.
 
 \subsection{
-\'Uspěšné vyhledávání
+Úspěšné vyhledávání
 }
 
 \phantom{---}Hašování s uspořádanými řetězci=Hašování s 
@@ -1820,12 +1820,12 @@ Problémy
 Hlavní problém: Zajištění rovnoměrného rozdělení 
 výběru $i$ z $I$.
 
-Provedení výběru: Zak\'odovat indexy z množiny $
+Provedení výběru: Zakódovat indexy z množiny $
 I$ do 
 čísel $0,1,\dots,|I|-1$. Zvolit náhodně číslo $
 i$ z tohoto 
 intervalu s rovnoměrným rozdělením a pak použít 
-funkci s indexem, jehož k\'od je $i$. Abychom vybrali $i$, nalezneme 
+funkci s indexem, jehož kód je $i$. Abychom vybrali $i$, nalezneme 
 nejmenší $j$ takové, že $2^j-1\ge |I|-1$. Pak čísla v 
 intervalu $\{0,1,\dots,2^j-1\}$ jednoznačně korespondují s 
 posloupnostmi $0$ a $1$ délky $j$. Budeme vybírat náhodně 
@@ -1837,7 +1837,7 @@ rovnoměrné rozděle\-ní je prakticky nedosažitelný
 (některé fyzikální procesy). K dispozici je pouze 
 pseudogenerátor. 
 
-Jeho nevýhoda: \v Cím je $j$ větší, tím je 
+Jeho nevýhoda: Čím je $j$ větší, tím je 
 posloupnost pravidelnější (tj. méně náhodná). 
 
 Důsledky: Nalézt co nejmenší $c$-univerzální 
@@ -2081,7 +2081,7 @@ malý $c$-univerzální systém pro $c<3.25$? Zde hraje roli
 fakt, že při $c=3.25$ se očekávaná délka řetězce 
 může pohybovat až kolem hodnoty $7$.
 
-Použití \v Cebyševovy nerovnosti místo 
+Použití Čebyševovy nerovnosti místo 
 Markovovy nerovnosti dává kvadratický odhad 
 prav\-dě\-podobnosti, že délka řetězce je o $t$ větší než 
 očekávaná hodnota. Za jakých okolností dává lepší 
@@ -2459,7 +2459,7 @@ O(1)$,
 v deterministickém přípa\-dě hašuje do tabulky velikosti 
 $<3n$ a je nalezena v čase $O(nN)$, v pravděpodobnostním 
 přípa\-dě hašuje do tabulky velikosti $<6n$ a je nalezena 
-v čase $O(n)$. Pro její zak\'odování jsou třeba hodnoty $
+v čase $O(n)$. Pro její zakódování jsou třeba hodnoty $
 k$ a 
 $k_i$ pro $i=0,1,\dots,m-1$. Tyto hodnoty jsou v rozmezí 
 $1,2,\dots,N-1$, a tedy vyžadují $O(n\log N)$ paměti.
@@ -2633,7 +2633,7 @@ $g$, $h_l$ a $\phi_{q_0}$. Pak hašujeme do tabulky s méně než $
 $O(n\log n(\log n+\log\log N))$.
 
 
-Tuto metodu navrhli Fredman, Koml\'os a Szemerédi.
+Tuto metodu navrhli Fredman, Komlós a Szemerédi.
 
 \subsection{
 Univerzální a perfektní hašování
@@ -2900,18 +2900,18 @@ x$ je prvkem $S$. Velikost reprezentované množiny je $n$.
 Uvedu složitost této metody bez důkazu.
 
 \begin{veta}Popsaná metoda vyžaduje lineární paměť 
-(neuvažuje se paměť potřebná pro zak\'odo\-vá\-ní hašovacích funkcí), operace {\bf MEMBER }
+(neuvažuje se paměť potřebná pro zakódo\-vá\-ní hašovacích funkcí), operace {\bf MEMBER }
 v nej\-horším případě vyžaduje čas $O(1)$ a očekávaná 
 amortizovaná složitost operací {\bf INSERT} a {\bf DELETE} je také $
 O(1)$.
 \end{veta}
 
-Toto zobecnění Fredman-Koml\'os-Szemerédiho metody navrhli 
+Toto zobecnění Fredman-Komlós-Szemerédiho metody navrhli 
 Dietzfelbinger, Karlin, Mehl\-horn, Meyer auf der Heide, Rohnert 
 a Tarjan.
 
 
-Další nevýhoda Fredman-Koml\'os-Szemerédiho metody:\newline 
+Další nevýhoda Fredman-Komlós-Szemerédiho metody:\newline 
 Navržená metoda pracuje pro $m<3n$, ale nezajistí $m=n$. 
 Lze říct, že paměť je efektivně využita? Existuje 
 metoda, která by umožnila návrh perfektní hašovací 
