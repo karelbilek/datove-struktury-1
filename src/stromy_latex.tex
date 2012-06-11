@@ -968,7 +968,7 @@ Nyní odhadneme shora $b(T_k)$.
 $0\le b(T)\le c+(m-2)\frac c{a+c-1}$.
 \end{lemma_counting}
 
-\demo{Důkaz}Pro $0\le j<c$ označme $m_j$ počet 
+\begin{proof}Pro $0\le j<c$ označme $m_j$ počet 
 vnitřních vrcholů různých od kořene, 
 které mají přesně $a+j$ synů, a $m_c$ označme 
 počet vnitřních vrcholů různých od 
@@ -987,8 +987,8 @@ dostáváme
 \begin{align*} b(T)\le&c+\sum_{j=0}^cjm_j=c+\sum_{j=0}^c\frac j{a+j-1}(
 a+j-1)m_j\le\\
 &c+\frac c{a+c-1}(m-2)\end{align*}
-a lemma je dokázáno. \qed
-\enddemo
+a lemma je dokázáno.
+\end{proof}
 
 Nyní dokážeme tvrzení (1) Věty. Protože každá operace 
 {\bf DE\-LETE} použije nejvýše jednu operaci {\bf Přesun} (a operace 
@@ -1008,7 +1008,7 @@ $(a,b)$-strom $T$ s $m$ listy platí
 $$\sum_{l=1}^hb_l(T)(c+1)^l\le (c+1)m.$$
 \end{lemma_counting}
 
-\demo{Důkaz}Pro $0\le j<c$ a pro libovolné $h$ 
+\begin{proof}Pro $0\le j<c$ a pro libovolné $h$ 
 označme $m_j(h)$ počet vrcholů ve výšce $h$ 
 různých od kořene, které mají přesně $a
 +j$ 
@@ -1032,8 +1032,8 @@ c+1}\sum_{j=0}^cm_j(l)\big)\le\\
 kde rovnost jsme získali přerovnáním sčítanců 
 tak, aby výrazy $\sum_{j=0}^cm_j(l)$ byly u sebe, a poslední 
 nerovnost plyne z toho, že $\frac a{c+1}\ge 1$, a tedy druhý sčítanec 
-v předchozím výrazu není kladný. \qed
-\enddemo
+v předchozím výrazu není kladný.
+\end{proof}
  
 
 Zkombinujeme odhad $St_h+Sp_h$ s Lemmatem 7 a 
@@ -1518,7 +1518,7 @@ který obsahuje jenom prvky z $S$, které jsou reprezentovány
 vrcholy podstromu $T'$. Navíc, když $t$ je list, pak $<\lambda(t),\pi(t)>$ je interval repreyentovaný listem $t$.
 \end{lemma}
 
-\demo{Důkaz}Tvrzení dokážeme indukcí.  Zřejmě platí, 
+\begin{proof}Tvrzení dokážeme indukcí.  Zřejmě platí, 
 když $t$ je kořen stromu $T$.  Předpokládej\-me, že platí pro vrchol 
 $t$ a doká\-že\-me ho pro syny vrcholu $t$.  Označme $t_l$ levého syna 
 vrcholu $t$, $t_p$ pravého syna vrcholu $t$.  Z definice binárního 
@@ -1526,8 +1526,8 @@ vyhledávacího stromu stromu plyne, že když $u$ je vnitřní
 vrchol v podstromu $T$ určeném vrcholem $t_l$ a když $v$ je vnitřní 
 vrchol v podstromu $T$ určeném vrcholem $t_p$, pak 
 $\key(u)<\key(t)<\key(v)$.  Nyní platnost tvrzení pro $t$ 
-implikuje platnost tvrzení i pro vrcholy $t_l$ a $t_p$.  \qed
-\enddemo
+implikuje platnost tvrzení i pro vrcholy $t_l$ a $t_p$. 
+\end{proof}
 
 Korektnost podprocedury {\bf Vyhledej} plyne z 
 následujícího invariantu:
