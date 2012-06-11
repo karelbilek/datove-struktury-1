@@ -708,9 +708,9 @@ $$O((\sum_{i=1}^n\log f_i)+n).$$
 Zřejmě $\sum_{i=1}^nf_i=F$ a nyní využijeme toho, že geometrický 
 průměr je vždy menší nebo roven aritmetickému 
 průměru, a odtud dostáváme 
-$$\align\sum_{i=1}^n\log f_i=&\log\prod_{i=1}^nf_i=n\log(\prod_{i
+\begin{align*}\sum_{i=1}^n\log f_i=&\log\prod_{i=1}^nf_i=n\log(\prod_{i
 =1}^nf_i)^{\frac 1n}\le\\
-&n\log\frac {\sum_{i=1}^nf_i}n=n\log\frac Fn.\endalign$$
+&n\log\frac {\sum_{i=1}^nf_i}n=n\log\frac Fn.\end{align*}
 
 \begin{veta}Algoritmus $A$-{\bf sort} na setřídění $
 n$-členné 
@@ -860,9 +860,9 @@ pro kořen $r$ platí $b(r)\le c$.
 \end{pozorovani}
 
 Strom $(T,r)$ ohodnotíme 
-$$\align b_h(T)=&\sum \{b(v)\mid v\ne r\text{\rm\ vnitřní vrchol stromu }\text{\rm\ ve výšce }
+\begin{align*} b_h(T)=&\sum \{b(v)\mid v\ne r\text{\rm\ vnitřní vrchol stromu }\text{\rm\ ve výšce }
 h\}\\
-b(T)=&\sum_{h=1}^{\infty}b_h(T)+b(r).\endalign$$
+b(T)=&\sum_{h=1}^{\infty}b_h(T)+b(r).\end{align*}
 Řekneme, že $(T,r,v)$ je \emph{parciální} 
 $(a,b)$-\emph{strom}, když $r$ je kořen stromu, $v$ je vnitřní 
 vrchol $T$ a platí:
@@ -906,9 +906,9 @@ vznikne z $T$ přidáním/ubráním jednoho syna vrcholu $
 v$ 
 ve výšce $1$ (tj. přidávaný/ubíraný syn je list), pak 
 $(T',r,v)$ je parciální $(a,b)$-strom a platí 
-$$\align b_1(T')\ge&b_1(T)-1\quad\text{\rm a }b_h(T')=b_h(T)\text{\rm\ pro }
+\begin{align*} b_1(T')\ge&b_1(T)-1\quad\text{\rm a }b_h(T')=b_h(T)\text{\rm\ pro }
 h>1;\\
-b(T')\ge&b(T)-1.\endalign$$
+b(T')\ge&b(T)-1.\end{align*}
 \end{lemma_counting}
 
 \begin{lemma_counting}Nechť $(T,r,v)$ je parciální $(a,b)$-strom, 
@@ -916,18 +916,18 @@ $\rho (v)=b+1$ a $v$ je ve výšce $l\ge 1$. Když $T'$ vznikne z $
 T$ 
 operací {\bf Štěpení$(v)$}, pak $(T',r,\otec(v))$ je parciální 
 $(a,b)$-strom a platí:  
-$$\align b_l(T')\ge&b_l(T)+2c,\text{\rm\ }b_{l+1}(T')\ge b_{l+1}(
+\begin{align*} b_l(T')\ge&b_l(T)+2c,\text{\rm\ }b_{l+1}(T')\ge b_{l+1}(
 T)-1\\
 b_h(T')=&b_h(T)\text{\rm\ pro }h\ne l,l+1;\quad b(T')\ge b(T)+2c-
-1.\endalign$$
+1.\end{align*}
 \end{lemma_counting}
 
 \begin{lemma_counting}Nechť $(T,r,v)$ je parciální $(a,b)$-strom, 
 $\rho (v)=a-1$, $v$ je ve výšce $l\ge 1$ a $y$ je bezprostřední bratr $v$ takový že $\rho(y)=a$. Když $T'$ vznikne z $T$ operací {\bf Spojení$(v,y)$}, pak $(T',r,\otec(v))$ je parciální $(a,b)$-strom a 
 platí:  
-$$\align b_l(T')\ge&b_l(T)+c+1,\text{\rm\ }b_{l+1}(T')\ge b_{l+1}
+\begin{align*} b_l(T')\ge&b_l(T)+c+1,\text{\rm\ }b_{l+1}(T')\ge b_{l+1}
 (T)-1\\
-b_h(T')=&b_h(T)\text{\rm\ pro }h\ne l,l+1;\quad b(T')\ge b(T)+c.\endalign$$
+b_h(T')=&b_h(T)\text{\rm\ pro }h\ne l,l+1;\quad b(T')\ge b(T)+c.\end{align*}
 \end{lemma_counting}
 
 \begin{lemma_counting} Nechť $(T,r,v)$ je parciální $(a,b)$-strom, 
@@ -953,14 +953,14 @@ Dále $b(T_k)\ge (2c-1)St+cSp-n$, kde $n$ je délka posloupnosti $
 
 První výraz upravíme (využíváme, že $
 c\ge 1$):
-$$\align St_h+Sp_h\le&\frac {b_h(T_k)}{c+1}+\frac {St_{h-1}+Sp_{h
+\begin{align*} St_h+Sp_h\le&\frac {b_h(T_k)}{c+1}+\frac {St_{h-1}+Sp_{h
 -1}}{c+1}\le\\
 &\frac {b_h(T_k)}{c+1}+\frac {b_{h-1}(T_k)}{(c+1)^2}+\frac {St_{h
 -2}+Sp_{h-2}}{(c+1)^2}\le\dots\le\\
 &\sum_{i=0}^{h-1}\frac {b_{h-i}(T_k)}{(c+1)^{i+1}}+\frac n{(c+1)^
 h}=\\
 &\frac n{(c+1)^h}+\sum_{l=1}^hb_l(T_k)\frac {(c+1)^l}{(c+1)^{h+1}}
-.\endalign$$
+.\end{align*}
 
 Nyní odhadneme shora $b(T_k)$.
 
@@ -976,17 +976,17 @@ kořene, které mají alespoň $a+c$ synů. Když
 vrchol $v$ má $a+j$ synů, pak $b_T(v)\le j$ a pro 
 každý vnitřní vrchol $v$ platí $b_T(v)\le c$. Tedy 
 $b(T)\le c+\sum_{j=0}^cjm_j$. Z vlastností stromů plyne 
-$$\align2+\sum_{j=0}^c(a+j)m_j\le&\sum \{\rho (v)\mid v\text{\rm\ je vnitřní vrchol }
+\begin{align*}2+\sum_{j=0}^c(a+j)m_j\le&\sum \{\rho (v)\mid v\text{\rm\ je vnitřní vrchol }
 T\}=\\
-&m+\sum_{j=0}^cm_j.\endalign$$
+&m+\sum_{j=0}^cm_j.\end{align*}
 Odtud plyne
 $$\sum_{j=0}^c(a+j-1)m_j\le m-2.$$
 Protože $\frac j{a+j-1}\le\frac c{a+c-1}$ pro každé $j$ takové, že $
 0\le j\le c$, 
 dostáváme
-$$\align b(T)\le&c+\sum_{j=0}^cjm_j=c+\sum_{j=0}^c\frac j{a+j-1}(
+\begin{align*} b(T)\le&c+\sum_{j=0}^cjm_j=c+\sum_{j=0}^c\frac j{a+j-1}(
 a+j-1)m_j\le\\
-&c+\frac c{a+c-1}(m-2)\endalign$$
+&c+\frac c{a+c-1}(m-2)\end{align*}
 a lemma je dokázáno. \qed
 \enddemo
 
@@ -1016,19 +1016,19 @@ synů, a $m_c(h)$ počet vrcholů ve výšce $
 h$ 
 různých od kořene, které mají alespoň $a+c$ 
 synů. Pak máme
-$$\align b_h(T)\le&\sum_{j=0}^cjm_j(h)\text{\rm},\\
+\begin{align*} b_h(T)\le&\sum_{j=0}^cjm_j(h)\text{\rm},\\
 \sum_{j=0}^c(a+j)m_j(h)\le&\sum_{j=0}^cm_j(h-1)\text{\rm\ pro každé }
-h\ge 1,\endalign$$
+h\ge 1,\end{align*}
 kde dodefinováváme $\sum_{j=0}^cm_j(0)=m$. Tyto vztahy 
 použijeme v následujícím odhadu. Platí 
-$$\align\sum_{l=1}^hb_l(T)&(c+1)^l\le\sum_{l=1}^h\big[(c+1)^l\big
+\begin{align*}\sum_{l=1}^hb_l(T)&(c+1)^l\le\sum_{l=1}^h\big[(c+1)^l\big
 (\sum_{j=0}^cjm_j(l)\big)\big]\le\\
 &\sum_{l=1}^h\big[(c+1)^l\big(\sum_{j=0}^cm_j(l-1)-a\sum_{j=0}^cm_
 j(l)\big)\big]=\\
 &(c+1)\sum_{j=0}^cm_j(0)-(c+1)^ha\sum_{j=0}^cm_j(h)+\\
 &\quad\sum_{l=1}^{h-1}(c+1)^{l+1}\big(\sum_{j=0}^cm_j(l)-\frac a{
 c+1}\sum_{j=0}^cm_j(l)\big)\le\\
-&(c+1)m,\endalign$$
+&(c+1)m,\end{align*}
 kde rovnost jsme získali přerovnáním sčítanců 
 tak, aby výrazy $\sum_{j=0}^cm_j(l)$ byly u sebe, a poslední 
 nerovnost plyne z toho, že $\frac a{c+1}\ge 1$, a tedy druhý sčítanec 
@@ -1038,16 +1038,16 @@ v předchozím výrazu není kladný. \qed
 
 Zkombinujeme odhad $St_h+Sp_h$ s Lemmatem 7 a 
 dostaneme
-$$\align St_h+Sp_h\le&\frac n{(c+1)^h}+\sum_{l=1}^hb_l(T_k)\frac {
+\begin{align*} St_h+Sp_h\le&\frac n{(c+1)^h}+\sum_{l=1}^hb_l(T_k)\frac {
 (c+1)^l}{(c+1)^{h+1}}\le\\
 &\frac n{(c+1)^h}+\frac {n(c+1)}{(c+1)^{h+1}}=\frac {2n}{(c+1)^h}
-.\endalign$$
+.\end{align*}
 Protože $P_h\le Sp_{h-1}-Sp_h\le St_{h-1}+Sp_{h-1}\le\frac {2n}{
 (c+1)^{h-1}}$ 
 dostáváme, že 
-$$\align St_h+Sp_h+P_h\le&\frac {2n}{(c+1)^h}+\frac {2n}{(c+1)^{h
+\begin{align*} St_h+Sp_h+P_h\le&\frac {2n}{(c+1)^h}+\frac {2n}{(c+1)^{h
 -1}}=\frac {2n+2n(c+1)}{(c+1)^h}=\\
-&\frac {2n(c+2)}{(c+1)^h}\endalign$$
+&\frac {2n(c+2)}{(c+1)^h}\end{align*}
 a důkaz (2) ve Větě je hotov.
 
 Věta vysvětluje, proč jsou doporučené hodnoty $
@@ -1309,14 +1309,14 @@ $$\sigma^2=\sum_{j=0}^{h-d}(j-\mu )^2\binom {h-d}jp^j(1-p)^{h-d-j}
 =p(1-p)(h-d).$$
 Když si uvědomíme, že $k=\lfloor\sqrt {h-d}\rfloor$ a $
 n=p(h-d)$, pak dostáváme
-$$\align p_i,p_{i+1}\le&\Prob(|X-n|\ge\lfloor\frac {i-2}2\rfloor k 
+\begin{align*} p_i,p_{i+1}\le&\Prob(|X-n|\ge\lfloor\frac {i-2}2\rfloor k 
 )\le\frac {4p(1-p)(h-d)}{(i-2)^2k^2}\le\\
-&\frac {4p(1-p)}{(i-2)^2}\le\frac 1{(i-2)^2},\endalign$$
+&\frac {4p(1-p)}{(i-2)^2}\le\frac 1{(i-2)^2},\end{align*}
 protože pro $0\le p\le 1$ je $p(1-p)\le\frac 14$. Když shrneme tato pozorování, 
 dostává\-me, že 
-$$\align E(C)=&\sum_{i\ge 1}p_i\le 2+2\sum_{i\ge 3}\frac 1{(i-2)^2}=
+\begin{align*} E(C)=&\sum_{i\ge 1}p_i\le 2+2\sum_{i\ge 3}\frac 1{(i-2)^2}=
 2+2\sum_{i\ge 1}\frac 1{i^2}=\\
-&2+2\frac {\pi^2}6=2+\frac {\pi^2}3\approx 5.3\endalign$$
+&2+2\frac {\pi^2}6=2+\frac {\pi^2}3\approx 5.3\end{align*}
 Závěr: očekávaný počet dotazů v bloku je menší než $
 6$.
 
@@ -1811,7 +1811,7 @@ Dokážeme, že $mn(i)=F_{i+2}-1$. Protože $F_3
 =2$ a 
 $F_4=3$, 
 tvrzení platí pro $i=1$ a $i=2$. Dále 
-$$\align mn(i+2)=&mn(i+1)+mn(i)+1=\\&F_{i+3}-1+F_{i+2}-1+1=F_{i+4}-1.\endalign$$
+\begin{align*} mn(i+2)=&mn(i+1)+mn(i)+1=\\&F_{i+3}-1+F_{i+2}-1+1=F_{i+4}-1.\end{align*}
 Z toho indukcí plyne požadovaný vztah. 
 
 Když AVL-strom $T$ o výšce $i$ reprezentuje množinu $
