@@ -6,7 +6,6 @@
  
  \usepackage[utf8]{inputenc}
  \usepackage[czech]{babel}
- \usepackage{hyperref}
  \usepackage{graphicx} 
  \usepackage{caption} 
  
@@ -1679,13 +1678,14 @@ Mějme vrchol $v$ binárního vyhledávacího stromu $
 T$ a 
 jeho syna $u$, který je vnitřní vrchol.  Pak {\bf Rotace$
 (v,u)$} je 
-znázorněna na obrázku a provádí ji následující algoritmus.  
+znázorněna na obrázku \ref{rotace} a provádí ji následující algoritmus.  
 
 \begin{figure}[h!]
   \centerline{
     \input fig1.tex
     }
   \caption{Rotace $(v,u)$}
+  \label{rotace}
 \end{figure}
 
 {\bf Rotace$(v,u)$\newline} 
@@ -2282,7 +2282,7 @@ $u:=\bratr(v)$}, $t:=\otec(v)$\newline
 {\bf if} $b(u)=0$ {\bf then}\newline 
 \phantom{---}{\bf Rotace}$(t,u)$, $b(u):=1$, $b(t):=0$, $u:=\bratr(v)$\newline 
 {\bf endif\newline}
-(Viz Obr. 4, Komentář: nyní $b(u)=1$)\newline 
+(Viz Obr. \ref{fig6}, Komentář: nyní $b(u)=1$)\newline 
 $w_1$ je syn $u$ takový, že $s(v)=s(w_1)$, $w_2:=\bratr(w_1)$\newline 
 {\bf if} $b(w_1)=b(w_2)=1$ {\bf then}\newline 
 \phantom{---}$b(u):=0$\newline 
@@ -2291,13 +2291,13 @@ $w_1$ je syn $u$ takový, že $s(v)=s(w_1)$, $w_2:=\bratr(w_1)$\newline
 \phantom{---}{\bf else}\newline 
 \phantom{------}{\bf if} $t$ není kořen stromu {\bf then}\newline \phantom{---------}$v:=t$, {\bf Vyvaz-DELETE}$(v)$\newline 
 \phantom{------}{\bf endif}\newline 
-\phantom{---}{\bf endif} (Viz Obr. 5)\newline 
+\phantom{---}{\bf endif} (Viz Obr. \ref{fig7})\newline 
 {\bf else}\newline 
 \phantom{---}{\bf if} $b(w_1)=1$ {\bf then}\newline 
 (Komentář: $b(w_2)=0$)\newline 
-\phantom{------}{\bf Rotace$(t,u)$}, $b(w_2):=1$, $b(u):=b(t)$, $b(t):=1$ (Viz Obr. 6)\newline 
+\phantom{------}{\bf Rotace$(t,u)$}, $b(w_2):=1$, $b(u):=b(t)$, $b(t):=1$ (Viz Obr. \ref{fig8})\newline 
 \phantom{---}{\bf else}\newline 
-\phantom{------}{\bf Dvojita-rotace}$(t,u,w_1)$, $b(w_1):=b(t)$, $b(t):=1$ (Viz Obr. 7)\newline
+\phantom{------}{\bf Dvojita-rotace}$(t,u,w_1)$, $b(w_1):=b(t)$, $b(t):=1$ (Viz Obr. \ref{fig9})\newline
 \phantom{---}{\bf endif\newline 
 endif}
 
@@ -2306,34 +2306,42 @@ nemají specifikovanou barvu (mohou být jak červené tak černé).
 Tyto barvy budeme označovat $a$, $a'$. Důvod je, že se 
 tato barva může přenést do cílového stromu, ale 
 i na jiný vrchol. V tomto smyslu jsou tyto barvy určeny vstupním 
-stromem a specifikují tyto barvy v cílovém stromě. V Obr. 5 
+stromem a specifikují tyto barvy v cílovém stromě. V Obr. \ref{fig7} 
 se barva $a$ v cílovém stromě neobjevuje.
 
-\midinsert
-\centerline{\input fig6.tex}
-\botcaption{Obr. 4}
-\endcaption
-\endinsert
 
-\midinsert
-\centerline{\input fig7.tex}
-\botcaption{Obr. 5}
-\endcaption
-\endinsert
+\begin{figure}[h!]
+  \centerline{
+    \input fig6.tex
+    }
+  \caption{}
+  \label{fig6}
+\end{figure}
+
+\begin{figure}[h!]
+  \centerline{
+    \input fig7.tex
+    }
+  \caption{}
+  \label{fig7}
+\end{figure}
+
+\begin{figure}[h!]
+  \centerline{
+    \input fig8.tex
+    }
+  \caption{}
+  \label{fig8}
+\end{figure}
 
 
-
-\midinsert
-\centerline{\input fig8.tex}
-\botcaption{Obr. 6}
-\endcaption
-\endinsert
-
-\midinsert
-\centerline{\input fig9.tex}
-\botcaption{Obr. 7}
-\endcaption
-\endinsert
+\begin{figure}[h!]
+  \centerline{
+    \input fig9.tex
+    }
+  \caption{}
+  \label{fig9}
+\end{figure}
 
 Nyní popíšeme algoritmy realizující operace {\bf INSERT}, 
 {\bf DE\-LE\-TE}, {\bf JOIN3} a {\bf SPLIT} pro červeno-černé stromy.  
@@ -2660,6 +2668,6 @@ $BB(\alpha )$-stromy zavedli Nievergelt a Reingold (1973),\newline
 věty o jejich vyvažování dokázali Blum a Mehlhorn (1980).\newline 
 Priorita AVL-stromů se odráží v 
 jejim hojném používání, i když červeno-černé stromy 
-jsou efektivnější. 
+jsou efektivnější.
 
 \end{document}
