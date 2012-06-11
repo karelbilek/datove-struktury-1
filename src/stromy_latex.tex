@@ -104,14 +104,14 @@ pro externí paměť. Je to struktura založená na stromech.
 Nejobecnější grafová defini\-ce $(a,b)$-stromu je:\newline 
 Nechť $1\le a<b$ jsou kladná přirozená čísla. Pak kořenový 
 strom $(T,t)$ se nazývá $(a,b)$-\emph{strom}, když 
-\roster
+\begin{enumerate}
 \item
 když $v$ je vnitřní vrchol stromu $T$ různý od 
 kořene $t$, pak má alespoň $a$ a nejvýše $b$ synů;
 \item
 všechny cesty z kořene do libovolného listu mají 
 stejnou délku.
-\endroster
+\end{enumerate}
 Tato definice je příliš obecná a pro datové struktury se 
 nehodí. Proto používáme její speciální případ. Datová 
 struktura $(a,b)$-strom je definována jen na těchto stromech: 
@@ -119,7 +119,7 @@ Nechť $a$ a $b$ jsou přirozená čísla taková, že $
 2\le a$ a 
 $2a-1\le b$. Pak kořenový 
 strom $(T,t)$ nazveme $(a,b)$-\emph{strom}, když platí 
-\roster
+\begin{enumerate}
 \item
 každý vnitřní vrchol $v$ stromu $T$ různý od 
 kořene $t$ má alespoň $a$ a nejvýše $b$ synů;
@@ -130,7 +130,7 @@ synů;
 \item
 všechny cesty z kořene do libovolného listu mají 
 stejnou délku.
-\endroster
+\end{enumerate}
 
 Výhody našich $(a,b)$-stromů:\newline 
 Když má $(a,b)$-strom \emph{výšku} $h>0$ (tj. délka každé 
@@ -415,22 +415,22 @@ jednoprůchodově -- nejprve se naplní a v této části
 algoritmu se nepoužije operace {\bf pop}, pak se vyprázdní a v této 
 fázi se nepoužívá operace {\bf push}. V okamžiku, když jsou 
 zásobníky naplněné, platí:
-\roster
-\item"{}"
+\begin{itemize}
+\item
 v zásobnících jsou uloženy $(a,b)$-stromy reprezentující 
 podmnožiny $S$;
-\item"{}" 
+\item 
 když $(a,b)$-stromy $T_i$ a $T_{i+1}$ reprezentují množiny $S_
 i$ a $S_{i+1}$ a jsou v zá\-sobníku $Z_1$ (nebo $Z_2$) a strom $T_{i+1}$ následuje 
 po stromu $T_{i}$, pak platí $\max S_i<\min S_{i+1}<x$ (nebo 
 $\min S_i>\max S_{i+1}>x$) a výška $T_i$ je větší nebo 
 rovna výšce $T_{i+1}$;
-\item"{}"
+\item
 když $T_i$ a $T_{i+1}$ jsou dva po sobě následující $
 (a,b)$-stromy v 
 zásobníku $Z_j$ pro $j=1,2$, které mají stejnou výšku, pak 
 následující strom v zásobníku $Z_j$ má ostře menší výšku.
-\endroster
+\end{itemize}
 
 Toto plyne z první fáze algoritmu operace {\bf SPLIT} a zajišťuje 
 korektnost druhé fáze algoritmu. 
@@ -807,12 +807,12 @@ $P_h$ -- počet {\bf Přesunů} ve výšce $h$ při aplikaci $
 \Cal P$, 
 $P=\sum_hP_h$.\newline 
 Pak platí
-\roster
+\begin{enumerate}
 \item
 $$P\le n\quad \text{\rm a}\quad (2c-1)St+cSp\le n+c+\frac {c(n-2)}{a+c-1};$$
 \item
 $$St_h+Sp_h+P_h\le\frac {2(c+2)n}{(c+1)^h}.$$
-\endroster
+\end{enumerate}
 \endproclaim
 
 Z definice plyne, že $c\ge 1$, a protože $a\ge 2$, z 1) dostaneme
@@ -834,7 +834,7 @@ kořen $r$ definuj\-me $b(r)=\min\{\rho (r)-2,b-\rho (r),c\}$.
 
 \proclaim{Pozorování}Pro vnitřní vrchol stromu $v$  
 různý od kořene platí
-\roster
+\begin{enumerate}
 \item
 $b(v)\le c$;
 \item
@@ -851,7 +851,7 @@ $\rho (v^{\prime\prime})=\lfloor\frac {b+1}2\rfloor$, pak $b(v')+
 b(v^{\prime\prime})\ge 2c-1$;
 \item
 pro kořen $r$ platí $b(r)\le c$.
-\endroster
+\end{enumerate}
 \endproclaim
 
 Strom $(T,r)$ ohodnotíme 
@@ -861,20 +861,20 @@ b(T)=&\sum_{h=1}^{\infty}b_h(T)+b(r).\endalign$$
 Řekneme, že $(T,r,v)$ je \emph{parciální} 
 $(a,b)$-\emph{strom}, když $r$ je kořen stromu, $v$ je vnitřní 
 vrchol $T$ a platí:
-\roster
-\item"{}"
+\begin{itemize}
+\item
 když $v\ne r$, pak $a-1\le\rho (v)\le b+1$ a $2\le\rho (r)\le 
 b$;
-\item"{}"
+\item
 když $v=r$, pak $2\le\rho (r)\le b+1$;
-\item"{}"
+\item
 když $t$ je vnitřní vrchol $T$ různý od $v$ a $
 r$, pak 
 $$a\le\rho (t)\le b;$$
-\item"{}"
+\item
 všechny cesty z kořene $r$ do nějakého listu mají stejnou 
 délku.
-\endroster
+\end{itemize}
 
 Nyní rozložíme operace {\bf INSERT} a {\bf DELETE} do 
 jednotlivých akcí se stromem a vyšetří\-me vliv těchto 
@@ -883,7 +883,7 @@ založené na následujícím pozorování
 
 \proclaim{Pozorování}Mějme dva stromy $T$ a $T'$, které mají 
 stejnou množinu vrcholů ve výšce $h$. Pak platí:
-\roster
+\begin{enumerate}
 \item
 když každý vrchol ve výšce $h$ má stejný počet synů 
 v obou stromech, pak $b_h(T)=b_h(T')$;
@@ -892,7 +892,7 @@ když všechny vrcholy ve výšce $h$ až na jeden vrchol mají stejný
 počet synů v obou stromech a počet synů u zby\-lé\-ho vrcholu se ve stromech $
 T$ a $T'$ liší nejvýše o $1$, pak $b_h(T)\ge b_h(T')-
 1$.
-\endroster
+\end{enumerate}
 \endproclaim
 
 \proclaim{Lemma 1}Když $(T,r)$ je $(a,b)$-strom a když strom $
@@ -1353,8 +1353,8 @@ univerzum a $S\subseteq U$.  \emph{Binární} \emph{vyhledávací}
 binární strom (tj. každý vrchol je buď listem nebo má 
 dva syny, levého a pravého), kde existuje bijekce mezi 
 množinou $S$ a vnitřními vrcholy stromu taková, že
-\roster
-\item"{}"
+\begin{itemize}
+\item
 když $v$ je vnitřní vrchol stromu $T$, kterému je přiřazen 
 prvek $s\in S$, pak každému vnitřnímu vrcholu $u$ v 
 podstromu levého syna vrcholu $v$ je přiřazen prvek z $S$ 
@@ -1362,7 +1362,7 @@ menší než $s$ a každému vnitřnímu vrcholu $
 w$ v 
 podstromu pravého syna vrcholu $v$ je přiřazen prvek z $S$ 
 větší než $s$.
-\endroster
+\end{itemize}
 
 Strukura vnitřního vrcholu $v$:\newline 
 ukazatel $\otec(v)$ na otce vrcholu $v$,\newline 
@@ -1528,12 +1528,12 @@ implikuje platnost tvrzení i pro vrcholy $t_l$ a $t_p$.  \qed
 
 Korektnost podprocedury {\bf Vyhledej} plyne z 
 následujícího invariantu:
-\roster
-\item"{}"
+\begin{itemize}
+\item
 Když při vyhledávání $x$ vyšetřujeme vrchol $
 t$, pak 
 $$\lambda (t)<x<\pi (t).$$
-\endroster
+\end{itemize}
 Toto tvrzení se lehce dokáže indukcí z popisu algoritmu 
 {\bf Vy\-hledej}.  Tedy operace {\bf Vy\-hledej} je korektní a korekt\-nost 
 ope\-rací {\bf MEMBER} a {\bf INSERT} je teď zřejmá. V operaci {\bf DELE\-TE},  
@@ -2088,16 +2088,16 @@ Binární vyhledávací strom $T$ reprezentující
 množinu $S$, jehož vrcholy jsou obarveny červeně nebo 
 černě (každý vrchol má právě jednu barvu) tak, že jsou 
 splněny podmínky:
-\roster
-\item"{}"
+\begin{itemize}
+\item
 listy jsou obarveny černě,
-\item"{}"
+\item
 když $v$ je vrchol obarvený červeně, pak je buď kořen 
 stromu nebo jeho otec je obarven černě,
-\item"{}"
+\item
 všechny cesty z kořene do listů mají stejný 
 počet čer\-ných vrcholů
-\endroster
+\end{itemize}
 se nazývá \emph{červeno}-\emph{černý} \emph{strom}. 
 
 Nejprve ukážeme, že červeno-černé stromy jsou 
@@ -2154,16 +2154,16 @@ Dvojice $(T,v)$ se nazývá 2-\emph{parciální}
 binární vyhledávací strom, každý vrchol je obarven 
 červeně nebo černě, $v$ je 
 vnitřní vrchol stromu $T$ obarvený červeně a platí:
-\roster
-\item"{}"
+\begin{itemize}
+\item
 listy jsou obarveny černě,
-\item"{}"
+\item
 když $t$ je vrchol obarvený červeně, pak je buď kořen 
 stromu nebo $t=v$ nebo jeho otec je obarven černě,
-\item"{}"
+\item
 všechny cesty z kořene do listů mají stejný 
 počet čer\-ných vrcholů.
-\endroster
+\end{itemize}
 
 Vyvažování 2-parciálního červeno-černého stromu $(T',v)$ 
 pro\-vá\-dí procedura {\bf Vyvaz-IN\-SERT$(v)$}.  Po jejím 
@@ -2237,20 +2237,20 @@ vy\-hledávací strom, každému vrcholu je při\-řazena právě jedna z
 dvojice barev červená -- černá, $v$ je vrchol ve stromu $
 T$ a 
 platí následující podmínky: 
-\roster
-\item"{}"
+\begin{itemize}
+\item
 listy a vrchol $v$ jsou obarveny černě,
-\item"{}"
+\item
 když $t$ je vrchol obarvený červeně, pak je buď kořen 
 stromu nebo jeho otec je obarven černě,
-\item"{}"
+\item
 existuje číslo $k$ takové, že všechny cesty z kořene do 
 listů, které neobsahují vrchol $v$, obsahují právě 
 $k$ čer\-ných vrcholů, a všechny cesty z kořene do 
 listů prochá\-ze\-jí\-cí vrcholem $v$ obsahují $
 k-1$ černých 
 vrcholů.
-\endroster
+\end{itemize}
 
 Popíšeme proceduru {\bf Vyvaz-DELETE$(v)$}, která se 
 použije na 3-parciální červeno-černý strom $(T,v)$, když $
@@ -2586,7 +2586,7 @@ technické tvrzení.
 d$ 
 taková, že $\alpha <d<1-\alpha$ a pro každý binární vyhledávací 
 strom $T$ s kořenem $t$ splňující podmínky
-\roster
+\begin{enumerate}
 \item
 podstromy $T_l$ a $T_r$ stromu $T$ určené levým a pravým 
 synem $t$ jsou $BB(\alpha )$-stromy;
@@ -2594,7 +2594,7 @@ synem $t$ jsou $BB(\alpha )$-stromy;
 $\frac {p(T_l)}{p(T)}<\alpha$, ale $\alpha\le\frac {
 p(T_l)}{p(T)-1}\le 1-\alpha$ nebo $\alpha\le\frac {
 p(T_l)+1}{p(T)+1}\le 1-\alpha$
-\endroster
+\end{enumerate}
 platí:\newline 
 když $\rho\le d$ a provedeme {\bf Rotace$(t,\pravy(t))$}, nebo když 
 $\rho >d$ a provedeme proceduru {\bf Dvojita-rotace$(t,\pravy(t),\levy(\pravy(t)))$}, pak dostaneme 
