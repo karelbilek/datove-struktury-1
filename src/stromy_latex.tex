@@ -800,16 +800,16 @@ b+1}2\rfloor \}\}.$$
 Připomínáme, že \emph{výška} \emph{vrcholu} v kořenovém stromě je 
 maximální délka cesty z něho do některého listu.
 
-\begin{veta}Nechť $b\ge 2a$ a $a\ge 2$. Nechť $\Cal P$ je 
+\begin{veta}Nechť $b\ge 2a$ a $a\ge 2$. Nechť $\mathcal P$ je 
 posloupnost $n$ operací {\bf INSERT} a {\bf DELETE}, aplikujme ji na 
 prázdný $(a,b)$-strom. Označme\newline 
 $St_h$ -- počet {\bf Štěpení} ve výšce $h$ při aplikaci $
-\Cal P$, $St=\sum_hSt_h$;\newline 
+\mathcal P$, $St=\sum_hSt_h$;\newline 
 $Sp_h$-- počet {\bf Spojení} ve výšce $h$ při aplikaci $
-\Cal P$, 
+\mathcal P$, 
 $Sp=\sum_hSp_h$;\newline 
 $P_h$ -- počet {\bf Přesunů} ve výšce $h$ při aplikaci $
-\Cal P$, 
+\mathcal P$, 
 $P=\sum_hP_h$.\newline 
 Pak platí
 \begin{enumerate}
@@ -939,7 +939,7 @@ l;\quad b(T')\ge b(T).$$
 \end{lemma_counting}
 
 Označme $T_k$ $(a,b)$-strom vzniklý provedením posloupnosti 
-$\Cal P$ na prázdný $(a,b)$-strom. Sečtením předchozích 
+$\mathcal P$ na prázdný $(a,b)$-strom. Sečtením předchozích 
 výsledků dostá\-váme
 
 \begin{dusledek_counting}Když položíme 
@@ -948,7 +948,7 @@ $$\gather St_0+Sp_0=\text{\rm počet listů v }T_k\le n
 b_h(T_k)\ge 2cSt_h+(c+1)Sp_h-St_{h-1}-Sp_{h-1}\text{\rm\ pro }h\ge 
 1.\endgather$$
 Dále $b(T_k)\ge (2c-1)St+cSp-n$, kde $n$ je délka posloupnosti $
-\Cal P$.
+\mathcal P$.
 \end{dusledek_counting}
 
 První výraz upravíme (využíváme, že $
@@ -1068,7 +1068,7 @@ verze.
 
 \begin{veta}Předpokládejme, že $b\ge 2a$ a $a\ge 2$. Mějme 
 hladinově propojený $(a,b)$-strom s prstem $T$, který reprezentuje 
-$n$-prvkovou množinu. Pak posloupnost $\Cal P$ operací {\bf MEMBER},
+$n$-prvkovou množinu. Pak posloupnost $\mathcal P$ operací {\bf MEMBER},
 {\bf INSERT}, {\bf DELETE} a {\bf PRST} aplikovaná na $T$ vyžaduje čas 
 $$O(\log(n)+\text{\rm\ čas na vyhledání prvků})
 .$$
@@ -1077,7 +1077,7 @@ $$O(\log(n)+\text{\rm\ čas na vyhledání prvků})
 Vysvětlení: Začínáme v libovolném 
 propojeném $(a,b)$-stro\-mě $T$, proto jeho struktura 
 může být nevýhodná pro danou pos\-loupnost operací $
-\Cal P$. 
+\mathcal P$. 
 Abychom se dostali do vhodného režimu, může 
 být třeba až $\log(n)$ vyvažovacích operací. Čas na 
 vy\-hledává\-ní nemůžeme ovlivnit, ten musí 
