@@ -45,6 +45,14 @@
 
 \newtheorem*{dusledek}{Důsledek}
 \newtheorem*{lemma}{Lemma}
+
+%tohle je mozna nesmyslne komplikovane
+\newtheorem{counter}{Counter}
+\newtheorem{lemma_counting}[counter]{Lemma}
+\newtheorem{dusledek_counting}[counter]{Důsledek}
+
+\newtheorem*{pozorovani}{Pozorování}
+
 \newtheorem*{veta}{Věta}
 \newtheorem*{tvrzeni}{Tvrzení}
 \newtheorem*{definice}{Definice}
@@ -139,7 +147,7 @@ strom má alespoň $2a^{h-1}$ listů a nejvýše $b^
 h$ 
 listů.
 
-\proclaim{Tvrzení}Mějme přirozená čísla $a$ a $
+\begin{tvrzeni}Mějme přirozená čísla $a$ a $
 b$ taková, 
 že $a\ge 2$ a $b\ge 2a-1$. Pak pro každé kladné přirozené 
 číslo $n$ existuje $(a,b)$-strom, který má přesně $
@@ -148,7 +156,7 @@ listů. Když $(a,b)$-strom má přesně $n$
 listů, pak výška stromu je nejvýše $1+\log_a(\frac 
 n2)$ a 
 je alespoň $\log_bn$. Tedy výška stromu je $O(\log n)$.
-\endproclaim
+\end{tvrzeni}
 
 Mějme kořenový strom $(T,t)$ takový, že pro každý 
 vnitřní vrchol $v$ platí:\newline 
@@ -441,13 +449,13 @@ vyžadují čas $O(1)$, a proto algoritmy pro operace {\bf MEMBER},
 {\bf SPLIT} vyžadují čas $O(1)$ pro práci v dané hladině.  Protože 
 hladin je nejvýše $\log_a|S|$, můžeme shrnout: 
 
-\proclaim{Věta}Algoritmy pro operace {\bf MEMBER}, {\bf INSERT}, 
+\begin{veta}Algoritmy pro operace {\bf MEMBER}, {\bf INSERT}, 
 {\bf DE\-LETE}, {\bf MIN}, {\bf MAX}, {\bf JOIN2} a {\bf SPLIT} v $
 (a,b)$-stromech vy\-žadují 
 v nejhorším případě čas $O(\log_a|S|)$, kde $
 S$ je 
 re\-pre\-zen\-tovaná množina.  
-\endproclaim
+\end{veta}
 
 Je třeba ještě odhadnout spotřebovaný čas ve druhé fázi 
 algoritmu pro operaci {\bf SPLIT}. Nejprve si všimněme, že 
@@ -502,13 +510,13 @@ lexikografickém uspořádání předcházejí $i$-tému synu
 vrcholu $t$. Korektnost algoritmu plyne z tohoto 
 invariantu.
 
-\proclaim{Věta}Algoritmy pro operace {\bf MEMBER}, {\bf INSERT}, 
+\begin{veta}Algoritmy pro operace {\bf MEMBER}, {\bf INSERT}, 
 {\bf DE\-LETE}, {\bf MIN}, {\bf MAX}, {\bf SPLIT}, {\bf JOIN2} a {\bf ord$
 (k)$} pro všechna $k$ v 
 rozšířené struktuře $(a,b)$-stromu vy\-ža\-dují v 
 nejhorším pří\-pa\-dě čas $O(\log|S|)$, kde $S$ je reprezentovaná 
 množina.  
-\endproclaim
+\end{veta}
 
 $(a,b)$-stromy se používají jak v interní tak v 
 externí paměti. Jaké hodnoty $a$ a $b$ je vhodné 
@@ -706,12 +714,12 @@ $$\align\sum_{i=1}^n\log f_i=&\log\prod_{i=1}^nf_i=n\log(\prod_{i
 =1}^nf_i)^{\frac 1n}\le\\
 &n\log\frac {\sum_{i=1}^nf_i}n=n\log\frac Fn.\endalign$$
 
-\proclaim{Věta}Algoritmus $A$-{\bf sort} na setřídění $
+\begin{veta}Algoritmus $A$-{\bf sort} na setřídění $
 n$-členné 
 posloupnosti vyžaduje v nejhorším případě čas 
 $O(n+n\log\frac Fn)$, kde $F$ je míra setříděnosti vstupní 
 posloupnosti.
-\endproclaim
+\end{veta}
 
 Zhodnocení: Protože $A$-{\bf sort} nepoužívá operaci 
 {\bf DELETE}, doporučuje se použít $(2,3)$-stromy. Když se 
@@ -795,7 +803,7 @@ b+1}2\rfloor \}\}.$$
 Připomínáme, že \emph{výška} \emph{vrcholu} v kořenovém stromě je 
 maximální délka cesty z něho do některého listu.
 
-\proclaim{Věta}Nechť $b\ge 2a$ a $a\ge 2$. Nechť $\Cal P$ je 
+\begin{veta}Nechť $b\ge 2a$ a $a\ge 2$. Nechť $\Cal P$ je 
 posloupnost $n$ operací {\bf INSERT} a {\bf DELETE}, aplikujme ji na 
 prázdný $(a,b)$-strom. Označme\newline 
 $St_h$ -- počet {\bf Štěpení} ve výšce $h$ při aplikaci $
@@ -813,7 +821,7 @@ $$P\le n\quad \text{\rm a}\quad (2c-1)St+cSp\le n+c+\frac {c(n-2)}{a+c-1};$$
 \item
 $$St_h+Sp_h+P_h\le\frac {2(c+2)n}{(c+1)^h}.$$
 \end{enumerate}
-\endproclaim
+\end{veta}
 
 Z definice plyne, že $c\ge 1$, a protože $a\ge 2$, z 1) dostaneme
 $$St+Sp\le\frac nc+1+\frac {n-2}a\le n+1+\frac {n-2}2\le\frac {3n}
@@ -832,7 +840,7 @@ $v$ různý od kořene definuj\-me
 $b(v)=\min\{\rho (v)-a,b-\rho (v),c\}$, pro 
 kořen $r$ definuj\-me $b(r)=\min\{\rho (r)-2,b-\rho (r),c\}$. 
 
-\proclaim{Pozorování}Pro vnitřní vrchol stromu $v$  
+\begin{pozorovani}Pro vnitřní vrchol stromu $v$  
 různý od kořene platí
 \begin{enumerate}
 \item
@@ -852,7 +860,7 @@ b(v^{\prime\prime})\ge 2c-1$;
 \item
 pro kořen $r$ platí $b(r)\le c$.
 \end{enumerate}
-\endproclaim
+\end{pozorovani}
 
 Strom $(T,r)$ ohodnotíme 
 $$\align b_h(T)=&\sum \{b(v)\mid v\ne r\text{\rm\ vnitřní vrchol stromu }\text{\rm\ ve výšce }
@@ -881,7 +889,7 @@ jednotlivých akcí se stromem a vyšetří\-me vliv těchto
 akcí na jeho ohodnocení. Důkazy lemmat jsou 
 založené na následujícím pozorování
 
-\proclaim{Pozorování}Mějme dva stromy $T$ a $T'$, které mají 
+\begin{pozorovani}Mějme dva stromy $T$ a $T'$, které mají 
 stejnou množinu vrcholů ve výšce $h$. Pak platí:
 \begin{enumerate}
 \item
@@ -893,9 +901,9 @@ počet synů v obou stromech a počet synů u zby\-lé\-ho vrcholu se ve stromec
 T$ a $T'$ liší nejvýše o $1$, pak $b_h(T)\ge b_h(T')-
 1$.
 \end{enumerate}
-\endproclaim
+\end{pozorovani}
 
-\proclaim{Lemma 1}Když $(T,r)$ je $(a,b)$-strom a když strom $
+\begin{lemma_counting}Když $(T,r)$ je $(a,b)$-strom a když strom $
 T'$ 
 vznikne z $T$ přidáním/ubráním jednoho syna vrcholu $
 v$ 
@@ -904,9 +912,9 @@ $(T',r,v)$ je parciální $(a,b)$-strom a platí
 $$\align b_1(T')\ge&b_1(T)-1\quad\text{\rm a }b_h(T')=b_h(T)\text{\rm\ pro }
 h>1;\\
 b(T')\ge&b(T)-1.\endalign$$
-\endproclaim
+\end{lemma_counting}
 
-\proclaim{Lemma 2}Nechť $(T,r,v)$ je parciální $(a,b)$-strom, 
+\begin{lemma_counting}Nechť $(T,r,v)$ je parciální $(a,b)$-strom, 
 $\rho (v)=b+1$ a $v$ je ve výšce $l\ge 1$. Když $T'$ vznikne z $
 T$ 
 operací {\bf Štěpení$(v)$}, pak $(T',r,\otec(v))$ je parciální 
@@ -915,36 +923,36 @@ $$\align b_l(T')\ge&b_l(T)+2c,\text{\rm\ }b_{l+1}(T')\ge b_{l+1}(
 T)-1\\
 b_h(T')=&b_h(T)\text{\rm\ pro }h\ne l,l+1;\quad b(T')\ge b(T)+2c-
 1.\endalign$$
-\endproclaim
+\end{lemma_counting}
 
-\proclaim{Lemma 3}Nechť $(T,r,v)$ je parciální $(a,b)$-strom, 
+\begin{lemma_counting}Nechť $(T,r,v)$ je parciální $(a,b)$-strom, 
 $\rho (v)=a-1$, $v$ je ve výšce $l\ge 1$ a $y$ je bezprostřední bratr $v$ takový že $\rho(y)=a$. Když $T'$ vznikne z $T$ operací {\bf Spojení$(v,y)$}, pak $(T',r,\otec(v))$ je parciální $(a,b)$-strom a 
 platí:  
 $$\align b_l(T')\ge&b_l(T)+c+1,\text{\rm\ }b_{l+1}(T')\ge b_{l+1}
 (T)-1\\
 b_h(T')=&b_h(T)\text{\rm\ pro }h\ne l,l+1;\quad b(T')\ge b(T)+c.\endalign$$
-\endproclaim
+\end{lemma_counting}
 
-\proclaim{Lemma 4} Nechť $(T,r,v)$ je parciální $(a,b)$-strom, 
+\begin{lemma_counting} Nechť $(T,r,v)$ je parciální $(a,b)$-strom, 
 $\rho (v)=a-1$, $v$ je výšce $l\ge 1$ a $y$ je bezprostřední bratr $v$ takový, že $\rho(y)>a$. 
 Když $T'$ vznikne z $T$ operací {\bf Přesun$(v,y)$}, 
 pak $(T',r)$ je $(a,b)$-strom a platí:  
 $$b_l(T')\ge b_l(T)\text{\rm\ a }b_h(T')=b_h(T)\text{\rm\ pro }h\ne 
 l;\quad b(T')\ge b(T).$$
-\endproclaim
+\end{lemma_counting}
 
 Označme $T_k$ $(a,b)$-strom vzniklý provedením posloupnosti 
 $\Cal P$ na prázdný $(a,b)$-strom. Sečtením předchozích 
 výsledků dostá\-váme
 
-\proclaim{Důsledek 5}Když položíme 
+\begin{dusledek_counting}Když položíme 
 $$\gather St_0+Sp_0=\text{\rm počet listů v }T_k\le n
 ,\quad\text{\rm pak}\\
 b_h(T_k)\ge 2cSt_h+(c+1)Sp_h-St_{h-1}-Sp_{h-1}\text{\rm\ pro }h\ge 
 1.\endgather$$
 Dále $b(T_k)\ge (2c-1)St+cSp-n$, kde $n$ je délka posloupnosti $
 \Cal P$.
-\endproclaim
+\end{dusledek_counting}
 
 První výraz upravíme (využíváme, že $
 c\ge 1$):
@@ -959,9 +967,9 @@ h}=\\
 
 Nyní odhadneme shora $b(T_k)$.
 
-\proclaim{Lemma 6}Když $T$ je $(a,b)$-strom s $m$ listy, pak 
+\begin{lemma_counting}Když $T$ je $(a,b)$-strom s $m$ listy, pak 
 $0\le b(T)\le c+(m-2)\frac c{a+c-1}$.
-\endproclaim
+\end{lemma_counting}
 
 \demo{Důkaz}Pro $0\le j<c$ označme $m_j$ počet 
 vnitřních vrcholů různých od kořene, 
@@ -998,10 +1006,10 @@ Odtud plyne požadovaná nerovnost a (1) je dokázáno.
 
 Důkaz (2) využije následující odhad.
 
-\proclaim{Lemma 7}Pro každé $h\ge 1$ a pro každý 
+\begin{lemma_counting}Pro každé $h\ge 1$ a pro každý 
 $(a,b)$-strom $T$ s $m$ listy platí 
 $$\sum_{l=1}^hb_l(T)(c+1)^l\le (c+1)m.$$
-\endproclaim
+\end{lemma_counting}
 
 \demo{Důkaz}Pro $0\le j<c$ a pro libovolné $h$ 
 označme $m_j(h)$ počet vrcholů ve výšce $h$ 
@@ -1061,13 +1069,13 @@ doporučuje hodnota $b=2a+2$ pro paralelní implementaci
 $(a,b)$-stromu. Pro propojené $(a,b)$-stromy platí silnější 
 verze.
 
-\proclaim{Věta}Předpokládejme, že $b\ge 2a$ a $a\ge 2$. Mějme 
+\begin{veta}Předpokládejme, že $b\ge 2a$ a $a\ge 2$. Mějme 
 hladinově propojený $(a,b)$-strom s prstem $T$, který reprezentuje 
 $n$-prvkovou množinu. Pak posloupnost $\Cal P$ operací {\bf MEMBER},
 {\bf INSERT}, {\bf DELETE} a {\bf PRST} aplikovaná na $T$ vyžaduje čas 
 $$O(\log(n)+\text{\rm\ čas na vyhledání prvků})
 .$$
-\endproclaim
+\end{veta}
 
 Vysvětlení: Začínáme v libovolném 
 propojeném $(a,b)$-stro\-mě $T$, proto jeho struktura 
@@ -1324,12 +1332,12 @@ Protože $E(T(1))=1$ a $E(T(2))\le 2$, dostáváme z rekurentního
 vzorce, že 
 $$E(T(n))\le 2+E(C)\log\log n\qquad\text{\rm pro }n\ge 2.$$
 
-\proclaim{Věta}Čas operace {\bf MEMBER} v uspořádaném poli délky $
+\begin{veta}Čas operace {\bf MEMBER} v uspořádaném poli délky $
 n$ při 
 zobec\-něném kvadra\-tickém vyhledávání je v nejhorším 
 přípa\-dě $O(\log n)$. Když rozdělení vstupních dat je 
 rovno\-měr\-né, pak očekávaný čas je $O(\log\log n)$. 
-\endproclaim
+\end{veta}
 
 Nevýhoda této datové struktury 
 spočívá v neexistenci přiroze\-ných efektivních implementací 
@@ -1507,13 +1515,13 @@ Když hodnoty $\lambda(t)$ a $\pi(t)$ jsou pro vrchol $t$ definovány, pak pro l
 a pro pravého syna $w$ vrcholu $t$ definujeme $\lambda(w)=\key(t)$ a $\pi(w)=\pi(t)$.
 Nyní dokážeme
 
-\proclaim{Lemma}Je-li $T'$ podstrom binárního vyhledávacího 
+\begin{lemma}Je-li $T'$ podstrom binárního vyhledávacího 
 stromu $T$ určený vrcholem $t$, pak $T'$ reprezentuje množinu 
 $S\cap (\lambda (t),\pi (t))$. Navíc interval $(\lambda (t),\pi 
 (t))$ je největší interval, 
 který obsahuje jenom prvky z $S$, které jsou reprezentovány 
 vrcholy podstromu $T'$. Navíc, když $t$ je list, pak $<\lambda(t),\pi(t)>$ je interval repreyentovaný listem $t$.
-\endproclaim
+\end{lemma}
 
 \demo{Důkaz}Tvrzení dokážeme indukcí.  Zřejmě platí, 
 když $t$ je kořen stromu $T$.  Předpokládej\-me, že platí pro vrchol 
@@ -1565,11 +1573,11 @@ algoritmus se pohybuje po jedné cestě z kořene do
 nějakého listu. Označme $\hloubka(T)$ délku nejdelší cesty 
 z kořene do nějakého listu. Pak dostáváme
 
-\proclaim{Věta}Algoritmy pro operace {\bf MEMBER}, {\bf INSERT}, {\bf DE\-LE\-TE}, {\bf MIN}, {\bf MAX}, 
+\begin{veta}Algoritmy pro operace {\bf MEMBER}, {\bf INSERT}, {\bf DE\-LE\-TE}, {\bf MIN}, {\bf MAX}, 
 {\bf JOIN3} a {\bf SPLIT} v binár\-ním vy\-hledá\-va\-cím stro\-mě $
 T$ vyžadují 
 čas $O(\hloubka(T))$. 
-\endproclaim
+\end{veta}
 
 Bohužel ani struktura binárních vyhledávacích 
 stromů nepodporuje efektivní implementaci operace 
@@ -1622,13 +1630,13 @@ dostaneme, že časová složitost algoritmu je $O(\hloubka
 (T))$.  
 Tedy můžeme tato fakta shrnout.  
 
-\proclaim{Věta}Algoritmy pro operace {\bf MEMBER}, {\bf INSERT}, {\bf DE\-LE\-TE}, {\bf MIN}, {\bf MAX}, 
+\begin{veta}Algoritmy pro operace {\bf MEMBER}, {\bf INSERT}, {\bf DE\-LE\-TE}, {\bf MIN}, {\bf MAX}, 
 {\bf JOIN3}, {\bf SPLIT} a $\bold o\bold r\bold d(k)$ pro všechna $
 k$ v rozšířených binár\-ních 
 vy\-hledávacích stromech vyžadují čas $O(\hloubka
 (T))$, kde $T$ je 
 reprezentující strom. 
-\endproclaim
+\end{veta}
 
 Tento výsledek motivuje používání binárních 
 vyhledávacích stromů, které splňují další 
@@ -1848,10 +1856,10 @@ vrcholem $t$ máme už správné hodnoty $\omega$.  Vrchol $
 v$ je otcem $t$, 
 $t=\levy(v)$ a $\omega (v)$ má ještě původní hodnotu.  
 
-\proclaim{Lemma}Když se hodnota $\eta (t)$ při operaci {\bf INSERT }
+\begin{lemma}Když se hodnota $\eta (t)$ při operaci {\bf INSERT }
 zvětšila a $t$ nebyl listem před operaci, pak po operaci 
 neplatí $\omega (t)=0$.
-\endproclaim
+\end{lemma}
 
 Označme $u=\pravy(v)$ a uvažme případy:\newline 
 A) $\omega (v)=1$, pak $\eta (u)=a$ a $\eta (v)=a+1$ se nezměnilo, 
@@ -2074,13 +2082,13 @@ To je výrazný rozdíl proti operaci {\bf INSERT}. Proto operace
 asymptoticky jsou stejně rychlé. Korektnost se 
 ověří přímo.
 
-\proclaim{Věta}Datová struktura AVL-strom 
+\begin{veta}Datová struktura AVL-strom 
 umožňuje implementaci operací {\bf MEMBER}, {\bf INSERT} a 
 {\bf DELETE}, které vyžadují čas $O(\log(|S|))$ (kde $
 S$ je 
 reprezentovaná množina).  Ope\-race {\bf INSERT} zavolá 
 nejvýše jednu proceduru {\bf Rotace} nebo {\bf Dvo\-ji\-ta-rotace}.  
-\endproclaim
+\end{veta}
 
 \section{Červeno-černé stromy}
 
@@ -2120,9 +2128,9 @@ stromů plyne, že
 $$k\le\hloubka(T)\le 2k.$$
 Tedy
 
-\proclaim{Tvrzení}Když červeno-černý strom $T$ 
+\begin{tvrzeni}Když červeno-černý strom $T$ 
 reprezentuje množinu $S$, pak $$\hloubka(T)\le 2\log(2|S|+2)=1+\log(|S|+1).$$
-\endproclaim
+\end{tvrzeni}
 
 Pro červeno-černé stromy navrhneme algoritmy 
 realizující ope\-race z uspořádaného slovní\-ko\-vého problému.  
@@ -2509,7 +2517,7 @@ obarven červeně, pak po provedení {\bf Rotace$(t,u)$} bude $
 Pak z Obr.  5 je vidět, že dostaneme červeno-černý 
 strom. Tedy můžeme shrnout:
 
-\proclaim{Věta}Algoritmy operací {\bf MEMBER}, {\bf INSERT}, 
+\begin{veta}Algoritmy operací {\bf MEMBER}, {\bf INSERT}, 
 {\bf DE\-LE\-TE}, {\bf MIN}, {\bf MAX}, {\bf JOIN3} a {\bf SPLIT} pro červeno-černé 
 stro\-my vyžadují v nejhorším případě čas $O
 (\log(|S|)$, kde $S$ je 
@@ -2517,7 +2525,7 @@ reprezentovaná množina.  Operace {\bf INSERT} a {\bf JOIN3} zavolají
 nejvýše jednou buď {\bf Rotace} nebo {\bf Dvojita-rota\-ce} a operace 
 {\bf DE\-LE\-TE} zavolá nejvýše dvakrát {\bf Rotace} nebo {\bf Rotace} a 
 {\bf Dvojita-ro\-ta\-ce}.  
-\endproclaim
+\end{veta}
 
 Všimněte si, že operace {\bf JOIN3} ve skutečnosti 
 vyžaduje čas $O(|k_1-k_2|+1)$. Protože $Z_1$ a $Z_2$ obsahují nejvýše 
@@ -2534,14 +2542,14 @@ algoritmus pro {\bf ord$(k)$} v nevyvážených binárních vyhledávacích
 stromech. Připomeňme si, že procedury {\bf Rotace} a {\bf Dvojita-rotace }
 mohou aktualizovat funkci $p$ v čase $O(1)$. Proto dostáváme 
 
-\proclaim{Věta}Algoritmy operací {\bf MEMBER}, 
+\begin{veta}Algoritmy operací {\bf MEMBER}, 
 {\bf INSERT}, {\bf DE\-LE\-TE}, {\bf MIN}, {\bf MAX}, {\bf JOIN3}, {\bf SPLIT} a {\bf ord$
 (k)$} pro 
 roz\-ší\-ře\-nou strukturu červeno-černých stromů vyžaduje 
 v nejhorším případě čas $O(\log(|S|)$, kde $S$ je reprezentovaná 
 množina.  Operace {\bf INSERT} a {\bf JOIN3} zavolají nejvýše jednou buď 
 {\bf Rotace} nebo {\bf Dvojita-rota\-ce} a operace {\bf DELETE} zavolá nejvýše 
-dvakrát {\bf Rotace} nebo jednou {\bf Rotace} a {\bf Dvojita-rotace}.  \endproclaim
+dvakrát {\bf Rotace} nebo jednou {\bf Rotace} a {\bf Dvojita-rotace}.  \end{veta}
 
 Vzniká otázka, proč se tolik pozornosti věnuje 
 procedurám {\bf Rotace} a {\bf Dvojita-rotace}. Sice vyžadují čas 
@@ -2571,10 +2579,10 @@ kde $T_v$ je podstrom $T$ určený vrcholem $v$, $T_l$ je podstrom
 $T$ určený levým synem vrcholu $v$, $T_r$ je podstrom $T$ 
 určený pravým synem vrcholu $v$. Platí
 
-\proclaim{Tvrzení}Když $T$ je $BB(\alpha )$-strom reprezentující 
+\begin{tvrzeni}Když $T$ je $BB(\alpha )$-strom reprezentující 
 $n$-prvkovou množinu, pak 
 $$\hloubka(T)\le 1+\frac {\log(n+1)-1}{\log\frac 1{1-\alpha}}.$$
-\endproclaim
+\end{tvrzeni}
 
 Důsledek je, že $BB(\alpha )$-stromy patří do 
 skupiny vyvážených binárních vyhledávacích 
@@ -2582,7 +2590,7 @@ stro\-mů.  Vyvažování se provadí opět pomocí
 {\bf Rotace} a {\bf Dvojita-rotace} a popisuje ho následu\-jí\-cí 
 technické tvrzení. 
 
-\proclaim{Tvrzení}Pro každé $\alpha$ existuje konstanta $
+\begin{tvrzeni}Pro každé $\alpha$ existuje konstanta $
 d$ 
 taková, že $\alpha <d<1-\alpha$ a pro každý binární vyhledávací 
 strom $T$ s kořenem $t$ splňující podmínky
@@ -2601,28 +2609,28 @@ $\rho >d$ a provedeme proceduru {\bf Dvojita-rotace$(t,\pravy(t),\levy(\pravy(t)
 $BB(\alpha )$-strom (zde $\rho =\frac {p(T')}{p(T_r
 )}$ a $T'$ je určen levým synem 
 pravé\-ho syna kořene $t$).  
-\endproclaim
+\end{tvrzeni}
 
 Toto tvrzení a jeho symetrické verze jednoznačně ukazují, 
 jak vyvažovat $BB(\alpha )$-stromy při aktualizačních 
 operacích (podstrom $BB(\alpha )$-stromu je $BB(\alpha )$-strom). Pak dostáváme:
 
-\proclaim{Věta}Implementace operací {\bf MEMBER}, {\bf INSERT} a {\bf DELETE }v $BB(\alpha )$-stromech vyžaduje v nejhorším 
+\begin{veta}Implementace operací {\bf MEMBER}, {\bf INSERT} a {\bf DELETE }v $BB(\alpha )$-stromech vyžaduje v nejhorším 
 případě čas $O(\log(|S|))$, kde $S$ je 
 reprezentovaná množina.
-\endproclaim
+\end{veta}
 
 Obliba $BB(\alpha )$-stromů byla zapříčiněna 
 platností následující věty, která je analogií věty o 
 vyvažovacích operacích pro $(a,b)$-stromy.
 
-\proclaim{Věta}Když $\alpha$ je reálné číslo takové, že 
+\begin{veta}Když $\alpha$ je reálné číslo takové, že 
 $\frac 14<\alpha <1-\frac {\sqrt 2}2$, pak existuje konstanta $c>
 0$ závislá jen na 
 $\alpha$ taková, že každá posloupnost operací {\bf INSERT} a {\bf DELETE }
 o délce $m$ aplikovaná na prázdný $BB(\alpha )$-strom volá 
 nejvýše $cm$ procedur {\bf Rotace} a {\bf Dvojita-rotace}.
-\endproclaim
+\end{veta}
 
 \section{Historický přehled:}
 
