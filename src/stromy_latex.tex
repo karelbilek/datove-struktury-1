@@ -8,6 +8,8 @@
  \usepackage[czech]{babel}
  \usepackage{hyperref}
  \usepackage{graphicx} 
+ \usepackage{caption} 
+ 
  
  \setlength{\hoffset}{-3cm} 
  \setlength{\voffset}{-3cm}
@@ -2197,13 +2199,13 @@ $v=\pravy(\otec(v))$.
 \phantom{------}$w:=\otec(v)$, $u:=\bratr(w)$\newline 
 \phantom{------}{\bf if} $b(u)=0$ {\bf then}\newline 
 \phantom{---------}$v:=\otec(w)$, $b(w):=1$, $b(u):=1$\newline 
-\phantom{---------}$b(v):=0$, {\bf Vyvaz-INSERT$(v)$} (Viz Obr. 1)\newline 
+\phantom{---------}$b(v):=0$, {\bf Vyvaz-INSERT$(v)$} (Viz Obrázek \ref{fig3})\newline 
 \phantom{------}{\bf else}\newline 
 \phantom{---------}$t:=\otec(w)$\newline 
 \phantom{---------}{\bf if} $s(w)=s(v)$ {\bf then}\newline 
-\phantom{------------}{\bf Rotace$(t,w)$}, $b(t):=0$, $b(w):=1$ (Viz Obr. 2)\newline 
+\phantom{------------}{\bf Rotace$(t,w)$}, $b(t):=0$, $b(w):=1$ (Viz Obrázek \ref{fig4})\newline 
 \phantom{---------}{\bf else}\newline 
-\phantom{------------}{\bf Dvojita-rotace$(t,w,v)$}, $b(t):=0$, $b(v):=1$ (Viz Obr. 3)\newline 
+\phantom{------------}{\bf Dvojita-rotace$(t,w,v)$}, $b(t):=0$, $b(v):=1$ (Viz Obrázek \ref{fig5})\newline 
 \phantom{---------}{\bf endif}\newline 
 \phantom{------}{\bf endif}\newline 
 \phantom{---}{\bf endif\newline 
@@ -2212,25 +2214,32 @@ endif}
 Na obrázku $b$ značí černou barvu a $r$ značí červenou 
 barvu. Otec vrcholu $w$ je označen $t$. 
 
-\midinsert
-\centerline{\input fig3.tex}
-\botcaption{Obr. 1}
-\endcaption
-\endinsert
 
-\midinsert
-\centerline{\input fig4.tex}
-\botcaption{Obr. 2}
-\endcaption
-\endinsert
+\begin{figure}[h!]
+  \centerline{
+    \input fig3.tex
+    }
+  \caption{}
+  \label{fig3}
+\end{figure}
+
+\begin{figure}[h!]
+  \centerline{
+    \input fig4.tex
+    }
+  \caption{}
+  \label{fig4}
+\end{figure}
 
 
+\begin{figure}[h!]
+  \centerline{
+    \input fig5.tex
+    }
+  \caption{}
+  \label{fig5}
+\end{figure}
 
-\midinsert
-\centerline{\input fig5.tex}
-\botcaption{Obr. 3}
-\endcaption
-\endinsert
 
 $2$-parciální červeno-černé stromy vznikají při 
 operacích {\bf INSERT} a {\bf JOIN.}  Při operaci {\bf DELETE} se poruší 
