@@ -1,7 +1,7 @@
 %.pdf:
 	$(MAKE) -C src $@
 
-all: hashovani.pdf stromy.pdf haldy.pdf
+all: complete.pdf
 
 clean:
 	rm -f *.pdf *.log

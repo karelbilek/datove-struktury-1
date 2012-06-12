@@ -1,2 +1,6 @@
 %.pdf: %.tex
-	amstex -output-format=pdf -output-directory=.. $<
+	mkdir ../tmp
+	pdflatex -output-format=dvi -output-directory=../tmp $<
+	pdflatex -output-format=dvi -output-directory=../tmp $<
+	pdflatex -output-format=dvi -output-directory=../tmp $<
+	dvipdf ../tmp/complete.dvi ../complete.pdf
