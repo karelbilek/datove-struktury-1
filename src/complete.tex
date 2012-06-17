@@ -217,6 +217,7 @@ Spočítáme $i:=h(x)$, $t:=NIL$\newline
 \textsf{if}} $t=x$ {\bf \textsf{then} Výstup}: $x\in S$ {\bf \textsf{else} Výstup}: $x\notin 
 S$ {\bf \textsf{endif}
 
+}}\algoritmus{{\bf
 
 INSERT$(x)$}\newline 
 Spočítáme $i:=h(x)$, $t:=NIL$\newline 
@@ -228,7 +229,7 @@ Spočítáme $i:=h(x)$, $t:=NIL$\newline
 \textsf{endif}\newline 
 \textsf{if}} $t\ne x$ {\bf \textsf{then}} vložíme $x$ do $i$-tého seznamu {\bf \textsf{endif}}
 
-
+}\algoritmus{
 
 {\bf DELETE}$(x)$\newline 
 Spočítáme $i:=h(x)$, $t:=NIL$\newline 
@@ -677,9 +678,11 @@ Spočítáme $i:=h(x)$, $t:=NIL$\newline
 \phantom{{\rm ------}}$t:=$}následující prvek $i$-tého seznamu\newline 
 \phantom{---}{\bf \textsf{enddo}\newline 
 \textsf{endif} \newline 
-\textsf{if}} $t=x$ {\bf \textsf{then}} $x\in S$ {\bf \textsf{else}} $x\notin S$ {\bf \textsf{endif}
+\textsf{if}} $t=x$ {\bf \textsf{then}} $x\in S$ {\bf \textsf{else}} $x\notin S$ {\bf \textsf{endif}}
 
-INSERT$(x)$}\newline 
+}\algoritmus{
+
+{\bf INSERT$(x)$}\newline 
 Spočítáme $i:=h(x)$, $t:=NIL$\newline 
 {\bf \textsf{if}} $i$-tý seznam je neprázdný {\bf \textsf{then}\newline 
 \phantom{{\rm ---}}$t:=$}první prvek $i$-tého seznamu\newline 
@@ -695,9 +698,11 @@ t$\newline
 \phantom{------}vložíme $x$ do $i$-tého seznamu za prvek $
 t$\newline 
 \phantom{---}{\bf \textsf{endif}\newline 
-\textsf{endif}
+\textsf{endif}}
 
-DELETE$(x)$}\newline 
+}\algoritmus{
+
+{\bf DELETE$(x)$}\newline 
 Spočítáme $i:=h(x)$, $t:=NIL$\newline
 {\bf \textsf{if}} $i$-tý seznam je neprázdný {\bf \textsf{then}\newline 
 \phantom{{\rm ---}}$t:=$}první prvek $i$-tého seznamu\newline 
@@ -795,6 +800,12 @@ x\notin S$, stop {\bf \textsf{endif} \newline
 \textsf{while}} $i.next\ne$prázdné a $i.key\ne x$ {\bf \textsf{do}} $i:=i.next$ {\bf \textsf{enddo}\newline 
 \textsf{if}} $i.key=x$ {\bf \textsf{then} Výstup}: $x\in S$ {\bf \textsf{else} Výstup}: $
 x\notin S$ {\bf \textsf{endif}
+
+}
+
+}\algoritmus{
+
+{\bf
 
 DELETE$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
@@ -905,7 +916,11 @@ Spočítáme $i:=h(x)$\newline
 \textsf{while}} $i.next\ne$prázdné a $i.key\ne x$ {\bf \textsf{do}} $i:=i.next$ {\bf \textsf{enddo} \newline 
 \textsf{if}} $i.key=x$ {\bf \textsf{then} Výstup}: $x\in S$ {\bf \textsf{else} Výstup}: $
 x\notin S$ {\bf \textsf{endif}
+}
 
+}\algoritmus{
+
+{\bf
 
 DELETE$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
@@ -976,7 +991,30 @@ Očekávaný počet testů:\newline
 \alpha^2}2+\alpha +e^{-\alpha}(2+\alpha )-2$.
 }
 
-\subsection{Srůstající hašování}
+\subsection{Srůstající hašování - přehled}
+
+\subsubsection{Nepřesný popis}
+Máme řetězce jako v minulých dvou algoritmech, ale pokud se trefím doprostřed řetězce, tak ho nepřemísťuji, ale srostu s ním.
+
+Protože nic nepřemísťujeme, není potřeba \emph{previous}.
+
+Typy:
+\begin{itemize}
+\item Standardní -- normální tabulka. 
+\begin{itemize}
+\item LISCH - vkládám na konec řetězce
+\item EISCH - vkládám hned za prvek
+\end{itemize}
+\item \uv{Nestandardní} -- bez písmene navíc :) -- tabulka rozšířena o pomocnou tabulku, kam ukládám jako první
+\begin{itemize}
+\item LICH - vkládám na konec řetězce
+\item EICH - vkládám hned za prvek
+\item VICH - komplikovanost, viz dál
+\end{itemize}
+\end{itemize}
+
+
+\subsubsection{Přehled}
 
 Srůstající hašování se dělí podle práce s~pamětí na standardní a na srůstající hašování 
 s pomocnou pamětí (které se nazývá jen 
@@ -996,11 +1034,13 @@ pokud už tam byl uložen
 nějaký údaj, pak řetězec tohoto údaje sroste s~řetězcem 
 začínajícím na tomto řádku. To znamená, že prvky řetězce, který začíná na tomto místě, budou uloženy v řetězci, který už je uložen na tomto místě, ale jen od tohoto místa dál.
 
-\subsubsection{Metody EISCH a LISCH}
+\subsection{Metody EISCH a LISCH}
 
-\phantom{---}EISCH -- early-insertion standard coalesced hashing\newline 
-\phantom{---}LISCH -- late-insertion standard coalesced hashing.
- 
+\subsubsection{Popis}
+\begin{itemize}
+\item EISCH -- early-insertion standard coalesced hashing 
+\item LISCH -- late-insertion standard coalesced hashing.
+\end{itemize}
 
 Organizace tabulky je stejná jako v předchozích 
 případech.\newline 
@@ -1009,7 +1049,9 @@ Základní ideje: LISCH přidává nový prvek na konec
 EISCH přidává nový prvek $x$ do řetězce na 
 řádek $h(x)$ (pokud je prázdný) nebo hned za prvek na řádku $h(x)$\newline 
 
-Příklad: $U=\{1,2,\dots,1000\}$, $h(x)=x\bmod10$\newline 
+\subsubsection{Ilustrace}
+
+$U=\{1,2,\dots,1000\}$, $h(x)=x\bmod10$\newline 
 množina $S=\{1,7,11,53,73,141,171\}$ je uložena 
 v hašovací tabulce
 $$\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}řádek & key & next \hfil \cr\noalign{\hrule}P(0) & &\hfill \cr\noalign{\hrule}P(1) & 1 & 9 \cr\noalign{\hrule}P(2) & &\hfill \cr\noalign{\hrule}P(3) & 73 & 6 \cr\noalign{\hrule}P(4) &  &\hfill \cr\noalign{\hrule}P(5) & 7 & \hfill \cr\noalign{\hrule}P(6) & 53 &\hfill \cr\noalign{\hrule}P(7) & 161 & 5 \cr\noalign{\hrule}P(8) & 11 & 7  \cr\noalign{\hrule}P(9) & 141 & 8 \cr\noalign{\hrule}}}$$
@@ -1035,48 +1077,51 @@ $$\vbox {\hbox{\vtop{\offinterlineskip\halign{\strut\vrule\ # & \vrule\ # & \vru
 Algoritmus operace {\bf MEMBER} je pro obě metody stejný.
 
 
-{\bf MEMBER$(x)$}\newline 
+\algoritmus{{\bf MEMBER$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
-{\bf while} $i.next\ne$prázdné a $i.key\ne x$ {\bf do} $i:=i.
-next$ {\bf enddo \newline 
-if} $i.key=x$ {\bf then Výstup}: $x\in S$ {\bf else Výstup}: $
-x\notin S$ {\bf endif}
+{\bf \textsf{while}} $i.next\ne$prázdné a $i.key\ne x$ {\bf \textsf{do}} $i:=i.
+next$ {\bf \textsf{enddo} \newline 
+\textsf{if}} $i.key=x$ {\bf \textsf{then} Výstup}: $x\in S$ {\bf \textsf{else} Výstup}: $
+x\notin S$ {\bf \textsf{endif}}
+}
 
-
-Metoda LISCH -- {\bf INSERT$(x)$}\newline 
+Metoda LISCH:
+\algoritmus{{\bf INSERT$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
-{\bf while} $i.next\ne$prázdné a $i.key\ne x$ {\bf do} $i:=i.
-next$ {\bf enddo \newline 
-if} $i.key\ne x$ {\bf then}\newline 
-\phantom{---}{\bf if} neexistuje prázdný řádek tabulky {\bf then}\newline 
+{\bf \textsf{while}} $i.next\ne$prázdné a $i.key\ne x$ {\bf \textsf{do}} $i:=i.
+next$ {\bf \textsf{enddo} \newline 
+\textsf{if}} $i.key\ne x$ {\bf \textsf{then}}\newline 
+\phantom{---}{\bf \textsf{if}} neexistuje prázdný řádek tabulky {\bf \textsf{then}}\newline 
 \phantom{------}{\bf Výstup}: přeplnění\newline 
-\phantom{---}{\bf else}\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
 \phantom{------}nechť $j$ je prázdný řádek $j.
 key:=x$, 
 $i.next:=j$\newline 
-\phantom{---}{\bf endif\newline 
-endif}
+\phantom{---}{\bf \textsf{endif}\newline 
+\textsf{endif}}}
 
 
-Metoda EISCH -- {\bf INSERT$(x)$}\newline 
+Metoda EISCH:
+\algoritmus{{\bf INSERT$(x)$}\newline 
 Spočítáme $k:=i:=h(x)$\newline 
-{\bf while} $i.next\ne$prázdné a $i.key\ne x$ {\bf do} $i:=i.
-next$ {\bf enddo \newline 
-if} $i.key\ne x$ {\bf then}\newline 
-\phantom{---}{\bf if} neexistuje prázdný řádek tabulky {\bf then}\newline 
+{\bf \textsf{while}} $i.next\ne$prázdné a $i.key\ne x$ {\bf \textsf{do}} $i:=i.
+next$ {\bf \textsf{enddo} \newline 
+\textsf{if}} $i.key\ne x$ {\bf \textsf{then}}\newline 
+\phantom{---}{\bf \textsf{if}} neexistuje prázdný řádek tabulky {\bf \textsf{then}}\newline 
 \phantom{------}{\bf Výstup}: přeplnění\newline 
-\phantom{---}{\bf else}\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
 \phantom{------}nechť $j$ je volný řádek tabulky\newline 
 \phantom{------}$j.next:=k.next$, $k.next:=j$, $j.key:=x$\newline 
-\phantom{---}{\bf endif\newline 
-endif}
-
+\phantom{---}{\bf \textsf{endif}\newline 
+\textsf{endif}}
+}
 
 Efektivní operace {\bf DELETE}  není známá, ale i primitivní 
 algoritmy pro operaci {\bf DELETE} mají rozumnou očekávanou 
 časovou složitost.
 
 \subsubsection{Analýza složitosti těchto algoritmů}
+Mazec.
 
 Popis situace: Uložena množina 
 $S=\{s_1,s_2,\dots,s_n\}$ do ta\-bulky velikosti $m$, je dán 
