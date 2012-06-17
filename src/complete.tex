@@ -18,7 +18,7 @@
  \setlength{\parindent}{0in}
  \setlength{\parskip}{0.1in}
  
- \def \emph#1{\underbar{#1}}
+ %\def \emph#1{\underbar{#1}}
  
  
 
@@ -59,7 +59,7 @@
 \newtheorem*{tvrzeni}{Tvrzení}
 \newtheorem*{definice}{Definice}
 
-\def \emph#1{\underbar{#1}}
+
 \def \Prob{\operatorname{Prob}}
 \def \var{\operatorname{var}}
 
@@ -69,12 +69,8 @@
 
 \tableofcontents
 
-\section{Hašování}
-
-
-\subsection{Úvod}
-
-Základní problém: Reprezentace množin a 
+\section{Úvod}
+\emph{Základní} problém: Reprezentace množin a 
 operace s nimi. V řadě úloh a algoritmů je tento 
 podproblém rozhodující pro složitost řešení, protože 
 tyto operace se mnohokrát opakují. Proto je třeba 
@@ -100,7 +96,13 @@ předpokladů, protože neumím říct (a ani to nelze, protože vždy záleží
 na konkrétních okolnostech), které sofistikovanější metody 
 budou v praxi vhodné pro řešení vašeho problému. Cílem přednášky je 
 seznámit vás s možnostmi, jak řešit tyto problémy, a se základními 
-metodami pro jejich řešení. Nejprve si zadefinujeme asi 
+metodami pro jejich řešení.
+\section{Hašování}
+
+
+\subsection{Slovníkový problém}
+
+Nejprve si zadefinujeme asi 
 nejzákladnější problém, který řešíme v datových strukturách. 
 
 Řešíme tzv. slovníkový problém: Dáno 
@@ -125,7 +127,7 @@ and Searching, Springer 1984\newline
 J.~S.~Vitter, W.-Ch.~Chen: Design and Analysis of 
 Coalesced Hashing, Oxford Univ. Press, 1987
 
-\subsection{Hašování}
+\subsection{Hašování obecně}
 
 Pomocí bitového pole můžeme rychle 
 implementovat operace {\bf MEMBER}, {\bf INSERT} a {\bf DELETE}. 
@@ -141,12 +143,19 @@ zpráva od IBM o hašování z roku 1953.
 
 Základní idea: Dáno univerzum $U$ a množina 
 $S\subseteq U$ tak, že $|S|<<|U|$. Máme funkci 
-$h:U\to \{0,1,\dots,m-1\}$ a množinu $S$ reprezentujeme 
+$h:U\to \{0,1,\dots,m-1\}$ (taky \emph{hešovací funkce}) a množinu $S$ reprezentujeme 
 tabulkou (polem) s $m$ řádky tak, že $s\in S$ je uložen na 
-řádku $h(s)$.\newline 
+řádku $h(s)$. 
+
+$m$ (jako \emph{memory}) si tedy budeme značit velikost tabulky; $n$ je velikost $|S|$.
+
 Nevýhoda: mohou existovat různá $s,t\in S$ taková, 
-že $h(s)=h(t)$ - tento jev se nazývá \emph{kolize}.\newline 
-Hlavní problém: řešení kolizí.\newline 
+že $h(s)=h(t)$ - tento jev se nazývá \emph{kolize}.
+
+Hlavní problém, kterému se věnuje zbytek kapitoly: řešení kolizí.
+
+\subsection{Hašování se separovanými řetězci}
+
 Základní řešení: použijeme pole o velikosti $[
 0..m-1]$ a 
 $i$-tá položka pole bude spojový seznam obsahující 
@@ -167,34 +176,34 @@ Algoritmy operací
 
 {\bf MEMBER$(x)$}\newline 
 Spočítáme $i:=h(x)$, $t:=NIL$\newline 
-{\bf if} $i$-tý seznam je neprázdný {\bf then\newline 
+{\bf \textsf{if}} $i$-tý seznam je neprázdný {\bf \textsf{then}\newline 
 \phantom{{\rm ---}}$t:=$}první prvek $i$-tého seznamu\newline 
-\phantom{---}{\bf while} $t\ne x$ a $t\ne$poslední prvek $i$-tého seznamu {\bf do\newline 
+\phantom{---}{\bf \textsf{while}} $t\ne x$ a $t\ne$poslední prvek $i$-tého seznamu {\bf \textsf{do}\newline 
 \phantom{{\rm ------}}$t:=$}následující prvek $i$-tého seznamu\newline 
-\phantom{---}{\bf enddo\newline 
-endif\newline 
-if} $t=x$ {\bf then Výstup}: $x\in S$ {\bf else Výstup}: $x\notin 
-S$ {\bf endif
+\phantom{---}{\bf \textsf{enddo}\newline 
+\textsf{endif}\newline 
+\textsf{if}} $t=x$ {\bf \textsf{then} Výstup}: $x\in S$ {\bf \textsf{else} Výstup}: $x\notin 
+S$ {\bf \textsf{endif}
 
 INSERT$(x)$}\newline 
 Spočítáme $i:=h(x)$, $t:=NIL$\newline 
-{\bf if} $i$-tý seznam je neprázdný {\bf then\newline 
+{\bf \textsf{if}} $i$-tý seznam je neprázdný {\bf \textsf{then}\newline 
 \phantom{{\rm ---}}$t:=$}první prvek $i$-tého seznamu\newline 
-\phantom{---}{\bf while} $t\ne x$ a $t\ne$poslední prvek $i$-tého seznamu {\bf do\newline 
+\phantom{---}{\bf \textsf{while}} $t\ne x$ a $t\ne$poslední prvek $i$-tého seznamu {\bf \textsf{do}\newline 
 \phantom{{\rm ------}}$t:=$}následující prvek $i$-tého seznamu\newline 
-\phantom{---}{\bf enddo\newline 
-endif\newline 
-if} $t\ne x$ {\bf then} vložíme $x$ do $i$-tého seznamu {\bf endif}
+\phantom{---}{\bf \textsf{enddo}\newline 
+\textsf{endif}\newline 
+\textsf{if}} $t\ne x$ {\bf \textsf{then}} vložíme $x$ \textsf{do} $i$-tého seznamu {\bf \textsf{endif}}
 
 {\bf DELETE}$(x)$\newline 
 Spočítáme $i:=h(x)$, $t:=NIL$\newline 
-{\bf if} $i$-tý seznam je neprázdný {\bf then\newline 
+{\bf \textsf{if}} $i$-tý seznam je neprázdný {\bf \textsf{then}\newline 
 \phantom{{\rm ---}}$t:=$}první prvek $i$-tého seznamu\newline 
-\phantom{---}{\bf while} $t\ne x$ a $t\ne$poslední prvek $i$-tého seznamu {\bf do\newline 
+\phantom{---}{\bf \textsf{while}} $t\ne x$ a $t\ne$poslední prvek $i$-tého seznamu {\bf \textsf{do}\newline 
 \phantom{{\rm ------}}$t:=$}následující prvek $i$-tého seznamu\newline 
-\phantom{---}{\bf enddo\newline 
-endif\newline 
-if} $t=x$ {\bf then} odstraníme $x$ z $i$-tého seznamu {\bf endif}
+\phantom{---}{\bf \textsf{enddo}\newline 
+\textsf{endif}\newline 
+\textsf{if}} $t=x$ {\bf \textsf{then}} odstraníme $x$ z $i$-tého seznamu {\bf \textsf{endif}}
 
 V následující analýze předpokládáme, že hodnota funkce $
 h(x)$ 
