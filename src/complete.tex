@@ -60,7 +60,7 @@
   {
   \setlength\fboxrule{0.5pt}
 
-  \begin{boxedminipage}{0.6\textwidth}
+  \begin{boxedminipage}{0.8\textwidth}
 
   \setlength{\parskip}{0.1in}
  #1
@@ -710,7 +710,8 @@ Spočítáme $i:=h(x)$, $t:=NIL$\newline
 }
 
 }
-    
+
+\subsection{Motivace pro neseparované řetězce}
 Nevýhody hašovaní se separovanými řetězci --\newline 
 \phantom{---}nevyužití alokované paměti (nehospodárné)\newline 
 \phantom{---}používání ukazatelů (cache).\newline 
@@ -718,10 +719,12 @@ Nevýhody hašovaní se separovanými řetězci --\newline
 Řešení: využít pro řetězce původní tabulku. Pak řádky tabulky musí mít strukturu, která umožňuje prohledávat řetězce, a velikost reprezentované množiny 
 může být nejvýše rovna velikosti tabulky.  
 
-Položky tabulky:\newline 
-\phantom{---}key,\newline 
-\phantom{---}odkaz na uložená data,\newline 
-\phantom{---}položky pro práci s~tabulkou.
+Položky tabulky:
+\begin{itemize}
+\item key,
+\item odkaz na uložená data,
+\item položky pro práci s~tabulkou.
+\end{itemize}
 
 Předpokládáme, že data jsou velká, v tom případě se 
 ukládají mimo tabulku. V tabulce je jen odkaz na uložená data. 
@@ -729,18 +732,35 @@ Při popisu práce s~tabulkou tuto část budeme vynechávat (tj.
 data budou pouze klíč).
 
 Podle řešení kolize dělíme dál hašování:
-\begin{enumerate}
+\begin{itemize}
 \item 
-hašování s~přemísťováním, hašování s~dvěma 
+hašování s~přemísťováním
+\item hašování s~dvěma 
 ukazateli, 
 \item 
 srůstající hašování,
 \item 
-dvojité hašování a hašování s~lineárním 
+dvojité hašování,
+\item hašování s~lineárním 
 přidáváním.
-\end{enumerate}
+\end{itemize}
 
 \subsection{Hašování s~přemísťováním}
+
+\subsubsection{Nepřesný popis}
+
+\emph{(pozn.: sekce \uv{nepřesný popis} jsou opravdu nepřesné)}
+
+V tabulce na řádku $i$ buď nic není (= do $i$ se nic nezahešovalo), nebo tam začíná řetězec od něčeho, co koliduje v $h(i)$, nebo je tam prostředek nějakého jiného řetězce (taky jenom tehdy, pokud se do $i$ nic nezahešovalo).
+
+Pokud tam při vkládání nic neni, dám to tam.
+
+Pokud tam je prostředek jiného řetězce, přemístím ten prostředek (od toho název metody) do jiného volného místa a vkládaný prvek dám do nově uvolněného místa.
+
+Pokud tam je začátek správného řetězce, dojedu na konec a dám to za něj.
+
+\subsubsection{Ilustrace}
+
 
 Položky pro práci s~tabulkou: next, previous\newline 
 \phantom{---}položka next -- číslo řádku tabulky 
@@ -767,67 +787,71 @@ operací:\newline
 
 \subsubsection{Algoritmy}
 
+\algoritmus{
 {\bf MEMBER$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
-{\bf if} $i.previous\ne$prázdné nebo $i.key=$prázdné {\bf then Výstup}: $
-x\notin S$, stop {\bf endif \newline 
-while} $i.next\ne$prázdné a $i.key\ne x$ {\bf do} $i:=i.next$ {\bf enddo\newline 
-if} $i.key=x$ {\bf then Výstup}: $x\in S$ {\bf else Výstup}: $
-x\notin S$ {\bf endif
+{\bf \textsf{if}} $i.previous\ne$prázdné nebo $i.key=$prázdné {\bf \textsf{then} Výstup}: $
+x\notin S$, stop {\bf \textsf{endif} \newline 
+\textsf{while}} $i.next\ne$prázdné a $i.key\ne x$ {\bf \textsf{do}} $i:=i.next$ {\bf \textsf{enddo}\newline 
+\textsf{if}} $i.key=x$ {\bf \textsf{then} Výstup}: $x\in S$ {\bf \textsf{else} Výstup}: $
+x\notin S$ {\bf \textsf{endif}
 
 DELETE$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
-{\bf if} $i.previous\ne$prázdné nebo $i.key=$prázdné {\bf then} stop {\bf endif\newline 
-while} $i.next\ne$prázdné a $i.key\ne x$ {\bf do} $i:=i.next$ {\bf enddo \newline 
-if} $i.key=x$ {\bf then}\newline  
-\phantom{---}{\bf if} $i.previous\ne$prázdné {\bf then}\newline 
+{\bf \textsf{if}} $i.previous\ne$prázdné nebo $i.key=$prázdné {\bf \textsf{then}} stop {\bf \textsf{endif}\newline 
+\textsf{while}} $i.next\ne$prázdné a $i.key\ne x$ {\bf \textsf{do}} $i:=i.next$ {\bf \textsf{enddo} \newline 
+\textsf{if}} $i.key=x$ {\bf \textsf{then}}\newline  
+\phantom{---}{\bf \textsf{if}} $i.previous\ne$prázdné {\bf \textsf{then}}\newline 
 \phantom{------}$(i.previous).next:=i.next$\newline 
-\phantom{------}{\bf if} $i.next\ne$prázdné {\bf then} $(i.n
-ext).previous:=i.previous$ {\bf endif}\newline 
+\phantom{------}{\bf \textsf{if}} $i.next\ne$prázdné {\bf \textsf{then}} $(i.n
+ext).previous:=i.previous$ {\bf \textsf{endif}}\newline 
 \phantom{------}$i.key:=i.next:=i.previous:=$ prázdné \newline 
-\phantom{---}{\bf else}\newline 
-\phantom{------}{\bf if} $i.next\ne$prázdné {\bf then}\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
+\phantom{------}{\bf \textsf{if}} $i.next\ne$prázdné {\bf \textsf{then}}\newline 
 \phantom{---------}$i.key:=(i.next).key$, $i.next:=(i.next).next$\newline 
-\phantom{---------}{\bf if} $((i.next).next)\ne$prázdné {\bf then} $
-((i.next).next).previous:=i$ {\bf endif}\newline 
+\phantom{---------}{\bf \textsf{if}} $((i.next).next)\ne$prázdné {\bf \textsf{then}} $
+((i.next).next).previous:=i$ {\bf \textsf{endif}}\newline 
 \phantom{---------}$(i.next).key:=(i.next).next:=(i.next).previous:=$ prázdné \newline 
-\phantom{------}{\bf else}\newline 
+\phantom{------}{\bf \textsf{else}}\newline 
 \phantom{---------}$i.key:=$ prázdné \newline 
-\phantom{------}{\bf endif}\newline 
-\phantom{---}{\bf endif\newline 
-endif
+\phantom{------}{\bf \textsf{endif}}\newline 
+\phantom{---}{\bf \textsf{endif}\newline 
+\textsf{endif}
+}}
 
-
-INSERT$(x)$}\newline 
+\algoritmus{
+{\bf INSERT$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline
-{\bf if} $i.key=NIL$ {\bf then} $i.key:=x$, stop {\bf endif}\newline 
-{\bf if} $i.previous\ne NIL${\bf then}\newline 
-\phantom{---}{\bf if} neexistuje prázdný řádek tabulky {\bf then}\newline 
+{\bf \textsf{if}} $i.key=NIL$ {\bf \textsf{then}} $i.key:=x$, stop {\bf \textsf{endif}}\newline 
+{\bf \textsf{if}} $i.previous\ne NIL${\bf \textsf{then}}\newline 
+\phantom{---}{\bf \textsf{if}} neexistuje prázdný řádek tabulky {\bf \textsf{then}}\newline 
 \phantom{------}{\bf Výstup}: přeplnění\newline 
-\phantom{---}{\bf else}\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
 \phantom{------}nechť $j$ je volný řádek tabulky\newline 
 \phantom{------}$j.key:=i.key$, $j.previous:=i.previous$, $j.next:=i.next$, $(j.previous).next:=j$\newline 
-\phantom{------}{\bf if} $j.next\ne NIL$ {\bf then} $(j.next).previous:=j$ {\bf endif}\newline 
+\phantom{------}{\bf \textsf{if}} $j.next\ne NIL$ {\bf \textsf{then}} $(j.next).previous:=j$ {\bf \textsf{endif}}\newline 
 \phantom{---------}$i,key:=x$, $i.next:=i.previous:=$prázdné\newline 
-\phantom{------}{\bf endif}\newline 
-\phantom{---}{\bf endif\newline 
-else}\newline 
-\phantom{---}{\bf while} $i.next\ne NIL$ a $i.key\ne x$ {\bf do} $i:=i.next$ {\bf enddo}\newline 
-\phantom{---}{\bf if} $i.key\ne x$ {\bf then}\newline 
-\phantom{------}{\bf if} neexistuje prázdný řádek tabulky {\bf then}\newline 
+\phantom{------}{\bf \textsf{endif}}\newline 
+\phantom{---}{\bf \textsf{endif}\newline 
+\textsf{else}}\newline 
+\phantom{---}{\bf \textsf{while}} $i.next\ne NIL$ a $i.key\ne x$ {\bf \textsf{do}} $i:=i.next$ {\bf \textsf{enddo}}\newline 
+\phantom{---}{\bf \textsf{if}} $i.key\ne x$ {\bf \textsf{then}}\newline 
+\phantom{------}{\bf \textsf{if}} neexistuje prázdný řádek tabulky {\bf \textsf{then}}\newline 
 \phantom{---------}{\bf Výstup}: přeplnění\newline 
-\phantom{------}{\bf else}\newline 
+\phantom{------}{\bf \textsf{else}}\newline 
 \phantom{---------}nechť $j$ je volný řádek tabulky\newline 
 \phantom{---------}$i.next:=j$, $j.key:=x$, $j.previous:=i$\newline 
-\phantom{------}{\bf endif}\newline 
-\phantom{---}{\bf endif\newline
-endif}
-
+\phantom{------}{\bf \textsf{endif}}\newline 
+\phantom{---}{\bf \textsf{endif}\newline
+\textsf{endif}}
+}
 
 V příkladu provedeme {\bf INSERT$(28)$}, nový řádek je 4. řádek\newline 
 -- výsledná hašovací tabulka
 $$\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}řádek & key & next & previous\hfil \cr\noalign{\hrule}P(0) & & &\hfill \cr\noalign{\hrule}P(1) & 1 & 9 &\hfill \cr\noalign{\hrule}P(2) & & &\hfill \cr\noalign{\hrule}P(3) & 73 & 6 &\hfill \cr\noalign{\hrule}P(4) & 11 & 5 & 9 \cr\noalign{\hrule}P(5) & 161 & & 4 \cr\noalign{\hrule}P(6) & 53 & & 3 \cr\noalign{\hrule}P(7) & 7 & &\hfill \cr\noalign{\hrule}P(8) & 28 &  &\hfill  \cr\noalign{\hrule}P(9) & 141 & 4 & 1 \cr\noalign{\hrule}}}$$
 
+\subsubsection{Očekávaný počet testů}
+\zapamatovat{
 Očekávaný počet testů je stejný jako pro 
 hašování se se\-pa\-ro\-va\-ný\-mi řetězci:\newline 
 \phantom{---}úspěšné vyhledávání: $\frac {n-1}{
@@ -835,14 +859,25 @@ hašování se se\-pa\-ro\-va\-ný\-mi řetězci:\newline
 \phantom{---}neúspěšné vyhledávání: $(1-\frac 1
 m)^n+\frac nm\approx e^{-\alpha}+\alpha$,\newline 
 kde $m=$ velikost tabulky, $n=$ velikost $S$, tj. počet uložených 
-prvků, $\alpha =\frac nm=$ faktor zaplnění.
+prvků, $\alpha =\frac nm=$ faktor zaplnění.}
 
-\subsection{Hašování s~dvěma ukazateli}
+\subsubsection{Diskuse}
 
 Nevýhodou hašování s~přemísťováním je v operaci 
 {\bf INSERT} případ, že $previous$ $h(i)$-tého řádku je neprázdný. Pak přemísťujeme položku na $h(i)$-tém řádku na volný řádek a to vyžaduje více času -- operace s~přemístěním 
 položky. Toto odstraňuje další implementace hašování se 
 separujícími řetězci.
+
+
+\subsection{Hašování s~dvěma ukazateli}
+
+\subsubsection{Nepřesný popis}
+
+V řádku $i$ je úplně jedno, co je v položce \emph{key}, resp. nijak to nesouvisí s výsledkem hešovací funkce -- co souvisí je položka \emph{begin}, co říká, kde řetězec k danému číslu začíná.
+
+Nemusíme nic přemísťovat, stačí ukazovat na správný začátek.
+
+\subsubsection{Ilustrace}
 
 Položky pro práci s~tabulkou -- next, 
 begin\newline 
@@ -864,76 +899,82 @@ operací:\newline
 
 \subsubsection{Algoritmy}
 
-{\bf MEMBER$(x)$}\newline 
+\algoritmus{{\bf MEMBER$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
-{\bf if} $i.begin=$prázdné {\bf then Výstup}: $x\notin S$, stop {\bf else} $i:=i.begin$ {\bf endif\newline 
-while} $i.next\ne$prázdné a $i.key\ne x$ {\bf do} $i:=i.next$ {\bf enddo \newline 
-if} $i.key=x$ {\bf then Výstup}: $x\in S$ {\bf else Výstup}: $
-x\notin S$ {\bf endif
+{\bf \textsf{if}} $i.begin=$prázdné {\bf \textsf{then} Výstup}: $x\notin S$, stop {\bf \textsf{else}} $i:=i.begin$ {\bf \textsf{endif}\newline 
+\textsf{while}} $i.next\ne$prázdné a $i.key\ne x$ {\bf \textsf{do}} $i:=i.next$ {\bf \textsf{enddo} \newline 
+\textsf{if}} $i.key=x$ {\bf \textsf{then} Výstup}: $x\in S$ {\bf \textsf{else} Výstup}: $
+x\notin S$ {\bf \textsf{endif}
 
 
 DELETE$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
-{\bf if} $i.begin=$prázdné {\bf then} stop {\bf else} $j:=i$, $
-i:=i.begin$ {\bf endif\newline 
-while} $i.next\ne$prázdné a $i.key\ne x$ {\bf do} $j:=i$, $i:
-=i.next$ {\bf enddo \newline 
-if} $i.key=x$ {\bf then\newline 
-\phantom{{\rm ---}}if} $i=j.begin$ {\bf then\newline 
-\phantom{{\rm ------}}if} $i.next\ne$prázdné {\bf then\newline 
+{\bf \textsf{if}} $i.begin=$prázdné {\bf \textsf{then}} stop {\bf \textsf{else}} $j:=i$, $
+i:=i.begin$ {\bf \textsf{endif}\newline 
+\textsf{while}} $i.next\ne$prázdné a $i.key\ne x$ {\bf \textsf{do}} $j:=i$, $i:
+=i.next$ {\bf \textsf{enddo} \newline 
+\textsf{if}} $i.key=x$ {\bf \textsf{then}\newline 
+\phantom{{\rm ---}}\textsf{if}} $i=j.begin$ {\bf \textsf{then}\newline 
+\phantom{{\rm ------}}\textsf{if}} $i.next\ne$prázdné {\bf \textsf{then}\newline 
 \phantom{{\rm ---------}}$j.begin:=i.next$\newline 
-\phantom{{\rm ------}}else\newline 
+\phantom{{\rm ------}}\textsf{else}\newline 
 \phantom{{\rm ---------}}$j.begin:=$}prázdné\newline 
-\phantom{------}{\bf endif\newline 
-\phantom{{\rm ---}}else\newline 
+\phantom{------}{\bf \textsf{endif}\newline 
+\phantom{{\rm ---}}\textsf{else}\newline 
 \phantom{{\rm ------}}$j.next:=i.next$\newline 
-\phantom{{\rm ---}}endif\newline 
+\phantom{{\rm ---}}\textsf{endif}\newline 
 \phantom{{\rm ---}}$i.key:=i.next:=$}prázdné\newline 
-{\bf endif
+{\bf \textsf{endif}}
 
-
-INSERT$(x)$}\newline 
+}
+\algoritmus{
+{\bf INSERT$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
-{\bf if} $i.begin=$prázdné {\bf then}\newline 
-\phantom{---}{\bf if} $i.key=$prázdné {\bf then}\newline 
+{\bf \textsf{if}} $i.begin=$prázdné {\bf \textsf{then}}\newline 
+\phantom{---}{\bf \textsf{if}} $i.key=$prázdné {\bf \textsf{then}}\newline 
 \phantom{------}$i.key:=x$, $i.begin:=i$\newline 
-\phantom{---}{\bf else}\newline 
-\phantom{------}{\bf if} neexistuje prázdný řádek tabulky {\bf then}\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
+\phantom{------}{\bf \textsf{if}} neexistuje prázdný řádek tabulky {\bf \textsf{then}}\newline 
 \phantom{---------}{\bf Výstup}: přeplnění\newline 
-\phantom{------}{\bf else}\newline 
+\phantom{------}{\bf \textsf{else}}\newline 
 \phantom{---------}nechť $j$ je volný řádek tabulky\newline 
 \phantom{---------}$j.key=x$, $i.begin:=j$\newline 
-\phantom{------}{\bf endif}\newline 
-\phantom{---}{\bf endif\newline 
-else}\newline 
+\phantom{------}{\bf \textsf{endif}}\newline 
+\phantom{---}{\bf \textsf{endif}\newline 
+\textsf{else}}\newline 
 \phantom{---}$i:=i.begin$\newline
-\phantom{---}{\bf while} $i.next\ne$prázdné a $i.key\ne x$ {\bf do} $i:=i.next$ {\bf enddo}\newline 
-\phantom{---}{\bf if} $i.key\ne x$ {\bf then}\newline 
-\phantom{------}{\bf if} neexistuje prázdný řádek tabulky {\bf then}\newline 
+\phantom{---}{\bf \textsf{while}} $i.next\ne$prázdné a $i.key\ne x$ {\bf \textsf{do}} $i:=i.next$ {\bf \textsf{enddo}}\newline 
+\phantom{---}{\bf \textsf{if}} $i.key\ne x$ {\bf \textsf{then}}\newline 
+\phantom{------}{\bf \textsf{if}} neexistuje prázdný řádek tabulky {\bf \textsf{then}}\newline 
 \phantom{---------}{\bf Výstup}: přeplnění\newline 
-\phantom{------}{\bf else}\newline 
+\phantom{------}{\bf \textsf{else}}\newline 
 \phantom{---------}nechť $j$ je volný řádek tabulky\newline 
 \phantom{---------}$i.next:=j$, $j.key:=x$\newline 
-\phantom{------}{\bf endif}\newline 
-\phantom{---}{\bf endif\newline 
-endif}
-
+\phantom{------}{\bf \textsf{endif}}\newline 
+\phantom{---}{\bf \textsf{endif}\newline 
+\textsf{endif}}
+}
 
 V příkladu provedeme {\bf INSERT$(28)$}, nový řádek je 4. 
 řádek\newline 
 -- výsledná hašovací tabulka
 $$\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}řádek & key & next & begin\hfil \cr\noalign{\hrule}P(0) & & &\hfill \cr\noalign{\hrule}P(1) & 1 & 9 & 1 \cr\noalign{\hrule}P(2) & & &\hfill \cr\noalign{\hrule}P(3) & 73 & 7 & 3 \cr\noalign{\hrule}P(4) & 28 &  &\hfill \cr\noalign{\hrule}P(5) & 161 & & \hfill \cr\noalign{\hrule}P(6) & 7 & &\hfill \cr\noalign{\hrule}P(7) & 53 & & 6 \cr\noalign{\hrule}P(8) & 11 & 5 & 4  \cr\noalign{\hrule}P(9) & 141 & 8 & \hfill \cr\noalign{\hrule}}}$$
 
+
+\subsubsection{Očekávaný počet testů}
+
 Algoritmus při práci s~položkami je rychlejší než při 
 hašování s~přemísťováním, ale začátek řetězce v 
-jiném místě tabulky přidává jeden test. Výsledek bez 
-odvozování:\newline 
+jiném místě tabulky přidává jeden test. 
+
+\zapamatovat{
 Očekávaný počet testů:\newline 
 \phantom{---}úspěšný případ: $1+\frac {(n-1)(n-2
 )}{6m^2}+\frac {n-1}{2m}\approx 1+\frac {\alpha^2}6+\frac {\alpha}
 2$\newline 
 \phantom{---}neúspěšný případ: $\approx 1+\frac {
 \alpha^2}2+\alpha +e^{-\alpha}(2+\alpha )-2$.
+}
 
 \subsection{Srůstající hašování}
 
