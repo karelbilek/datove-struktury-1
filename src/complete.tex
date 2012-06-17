@@ -234,7 +234,7 @@ Požadovaná paměťová náročnost $O(m+|S|)$
 O(1)$)\newline 
 Paměť není efektivně využitá.
 
-Zbytek \ref{sepretezce} je věnován \textbf{očekávaným případům} 
+Další kapitoly \ref{sepretezce} jsou věnovány \textbf{očekávaným případům} 
 
 \subsubsection{Očekávané případy - předpoklady}
 
@@ -318,7 +318,7 @@ očekávané hodnoty binomiálního rozdělení.
 \end{proof}
 
 
-\begin{lemma}{Druhý moment}
+\begin{lemma}[Druhý moment]
     $E(l^2)=\frac nm(1+\frac {n-1}m)$
 \end{lemma}
 \begin{proof}
@@ -346,7 +346,7 @@ E(l^2)=&\frac {n(n-1)}{m^2}+\frac nm=\frac nm(1+\frac {n-1}m).\end{align*}
 
 Shrneme výsledky:\newline 
 
-\begin{boxedminipage}{0.6\textwidth}
+\begin{boxedminipage}{0.7\textwidth}
 Očekávaná délka řetězců je $\frac nm$ a rozptyl délky 
 řetězců je $\frac nm(1-\frac 1m)$.
 \end{boxedminipage}
@@ -359,8 +359,14 @@ Očekávaný nejdelší řetězec
 }
 
 Spočítáme $E(NP)$ očekávanou délku maximálního 
-řetězce.\newline 
-O\-znač\-me $\ell (i)$ délku $i$-tého řetězce. Pak
+řetězce ($NP$ jako nejhorší případ :))
+
+\begin{lemma}
+    $E(NP) = \sum_j\Prob(\max_i\ell (i)\ge j)$, kde $\ell(i)$ je délka $i$-tého řetězce.
+\end{lemma}
+
+\begin{proof}
+Platí, že
 $$\Prob(\max_i\ell (i)=j)=\Prob(\max_i\ell (i)\ge j)-\Prob(\max_i
 \ell (i)\ge j+1).$$
 
@@ -379,7 +385,14 @@ index, přes který sčítáme, o $1$, v páté rovnosti se k sobě
 daly koeficienty při stejných pravděpodobnostech ve dvou 
 sumách. 
 
-Odtud
+\end{proof}
+
+\begin{lemma}
+$\Prob(\max_i(\ell (i))\ge j)\le\min\{1,n(\frac nm)^{j-1}\frac 1{
+j!}\}.$
+\end{lemma}
+
+\begin{proof}
 \begin{align*}\Prob(\max_i&(\ell (i))\ge j)=\\
 &\Prob(\ell (1)\ge j\vee\ell (2)\ge j\vee\dots\vee\ell (m-1)\ge j
 )\le\\
@@ -395,20 +408,16 @@ podmnožina $A\subseteq S$ taková, že $|A|=j$ (těchto možností je $\binom
 nj$) a pro každé $x\in A$ platí $h(x)=i$ (pravděpo\-dob\-nost 
 tohoto jevu je $(\frac 1m)^j$). Protože pravděpodobnost je pro všechna $i$ stejná a $i$ nabývá $m$ hodnot, dostáváme druhou nerovnost. Následující rovnost plyne z rozepsání binomických koeficientů. Poslední nerovnost dostane\-me nahrazením $n-k$ hodnotou $n$.
 
-\begin{dusledek}
-$$\Prob(\max_i(\ell (i))\ge j)\le\min\{1,n(\frac nm)^{j-1}\frac 1{
-j!}\}.$$
-\end{dusledek}
+Že pravděpodobnost je menší než 1 je triviální.
 
-Předpoklad: $\alpha =\frac nm\le 1$. Ukážeme, že pro dostatečně 
-velká $n$ pro 
-$$j_0=\min\{j\mid n(\frac nm)^{j-1}\frac 1{j!}\le 1\}$$
-platí $j_0\le\frac {(1+o(1))\log n}{\log\log n}$. 
-K tomu použijeme Stirlingův vzorec pro faktoriály
-$$j!=\sqrt{2j\pi}\left(\frac je\right)^j\left(1+\frac 1{12j}+\frac 1{288j^2}+O(j^{-3})\right)$$
-a následující lemma.
+\end{proof}
 
-\begin{lemma}Když $(\frac qe)^q\le n$, pak $q\le(1+o(1))\frac{\ln n}{\ln\ln n}$.
+\begin{lemma}[Stirlingův vzorec pro faktoriály (bez důkazu)]
+    $j!=\sqrt{2j\pi}\left(\frac je\right)^j\left(1+\frac 1{12j}+\frac 1{288j^2}+O(j^{-3})\right)$
+\end{lemma}
+
+\begin{lemma}[Pomocné lemma]
+    Když $(\frac qe)^q\le n$, pak $q\le(1+o(1))\frac{\ln n}{\ln\ln n}$.
 \end{lemma}
 
 \begin{proof}Všimněme si nejdřív, že platí
@@ -419,11 +428,25 @@ protože $\lim_{n\mapsto\infty}\frac{\ln\ln\ln n}{\ln\ln n}=0=\lim_{n\mapsto\inf
 Odtud plyne $$\lim_{n\mapsto\infty}\left(\frac{\frac{\ln n}{\ln\ln n}}e\right)=e^{(1+o(1))\ln n}=n.$$ Protože $(\frac qe)^q$ je rostoucí funkce, tak dostáváme, že $q\le(1+o(1))(\frac{\ln n}{\ln\ln n})$.
 \end{proof}
 
-Protože $\frac nm\le1$, tak platí, že 
-$$j_0=\min\{j\mid n(\frac nm)^{j-1}\frac 1{j!}\le 1\}\le\min\{j\mid n\le j!\}\le\min\{j\mid n\le
-(\frac je)^j\}\le(1+o(1))\frac{\ln n}{\ln\ln n}.$$ 
+Označme si $j_0 = \min\{j\mid n(\frac nm)^{j-1}\frac 1{j!}\le 1\}$
 
-Toto použijeme při odhadu $E(NP)$.
+\begin{lemma}[Omezení $j_0$]
+    Pokud  $\alpha =\frac nm\le 1$, pak $j_0\le\frac {(1+o(1))\log n}{\log\log n}$
+\end{lemma}
+
+\begin{proof}
+    $$j_0=\min\{j\mid n(\frac nm)^{j-1}\frac 1{j!}\le 1\}\le\min\{j\mid n\le j!\}\le\min\{j\mid n\le
+    (\frac je)^j\}\le(1+o(1))\frac{\ln n}{\ln\ln n}.$$
+    
+    První nerovnost je jen převedení na druhou stranu a ignorování zlomku menšího než 1, druhá nerovnost plyne ze Stirlingova vzorce, třetí plyne z pomocného lemmatu.
+\end{proof}
+
+\begin{veta}
+    Pokud  $\alpha =\frac nm\le 1$, horní odhad odhad očekávané délky 
+    maximálního ře\-těz\-ce je $O(\frac {\log n}{\log\log n})$
+\end{veta}
+ 
+\begin{proof}
 \begin{align*} E(NP)=&\sum_j\Prob(\max_i(\ell (i))\ge j)\le\\
 &\sum_j\min\{1,n(\frac nm)^{j-1}\frac 1{j!}\}=\\
 &\sum_{j=1}^{j_0}1+\sum_{j=j_0+1}^{\infty}\big(n(\frac nm)^{j-1}\frac 
@@ -438,15 +461,23 @@ při třetí nerovnosti jsme použili, že $\frac n{j_
 0!}\le 1$ a 
 $$\frac {j_0!}{j!}=\frac 1{\prod_{k=j_0+1}^jk}\le (\frac 1{j_0+
 1})^{j-j_0}.$$
+\end{proof}
+
+\begin{veta}[(bez důkazu)]
+    Když $0.5\le\alpha\le 1$, je $O(\frac {\log n}{\log\log n})$ zároveň i dolní odhad $E(NP)$.
+    
+\end{veta}
+
 Shrneme získaný výsledek
 
-\begin{veta}Za předpokladu $\alpha =\frac nm\le 1$ je při hašování 
+\begin{boxedminipage}{0.7\textwidth}
+Za předpokladu $\alpha =\frac nm\le 1$ je při hašování 
 se se\-parovanými řetězci horní odhad očekávané délky 
 maximálního ře\-těz\-ce $O(\frac {\log n}{\log\log n}
 )$.  
 
 Když $0.5\le\alpha\le 1$, je to zároveň i dolní odhad.
-\end{veta}
+\end{boxedminipage}
 
 \subsubsection{
 Očekávaný počet testů
