@@ -49,8 +49,8 @@
  \setlength\fboxrule{5pt}
  \begin{center}
  $\vcenter{
- \hbox{\raisebox{-0.7ex}{\scalebox{1.7}{\Huge\RIGHTarrow}}\begin{boxedminipage}{0.7\textwidth}
-#1
+ \hbox{\raisebox{-0.7ex}{\scalebox{1.7}{\Huge\RIGHTarrow}}\begin{boxedminipage}{0.8\textwidth}
+\large #1
  \end{boxedminipage}\raisebox{-0.7ex}{\scalebox{1.7}{\Huge\LEFTarrow}}}}$
  \end{center}
  }
@@ -202,8 +202,6 @@ Seznamy nemusí být uspořádané.
 
 
 \algoritmus{
-
-\setlength{\parskip}{0.1in}
 
 {\bf MEMBER$(x)$}\newline 
 Spočítáme $i:=h(x)$, $t:=NIL$\newline 
@@ -1084,7 +1082,7 @@ next$ {\bf \textsf{enddo} \newline
 x\notin S$ {\bf \textsf{endif}}
 }
 
-Metoda LISCH:
+Metoda LISCH: \nopagebreak
 \algoritmus{{\bf INSERT$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
 {\bf \textsf{while}} $i.next\ne$prázdné a $i.key\ne x$ {\bf \textsf{do}} $i:=i.
@@ -1100,7 +1098,7 @@ $i.next:=j$\newline
 \textsf{endif}}}
 
 
-Metoda EISCH:
+Metoda EISCH: \nopagebreak
 \algoritmus{{\bf INSERT$(x)$}\newline 
 Spočítáme $k:=i:=h(x)$\newline 
 {\bf \textsf{while}} $i.next\ne$prázdné a $i.key\ne x$ {\bf \textsf{do}} $i:=i.
@@ -1119,66 +1117,138 @@ Efektivní operace {\bf DELETE}  není známá, ale i primitivní
 algoritmy pro operaci {\bf DELETE} mají rozumnou očekávanou 
 časovou složitost.
 
-\subsubsection{Analýza složitosti těchto algoritmů}
-Mazec.
+
+\subsubsection{Očekávaný počet testů neúspěšného vyhledávání ($s_{n+1}\notin S$) }
 
 Popis situace: Uložena množina 
 $S=\{s_1,s_2,\dots,s_n\}$ do ta\-bulky velikosti $m$, je dán 
 prvek $s_{n+1}$ a máme zjistit, zda $s_{n+1}\in S$. Označme 
 $a_i=h(s_i)$ pro $i=1,2,\dots,n+1$, kde $h$ je použitá hašovací 
-funkce.\newline 
+funkce.
+
+
 Předpoklad: všechny posloupnosti $a_1,a_2,\dots,a_{n+1}$ jsou 
 {\bf stejně pravděpodobné}. Výběr prázdného řádku je 
 pevně daný, to znamená, že při stejně obsazených 
-řadcích dostaneme vždy stejný prázdný řádek.  
+řadcích dostaneme vždy stejný prázdný řádek.
 
-\subsubsection{Neúspěšné vyhledávání ($s_{n+1}\notin S$) }
 
-Označení: $C(a_1,a_2,\dots,a_n;a_{n+1})$ označuje počet 
-testů pro zjiš\-tění, že $s_{n+1}\notin S$. Platí: 
-očekávaný počet testů při 
-neúspěšném vy\-hledávání v množině $S$ je 
-$$\frac {\sum C(a_1,a_2,\dots,a_n;a_{n+1})}{m^{n+1}},$$
-kde se sčítá přes všechny posloupnosti $a_1,a_2,\dots
-,a_{n+1}$ -- 
-a těch je $m^{n+1}$. \newline 
+\begin{definice} 
+    $C(a_1,a_2,\dots,a_n;a_{n+1})$ označuje počet 
+testů pro zjiš\-tění, že $s_{n+1}\notin S$ -- tj. to, co chceme spočítat, pro konkrétní posloupnost $a_n$.
+\end{definice}
+
+\begin{lemma}
+    Očekávaný počet testů při 
+    neúspěšném vy\-hledávání v množině $S$ je 
+    $$\frac {\sum_{a_1,a_2,\dots
+    ,a_{n+1}} C(a_1,a_2,\dots,a_n;a_{n+1})}{m^{n+1}}$$   
+\end{lemma}
+
+\begin{proof}
+    Sčítá se přes všechny posloupnosti $a_1,a_2,\dots
+    ,a_{n+1}$ -- 
+    a těch je $m^{n+1}$.
+\end{proof}
+
+\begin{definice}
 Řetězec délky $l$ v množině $S$ je maximální posloupnost 
 adres $(b_1,b_2,\dots,b_l)$ taková, že $b_i.next=b_{i+1}$ pro 
 $i=1,2,\dots,l-1$.
-Když adresa $a_{n+1}$ je $i$-tý prvek v řetězci, pak počet 
-testů je $l-i+1$. Řetězec délky $l$ přispěl k součtu 
-$\sum C(a_1,a_2,\dots,a_n;a_{n+1})$ počtem testů $1+2+\dots+l=l+\binom l2$. 
+\end{definice}
 
+\begin{lemma}
+    Řetězec délky $l$ přispěl k součtu 
+    $\sum C(a_1,a_2,\dots,a_n;a_{n+1})$ počtem testů $1+2+\dots+l=l+\binom l2$.
+\end{lemma}
+
+\begin{proof}
+Když adresa $a_{n+1}$ je $i$-tý prvek v řetězci, pak počet 
+testů je $l-i+1$ -- počet testů znamená \uv{projet} kompletní zbytek řetězce.
+\end{proof}
+
+\begin{definice}
 $c_n(l)=$ počet všech řetězců délky $
 l$ ve všech 
 reprezentacích $n$-prvkových množin (ztotožňuje\-me dvě 
 množiny, které měly stej\-nou posloupnost adres při 
-ukládaní prvků), pak 
+ukládaní prvků).
+\end{definice}
+
+\begin{lemma}
+    $\sum C(a_1,a_2,\dots,a_n;a_{n+1})=c_n(0)+\sum_{l=1}^nlc_n(l)+\sum_{l=1}^n\binom l2c_n(l)$
+\end{lemma}
+
+\begin{proof}
 \begin{align*}\sum C(a_1,a_2,&\dots,a_n;a_{n+1})=c_n(0)+\sum_{l=1}^n(l+\binom 
 l2)c_n(l)\\
 &=c_n(0)+\sum_{l=1}^nlc_n(l)+\sum_{l=1}^n\binom l2c_n(l),\end{align*}
 kde $c_n(0)$ je počet prázdných řádků ve všech 
-reprezentacích. \newline 
-Reprezentace $S$ má $m-n$ prázdných řádků,\newline 
+reprezentacích.
+
+Sčítáme všechny možné $C$ jako součet přes všechny možné řetězce \emph{vůbec}.
+
+\end{proof}
+
+\begin{lemma}
+    $c_n(0)=(m-n)m^n$
+\end{lemma}
+
+\begin{proof}
+Reprezentace $S$ má $m-n$ prázdných řádků, 
 všech posloupností $n$-adres je $m^n$, proto 
 $$c_n(0)=(m-n)m^n.$$
+
+(pozor, opravdu počítáme všechny možné prázdné řetězce vůbec)
+\end{proof}
+
+\begin{lemma}
+    $\sum_{l=1}^nlc_n(l)=nm^n$
+\end{lemma}
+
+\begin{proof}
+
 $\sum_{l=1}^nlc_n(l)$ je celková délka všech řetězců ve 
 všech tabulkách reprezentujících všechny $n$-prvkové 
 množiny, a proto 
 $$\sum_{l=1}^nlc_n(l)=nm^n.$$
-Spočítáme $S_n=\sum_{l=1}^n\binom l2c_n(l)$.  Nejprve rekurentní vztah 
-pro $c_n(l)$.  Přidáváme prvek s~adresou $a_{n+1}$.  Pak řetězec 
-délky $l$ v reprezentaci $S$ zůstal stejný, když 
-adresa $a_{n+1}$ neležela v tomto řetězci, v opačném případě 
-se délka řetězce zvětšila na $l+1$.  Proto přidání jednoho 
-prvku vytvořilo z řetězce délky $l$ celkem $m-l$ 
-řetězců délky $l$ a $l$ řetězců délky $
-l+1$.  
-Vysčítáním přes všechny $n$-prvkové posloupnosti adres 
-dostáváme 
-$$c_{n+1}(l)=(m-l)c_n(l)+(l-1)c_n(l-1).$$
+\end{proof}
+    
+\begin{lemma}[Rekurentní vztah pro $c_n(l)$]
+   $c_{n+1}(l)=(m-l)c_n(l)+(l-1)c_n(l-1).$ 
+\end{lemma}
+\begin{proof}
+    Přidáváme prvek s~adresou $a_{n+1}$.  Pak řetězec 
+    délky $l$ v reprezentaci $S$ zůstal stejný, když 
+    adresa $a_{n+1}$ neležela v tomto řetězci, v opačném případě 
+    se délka řetězce zvětšila na $l+1$.  Proto přidání jednoho 
+    prvku vytvořilo z řetězce délky $l$ celkem $m-l$ 
+    řetězců délky $l$ a $l$ řetězců délky $
+    l+1$.  
+    
+    Vysčítáním přes všechny $n$-prvkové posloupnosti adres 
+    dostáváme 
+    $$c_{n+1}(l)=(m-l)c_n(l)+(l-1)c_n(l-1).$$
+\end{proof}
 
-Odtud
+\begin{lemma}[součet binomických hodnot]
+    $(m-l)\binom l2+l\binom {l+1}2 = (m+2)\binom l2+l$
+\end{lemma}
+\begin{proof}
+    \begin{align*}(m-l)\binom l2+l\binom {l+1}2=&\frac 12(l^2m-lm-l^3+l^2+l^
+    3+l^2)=\\
+    &\frac 12(l^2m-lm+2l^2)=\\
+    &\frac 12(l^2m-lm+2(l^2-l))+l=\\
+    &(m+2)\binom l2+l.\end{align*}
+\end{proof}
+
+Označme $S_n=\sum_{l=1}^n\binom l2c_n(l)$ poslední sčítanec.
+
+\begin{lemma}[Rekurentní vztah pro $S_n$]
+    $S_n = (m+2)S_{n-1}+(n-1)m^{n-1}$
+\end{lemma}
+
+\begin{proof}
 \begin{align*} S_n=&\sum_{l=1}^n\binom l2c_n(l)=\\
 &\sum_{l=1}^n\big(\binom l2(m-l)c_{n-1}(l)+\binom l2(l-1)c_{n-1}(
 l-1)\big)=\\
@@ -1190,13 +1260,14 @@ n-1}\binom {l+1}2lc_{n-1}(l)\big)=\\
 &\sum_{l=1}^{n-1}\binom l2(m+2)c_{n-1}(l)+\sum_{l=1}^{n-1}lc_{n-1}
 (l)=\\
 &(m+2)S_{n-1}+(n-1)m^{n-1},\end{align*}
-kde jsme použili, že $c_{n-1}(n)=0$, a identitu
-\begin{align*}(m-l)\binom l2+l\binom {l+1}2=&\frac 12(l^2m-lm-l^3+l^2+l^
-3+l^2)=\\
-&\frac 12(l^2m-lm+2l^2)=\\
-&\frac 12(l^2m-lm+2(l^2-l))+l=\\
-&(m+2)\binom l2+l.\end{align*}
+kde jsme použili, že $c_{n-1}(n)=0$ a lemma o součtu binomických hodnot.
+\end{proof}
 
+\begin{lemma}[První vztah pro $S_n$]
+    $S_n = (m+2)^{n-1}\sum_{i=1}^{n-1}i\big(\frac m{m+2}\big)^i$
+\end{lemma}
+
+\begin{proof}
 Rekurence pro $S_n$ dává 
 \begin{align*} S_n=&(m+2)S_{n-1}+(n-1)m^{n-1}=\\
 &(m+2)^2S_{n-2}+(m+2)(n-2)m^{n-2}+(n-1)m^{n-1}=\\
@@ -1206,9 +1277,19 @@ Rekurence pro $S_n$ dává
 &(m+2)^{n-1}\sum_{i=0}^{n-1}(n-1-i)\big(\frac m{m+2}\big)^{n-1-i}
 =\\
 &(m+2)^{n-1}\sum_{i=1}^{n-1}i\big(\frac m{m+2}\big)^i,\end{align*}
-kde jsme využili, že $S_0=0$. Spočítáme součet 
-$T_c^n=\sum_{i=1}^nic^i$ pro $n=1,2,\dots$ a $c\ne 1$. Z
-$cT_c^n=\sum_{i=1}^nic^{i+1}$ plyne 
+kde jsme využili, že $S_0=0$. 
+\end{proof}
+
+\begin{definice}
+    $T_c^n=\sum_{i=1}^nic^i$ pro $n=1,2,\dots$ a $c\ne 1$
+\end{definice}
+
+\begin{lemma}[Vztah pro $T_c^n$]
+    $$T_c^n = \frac {nc^{n+2}-(n+1)c^{n+1}+c}{c-1}$$
+\end{lemma}
+
+\begin{proof}
+Z $cT_c^n=\sum_{i=1}^nic^{i+1}$ plyne 
 \begin{align*}(c-1)T_c^n=&cT_c^n-T_c^n=\sum_{i=2}^{n+1}(i-1)c^i-\sum_{i
 =1}^nic^i=\\
 &nc^{n+1}+\big(\sum_{i=2}^n((i-1)c^i-ic^i)\big)-c=\\
@@ -1218,7 +1299,15 @@ $cT_c^n=\sum_{i=1}^nic^{i+1}$ plyne
 
 Tedy platí 
 $$T_c^n=\frac {nc^{n+2}-(n+1)c^{n+1}+c}{(c-1)^2}.$$
-Protože $\frac m{m+2}\ne 1$, dostáváme, že 
+\end{proof}
+
+\begin{lemma}[Druhý vztah pro $S_n$]
+    $S_n = \frac 14\big(m(m+2)^n-m^{n+1}-2nm^n\big)$
+\end{lemma}
+
+\begin{proof}
+Protože $\frac m{m+2}\ne 1$, dostáváme dosazením vztahu pro $T_c^n$ do prvního vztahu pro $S_n$, že 
+
 \begin{align*} S_n=&(m+2)^{n-1}\frac {(n-1)\big(\frac m{m+2}\big)^{n+1}
 -n\big(\frac m{m+2}\big)^n+\frac m{m+2}}{\big(\frac m{m+2}-1\big)^
 2}=\\
@@ -1226,17 +1315,33 @@ Protože $\frac m{m+2}\ne 1$, dostáváme, že
 m{m+2}\big)^n+\frac m{m+2}\big]=\\
 &\frac 14\big[(n-1)m^{n+1}-n(m+2)m^n+m(m+2)^n\big]=\\
 &\frac 14\big(m(m+2)^n-m^{n+1}-2nm^n\big).\end{align*}
-Očekávaný počet testů při neúspěšném 
-vyhledávání je  
-\begin{align*}&\frac {(m-n)m^n+nm^n+\frac 14\big(m(m+2)^n-m^{n+1}-2nm^n\big
+\end{proof}
+
+\begin{veta}[Odhad nejhoršího případu]
+    Očekávaný počet testů při neúspěšném 
+    vyhledávání je $\frac 14(e^{2\alpha}-1-2\alpha )$
+\end{veta}
+
+\begin{proof}
+    Z předchozích lemmat
+\begin{align*}&\frac {\sum_{a_1,a_2,\dots
+       ,a_{n+1}} C(a_1,a_2,\dots,a_n;a_{n+1})}{m^{n+1}}=\\
+    &\frac {(m-n)m^n+nm^n+\frac 14\big(m(m+2)^n-m^{n+1}-2nm^n\big
 )}{m^{n+1}}=\\
 &\frac {m^{n+1}+\frac 14\big(m(m+2)^n-m^{n+1}-2nm^n\big)}{m^{n+1}}
 =\\
 &1+\frac 14\big((1+\frac 2m)^n-1-\frac {2n}m\big)\sim 1+\frac 14(
 e^{2\alpha}-1-2\alpha ).\end{align*}
+\end{proof}
+
 Tento odhad je stejný pro obě metody -- LISCH i EISCH, 
 protože mají stejné posloupnosti adres (liší se jen pořadím 
 prvků v jednotlivých řetězcích).
+
+\zapamatovat{
+    Očekávaný počet testů při neúspěšném 
+   vyhledávání je $\frac 14(e^{2\alpha}-1-2\alpha )$
+}
 
 \subsubsection{Úspěšný případ ($s_{n+1}\in S$)}
 
