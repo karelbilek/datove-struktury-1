@@ -46,15 +46,13 @@
  \newcommand{\zapamatovat}[1]{
  {
  
- 
- \hbox{\scalebox{2}{\Huge\RIGHTarrow}}
- 
  \setlength\fboxrule{5pt}
- 
- \begin{boxedminipage}{0.7\textwidth}
+ \begin{center}
+ $\vcenter{
+ \hbox{\raisebox{-0.7ex}{\scalebox{1.7}{\Huge\RIGHTarrow}}\begin{boxedminipage}{0.7\textwidth}
 #1
- \end{boxedminipage}
- \hbox{\scalebox{2}{\Huge\LEFTarrow}}
+ \end{boxedminipage}\raisebox{-0.7ex}{\scalebox{1.7}{\Huge\LEFTarrow}}}}$
+ \end{center}
  }
  }
  
