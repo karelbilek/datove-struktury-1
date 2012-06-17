@@ -41,6 +41,8 @@
  
  \input lhead
  
+
+\usepackage{boxedminipage}
  
  \begin{document}
      
@@ -155,6 +157,7 @@ Nevýhoda: mohou existovat různá $s,t\in S$ taková,
 Hlavní problém, kterému se věnuje zbytek kapitoly: řešení kolizí.
 
 \subsection{Hašování se separovanými řetězci}
+\label{sepretezce}
 
 Základní řešení: použijeme pole o velikosti $[
 0..m-1]$ a 
@@ -174,6 +177,11 @@ Seznamy nemusí být uspořádané.
 Algoritmy operací
 }
 
+
+\begin{boxedminipage}{0.6\textwidth}
+
+\setlength{\parskip}{0.1in}
+
 {\bf MEMBER$(x)$}\newline 
 Spočítáme $i:=h(x)$, $t:=NIL$\newline 
 {\bf \textsf{if}} $i$-tý seznam je neprázdný {\bf \textsf{then}\newline 
@@ -185,6 +193,7 @@ Spočítáme $i:=h(x)$, $t:=NIL$\newline
 \textsf{if}} $t=x$ {\bf \textsf{then} Výstup}: $x\in S$ {\bf \textsf{else} Výstup}: $x\notin 
 S$ {\bf \textsf{endif}
 
+
 INSERT$(x)$}\newline 
 Spočítáme $i:=h(x)$, $t:=NIL$\newline 
 {\bf \textsf{if}} $i$-tý seznam je neprázdný {\bf \textsf{then}\newline 
@@ -193,7 +202,9 @@ Spočítáme $i:=h(x)$, $t:=NIL$\newline
 \phantom{{\rm ------}}$t:=$}následující prvek $i$-tého seznamu\newline 
 \phantom{---}{\bf \textsf{enddo}\newline 
 \textsf{endif}\newline 
-\textsf{if}} $t\ne x$ {\bf \textsf{then}} vložíme $x$ \textsf{do} $i$-tého seznamu {\bf \textsf{endif}}
+\textsf{if}} $t\ne x$ {\bf \textsf{then}} vložíme $x$ do $i$-tého seznamu {\bf \textsf{endif}}
+
+
 
 {\bf DELETE}$(x)$\newline 
 Spočítáme $i:=h(x)$, $t:=NIL$\newline 
@@ -205,9 +216,16 @@ Spočítáme $i:=h(x)$, $t:=NIL$\newline
 \textsf{endif}\newline 
 \textsf{if}} $t=x$ {\bf \textsf{then}} odstraníme $x$ z $i$-tého seznamu {\bf \textsf{endif}}
 
+\end{boxedminipage}
+
+\subsubsection{
+Nejhorší případy
+}
+
 V následující analýze předpokládáme, že hodnota funkce $
 h(x)$ 
-je spočitatelná v čase $O(1)$.\newline 
+je spočitatelná v čase $O(1)$.
+
 V nejhorším případě operace vyžadují čas $
 O(|S|)$ 
 (všechny prv\-ky jsou v jednom seznamu). \newline 
@@ -216,39 +234,42 @@ Požadovaná paměťová náročnost $O(m+|S|)$
 O(1)$)\newline 
 Paměť není efektivně využitá.
 
-Spočítáme očekávanou délku řetězců za 
-předpokladů
+Zbytek \ref{sepretezce} je věnován \textbf{očekávaným případům} 
+
+\subsubsection{Očekávané případy - předpoklady}
+
+Pro výpočet očekávaných případů si zavedeme předpoklady:
 \begin{enumerate}
 \item
 $h$ je rychle spočitatelná (tj. $O(1)$) a neměnná během 
 výpočtu;
-\item
+\item všechny $h^{-1}(i)$ jsou stejně velké, tj.
 $h$ rozděluje univerzum $U$ rovnoměrně (tj. 
-$-1\le |h^{-1}(i)|-|h^{-1}(j)|\le 1$ pro $i,j\in \{0,1,\dots,m-1\}$);
+$-1\le |h^{-1}(i)|-|h^{-1}(j)|\le 1$ pro $i,j\in \{0,1,\dots,m-1\}$ -- rozdíl 1 kvůli tomu, že jde o celá čísla);
 \item
-$S$ je náhodně vybraná z univerza $U$ (tj. pro dané $n=|
-S|$ 
+$S$ je náhodně vybraná z univerza $U$ (tj. pro dané $n=|S|$ 
 jsou všechny podmnoži\-ny $U$ o velikosti $n$ reprezentovanou 
-množinou $S$ se stejnou pravděpodobností);\item
+množinou $S$ se stejnou pravděpodobností);
+\item
 každý prvek z $U$ má stejnou pravděpodobnost být 
-argumentem operace;
+argumentem operace {\bf INSERT}, {\bf DELETE}, {\bf MEMBER}
 \item
 velikost reprezentované množiny je výrazně menší než 
 velikost univerza.
 \end{enumerate}
 
-Použité značení: $|S|=n$, $m=$počet 
-řetězců, $|U|=N$,\newline 
+Použité značení: $|S|=n$ (\emph{number}), $m=$počet 
+řetězců (\emph{memory}), $|U|=N$,\newline 
 $\ell (i)=$délka $i$-tého řetězce, $\alpha =\frac nm$ faktor naplnění (load factor)
 
-Důsledky předpokladů:
+\subsubsection{Jednoduché důsledky předpokladů}
 \begin{enumerate}
 \item 
 $\Prob(h(x)=i)=\frac 1m$ pro všechna $x\in U$ a všechna 
-$i=0,1,\dots,m-1$; 
+$i=0,1,\dots,m-1$ -- tj. prvky jsou rovnoměrně rozloženy do \uv{slotů} 
 \item 
 $\Prob(\ell (i)=l)=p_{n,l}=\binom nl(\frac 1m)^l(1-\frac 1m)^{n-l}$ 
-pro všechna $i=0,1,\dots,m-1$.
+pro všechna $i=0,1,\dots,m-1$ -- tj. délky řetězců mají binomiální rozdělení.
 \end{enumerate}
 
 Vysvětlení: $i$-tý řetězec má délku $
