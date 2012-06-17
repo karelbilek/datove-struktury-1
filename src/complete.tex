@@ -273,7 +273,7 @@ pro všechna $i=0,1,\dots,m-1$ -- tj. délky řetězců mají binomiální rozd�
 \end{enumerate}
 
 Vysvětlení: $i$-tý řetězec má délku $
-l$, právě když existuje 
+l$, právě když je $l$ prvků z $S$ zahešováno do $i$ a zbytek ne -- tj. existuje 
 pod\-mno\-žina $A\subseteq S$ taková, že $|A|=l$ (těchto možností je 
 $\binom nl$), pro každé $x\in A$ platí $h(x)=i$ (pravděpodobnost 
 tohoto jevu je $(\frac 1m)^l$) a pro každé $x\in S\setminus 
@@ -281,7 +281,7 @@ A$ platí $h(x)\ne i$
 (pravděpodobnost tohoto jevu je $(1-\frac 1m)^{n-l}$). To znamená, že jev má 
 binomiální rozdělení.
 
-Zde jsme nepřesní. Obecně pro náhodně zvolené $
+Zde jsme nepřesní kvůli možnému rozdílu 1 ve velikostech množin. Obecně pro náhodně zvolené $
 x\in U$ 
 a dané $i$ je $\Prob(h(x)=i)=\frac {|h^{-1}(i)|}{|U|}$ a když existují dvě různá 
 $i,j\in \{0,1,\dots,m-1\}$ taková, že $|h^{-1}(i)|\ne |h^{-1}
@@ -296,6 +296,13 @@ hodnotou $\frac 1m$.
 \subsubsection{
 Očekávaná délka řetězců
 }
+
+\begin{veta}
+    Očekávaná délka řetězců je $\frac{n}{m}$.
+\end{veta}
+
+\begin{proof}
+
 \begin{align*} E(l)=&\sum_{l=0}^nlp_{n,l}=\sum_{l=0}^nl\binom nl(\frac 
 1m)^l(1-\frac 1m)^{n-l}=\\
 &\sum_{l=0}^nl\frac {n!}{l!(n-l)!}(\frac 1m)^l(1-\frac 1m)^{n-l}=\\
@@ -308,11 +315,13 @@ Očekávaná délka řetězců
 &\frac nm(\frac 1m+1-\frac 1m)^{n-1}=\frac nm.\end{align*}
 Toto je standardní elementární výpočet 
 očekávané hodnoty binomiálního rozdělení.  
+\end{proof}
 
-\subsubsection{
-Výpočet druhého momentu
-}
 
+\begin{lemma}{Druhý moment}
+    $E(l^2)=\frac nm(1+\frac {n-1}m)$
+\end{lemma}
+\begin{proof}
 \begin{align*} E(l^2)=&E(l(l-1))+E(l),\\
 E(l(l-1&))=\sum_{l=0}^nl(l-1)\binom nl(\frac 1m)^l(1-\frac 1m)^{n
 -l}=\\
@@ -322,21 +331,31 @@ E(l(l-1&))=\sum_{l=0}^nl(l-1)\binom nl(\frac 1m)^l(1-\frac 1m)^{n
 1m)^{n-2-l}=\\
 &\frac {n(n-1)}{m^2},\\
 E(l^2)=&\frac {n(n-1)}{m^2}+\frac nm=\frac nm(1+\frac {n-1}m).\end{align*}
-\subsubsection{
-Výpočet rozptylu
-}
+\end{proof}
 
+
+\begin{veta}
+    Rozptyl řetězců je $nm(1-\frac 1m)$.
+\end{veta}
+
+\begin{proof}
 \begin{align*}\var(l)=&E(l-E(l))^2=E(l^2)-(E(l))^2=\\
 &\frac nm(1+\frac {n-1}m)-(\frac nm)^2=\frac nm(1-\frac 1m).\end{align*}
 
+\end{proof}
+
 Shrneme výsledky:\newline 
+
+\begin{boxedminipage}{0.6\textwidth}
 Očekávaná délka řetězců je $\frac nm$ a rozptyl délky 
 řetězců je $\frac nm(1-\frac 1m)$.
+\end{boxedminipage}
+    
 Toto jsou standardní elementární odvození druhého momentu
 a rozptylu binomiálního rozdělení.
 
 \subsubsection{
-Očekávaný nejhorší případ
+Očekávaný nejdelší řetězec
 }
 
 Spočítáme $E(NP)$ očekávanou délku maximálního 
