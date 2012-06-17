@@ -40,9 +40,37 @@
  \DeclareMathOperator*{\Cont}{Cont}
  
  \input lhead
+ \usepackage{boxedminipage}
+ \usepackage{graphicx}
+ \usepackage{wasysym}
+ \newcommand{\zapamatovat}[1]{
+ {
  
+ 
+ \hbox{\scalebox{2}{\Huge\RIGHTarrow}}
+ 
+ \setlength\fboxrule{5pt}
+ 
+ \begin{boxedminipage}{0.7\textwidth}
+#1
+ \end{boxedminipage}
+ \hbox{\scalebox{2}{\Huge\LEFTarrow}}
+ }
+ }
+ 
+ \newcommand{\algoritmus}[1]{
+  {
+  \setlength\fboxrule{0.5pt}
 
-\usepackage{boxedminipage}
+  \begin{boxedminipage}{0.6\textwidth}
+
+  \setlength{\parskip}{0.1in}
+ #1
+  \end{boxedminipage}
+
+  }
+  }
+
  
  \begin{document}
      
@@ -73,7 +101,7 @@
 
 \section{Úvod}
 \emph{Základní} problém: Reprezentace množin a 
-operace s nimi. V řadě úloh a algoritmů je tento 
+operace s~nimi. V řadě úloh a algoritmů je tento 
 podproblém rozhodující pro složitost řešení, protože 
 tyto operace se mnohokrát opakují. Proto je třeba 
 navrhnout pro tyto úlohy co nejefektivnější algoritmy 
@@ -85,8 +113,8 @@ Nelze říct,
 okolností může být `méně efektivní' algoritmus 
 výhodnější.
 
-Cílem této přednášky není pouze seznámit vás s algoritmy 
-pro řešení těchto problémů, protože s těmi jste se 
+Cílem této přednášky není pouze seznámit vás s~algoritmy 
+pro řešení těchto problémů, protože s~těmi jste se 
 seznámili už v přednášce `Algoritmy a datové struktury'. Hlavním cílem 
 je ukázat vám prostředky a metody, jak měřit a zjišťovat 
 jejich efektivitu, a tím vám ukázat prostřed\-ky, které vám 
@@ -97,7 +125,7 @@ zjednoduše\-ných
 předpokladů, protože neumím říct (a ani to nelze, protože vždy záleží 
 na konkrétních okolnostech), které sofistikovanější metody 
 budou v praxi vhodné pro řešení vašeho problému. Cílem přednášky je 
-seznámit vás s možnostmi, jak řešit tyto problémy, a se základními 
+seznámit vás s~možnostmi, jak řešit tyto problémy, a se základními 
 metodami pro jejich řešení.
 \section{Hašování}
 
@@ -146,7 +174,7 @@ zpráva od IBM o hašování z roku 1953.
 Základní idea: Dáno univerzum $U$ a množina 
 $S\subseteq U$ tak, že $|S|<<|U|$. Máme funkci 
 $h:U\to \{0,1,\dots,m-1\}$ (taky \emph{hešovací funkce}) a množinu $S$ reprezentujeme 
-tabulkou (polem) s $m$ řádky tak, že $s\in S$ je uložen na 
+tabulkou (polem) s~$m$ řádky tak, že $s\in S$ je uložen na 
 řádku $h(s)$. 
 
 $m$ (jako \emph{memory}) si tedy budeme značit velikost tabulky; $n$ je velikost $|S|$.
@@ -173,12 +201,10 @@ funkce je $h(x)=x\bmod10$. Pak
 P(7)=<7>,\quad P(3)=<53,73>,\quad P(1)=<1,141,11,161>.\end{gather*}
 Seznamy nemusí být uspořádané.  
 
-\subsubsection{
-Algoritmy operací
-}
+\subsubsection{Algoritmy operací}
 
 
-\begin{boxedminipage}{0.6\textwidth}
+\algoritmus{
 
 \setlength{\parskip}{0.1in}
 
@@ -216,11 +242,9 @@ Spočítáme $i:=h(x)$, $t:=NIL$\newline
 \textsf{endif}\newline 
 \textsf{if}} $t=x$ {\bf \textsf{then}} odstraníme $x$ z $i$-tého seznamu {\bf \textsf{endif}}
 
-\end{boxedminipage}
-
-\subsubsection{
-Nejhorší případy
 }
+
+\subsubsection{Nejhorší případy}
 
 V následující analýze předpokládáme, že hodnota funkce $
 h(x)$ 
@@ -293,9 +317,7 @@ ve všech uvažovaných případech je $Prob(h(x)=i)$ přibližně
 $\frac 1m$, a můžeme tuto pravděpodobnost aproximovat 
 hodnotou $\frac 1m$.
 
-\subsubsection{
-Očekávaná délka řetězců
-}
+\subsubsection{Očekávaná délka řetězců}
 
 \begin{veta}
     Očekávaná délka řetězců je $\frac{n}{m}$.
@@ -346,17 +368,15 @@ E(l^2)=&\frac {n(n-1)}{m^2}+\frac nm=\frac nm(1+\frac {n-1}m).\end{align*}
 
 Shrneme výsledky:\newline 
 
-\begin{boxedminipage}{0.7\textwidth}
+\zapamatovat{
 Očekávaná délka řetězců je $\frac nm$ a rozptyl délky 
 řetězců je $\frac nm(1-\frac 1m)$.
-\end{boxedminipage}
+}
     
 Toto jsou standardní elementární odvození druhého momentu
 a rozptylu binomiálního rozdělení.
 
-\subsubsection{
-Očekávaný nejdelší řetězec
-}
+\subsubsection{Očekávaný nejdelší řetězec}
 
 Spočítáme $E(NP)$ očekávanou délku maximálního 
 řetězce ($NP$ jako nejhorší případ :))
@@ -463,28 +483,25 @@ $$\frac {j_0!}{j!}=\frac 1{\prod_{k=j_0+1}^jk}\le (\frac 1{j_0+
 1})^{j-j_0}.$$
 \end{proof}
 
-\begin{veta}[(bez důkazu)]
+\begin{veta}[bez důkazu]
     Když $0.5\le\alpha\le 1$, je $O(\frac {\log n}{\log\log n})$ zároveň i dolní odhad $E(NP)$.
     
 \end{veta}
 
 Shrneme získaný výsledek
 
-\begin{boxedminipage}{0.7\textwidth}
+\zapamatovat{
 Za předpokladu $\alpha =\frac nm\le 1$ je při hašování 
 se se\-parovanými řetězci horní odhad očekávané délky 
 maximálního ře\-těz\-ce $O(\frac {\log n}{\log\log n}
 )$.  
 
 Když $0.5\le\alpha\le 1$, je to zároveň i dolní odhad.
-\end{boxedminipage}
-
-\subsubsection{
-Očekávaný počet testů
 }
 
-Test je porovnání argumentu operace s 
-prvkem na daném místě řetězce nebo zjiště\-ní, 
+\subsubsection{Očekávaný počet testů}
+
+Test je porovnání argumentu operace s~prvkem na daném místě řetězce nebo zjiště\-ní, 
 že vyšetřovaný řetězec je prázdný.
 
 Budeme rozlišovat dva případy:\newline 
@@ -493,27 +510,35 @@ operace je mezi prvky reprezentované množiny,\newline
 \phantom{---}\emph{neúspěšné} \emph{vyhledávání} -- argument 
 operace není mezi prv\-ky reprezentované mno\-žiny.
 
-\subsubsection{
-Neúspěšné vyhledávání
-}
+\begin{veta}[Neúspěšné vyhledávání]
+    Při hašování se separovanými řetězci je 
+    očekávaný po\-čet testů při neúspeš\-ném 
+    vy\-hledávaní přibližně $e^{-\alpha}+\alpha$
+\end{veta}
 
+\begin{proof}
 Očekávaný počet testů:
 \begin{align*} E(T)=&\Prob(\ell (i)=0)+\sum_ll\Prob(\ell (i)=l)=\\
 &p_{n,0}+\sum_llp_{n,l}=\\
 &(1-\frac 1m)^n+\frac nm\approx e^{-\alpha}+\alpha .\end{align*}
 Vysvětlení: Zjištění, zda řetězec je prázdný, vyžaduje 
-jeden test, tj. $\Prob(\ell (i)=0)$ není s koeficientem $0$, ale $
+jeden test, tj. $\Prob(\ell (i)=0)$ není s~koeficientem $0$, ale $
 1$.
 Protože pravděpodobnosti jsou stejné pro všechny 
 řetězce, nemusíme specifikovat řetězec, který 
 vyšetřujeme, stačí psát obecně $i$. $\sum_llp_{
 n,l}$ jsme spočítali 
 při výpočtu očekávané délky řetězce.
+\end{proof}
 
-\subsubsection{
-Úspěšné vyhledávání
-}
 
+\begin{veta}[Úspěšné vyhledávání]
+    Při hašování se separovanými řetězci je 
+    očekávaný po\-čet testů při úspeš\-ném 
+    vy\-hledávaní přibližně $1+\frac{\alpha}{2}$
+\end{veta}
+
+\begin{proof}
 Zvolme jeden řetězec prvků o délce $l$. 
 Počet testů při vyhledání všech prvků 
 v tomto řetězci je
@@ -535,8 +560,11 @@ vyhledání jednoho prvku je
 )=\\
 &\frac m{2n}(\frac {n(n-1)}{m^2}+\frac {2n}m)=\frac {n-1}{2m}+1\approx\\
 &1+\frac {\alpha}2.\end{align*}
+\end{proof}
 
-Jiný postup: Předpokládejme, že počet testů při úspěšném 
+Jiný postup.
+\begin{proof}
+    Předpokládejme, že počet testů při úspěšném 
 vyhledávání prvku $x\in S$ je $1+$počet porovnání 
 klíčů při neúspěšném vyhledávání $
 x$ v operaci 
@@ -548,11 +576,15 @@ $1+$očekávaná délka řetězce v okamžiku vkládání $
 x$, neboli 
 $$\frac 1n\sum_{i=0}^{n-1}(1+\frac im)=1+\frac {n-1}{2m}.$$
 
-\begin{veta}Při hašování se separovanými řetězci je 
+\end{proof}
+
+\zapamatovat{
+
+Při hašování se separovanými řetězci je 
 očekávaný po\-čet testů při neúspeš\-ném 
 vy\-hledávaní přibližně $e^{-\alpha}+\alpha$ a při ús\-pěš\-ném 
 vyhledávání přibližně $1+\frac {\alpha}2$.
-\end{veta}
+}
 
 Následující tabulka dává přehled očekávaného 
 počtu testů pro různé hodnoty $\alpha$
@@ -568,33 +600,37 @@ ale důvod je, že počet testů při
 úspěšném vy\-hledávání průměrujeme proti $
 n$, 
 kdežto při neúspěšném vy\-hledávání proti $
-m$. Ilustrujeme 
-to na následujícím příkladu:\newline 
+m$. 
+
+Ilustrujeme 
+to na následujícím příkladu:
+
+
 Nechť $n=\frac m2$ a nechť polovina neprázdných 
 řetězců má délku $1$ a polovina má délku $
 2$. \newline 
 Očekávaný počet testů při neúspěšném 
 vyhledávaní:
-\begin{enumerate}
+\begin{itemize}
 \item 
 $1$ test pro prázdné řetězce a řetězce 
 délky $1$ -- těchto případů je $\frac {5m}6$
 \item 
 $2$ testy pro řetězce délky $2$ -- těchto případů je 
 $\frac m6$.
-\end{enumerate}
+\end{itemize}
 Očekávaný počet testů je 
 $\frac 1m(1\frac {5m}6+2\frac m6)=\frac 76$.\newline 
 Očekávaný počet testů při úspěšném 
 vyhledávání: 
-\begin{enumerate}
+\begin{itemize}
 \item 
 $1$ test pro prvky na prvním místě řetězce -- těchto 
 případů je $\frac {2n}3$
 \item 
 $2$ testy pro prvky, které jsou na druhém místě řetězce -- těchto 
 případů je $\frac n3$.
-\end{enumerate}
+\end{itemize}
 Očekávaný počet testů je $\frac 1n(1\frac {2n}
 3+2\frac n3)=\frac 43$.
 
@@ -602,75 +638,81 @@ Velikost $\alpha$ je doporučována menší než $
 1$, ale nemá být 
 hodně malá, protože by paměť nebyla efektivně využita. 
 
-\subsection{Hašování s uspořádanými separovanými řetězci}
+\subsection{Hašování s~uspořádanými separovanými řetězci}
 
-Vylepšení metody: hašování s uspořádanými řetězci.
+Vylepšení metody: hašování s~uspořádanými řetězci.
 Rozdíl proti původní metodě -- řetězce jsou 
 uspořádané ve vzrůsta\-jícím pořadí. Protože 
 řetězce obsahují tytéž prvky, je počet očeká\-va\-ných testů 
 při úspěšném vyhledávání stejný jako u ne\-uspořádaných 
 řetězců. Při neúspěšném vyhledávání končíme, 
 když argument operace je menší než vyšetřovaný prvek 
-v řetěz\-ci, tedy končíme dřív. Následující věta (bez 
-důkazu) uvádí očekavaný počet testů v 
-neúspěšném případě.
+v řetěz\-ci, tedy končíme dřív. 
 
-\begin{veta}Očekávaný počet testů při 
-neúspěšném vyhledávání pro hašování s uspořá\-danými 
+\subsubsection{Očekávaný počet testů}
+
+\zapamatovat{
+
+Očekávaný počet testů při 
+neúspěšném vyhledávání pro hašování s~uspořá\-danými 
 řetězci je přibližně $e^{-\alpha}+1+\frac {\alpha}
-2-\frac 1{\alpha}(1-e^{-\alpha})$. Očekávaný 
+2-\frac 1{\alpha}(1-e^{-\alpha})$. 
+
+Očekávaný 
 počet testů při úspěšném vyhledávání pro 
-hašování s uspořádanými řetězci je 
+hašování s~uspořádanými řetězci je 
 přibližně $1+\frac {\alpha}2.$
-\end{veta}
-
-Uvedeme algoritmy pro operace s uspořádanými 
-ře\-těz\-ci.
-
-\subsubsection{
-Algoritmy
 }
+
+
+
+\subsubsection{Algoritmy}
+
+\algoritmus{
+    
 
 {\bf MEMBER$(x)$}\newline 
 Spočítáme $i:=h(x)$, $t:=NIL$\newline 
-{\bf if} $i$-tý seznam je neprázdný {\bf then\newline 
+{\bf \textsf{if}} $i$-tý seznam je neprázdný {\bf \textsf{then}\newline 
 \phantom{{\rm ---}}$t:=$}první prvek $i$-tého seznamu\newline 
-\phantom{---}{\bf while} $t<x$ a $t\ne$poslední prvek $i$-tého seznamu {\bf do\newline 
+\phantom{---}{\bf \textsf{while}} $t<x$ a $t\ne$poslední prvek $i$-tého seznamu {\bf \textsf{do}\newline 
 \phantom{{\rm ------}}$t:=$}následující prvek $i$-tého seznamu\newline 
-\phantom{---}{\bf enddo\newline 
-endif \newline 
-if} $t=x$ {\bf then} $x\in S$ {\bf else} $x\notin S$ {\bf endif
+\phantom{---}{\bf \textsf{enddo}\newline 
+\textsf{endif} \newline 
+\textsf{if}} $t=x$ {\bf \textsf{then}} $x\in S$ {\bf \textsf{else}} $x\notin S$ {\bf \textsf{endif}
 
 INSERT$(x)$}\newline 
 Spočítáme $i:=h(x)$, $t:=NIL$\newline 
-{\bf if} $i$-tý seznam je neprázdný {\bf then\newline 
+{\bf \textsf{if}} $i$-tý seznam je neprázdný {\bf \textsf{then}\newline 
 \phantom{{\rm ---}}$t:=$}první prvek $i$-tého seznamu\newline 
-\phantom{---}{\bf while} $t<x$ a $t\ne$poslední prvek $i$-tého seznamu {\bf do\newline 
+\phantom{---}{\bf \textsf{while}} $t<x$ a $t\ne$poslední prvek $i$-tého seznamu {\bf \textsf{do}\newline 
 \phantom{{\rm ------}}$t:=$}následující prvek $i$-tého seznamu\newline 
-\phantom{---}{\bf enddo\newline 
-endif \newline 
-if} $t\ne x$ {\bf then\newline 
-\phantom{{\rm ---}}if} $x<t$ {\bf then\newline 
+\phantom{---}{\bf \textsf{enddo}\newline 
+\textsf{endif} \newline 
+\textsf{if}} $t\ne x$ {\bf \textsf{then}\newline 
+\phantom{{\rm ---}}\textsf{if}} $x<t$ {\bf \textsf{then}\newline 
 \phantom{{\rm ------}}}vložíme $x$ do $i$-tého seznamu před prvek $
 t$\newline 
-\phantom{---}{\bf else}\newline  
+\phantom{---}{\bf \textsf{else}}\newline  
 \phantom{------}vložíme $x$ do $i$-tého seznamu za prvek $
 t$\newline 
-\phantom{---}{\bf endif\newline 
-endif
+\phantom{---}{\bf \textsf{endif}\newline 
+\textsf{endif}
 
 DELETE$(x)$}\newline 
 Spočítáme $i:=h(x)$, $t:=NIL$\newline
-{\bf if} $i$-tý seznam je neprázdný {\bf then\newline 
+{\bf \textsf{if}} $i$-tý seznam je neprázdný {\bf \textsf{then}\newline 
 \phantom{{\rm ---}}$t:=$}první prvek $i$-tého seznamu\newline 
-\phantom{---}{\bf while} $t<x$ a $t\ne$poslední prvek $i$-tého seznamu {\bf do}\newline 
+\phantom{---}{\bf \textsf{while}} $t<x$ a $t\ne$poslední prvek $i$-tého seznamu {\bf \textsf{do}}\newline 
 \phantom{------}$t:=$následující prvek $i$-tého seznamu\newline 
-\phantom{---}{\bf enddo\newline 
-endif\newline 
-if} $t=x$ {\bf then} odstraníme $x$ z $i$-tého seznamu {\bf endif
-
+\phantom{---}{\bf \textsf{enddo}\newline 
+\textsf{endif}\newline 
+\textsf{if}} $t=x$ {\bf \textsf{then}} odstraníme $x$ z $i$-tého seznamu {\bf \textsf{endif}
 
 }
+
+}
+    
 Nevýhody hašovaní se separovanými řetězci --\newline 
 \phantom{---}nevyužití alokované paměti (nehospodárné)\newline 
 \phantom{---}používání ukazatelů (cache).\newline 
@@ -681,28 +723,28 @@ může být nejvýše rovna velikosti tabulky.
 Položky tabulky:\newline 
 \phantom{---}key,\newline 
 \phantom{---}odkaz na uložená data,\newline 
-\phantom{---}položky pro práci s tabulkou.
+\phantom{---}položky pro práci s~tabulkou.
 
 Předpokládáme, že data jsou velká, v tom případě se 
 ukládají mimo tabulku. V tabulce je jen odkaz na uložená data. 
-Při popisu práce s tabulkou tuto část budeme vynechávat (tj. 
+Při popisu práce s~tabulkou tuto část budeme vynechávat (tj. 
 data budou pouze klíč).
 
 Podle řešení kolize dělíme dál hašování:
 \begin{enumerate}
 \item 
-hašování s přemísťováním, hašování s dvěma 
+hašování s~přemísťováním, hašování s~dvěma 
 ukazateli, 
 \item 
 srůstající hašování,
 \item 
-dvojité hašování a hašování s lineárním 
+dvojité hašování a hašování s~lineárním 
 přidáváním.
 \end{enumerate}
 
-\subsection{Hašování s přemísťováním}
+\subsection{Hašování s~přemísťováním}
 
-Položky pro práci s tabulkou: next, previous\newline 
+Položky pro práci s~tabulkou: next, previous\newline 
 \phantom{---}položka next -- číslo řádku tabulky 
 obsahující následující polož\-ku seznamu\newline 
 \phantom{---}položka previous -- číslo řádku tabulky obsahující 
@@ -725,9 +767,7 @@ operací:\newline
 {\bf INSERT$(53)$},\newline 
 {\bf INSERT$(7)$}, {\bf INSERT$(161)$}. 
 
-\subsubsection{
-Algoritmy
-}
+\subsubsection{Algoritmy}
 
 {\bf MEMBER$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
@@ -799,14 +839,14 @@ m)^n+\frac nm\approx e^{-\alpha}+\alpha$,\newline
 kde $m=$ velikost tabulky, $n=$ velikost $S$, tj. počet uložených 
 prvků, $\alpha =\frac nm=$ faktor zaplnění.
 
-\subsection{Hašování s dvěma ukazateli}
+\subsection{Hašování s~dvěma ukazateli}
 
-Nevýhodou hašování s přemísťováním je v operaci 
-{\bf INSERT} případ, že $previous$ $h(i)$-tého řádku je neprázdný. Pak přemísťujeme položku na $h(i)$-tém řádku na volný řádek a to vyžaduje více času -- operace s přemístěním 
+Nevýhodou hašování s~přemísťováním je v operaci 
+{\bf INSERT} případ, že $previous$ $h(i)$-tého řádku je neprázdný. Pak přemísťujeme položku na $h(i)$-tém řádku na volný řádek a to vyžaduje více času -- operace s~přemístěním 
 položky. Toto odstraňuje další implementace hašování se 
 separujícími řetězci.
 
-Položky pro práci s tabulkou -- next, 
+Položky pro práci s~tabulkou -- next, 
 begin\newline 
 \phantom{---}Položka next -- číslo řádku tabulky obsahující 
 následující polož\-ku seznamu\newline 
@@ -824,9 +864,7 @@ operací:\newline
 (73)$}, 
 {\bf INSERT$(53)$}, {\bf INSERT$(7)$}, {\bf INSERT$(161)$}. 
 
-\subsubsection{
-Algoritmy
-}
+\subsubsection{Algoritmy}
 
 {\bf MEMBER$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
@@ -888,8 +926,8 @@ V příkladu provedeme {\bf INSERT$(28)$}, nový řádek je 4.
 -- výsledná hašovací tabulka
 $$\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}řádek & key & next & begin\hfil \cr\noalign{\hrule}P(0) & & &\hfill \cr\noalign{\hrule}P(1) & 1 & 9 & 1 \cr\noalign{\hrule}P(2) & & &\hfill \cr\noalign{\hrule}P(3) & 73 & 7 & 3 \cr\noalign{\hrule}P(4) & 28 &  &\hfill \cr\noalign{\hrule}P(5) & 161 & & \hfill \cr\noalign{\hrule}P(6) & 7 & &\hfill \cr\noalign{\hrule}P(7) & 53 & & 6 \cr\noalign{\hrule}P(8) & 11 & 5 & 4  \cr\noalign{\hrule}P(9) & 141 & 8 & \hfill \cr\noalign{\hrule}}}$$
 
-Algoritmus při práci s položkami je rychlejší než při 
-hašování s přemísťováním, ale začátek řetězce v 
+Algoritmus při práci s~položkami je rychlejší než při 
+hašování s~přemísťováním, ale začátek řetězce v 
 jiném místě tabulky přidává jeden test. Výsledek bez 
 odvozování:\newline 
 Očekávaný počet testů:\newline 
@@ -901,8 +939,7 @@ Očekávaný počet testů:\newline
 
 \subsection{Srůstající hašování}
 
-Srůstající hašování se dělí podle práce s 
-pamětí na standardní a na srůstající hašování 
+Srůstající hašování se dělí podle práce s~pamětí na standardní a na srůstající hašování 
 s pomocnou pamětí (které se nazývá jen 
 srůstající hašování) a podle způsobu 
 přidávání dalšího prvku.
@@ -911,18 +948,16 @@ Popíšeme metody:\newline
 \phantom{---}Standardní srůstající hašování: LISCH, EISCH,\newline 
 \phantom{---}Srůstající hašování: LICH, VICH, EICH.
 
-Všechny metody pro práci s tabulkou používají jen 
+Všechny metody pro práci s~tabulkou používají jen 
 položku next -- číslo řádku tabulky obsahující 
 následující položku seznamu. 
 
 Základní idea: řetězec začíná na svém místě, ale 
 pokud už tam byl uložen 
-nějaký údaj, pak řetězec tohoto údaje sroste s řetězcem 
+nějaký údaj, pak řetězec tohoto údaje sroste s~řetězcem 
 začínajícím na tomto řádku. To znamená, že prvky řetězce, který začíná na tomto místě, budou uloženy v řetězci, který už je uložen na tomto místě, ale jen od tohoto místa dál.
 
-\subsubsection{
-Metody EISCH a LISCH
-}
+\subsubsection{Metody EISCH a LISCH}
 
 \phantom{---}EISCH -- early-insertion standard coalesced hashing\newline 
 \phantom{---}LISCH -- late-insertion standard coalesced hashing.
@@ -956,9 +991,7 @@ Provedeme {\bf INSERT$(28)$}, přidáváme do čvrtého rádku, vý\-sled\-ná t
 LISCH, vpravo pro metodu EISCH.
 $$\vbox {\hbox{\vtop{\offinterlineskip\halign{\strut\vrule\ # & \vrule\ # & \vrule\hfil# \hfil\vrule\cr\noalign{\hrule}řádek & key & next \hfil\cr\noalign{\hrule}P(0) & &\hfill \cr\noalign{\hrule}P(1) & 1 & 9 \cr\noalign{\hrule}P(2) & &\hfill \cr\noalign{\hrule}P(3) & 73 & 6 \cr\noalign{\hrule}P(4) & 28 &\hfill \cr\noalign{\hrule}P(5) & 7 & 4 \cr\noalign{\hrule}P(6) & 53 &\hfill \cr\noalign{\hrule}P(7) & 161 & 5 \cr\noalign{\hrule}P(8) & 11 & 7 \cr\noalign{\hrule}P(9) & 141 & 8 \cr\noalign{\hrule}}}\qquad\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}řádek & key & next \hfil \cr\noalign{\hrule}P(0) & &\hfill \cr\noalign{\hrule}P(1) & 1 & 9 \cr\noalign{\hrule}P(2) & &\hfill \cr\noalign{\hrule}P(3) & 73 & 6 \cr\noalign{\hrule}P(4) & 28 & 7 \cr\noalign{\hrule}P(5) & 7 & \hfill \cr\noalign{\hrule}P(6) & 53 & \hfill \cr\noalign{\hrule}P(7) & 161 & 5 \cr\noalign{\hrule}P(8) & 11 & 4  \cr\noalign{\hrule}P(9) & 141 & 8 \cr\noalign{\hrule}}}}}$$
 
-\subsubsection{
-Algoritmy
-}
+\subsubsection{Algoritmy}
 
 Algoritmus operace {\bf MEMBER} je pro obě metody stejný.
 
@@ -1004,9 +1037,7 @@ Efektivní operace {\bf DELETE}  není známá, ale i primitivní
 algoritmy pro operaci {\bf DELETE} mají rozumnou očekávanou 
 časovou složitost.
 
-\subsubsection{
-Analýza složitosti těchto algoritmů
-}
+\subsubsection{Analýza složitosti těchto algoritmů}
 
 Popis situace: Uložena množina 
 $S=\{s_1,s_2,\dots,s_n\}$ do ta\-bulky velikosti $m$, je dán 
@@ -1018,9 +1049,7 @@ Předpoklad: všechny posloupnosti $a_1,a_2,\dots,a_{n+1}$ jsou
 pevně daný, to znamená, že při stejně obsazených 
 řadcích dostaneme vždy stejný prázdný řádek.  
 
-\subsubsection{
-Neúspěšné vyhledávání ($s_{n+1}\notin S$) 
-}
+\subsubsection{Neúspěšné vyhledávání ($s_{n+1}\notin S$) }
 
 Označení: $C(a_1,a_2,\dots,a_n;a_{n+1})$ označuje počet 
 testů pro zjiš\-tění, že $s_{n+1}\notin S$. Platí: 
@@ -1055,7 +1084,7 @@ všech tabulkách reprezentujících všechny $n$-prvkové
 množiny, a proto 
 $$\sum_{l=1}^nlc_n(l)=nm^n.$$
 Spočítáme $S_n=\sum_{l=1}^n\binom l2c_n(l)$.  Nejprve rekurentní vztah 
-pro $c_n(l)$.  Přidáváme prvek s adresou $a_{n+1}$.  Pak řetězec 
+pro $c_n(l)$.  Přidáváme prvek s~adresou $a_{n+1}$.  Pak řetězec 
 délky $l$ v reprezentaci $S$ zůstal stejný, když 
 adresa $a_{n+1}$ neležela v tomto řetězci, v opačném případě 
 se délka řetězce zvětšila na $l+1$.  Proto přidání jednoho 
@@ -1126,9 +1155,7 @@ Tento odhad je stejný pro obě metody -- LISCH i EISCH,
 protože mají stejné posloupnosti adres (liší se jen pořadím 
 prvků v jednotlivých řetězcích).
 
-\subsubsection{
-Úspěšný případ ($s_{n+1}\in S$)
-}
+\subsubsection{Úspěšný případ ($s_{n+1}\in S$)}
 
 Očekávaný počet testů při úspěšném 
 vyhledávání v modelu LISCH spočítáme stejnou meto\-dou jako 
@@ -1171,9 +1198,7 @@ $$\frac mn\big((1+\frac 1m)^n-1\big)\sim\frac 1{\alpha}(e^{\alpha}
 Výpočet je ale komplikovanější, musí se použít složitější metoda (metoda EISCH dává nový prvek hned za místo, kde má být uložen). Chyba aproximace 
 pro tyto odhady je $O(\frac 1m)$. 
 
-\subsubsection{
-Metody LICH, EICH, VICH
-}
+\subsubsection{Metody LICH, EICH, VICH}
 
 \phantom{---}LICH -- late-insertion coalesced hashing\newline 
 \phantom{---}EICH -- early-insertion coalesced hashing\newline 
@@ -1191,11 +1216,11 @@ Metoda LICH: při {\bf INSERT}u vkládá prvek vždy na konec
 Metoda EICH: při {\bf INSERT}u vkládá prvek $x$ do řetězce vždy 
 na místo hned za řádkem $h(x)$.\newline 
 Metoda VICH: Při {\bf INSERT}u, když nový řádek je z 
-pomocné části, tak je vložen s novým prvkem na konec 
+pomocné části, tak je vložen s~novým prvkem na konec 
 řetězce, když je pomocná část paměti vyčer\-pá\-na, tak se 
-řádek s novým prvkem vkládá do řetězce za posled\-ní 
+řádek s~novým prvkem vkládá do řetězce za posled\-ní 
 řádek z pomocné části tabulky. Když řetězec neobsahuje 
-žádný řádek z pomocné paměti, tak se řádek s novým  prvkem $
+žádný řádek z pomocné paměti, tak se řádek s~novým  prvkem $
 x$ vkládá hned za řádek $h(x)$. 
 
 Idea: pomocná část má zabránit rychlému 
@@ -1235,9 +1260,7 @@ prostředku a metodou EICH je na pravé straně.
 
 $\vbox {\hbox{\vtop{\offinterlineskip\halign{\strut\vrule\ # & \vrule\ # & \vrule\hfil # \hfil\vrule\cr\noalign{\hrule}řádek & key & next \hfil\cr\noalign{\hrule}P(0) & &\hfill \cr\noalign{\hrule}P(1) & 1 & 10 \cr\noalign{\hrule}P(2) & &\hfill \cr\noalign{\hrule}P(3) & 73 & 11 \cr\noalign{\hrule}P(4) & 28 & 9 \cr\noalign{\hrule}P(5) & 7 & 4 \cr\noalign{\hrule}P(6) &  &\hfill \cr\noalign{\hrule}P(7) & 161 & 5 \cr\noalign{\hrule}P(8) & 11 & 7 \cr\noalign{\hrule}P(9) & 31 &\hfill \cr\noalign{\hrule}\noalign{\hrule}P(10) & 141 & 8 \cr\noalign{\hrule}P(11) & 53 & \hfill \cr\noalign{\hrule}}}\,\vtop{\offinterlineskip\halign{\strut\vrule\ # & \vrule\ # & \vrule\hfil# \hfil\vrule\cr\noalign{\hrule}řádek & key & next \hfil\cr\noalign{\hrule}P(0) & &\hfill \cr\noalign{\hrule}P(1) & 1 & 10 \cr\noalign{\hrule}P(2) & &\hfill \cr\noalign{\hrule}P(3) & 73 & 11 \cr\noalign{\hrule}P(4) & 28 & 7 \cr\noalign{\hrule}P(5) & 7 & \hfill \cr\noalign{\hrule}P(6) &  &\hfill \cr\noalign{\hrule}P(7) & 161 & 5 \cr\noalign{\hrule}P(8) & 11 & 4 \cr\noalign{\hrule}P(9) & 31 & 8 \cr\noalign{\hrule}\noalign{\hrule}P(10) & 141 & 9 \cr\noalign{\hrule}P(11) & 53 & \hfill \cr\noalign{\hrule}}}\,\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}řádek & key & next \hfil \cr\noalign{\hrule}P(0) & &\hfill \cr\noalign{\hrule}P(1) & 1 & 9 \cr\noalign{\hrule}P(2) & &\hfill \cr\noalign{\hrule}P(3) & 73 & 11 \cr\noalign{\hrule}P(4) & 28 & 7 \cr\noalign{\hrule}P(5) & 7 & \hfill \cr\noalign{\hrule}P(6) & & \hfill \cr\noalign{\hrule}P(7) & 161 & 5 \cr\noalign{\hrule}P(8) & 11 & 4  \cr\noalign{\hrule}P(9) & 31 & 10 \cr\noalign{\hrule}\noalign{\hrule}P(10) & 141 & 8 \cr\noalign{\hrule}P(11) & 53 & \hfill \cr\noalign{\hrule}}}}}$
 
-\subsubsection{
-Algoritmy
-}
+\subsubsection{Algoritmy}
 
 Algoritmus operace {\bf MEMBER} je pro tyto metody 
 stejný jako pro LISCH a EISCH
@@ -1249,11 +1272,10 @@ Spočítáme $i:=h(x)$\newline
 next$ {\bf enddo\newline 
 if} $i.key=x$ {\bf then Výstup}: $x\in S$ {\bf else Výstup}: $
 x\notin S$ {\bf endif
-
 }
 Algoritmus operace {\bf INSERT} je pro metodu LICH stejný 
 jako pro metodu LISCH a pro metodu EICH je stejný jako 
-pro metodu EISCH s jediným doplňkem, pokud existuje 
+pro metodu EISCH s~jediným doplňkem, pokud existuje 
 prázdný řádek v pomocné části, tak $j$-tý řádek je z 
 pomocné části. Tento předpoklad je i pro algoritmus 
 {\bf INSERT} pro metodu VICH.
@@ -1372,7 +1394,7 @@ když $\alpha\ge\lambda\beta$.
 Chyba aproximace pro tyto odhady je $O(\log\frac {m'}{\sqrt {
 m'}})$.
 
-\subsection{Hašování s lineárním přidáváním}
+\subsection{Hašování s~lineárním přidáváním}
 
 Tabulka má jedinou položku -- key
 
@@ -1389,7 +1411,7 @@ při velkém zaplnění metoda vyžaduje velký počet testů.
 Metoda nepodporuje efektivní implementaci operace {\bf DELETE}.  
 Při vy\-hle\-dá\-vá\-ní je třeba testovat, zda nevyšetřujeme 
 podruhé první vyšetřovaný řádek, a pro zjištění přeplnění je 
-vhodné mít uložen počet vyplněných řádků v tabulce. Pro standarní paměti není výhodná. Při použití cache-paměti se výrazně mění její hodnocení. Důvodem je, že v tomto případě hraje klíčovou roli nikoliv počet testů, ale počet přechodů mezi různými úrovněmi paměti. Protože tabulka je reprezentovaná polem, tak je tento počet menší než u jiných metod. Proto se tato metoda doporučuje pro počítače s cache-pamětí.
+vhodné mít uložen počet vyplněných řádků v tabulce. Pro standarní paměti není výhodná. Při použití cache-paměti se výrazně mění její hodnocení. Důvodem je, že v tomto případě hraje klíčovou roli nikoliv počet testů, ale počet přechodů mezi různými úrovněmi paměti. Protože tabulka je reprezentovaná polem, tak je tento počet menší než u jiných metod. Proto se tato metoda doporučuje pro počítače s~cache-pamětí.
 
 
 {\bf MEMBER$(x)$}\newline 
@@ -1451,14 +1473,12 @@ Předpoklad pro výpočet očekávaného počtu testů: posloupnost
 $\{h_1(x)+ih_2(x)\}_{i=0}^{m-1}$ je náhodná permutace množiny 
 řádků tabulky.\newline 
 Nevýhoda: Uvedená metoda nepodporuje operaci {\bf DELETE}. \newline 
-Poznámka: Metoda hašování s lineárním přidáváním je 
+Poznámka: Metoda hašování s~lineárním přidáváním je 
 speciál\-ní případ dvojitého hašování, kde $
 h_2(x)=1$ pro 
 každé $x\in U$.
 
-\subsubsection{
-Algoritmy
-}
+\subsubsection{Algoritmy}
 
 
 {\bf MEMBER$(x)$}\newline 
@@ -1497,9 +1517,7 @@ Tabulka vznikla posloupností operací:\newline
 
 Analýza vyhledávání v dvojitém hašování.
 
-\subsubsection{
-Neúspěšný případ
-}
+\subsubsection{Neúspěšný případ}
 
  
 
@@ -1532,12 +1550,10 @@ pro $n$ a $m\ge n$. Platí
 &1+\frac {n((m-1)+1)}{m((m-1)-(n-1)+1)}=\\
 &1+\frac n{m-n+1}=\frac {m+1}{m-n+1}.\end{align*}
 Očekávaný počet dotazů při neúspěšném 
-vyhledávání v tabulce s $m$ řádky, z nichž $n$ je obsazeno, 
+vyhledávání v tabulce s~$m$ řádky, z nichž $n$ je obsazeno, 
 je $\frac {m+1}{m-n+1}$.
 
-\subsubsection{
-Úspěšný případ
-}
+\subsubsection{Úspěšný případ}
 
  
 
@@ -1547,7 +1563,7 @@ S$ je
 stejný jako byl počet dotazů při vkládání $
 x$ do 
 tabulky. Tedy očekávaný počet dotazů při 
-úspěšném vyhledávání v tabulce s $m$ řádky, z nichž $
+úspěšném vyhledávání v tabulce s~$m$ řádky, z nichž $
 n$ je 
 obsazeno, je
 \begin{align*}\frac 1n\sum_{i=0}^{n-1}C(i,m)=&\frac 1n\sum_{i=0}^{n-1}\frac {
@@ -1564,53 +1580,46 @@ $$\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule\ # & \vru
 
 Pořadí metod hašování podle očekávaného počtu 
 testů:
-\subsubsection{
-Neúspěšné vyhledávání
-}
+\subsubsection{Neúspěšné vyhledávání}
 
-\phantom{---}Hašování s uspořádanými řetězci,\newline 
-\phantom{---}Hašování s řetězci=Hašování s přemísťováním,\newline 
-\phantom{---}Hašování s dvěma ukazateli,\newline 
+\phantom{---}Hašování s~uspořádanými řetězci,\newline 
+\phantom{---}Hašování s~řetězci=Hašování s~přemísťováním,\newline 
+\phantom{---}Hašování s~dvěma ukazateli,\newline 
 \phantom{---}VICH=LICH,\newline 
 \phantom{---}EICH,\newline 
 \phantom{---}LISCH=EISCH,\newline 
 \phantom{---}Dvojité hašování,\newline 
-\phantom{---}Hašování s lineárním přidáváním.
+\phantom{---}Hašování s~lineárním přidáváním.
 
-\subsubsection{
-Úspěšné vyhledávání
-}
+\subsubsection{Úspěšné vyhledávání}
 
-\phantom{---}Hašování s uspořádanými řetězci=Hašování s 
-řetězci=Hašo\-vá\-ní s přemísťováním,\newline 
-\phantom{---}Hašování s dvěma ukazateli,\newline 
+\phantom{---}Hašování s~uspořádanými řetězci=Hašování s~řetězci=Hašo\-vá\-ní s~přemísťováním,\newline 
+\phantom{---}Hašování s~dvěma ukazateli,\newline 
 \phantom{---}VICH,\newline 
 \phantom{---}LICH,\newline 
 \phantom{---}EICH,\newline 
 \phantom{---}EISCH,\newline 
 \phantom{---}LISCH,\newline 
 \phantom{---}Dvojité hašování,\newline 
-\phantom{---}Hašování s lineárním přidáváním.
+\phantom{---}Hašování s~lineárním přidáváním.
 
 Poznámka: Metoda VICH při neúspěšném vyhledávání pro 
 $\alpha <0.72$ a při úspěšném vy\-hledávání pro $
 \alpha <0.92$ 
 vyžaduje menší očekávaný počet testů než 
-metoda s dvěma ukazateli.
+metoda s~dvěma ukazateli.
 
 Při neúspěšném vyhledávání jsou metody VICH a LICH stejné a jsou o 8\% lepší než 
 EICH a o 15\% než metody LISCH a EISCH. Při úspěšném vyhledávání 
 je VICH nepatrně lepší než LICH a EICH o 3\% lepší než 
 EISCH a o 7\% lepší než LISCH.
 
-\subsubsection{
-Očekávaný počet testů při úplně zaplněné 
-tabulce
-}
+\subsubsection{Očekávaný počet testů při úplně zaplněné 
+tabulce}
 
-\phantom{---}Metoda s přemísťováním: neúspěšné vyhledávání 1.5, úspěšné 
+\phantom{---}Metoda s~přemísťováním: neúspěšné vyhledávání 1.5, úspěšné 
 vyhledávání 1.4.\newline 
-\phantom{---}Metoda s dvěma ukazateli: úspěšné i neúspěšné vyhledávání  1.6.\newline 
+\phantom{---}Metoda s~dvěma ukazateli: úspěšné i neúspěšné vyhledávání  1.6.\newline 
 \phantom{---}VICH: neúspěšné vyhledávání 1.79, úspěšné vyhledávání 
 1.67.\newline 
 \phantom{---}LICH: neúspěšné vyhledávání 1.79, úspěšné vyhledávání 
@@ -1622,8 +1631,8 @@ vyhledávání 1.4.\newline
 \phantom{---}LISCH: neúspěšné vyhledávání 2.1, úspěšné vyhledávání 
 1.8.
 
-Metodu s lineárním přidáváním je dobré použít jen pro 
-$\alpha <0.7$, metodu s dvojitým hašováním pro $\alpha 
+Metodu s~lineárním přidáváním je dobré použít jen pro 
+$\alpha <0.7$, metodu s~dvojitým hašováním pro $\alpha 
 <0.9$, pak 
 čas pro neúspěšné vyhledávání rychle narůstá.
 
@@ -1639,7 +1648,7 @@ výsledky byly pro tuto hodnotu $\beta ).$
 Komentář: Metody se separujícími řetězci a 
 srůstající hašování používají více paměti (při 
 srůstajícím hašování součet adresovací a 
-pomocné části). Metoda s přemísťováním a metoda 
+pomocné části). Metoda s~přemísťováním a metoda 
 dvojitého hašování vyžadují více času -- na přemístění 
 prvku a na výpočet druhé hašovací funkce.
 
@@ -1654,7 +1663,7 @@ nepodporují {\bf DELETE}).
 
 Jak řešit přeplnění.\newline 
 Standardní model: Dána základní velikost tabulky $m$ a 
-pracuje se s tabulkami s $2^im$ řádky pro vhodné 
+pracuje se s~tabulkami s~$2^im$ řádky pro vhodné 
 $i=0,1,\dots$. Vhodné $i$ znamená, že faktor zaplnění $
 \alpha$ je v 
 intervalu $<\frac 14,1>$ (s výjimkou $i=0$, kde se uvažuje 
@@ -1674,7 +1683,7 @@ nepodporují.\newline
 Použít ideu tzv. `falešného {\bf DELETE}'. 
 Odstranit prvek, ale řádek neuvolnit (i v klíči nechat 
 nějakou hodnotu, která bude znamenat, že řádek je 
-prázdný, položky podporující práci s tabulkami neměnit). 
+prázdný, položky podporující práci s~tabulkami neměnit). 
 Řádek nebude v seznamu volných řádků, ale 
 operace {\bf INSERT}, když testuje tento řádek, tam 
 může vložit nový prvek. Když je alespoň 
@@ -1682,11 +1691,9 @@ polovina použitých řádků takto blokována, je
 vhodné celou strukturu přehašovat. Prav\-děpodobnostní 
 analýzu tohoto modelu neznám.
 
-\subsubsection{
-Otevřené problémy
-}
+\subsubsection{Otevřené problémy}
 
-Jak využít ideje z hašování s uspořádanými 
+Jak využít ideje z hašování s~uspořádanými 
 řetězci pro ostatní metody řešení kolizí 
 (jmeno\-vitě pro srůstající hašování).
 
@@ -1698,9 +1705,7 @@ Jak nalézt druhou hašovací funkci pro metodu
 dvojitého hašo\-vá\-ní, aby vzniklé posloupnosti adres při operaci 
 {\bf INSERT} se chovaly jako náhodné.
 
-\subsubsection{
-Závěr
-}
+\subsubsection{Závěr}
 
 Připomeňme si předpoklady pro předchozí uvedené 
 výsledky o hašování:
@@ -1722,7 +1727,7 @@ Předpoklad 2) -- je výhodné,
 když rozdělení univerza hašovací funkcí kopíruje známé 
 rozděle\-ní vstupních dat. Toto se použilo při návrhu 
 překladače pro FORTRAN (Lum 1971). V překladači byla použita metoda separovaných řetězců a hašovací funkce, 
-která preferovala obvyklé názvy identifikátorů. Výsledky byly měřeny, když se překladač FORTRANu použil pro standardní výpočet. Získané výsledky se porovnávaly s teoretickými výpočty za našich předpokladů. V 
+která preferovala obvyklé názvy identifikátorů. Výsledky byly měřeny, když se překladač FORTRANu použil pro standardní výpočet. Získané výsledky se porovnávaly s~teoretickými výpočty za našich předpokladů. V 
 následující tabulce můžete porovnat výsledky 
 získané teoretickými výpočty a naměřené hodnoty.
 Porovnání výsledků:
@@ -1738,13 +1743,12 @@ nemůžeme ovlivnit a obvykle ho ani neznáme. Je
 reálné, že rozdělení vstupních dat bude nevhodné pro 
 použitou hašovací funkci. Důsledek -- na počátku 
 70. let se začalo ustupovat od hašování. Hledal se postup, 
-který by se vyhnul uvedenému problému s bodem 3). Nalezenému 
+který by se vyhnul uvedenému problému s~bodem 3). Nalezenému 
 řešení je věnován následující text.
 
 \subsection{Univerzální hašování}
 
-Řešení navrhli Carter a Wegman (1977), když přišli s 
-metodou univerzálního hašování, která obchází poža\-davek 3).  
+Řešení navrhli Carter a Wegman (1977), když přišli s~metodou univerzálního hašování, která obchází poža\-davek 3).  
 To vedlo k novému rozsáhlému používání hašování.  
 
 Základní idea: Místo jedné funkce máme 
@@ -1765,8 +1769,8 @@ problematické. Řešením problému je použití indexové množiny.
 To znamená, že $H=\{h_i\mid i\in I\}$ a dvě funkce jsou různé, 
 když mají různé indexy. Pak velikost systému bude 
 velikost indexové množiny. Místo zvolení hašovací funkce 
-budeme volit náhodně index s rovnoměrným rozložením a když 
-zvolíme index $i$, pak budeme pracovat s hašovací funkcí $
+budeme volit náhodně index s~rovnoměrným rozložením a když 
+zvolíme index $i$, pak budeme pracovat s~hašovací funkcí $
 h_i$. 
 Očekávaná hodnota náhodné proměnné $f$ z množiny $
 I$ do 
@@ -1783,7 +1787,7 @@ i(x)=h_i(y)\}|\le\frac {c|I|}m.$$
 
 Jako ekvivalentní definici lze použít toto tvrzení: systém funkcí $
 H$ z univerza $U$ do množiny $\{0,1,\dots,m-1\}$ je $c$-univerzální,
-když vybereme-li $h\in H$ s rovnoměrným rozděle\-ním, pak pro 
+když vybereme-li $h\in H$ s~rovnoměrným rozděle\-ním, pak pro 
 každá dvě různá $x,y\in U$ platí 
 $$\Prob(h(x)=h(y))\le\frac cm.$$
 
@@ -1792,9 +1796,7 @@ systémů, \newline
 vlastnosti $c$-univerzálních systémů (zda splňují 
 požadované ide\-je).
 
-\subsubsection{
-Existence univerzálních systémů
-}
+\subsubsection{Existence univerzálních systémů}
 
 Univerzum $U=\{0,1,\dots,N-1\}$ pro prvočíslo $N$,\newline 
 $H=\{h_{a,b}\mid (a,b)\in U\times U\}$,\newline 
@@ -1844,9 +1846,7 @@ považovat za univerzum tvaru $\{0,1,\dots,N-1\}$ pro nějaké
 $N$ a že mezi čísly $N$ a $2N$ vždy existuje nějaké 
 prvočíslo.
 
-\subsubsection{
-Vlastnosti univerzálního hašování
-}
+\subsubsection{Vlastnosti univerzálního hašování}
 
 Předpoklad: $H=\{h_i\mid i\in I\}$ je $c$-univerzální systém funkcí\newline 
 Označení: Pro $i\in I$ a prvky $x,y\in U$ 
@@ -1871,7 +1871,7 @@ Protože $\delta_i(x,S)$ dává odhad na velikost řetězce $
 h_i(x)$ při 
 repre\-zentaci množiny $S$ pomocí funkce $h_i$, dostáváme, že 
 očekávaná délka řetězce pro fixovanou množinu  
-$S\subseteq U$ a fixované $x\in U$ přes $i\in I$ s rovnoměrným 
+$S\subseteq U$ a fixované $x\in U$ přes $i\in I$ s~rovnoměrným 
 rozdělením je nejvýše
 $$\frac 1{|I|}\sum_{i\in I}\delta_i(x,S)\le\begin{cases} c\frac {|S|-1}m&\text{\rm\ když }
 \quad x\in S,\\
@@ -1894,16 +1894,13 @@ konstantu $c$ liší od vzorce pro hašování se separovanými
 1$ a 
 ve všech známých příkla\-dech je $c\ge 1$.  Takže, co jsme 
 dosáhli?  Rozdíl je v předpokla\-dech.  Zde je předpoklad 3) 
-nahrazen předpokladem, že index $i\in I$ je vybrán s 
-rovnoměrným rozdělením, a není žádný předpoklad na vstupní 
+nahrazen předpokladem, že index $i\in I$ je vybrán s~rovnoměrným rozdělením, a není žádný předpoklad na vstupní 
 data.  {\bf Výběr indexu} $i$ {\bf můžeme ov\-liv\-nit, ale výběr 
 vstupních dat nikoliv.}  Můžeme zajistit rovno\-měr\-né 
 rozdělení výběru $i$ z $I$ nebo se k tomuto rozdělení hodně 
 přiblížit.  
 
-\subsubsection{
-Markovova nerovnost
-}
+\subsubsection{Markovova nerovnost}
 
 Předpoklady: Je dána množina $S\subseteq U$, prvek $
 x\in U$. 
@@ -1913,8 +1910,7 @@ Očeká\-va\-ná velikost $\delta_i(x,S)$ je $\mu$ a $t\ge
 Ukážeme pro $t>1$, že pravděpodobnost, že $
 \delta_i(x,S)\ge t\mu$ 
 pro $i\in I$, je menší než $\frac 1t$ (předpokladáme, že $
-i$ je z $I$ vybráno s 
-rovnoměrným rozdělením).  
+i$ je z $I$ vybráno s~rovnoměrným rozdělením).  
 
 Označme $I'=\{i\in I\mid\delta_i(x,S)\ge t\mu \}$. Pak platí
 $$\mu =\frac {\sum_{i\in I}\delta_i(x,S)}{|I|}>\frac {\sum_{i\in 
@@ -1932,9 +1928,7 @@ Poznámka: Toto tvrzení platí obecně a nazývá
 se Markovova nerovnost. Uvedený důkaz 
 ilustruje jednoduché tvrzení pro ko\-neč\-ný případ.
 
-\subsubsection{
-Problémy
-}
+\subsubsection{Problémy}
 
 Hlavní problém: Zajištění rovnoměrného rozdělení 
 výběru $i$ z $I$.
@@ -1943,13 +1937,12 @@ Provedení výběru: Zakódovat indexy z množiny $
 I$ do 
 čísel $0,1,\dots,|I|-1$. Zvolit náhodně číslo $
 i$ z tohoto 
-intervalu s rovnoměrným rozdělením a pak použít 
-funkci s indexem, jehož kód je $i$. Abychom vybrali $i$, nalezneme 
+intervalu s~rovnoměrným rozdělením a pak použít 
+funkci s~indexem, jehož kód je $i$. Abychom vybrali $i$, nalezneme 
 nejmenší $j$ takové, že $2^j-1\ge |I|-1$. Pak čísla v 
-intervalu $\{0,1,\dots,2^j-1\}$ jednoznačně korespondují s 
-posloupnostmi $0$ a $1$ délky $j$. Budeme vybírat náhodně 
+intervalu $\{0,1,\dots,2^j-1\}$ jednoznačně korespondují s~posloupnostmi $0$ a $1$ délky $j$. Budeme vybírat náhodně 
 posloupnost $0$ a $1$ délky $j$. Když takto vybraná posloupnost neodpovídá prvku z $I$, tak vygenerujeme jinou posloupnost (a tuto vynecháme). Pokud použijeme náhodný generátor $0$ a $1$, pak takto získáme náhodný prvek z $I$. Tedy k výběru náhodné funkce potřebujeme  
-náhodný generátor $0$ a $1$ s rovnoměrným rozděle\-ním.
+náhodný generátor $0$ a $1$ s~rovnoměrným rozděle\-ním.
 
 Závada: Skutečný náhodný generátor pro 
 rovnoměrné rozděle\-ní je prakticky nedosažitelný 
@@ -1962,9 +1955,7 @@ posloupnost pravidelnější (tj. méně náhodná).
 Důsledky: Nalézt co nejmenší $c$-univerzální 
 systémy. Nalézt dolní odhady na jejich velikost.
 
-\subsubsection{
-Dolní odhady na velikost
-}
+\subsubsection{Dolní odhady na velikost}
 
 Předpoklady: Nechť $U$ je univerzum velikosti $N$ a nechť 
 $H=\{h_i\mid i\in I\}$ je $c$-univerzální systém funkcí hašujících do tabulky velikosti 
@@ -1998,16 +1989,14 @@ $h_j(x)=h_j(y)$ pro $j=0,1,\dots,i-1$. Tedy
 $$i\le |\{j\in I\mid h_j(x)=h_j(y)\}|\le\frac {c|I|}m.$$
 
 \begin{veta}Když $H=\{h_i\mid i\in I\}$ je $c$-univerzální systém pro 
-univerzum $U$ o velikosti $N$ hašující do tabulky s $m$ řádky, pak 
+univerzum $U$ o velikosti $N$ hašující do tabulky s~$m$ řádky, pak 
 $$|I|\ge\frac mc(\lceil\log_mN\rceil -1).$$
 Posloupnosti $0$ a $1$ při náhodné volbě $i$ z $I$ musí mít 
 délku alespoň $\lceil (\log m-\log c+\log\log N-\log\log m)\rceil$ (zde všechny logaritmy 
 jsou o základu $2$).
 \end{veta}
 
-\subsubsection{
-Malý univerzální systém
-}
+\subsubsection{Malý univerzální systém}
 
 Zkonstruujeme $c$-univerzální systém takový, 
 že logaritmus z velikosti jeho indexové množiny pro velká 
@@ -2052,9 +2041,7 @@ t$, tj. $t\ge 16$) platí,
 že $t\le m\ln N$, když $\ln p_t\ge 1$ (tj.  $p_t\ge 3$).\newline 
 Závěr: $\log(|I|)\le 4+4(\log m+\log\log N)$. 
 
-\subsubsection{
-Univerzalita malého systému
-}
+\subsubsection{Univerzalita malého systému}
 
 Zvolme různá $x$ a $y$ z univerza $U$. 
 Označme
@@ -2071,7 +2058,7 @@ taková, že
 \begin{align*}(c(x\bmod p_{\ell})+d&\equiv i+rm)\bmod p_{2t}\\
 (c(y\bmod p_{\ell})+d&\equiv i+sm)\bmod p_{2t}.\end{align*}
 Když $c$ a $d$ považujeme za neznámé, pak je to  
-soustava lineár\-ních rovnic s regulární maticí (protože 
+soustava lineár\-ních rovnic s~regulární maticí (protože 
 $x\bmod p_{\ell}\ne y\bmod p_{\ell}$), a tedy pro každé $\ell$, $
 i$, $r$ a $s$ 
 existuje právě jedna taková dvojice $(c,d)$ (připomínáme, že $\mathbb Z/\bmod p_{2t}$ je těleso). Proto 
@@ -2105,7 +2092,7 @@ $$\ln m+\ln(\ln m+\ln\ln m)<\ln N,$$
 a odtud plyne, že 
 $$t\ln p_t<t\ln(t(\ln t+\ln\ln t))\le m(\ln m+\ln(\ln m+\ln\ln m)
 )<m\ln N$$
-a to je spor s definicí $t$. Tedy $m<\frac {p_t}{\ln t}$.
+a to je spor s~definicí $t$. Tedy $m<\frac {p_t}{\ln t}$.
 \end{proof}
 
 Nyní zkombinujeme Větu o odhadu velikosti prvočísel, 
@@ -2131,12 +2118,10 @@ H_1$ je
 $3.25$-univerzální. Bez jakýchkoliv předpokladů lze 
 ukázat, že $H_1$ je $5$-univerzální.
 
-\subsubsection{
-Odhad na velikost $c$
-}
+\subsubsection{Odhad na velikost $c$}
 
 \begin{veta}Když $H$ je $c$-univerzální 
-systém univerza $U$ o velikosti $N$ hašující do tabulky s $
+systém univerza $U$ o velikosti $N$ hašující do tabulky s~$
 m$ řádky, 
 pak $c\ge 1-\frac mN$.
 \end{veta}
@@ -2183,9 +2168,7 @@ Odtud plyne, že $N-m\le c(N-1)$, a tedy
 $$c\ge\frac {N-m}{N-1}>\frac {N-m}N=1-\frac mN.$$
 \end{proof}
 
-\subsubsection{
-Problémy univerzálního hašování
-}
+\subsubsection{Problémy univerzálního hašování}
 
 Použít jiné metody na řešení kolizí než 
 separované řetězce. Jak to ovlivní použitelnost 
@@ -2214,7 +2197,7 @@ Pro jaké parametry lze použít následující model?
 Je dána základní velikost tabulky $m$ a dále pro $
 j=0,1,\dots$ 
 čísla (parametry) $l_j$ a $c$-univer\-zál\-ní hašovací systémy 
-$H_j=\{h_i\mid i\in I_j\}$ z univerza do tabulky s $m2^j$ řádky.\newline 
+$H_j=\{h_i\mid i\in I_j\}$ z univerza do tabulky s~$m2^j$ řádky.\newline 
 Množina $S\subseteq U$ je reprezentována následovně:  je dáno $
 j$ 
 tako\-vé, že když $j>0$, pak $m2^{j-2}\le |S|\le m2^j$, když $
@@ -2239,8 +2222,7 @@ se řeší analogicky.\newline
 Problém:  Jak volit parametry $l_i$?  
 
 V případě řešení 
-kolizí dvojitým hašováním nebo hašováním s 
-lineárním přidáváním je třeba dát silnější podmínky na velikost $
+kolizí dvojitým hašováním nebo hašováním s~lineárním přidáváním je třeba dát silnější podmínky na velikost $
 |S|$. V poslední době se této tématice 
 věnuje pozornost a byla dosažena řada zajímavých výsledků.
 
@@ -2267,7 +2249,7 @@ pro $s,t\in S$ takové, že $s\ne t$, platí $h(s)\ne h(t)$ (tj. $
 h$ je \emph{perfektní} \emph{hašovací} \emph{funkce} pro 
 $S$); 
 \item
-$h$ hašuje do tabulky s $m$ řádky, kde $m$ je přibližně 
+$h$ hašuje do tabulky s~$m$ řádky, kde $m$ je přibližně 
 stejně velké jako $|S|$ (není praktické hašovat do příliš 
 velkých tabulek -- ztrácí se jeden ze základních 
 důvodů pro hašování); 
@@ -2301,9 +2283,7 @@ vyšetříme mno\-ži\-ny perfektních hašovacích
 funkcí. Vyšetříme vlastnosti $(N,m,n)$-perfektních 
 souborů funkcí.
 
-\subsubsection{
-Dolní odhady na velikost $(N,m,n)$-perfektního souboru
-}
+\subsubsection{Dolní odhady na velikost $(N,m,n)$-perfektního souboru}
 
 Předpokládejme, že $H$  je $(N,m,n)$-perfektní 
 systém pro $U=\{0,1,\dots,N-1\}$ a nejprve nalezneme dolní 
@@ -2355,14 +2335,12 @@ $$|H|\ge\max\{\frac {\binom Nn}{\binom mn(\frac Nm)^n},\frac {\log
 N}{\log m}\}.$$
 \end{veta}
 
-\subsubsection{
-Existence $(N,m,n)$-perfektního souboru
-}
+\subsubsection{Existence $(N,m,n)$-perfektního souboru}
 
 Mějme univerzum $U=\{0,1,\dots,N-1\}$ a soubor 
 funkcí $H=\{h_1,h_2,\dots,h_t\}$ z univerza $U$ do množiny 
 $\{0,1,\dots,m-1\}$.  Reprezentujeme tento soubor pomocí 
-matice $M(H)$ typu $N\times t$ s hodnotami $\{0,1,\dots,m-1\}$ tak, 
+matice $M(H)$ typu $N\times t$ s~hodnotami $\{0,1,\dots,m-1\}$ tak, 
 že pro $x\in U$ a $i=1,2,\dots,t$ je 
 v $x$-tém řádku a $i$-tém sloupci matice $M(H)$ 
 hodnota $h_i(x)$. Pak žádná funkce z $H$ 
@@ -2377,7 +2355,7 @@ Vysvětlení:  $m^n$ je počet všech funkcí z $
 S$ do 
 $\{0,1,\dots,m-1\}$, $\prod_{i=0}^{n-1}(m-i)$ je počet prostých funkcí z $
 S$ 
-do $\{0,1,\dots,m-1\}$, a tedy počet všech podmatic s $n$ 
+do $\{0,1,\dots,m-1\}$, a tedy počet všech podmatic s~$n$ 
 řádky takových, že žádný jejich sloupec není prostý, je 
 $(m^n-\prod_{i=0}^{n-1}(m-i))^t$.  Tyto podmatice můžeme 
 libovolně doplnit na matici typu $N\times n$ a pro každou 
@@ -2392,7 +2370,7 @@ Všech matic je $m^{Nt}$ a když
 \begin{equation*}\tag{\*}\binom Nn(m^n-\prod_{i=0}^{n-1}(m-i))^tm^{(N-n)t}<m^{Nt},\end{equation*}
 
 pak nutně existuje $(N,m,n)$-perfektní systém. 
-Následující vý\-ra\-zy jsou ekvivalentní s ne\-rov\-ností 
+Následující vý\-ra\-zy jsou ekvivalentní s~ne\-rov\-ností 
 \thetag{$*$}
 $$\binom Nn\big(1-\frac {\prod_{i=0}^{n-1}(m-i)}{m^n}\big)^t<1\,\Leftrightarrow\,
 t\ge\frac {\ln\binom Nn}{-\ln(1-\frac {\prod_{i=0}^{n-1}(m-i)}{m^
@@ -2413,9 +2391,7 @@ nezaručuje splnění požadavků 2), 3) a 4).
 Abychom uspěli, použijeme ideu z metody univerzálního 
 hašování.  
 
-\subsubsection{
-Konstrukce perfektní hašovací funkce
-}
+\subsubsection{Konstrukce perfektní hašovací funkce}
 
 Předpoklady:  $U=\{0,1,\dots,N-1\}$, kde $N$ je 
 prvočíslo.  Mějme $S\subseteq U$ o velikosti $n$.  Budeme 
@@ -2459,7 +2435,7 @@ $q=-\lfloor\frac Nm\rfloor ,-\lfloor\frac Nm\rfloor +1,\dots,-1,1
 ,2,\dots,\lfloor\frac Nm\rfloor$ takového, že 
 $kx-ky\equiv qm\bmod N$,
 a to je 
-ekvivalentní s tím, že $k(x-y)\equiv qm\bmod N$ pro nějaké 
+ekvivalentní s~tím, že $k(x-y)\equiv qm\bmod N$ pro nějaké 
 $q=-\lfloor\frac Nm\rfloor ,-\lfloor\frac Nm\rfloor +1,\dots,-1,1
 ,2,\dots,\lfloor\frac Nm\rfloor$.
 
@@ -2468,7 +2444,7 @@ právě jedno $k$ takové, že $k(x-y)\equiv qm\bmod N$, protože
 $\mathbb Z_N$ je těleso (tato rovnice má jediné řešení). 
 Protože pro $q=-\lfloor\frac Nm\rfloor ,\dots,-1,0$ je rovnice $
 k(x-y)\equiv qm\bmod N$ 
-ekvivalentní s rovnicí $k(x-y)\equiv N+qm\bmod N$, tak 
+ekvivalentní s~rovnicí $k(x-y)\equiv N+qm\bmod N$, tak 
 dostáváme, že pro $x,y\in S$, $x>y$, existuje nejvýše 
 $2\lfloor\frac Nm\rfloor =2\lfloor\frac {N-1}m\rfloor$ různých $
 k=1,2,\dots,N-1$, že $h_k(x)=h_k(y)$ (obecně není pravda, že když 
@@ -2492,7 +2468,7 @@ V opačném případě dostáváme, že
 3(N-1)}4\frac {3n(n-1)}m=\\
 &\frac {9(N-1)n(n-1)}{4m}>\\
 &\frac {2(N-1)n(n-1)}m,\end{align*}
-a to je spor s předchozím výsledkem. Tedy při náhodném rovnoměrném 
+a to je spor s~předchozím výsledkem. Tedy při náhodném rovnoměrném 
 výběru $k$ je 
 $$\Prob\{\sum_{i=0}^{m-1}(b_i^k)^2<\frac {3n(n-1)}m+n\mid k\in \{
 1,2,\dots,N-1\}\}\ge\frac 14.$$
@@ -2545,8 +2521,7 @@ nalezne\-me $k$ takové, že
 $$\sum_{i=0}^{m-1}(b_i^k)^2\le\frac {2n(n-1)}{n(n-1)+1}+n<n+2,$$
  v 
 čase $O(nN)$ a c) plyne z předchozí věty. Když 
-$m=2n(n-1)$, pak pro náhodně zvolené $k$ platí s 
-pravděpodobností $\le\frac 14$, že 
+$m=2n(n-1)$, pak pro náhodně zvolené $k$ platí s~pravděpodobností $\le\frac 14$, že 
 $$\sum_{i=0}^{m-1}(b_i^k)^2\le\frac {3n(n-1)}{2n(n-1)}+n<n+2.$$
 Algoritmus splňující tvrzení d) je stejný jako 
 v případě b) (jen $m=2n(n-1)$).
@@ -2669,12 +2644,11 @@ N$
 \end{enumerate}
 
 Odhad očekávaného počtu neúspěšných kroků.\newline 
-Náhodně zvolené číslo $p\le 9cn^2\ln N$ je prvočíslo s 
-pravděpo\-dob\-ností $\Theta (\frac 1{\ln(9cn^2\ln N)})$ 
+Náhodně zvolené číslo $p\le 9cn^2\ln N$ je prvočíslo s~pravděpo\-dob\-ností $\Theta (\frac 1{\ln(9cn^2\ln N)})$ 
 (použi\-je\-me Rabin-Millerův pravděpdobnostní algoritmus na testovéní prvočísel) a pro prvočíslo $
 p$ je $\phi_p$ 
-perfektní s prav\-dě\-po\-dob\-ností $\ge\frac 12$. Tedy náhodně zvolené 
-číslo $p\le 9cn^2\ln N$ splňuje test s pravdě\-po\-dob\-ností 
+perfektní s~prav\-dě\-po\-dob\-ností $\ge\frac 12$. Tedy náhodně zvolené 
+číslo $p\le 9cn^2\ln N$ splňuje test s~pravdě\-po\-dob\-ností 
 $\Theta (\frac 1{\ln(9cn^2\ln N)})$, a proto očeká\-va\-ný počet neúspěšných 
 testů je $O(\ln(9cn^2\ln N))$. Tedy očeká\-vaný čas 
 algoritmu je $O(n\log n(\log n+\log\log N))$.
@@ -2688,8 +2662,7 @@ $\phi_p$ je perfektní, v očekáva\-ném čase
 $O(n\log n(\log n+\log\log N))$.
 \end{veta}
 
-Deterministický algoritmus nalezne nejmenší prvočíslo s 
-po\-ža\-dovanou vlastností.  Prav\-dě\-podobnostní algoritmus 
+Deterministický algoritmus nalezne nejmenší prvočíslo s~po\-ža\-dovanou vlastností.  Prav\-dě\-podobnostní algoritmus 
 nalezne prvočíslo, které může být podstatně 
 větší, ale jeho velikost je omezena $9cn^2\log N$. 
 
@@ -2711,7 +2684,7 @@ $S_2=\{h_l(s)\mid s\in S_1\}$.
 \item
 Dále zkonstruujme perfektní hašovací funkci 
 $g$ pro množinu 
-$S_2\subseteq \{0,1,\dots,q_1-1\}$ do tabulky s méně než $
+$S_2\subseteq \{0,1,\dots,q_1-1\}$ do tabulky s~méně než $
 3n$ řádky. 
 Položme $f(x)=g(h_l(\phi_{q_0}(x)))$. Konstruovaná hašovací 
 funkce je $f$.
@@ -2721,7 +2694,7 @@ Výsledek: $f$ je perfektní hašovací funkce pro $
 S$, protože 
 složení perfektních hašovacích funkcí je zase perfektní 
 funkce, a tedy požadavek 1) je splněn. \newline 
-$f$ hašuje $S$ do tabulky s méně než $3n$ řádky, a tedy 
+$f$ hašuje $S$ do tabulky s~méně než $3n$ řádky, a tedy 
 splňuje požadavek 2). \newline 
 Protože každá z funkcí $g$, $h_l$, $\phi_{q_0}$ se vyčíslí v čase $
 O(1)$, 
@@ -2746,7 +2719,7 @@ $\{0,1,\dots,q_0\}$). Výpočet $g$ vyžaduje čas $O(nn^2
 výpočet $f$ vyžaduje čas $O(n^3\log n\log N)$.
 
 Lze použít i pravděpodobnostní algoritmy pro nalezení 
-$g$, $h_l$ a $\phi_{q_0}$. Pak hašujeme do tabulky s méně než $
+$g$, $h_l$ a $\phi_{q_0}$. Pak hašujeme do tabulky s~méně než $
 6n$ 
 řádky, ale očekávaný čas pro nalezení $f$ je 
 $O(n\log n(\log n+\log\log N))$.
@@ -2754,9 +2727,7 @@ $O(n\log n(\log n+\log\log N))$.
 
 Tuto metodu navrhli Fredman, Komlós a Szemerédi.
 
-\subsubsection{
-Univerzální a perfektní hašování
-}
+\subsubsection{Univerzální a perfektní hašování}
 
 Předchozí hlavní konstrukce perfektní hašovací funkce 
 vycházela z idejí použitých v univerzálním hašování.  Ukážeme, 
@@ -2802,7 +2773,7 @@ nějaké kladné číslo $b$. Pak platí
 )>\\
 &\sum_{i\in I'}\frac {(c+a)n(n-1)}m\ge\frac {(c+a)n(n-1)b|I|}m.\end{align*}
 Odtud plyne, že $c>(c+a)b$, a proto $b<\frac c{c+a}$. Když tedy vybíráme  
-$h_i\in \mathcal H_m$ náhodně s rovnoměrným rozdělením (vzhledem k $
+$h_i\in \mathcal H_m$ náhodně s~rovnoměrným rozdělením (vzhledem k $
 i\in I$), pak 
 pravděpo\-dobnost, že bude platit $\sum_{j=0}^{m-1}(b^i_j)^
 2>\frac {(c+a)n(n-1)}m+n$, je 
@@ -2839,7 +2810,7 @@ funkce v souboru $\mathcal H_m$ existuje, a systematickým prohledáváním
 všech funkcí v daném $c$-univerzálním systému $\mathcal H_
 m$ ji nalezneme 
 v čase $O(n|I|)$.  Pro pravděpodobnostní algoritmus budeme 
-vybírat funkci ze souboru $\mathcal H_m$ náhodně s rovnoměrným 
+vybírat funkci ze souboru $\mathcal H_m$ náhodně s~rovnoměrným 
 rozdělením.  Pak očekávaný počet iterací než uspějeme je 
 \begin{align*}\sum_{i=1}^{\infty}&i(\frac c{c+a})^{i-1}(1-\frac c{c+a})
 \le\sum_{i=1}^{\infty}i(\frac c{c+a})^{i-1}-\sum_{i=1}^{\infty}i(\frac 
@@ -2856,7 +2827,7 @@ To vyžaduje čas $O(n|I|)$.
 
 Když máme $a>1$ a $m=\frac {(c+a)n(n-1)}2+1$ 
 a když budeme volit funkce z $\mathcal H_m$ 
-náhodně s rovnoměrným rozdělením, pak s pravděpodobností 
+náhodně s~rovnoměrným rozdělením, pak s~pravděpodobností 
 $\frac a{c+a}$ do\-sta\-ne\-me funkci $h_i$ takovou, že 
 $$\sum_{j=0}^{m-1}(b^i_j)^2\le\frac {(c+a)n(n-1)}{\frac {(c+a)n(n
 -1)}2+1}+n<2+n.$$
@@ -2866,11 +2837,9 @@ pro pravděpodobnostní algoritmus.
 \end{proof}
 
 Další postup konstrukce perfektní hašovací funkce už 
-nesouvisí s $c$-univerzálními systémy. 
+nesouvisí s~$c$-univerzálními systémy. 
 
-\subsubsection{
-Dynamické perfektní hašování
-}
+\subsubsection{Dynamické perfektní hašování}
 
 Jedna z velkých nevýhod perfektního hašovaní je 
 neznalost efektivních aktualizačních ope\-rací. Existují sice 
@@ -2880,7 +2849,7 @@ efektivní dynamizační operace, protože deterministický
 algoritmus pro ře\-še\-ní perfektního hašování je pro 
 aktualizační ope\-race příliš pomalý. To vedlo k návrhu, 
 který kombinuje pravděpodobnostní algoritmus pro perfektní 
-hašování s obecnou metodou dynami\-za\-ce a tyto metody jsou 
+hašování s~obecnou metodou dynami\-za\-ce a tyto metody jsou 
 upraveny pro konkrétní situaci. 
 
 Nejprve uvedeme modifikaci výsledků z 
@@ -2891,7 +2860,7 @@ prvočíslo, a že je dáno číslo $s<N$. Označme
 $\mathcal H_s=\{h_k\mid k=1,2,\dots,N-1\}$ množinu funkcí z $U$ do 
 $\{0,1,\dots,s-1\}$, kde $h_k(x)=(kx\bmod N)\bmod s$ pro každé $
 x\in U$. 
-Když zvolíme náhodně $k=1,2,\dots,N-1$, pak s pravděpodobností 
+Když zvolíme náhodně $k=1,2,\dots,N-1$, pak s~pravděpodobností 
 ales\-poň $\frac 12$ platí 
 $$\sum_{i=0}^{s-1}(b_i^k)^2<\frac {4n^2}s+n.$$
 Skutečně, když pro méně než $\frac{N-1}2$ hodnot $k$ platí $\sum_{i=0}^m-1(b^k_i)^2\le\frac{4n}m$, pak 
@@ -2902,7 +2871,7 @@ předpokládáme, že náhodně zvolíme $j_i\in \mathcal H_{
 2(b_i^k)^2}$ takové, že 
 $h_{j_i}$ je prostá na množině $S_i=\{s\in S\mid h_k(s)=i
 \}$ (z předchozího textu víme, že když zvolíme náhodně 
-$j_i=0,1,\dots,N-1$, pak s pravděpodobností ales\-poň $\frac 
+$j_i=0,1,\dots,N-1$, pak s~pravděpodobností ales\-poň $\frac 
 14$ je $h_{j_i}$ prostá na $S_i$). Pro jednoduchost předpokládáme, že množiny $
 S_i$ 
 pro $i=0,1,\dots,s-1$ uložíme do tabulek $T_i$ a tabulky 
@@ -2914,9 +2883,7 @@ zvolme $c>1$ a položme $s=\sigma (|S|)$, kde $\sigma (n)=\frac
 43\sqrt 6(1+c)n$ pro 
 každé $n$. Nyní popíšeme algoritmy. Zde $n$ je velikost reprezentované množiny, $s=\sigma(n)$ a $2m(j)$ je velikost tabulky $T_j$ pro $j=0,1,\dots,s-1$.
 
-\subsubsection{
-Algoritmy
-}
+\subsubsection{Algoritmy}
 
 
 {\bf INSERT$(x)$}: \newline 
@@ -3121,12 +3088,12 @@ nebo celou stránku v interní paměti v jednom kroku
 zapíšeme na externí medium.  Tyto operace jsou řádově 
 pomalejší než operace v interní paměti.  
 
-Podobný problém se také řeší pri práci s cache-pamětí. V tom případě však 
+Podobný problém se také řeší pri práci s~cache-pamětí. V tom případě však 
 neovlivňujeme, která stránka se bude načítat, kdežto v případě externí paměti to právě musíme řešit.
 
 Náš cíl:  
 Nalézt způsob ukládání dat do stránek externí 
-paměti, aby se minimalizoval počet operací s externí 
+paměti, aby se minimalizoval počet operací s~externí 
 pamětí.  
 
 Předpokládejme, že $h:U\to \{0,1\}^{*}$ je prosté 
@@ -3162,7 +3129,7 @@ délce $d(S)$ přiřadí adresu stránky předpisem
 \begin{enumerate}
 \item když kritické slovo $\beta$ je prefixem $\alpha$, pak k $
 \alpha$ je 
-přiřazena strán\-ka korespondující s $\beta$, jinak je k $
+přiřazena strán\-ka korespondující s~$\beta$, jinak je k $
 \alpha$ 
 přiřazena strán\-ka $NIL$ -- speciální prázdná stránka.
 \end{enumerate}
@@ -3241,9 +3208,7 @@ $$00\mapsto \{00000,00010\},\quad 01\mapsto \{01000\},\quad 10\mapsto
 Opět platí $c(00)=00$, $c(01)=01$ a $c(10)=c(11)=1$.
 V adresáři je také uloženo $d(S)$.
 
-\subsubsection{
-Algoritmy
-}
+\subsubsection{Algoritmy}
 
 
 Uvedeme zde jen slovní popis operací. Předpokládáme, že adresář 
@@ -3338,11 +3303,11 @@ adresář {\bf uložíme}. Konec.
 
 Následující věta ukazuje, že jsme náš hlavní cíl splnili. Pro jednoduchost předpokládáme, že 
 adresář je také uložen na externí paměti a že v 
-interní paměti nemůže být uložen spolu s nějakou jinou stránkou. 
+interní paměti nemůže být uložen spolu s~nějakou jinou stránkou. 
 
 \begin{veta}Operace {\bf MEMBER} vyžaduje nejvýše tři 
-operace s externí pamětí. Operace {\bf INSERT} a {\bf DELETE }
-vyžadují nejvýše šest operací s externí pamětí.
+operace s~externí pamětí. Operace {\bf INSERT} a {\bf DELETE }
+vyžadují nejvýše šest operací s~externí pamětí.
 \end{veta}
 
 V našem příkladu provedeme operaci 
@@ -3387,7 +3352,7 @@ e{b\ln2}n^{1+\frac 1b}$.
 První tvrzení říká, že očekávaný počet 
 prvků na stránce je $b\ln2\approx 0.69b$. Tedy zaplněno 
 je asi 69\% míst. Tento výsledek není překvapující a je 
-akceptovatelný. Horší je to s adresářem, jak ukazuje 
+akceptovatelný. Horší je to s~adresářem, jak ukazuje 
 následující tabulka
 
 $$\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}velikost $S$ & $10^5$ & $10^6$ & $10^8$ & $10^{10}$ \hfill \cr\noalign{\hrule} 2 & $6.2\cdot10^7$ & $1.96\cdot10^8$ & $1.96\cdot10^{11}$ & $1.96\cdot10^{14}$ \cr\noalign{\hrule} $10$ & $1.2\cdot10^5$ & $1.5\cdot10^6$ & $2.4\cdot10^8$ & $3.9\cdot10^{10}$ \cr\noalign{\hrule} $50$ & $9.8\cdot10^3$ & $1.0\cdot10^6$ & $1.1\cdot10^8$ & $1.2\cdot10^{10}$ \cr\noalign{\hrule} $100$ & $4.4\cdot10^3$ & $4.5\cdot10^4$ & $4.7\cdot10^6$ & $4.9\cdot10^8$ \cr\noalign{\hrule}}}$$
@@ -3564,8 +3529,8 @@ stromu
 a největší prvek je uložen zvlášť nebo je k množině $S$ přidán 
 formální největší prvek (a ten je pak "uložen" zvlášť). Je to prostorově 
 efektivnější reprezentace množiny $S$, ale je technicky 
-nepřehledná. Proto při práci s $(a,b)$-stromy používám 
-verzi s listy.
+nepřehledná. Proto při práci s~$(a,b)$-stromy používám 
+verzi s~listy.
 
 Nyní uvedeme algoritmy pro $(a,b)$-stromy.
 
@@ -3607,7 +3572,7 @@ endif}
 
 {\bf Štěpení$(t)$\newline 
 if} $t$ je kořen stromu {\bf then}\newline 
-\phantom{---}vytvoř nový kořen $u$ s jediným synem $t$\newline 
+\phantom{---}vytvoř nový kořen $u$ s~jediným synem $t$\newline 
 {\bf endif}\newline 
 $u:=\otec(t)$, najdi $i$, že $S_u(i)=t$,\newline 
 vytvoř nový vnitřní vrchol $t'$, $j:=1$\newline 
@@ -3868,7 +3833,7 @@ $b=2a$.
 
 Když je množina reprezentovaná $(a,b)$-stromem 
 uložena na serveru a má k ní přístup více 
-uživatelů, vzniká problém s aktualizačními 
+uživatelů, vzniká problém s~aktualizačními 
 operacemi. Tyto operace mění strukturu $(a,b)$-stromu a 
 v důsledku toho se v něm jiný uživatel 
 může ztratit. Tento problém se dá  
@@ -3943,7 +3908,7 @@ pro každý vrchol $v$ jeho otce). Nyní uvedeme algoritmus
 $A$-{\bf sort}. 
 
 $A$-{\bf sort$(x_1,x_2,\dots,x_n)$\newline 
-$i:=n-1$}, vytvoř jednoprvkovy strom s vrcholem $t$\newline 
+$i:=n-1$}, vytvoř jednoprvkovy strom s~vrcholem $t$\newline 
 $\key(t):=x_n$, $\Prv:=t$\newline 
 {\bf while} $i\ge 1$ {\bf do $A$-Insert$(x_i)$}, $i:=i-1$ {\bf enddo}\newline 
 $y_1:=\key(\Prv)$\newline 
@@ -4061,13 +4026,13 @@ posloupnosti.
 
 Zhodnocení: Protože $A$-{\bf sort} nepoužívá operaci 
 {\bf DELETE}, doporučuje se použít $(2,3)$-stromy. Když se 
-budou třídit posloupnosti s mírou $F\le n\log n$, pak 
+budou třídit posloupnosti s~mírou $F\le n\log n$, pak 
 algoritmus $A$-{\bf sort} bude potře\-bo\-vat v nejhorším případě 
 čas $O(n\log\log n)$. Mehlhorn a Tsa\-kalidis dokázali, že když 
 $F\le 0.02n^{1.57}$, pak algoritmus $A$-{\bf sort} je rychlejší než 
 algoritmus {\bf Quicksort}.
 
-\subsubsection{Propojené stromy s prstem}
+\subsubsection{Propojené stromy s~prstem}
 
 \emph{Hladinově} \emph{propojený} $(a,b)$-\emph{strom} \emph{s} 
 \emph{prstem} je $(a,b)$-strom, kde struktura vnitřního 
@@ -4131,7 +4096,7 @@ algoritmu  {\bf DELETE} mů\-že nejvýše $\log(|S|
 a nejvýše jednou podproceduru {\bf Přesun}.  V obecném 
 případě tyto od\-ha\-dy nejdou zlepšit.  Pro vhodný typ 
 $(a,b)$-stromu však amortizovaný počet vyvažovacích 
-ope\-rací (začínáme-li s  
+ope\-rací (začínáme-li s~ 
 pů\-vod\-ně práz\-dným stromem) je konstantní.
 
 Pro pevné $a$ a $b$ označme 
@@ -4304,7 +4269,7 @@ h}=\\
 
 Nyní odhadneme shora $b(T_k)$.
 
-\begin{lemma_counting}Když $T$ je $(a,b)$-strom s $m$ listy, pak 
+\begin{lemma_counting}Když $T$ je $(a,b)$-strom s~$m$ listy, pak 
 $0\le b(T)\le c+(m-2)\frac c{a+c-1}$.
 \end{lemma_counting}
 
@@ -4344,7 +4309,7 @@ Odtud plyne požadovaná nerovnost a (1) je dokázáno.
 Důkaz (2) využije následující odhad.
 
 \begin{lemma_counting}Pro každé $h\ge 1$ a pro každý 
-$(a,b)$-strom $T$ s $m$ listy platí 
+$(a,b)$-strom $T$ s~$m$ listy platí 
 $$\sum_{l=1}^hb_l(T)(c+1)^l\le (c+1)m.$$
 \end{lemma_counting}
 
@@ -4376,7 +4341,7 @@ v předchozím výrazu není kladný.
 \end{proof}
  
 
-Zkombinujeme odhad $St_h+Sp_h$ s Lemmatem 7 a 
+Zkombinujeme odhad $St_h+Sp_h$ s~Lemmatem 7 a 
 dostaneme
 \begin{align*} St_h+Sp_h\le&\frac n{(c+1)^h}+\sum_{l=1}^hb_l(T_k)\frac {
 (c+1)^l}{(c+1)^{h+1}}\le\\
@@ -4407,7 +4372,7 @@ $(a,b)$-stromu. Pro propojené $(a,b)$-stromy platí silnější
 verze.
 
 \begin{veta}Předpokládejme, že $b\ge 2a$ a $a\ge 2$. Mějme 
-hladinově propojený $(a,b)$-strom s prstem $T$, který reprezentuje 
+hladinově propojený $(a,b)$-strom s~prstem $T$, který reprezentuje 
 $n$-prvkovou množinu. Pak posloupnost $\mathcal P$ operací {\bf MEMBER},
 {\bf INSERT}, {\bf DELETE} a {\bf PRST} aplikovaná na $T$ vyžaduje čas 
 $$O(\log(n)+\text{\rm\ čas na vyhledání prvků})
@@ -4423,7 +4388,7 @@ být třeba až $\log(n)$ vyvažovacích operací. Čas na
 vy\-hledává\-ní nemůžeme ovlivnit, ten musí 
 ovlivnit uživatel.
 
-Aplikace: analýza hladinově propojených stromů s prstem 
+Aplikace: analýza hladinově propojených stromů s~prstem 
 u\-mož\-nila návrh algoritmu, který pro dvě množiny $
 S_1$ a $S_2$ 
 repre\-zentované propojenými $(a,b)$-stromy, kde $b\ge 2a$ a 
@@ -4630,18 +4595,18 @@ nezmění blok, nalezne dalších $k$ hodnot $i$ v rozdílu $|X-n|$.
 Tedy 
 $$p_i\le\Prob(|X-n|\ge\lfloor\frac {i-2}2\rfloor k).$$
 Použijeme Čebyševovu nerovnost pro náhodnou 
-proměn\-nou $X$. Když $Y$ je náhodná proměnná s očekávanou 
+proměn\-nou $X$. Když $Y$ je náhodná proměnná s~očekávanou 
 (střední) hodnotou $\mu$ a rozptylem $\sigma^2$, pak Čebyševova 
 nerovnost říká, že 
 $$\Prob(|Y-\mu |\ge t)\le\frac {\sigma^2}{t^2}\qquad\text{\rm pro každé }
 t>0.$$
 
 Uvažujme okamžik, kdy jsme na začátku nějakého 
-bloku. Pro\-tože $S$ je vybraná s rovno\-měr\-ným rozdělením, je 
+bloku. Pro\-tože $S$ je vybraná s~rovno\-měr\-ným rozdělením, je 
 pravděpodob\-nost, že $A(i)<x$ pro $d<i<h$, rovna 
 $p=\frac {x-A(d)}{A(h)-A(d)}$, a pak pravděpodobnost, že 
 $X=j$, je $\binom {h-d}jp^j(1-p)^{h-d-j}$. To znamená, že $X$ je náhodná 
-veličina s binomickým rozdělením s rozsahem $d-h$ a pravděpodobností $p$, a tedy její očekávaná 
+veličina s~binomickým rozdělením s~rozsahem $d-h$ a pravděpodobností $p$, a tedy její očekávaná 
 hodnota je
 $$\mu =\sum_{j=0}^{h-d}j\binom {h-d}jp^j(1-p)^{h-d-j}=p(h-d)$$
 a rozptyl má hodnotu 
@@ -4678,7 +4643,7 @@ Nevýhoda této datové struktury
 spočívá v neexistenci přiroze\-ných efektivních implementací 
 ope\-rací {\bf INSERT}, {\bf DELETE}, {\bf SPLIT} a {\bf JOIN}. Přirozené 
 implementace těchto ope\-rací vyža\-dují čas 
-$O(|S|)$, zhruba řečeno musíme pohybovat s téměř kaž\-dým prvkem. 
+$O(|S|)$, zhruba řečeno musíme pohybovat s~téměř kaž\-dým prvkem. 
 Pokusem o řešení 
 tohoto problému byl návrh binár\-ních vyhledávacích 
 stromů.
@@ -4734,7 +4699,7 @@ Při implementaci binárních vyhledávácích
 stromů je výhodné vynechat listy (místo nich bude 
 ukazatel $NIL$). Při návrhu algoritmů je však 
 naopak výhodné 
-pracovat s listy (vyhlíží to logičtější). Proto při návrhu 
+pracovat s~listy (vyhlíží to logičtější). Proto při návrhu 
 algoritmů budeme předpokládat, že stromy mají 
 listy reprezentující intervaly.
 
@@ -4996,7 +4961,7 @@ pravděpodobnost\-ním modifikacím binárních vyhledávacích
 stromů.  Hledají se však i další možnosti.  
 
 Studují se tzv.  samoupravující struktury.  Zde se 
-pracuje s datovou strukturou bez dodatečných informací, ale 
+pracuje s~datovou strukturou bez dodatečných informací, ale 
 operace nad touto strukturou provádí vyvažování v závislosti 
 na argumentu operace.  Dokázalo se, že existuje strategie 
 vyvažování, která zajišťuje dobré chování bez ohledu na 
@@ -5910,7 +5875,7 @@ Vzniká otázka, proč se tolik pozornosti věnuje
 procedurám {\bf Rotace} a {\bf Dvojita-rotace}. Sice vyžadují čas 
 $O(1)$, ale jsou to nej\-složitější akce vyžadující nejvíce času. 
 V mnoha aplikacích (pou\-žívají se hlavně ve výpočetní geometrii), 
-tvar stromu spolu s parametry nesou ještě 
+tvar stromu spolu s~parametry nesou ještě 
 další zakódované informace. Při změně tvaru stromu je 
 třeba je přepočítat. {\bf Rotace} a {\bf Dvojita-rotace} mění tvar 
 stromu, kdežto posun směrem ke kořeni pouze mění 
@@ -5948,7 +5913,7 @@ technické tvrzení.
 \begin{tvrzeni}Pro každé $\alpha$ existuje konstanta $
 d$ 
 taková, že $\alpha <d<1-\alpha$ a pro každý binární vyhledávací 
-strom $T$ s kořenem $t$ splňující podmínky
+strom $T$ s~kořenem $t$ splňující podmínky
 \begin{enumerate}
 \item
 podstromy $T_l$ a $T_r$ stromu $T$ určené levým a pravým 
@@ -6012,12 +5977,12 @@ jsou efektivnější.
 \section{Haldy}
 \subsection{Úvod}
 
-V praxi se často setkáváme s následujícím 
+V praxi se často setkáváme s~následujícím 
 problémem, který vzniká na uspořádaném univerzu, jehož 
 uspořádání se však v průběhu času mění. Úloha se 
 liší od slovníkového problému v tom, že se nevyžaduje  
 efektivní operace {\bf MEMBER}. Dokonce se předpokládá, že ope\-race 
-dostane spolu s argumentem informaci o uložení 
+dostane spolu s~argumentem informaci o uložení 
 zpracovávaného prvku. 
 Hlav\-ním požadavkem je rychlost provedední ostatních operací a malé 
 paměťové nároky. Přitom v praxi obvykle nestačí znát jen 
@@ -6038,9 +6003,9 @@ Máme navrhnout reprezentaci $S$ a $f$, která umožňuje
 operace:\newline 
 {\bf INSERT$(s,a)$} -- přidá k množině $S$ prvek $s$ tak, že 
 $f(s)=a$,\newline 
-{\bf MIN} -- nalezne prvek $s\in S$ s nejmenší hodnotou 
+{\bf MIN} -- nalezne prvek $s\in S$ s~nejmenší hodnotou 
 $f(s)$,\newline 
-{\bf DELETEMIN} -- odstraní prvek $s\in S$ s nejmenší hodnotou 
+{\bf DELETEMIN} -- odstraní prvek $s\in S$ s~nejmenší hodnotou 
 $f(s)$,\newline 
 {\bf DELETE$(s)$} -- odstraní prvek $s\in S$ z množiny $S$,\newline 
 {\bf DECREASE$(s,a)$} -- zmenší hodnotu $f(s)$ o $a$ (tj. 
@@ -6101,11 +6066,11 @@ očíslování vrcholů pro\-hle\-dá\-váním do šířky
 \item
 každý vrchol má nejvýše $d$ synů,
 \item
-když vrchol není list, tak všechny vrcholy s menším 
+když vrchol není list, tak všechny vrcholy s~menším 
 číslem mají právě $d$ synů,
 \item
 když vrchol má méně než $d$ synů, pak všechny 
-vrcholy s většími čísly jsou listy.
+vrcholy s~většími čísly jsou listy.
 \end{enumerate}
 Toto očíslování se nazývá \emph{přirozené} 
 \emph{očíslování} $d$-regulárního stromu. 
@@ -6135,7 +6100,7 @@ Odtud plyne
 druhá část tvrzení.  Třetí část pro čísla synů dokážeme 
 indukcí podle očíslová\-ní.  Synové kořene mají čísla 
 $2,3,\dots$,$d+1$,  protože kořen má číslo $1$.  Když tvrzení platí 
-pro vrchol s číslem $k$, pak synové vrcholu s číslem $
+pro vrchol s~číslem $k$, pak synové vrcholu s~číslem $
 k+1$ 
 mají čísla $kd+2,kd+3,\dots,kd+d+1$, což odpovídá 
 číslům $(k+1-1)d+2,(k+1-1)d+3,\dots,(k+1)d+1$, a tedy 
@@ -6144,13 +6109,13 @@ i\in \{(k-1)d+2,(k-1)d+3,\dots,kd+1\}$, pak
 $1+\lfloor\frac {i-2}d\rfloor =k$. \qed
 \end{proof}
 
-Všimněme si, že speciálně pro $d=2$ mají synové vrcholu s číslem $
+Všimněme si, že speciálně pro $d=2$ mají synové vrcholu s~číslem $
 k$ 
-čísla $2k$ a $2k+1$ a otec vrcholu s číslem $k$ má číslo 
+čísla $2k$ a $2k+1$ a otec vrcholu s~číslem $k$ má číslo 
 $\lfloor\frac k2\rfloor$. Tedy pro $2$-regulární stromy je předpis pro nalezení 
 synů a otce zvláště jednoduchý.  
 
-Řekneme, že množina $S$ s funkcí $f$ je reprezentována 
+Řekneme, že množina $S$ s~funkcí $f$ je reprezentována 
 $d$-regulár\-ní haldou $H$, kde $H$ je $d$-regulární strom $
 (T,r)$, když 
 přiřazení prvků množiny $S$ vrcholům stromu 
@@ -6161,7 +6126,7 @@ reprezentovaný prvek.
 Defince $d$-regulárního stromu umožňuje velmi efektivní 
 implementace $d$-regulárních hald.  Měj\-me množinu $
 S$ 
-reprezentovanou $d$-regulární haldou $H$ s přirozeným 
+reprezentovanou $d$-regulární haldou $H$ s~přirozeným 
 očís\-lo\-vá\-ním $o$ $d$-regulární\-ho stromu $
 (T,r)$.  Pak haldu $H$ 
 můžeme reprezentovat polem $H[1..|S|]$, kde pro vrchol 
@@ -6176,9 +6141,7 @@ $d$-regulárního stromu předpo\-klá\-dáme, že známe přirozené
 očíslování, a fráze `poslední vrchol', `před\-cházející vrchol' atd.  
 se vztahují k tomuto očíslování.  
 
-\subsubsection{
-Algoritmy
-}
+\subsubsection{Algoritmy}
 
 Pro $d$-regulární haldy není známa efektivní implementace operace 
 {\bf MERGE}.  Efektivní implementace 
@@ -6199,11 +6162,11 @@ dokud vrchol reprezentující prvek $s$ nesplňu\-je podmínku
 
 DOWN$(v)$}:\newline 
 {\bf if} $v$ není list {\bf then\newline 
-\phantom{{{\rm ---}}}$w:=$}syn vrcholu $v$ reprezentující prvek s nejmenší 
+\phantom{{{\rm ---}}}$w:=$}syn vrcholu $v$ reprezentující prvek s~nejmenší 
 hodnotou $f(w)$\newline 
 \phantom{---}{\bf while} $f(w)<f(v)$ a $v$ není list {\bf do\newline 
 \phantom{{\rm ------}}}vyměň $\key(v)$ a $\key(w)$, $v:=w$\newline 
-\phantom{------}$w:=$syn vrcholu $v$ reprezentující prvek s nejmenší 
+\phantom{------}$w:=$syn vrcholu $v$ reprezentující prvek s~nejmenší 
 hodnotou $f(w)$\newline 
 \phantom{---}{\bf enddo\newline 
 endif
@@ -6234,7 +6197,7 @@ $v:=$vrchol reprezentující $s$\newline
 $f(s):=f(s)+a$, {\bf DOWN$(v)$
 
 MAKEHEAP$(S,f)$}:\newline 
-$T:=d$-regulární strom s $|S|$ vrcholy\newline 
+$T:=d$-regulární strom s~$|S|$ vrcholy\newline 
 zvol libovolnou reprezentaci $S$ vrcholy stromu $T$\newline 
 $v:=$poslední vrchol, který není list\newline 
 {\bf while} $v$ je vrchol $T$ {\bf do\newline 
@@ -6242,7 +6205,6 @@ $v:=$poslední vrchol, který není list\newline
 \phantom{{\rm ---}}$v:=$}vrchol předcházející 
 vrcholu $v$\newline 
 {\bf enddo
-
 }
 Ověříme korektnost algoritmů.  Je zřejmé, že 
 pomocné operace jsou korektní -- skončí, když podmínku 
@@ -6250,14 +6212,14 @@ pomocné operace jsou korektní -- skončí, když podmínku
 reprezentován vrcholem $v$. Korektnost operace {\bf MIN} plyne 
 přímo z podmínky \thetag{usp}, protože kořen reprezentuje nejmenší 
 prvek množiny $S$. U operace {\bf INSERT} je podmínka 
-\thetag{usp} splněna pro všechny vrcholy s výjimkou nově 
+\thetag{usp} splněna pro všechny vrcholy s~výjimkou nově 
 vytvořeného listu a operace {\bf UP} zajistí její splnění.  Při 
 operaci {\bf DELETEMIN} je pod\-mín\-ka \thetag{usp} splněna pro 
-všechny vrcholy s výjimkou kořene a v tomto případě ope\-race {\bf DOWN} zajistí 
+všechny vrcholy s~výjimkou kořene a v tomto případě ope\-race {\bf DOWN} zajistí 
 její splnění.  Po provedení operací {\bf DE\-LE\-TE$
 (s)$}, {\bf DECREASE$(s,a)$ }
 a {\bf INCREASE$(s,a)$} je pod\-mín\-ka \thetag{usp} splněna pro 
-všechny vrcholy s výjimkou vrcholu $v$ a její splnění 
+všechny vrcholy s~výjimkou vrcholu $v$ a její splnění 
 opět zajistí operace {\bf UP }
 resp. {\bf DOWN}.  Pro operaci {\bf MAKEHEAP }
 budeme uvažovat duální formulaci podmínky \thetag{usp}:  
@@ -6271,14 +6233,11 @@ Pokud každý vrchol splňuje podmínku \thetag{d-usp}, pak
 splňuje i pod\-mínku \thetag{usp}. Zřejmě každý list splňuje 
 podmínku \thetag{d-usp} a když ope\-race {\bf MAKEHEAP }
 provede proceduru {\bf DOWN$(v)$}, pak je podmínka 
-\thetag{d-usp} splněna pro všechny vrcholy s 
-čísly alespoň tak velkými jako je číslo $v$. 
+\thetag{d-usp} splněna pro všechny vrcholy s~čísly alespoň tak velkými jako je číslo $v$. 
 Operace {\bf MAKEHEAP} končí provedením operace {\bf DOWN} na 
 kořen a odtud plyne její korektnost.
 
-\subsubsection{
-Složitost operací
-}
+\subsubsection{Složitost operací}
 
 Vypočteme časovou složitost operací:  Jeden běh cyklu 
 v operaci {\bf UP} vyžaduje čas $O(1)$ a v operaci {\bf DOWN }čas $
@@ -6317,9 +6276,7 @@ dostáváme, že $d^{k+1}\le d^2((d-1)|S|+1)$, a proto $A\le
 {\bf MAKEHEAP} vyžaduje v nejhorším případě jen čas 
 $O(d^2|S|)$. 
 
-\subsubsection{
-Aplikace 
-}
+\subsubsection{Aplikace }
 
 Třídění: prostou posloupnost 
 čísel $x_1,x_2,\dots,x_n$ lze setřídit následujícím 
@@ -6357,7 +6314,7 @@ $c$-ohodnocení hran na cestě.
 $d(z):=0$, $U:=\{z\}$\newline 
 {\bf for every} $x\in X\setminus \{z\}$ {\bf do} $d(x):=+\infty$ {\bf enddo\newline 
 while} $U\ne\emptyset$ {\bf do\newline 
-\phantom{{\rm ---}}}najdi vrchol $u\in U$ s nejmenší hodnotou $
+\phantom{{\rm ---}}}najdi vrchol $u\in U$ s~nejmenší hodnotou $
 d(u)$\newline 
 \phantom{---}odstraň $u$ z $U$\newline 
 \phantom{---}{\bf for every} $(u,v)\in R$ {\bf do \newline 
@@ -6368,14 +6325,12 @@ U$ {\bf endif\newline
 \phantom{{\rm ------}}endif\newline 
 \phantom{{\rm ---}}enddo\newline 
 enddo
-
 }
 Korektnost algoritmu je založena na kombinatorickém 
 lemmatu, které říká, že když odstra\-ňuje\-me z $
-U$ prvek $x$ s 
-nejmenší hodnotou $d(x)$, pak vzdálenost ze $z$ do $x$ je právě 
+U$ prvek $x$ s~nejmenší hodnotou $d(x)$, pak vzdálenost ze $z$ do $x$ je právě 
 $d(x)$. Proto když $U=\emptyset$, pak $d(x)$ jsou délky nejkratších cest ze 
-$z$ do $x$ pro všechna $x\in X$. Tedy práce s množinou $U$ vyžaduje 
+$z$ do $x$ pro všechna $x\in X$. Tedy práce s~množinou $U$ vyžaduje 
 nejvýše $|X|$ operací {\bf INSERT}, {\bf MIN} a {\bf DELETEMIN} a $
 |R|$ operací 
 {\bf DECREASE} a vždy platí $|U|\le |X|$. Vypočteme časovou složitost 
@@ -6437,8 +6392,8 @@ S vrcholem $v$ jsou
 spojeny ukazatelé $\otec(v)$, $\levy(v)$ a $\pravy(v)$ na otce a 
 na levého a pravého syna vrcholu $v$.  
 Když ukazatel není definován, pak píšeme, že jeho hodnota je 
-$NIL$.  Dále jsou s vrcholem spojeny funkce\newline 
-$\npl(v)$ -- proměnná s hodnotou $\npl(v)$,\newline 
+$NIL$.  Dále jsou s~vrcholem spojeny funkce\newline 
+$\npl(v)$ -- proměnná s~hodnotou $\npl(v)$,\newline 
 $\key(v)$ -- prvek reprezentovaný vrcholem $v$,\newline 
 $f(v)$ -- proměnná obsahující hodnotu $f(\key(v))$.
 
@@ -6457,9 +6412,7 @@ délka pravé cesty z každého vrcholu $v$ nejvýše rovna
 $$\log(\text{\rm velikost podstromu určeného vrcholem }v).$$
 \end{tvrzeni}
 
-\subsubsection{
-Algoritmy a složitost operací
-}
+\subsubsection{Algoritmy a složitost operací}
 
 Základní operací pro leftist haldy je {\bf MERGE}. Tato 
 operace je definována rekurzivně a hloubka rekurze je omezena 
@@ -6508,7 +6461,6 @@ while} $|Q|>1$ {\bf do\newline
 (odstraň je)\newline 
 \phantom{---}{\bf MERGE$(T_1,T_2)$} vlož do $Q$\newline 
 {\bf enddo
-
 }
 Vypočteme časovou složitost předchozích 
 algoritmů. Každý běh 
@@ -6549,7 +6501,7 @@ Nejprve popíšeme pomocnou operaci {\bf Oprav$(T,v
 )$}, 
 která vy\-tvo\-ří lef\-tist haldu z binárního stromu $
 T'$ vzniklého z 
-leftist haldy $T$ odtržením podstromu s kořenem ve vrcholu $
+leftist haldy $T$ odtržením podstromu s~kořenem ve vrcholu $
 v$.
 
 {\bf Oprav$(T,v)$}:\newline 
@@ -6563,7 +6515,6 @@ while} se zmenšilo $\npl(t)$ a $t$ není kořen {\bf do\newline
 \phantom{---}{\bf endif\newline 
 \phantom{{\rm ---}}$\npl(t):=\npl(\pravy(t))+1$\newline 
 enddo
-
 }
 Po provedení operace {\bf Oprav} mají všechny vrcholy 
 správné číslo $\npl$ a podmínky kladené na leftist 
@@ -6597,7 +6548,6 @@ $T_1:=$podstrom $T$ určený vrcholem $\levy(v)$\newline
 $T_2:=$podstrom $T$ určený  vrcholem $\pravy(v)$\newline 
 $T_3:=${\bf MERGE$(T_1,T_2)$}, $T_4:=${\bf Oprav$(T,v)$\newline 
 $T:=$MERGE$(T_3,T_4)$
-
 }
 Protože algoritmy {\bf MERGE} a {\bf Oprav} vyžadují čas 
 $O(\log(|S|)$ a protože zbylé části algoritmů pro operace 
@@ -6616,8 +6566,7 @@ která vyžaduje čas $O(|S|)$, kde $S$ je reprezentovaná množina.
 
 \subsection{{Amortizovaná složitost}}
 
-Popíšeme bankovní paradigma pro počítání s 
-amortizovanou složitostí. Předpokládejme, že máme funkci $
+Popíšeme bankovní paradigma pro počítání s~amortizovanou složitostí. Předpokládejme, že máme funkci $
 h$, 
 která ohodnucuje konfigurace a kvantitativně vystihuje 
 jejich vhodnost pro provedení operace $o$. 
@@ -6705,7 +6654,7 @@ $2(2^i)=2^{i+1}$ vrcholů. Kořen stromu $H_{i+1}$ má o jednoho
 syna více než kořen stromu $H_i$ a nejdelší cesta do listu je o $
 1$ 
 delší. Protože podstrom syna, který přibyl kořeni stromu 
-$H_{i+1}$, je izomorfní s $H_i$ a jinak se nic neměnilo, je 
+$H_{i+1}$, je izomorfní s~$H_i$ a jinak se nic neměnilo, je 
 důkaz kompletní. \qed
 \end{proof}
 
@@ -6723,10 +6672,10 @@ podmínka \thetag{usp} -- toto přiřazení je realizováno
 funkcí 
 $\key,$ která vrcholu stromu přiřazuje prvek jím reprezentovaný;
 \item"{}"
-každý strom $T_i$ je izomorfní s nějakým stromem $H_
+každý strom $T_i$ je izomorfní s~nějakým stromem $H_
 j$;
 \item"{}"
-$T_i$ není izomorfní s žádným $T_j$ pro $i\ne j$.
+$T_i$ není izomorfní s~žádným $T_j$ pro $i\ne j$.
 \end{enumerate}
 
 Z binárního zápisu přirozených čísel plyne, že 
@@ -6735,13 +6684,11 @@ posloupnost $i_1,i_2,\dots,i_k$ přiro\-ze\-ných čísel taková, že
 $n=\sum_{j=1}^k2^{i_j}$. Z toho plyne, že pro každou neprázd\-nou 
 množinu $S$ existuje binomiální halda repre\-zentující $
 S$.
-Tato halda obsahuje strom izomorfní s $H_i$, právě když v 
+Tato halda obsahuje strom izomorfní s~$H_i$, právě když v 
 binárním zápise čísla $|S|$ je na $i$-tém místě zprava $
 1$.
 
-\subsubsection{
-Algoritmy a složitost operací
-}
+\subsubsection{Algoritmy a složitost operací}
 
 Operace pro binomiální haldy jsou  
 stejně jako pro leftist haldy založeny na ope\-raci {\bf MER\-GE}. Ope\-race 
@@ -6753,13 +6700,13 @@ přirozených čísel v binár\-ním zápise.
 ,2$ a $S_1\cap S_2=\emptyset$)\newline 
 $i:=0$, $T:=$prázdný strom, $\mathcal H:=\emptyset$\newline 
 {\bf while} $i<\log(|S_1|+|S_2|)$ {\bf do\newline 
-\phantom{{\rm ---}}if} existuje $U\in \mathcal H_1$ izomorfní s $
+\phantom{{\rm ---}}if} existuje $U\in \mathcal H_1$ izomorfní s~$
 H_i$ {\bf then\newline 
 \phantom{{\rm ------}}$U_1:=U$\newline 
 \phantom{{\rm ---}}else\newline 
 \phantom{{\rm ------}}$U_1:=$}prázdný strom\newline 
 \phantom{---}{\bf endif\newline 
-\phantom{{\rm ---}}if} existuje $U\in \mathcal H_2$ izomorfní s $
+\phantom{{\rm ---}}if} existuje $U\in \mathcal H_2$ izomorfní s~$
 H_i$ {\bf then\newline 
 \phantom{{\rm ------}}$U_2:=U$\newline 
 \phantom{{\rm ---}}else\newline 
@@ -6784,16 +6731,14 @@ Výstup}:$\mathcal H$
 {\bf spoj$(T_1,T_2)$}:\newline 
 {\bf if} $f(\text{\rm kořen }T_1)>f(\text{\rm kořen }T_2)$ {\bf then\newline 
 \phantom{{\rm ---}}}vyměň stromy $T_1$ a $T_2$\newline 
-{\bf endif\newline 
-}
+{\bf endif\newline }
 vytvoř nového  syna $v$ kořene $T_1$\newline 
 $v:=$kořen $T_2$
 
 Je vidět, že když oba stromy $T_1$ a $T_2$ jsou izomorfní 
 s $H_i$, pak výsledný strom operace {\bf spoj} je izomorfní 
 s $H_{i+1}$. Korektnost ope\-race {\bf MERGE} plyne z tohoto 
-pozorování a z faktu, že $\mathcal H_j$ obsahuje strom izomorfní s 
-$H_i$, právě když v binárním zápise čísla $
+pozorování a z faktu, že $\mathcal H_j$ obsahuje strom izomorfní s~$H_i$, právě když v binárním zápise čísla $
 |S_j|$ je na $i$-tém 
 místě zprava $1$, a že $T$ je neprázdný strom, když se 
 provádí posun řádu při sčítání. Protože každý běh 
@@ -6818,7 +6763,6 @@ $\mathcal H_1:=\mathcal H\setminus \{T\}$\newline
 $\mathcal H_2:=$ halda tvořená podstromy $T$ určenými syny kořene $
 T$\newline 
 {\bf MERGE$(\mathcal H_1,\mathcal H_2)$
-
 }
 Z podmínky \thetag{usp} je zřejmé, že 
 nejmenší prvek v $S$ je reprezentován v kořeni nějakého  
@@ -6857,8 +6801,7 @@ případě. Můžeme tedy shrnout:
 \begin{veta}Pro binomiální haldy algoritmy operací 
 {\bf IN\-SERT}, {\bf MIN}, {\bf DELETEMIN}, {\bf DECREASE} a {\bf MERGE  }
 vy\-ža\-dují čas $O(\log(|S|))$, algoritmus operace {\bf INCRE\-ASE }
-vy\-ža\-duje čas $O(\log^2(|S|))$ a algoritmus operace {\bf MAKEHEAP 
-}čas $O(|S|)$.
+vy\-ža\-duje čas $O(\log^2(|S|))$ a algoritmus operace {\bf MAKEHEAP }čas $O(|S|)$.
 \end{veta}
 
 Z těchto výsledků je vidět, že předchozí 
@@ -6866,12 +6809,10 @@ typy hald mají efektivnější chování než binomiální haldy.
 Význam binomiálních hald tak spo\-čí\-vá především v 
 tom, že se dají dále zobecnit (tímto zobecněním jsou Fibonacciho 
 haldy) a že na nich lze krásně 
-ilustrovat princip, že s řadou úprav je výhodné počkat 
+ilustrovat princip, že s~řadou úprav je výhodné počkat 
 a neprovádět je okamžitě.
 
-\subsubsection{
-Líná implentace operací
-}
+\subsubsection{Líná implentace operací}
 
 Následující algoritmy jsou založeny na ideji, že 
 `vyvažování' stačí provádět jen při operacích {\bf MIN} a 
@@ -6891,7 +6832,7 @@ $S$ vrcholům stromů, které splňuje
 podmínku \thetag{usp} -- toto přiřazení je jako obvykle 
 realizováno funkcí $\key$;
 \item"{}"
-každý strom $T_i$ je izomorfní s nějakým stromem $H_
+každý strom $T_i$ je izomorfní s~nějakým stromem $H_
 j$.
 \end{enumerate}
 
@@ -6936,7 +6877,7 @@ stromů
 v $\mathcal H$\newline 
 {\bf Výstup}: nejmenší z těchto prvků\newline 
 stromy rozděl do množin $O_i=\{$všechny stromy v 
-$\mathcal H$ izomorfní s $H_i\}$\newline 
+$\mathcal H$ izomorfní s~$H_i\}$\newline 
 {\bf vyvaz$(\{O_i\mid i=0,1,\dots,\lfloor\log(|S|)\rfloor \})$
 
 DELETEMIN}:\newline 
@@ -6945,11 +6886,10 @@ stromů v $\mathcal H$\newline
 $T:=$ strom, jehož kořen repre\-zentuje nejmenší 
 prvek\newline 
 stromy rozděl do množin $O_i=\{$všechny stromy v 
-$\mathcal H$ izomorfní s $H_i$ různé od $T\}\cup \{$podstrom $
+$\mathcal H$ izomorfní s~$H_i$ různé od $T\}\cup \{$podstrom $
 T$ určený nějakým synem kořene $T$ 
-izomorfní s $H_i\}$\newline 
+izomorfní s~$H_i\}$\newline 
 {\bf vyvaz$(\{O_i\mid i=0,1,\dots,\lfloor\log(|S|)\rfloor \})$
-
 }Časová složitost operací {\bf INSERT} a {\bf MER\-GE} při líné 
 implementaci je $O(1)$, ale časová složitost operací {\bf MIN} a 
 {\bf DELETEMIN} je v nejhorším případě $O(|S|)$. Tento odhad je 
@@ -6975,7 +6915,7 @@ ope\-ra\-ce {\bf vyvaz} vyžaduje čas $O(k+\sum_{i=0}^k|O_i|
 )$. Ope\-ra\-ce {\bf MIN}
 bez podprocedury {\bf vyvaz} vyžaduje čas $O(|\mathcal H|)$ a operace 
 {\bf DELETEMIN} bez podprocedury {\bf vyvaz }čas $O(\mathcal H+i)$ pro 
-takové $i$, že $T$ je izomorfní s $H_i$. Podle tvrzení je $
+takové $i$, že $T$ je izomorfní s~$H_i$. Podle tvrzení je $
 i\le\log(|S|)$, a 
 tedy ope\-ra\-ce {\bf MIN} vyžaduje čas $O(|\mathcal H|)$ a ope\-race 
 {\bf DELETEMIN }čas $O(|\mathcal H|+\log(|S|))$. Protože  
@@ -7028,9 +6968,7 @@ definovat \emph{Fibonacciho} \emph{haldy} jako struktury
 vzniklé z prázdné haldy aplikací posloupnosti 
 těchto algoritmů.
 
-\subsubsection{
-Algoritmy
-}
+\subsubsection{Algoritmy}
 
 V algoritmech předpokládáme, že Fibonacciho halda je 
 seznam stromů, kde některé vrcholy různé od 
@@ -7050,7 +6988,7 @@ haldách, že strom je izomorfní se stromem $H_i$.
 Algoritmy pro operace {\bf MERGE}, {\bf INSERT}, {\bf MIN} a 
 {\bf DELE\-TEMIN} jsou založeny na stejných idejích jako algoritmy pro línou implementaci 
 v binomiálních haldách, pouze poža\-da\-vek, aby strom byl 
-izomorfní s $H_i$, je nahrazen požadavkem, že má rank $
+izomorfní s~$H_i$, je nahrazen požadavkem, že má rank $
 i$. 
 Algoritmy pro ope\-race {\bf DECREASE}, {\bf INCREASE} a {\bf DELETE }
 vycházejí z algoritmů pro tyto operace v leftist 
@@ -7069,7 +7007,7 @@ Prohledej prvky reprezentované kořeny všech
 stromů v $\mathcal H$\newline 
 {\bf Výstup}: nejmenší z těchto prvků\newline 
 stromy rozděl do množin $O_i=\{$všechny stromy v 
-$\mathcal H$ s rankem $i\}$\newline 
+$\mathcal H$ s~rankem $i\}$\newline 
 {\bf vyvaz1$(\{O_i\mid i=0,1,\dots,\lfloor c\log(\sqrt 5|S|+1)\rfloor 
 \})$
 
@@ -7079,9 +7017,8 @@ stromů v $\mathcal H$\newline
 $T:=$ strom, jehož kořen reprezentuje nejmenší 
 prvek\newline 
 stromy rozděl do množin $O_i=\{$všechny stromy v 
-$\mathcal H$ s rankem $i$ různé od $T\}\cup \{$podstrom $T$ určený 
-některým synem kořene $T$ s 
-rankem $i$$\}$\newline 
+$\mathcal H$ s~rankem $i$ různé od $T\}\cup \{$podstrom $T$ určený 
+některým synem kořene $T$ s~rankem $i$$\}$\newline 
 {\bf vyvaz1$(\{O_i\mid i=0,1,\dots,\lfloor c\log(\sqrt 5|S|+1)\rfloor 
 \})$
 
@@ -7106,8 +7043,7 @@ Výstup}: $\mathcal H$
 {\bf spoj$(T_1,T_2)$}:\newline 
 {\bf if} $f(\text{\rm kořen }T_1)>f(\text{\rm kořen }T_2)$ {\bf then\newline 
 \phantom{{\rm{\rm ---}}}}vyměň stromy $T_1$ a $T_2$\newline 
-{\bf endif\newline 
-}
+{\bf endif\newline }
 vytvoř nového syna $v$ kořene $T_1$\newline 
 $v:=$kořen $T_2$
 
@@ -7153,8 +7089,7 @@ v$\newline
 \phantom{---}odtrhni podstromy určené všemi syny 
 vrcholu $v$ a vlož je do $\mathcal H$\newline 
 {\bf endif\newline 
-if} $v$ není kořen {\bf then vyvaz2$(T,v)$ endif\newline 
-}
+if} $v$ není kořen {\bf then vyvaz2$(T,v)$ endif\newline }
 zruš vrchol $v$
 
 {\bf vyvaz2$(T,v)$}:\newline 
@@ -7165,17 +7100,16 @@ $u:=\otec v$\newline
 \phantom{---}vlož $T'$ do $\mathcal H$, $u:=u'$\newline 
 {\bf enddo\newline 
 if} $u$ není kořen $T$ {\bf then} označ $u$ {\bf endif
-
 }
 Všimněme si, že když stromy $T_1$ a $T_2$ mají rank 
-$i$, pak procedura {\bf spoj$(T_1,T_2)$} vytvoří strom s rankem 
+$i$, pak procedura {\bf spoj$(T_1,T_2)$} vytvoří strom s~rankem 
 $i+1$.  Aby algoritmy pro operace {\bf MIN} a {\bf DELETEMIN} byly 
 korektní, musíme ukázat, že všechny stromy ve 
 Fibonacciho haldě $\mathcal H$ reprezentující množinu $
 S$ mají rank 
 nejvýše $c\log(\sqrt 5|S|+1)$. Jen tak zajistíme, aby výsledná 
 halda reprezentovala $S$, res\-pektive 
-$S\setminus \{\text{\rm prvek s nejmenší hodnotou }f\}$.  Operace {\bf vyvaz1 }
+$S\setminus \{\text{\rm prvek s~nejmenší hodnotou }f\}$.  Operace {\bf vyvaz1 }
 zajišťuje, že od každého vrcholu stromu různého 
 od kořene byl v tomto stromě odtržen podstrom nejvýše 
 jednoho syna -- v tom případě je tento prvek označen a 
@@ -7185,9 +7119,7 @@ stromu).  Když se později stane tento vrchol zase
 vrcholem různým od kořene, celý proces se 
 opakuje. 
 
-\subsubsection{
-Složitost operací
-}
+\subsubsection{Složitost operací}
 
 Naším cílem bude odhadnout amortizovanou složitost těchto 
 operací, protože složitost v nejhorším případě není 
@@ -7204,7 +7136,7 @@ různé stro\-my v haldě mají různé
 ranky, označené vrcholy se nemění;\newline 
 {\bf DELETEMIN} -- časová složitost $O(|\mathcal H|+\text{\rm počet synů }
 v)$,
-kde $v$ reprezentoval prvek s nej\-menší hodnotou $f$. Po 
+kde $v$ reprezentoval prvek s~nej\-menší hodnotou $f$. Po 
 provedení ope\-ra\-ce různé stromy v haldě mají 
 různé ranky, žádný nový vrchol nebyl 
 označen, některé označené vrcholy přestaly být označené;\newline 
@@ -7316,7 +7248,7 @@ reprezentující $n-$prvkovou množinu má méně než $
 i-2$ 
 synů (když vrchol $v$ Fibonacciho haldy má $i-2$ 
 synů, pak podstrom vrcholu $v$ reprezentuje 
-množinu alespoň s $F_i$ prvky). Proto $\rho (n)<i-2$. K odhadu 
+množinu alespoň s~$F_i$ prvky). Proto $\rho (n)<i-2$. K odhadu 
 velikosti $i$ použijeme explicitní vzorec 
 pro $i$-té Fibonacciho číslo: 
 $$F_i=\frac {\big(\frac {1+\sqrt 5}2\big)^i-\big(\frac {1-\sqrt 5}
@@ -7389,16 +7321,14 @@ Indukční krok:
 (\frac {1-\sqrt 5}2\big)^{i-1}}{\sqrt 5}=F_{i-2}+F_{i-1}=F_i.\end{align*}
 Tedy indukcí dostáváme požadovaný vztah.
 
-\subsubsection{
-Aplikace 
-}
+\subsubsection{Aplikace }
 
 Vrátíme se k Dijkstrově algoritmu.  
 Množinu $U$ bude\-me reprezentovat pomocí Fibonacciho haldy.  
 Protože ohodnocení je nezáporné a ohodnocení počáteční haldy 
 je $0$, dává odhad amortizované složitosti také odhad časové 
 složitosti (viz odstavec IV.).  Proto Dijkstrův 
-algoritmus s použitím 
+algoritmus s~použitím 
 Fibonacciho haldy vyžaduje v nejhorším případě čas 
 $O(|X|(1+\log|X|)+|R|)=O(|R|+|X|\log|X|)$.  Stejný výsledek 
 dostane\-me i pro konstrukci nejmenší napnuté kostry grafu.  
@@ -7407,7 +7337,7 @@ Otázka je, kdy v Dijkstrově algoritmu nebo v
 algoritmu konstruují\-cím nejmenší napnutou kostru použít Fibonacciho haldu a kdy 
 např.  $d$-regu\-lár\-ní haldy. Lze 
 říci, že Fibonacciho halda by měla být výrazně lepší pro 
-větší, ale řídké grafy (tj. grafy s malým počtem hran). 
+větší, ale řídké grafy (tj. grafy s~malým počtem hran). 
 Dá se předpokládat, že $d$-regulární haldy budou lepší 
 (díky svým jednodušším algoritmům) pro husté 
 grafy (tj. grafy, kde počet hran je $|X|^{1+\varepsilon}$ pro vhodné 
@@ -7415,9 +7345,7 @@ $\varepsilon >0$). Problém je, pro které hodnoty nastává zlom.
 Nevím o žádných experimentálních ani teoretických 
 výsledcích tohoto typu.
 
-\subsubsection{
-Historický přehled
-}
+\subsubsection{Historický přehled}
 
 Binární neboli $2$-regulární haldy 
 zavedl Williams 1964.  Jejich zobecnění na $d$-regulární haldy 
@@ -7429,8 +7357,7 @@ Tarjanem 1987.
 
 \section{{Třídicí algoritmy}}
 
-Jednou z nejčastěji řešených úloh při práci s 
-daty je setřídění 
+Jednou z nejčastěji řešených úloh při práci s~daty je setřídění 
 posloupnosti prvků nějakého typu. Proto velká pozornost byla a je věnována 
 třídicím algoritmům řešícím tuto úlohu, která 
 svým charakterem a svými 
@@ -7449,7 +7376,7 @@ univerza $U$.\newline
 Výstup: Rostoucí posloupnost $\{b_1,b_2,\dots,b_n\}$ taková, že 
 $\{a_i\mid i=1,2,\dots,n\}=\{b_i\mid i=1,2,\dots,n\}$.\newline 
 Tento problém se nazývá \emph{třídění}. 
-V praxi se setkáváme s řadou jeho modifikací, a nichž 
+V praxi se setkáváme s~řadou jeho modifikací, a nichž 
 asi nejběžnější je vynechání předpokladu, že 
 vstupem je prostá posloupnost. Pak jsou dvě varianty 
 řešení -- buď se ve výstupní posloupnosti odstraní 
@@ -7459,9 +7386,7 @@ vstupní posloupnosti.
 Základní algoritmy, které  řeší třídicí 
 problém, jsou {\bf QUICKSORT}, {\bf MERGESORT} a {\bf HEAP\-SORT}. 
 
-\subsubsection{
-HEAPSORT
-}
+\subsubsection{HEAPSORT}
 
 S algoritmem {\bf HEAPSORT} jsme se seznámili při 
 aplikacích hald.  Byl to první algoritmus používající haldy 
@@ -7474,13 +7399,13 @@ podprocedura při řešení jiných úloh. V takovém případě je
 obvykle vstupní posloupnost uložena v poli v pracovní 
 paměti programu a poža\-dav\-kem  je setřídit ji 
 bez použití další 
-paměti pouze s výjimkou omezeného (malého) počtu pomocných 
+paměti pouze s~výjimkou omezeného (malého) počtu pomocných 
 proměnných. Pro řešení tohoto problému se hodí 
 {\bf HEAPSORT}. Zvolíme implementaci {\bf HEAPSORTU} pomocí 
 $d$-regulárních hald, které jsou reprezentovány  
 polem, v němž je uložena vstupní posloupnost (viz odstavec 
 Aplikace v kapitole o $d$-regulárních haldách). Použijeme 
-algoritmus s jedinou změnou -- budeme požadovat duální 
+algoritmus s~jedinou změnou -- budeme požadovat duální 
 podmínku na uspořádání (to znamená, že prvek reprezentovaný 
 vrcholem bude menší než prvek reprezentovaný jeho 
 otcem) a nahradíme operace {\bf MIN} a {\bf DELETEMIN }
@@ -7499,9 +7424,7 @@ setříděná část posloupnosti.
 bylo navrže\-no několik jeho modifikací, snažících se 
 např. minimalizovat počet porovnání prvků apod.
 
-\subsubsection{
-MERGESORT
-}
+\subsubsection{MERGESORT}
 
 Nejstarší z uvedených algoritmů je 
 {\bf MERGESORT}, který je starší než je počítačová éra, 
@@ -7588,9 +7511,7 @@ jeho verze, která začíná slévání vždy od
 jednoprvkových posloupností (tzv. přímý {\bf MERGESORT}) 
 tuto vlastnost nemá. 
 
-\subsubsection{
-QUICKSORT
-}
+\subsubsection{QUICKSORT}
 
 Nyní popíšeme patrně vůbec 
 nejpoužívanější třídicí algoritmus, kterým je {\bf QUICKSORT}. 
@@ -7630,7 +7551,6 @@ endif
 
 QUICKSORT$(a_1,a_2,\dots,a_n)$}:\newline 
 {\bf Výstup$($Quick$(a_1,a_2,\dots,a_n))$
-
 }
 Algoritmus {\bf Quick} setřídí posloupnost 
 $(a_i,a_{i+1},\dots,a_j)$ tak, že pro prvek $a=a_k$ vytvoří posloupnost 
@@ -7785,7 +7705,7 @@ QS(n)=\frac 1n\big(\sum_{k=0}^{n-1}n-1+QS(k)+QS(n-k-1)\big)=n-1+\frac
 2n(\sum_{k=0}^{n-1}QS(k)).\end{gather*}
 Z toho dostáváme, že 
 $$nQS(n)=n(n-1)+2\sum_{k=0}^{n-1}QS(k).$$
-Přepíšeme ještě jednou tuto rovnici s $n+1$ místo $
+Přepíšeme ještě jednou tuto rovnici s~$n+1$ místo $
 n$:
 $$(n+1)QS(n+1)=(n+1)n+2\sum_{k=0}^nQS(k).$$
 Od této rovnice odečteme rovnici předchozí a po 
@@ -7801,9 +7721,7 @@ n+1)\big(\sum_{i=2}^n\frac 1{i+1}\big)=2(n+1)\big(\sum_{i=3}^{n+1}\frac
 Pro dostatečně velká $n$ tedy platí 
 $$2n\ln(n+1)+2\ln(n+1)-n\le 2n\ln n.$$
 
-\subsubsection{
-Porovnání třídicích algoritmů
-}
+\subsubsection{Porovnání třídicích algoritmů}
 
 Nyní porovnáme složitost algoritmů 
 {\bf HEAPSORT}, {\bf MERGE\-SORT}, {\bf QUICKSORT}, {\bf A-sort} (byl popsán 
@@ -7842,14 +7760,14 @@ porovnání (nejmenší možný počet). Potřebuje $
 2n+konst$ 
 paměti, používá 
 sekvenční přístup k paměti a má verzi, která je 
-adaptivní na předtříděné posloupnosti s malým počtem 
+adaptivní na předtříděné posloupnosti s~malým počtem 
 běhů.\newline 
 {\bf A-sort} v nejhorším případě i v očekáném případě vyžaduje čas 
 $O(n\log\frac Fn)$, kde $F$ je počet inverzí ve vstupní 
 posloupnosti,  v nejhorším i v očekávaném 
 případě provádí $O(n\log\frac Fn)$ porovnání. Potřebuje  
 $5n+konst$ paměti, používá přímý přístup k paměti 
-a je adaptivní na předtříděné posloupnosti s malým 
+a je adaptivní na předtříděné posloupnosti s~malým 
 počtem inverzí.\newline 
 {\bf SELECTIONSORT} v nejhorším i v očekávaném případě 
 vyžaduje čas $2n^2$, počet porov\-nání v nejhorším 
@@ -7861,7 +7779,7 @@ vy\-žaduje čas $O(n^2)$, počet porov\-nání v nejhorším
 případě je $\frac {n^2}2$, v oče\-ká\-vaném případě 
 $\frac {n^2}4$. Potřebuje $n+konst$ paměti, použí\-vá 
 sekvenční přístup k paměti a má verzi, která je 
-adaptivní na předtříděné posloupnosti s malým počtem 
+adaptivní na předtříděné posloupnosti s~malým počtem 
 inverzí.
 
 Prezentované  výsledky byly spočítány 
@@ -7895,9 +7813,7 @@ $1$ : $1.33$ : $2.22$. To
 však nemusí  být pravda pro současné procesory, 
 paměti a operační systémy. 
 
-\subsubsection{
-Slévání nestejně dlouhých posloupností
-}
+\subsubsection{Slévání nestejně dlouhých posloupností}
 
 V algoritmu {\bf MERGESORT} jsme použili frontu, která 
 řídila proces slučování rostoucích posloupností.  Tato metoda je uspokojující a 
@@ -7906,7 +7822,7 @@ stejně dlouhé.  Pokud se ale jejich délky hodně liší,
 nedosáhneme tímto způsobem  
 optimálního výsledku.  Přitom různé verze tohoto 
 problému se vyskytují v mnoha úlohách. Jednou z prvních úloh, 
-kde jsme se s ním setkali, je konstrukce 
+kde jsme se s~ním setkali, je konstrukce 
 Huffmanova kódu -- to je minimální redundantní kód, který byl 
 nalezen v roce 1952. K optimálnímu řešení vede např. 
 postup, který je kombinací `mergeování' a 
@@ -7958,12 +7874,11 @@ definováno a\newline
 P(v_2)$ definovány\newline 
 \phantom{---}$P(v):=${\bf MERGE$(P(v_1),P(v_2))$\newline 
 enddo
-
 }
 Nyní můžeme přeformulovat původní 
 problém:\newline 
 Vstup: $n$ čísel $x_1,x_2,\dots,x_n$\newline 
-Výstup: úplný binární strom $T$ s $n$ listy a bijekce $
+Výstup: úplný binární strom $T$ s~$n$ listy a bijekce $
 \phi$ z 
 množiny $\{1,2,\dots,n\}$ do listů $T$ taková, že 
 $\sum_{i=1}^nd(\phi (i))x_i$ je minimální (kde $d(\phi (i))$ je hloubka 
@@ -7971,8 +7886,7 @@ listu $\phi (i)$).\newline
 Řekneme, že dvojice $(T,\phi )$ je \emph{optimální} 
 \emph{strom} vzhledem k $x_1,x_2,\dots,x_n$. 
 
-V přeformulováné úloze už nepracujeme s 
-posloupnostmi, ale jen s jejich délkami. 
+V přeformulováné úloze už nepracujeme s~posloupnostmi, ale jen s~jejich délkami. 
 To znamená, že když pro původní úlohu 
 byly vstupem posloupnosti $P_1,P_2,\dots,
 P_n$, pak pro 
@@ -7985,13 +7899,13 @@ přeformulované úloze ohodnocen délkou $l(P_i)$, a hledaná posloupnost
 v původní úloze ohodnocuje kořen stromu. 
 
 Mějme množinu $\{x_i\mid i=1,2,\dots,n\}$.  Pro úplný binární 
-strom $T$ s $n$ listy a bijekci $\phi$ z množiny $\{1,2,\dots,
+strom $T$ s~$n$ listy a bijekci $\phi$ z množiny $\{1,2,\dots,
 n\}$ do 
 listů stromu $T$ definujme 
 $$\Cont(T,\phi )=\sum_{i=1}^nd(\phi (i))x_i,$$
 kde $d(\phi (i))$ je hloubka listu $\phi (i)$, tj.  délka cesty z 
 kořene do listu $\phi (i)$  pro $i=1,2,\dots,n$.  
-Chceme zkonstruovat úplný binární strom s $n$ listy, 
+Chceme zkonstruovat úplný binární strom s~$n$ listy, 
 který minimalizuje hodnotu $\Cont$. K řešení 
 použijeme následující algoritmus, který je upravenou verzí 
 hladového algoritmu pro náš problém.
@@ -8001,7 +7915,7 @@ $V$ je množina $n$ jednoprvkových stromů\newline
 $\phi$ je bijekce mezi $\{1,2,\dots,n\}$ a množinou $V$\newline 
 {\bf for every} $v\in V$ {\bf do} $c(v):=x_{\phi^{-1}(v)}$ {\bf enddo\newline 
 while} $|V|>1$ {\bf do\newline 
-\phantom{{\rm---}}}vezmi z $V$ dva stromy $v_1$ a $v_2$ s nejmenším ohodnocením\newline 
+\phantom{{\rm---}}}vezmi z $V$ dva stromy $v_1$ a $v_2$ s~nejmenším ohodnocením\newline 
 \phantom{---}odstraň je z $V$\newline 
 \phantom{---}vytvoř nový strom $v$ spojením stromů $
 v_1$ a $v_2$\newline 
@@ -8031,7 +7945,7 @@ V$
 obsahuje jen 
 jednoprvko\-vé stromy, tak tvrzení platí.  Každý běh cyklu 
 {\bf while do} zmenší počet stromů $V$ o jeden, ale nezmění 
-množinu listů.  Proto $T$ je strom s $n$ listy, $\phi$ je 
+množinu listů.  Proto $T$ je strom s~$n$ listy, $\phi$ je 
 bijekce z $\{1,2,\dots,n\}$ do množiny listů $T$ a algoritmus 
 vždy končí.  Dokážeme indukcí podle $n$, že zkonstruovaná 
 dvojice $(T,\phi )$ je optimální strom vzhledem k $(x_1,x_2
@@ -8104,7 +8018,7 @@ tomto okamžiku je množina $V$ sjednocením množiny $\{
 v_1,v_2,\dots,v_k\}$ 
 a množiny jednoprvkových stromů, které nebyly ještě 
 zpracovány. Nyní vytvoříme strom $w$ spojením 
-stromů $t_1$ a $t_2$ s nejmenším ohodnocením. Z popisu algoritmu plyne, že když 
+stromů $t_1$ a $t_2$ s~nejmenším ohodnocením. Z popisu algoritmu plyne, že když 
 strom $v_i$ pro $i=1,2,\dots,k$ vznikl spojením stromů $
 u_1$ 
 a $u_2$, pak $\max\{c(u_1),c(u_2)\}\le\min\{c(t_1),c(t_2)\}$, a proto $
@@ -8121,7 +8035,7 @@ stro\-my v množině $V$) a frontu víceprvkových
 stromů (z níž stromy ke zpracování odebíráme 
 zpředu a nově vytvořené  
 ukládáme na konec).  Udržovat tyto struktury vyža\-duje čas 
-$O(1)$ stejně jako nalezení dvou stromů s nej\-menším 
+$O(1)$ stejně jako nalezení dvou stromů s~nej\-menším 
 ohodnocením. Můžeme tedy shrnout, že algoritmus 
 {\bf Optim} konstruuje optimální stromy v čase $O(n)$, kde $
 n$ je počet 
@@ -8187,7 +8101,7 @@ $n$-prvkové posloupnosti je pak délka nejdelší cesty z kořene
 do listu v odpovídajícím stromu. To nám umožňuje 
 získat obecně platný dolní odhad času potřebného k setřídění 
 $n-$prvkové posloupnosti, kterým je  
-minimum přes všechny binární stromy s alespoň $n!$ 
+minimum přes všechny binární stromy s~alespoň $n!$ 
 listy z jejich maximálních délek cest z kořene do listu. 
 Korekt\-nost těchto úvah plyne z pozorování, 
 že když porovnání je jediná primi\-tivní operace, pak 
@@ -8221,7 +8135,7 @@ skončí, nebo jsou prázdné.
 \end{figure}
 
 \begin{definice}Mějme třídicí algoritmus {\bf A}, který 
-jako jedinou pri\-mitivní operaci s prvky vstupní 
+jako jedinou pri\-mitivní operaci s~prvky vstupní 
 posloupnosti používá jejich porov\-nání. Řekneme, že binární 
 strom $T$, jehož vnitřní vrcholy jsou ohodnoceny 
 porovnáními  $a_i\le a_j$ pro $i,j=1,2,\dots,n$, $i\ne j$, je 
@@ -8248,11 +8162,11 @@ algoritmu {\bf A} roven průměrné délce cesty z kořene do
 listu.  
 
 Definujme\newline 
-$S(n)$ jako minimum přes všechny stromy $T$ s alespoň $n
+$S(n)$ jako minimum přes všechny stromy $T$ s~alespoň $n
 !$ listy z 
 délek nejdelších cest z kořene 
 do listu v $T$, \newline 
-$A(n)$ jako minimum přes všechny stromy $T$ s alespoň $n
+$A(n)$ jako minimum přes všechny stromy $T$ s~alespoň $n
 !$ listy z
 průměrných délek cest z kořene do listu v $T$.\newline 
 Naším cílem je spočítat dolní odhady těchto veličin.
@@ -8278,24 +8192,24 @@ $$S(n)\ge\log_2n!\ge (n+\frac 12)\log_2n-\frac n{\ln2}.$$
 
 Dále pro binární strom $T$ označme $B(T)$ součet všech 
 délek cest z kořene do listů a položme 
-$$B(k)=\min\{B(T)\mid T\text{\rm\ je binární strom s $k$ listy}
+$$B(k)=\min\{B(T)\mid T\text{\rm\ je binární strom s~$k$ listy}
 \}.$$
 Když ukážeme, že $B(k)\ge k\log_2k$, pak bude 
 $$A(n)\ge\frac {B(n!)}{n!}\ge\frac {n!\log_2n!}{n!}=\log_2n!\ge (
 n+\frac 12)\log_2n-\frac n{\ln2}.$$
 Dokažme tedy, že $B(T)\ge k\log_2k$ pro každý binární 
-strom $T$ s $k$ listy. Když ve stromě $T$ vynecháme každý 
+strom $T$ s~$k$ listy. Když ve stromě $T$ vynecháme každý 
 vrchol, který má jen jednoho syna, a tohoto syna spojíme 
 s jeho předchůdcem, dostaneme úplný binární 
-strom $T'$ s $k$ listy tako\-vý, že $B(T')\le B(T)$. Proto se stačí  
+strom $T'$ s~$k$ listy tako\-vý, že $B(T')\le B(T)$. Proto se stačí  
 omezit na úplné binární stromy. Když $T$ je úplný 
-binární strom s jedním listem, pak $B(T)=0=1\log_21$, 
+binární strom s~jedním listem, pak $B(T)=0=1\log_21$, 
 když $T$ je úplný binární strom se dvěma listy, pak 
 $B(T)=2=2\log_22$. Tedy platí $B(1)\ge 1\log_21$ a $B(2)\ge 2\log_
 22$. 
 Předpokládejme, že $B(i)\ge i\log_2i$ pro $i<k$, a nechť $
 T$ je 
-úplný binární strom s $k$ listy. Nechť $T_1$ a $T_2$ jsou 
+úplný binární strom s~$k$ listy. Nechť $T_1$ a $T_2$ jsou 
 podstromy určené syny kořene a nechť $T_i$ má $k_i$ 
 listů, kde $i=1,2$. Pak $1\le k_1,k_2$ a $k_1+k_2=k$, tedy 
 $k_1,k_2<k$ a podle indukčního předpokladu $B(k_i)\ge k_
@@ -8307,7 +8221,7 @@ $$B(T)=k_1+B(T_1)+k_2+B(T_2)\ge k+B(k_1)+B(k_2)\ge k+k_1\log_2k_1
 Tedy stačí ukázat, že 
 $$k+k_1\log_2k_1+k_2\log_2k_2\ge k\log_2k$$
 pro všechna $k_1,k_2>0$ taková, že $k=k_1+k_2$. To je 
-ekvivalentní s tvrzením, že pro $k>0$ platí 
+ekvivalentní s~tvrzením, že pro $k>0$ platí 
 $$f(x)=x\log_2x+(k-x)\log_2(k-x)+k-k\log_2k\ge 0,$$
 kde $x\in (0,k)$. 
 Abychom to dokázali, všimněme si, že $f(\frac k2)=0$ a  
@@ -8323,7 +8237,7 @@ n{\ln2}$. Shrneme
 naše výsledky.
 
 \begin{veta}Každý třídicí algoritmus, jehož jedinou 
-primitivní ope\-rací s prvky vstupní posloupnosti je 
+primitivní ope\-rací s~prvky vstupní posloupnosti je 
 porovnání, vyžaduje v nejhorším i v očekávaném případě 
 alespoň $cn\log n$ času pro nějakou konstantu $c>0$.  V 
 nejhorším případě použije alespoň $\lceil 
@@ -8442,8 +8356,7 @@ Poznámka: V důkazu jsme použili odhad
 $q\log q\le q^2$ a důsledkem toho je, že jsme 
 dokázali, že očekávaná složitost {\bf HYBRIDSORTU }
 zůstane lineární, i kdybychom v něm místo 
-{\bf HEAPSORTU} použili nějaký třídicí algoritmus s 
-kvadratickou složitostí, např. {\bf INSERTIONSORT}.
+{\bf HEAPSORTU} použili nějaký třídicí algoritmus s~kvadratickou složitostí, např. {\bf INSERTIONSORT}.
 
 Nyní použijeme modifikaci {\bf BUCKETSORTU} pro 
 třídění slov.  Máme totálně 
@@ -8555,7 +8468,7 @@ přesné zně\-ní naší úlohy (úloha i algoritmy se dají
 snadno přeformulovat pro případ, kdy hledáme $k-$tý 
 největší prvek).
 
-Pracujeme s totálně uspořádaným univerzem $
+Pracujeme s~totálně uspořádaným univerzem $
 U$.\newline 
 Vstup: množina prvků $M=\{a_1,a_2,\dots,a_n\}\subseteq 
 U$ a číslo $i$ takové, 
@@ -8673,7 +8586,6 @@ M\mid\bar {m}<m\}$\newline
 \phantom{{\rm ---}}endif\newline 
 \phantom{{\rm ---}}Výstup}: $m$\newline 
 {\bf endif
-
 }
 Důkaz korektnosti algoritmu je stejný 
 jako u algoritmu {\bf FIND}. 
@@ -8730,15 +8642,12 @@ případů
 rychlejší než algoritmus {\bf SELECT}, proto je v praxi 
 doporučován, i když existují 
 případy (velmi řídké), kdy potřebuje kvadratický čas.
-Je známo, že medián $n$-prvkové množiny lze nalézt s 
-méně než $3n$ porovnáními a že každý algoritmus hledající 
+Je známo, že medián $n$-prvkové množiny lze nalézt s~méně než $3n$ porovnáními a že každý algoritmus hledající 
 medián a používající porovnání jako jedinou primitivní 
 operaci mezi prvky množiny vyžaduje více než $2n$ 
 porovnání.
 
-\subsubsection{
-Historický přehled
-}
+\subsubsection{Historický přehled}
 
 Algoritmus {\bf HEAPSORT }
 navrhl v roce 1964 Williams a vylepšil Floyd (rovněž 1964).  Návrh 
