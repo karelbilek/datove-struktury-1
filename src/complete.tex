@@ -1775,7 +1775,7 @@ Spočítáme $i:=h_1(x)$, $h:=h_2(x)$, $j:=0$\newline
 i:=i+h\bmod m$, $j:=j+1$ {\bf enddo\newline 
 if} $j=m$ {\bf then Výstup}: přeplnění, stop {\bf endif\newline 
 if} $i.key=$prázdný {\bf then} $i.key:=x$ {\bf endif}
-}}
+}
 
 \subsubsection{Ilustrace}
  Mějme universum $U=\{1,2,\dots,1000
@@ -1800,37 +1800,111 @@ Tabulka vznikla posloupností operací:\newline
 \subsubsection{Očekávaný počet testů - neúspěšný případ}
 
 
-Značení:  $q_i(n,m)$ -- když tabulka má $m$ řádků a 
+\begin{definice} $q_i(n,m)$ -- když tabulka má $m$ řádků a 
 je v ní obsazeno $n$ řádků, tak je to 
 pravděpodobnost, že pro každé $j=0,1,\dots,i-1$ je 
-řádek $h_1(x)+jh_2(x)$ obsazen. Pak $q_0(n,m)=1$, $q_1(n,m)=\frac 
-nm$, 
-$q_2(n,m)=\frac {n(n-1)}{m(m-1)}$ a obecně 
-$$q_i(n,m)=\frac {\prod_{j=0}^{i-1}(n-j)}{\prod_{j=0}^{i-1}(m-j)}
-.$$
+řádek $h_1(x)+jh_2(x)$ obsazen.
+\end{definice} 
+
+\begin{pozorovani} $q_0(n,m)=1$
+\end{pozorovani}
+\begin{proof}
+    Krajní případ - je určitě obsazen pro $j=0 \dots -1$
+\end{proof}
+
+\begin{pozorovani} $q_1(n,m)=\frac nm$
+\end{pozorovani}
+\begin{proof}
+    Bez druhé hešovací funkce, tj. zkusím jen jednou.
+\end{proof}
+
+\begin{pozorovani} $q_2(n,m)=\frac {n(n-1)}{m(m-1)}$
+\end{pozorovani}
+\begin{proof}
+    První hešovací funkce se nestrefí, druhá také ne (a druhá funkce je nesoudělná s~$m$ a je náhodná)
+\end{proof}
+
+\begin{lemma} [Obecný odhad $q_i$]
+    Obecně platí $$q_i(n,m)=\frac {\prod_{j=0}^{i-1}(n-j)}{\prod_{j=0}^{i-1}(m-j)}$$
+\end{lemma}
+\begin{proof}
+Zobecnění předchozích pozorování.
+\end{proof}
+
+\begin{definice}
 $C(n,m)$ -- očekávaný počet testů v neúspěšném 
 vyhledávání, když tabulka má $m$ řádků a $
 n$ jich 
-je obsazeno. Podle definice platí:
-$$C(n,m)=\sum_{j=0}^n(j+1)(q_j(n,m)-q_{j+1}(n,m))=\sum_{j=0}^nq_j
-(n,m).$$
-Dále platí $C(0,m)=1$ pro každé $m$ a 
-$q_j(n,m)=\frac nmq_{j-1}(n-1,m-1)$ pro všechna $j,n>0$ a $m>1$. 
-Odtud
-$$C(n,m)=\sum_{j=0}^nq_j(n,m)=1+\frac nm(\sum_{j=0}^{n-1}q_j(n-1,
-m-1))=1+\frac nmC(n-1,m-1).$$
+je obsazeno (tj. to, co chci spočítat)
+\end{definice}
 
-Indukcí ukážeme, že $C(n,m)=\frac {m+1}{m-n
-+1}$. Když $n=0$, pak 
-$C(0,m)=\frac {m+1}{m-0+1}=1$ a tvrzení platí. Předpokládáme, že tvrzení 
+\begin{lemma}
+    $C(n,m)=\sum_{j=0}^n(j+1)(q_j(n,m)-q_{j+1}(n,m))$
+\end{lemma}
+\begin{proof}
+    Pro každé $j$ vezmu pravděpodobnost, že jen pro $i\le j$ je $h_1(x)+jh_2(x)$ obsazen, pro všechny další je volný; pro každé takové $j$ je počet testů $j+1$ 
+\end{proof}
+
+\begin{lemma}
+    $C(n,m)=\sum_{j=0}^{n}q_j(n,m)$
+\end{lemma}
+\begin{proof}
+    Předchozí lemma + úprava indexů
+\end{proof}
+
+\begin{lemma}
+    $C(0,m)=1$ pro každé $m$
+\end{lemma}
+\begin{proof}
+     Vyplývá z předchozího lemmatu + $q_0(0,m)=1$
+\end{proof}   
+
+\begin{lemma}
+    $q_j(n,m)=\frac nmq_{j-1}(n-1,m-1)$ pro všechna $j,n>0$ a $m>1$
+\end{lemma}
+\begin{proof}
+     Z obecného odhadu $q_i$ $$q_i(n,m)=\frac {\prod_{j=0}^{i-1}(n-j)}{\prod_{j=0}^{i-1}(m-j)} = \frac {n\prod_{j=0}^{i-1}((n-1)-j)}{m\prod_{j=0}^{i-1}((m-1)-j)}=\frac nmq_{j-1}(n-1,m-1)$$
+\end{proof}
+
+\begin{lemma}
+    $C(n,m)=1+\frac nmC(n-1,m-1)$
+\end{lemma}
+\begin{proof}
+    $$C(n,m)=\sum_{j=0}^nq_j(n,m)=1+\frac nm(\sum_{j=0}^{n-1}q_j(n-1,
+    m-1))=1+\frac nmC(n-1,m-1).$$
+\end{proof}
+
+\begin{lemma}
+    Očekávaný počet dotazů při neúspěšném 
+    vyhledávání v tabulce s~$m$ řádky, z nichž $n$ je obsazeno, je $C(n,m)=\frac {m+1}{m-n
+    +1}$
+\end{lemma}
+\begin{proof}
+Indukcí. 
+
+Když $n=0$, pak 
+$C(0,m)=\frac {m+1}{m-0+1}=1$ a tvrzení platí.
+
+Předpokládáme, že tvrzení 
 platí pro $n-1\ge 0$ a pro každé $m\ge n-1$ a dokážeme tvrzení 
 pro $n$ a $m\ge n$. Platí
 \begin{align*} C(n,m)=&1+\frac nmC(n-1,m-1)=\\
 &1+\frac {n((m-1)+1)}{m((m-1)-(n-1)+1)}=\\
 &1+\frac n{m-n+1}=\frac {m+1}{m-n+1}.\end{align*}
-Očekávaný počet dotazů při neúspěšném 
+\end{proof}
+
+\begin{veta}
+    Očekávaný počet dotazů  při neúspěšném 
+    vyhledávání je přibližně $\frac 1{1-\alpha}$
+\end{veta}
+\begin{proof}
+    Z předchozího lemmatu $C(n,m) = \frac {m+1}{m-n+1} \sim \frac 1{1-\alpha}$.
+\end{proof}
+
+\zapamatovat{Očekávaný počet dotazů při neúspěšném 
 vyhledávání v tabulce s~$m$ řádky, z nichž $n$ je obsazeno, 
-je $\frac {m+1}{m-n+1}$.
+je přibližně $\frac 1{1-\alpha}$.
+}
 
 \subsubsection{Úspěšný případ}
 
@@ -1851,11 +1925,13 @@ m+1}{m-i+1}=\\
 1j\big)\approx\\
 &\frac 1{\alpha}\ln(\frac {m+1}{m-n+1})\approx\frac 1{\alpha}\ln(\frac 
 1{1-\alpha}).\end{align*}
+
+
 Následující tabulka ukazuje tyto hodnoty v závislosti na 
 velikosti $\alpha$. 
 $$\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule\ # & \vrule\ # & \vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}hodnota $\alpha$ & 0.5 & 0.7 & 0.9 & 0.95 & 0.99 & 0.999 \hfill \cr\noalign{\hrule}$\frac 1{1-\alpha}$ & 2 & 3.3 & 10 & 20 & 100 & 1000 \cr\noalign{\hrule} $\frac 1{\alpha}\ln(\frac 1{1-\alpha})$ & 1.38 & 1.70 & 2.55 & 3.15 & 4.65 & 6.9 \cr\noalign{\hrule}}}$$
 
-\subsection{Porovnání efektivity}
+\subsection{Porovnání efektivity hašovacích algoritmů}
 
 Pořadí metod hašování podle očekávaného počtu 
 testů:
