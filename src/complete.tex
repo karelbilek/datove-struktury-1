@@ -2394,7 +2394,7 @@ $$|I'|<\frac {|I|}t.$$
 Tedy pravděpodobnost, že $\delta_i(x,S)\ge 
 t\mu$, je menší 
 než $\frac 1t$.
-\endin{proof}
+\end{proof}
 
 
 Poznámka: Toto tvrzení platí obecně a nazývá 
@@ -2482,29 +2482,44 @@ délku alespoň $\lceil (\log m-\log c+\log\log N-\log\log m)\rceil$ (zde všech
 jsou o základu $2$).
 \end{pozorovani}
 
-\subsubsection{Malý univerzální systém}
-MASEC
-
+\subsubsection{Malý univerzální systém - definice}
 Zkonstruujeme $c$-univerzální systém takový, 
 že logaritmus z velikosti jeho indexové množiny pro velká 
 univerza je až na aditivní konstantu menší než 
 $4(\log m+\log\log N)$, kde $N$ je velikost univerza a $m$ je počet 
 řádků v tabulce.  
 
-Nechť $p_1,p_2,\dots$ je rostoucí posloupnost všech 
-prvočísel. Měj\-me velikost tabulky $m$ a univerzum $U=
+Měj\-me velikost tabulky $m$ a univerzum $U=
 \{0,1,\dots,N-1\}$ pro 
-nějaké přirozené číslo $N$ (nemusí být prvočíslo). Nechť $
+nějaké přirozené číslo $N$ (nemusí být prvočíslo).
+
+\begin{definice}
+    Nechť $p_1,p_2,\dots$ je rostoucí posloupnost všech 
+    prvočísel.
+\end{definice}
+
+\begin{definice} Nechť $
 t$ je 
-nejmenší číslo takové, že $t\ln p_t\ge m\ln N$. Definujme 
+nejmenší číslo takové, že $t\ln p_t\ge m\ln N$.
+\end{definice}
+
+\begin{lemma} $t < m\ln N$, když $p_t>3$.
+\end{lemma}
+\begin{proof}
+    Pokud $p_t>3$, je $\ln p_t \ge 1$.
+\end{proof}
+
+\begin{definice} Definujme 
 $$H_1=\{g_{c,d}(h_{\ell})\mid t<\ell\le 2t,\,c,d\in \{0,1,\dots,p_{
 2t}-1\}\},$$
 kde $h_{\ell}(x)=x\bmod p_{\ell}$ a 
-$g_{c,d}(x)=((cx+d)\bmod p_{2t})\bmod m$.\newline 
-Ukážeme, že když $m(\ln m+\ln\ln m)<N$, pak $H_1$ je $
-3.25$-univerzální systém. 
+$g_{c,d}(x)=((cx+d)\bmod p_{2t})\bmod m$.
+\end{definice}
 
-Nejprve si připomeneme známou větu o velikosti prvočísel 
+V další sekci ukážeme, že když $m(\ln m+\ln\ln m)<N$, pak $H_1$ je $
+3.25$-univerzální systém. Nejdříve ale ukážeme, že indexová množina je dostatečně malá. 
+
+Připomeneme si známou větu o velikosti prvočísel, bez důkazu 
 (zde $\ln$ je přirozený logaritmus, tj. o základu $e$).
 
 \begin{veta}Pro každé $i=1,2,\dots$ platí $p_i>i\ln 
@@ -2512,9 +2527,17 @@ i$ a pro $i\ge 6$
 platí $p_i<i(\ln i+\ln\ln i)$. \qed
 \end{veta}
 
-Tedy pro $i\ge 6$ platí $p_i<2i\ln i$.
+\begin{pozorovani}
+Pro $i\ge 6$ platí $p_i<2i\ln i$. (z~do\-sa\-ze\-ní do věty o velikosti prvočísel)
+\end{pozorovani}
 
-Velikost indexové množiny $H_1$.  Indexová množina $
+\begin{veta}
+    $|I|<16 m^4 \log^4N$ pro dostatečně velké $t$.
+\end{veta}
+\begin{proof}
+    (pozn. studenta - díky logaritmům je tento důkaz dost nepřehledný :( logaritmy jsou dvojkové)
+    
+Indexová množina $
 H_1$ je 
 $$I=\{(c,d,\ell )\mid c,d\in \{0,1,\dots,p_{2t}-1,\,t<\ell\le 2t\}
 .$$
@@ -2523,12 +2546,20 @@ Tedy $|I|=tp_{2t}^2$.
 Odtud plyne $|I|\le 16t^3\ln^22t$ a tedy 
 $$\log(|I|)\le 4+3\log t+2\log\log t.$$
 Pro dostatečně velké $t$ (takové, že $\log t\ge 2\log\log 
-t$, tj. $t\ge 16$) platí, 
-že $\log(|I|)\le 4+4\log t$.  Z definice $t$ plyne, 
-že $t\le m\ln N$, když $\ln p_t\ge 1$ (tj.  $p_t\ge 3$).\newline 
-Závěr: $\log(|I|)\le 4+4(\log m+\log\log N)$. 
+t$, tj. $t\ge 16$)\footnote{Nejsem si jist, proč platí, ale asi ano} platí, 
+že $\log(|I|)\le 4+4\log t$. 
 
-\subsubsection{Univerzalita malého systému}
+$t\le m\ln N$, když $p_t\ge 3$ (viz výše).
+
+Po dosazení $\log(|I|)\le 4+4(\log m+\log\log N)$, což už upravíme na požadovanou nerovnost. 
+\end{proof}
+
+\begin{pozorovani}
+    Logaritmus z~důkazu, tj. $\log(|I|)\le 4+4(\log m+\log\log N)$, nám dává horní omezení velikosti binárního zápisu funkce, tj. počet nutných náhodných výběrů.
+\end{pozorovani}
+
+
+\subsubsection{Univerzalita malého systému $H_1$}
 
 Zvolme různá $x$ a $y$ z univerza $U$. 
 Označme
