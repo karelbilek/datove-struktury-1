@@ -49,9 +49,9 @@
  \setlength\fboxrule{5pt}
  \begin{center}
  $\vcenter{
- \hbox{\raisebox{-0.7ex}{\scalebox{1.7}{\Huge\RIGHTarrow}}\begin{boxedminipage}{0.8\textwidth}
+ \hbox{\raisebox{-0.8ex}{\scalebox{1.7}{\Huge\RIGHTarrow}}\begin{boxedminipage}{0.8\textwidth}
 \large #1
- \end{boxedminipage}\raisebox{-0.7ex}{\scalebox{1.7}{\Huge\LEFTarrow}}}}$
+ \end{boxedminipage}\raisebox{-0.8ex}{\scalebox{1.7}{\Huge\LEFTarrow}}}}$
  \end{center}
  }
  }
@@ -124,6 +124,10 @@ na konkrétních okolnostech), které sofistikovanější metody
 budou v praxi vhodné pro řešení vašeho problému. Cílem přednášky je 
 seznámit vás s~možnostmi, jak řešit tyto problémy, a se základními 
 metodami pro jejich řešení.
+
+Skripta byla napsána profesorem Koubkem; pan profesor je dal k dispozici Karlovi Bílkovi a Markovi Vašutovi, kteří z~nich \uv{svévolně} udělali tuto upravenou verzi v LaTeXu. Některé části tedy nemusí být správné. Delší důkazy, ve kterých mi v~původních skriptech chyběla struktura, jsem přepsal na sérii drobnějších lemmat, doufám, že to bude jasnější.
+
+
 \section{Hašování}
 
 
@@ -1154,18 +1158,19 @@ testů pro zjiš\-tění, že $s_{n+1}\notin S$ -- tj. to, co chceme spočítat,
 \begin{definice}
 Řetězec délky $l$ v množině $S$ je maximální posloupnost 
 adres $(b_1,b_2,\dots,b_l)$ taková, že $b_i.next=b_{i+1}$ pro 
-$i=1,2,\dots,l-1$.
+$i=1,2,\dots,l-1$. Existence řetězce je dána posloupností $a$ (při jiném pořadí by vzniknul jinak, naopak dvě množiny se stejnou posloupností $a$ mají stejný řetězec).
 \end{definice}
 
 \begin{lemma}
-    Řetězec délky $l$ přispěl k součtu 
+    Jeden řetězec délky $l>0$ v~jedné dané posloupnosti $\{a_n\}$ přispěl k součtu 
     $\sum C(a_1,a_2,\dots,a_n;a_{n+1})$ počtem testů $1+2+\dots+l=l+\binom l2$.
 \end{lemma}
 
 \begin{proof}
-Když adresa $a_{n+1}$ je $i$-tý prvek v řetězci, pak počet 
+Když v~množině $\{a_n\}$ tento řetězec existuje a adresa $a_{n+1}$ je $i$-tý prvek v řetězci, pak počet 
 testů je $l-i+1$ -- počet testů znamená \uv{projet} kompletní zbytek řetězce.
 \end{proof}
+
 
 \begin{definice}
 $c_n(l)=$ počet všech řetězců délky $
@@ -1186,7 +1191,9 @@ l2)c_n(l)\\
 kde $c_n(0)$ je počet prázdných řádků ve všech 
 reprezentacích.
 
-Sčítáme všechny možné $C$ jako součet přes všechny možné řetězce \emph{vůbec}.
+$c_n(0)$ je zde proto, že test na prázdnost je $O(1)$.\footnote{poznámka studenta - tohle mi není trochu jasné :(}
+
+Sčítáme všechny možné $C$ jako součet přes všechny možné řetězce \emph{vůbec}, ve všech množinách.
 
 \end{proof}
 
@@ -1347,16 +1354,32 @@ prvků v jednotlivých řetězcích).
 
 Očekávaný počet testů při úspěšném 
 vyhledávání v modelu LISCH spočítáme stejnou meto\-dou jako 
-pro hašování se separujícími řetězci.  Pro vyhledání prvku 
+pro hašování se separujícími řetězci.
+
+\begin{lemma}
+Pro úspěšné vyhledání prvku 
 $s_{n+1}\in S$ je počet testů roven $1+$počet porovnání 
-klíčů při operaci {\bf INSERT$(s_{n+1})$.}  Když $
+klíčů při neúspěšném vyhledávání při operaci {\bf INSERT$(s_{n+1})$.} 
+\end{lemma}
+\begin{dukaz}
+     Jednička je za poslední porovnání $s_{n+1}$.
+\end{dukaz}
+
+\begin{pozorovani}
+Když $
 s_{n+1}$ je vložen 
-na místo $h(s_{n+1})$, nebyl porovnáván žádný klíč a test bude $
-1$, 
-když $h(s_{n+1})$ byl na na $i$-tém místě v řetězci délky $
+na místo $h(s_{n+1})$, nebyl porovnáván žádný klíč a test pro úspěšné vyhledávání bude $
+1$.
+\end{pozorovani}
+
+\begin{pozorovani}
+Když $h(s_{n+1})$ byl na na $i$-tém místě v řetězci délky $
 l$, pak bylo 
-při operaci {\bf INSERT$(s_{n+1})$} použito $l-i+1$ porovnání klíčů 
-a teď se použije $l-i+2$ testů. Podle předchozí části analýzy dostaneme, že očekávaný počet 
+při operaci {\bf INSERT$(s_{n+1})$} použito $l-i+1$ porovnání klíčů (musel jsem \uv{projet} celý zbytek řetězce)
+a teď se použije $l-i+2$ testů.
+\end{pozorovani}
+
+ Podle předchozí části analýzy dostaneme, že očekávaný počet 
 porovnání klíčů při neúspěšném vyhledávání je 
 \begin{align*}&\frac 1{m^{n+1}}(\sum_{l=1}^n(l+\binom l2)c_n(l))=\\
 &\frac 1{m^{n+1}}(nm^n+\frac 14\big(m(m+2)^n-m^{n+1}-2nm^n\big))=\\
