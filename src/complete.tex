@@ -2901,28 +2901,49 @@ podmnožin universa je $\binom Nn$, a každá z~funkcí v $H$ je perfektní pro 
     
 Jiný odhad velikosti $(N,m,n)$-perfektního souboru.
 
-Předpokládejme, že $H=\{h_1,\dots,h_t\}$ je 
-$(N,m,n)$-perfektní soubor funkcí.  Definujme indukcí 
-soubor množin $U_i$:\newline 
-$U_0=U$ a pro 
-$i>0$ je $U_i$ největší podmnožina $U_{i-1}$, co do počtu 
-prvků, 
-taková, že $h_i$ je konstantní na $U_i$.  Pak $|U_i|\ge\frac {
-|U_{i-1}|}m$ 
-pro všechna $i>0$.  Z $|U_0|=N$ plyne $|U_i|\ge\frac N{m^i}$.  Pro každé 
-$i=1,2,\dots,t$ je $h_j(U_i)$ jednobodová množina pro každé 
-$j\le i$.  Proto žádná $h_j$ pro $j\le i$ není perfektní pro 
-množinu $S\subseteq U$ takovou, že $|S\cap U_i|\ge 2$.  Protože $
-H$ je 
-$(N,m,n)$-perfektní, musí být $|U_t|\le 1$, a tedy $\frac 
-N{m^t}\le 1$.  Proto 
-$t\ge\frac {\log N}{\log m}$.    
+\begin{veta}
+    $$|H|\ge\frac {\log N}{\log m}$$
+\end{veta}
 
-\begin{veta}Když $H$ je $(N,m,n)$-perfektní soubor 
+\begin{proof}
+Velikost souboru funkcí nazvěme $t$, $H=\{h_1,\dots,h_t\}$. 
+
+Definujme indukcí 
+soubor množin $U_i$:
+\begin{pitemize}
+    \item$U_0=U$ 
+    \item pro $i>0$ je $U_i$ největší podmnožina $U_{i-1}$, co do počtu 
+    prvků, 
+    taková, že $h_i$ je konstantní na $U_i$.
+\end{pitemize} 
+ 
+Pak $|U_i|\ge\frac {
+|U_{i-1}|}m$ 
+pro všechna $i>0$; z $|U_0|=N$ plyne $|U_i|\ge\frac N{m^i}$. 
+
+ Pro každé 
+$i=1,2,\dots,t$ je $h_j(U_i)$ jednobodová množina pro každé 
+$j\le i$ (z~definice množin $U$ -- je tam konstantní).
+
+Tedy, jakmile bychom pro nějaké $i$ měli množinu $S$, pro kterou $|S\cap U_i|\ge 2$, tak žádné $j\le i$ není perfektní (protože pro tyto dva prvky by byla shodná).
+
+ Protože $
+H$ je 
+$(N,m,n)$-perfektní, musí být $|U_t|\le 1$ (vzali-li bychom si množinu, co by v~sobě měla více, než 2 prvky z $U_t$, ani jedna z~funkcí by tam nemohla být perfektní), a tedy $\frac 
+N{m^t}\le 1$.
+
+Proto 
+$t\ge\frac {\log N}{\log m}$.    
+\end{proof}
+
+Z obou vět potom platí:
+
+\zapamatovat{Když $H$ je $(N,m,n)$-perfektní soubor 
 funkcí, pak 
 $$|H|\ge\max\{\frac {\binom Nn}{\binom mn(\frac Nm)^n},\frac {\log 
 N}{\log m}\}.$$
-\end{veta}
+}
+
 
 \subsubsection{Existence $(N,m,n)$-perfektního souboru}
 
