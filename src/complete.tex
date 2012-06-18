@@ -2862,27 +2862,43 @@ Předpokládejme, že $H$ je $(N,m,n)$-perfektní
 systém pro $U=\{0,1,\dots,N-1\}$ a nejprve nalezneme dolní 
 odhady na velikost $|H|$.
 
-Mějme funkci $h$ z $U$ do množiny $\{0,1,\dots,m-
-1\}$. 
-Nalezneme počet množin $S\subseteq U$ takových, že  
-$h$ je perfektní funkce pro $S$ a $|S|=n$. Funkce $h$ je perfektní pro 
-$S\subseteq U$, právě když pro každé $i=0,1,\dots,m-
-1$ je 
-$|h^{-1}(i)\cap S|\le 1$. Odtud počet těchto množin je
-$$\sum \{\prod_{j=0}^{n-1}|h^{-1}(i_j)|\mid 0\le i_0<i_1<\dots<i_{
-n-1}<m\}.$$
-
-Vysvětlení: $h(S)=\{i_j\mid j=0,1,\dots,n-1\}$.
-
-Toto číslo je maximální, když $|h^{-1}(
-i)|=\frac Nm$ pro každé $i$. 
-Tedy $h$ může být perfektní nejvýše pro $\binom 
-mn(\frac Nm)^n$ 
-množin (číslo $\binom mn$ určuje počet posloupností 
-$0\le i_0<i_1<\dots<i_{n-1}<m$). Protože $n$-prvkových 
-podmnožin universa je $\binom Nn$, dostáváme, že 
-$$|H|\ge\frac {\binom Nn}{\binom mn(\frac Nm)^n}.$$
-
+\begin{lemma}
+    Libovolná funkce $h$ z $U$ do množiny $\{0,1,\dots,m-
+    1\}$ je perfektní pro maximálně $\binom 
+    mn(\frac Nm)^n$ množin.
+\end{lemma}
+\begin{proof}
+    Ještě jednou -- zjišťujeme počet množin $S\subseteq U$ takových, že  
+    $h$ je perfektní funkce pro $S$ a $|S|=n$.
+    
+    Funkce $h$ je perfektní pro 
+    $S\subseteq U$, právě když pro každé $i=0,1,\dots,m-
+    1$ je 
+    $|h^{-1}(i)\cap S|\le 1$. (pokud by bylo větší, nebyla by perfektní)
+    
+    Odtud počet těchto množin je
+    $$\sum_{0\le i_0<i_1<\dots<i_{
+    n-1}<m} \prod_{j=0}^{n-1}|h^{-1}(i_j)|$$
+    
+    Vysvětlení: vzali jsme si všechny možné podmnožiny $m$, velké $n$ -- tahle množina nám říká, na kterých místech výsledné tabulky je něco zahešováno -- a reprezentovali jsme si ji přes rostoucí posloupnost. Pro každé místo v~tabulce, kde je něco zahešováno, jsem si vzal všechny možnosti, co tam můžou být (to je $|h^{-1}(i_j)|$).
+    
+    Jinak řečeno, $h(S)=\{i_j\mid j=0,1,\dots,n-1\}$.
+    
+    Hledáme horní odhad této sumy; je maximální, když $|h^{-1}(
+    i)|=\frac Nm$ pro každé $i$. Posloupností $i$ je $\binom mn$, tedy $h$ může být perfektní nejvýše pro $\binom 
+    mn(\frac Nm)^n$ 
+    množin.
+\end{proof}
+    
+\begin{veta}
+    $$|H|\ge\frac {\binom Nn}{\binom mn(\frac Nm)^n}.$$
+\end{veta}
+\begin{proof}
+    Víme, že $n$-prvkových 
+podmnožin universa je $\binom Nn$, a každá z~funkcí v $H$ je perfektní pro maximálně $\binom 
+    mn(\frac Nm)^n$ množin, tedy skutečně $|H|\ge\frac {\binom Nn}{\binom mn(\frac Nm)^n}.$
+\end{proof}
+    
 Jiný odhad velikosti $(N,m,n)$-perfektního souboru.
 
 Předpokládejme, že $H=\{h_1,\dots,h_t\}$ je 
