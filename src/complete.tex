@@ -2562,14 +2562,23 @@ Po dosazení $\log(|I|)\le 4+4(\log m+\log\log N)$, což už upravíme na požad
 \subsubsection{Univerzalita malého systému $H_1$}
 
 Zvolme různá $x$ a $y$ z univerza $U$. 
+
+\begin{definice}
 Označme
 \begin{align*} G_1&=\{(c,d,\ell )\mid g_{c,d}(h_{\ell}(x))=g_{c,d}(h_{\ell}
 (y)),\,h_{\ell}(x)\ne h_{\ell}(y)\},\\
 G_2&=\{(c,d,\ell )\mid g_{c,d}(h_{\ell}(x))=g_{c,d}(h_{\ell}(y)),\,
 h_{\ell}(x)=h_{\ell}(y)\}\end{align*}
-a odhadneme velikost $G_1$ a $G_2$. 
+\end{definice}
+Budeme odhadovat $G_1, G_2$.
 
-Odhad velikosti $G_1$. Když $(c,d,\ell )\in G_1$, pak 
+\begin{veta}
+    $G_1\le\frac {|I|}m(1+\frac m{p_{2t}})^2$
+\end{veta} 
+\begin{proof}
+Použijeme podobný trik, jako v~kapitole s~důkazem existence univerzálních systémů.
+
+    Když $(c,d,\ell )\in G_1$, pak 
 existují $r,s\in \{0,1,\dots,\lceil\frac {p_{2t}}m\rceil -1\}$ a $
 i\in \{0,1,\dots,m-1\}$ 
 taková, že 
@@ -2582,8 +2591,14 @@ i$, $r$ a $s$
 existuje právě jedna taková dvojice $(c,d)$ (připomínáme, že $\mathbb Z/\bmod p_{2t}$ je těleso). Proto 
 $$|G_1|\le tm(\lceil\frac {p_{2t}}m\rceil )^2\le\frac {tp_{2t}^2}
 m(1+\frac m{p_{2t}})^2=\frac {|I|}m(1+\frac m{p_{2t}})^2.$$
+\end{proof}
 
-Odhad velikosti $G_2$. Označme 
+\begin{veta}
+    $G_2\le\frac {|I|}m$
+\end{veta}
+
+\begin{proof}
+    Označme 
 $L=\{\ell\mid t<\ell\le 2t,\,x\bmod p_{\ell}=y\bmod p_{\ell}\}$ a $
 P=\prod_{\ell\in L}p_{\ell}$. 
 Protože $P$ dělí $|x-y|$, dostáváme, že $P\le N$. Protože 
@@ -2593,11 +2608,9 @@ $|L|\le\frac {\ln N}{\ln p_t}\le\frac tm$ z definice $t$. Protože $
 (c,d,\ell )\in G_2$, právě 
 když $\ell\in L$ a $c,d\in \{0,1,\dots,p_{2t}-1\}$, shrneme, že 
 $$|G_2|\le |L|p_{2t}^2\le\frac {tp_{2t}^2}m=\frac {|I|}m.$$
+\end{proof}
 
-Abychom odhadli $(1+\frac m{p_{2t}})^2$, ukážeme si nejdřív 
-pomocné lem\-ma.
-
-\begin{lemma}Když $t\ge 6$ a $m(\ln m+\ln\ln m)<N$, pak $m<\frac {
+\begin{lemma}[Pomocné lemma]Když $t\ge 6$ a $m(\ln m+\ln\ln m)<N$, pak $m<\frac {
 p_t}{\ln t}$.
 \end{lemma}
 
@@ -2613,9 +2626,16 @@ $$t\ln p_t<t\ln(t(\ln t+\ln\ln t))\le m(\ln m+\ln(\ln m+\ln\ln m)
 a to je spor s~definicí $t$. Tedy $m<\frac {p_t}{\ln t}$.
 \end{proof}
 
-Nyní zkombinujeme Větu o odhadu velikosti prvočísel, 
-před\-cho\-zí Lemma a fakt, že 
-$$\ln2t\ge\ln t\ge\ln\ln t\qquad\text{pro všechna }t\ge 1$$
+\begin{pozorovani}
+$\ln2t\ge\ln t\ge\ln\ln t\qquad\text{pro všechna }t\ge 1$
+\end{pozorovani}
+
+\begin{lemma}
+    $\frac m{p_{2t}}$ je menší, než $\frac 12$, a pokud $t$ konverguje k~$+\infty$, tak konverguje k~$0$.
+\end{lemma}
+\begin{proof}
+Zkombinujeme Větu o odhadu velikosti prvočísel, 
+Pomocné lemma a předchozí pozorování 
 a dostaneme, že
 $$\frac m{p_{2t}}\le\frac {\frac {p_t}{\ln t}}{2t\ln2t}<\frac {t(\ln 
 t+\ln\ln t)}{2t\ln t\ln2t}<\frac 1{\ln2t}(1+\frac {\ln\ln t}{\ln 
@@ -2624,35 +2644,43 @@ Je zřejmé, že tento výraz je menší než $\frac
 12$, 
 a když $t$ konverguje k $+\infty$, pak tento výraz konverguje k $
 0$.
+\end{proof}
 
-Z toho plyne, že $(1+\frac m{p_{2t}})^2\le 1.5^2=2.2
-5$, a tedy 
-\begin{align*}|\{i\in I&\mid h_i(x)=h_i(y)\}|=|G_1|+|G_2|\le\\
-&\frac {|I|}m(1+\frac m{p_{2t}})^2+\frac {|I|}m\le\frac {|I|}m(1+
-2.25)=3.25\frac {|I|}m.\end{align*}
+\begin{lemma}
+    $(1+\frac m{p_{2t}})^2\le 1.5^2=2.25$
+\end{lemma} 
+\begin{proof}
+    Plyne jednoduše z~přechozího lemmatu.
+\end{proof}
 
-Shrnutí: Když $t\ge 6$ a $m\ln m\ln\ln m<N$, pak $
+\begin{veta}
+    $H_1$ je 3.25-univerzální
+\end{veta}
+\begin{proof}
+    Z předchozího plyne:
+    \begin{align*}|\{i\in I&\mid h_i(x)=h_i(y)\}|=|G_1|+|G_2|\le\\
+    &\frac {|I|}m(1+\frac m{p_{2t}})^2+\frac {|I|}m\le\frac {|I|}m(1+
+    2.25)=3.25\frac {|I|}m.\end{align*}
+\end{proof}
+
+\zapamatovat{
+Když $t\ge 6$ a $m\ln m\ln\ln m<N$, pak $
 H_1$ je 
-$3.25$-univerzální. Bez jakýchkoliv předpokladů lze 
+$3.25$-univerzální. 
+}
+
+Bez jakýchkoliv předpokladů lze 
 ukázat, že $H_1$ je $5$-univerzální.
 
 \subsubsection{Odhad na velikost $c$}
 
-\begin{veta}Když $H$ je $c$-univerzální 
-systém univerza $U$ o velikosti $N$ hašující do tabulky s~$
-m$ řádky, 
-pak $c\ge 1-\frac mN$.
-\end{veta}
-
-Nejprve dokážeme technické lemma.
-
-\begin{lemma}Mějme reálná čísla $b_i$ pro $i=0,1
+\begin{lemma}[Technické lemma]Mějme reálná čísla $b_i$ pro $i=0,1
 ,\dots,m-1$ a 
 nechť $b=\sum_{i=0}^{m-1}b_i$. Pak 
 $$\sum_{i=0}^{m-1}b_i(b_i-1)\ge b(\frac bm-1).$$
 \end{lemma}
 
-\begin{proof}[Důkaz lemmatu]Z Cauchyho-Schwarzovy nerovnosti 
+\begin{proof}Z Cauchyho-Schwarzovy nerovnosti 
 $$(\sum_{i=0}^{m-1}x_iy_i)^2\le (\sum_{i=0}^{m-1}x^2_i)(\sum_{i=0}^{
 m-1}y_i^2)$$
 plyne $(\sum_{i=0}^{m-1}b_i)^2=b^2\le m(\sum_{i=0}^{m-1}b_i^2)$, stačí položit 
@@ -2662,15 +2690,31 @@ $$\sum_{i=0}^{m-1}b_i(b_i-1)=\sum_{i=0}^{m-1}b_i^2-\sum_{i=0}^{m-
 a lemma je dokázáno.
 \end{proof}
 
-\begin{proof}[Důkaz Věty]Mějme funkci $f:U\to T$, kde $U$ má 
-velikost $N$ a $T$ má velikost $m$. Označme $A$ množinu 
-uspořádaných dvojic $u,v\in U$ takových, že $u\ne v$ a $
-f(u)=f(v)$.
-Když pro $t\in T$ označíme $k_t=|f^{-1}(t)|$, pak $|A|=
-\sum_{t\in T}k_t(k_t-1)$.
-Z lemmatu plyne, že 
-$$|A|=\sum_{t\in T}k_t(k_t-1)\ge N(\frac Nm-1)=N(\frac {N-m}m),$$
-protože $\sum_{t\in T}k_t=N$.\newline 
+\begin{lemma}[O obecné funkci]
+    Pokud $f:U\to T$ je libovolná hašovací funkce (tj. ne z $H$), počet dvojic $u,v$ takových, že $u\ne v$ a $
+    f(u)=f(v)$ (tj. kolidující dvojice) je větší, než $N(\frac {N-m}m)$, kde $N$ je velikost $U$ a $m$ je velikost $T$.
+\end{lemma}
+\begin{proof}
+    Když pro $t\in T$ označíme $k_t=|f^{-1}(t)|$, pak $|A|=
+    \sum_{t\in T}k_t(k_t-1)$.
+    Z lemmatu plyne, že 
+    $$|A|=\sum_{t\in T}k_t(k_t-1)\ge N(\frac Nm-1)=N(\frac {N-m}m),$$
+    protože $\sum_{t\in T}k_t=N$.
+    
+    Nerovnítko plyne z~technického lemmatu.
+\end{proof}
+
+\begin{veta}Když $H$ je $c$-univerzální 
+systém univerza $U$ o velikosti $N$ hašující do tabulky s~$
+m$ řádky, 
+pak $c\ge 1-\frac mN$.
+\end{veta}
+
+
+\begin{proof}
+
+Použijeme předchozí lemma o obecné funkci a při sčítání si \uv{vtipně} přehodíme, přes co vlastně sčítáme, a poté využijeme toho, že $H$ je $c$-univerzální.
+
 Když $H=\{h_i\mid i\in I\}$ je $c$-univerzální systém funkcí z univerza $
 U$ o 
 velikosti $N$ do tabulky o velikosti $m$, pak pomocí 
@@ -2686,10 +2730,15 @@ Odtud plyne, že $N-m\le c(N-1)$, a tedy
 $$c\ge\frac {N-m}{N-1}>\frac {N-m}N=1-\frac mN.$$
 \end{proof}
 
+\zapamatovat{
+Když $H$ je $c$-univerzální, $c\ge 1-\frac mN$.
+}
+
 \subsubsection{Problémy univerzálního hašování}
 
 Použít jiné metody na řešení kolizí než 
-separované řetězce. Jak to ovlivní použitelnost 
+separované řetězce.
+Jak to ovlivní použitelnost 
 univerzálního hašování? Platí podobné vztahy jako pro 
 pevně danou hašovací funkci? Jaký vliv na efektivnost 
 má nepřítomnost operace {\bf DELETE}?
@@ -2710,7 +2759,8 @@ odhad? Lze použít i vyšších momentů?
 Jak použít Markovou nerovnost a očekávanou 
 délku maximál\-ní\-ho řetězce pro odhad očeká\-va\-ného 
 počtu voleb hašovací funk\-ce? 
-Pro jaké parametry lze použít následující model?
+
+Pro jaké parametry lze použít následující model?\footnote{pozn.studenta - vůbec nevím, o co jde :(}
 
 Je dána základní velikost tabulky $m$ a dále pro $
 j=0,1,\dots$ 
@@ -2746,9 +2796,10 @@ věnuje pozornost a byla dosažena řada zajímavých výsledků.
 
 \subsection{Perfektní hašování}
 
-Jiné řešení kolizí je perfektní hašování. Idea 
-je nalézt pro danou množinu hašovací funkci, která 
-nevytváří kolize.
+\subsubsection{Idea}
+Jde o další řešení kolizí. Idea 
+je nalézt pro \emph{předem danou} množinu hašovací funkci, která 
+nevytváří \emph{žádné} kolize.
 
 Nevýhoda: Metoda nepřipouští operaci {\bf INSERT }
 (pro nový vstup nemůžeme zaručit, že nevznikne  
@@ -2758,7 +2809,8 @@ téměř nevyskytuje (kolize se řeší pomocí malé pomocné
 tabulky, kam se ukládají kolidují\-cí data). Tato metoda se 
 používá při navrhování kompilátorů.
 
-Zadání úlohy: Pro danou množinu $S\subseteq 
+\subsubsection{Požadavky}
+Pro danou množinu $S\subseteq 
 U$ chceme 
 nalézt hašo\-va\-cí funkci $h$ takovou, že
 \begin{enumerate}
@@ -2787,14 +2839,17 @@ Kompenzace: Nalezení hašovací funkce
 může spotřebovat více času. Provádí se jen na 
 začátku úlohy. 
 
-Uvedené požadavky motivují zavedení 
-následujícího pojmu.\newline 
-Mějme univerzum $U=\{0,1,\dots,N-1\}$. Soubor funkcí $H$ z 
+\subsubsection{$(N,m,n)$-perfektní systém - definice}
+
+Mějme univerzum $U=\{0,1,\dots,N-1\}$. 
+
+\begin{definice}Soubor funkcí $H$ z 
 $U$ do množiny $\{0,1,\dots,m-1\}$ se nazývá 
 $(N,m,n)$-\emph{perfektní}, když pro každou $S\subseteq 
 U$ 
 takovou, že $|S|=n$, existuje $h\in H$ perfektní pro $S$ (tj. 
 $h(s)\ne h(t)$ pro každá dvě různá $s,t\in S$).
+\end{definice}
 
 Protože nevíme, zda taková $h$ existují, nejprve 
 vyšetříme mno\-ži\-ny perfektních hašovacích 
@@ -2803,7 +2858,7 @@ souborů funkcí.
 
 \subsubsection{Dolní odhady na velikost $(N,m,n)$-perfektního souboru}
 
-Předpokládejme, že $H$  je $(N,m,n)$-perfektní 
+Předpokládejme, že $H$ je $(N,m,n)$-perfektní 
 systém pro $U=\{0,1,\dots,N-1\}$ a nejprve nalezneme dolní 
 odhady na velikost $|H|$.
 
