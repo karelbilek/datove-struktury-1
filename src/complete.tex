@@ -1350,7 +1350,7 @@ prvků v jednotlivých řetězcích).
    vyhledávání je $\frac 14(e^{2\alpha}-1-2\alpha )$
 }
 
-\subsubsection{Úspěšný případ ($s_{n+1}\in S$)}
+\subsubsection{Úspěšný případ ($s_{j}\in S$)}
 
 Očekávaný počet testů při úspěšném 
 vyhledávání v modelu LISCH spočítáme stejnou meto\-dou jako 
@@ -1358,60 +1358,104 @@ pro hašování se separujícími řetězci.
 
 \begin{lemma}
 Pro úspěšné vyhledání prvku 
-$s_{n+1}\in S$ je počet testů roven $1+$počet porovnání 
-klíčů při neúspěšném vyhledávání při operaci {\bf INSERT$(s_{n+1})$.} 
+$s_{j}\in S$ je počet testů roven $1+$počet porovnání 
+klíčů při neúspěšném vyhledávání při operaci {\bf INSERT$(s_{j})$.} 
 \end{lemma}
-\begin{dukaz}
-     Jednička je za poslední porovnání $s_{n+1}$.
-\end{dukaz}
+\begin{proof}
+     Při úspěšném vyhledávání procházím stejné prvky, jako při vkládání. Jednička je za poslední porovnání $s_{j}$, které jsem při vkládání dělat nemusel.
+\end{proof}
 
-\begin{pozorovani}
+\begin{lemma}[verze 0]
 Když $
-s_{n+1}$ je vložen 
-na místo $h(s_{n+1})$, nebyl porovnáván žádný klíč a test pro úspěšné vyhledávání bude $
+s_{j}$ je vložen 
+na místo $h(s_{j})$, nebyl porovnáván žádný klíč a test pro úspěšné vyhledávání bude $
 1$.
-\end{pozorovani}
+\end{lemma}
+\begin{proof}
+     Plyne jednoduše z předchozího lemmatu. Pozor, v~předchozí části jsem měl 1 test na prázdnost, zde beru v~úvahu pouze porovnání klíčů.\footnote{poznámka studenta - toto mi opět není jasné}
+\end{proof}
 
-\begin{pozorovani}
-Když $h(s_{n+1})$ byl na na $i$-tém místě v řetězci délky $
+\begin{lemma}[verze $>0$]
+Když $h(s_{j})$ byl na na $i$-tém místě v řetězci délky $
 l$, pak bylo 
-při operaci {\bf INSERT$(s_{n+1})$} použito $l-i+1$ porovnání klíčů (musel jsem \uv{projet} celý zbytek řetězce)
+při operaci {\bf INSERT$(s_{j})$} použito $l-i+1$ porovnání klíčů
 a teď se použije $l-i+2$ testů.
-\end{pozorovani}
+\end{lemma}
+\begin{proof}
+    Při neúspěšném vyhledávání jsem musel projet celý zbytek řetězce.
+\end{proof}
 
- Podle předchozí části analýzy dostaneme, že očekávaný počet 
+\begin{lemma}
+    Očekávaný počet 
+    porovnání klíčů při neúspěšném vyhledávání je pro $i$-prvkovou množinu $\frac 14\big((1+\frac 2m)^i-1+\frac {2i}m\big)$.
+\end{lemma}
+\begin{proof}
+    Stejně, jako v~předchozí sekci (s tím rozdílem, že u prázdných řádků nepočítám 1\footnote{jak píšu výše, není mi jasné proč}) dostaneme, že očekávaný počet 
 porovnání klíčů při neúspěšném vyhledávání je 
-\begin{align*}&\frac 1{m^{n+1}}(\sum_{l=1}^n(l+\binom l2)c_n(l))=\\
-&\frac 1{m^{n+1}}(nm^n+\frac 14\big(m(m+2)^n-m^{n+1}-2nm^n\big))=\\
-&\frac 14\big((1+\frac 2m)^n-1+\frac {2n}m\big).\end{align*}
+\begin{align*}&\frac 1{m^{i+1}}(\sum_{l=1}^i(l+\binom l2)c_i(l))=\\
+&\frac 1{m^{i+1}}(im^i+\frac 14\big(m(m+2)^i-m^{i+1}-2im^i\big))=\\
+&\frac 14\big((1+\frac 2m)^i-1+\frac {2i}m\big).\end{align*}
+\end{proof}
+
+\begin{lemma}
 Tedy očekávaný počet testů při úspěšném 
-vy\-hledávání v $n$-prvkové množině je podle 
-před\-cho\-zí analýzy 
+vy\-hledávání v $n$-prvkové množině je 
 roven $1+n$-tina součtu očekávaného počtu porovnání 
-klíčů při neúspěšném vy\-hledávání v $
+klíčů při neúspěšném vy\-hledávání v~$
 i$-prvkové 
-množině, kde $i$ probíhá čísla $0,1,\dots,n-1$.  Podle předchozích 
-výsledků je hledaný součet 
+množině, kde $i$ probíhá čísla $0,1,\dots,n-1$.
+\end{lemma}
+\begin{proof}
+    Skutečně, každý prvek z~$n$-prvkové množiny, podle kterých průměruji úspěšné vyhledávání, tam musel být vložen, tj. $$\frac{\sum_{i=0}^{n-1}1+\mbox{očekávaný počet testů v i-prvkové množině}}{n}$$ a jedničku můžu strčit dopředu.
+\end{proof}
+
+\begin{lemma}
+    Součet očekávaných počtů porovnání 
+    klíčů při neúspěšném vy\-hledávání v~$
+    i$-prvkové 
+    množině, kde $i$ probíhá čísla $0,1,\dots,n-1$, je $$\frac m8\big((1+\frac 2m)^n-1-\frac {2n}m\big)+\frac {n^2-n}{4m}$$.
+\end{lemma}
+\begin{proof} 
 \begin{align*}\sum_{i=0}^{n-1}\frac 14\big[(1+\frac 2m)^i-&1+\frac {2i}
 m\big]=\frac 14\frac {(1+\frac 2m)^n-1}{1+\frac 2m-1}-\frac n4+\frac {\binom 
 n2}{2m}=\\
 &\frac m8\big((1+\frac 2m)^n-1-\frac {2n}m\big)+\frac {n^2-n}{4m}
 .\end{align*}
-Tedy očekávaný počet testů v úspěšném 
-případě pro $n$-prvko\-vou množinu je 
+\end{proof}
+
+\begin{veta}
+Očekávaný počet testů v úspěšném 
+případě pro $n$-prvko\-vou množinu je $$1+\frac 1{8\alpha}(e^{2\alpha}-1-2\alpha )+\frac {\alpha} 4$$
+\end{veta}
+\begin{proof}
+
 $$1+\frac m{8n}\big((1+\frac 2m)^n-1-\frac {2n}m\big)+\frac {n-1}{
 4m}\sim 1+\frac 1{8\alpha}(e^{2\alpha}-1-2\alpha )+\frac {\alpha}
 4.$$
+\end{proof}
+
+\zapamatovat{
+Pro LISCH očekávaný počet testů v úspěšném 
+případě pro $n$-prvko\-vou množinu je $1+\frac 1{8\alpha}(e^{2\alpha}-1-2\alpha )+\frac {\alpha} 4$.
+}
+
+\begin{veta}
 Pro metodu EISCH je očekáváný počet testů v 
 úspěšném přípa\-dě 
 $$\frac mn\big((1+\frac 1m)^n-1\big)\sim\frac 1{\alpha}(e^{\alpha}
 -1).$$
-Výpočet je ale komplikovanější, musí se použít složitější metoda (metoda EISCH dává nový prvek hned za místo, kde má být uložen). Chyba aproximace 
+\end{veta}
+Výpočet je komplikovanější, musí se použít složitější metoda (metoda EISCH dává nový prvek hned za místo, kde má být uložen). 
+
+
+Chyba aproximace 
 pro tyto odhady je $O(\frac 1m)$. 
 
-\subsubsection{Metody LICH, EICH, VICH}
+\subsection{Metody LICH, EICH, VICH}
 
-\phantom{---}LICH -- late-insertion coalesced hashing\newline 
+\subsubsection{Popis}
+\begin{itemize}
+\item LICH -- late-insertion coalesced hashing\newline 
 \phantom{---}EICH -- early-insertion coalesced hashing\newline 
 \phantom{---}VICH -- varied-insertion coalesced hashing.
 
