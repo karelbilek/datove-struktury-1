@@ -1455,9 +1455,10 @@ pro tyto odhady je $O(\frac 1m)$.
 
 \subsubsection{Popis}
 \begin{itemize}
-\item LICH -- late-insertion coalesced hashing\newline 
-\phantom{---}EICH -- early-insertion coalesced hashing\newline 
-\phantom{---}VICH -- varied-insertion coalesced hashing.
+\item LICH -- late-insertion coalesced hashing 
+\item EICH -- early-insertion coalesced hashing 
+\item VICH -- varied-insertion coalesced hashing.
+\end{itemize}
 
 Základní idea: Metody používají pomocnou paměť. 
 Tabulka je rozdělená na adresovací část a na pomocnou 
@@ -1465,11 +1466,14 @@ paměť, která není dostupná pomocí hašovací funkce,
 ale pomáhá při řešení kolizí. Metody se liší operací 
 {\bf INSERT}. Všechny metody při kolizi nejprve použijí řádek 
 tabulky z pomocné části a teprve, když je pomocná část 
-zaplněna, používají adresovací část.\newline 
+zaplněna, používají adresovací část.
+ 
 Metoda LICH: při {\bf INSERT}u vkládá prvek vždy na konec 
-ře\-těz\-ce.\newline 
+ře\-těz\-ce.
+ 
 Metoda EICH: při {\bf INSERT}u vkládá prvek $x$ do řetězce vždy 
-na místo hned za řádkem $h(x)$.\newline 
+na místo hned za řádkem $h(x)$.
+ 
 Metoda VICH: Při {\bf INSERT}u, když nový řádek je z 
 pomocné části, tak je vložen s~novým prvkem na konec 
 řetězce, když je pomocná část paměti vyčer\-pá\-na, tak se 
@@ -1484,7 +1488,7 @@ srůstání řetězců.
 Tyto metody nepodporují přirozené efektivní algoritmy 
 pro ope\-raci {\bf DELETE}.
 
-Příklad: $U=\{1,2,\dots,1000\}$, $h(x)=x\bmod10$,\newline 
+\subsubsection{Ilustrace} $U=\{1,2,\dots,1000\}$, $h(x)=x\bmod10$,\newline 
 $S=\{1,7,11,53,73,141,161\}$. Tabulka má 12 řádků a 
 má tvar
 $$\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule \hfil # \hfil \vrule\cr\noalign{\hrule}řádek & key & next \hfil \cr\noalign{\hrule}P(0) & &\hfill \cr\noalign{\hrule}P(1) & 1 & 10 \cr\noalign{\hrule}P(2) & &\hfill \cr\noalign{\hrule}P(3) & 73 & 11 \cr\noalign{\hrule}P(4) &  &\hfill \cr\noalign{\hrule}P(5) & 7 & \hfill \cr\noalign{\hrule}P(6) & &\hfill \cr\noalign{\hrule}P(7) & 161 & 5 \cr\noalign{\hrule}P(8) & 11 & 7 \cr\noalign{\hrule}P(9) & &\hfill \cr\noalign{\hrule}\noalign{\hrule}P(10) & 141 & 8 \cr\noalign{\hrule}P(11) & 53 & \cr\noalign{\hrule}}}$$
@@ -1520,14 +1524,16 @@ $\vbox {\hbox{\vtop{\offinterlineskip\halign{\strut\vrule\ # & \vrule\ # & \vrul
 Algoritmus operace {\bf MEMBER} je pro tyto metody 
 stejný jako pro LISCH a EISCH
 
-
+\algoritmus{
 {\bf MEMBER$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
-{\bf while} $i.next\ne$prázdné a $i.key\ne x$ {\bf do} $i:=i.
-next$ {\bf enddo\newline 
-if} $i.key=x$ {\bf then Výstup}: $x\in S$ {\bf else Výstup}: $
-x\notin S$ {\bf endif
+{\bf \textsf{while}} $i.next\ne$prázdné a $i.key\ne x$ {\bf \textsf{do}} $i:=i.
+next$ {\bf \textsf{enddo}\newline 
+\textsf{if}} $i.key=x$ {\bf \textsf{then} Výstup}: $x\in S$ {\bf \textsf{else} Výstup}: $
+x\notin S$ {\bf \textsf{endif}
 }
+}
+
 Algoritmus operace {\bf INSERT} je pro metodu LICH stejný 
 jako pro metodu LISCH a pro metodu EICH je stejný jako 
 pro metodu EISCH s~jediným doplňkem, pokud existuje 
@@ -1536,59 +1542,65 @@ pomocné části. Tento předpoklad je i pro algoritmus
 {\bf INSERT} pro metodu VICH.
 
 
-Metoda LICH -- {\bf INSERT$(x)$}\newline 
+Metoda LICH\nopagebreak
+\algoritmus{{\bf INSERT$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
-{\bf if} $i.next=NIL$ {\bf then} $i.next=x$, stop {\bf endif\newline 
-while} $i.next\ne NIL$ a $i.key\ne x$ {\bf do} $i:=i.next$ {\bf enddo\newline 
-if} $i.key\ne x$ {\bf then}\newline 
-\phantom{---}{\bf if} neexistuje prázdný řádek tabulky {\bf then}\newline 
+{\bf \textsf{if}} $i.next=NIL$ {\bf \textsf{then}} $i.next=x$, stop {\bf \textsf{endif}\newline 
+\textsf{while}} $i.next\ne NIL$ a $i.key\ne x$ {\bf \textsf{do}} $i:=i.next$ {\bf \textsf{enddo}\newline 
+\textsf{if}} $i.key\ne x$ {\bf \textsf{then}}\newline 
+\phantom{---}{\bf \textsf{if}} neexistuje prázdný řádek tabulky {\bf \textsf{then}}\newline 
 \phantom{------}{\bf Výstup}: přeplnění\newline 
-\phantom{---}{\bf else}\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
 \phantom{------}nechť $j$ je prázdný řádek, $j
 .key:=x$, $i.next:=j$\newline 
-\phantom{---}{\bf endif\newline 
-endif}
+\phantom{---}{\bf \textsf{endif}\newline 
+\textsf{endif}}
+}
 
 
-Metoda EICH -- {\bf Insert$(x)$}\newline 
+Metoda EICH\nopagebreak
+\algoritmus{ {\bf Insert$(x)$}\newline 
 Spočítáme $k:=i:=h(x)$\newline 
-{\bf if} $i.next=NIL$ {\bf then} $i.next=x$, stop {\bf endif\newline 
-while} $i.next\ne NIL$ a $i.key\ne x$ {\bf do} $i:=i.next$ {\bf enddo\newline 
-if} $i.key\ne x$ {\bf then}\newline 
-\phantom{---}{\bf if} neexistuje prázdný řádek tabulky {\bf then}\newline 
+{\bf \textsf{if}} $i.next=NIL$ {\bf \textsf{then}} $i.next=x$, stop {\bf \textsf{endif}\newline 
+\textsf{while}} $i.next\ne NIL$ a $i.key\ne x$ {\bf \textsf{do}} $i:=i.next$ {\bf \textsf{enddo}\newline 
+\textsf{if}} $i.key\ne x$ {\bf \textsf{then}}\newline 
+\phantom{---}{\bf \textsf{if}} neexistuje prázdný řádek tabulky {\bf \textsf{then}}\newline 
 \phantom{------}{\bf Výstup}: přeplnění\newline 
-\phantom{---}{\bf else}\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
 \phantom{------}nechť $j$ je volný řádek tabulky\newline 
 \phantom{------}$j.next:=k.next$, $k.next:=j$, $j.key:=x$\newline 
-\phantom{---}{\bf endif\newline 
-endif}
+\phantom{---}{\bf \textsf{endif}\newline 
+\textsf{endif}}
+}
 
-
-Metoda VICH -- {\bf INSERT$(x)$}\newline 
+Metoda VICH \nopagebreak
+\algoritmus{ {\bf INSERT$(x)$}\newline 
 Spočítáme $i:=h(x)$\newline 
-{\bf if} $i.next=NIL$ {\bf then} $i.next=x$, stop {\bf endif\newline 
-while} $i.next\ne NIL$ a $i.key\ne x$ {\bf do}\newline 
-\phantom{---}{\bf if} $k$ není definováno a $i.next<m$ {\bf then} $k:=i$ {\bf endif\newline 
+{\bf \textsf{if}} $i.next=NIL$ {\bf \textsf{then}} $i.next=x$, stop {\bf \textsf{endif}\newline 
+\textsf{while}} $i.next\ne NIL$ a $i.key\ne x$ {\bf \textsf{do}}\newline 
+\phantom{---}{\bf \textsf{if}} $k$ není definováno a $i.next<m$ {\bf \textsf{then}} $k:=i$ {\bf \textsf{endif}\newline 
 Poznámka}: Podmínka pro $k$ je splněna, když jsme byli na 
 začátku nebo v pomocné části, podmínka na $i.next$ je 
 splněna, když $i.next$ není v pomocné části.\newline 
 \phantom{---}$i:=i.next$\newline 
-{\bf enddo\newline 
-if} $i.key\ne x$ {\bf then}\newline 
-\phantom{---}{\bf if} neexistuje prázdný řádek {\bf then}\newline 
+{\bf \textsf{enddo}\newline 
+\textsf{if}} $i.key\ne x$ {\bf \textsf{then}}\newline 
+\phantom{---}{\bf \textsf{if}} neexistuje prázdný řádek {\bf \textsf{then}}\newline 
 \phantom{------}{\bf Výstup}: přeplnění\newline 
-\phantom{---}{\bf else}\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
 \phantom{------}nechť $j$ je volný řádek, $j.key:=x$\newline 
-\phantom{------}{\bf if} $k$ není definováno {\bf then}\newline 
+\phantom{------}{\bf \textsf{if}} $k$ není definováno {\bf \textsf{then}}\newline 
 \phantom{---------}$i.next:=j$\newline 
-\phantom{------}{\bf else}\newline 
+\phantom{------}{\bf \textsf{else}}\newline 
 \phantom{---------}$j.next:=k.next$, $k.next:=j$\newline 
-\phantom{------}{\bf endif}\newline 
-\phantom{---}{\bf endif\newline 
-endif}
+\phantom{------}{\bf \textsf{endif}}\newline 
+\phantom{---}{\bf \textsf{endif}\newline 
+\textsf{endif}}
+}
 
+\subsubsection{Očekávaný počet testů}
+\emph{(pozn. studenta - opravdu nevím, jestli je nutné se \underline{tohle} učit.)}
 
-Složitost algoritmů pro srůstající hašování.\newline 
 Značení: $n$ -- velikost uložené množiny,\newline 
 $m$ -- velikost adresovací části tabulky,\newline 
 $m'$ -- velikost tabulky,\newline 
@@ -1651,6 +1663,8 @@ m'}})$.
 
 \subsection{Hašování s~lineárním přidáváním}
 
+\subsubsection{Popis}
+
 Tabulka má jedinou položku -- key
 
 Základní idea:  Při operaci {\bf INSERT$(x)$} vložíme $
@@ -1661,34 +1675,40 @@ m$ je
 prázdný, a tam vložíme $x$. Tato metoda byla motivována snahou o co největší využití paměti. 
 
 Komentář:  Metoda vyžaduje minimální velikost paměti.  
+
 V tabulce se vytvářejí shluky použitých řádků, a proto 
-při velkém zaplnění metoda vyžaduje velký počet testů.  
+při velkém zaplnění metoda vyžaduje velký počet testů. 
+ 
 Metoda nepodporuje efektivní implementaci operace {\bf DELETE}.  
+
 Při vy\-hle\-dá\-vá\-ní je třeba testovat, zda nevyšetřujeme 
 podruhé první vyšetřovaný řádek, a pro zjištění přeplnění je 
 vhodné mít uložen počet vyplněných řádků v tabulce. Pro standarní paměti není výhodná. Při použití cache-paměti se výrazně mění její hodnocení. Důvodem je, že v tomto případě hraje klíčovou roli nikoliv počet testů, ale počet přechodů mezi různými úrovněmi paměti. Protože tabulka je reprezentovaná polem, tak je tento počet menší než u jiných metod. Proto se tato metoda doporučuje pro počítače s~cache-pamětí.
 
-
+\subsubsection{Algoritmy}
+\algoritmus{
 {\bf MEMBER$(x)$}\newline 
 Spočítáme $i:=h(x)$, $h:=i$\newline 
-{\bf if} $i.key=x$ {\bf then Výstup} $x\in S$, stop {\bf endif\newline 
-if} $i.key=$prázdný {\bf then {{\rm Výstup}}}: $x\notin S$, stop {\bf endif\newline 
+{\bf \textsf{if}} $i.key=x$ {\bf \textsf{then} Výstup} $x\in S$, stop {\bf \textsf{endif}\newline 
+\textsf{if}} $i.key=$prázdný {\bf \textsf{then} {{\rm Výstup}}}: $x\notin S$, stop {\bf \textsf{endif}\newline 
 $i:=i+1$\newline 
-while} $i.key\ne$prázdný a $i.key\ne x$ a $i\ne h$ {\bf do} $
-i:=i+1\bmod m$ {\bf enddo\newline 
-if} $i.key=x$ {\bf then Výstup}: $x\in S$ {\bf else Výstup}: $
-x\notin S$ {\bf endif
-
-
-INSERT$(x)$}\newline 
+\textsf{while}} $i.key\ne$prázdný a $i.key\ne x$ a $i\ne h$ {\bf \textsf{do}} $
+i:=i+1\bmod m$ {\bf \textsf{enddo}\newline 
+\textsf{if}} $i.key=x$ {\bf \textsf{then} Výstup}: $x\in S$ {\bf \textsf{else} Výstup}: $
+x\notin S$ {\bf \textsf{endif}
+}
+}
+\algoritmus{
+{\bf INSERT$(x)$}\newline 
 Spočítáme $i:=h(x)$, $j:=0$\newline 
-{\bf while} $i.key\ne$prázdný a $i.key\ne x$ a $j<m$ {\bf do} $
-i:=i+1\bmod m${\bf ,} $j:=j+1$ {\bf enddo\newline 
-if} $j=m$ {\bf then Výstup}: přeplnění, stop {\bf endif\newline 
-if} $i.key=$prázdný {\bf then} $i.key:=x$ {\bf endif}
+{\bf \textsf{while}} $i.key\ne$prázdný a $i.key\ne x$ a $j<m$ {\bf \textsf{do}} $
+i:=i+1\bmod m${\bf ,} $j:=j+1$ {\bf \textsf{enddo}\newline 
+\textsf{if}} $j=m$ {\bf \textsf{then} Výstup}: přeplnění, stop {\bf \textsf{endif}\newline 
+\textsf{if}} $i.key=$prázdný {\bf \textsf{then}} $i.key:=x$ {\bf \textsf{endif}}}
 
 
-Příklad: Máme universum $U=\{1,2,\dots,1000\}$, 
+\subsubsection{Ilustrace}
+ Máme universum $U=\{1,2,\dots,1000\}$, 
 hašovací funk\-ci $h(x)=x\bmod10$ a množinu  
 $S=\{1,7,11,53,73,141,161\}$. Tato množina je uložena v levé tabulce. 
 Provedeme operaci {\bf INSERT$(35)$}. Výsledek je uložen v 
@@ -1700,15 +1720,18 @@ Tabulka vznikla posloupností operací:\newline
 {\bf INSERT$(141)$}, {\bf INSERT$(161)$},\newline 
 {\bf INSERT$(53)$}, {\bf INSERT$(7)$}. 
 
-Na závěr uvedeme složitost této metody. Očekávaný 
-počet testů:\newline 
-\phantom{---}neúspěšný případ: $\approx\frac 12(
-1+\big(\frac 1{1-\alpha}\big)^2)$, \newline 
-\phantom{---}úspěšný případ: $\approx\frac 12(1+\frac 
+\subsubsection{Očekávaný počet testů}
+\zapamatovat {
+Očekávaný počet testů pro neúspěšný případ: $\approx\frac 12(
+1+\big(\frac 1{1-\alpha}\big)^2)$.
+
+Očekávaný počet testů pro úspěšný případ: $\approx\frac 12(1+\frac 
 1{1-\alpha})$.
+}
 
 \subsection{Dvojité hašování}
 
+\subsubsection{Popis}
 Základní nevýhoda předchozí metody je způsob 
 výběru dal\-ší\-ho řádku. Je velmi determinován a 
 důsledkem je vznik shluku řádků, který 
@@ -1723,10 +1746,12 @@ Tabulka má jedinou položku -- key.\newline
 Požadavky na korektnost: Pro každé $x$ musí být $h_
 2(x)$ a 
 $m$ nesoudělné (jinak prvek $x$ nemůže být uložen 
-na libovolném řádku tabulky). \newline 
+na libovolném řádku tabulky). 
+
 Předpoklad pro výpočet očekávaného počtu testů: posloupnost 
 $\{h_1(x)+ih_2(x)\}_{i=0}^{m-1}$ je náhodná permutace množiny 
-řádků tabulky.\newline 
+řádků tabulky.
+
 Nevýhoda: Uvedená metoda nepodporuje operaci {\bf DELETE}. \newline 
 Poznámka: Metoda hašování s~lineárním přidáváním je 
 speciál\-ní případ dvojitého hašování, kde $
@@ -1735,14 +1760,14 @@ každé $x\in U$.
 
 \subsubsection{Algoritmy}
 
-
+\algoritmus{
 {\bf MEMBER$(x)$}\newline 
 Spočítáme $i:=h_1(x)$, $h:=h_2(x)$, $j:=0$\newline 
 {\bf while} $i.key\ne$prázdný a $i.key\ne x$ a $j<m$ {\bf do} $
 i:=i+h\bmod m$, $j:=j+1$ {\bf enddo\newline 
 if} $i.key=x$ {\bf then Výstup}: $x\in S$ {\bf else Výstup}: $
 x\notin S$ {\bf endif
-
+}}\algoritmus{{\bf
 
 INSERT$(x)$}\newline 
 Spočítáme $i:=h_1(x)$, $h:=h_2(x)$, $j:=0$\newline 
@@ -1750,9 +1775,10 @@ Spočítáme $i:=h_1(x)$, $h:=h_2(x)$, $j:=0$\newline
 i:=i+h\bmod m$, $j:=j+1$ {\bf enddo\newline 
 if} $j=m$ {\bf then Výstup}: přeplnění, stop {\bf endif\newline 
 if} $i.key=$prázdný {\bf then} $i.key:=x$ {\bf endif}
+}}
 
-
-Příklad: Mějme universum $U=\{1,2,\dots,1000
+\subsubsection{Ilustrace}
+ Mějme universum $U=\{1,2,\dots,1000
 \}$. 
 Hašovací funkce jsou 
 $h_1(x)=x\bmod10$ a $h_2(x)=1+2(x\bmod4)$, když 
@@ -1770,11 +1796,9 @@ Tabulka vznikla posloupností operací:\newline
 {\bf INSERT$(141)$}, {\bf INSERT$(161)$},\newline 
 {\bf INSERT$(11)$}, {\bf INSERT$(7)$}. 
 
-Analýza vyhledávání v dvojitém hašování.
 
-\subsubsection{Neúspěšný případ}
+\subsubsection{Očekávaný počet testů - neúspěšný případ}
 
- 
 
 Značení:  $q_i(n,m)$ -- když tabulka má $m$ řádků a 
 je v ní obsazeno $n$ řádků, tak je to 
