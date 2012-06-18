@@ -2122,15 +2122,17 @@ nemůžeme ovlivnit a obvykle ho ani neznáme. Je
 reálné, že rozdělení vstupních dat bude nevhodné pro 
 použitou hašovací funkci. Důsledek -- na počátku 
 70. let se začalo ustupovat od hašování. Hledal se postup, 
-který by se vyhnul uvedenému problému s~bodem 3). Nalezenému 
-řešení je věnován následující text.
-
-\subsection{Univerzální hašování}
+který by se vyhnul uvedenému problému s~bodem 3).
 
 Řešení navrhli Carter a Wegman (1977), když přišli s~metodou univerzálního hašování, která obchází poža\-davek 3).  
-To vedlo k novému rozsáhlému používání hašování.  
+To vedlo k novému rozsáhlému používání hašování.
 
-Základní idea: Místo jedné funkce máme 
+Nalezenému řešení je věnován následující text.
+
+\subsection{Univerzální hašování}
+\subsubsection{Základní idea}
+
+Místo jedné funkce máme 
 množinu $H$ funkcí z univerza do tabulky velikosti $m$ 
 takových, že pro každou množinu $S\subseteq U$, $|S|\le 
 m$ se 
@@ -2139,15 +2141,23 @@ Hašovací funkci
 zvolíme náhodně z $H$ (s rovnoměrným rozdělením) a hašujeme  
 pomocí takto zvo\-lené funkce. 
 
-Modifikace ideje. Ověřování vlastností vyžaduje 
-znalost velikosti množiny $H$. Rychlá vyčíslitelnost $
+Tedy ještě jednou -- nemám jednu hašovací funkci, ale mám \emph{více} hašovacích funkcí, pro každou \emph{množinu} $S$ se mi \emph{většina} z~nich chová rozumně -- a z nich \emph{náhodně} jednu vyberu; tedy není nutné náhodné rozložení $S$.
+
+\subsubsection{Modifikace ideje}
+Ověřování vlastností vyžaduje 
+znalost velikosti množiny $H$.
+
+Mám ale problém - rychlá vyčíslitelnost $
 h(x)$ 
 vyžaduje ana\-lytické zadání funkcí v $H$, ale zjištění rovnosti 
 dvou analy\-ticky zadaných funkcí na univerzu $U$ je 
-problematické. Řešením problému je použití indexové množiny. 
+problematické. Řešením problému je použití indexové množiny $I$, kterou si oindexuji funkce v $H$. 
+
 To znamená, že $H=\{h_i\mid i\in I\}$ a dvě funkce jsou různé, 
-když mají různé indexy. Pak velikost systému bude 
-velikost indexové množiny. Místo zvolení hašovací funkce 
+když mají různé indexy. Pak velikost systému, tj. velikost $H$, bude 
+velikost indexové množiny. 
+
+Místo zvolení hašovací funkce 
 budeme volit náhodně index s~rovnoměrným rozložením a když 
 zvolíme index $i$, pak budeme pracovat s~hašovací funkcí $
 h_i$. 
@@ -2156,7 +2166,8 @@ I$ do
 reálných čísel bude průměr přes $I$, tj. $\frac {
 \sum_{i\in I}f(i)}{|I|}$.
 
-Formálně: Nechť  $U$ je univerzum. Soubor  
+\subsubsection{Formální definice $c$-univerzálních systémů}
+Nechť  $U$ je univerzum. Soubor  
 funkcí $H=\{h_i\mid i\in I\}$ z univerza $U$ do množiny $\{
 0,1,\dots,m-1\}$ se 
 nazývá $c$-\emph{univerzální} ($c$ je kladné reálné číslo), 
@@ -2176,6 +2187,7 @@ vlastnosti $c$-univerzálních systémů (zda splňují
 požadované ide\-je).
 
 \subsubsection{Existence univerzálních systémů}
+Mazec začíná.
 
 Univerzum $U=\{0,1,\dots,N-1\}$ pro prvočíslo $N$,\newline 
 $H=\{h_{a,b}\mid (a,b)\in U\times U\}$,\newline 
