@@ -19,7 +19,12 @@
  \setlength{\parskip}{0.1in}
  
  %\def \emph#1{\underbar{#1}}
- 
+ \newenvironment{pitemize}{
+ \begin{itemize}
+   \setlength{\itemsep}{1pt}
+   \setlength{\parskip}{0pt}
+   \setlength{\parsep}{0pt}
+ }{\end{itemize}}
  
 
  
@@ -1894,7 +1899,7 @@ pro $n$ a $m\ge n$. Platí
 \end{proof}
 
 \begin{veta}
-    Očekávaný počet dotazů  při neúspěšném 
+    Očekávaný počet dotazů při neúspěšném 
     vyhledávání je přibližně $\frac 1{1-\alpha}$
 \end{veta}
 \begin{proof}
@@ -1902,15 +1907,20 @@ pro $n$ a $m\ge n$. Platí
 \end{proof}
 
 \zapamatovat{Očekávaný počet dotazů při neúspěšném 
-vyhledávání v tabulce s~$m$ řádky, z nichž $n$ je obsazeno, 
-je přibližně $\frac 1{1-\alpha}$.
+vyhledávání je přibližně $\frac 1{1-\alpha}$.
 }
 
 \subsubsection{Úspěšný případ}
 
- 
+Použijeme opět stejnou metodu ze separujících řetězců, proto jen stručně.
 
-Použijeme metodu ze separujících řetězců. 
+\begin{veta}
+    Očekávaný počet dotazů při úspěšném 
+    vyhledávání je přibližně $\frac 1{\alpha}\ln(\frac 
+    1{1-\alpha})$
+\end{veta}
+\begin{proof}
+ 
 Počet dotazů při vyhledávání $x$ pro $x\in 
 S$ je 
 stejný jako byl počet dotazů při vkládání $
@@ -1925,6 +1935,12 @@ m+1}{m-i+1}=\\
 1j\big)\approx\\
 &\frac 1{\alpha}\ln(\frac {m+1}{m-n+1})\approx\frac 1{\alpha}\ln(\frac 
 1{1-\alpha}).\end{align*}
+\end{proof}
+
+\zapamatovat{Očekávaný počet dotazů při úspěšném 
+vyhledávání je přibližně $\frac 1{\alpha}\ln(\frac 
+1{1-\alpha}$.
+}
 
 
 Následující tabulka ukazuje tyto hodnoty v závislosti na 
@@ -1933,30 +1949,35 @@ $$\vtop{\offinterlineskip\halign {\strut\vrule\ # & \vrule\ # & \vrule\ # & \vru
 
 \subsection{Porovnání efektivity hašovacích algoritmů}
 
-Pořadí metod hašování podle očekávaného počtu 
-testů:
 \subsubsection{Neúspěšné vyhledávání}
 
-\phantom{---}Hašování s~uspořádanými řetězci,\newline 
-\phantom{---}Hašování s~řetězci=Hašování s~přemísťováním,\newline 
-\phantom{---}Hašování s~dvěma ukazateli,\newline 
-\phantom{---}VICH=LICH,\newline 
-\phantom{---}EICH,\newline 
-\phantom{---}LISCH=EISCH,\newline 
-\phantom{---}Dvojité hašování,\newline 
-\phantom{---}Hašování s~lineárním přidáváním.
 
+\begin{pitemize}
+\item Hašování s~uspořádanými řetězci 
+\item Hašování s~řetězci=Hašování s~přemísťováním 
+\item Hašování s~dvěma ukazateli 
+\item VICH=LICH 
+\item EICH 
+\item LISCH=EISCH 
+\item Dvojité hašování 
+\item Hašování s~lineárním přidáváním
+\end{pitemize}
+    
 \subsubsection{Úspěšné vyhledávání}
+Pořadí metod hašování podle očekávaného počtu 
+testů:
 
-\phantom{---}Hašování s~uspořádanými řetězci=Hašování s~řetězci=Hašo\-vá\-ní s~přemísťováním,\newline 
-\phantom{---}Hašování s~dvěma ukazateli,\newline 
-\phantom{---}VICH,\newline 
-\phantom{---}LICH,\newline 
-\phantom{---}EICH,\newline 
-\phantom{---}EISCH,\newline 
-\phantom{---}LISCH,\newline 
-\phantom{---}Dvojité hašování,\newline 
-\phantom{---}Hašování s~lineárním přidáváním.
+\begin{pitemize}
+\item Hašování s~uspořádanými řetězci=Hašování s~řetězci=Hašo\-vá\-ní s~přemísťováním 
+\item Hašování s~dvěma ukazateli, 
+\item VICH 
+\item LICH 
+\item EICH 
+\item EISCH 
+\item LISCH 
+\item Dvojité hašování 
+\item Hašování s~lineárním přidáváním
+\end{pitemize}
 
 Poznámka: Metoda VICH při neúspěšném vyhledávání pro 
 $\alpha <0.72$ a při úspěšném vy\-hledávání pro $
@@ -1972,26 +1993,28 @@ EISCH a o 7\% lepší než LISCH.
 \subsubsection{Očekávaný počet testů při úplně zaplněné 
 tabulce}
 
-\phantom{---}Metoda s~přemísťováním: neúspěšné vyhledávání 1.5, úspěšné 
-vyhledávání 1.4.\newline 
-\phantom{---}Metoda s~dvěma ukazateli: úspěšné i neúspěšné vyhledávání  1.6.\newline 
-\phantom{---}VICH: neúspěšné vyhledávání 1.79, úspěšné vyhledávání 
-1.67.\newline 
-\phantom{---}LICH: neúspěšné vyhledávání 1.79, úspěšné vyhledávání 
-1.69.\newline 
-\phantom{---}EICH: neúspěšné vyhledávání 1.93, úspěšné vyhledávání 
-1.69.\newline 
-\phantom{---}EISCH: neúspěšné vyhledávání 2.1, úspěšné vyhledávání 
-1.72.\newline 
-\phantom{---}LISCH: neúspěšné vyhledávání 2.1, úspěšné vyhledávání 
+\begin{pitemize}
+\item Metoda s~přemísťováním: neúspěšné vyhledávání 1.5, úspěšné 
+vyhledávání 1.4. 
+\item Metoda s~dvěma ukazateli: úspěšné i neúspěšné vyhledávání  1.6. 
+\item VICH: neúspěšné vyhledávání 1.79, úspěšné vyhledávání 
+1.67. 
+\item LICH: neúspěšné vyhledávání 1.79, úspěšné vyhledávání 
+1.69. 
+\item EICH: neúspěšné vyhledávání 1.93, úspěšné vyhledávání 
+1.69. 
+\item EISCH: neúspěšné vyhledávání 2.1, úspěšné vyhledávání 
+1.72. 
+\item LISCH: neúspěšné vyhledávání 2.1, úspěšné vyhledávání 
 1.8.
+\end{pitemize}
 
 Metodu s~lineárním přidáváním je dobré použít jen pro 
 $\alpha <0.7$, metodu s~dvojitým hašováním pro $\alpha 
 <0.9$, pak 
 čas pro neúspěšné vyhledávání rychle narůstá.
 
-Vliv $\beta =\frac m{m'}$ při srůstajícím hašování.\newline 
+\subsubsection{Vliv $\beta =\frac m{m'}$ při srůstajícím hašování}
 Při 
 úspěšném vy\-hledávání je optimální hodnota $
 \beta =0.85$, při 
@@ -2000,7 +2023,8 @@ neúspěšném vy\-hledávání je optimální hodnota $
 V praxi se doporučuje použít hodnotu $\beta =0.86$ (uvedené 
 výsledky byly pro tuto hodnotu $\beta ).$
 
-Komentář: Metody se separujícími řetězci a 
+\subsubsection{Komentář}
+Metody se separujícími řetězci a 
 srůstající hašování používají více paměti (při 
 srůstajícím hašování součet adresovací a 
 pomocné části). Metoda s~přemísťováním a metoda 
@@ -2009,14 +2033,14 @@ prvku a na výpočet druhé hašovací funkce.
 
 \subsection{Další otázky}
 
-Jak nalézt volný řádek.\newline 
+\subsubsection{Jak nalézt volný řádek}
 Za nejlepší metodu se považuje mít seznam (zásobník) 
 volných řádků a z jeho vrcholu brát volný řádek 
 a po úspěšné operaci {\bf DELETE} tam zase řádek vložit 
 (pozor při operaci {\bf DELETE} ve strukturách, které 
 nepodporují {\bf DELETE}).
 
-Jak řešit přeplnění.\newline 
+\subsubsection{Jak řešit přeplnění}
 Standardní model: Dána základní velikost tabulky $m$ a 
 pracuje se s~tabulkami s~$2^im$ řádky pro vhodné 
 $i=0,1,\dots$. Vhodné $i$ znamená, že faktor zaplnění $
@@ -2033,8 +2057,8 @@ malé pomocné ta\-bul\-ky při přeplnění a posunout velké
 přehašování na dobu klidu (aby systém nenechal uživatele v 
 normální době čekat).
 
-Jak řešit {\bf DELETE} v metodách, které ho 
-nepodporují.\newline 
+\subsubsection{Jak řešit DELETE v metodách, které ho 
+nepodporují}
 Použít ideu tzv. `falešného {\bf DELETE}'. 
 Odstranit prvek, ale řádek neuvolnit (i v klíči nechat 
 nějakou hodnotu, která bude znamenat, že řádek je 
@@ -2060,7 +2084,7 @@ Jak nalézt druhou hašovací funkci pro metodu
 dvojitého hašo\-vá\-ní, aby vzniklé posloupnosti adres při operaci 
 {\bf INSERT} se chovaly jako náhodné.
 
-\subsubsection{Závěr}
+\subsubsection{Předpoklady a jejich splnitelnost}
 
 Připomeňme si předpoklady pro předchozí uvedené 
 výsledky o hašování:
