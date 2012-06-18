@@ -2810,6 +2810,7 @@ tabulky, kam se ukládají kolidují\-cí data). Tato metoda se
 používá při navrhování kompilátorů.
 
 \subsubsection{Požadavky}
+\label{pozadavky1234}
 Pro danou množinu $S\subseteq 
 U$ chceme 
 nalézt hašo\-va\-cí funkci $h$ takovou, že
@@ -2959,7 +2960,7 @@ v $x$-tém řádku a $i$-tém sloupci matice $M(H)$
 hodnota $h_i(x)$.
 \end{definice}
 
-(jedna matice je tedy rovna jednomu souboru funkcí)
+(Jedna matice je tedy rovna jednomu souboru funkcí. Pokud mám jedinou množinu, pro kterou neexistuje perfektní funkce, už to není $(N,m,n)$-perfektní systém.)
 
 \begin{lemma}
     Pro pevnou množinu $S=\{s_1,s_2,\dots,s_n\}\subseteq U$ je matic \emph{bez} perfektní funkce nejvýše $$(m^n-\prod_{i=0}^{n-1}(m-i))^tm^{(N-n)t}.$$
@@ -3009,13 +3010,23 @@ $\binom Nn(m^n-\prod_{i=0}^{n-1}(m-i))^tm^{(N-n)t}$ (podle posledního lemmatu)
 Všech matic je $m^{Nt},$ a tedy  když $\binom Nn(m^n-\prod_{i=0}^{n-1}(m-i))^tm^{(N-n)t}<m^{Nt},$ pak nutně existuje $(N,m,n)$-perfektní systém, protože nějaká matice, co ho reprezentuje, se \uv{najde}.
 \end{proof}
 
+\begin{veta}
+    Pokud $t\ge n(\ln N)e^{\frac {n^2}m}$, tak existuje $(N,m,n)$-perfektní soubor funkcí. 
+\end{veta}
 
-Následující vý\-ra\-zy jsou ekvivalentní s~ne\-rov\-ností 
-\thetag{$*$}
+\begin{proof}
+
+Následující vý\-ra\-zy jsou ekvivalentní s~postačující podmínkou:
+
 $$\binom Nn\big(1-\frac {\prod_{i=0}^{n-1}(m-i)}{m^n}\big)^t<1\,\Leftrightarrow\,
 t\ge\frac {\ln\binom Nn}{-\ln(1-\frac {\prod_{i=0}^{n-1}(m-i)}{m^
 n})}.$$
-Protože $\ln\binom Nn\le n\ln N$ a protože $-\ln(1-x)\ge x$ pro $
+
+Zlomek vpravo odhadneme shora -- protože se jedná o postačující podmínku, pokud bude $t$ větší, než tento horní odhad, pak $(N,m,n)$ systém bude existovat.
+
+Čitatel odhadneme shora -- $\ln\binom Nn\le n\ln N$.
+
+Jmenovatel odhadneme zdola -- protože $-\ln(1-x)\ge x$ pro $
 x\in (0,1)$, dostáváme
 \begin{align*}-\ln(1-\frac {\prod_{i=0}^{n-1}(m-i)}{m^n})\ge&\prod_{i=0}^{
 n-1}(1-\frac im)=e^{\sum_{i=0}^{n-1}\ln(1-\frac im)}\ge\\
@@ -3023,15 +3034,22 @@ n-1}(1-\frac im)=e^{\sum_{i=0}^{n-1}\ln(1-\frac im)}\ge\\
 kde integrál můžeme odhadnout 
 $$m[(1-\frac nm)(1-\ln(1-\frac nm))-1]\ge m[(1-\frac nm)(1+\frac 
 nm)-1]=-\frac {n^2}m.$$
-Odtud dostáváme, že když $t\ge n(\ln N)e^{\frac {n^2}m}$, pak \thetag{*} platí, a tedy 
+
+Horní odhad zlomku je tedy $n(\ln N)e^{\frac {n^2}m}$.
+
+Odtud dostáváme, že když $t\ge n(\ln N)e^{\frac {n^2}m}$, pak platí postačující podmínka, a tedy 
 existuje $(N,m,n)$-perfektní soubor funkcí. 
+\end{proof}
 
 Existence $(N,m,n)$-perfektního souboru funkcí ale 
-nezaručuje splnění požadavků 2), 3) a 4).  
+nezaručuje splnění požadavků 2), 3) a 4) ze sekce \ref{pozadavky1234}.
+
 Abychom uspěli, použijeme ideu z metody univerzálního 
 hašování.  
 
-\subsubsection{Konstrukce perfektní hašovací funkce}
+Pozn. studenta -- v~následujících několika kapitolách jsem si dovolil různé funkce, které stavíme, nazvat písmeny $A, B, C, D, E$, abych v~nich sám měl pořádek. Původně šlo o jednu kapitolu, ale ztrácel jsem se v~tom.
+
+\subsubsection{Konstrukce perfektních hašovacích funkcí A,B}
 
 Předpoklady:  $U=\{0,1,\dots,N-1\}$, kde $N$ je 
 prvočíslo.  Mějme $S\subseteq U$ o velikosti $n$.  Budeme 
