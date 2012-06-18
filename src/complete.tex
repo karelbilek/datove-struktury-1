@@ -2949,37 +2949,67 @@ N}{\log m}\}.$$
 
 Mějme univerzum $U=\{0,1,\dots,N-1\}$ a soubor 
 funkcí $H=\{h_1,h_2,\dots,h_t\}$ z univerza $U$ do množiny 
-$\{0,1,\dots,m-1\}$.  Reprezentujeme tento soubor pomocí 
+$\{0,1,\dots,m-1\}$. (funkce jsou libovolné)
+
+\begin{definice}
+    Reprezentujeme tento soubor pomocí 
 matice $M(H)$ typu $N\times t$ s~hodnotami $\{0,1,\dots,m-1\}$ tak, 
 že pro $x\in U$ a $i=1,2,\dots,t$ je 
 v $x$-tém řádku a $i$-tém sloupci matice $M(H)$ 
-hodnota $h_i(x)$. Pak žádná funkce z $H$ 
-není perfektní pro množinu $S=\{s_1,s_2,\dots,s_n\}\subseteq 
-U$, 
-právě když podmatice $M(H)$ tvoře\-ná 
-řádky $s_1$, $s_2$, až $s_n$ a všemi sloupci nemá prostý sloupec. 
-Ta\-ko\-vých matic je nejvýše 
-$$(m^n-\prod_{i=0}^{n-1}(m-i))^tm^{(N-n)t}.$$
+hodnota $h_i(x)$.
+\end{definice}
 
-Vysvětlení:  $m^n$ je počet všech funkcí z $
-S$ do 
-$\{0,1,\dots,m-1\}$, $\prod_{i=0}^{n-1}(m-i)$ je počet prostých funkcí z $
-S$ 
-do $\{0,1,\dots,m-1\}$, a tedy počet všech podmatic s~$n$ 
-řádky takových, že žádný jejich sloupec není prostý, je 
-$(m^n-\prod_{i=0}^{n-1}(m-i))^t$.  Tyto podmatice můžeme 
-libovolně doplnit na matici typu $N\times n$ a pro každou 
-matici je těchto doplnění $m^{(N-n)t}$.  
+(jedna matice je tedy rovna jednomu souboru funkcí)
 
+\begin{lemma}
+    Pro pevnou množinu $S=\{s_1,s_2,\dots,s_n\}\subseteq U$ je matic \emph{bez} perfektní funkce nejvýše $$(m^n-\prod_{i=0}^{n-1}(m-i))^tm^{(N-n)t}.$$
+\end{lemma}
+
+\begin{proof}
+    Žádná funkce z $H$ 
+    není perfektní pro množinu $S=\{s_1,s_2,\dots,s_n\}\subseteq 
+    U$, 
+    právě když podmatice $M(H)$ tvoře\-ná 
+    řádky $s_1$, $s_2$, až $s_n$ a všemi sloupci nemá prostý sloupec. 
+    Ta\-ko\-vých matic je nejvýše 
+    $$(m^n-\prod_{i=0}^{n-1}(m-i))^tm^{(N-n)t}.$$ 
+    
+    Vysvětlení:  $m^n$ je počet všech funkcí z $
+    S$ do 
+    $\{0,1,\dots,m-1\}$, $\prod_{i=0}^{n-1}(m-i)$ je počet prostých funkcí z $
+    S$ 
+    do $\{0,1,\dots,m-1\}$, a tedy počet všech podmatic s~$n$ 
+    řádky takových, že žádný jejich sloupec není prostý, je 
+    $(m^n-\prod_{i=0}^{n-1}(m-i))^t$.  Tyto podmatice můžeme 
+    libovolně doplnit na matici typu $N\times n$ a pro každou 
+    matici je těchto doplnění $m^{(N-n)t}$.
+\end{proof}
+
+\begin{lemma}
+    Počet matic, které nereprezentují $(N,m,n)$-perfektní systém, je 
+    menší nebo roven  
+    $$\binom Nn(m^n-\prod_{i=0}^{n-1}(m-i))^tm^{(N-n)t}.$$
+\end{lemma}
+
+\begin{proof}
 Podmnožin $U$ velikosti $n$ je $\binom Nn$, tedy počet všech 
 matic, které nereprezentují $(N,m,n)$-perfektní systém, je 
 menší nebo roven  
-$$\binom Nn(m^n-\prod_{i=0}^{n-1}(m-i))^tm^{(N-n)t}.$$
+$\binom Nn(m^n-\prod_{i=0}^{n-1}(m-i))^tm^{(N-n)t}$ (podle posledního lemmatu)
+\end{proof}
 
-Všech matic je $m^{Nt}$ a když 
-\begin{equation*}\tag{\*}\binom Nn(m^n-\prod_{i=0}^{n-1}(m-i))^tm^{(N-n)t}<m^{Nt},\end{equation*}
+\begin{lemma}[Postačující podmínka]
+    Když 
+    $$\binom Nn(m^n-\prod_{i=0}^{n-1}(m-i))^tm^{(N-n)t}<m^{Nt},$$
 
-pak nutně existuje $(N,m,n)$-perfektní systém. 
+    pak nutně existuje $(N,m,n)$-perfektní systém.
+\end{lemma}
+
+\begin{proof}
+Všech matic je $m^{Nt},$ a tedy  když $\binom Nn(m^n-\prod_{i=0}^{n-1}(m-i))^tm^{(N-n)t}<m^{Nt},$ pak nutně existuje $(N,m,n)$-perfektní systém, protože nějaká matice, co ho reprezentuje, se \uv{najde}.
+\end{proof}
+
+
 Následující vý\-ra\-zy jsou ekvivalentní s~ne\-rov\-ností 
 \thetag{$*$}
 $$\binom Nn\big(1-\frac {\prod_{i=0}^{n-1}(m-i)}{m^n}\big)^t<1\,\Leftrightarrow\,
