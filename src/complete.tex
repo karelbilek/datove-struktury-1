@@ -2175,6 +2175,8 @@ když
 $$\forall x,y\in U,\,x\ne y\text{\rm\ platí }|\{i\in I\mid h_
 i(x)=h_i(y)\}|\le\frac {c|I|}m.$$
 
+Omezuji tedy počet kolizních funkcí pro libovolnou množinu.
+
 Jako ekvivalentní definici lze použít toto tvrzení: systém funkcí $
 H$ z univerza $U$ do množiny $\{0,1,\dots,m-1\}$ je $c$-univerzální,
 když vybereme-li $h\in H$ s~rovnoměrným rozděle\-ním, pak pro 
@@ -2187,17 +2189,29 @@ vlastnosti $c$-univerzálních systémů (zda splňují
 požadované ide\-je).
 
 \subsubsection{Existence univerzálních systémů}
-Mazec začíná.
+Bez újmy na obecnosti můžu vzít univerzum $U$, které bude vypadat $U=\{0,1,\dots,N-1\}$ pro prvočíslo $N$. (Stačí si uvědomit, že  každé univerzum můžeme 
+považovat za univerzum tvaru $\{0,1,\dots,N-1\}$ pro nějaké 
+$N$ a že mezi čísly $N$ a $2N$ vždy existuje nějaké 
+prvočíslo.)
 
-Univerzum $U=\{0,1,\dots,N-1\}$ pro prvočíslo $N$,\newline 
-$H=\{h_{a,b}\mid (a,b)\in U\times U\}$,\newline 
-kde $h_{a,b}(x)=((ax+b)\bmod N)\bmod m$\newline 
+Definujme si množinu funkcí $H$ pro univerzum $U$ pro nějaké $m$.
+
+\begin{definice}
+$H=\{h_{a,b}\mid (a,b)\in U\times U\}$, 
+kde $h_{a,b}(x)=((ax+b)\bmod N)\bmod m$ 
 (tj. indexová množina je $U\times U$ a její velikost je $
 N^2$).
+\end{definice}
 
 Výhoda: funkce z množiny $H$ umíme rychle 
-vyčíslit.
+vyčíslit. Nevýhoda: indexová množina je velikost univerza na druhou.
 
+\begin{lemma}
+    Pro $x,y\in U$ taková, že $x\ne y$, existuje maximálně $m\big(\lceil\frac Nm\rceil\big)^2$ dvojic $(a
+    ,b)\in U\times U$ takových, že 
+    $h_{a,b}(x)=h_{a,b}(y)$.
+\end{lemma}
+\begin{proof}
 Zvolme $x,y\in U$ taková, že $x\ne y$. Chceme nalézt 
 $(a,b)\in U\times U$ takové, že $h_{a,b}(x)=h_{a,b}(y)$. 
 
@@ -2205,51 +2219,85 @@ Musí existovat $i\in \{0,1,\dots,m-1\}$ a
 $r,s\in \{0,1,\dots,\lceil\frac Nm\rceil -1\}$ tak, že platí
 \begin{align*}(ax+b&\equiv i+rm)\bmod N\\
 (ay+b&\equiv i+sm)\bmod N\end{align*}
+
+($i$ je ono shodné modulo, $r$ a $s$ jsou zbytky po modulu, tedy $ax+b\bmod N=i+rm$ a $i+rm<N$, podobně s~$y$)
+
 Když $x$, $y$, $i$, $r$ a $s$ jsou konstanty a $a$ a $b$ jsou 
 proměnné, je to systém lineárních rovnic v tělese 
 $\mathbb Z/\bmod N$, kde $\mathbb Z$ jsou celá čísla. Matice soustavy  
 $$\begin{pmatrix} x\quad 1\\
 y\quad 1\end{pmatrix} $$
-je regulární, protože $x\ne y$. Jelikož $\mathbb Z/\bmod N$ je těleso, tak 
+je regulární, protože $x\ne y$. Jelikož $\mathbb Z/\bmod N$ je těleso (protože $N$ je prvočíslo), tak 
  pro fixovaná $x$, $y$, $i$, $r$ a $s$ existuje právě jedno řešení této soustavy.
-Pro daná $x$ a $y$, $i$ nabývá $m$ hodnot, $r$ a $s$ nabývají 
+
+
+Tedy, pro daná $x$ a $y$, $i$ nabývá $m$ hodnot, $r$ a $s$ nabývají 
 $\lceil\frac Nm\rceil$ hodnot. 
 
 Závěr: pro každá $x,y\in U$ taková, že 
-$x\ne y$, existuje $m\big(\lceil\frac Nm\rceil\big)^2$ dvojic $(a
+$x\ne y$, existuje maximálně $m\big(\lceil\frac Nm\rceil\big)^2$ dvojic $(a
 ,b)\in U\times U$ takových, že 
 $h_{a,b}(x)=h_{a,b}(y)$.
+\end{proof}
 
 \begin{veta}Množina $H$ je $c$-univerzální pro 
 $$c=\frac {\big(\lceil\frac Nm\rceil\big)^2}{\big(\frac Nm\big)^2}
 .$$
 \end{veta}
-
+\begin{proof}
 Skutečně, pro každé $x,y\in U$, $x\ne y$, je počet 
 $(a,b)\in U\times U$ takových, že $h_{a,b}(x)=h_{a,b}(y)$, nejvýše roven
 $$m\big(\lceil\frac Nm\rceil\big)^2=\frac {\big(\lceil\frac Nm\rceil\big
 )^2}{\big(\frac Nm\big)^2}\frac {N^2}m=\frac {\big(\lceil\frac Nm
 \rceil\big)^2}{\big(\frac Nm\big)^2}\frac {|I|}m.$$
-
-Závěr: Dokázali jsme existenci $c$-univerzálních 
-systémů pro $c$ blízké $1$. Stačí si uvědomit, že  každé univerzum můžeme 
-považovat za univerzum tvaru $\{0,1,\dots,N-1\}$ pro nějaké 
-$N$ a že mezi čísly $N$ a $2N$ vždy existuje nějaké 
-prvočíslo.
+\end{proof}
+\begin{pozorovani}
+Dokázali jsme existenci $c$-univerzálních 
+systémů pro $c$ blízké $1$. 
+\end{pozorovani}
 
 \subsubsection{Vlastnosti univerzálního hašování}
+Předpoklad: $H=\{h_i\mid i\in I\}$ je $c$-univerzální systém funkcí. (nemusí být totožný s~$H$ z~poslední kapitoly)
 
-Předpoklad: $H=\{h_i\mid i\in I\}$ je $c$-univerzální systém funkcí\newline 
-Označení: Pro $i\in I$ a prvky $x,y\in U$ 
+\begin{definice}
+     Pro $i\in I$ a prvky $x,y\in U$ 
 označme 
 $$\delta_i(x,y)=\begin{cases} 1&\quad\text{\rm\ když }x\ne y\text{\rm\ a }
 h_i(x)=h_i(y),\\
 0&\text{\rm\ když }x=y\text{\rm\ nebo }h_i(x)\ne h_i(y).\end{cases} $$
+\end{definice}
+$\delta_i(x,y)$ je tedy 1, pokud $x,y$ v~$h_i$ kolidují, jinak je 0.
+
+\begin{definice}
 Pro množinu $S\subseteq U$, $x\in U$ a $i\in I$ definujme
 $$\delta_i(x,S)=\sum_{y\in S}\delta_i(x,y).$$
+\end{definice}
+$\delta_i(x,S)$ tedy říká, s kolika prvky v $S$ $x$ koliduje při použití funkce $h_i$; je to tedy horní odhad řetězce, pokud $S$ je reprezentovaná množina.
 
-Pro fixovanou množinu $S\subseteq U$ a pro fixované $
-x\in U$ sečteme
+\begin{lemma}
+    $\frac 1{|I|}\sum_{i\in I}\delta_i(x,S)$ je očekávaná délka řetězce při pevném $S$ při náhodném výběru $i$. 
+\end{lemma}
+\begin{proof}
+    Plyne jednoduše z definice.
+\end{proof}
+
+\begin{lemma}
+    Očekávaný počet testů u operací{\bf MEMBER}, {\bf INSERT} a {\bf DELETE} je $O(1+\mbox{očekávané délka řetězce})$
+\end{lemma}
+\begin{proof}
+    Není mi zcela jasná +1, jinak ale opravdu musíme projet celý řetězec.
+\end{proof}
+
+\begin{lemma}
+    Pro fixovanou množinu $S\subseteq U$ a pro fixované $
+    x\in U$ platí $\sum_{i\in I}\delta_i(x,S)=\begin{cases} (|S|-1)c\frac {|I|}m&\text{\rm\ když }
+    x\in S,\\
+    |S|c\frac {|I|}m&\text{\rm\ když }x\notin S.\end{cases}$
+\end{lemma}
+\begin{proof}
+    V důkazu \uv{vtipně} přehodíme, přes co vlastně sčítáme, a použijeme definici $c$-univerzálního systému.
+    
+Sečteme
 $\delta_i(x,S)$ přes všechna $i\in I$:
 \begin{align*}\sum_{i\in I}\delta_i(x,S)=&\sum_{i\in I}\sum_{y\in S}\delta_
 i(x,y)=\sum_{y\in S}\sum_{i\in I}\delta_i(x,y)=\\
@@ -2257,34 +2305,62 @@ i(x,y)=\sum_{y\in S}\sum_{i\in I}\delta_i(x,y)=\\
 &\sum_{y\in S,y\ne x}c\frac {|I|}m=\begin{cases} (|S|-1)c\frac {|I|}m&\text{\rm\ když }
 x\in S,\\
 |S|c\frac {|I|}m&\text{\rm\ když }x\notin S.\end{cases} \end{align*}
+\end{proof}
 
-Protože $\delta_i(x,S)$ dává odhad na velikost řetězce $
-h_i(x)$ při 
-repre\-zentaci množiny $S$ pomocí funkce $h_i$, dostáváme, že 
-očekávaná délka řetězce pro fixovanou množinu  
-$S\subseteq U$ a fixované $x\in U$ přes $i\in I$ s~rovnoměrným 
-rozdělením je nejvýše
-$$\frac 1{|I|}\sum_{i\in I}\delta_i(x,S)\le\begin{cases} c\frac {|S|-1}m&\text{\rm\ když }
-\quad x\in S,\\
-c\frac {|S|}m&\text{\rm\ když }\quad x\notin S.\end{cases} $$
+\begin{lemma}
+    Očekávaná délka řetězce pro fixovanou množinu  
+    $S\subseteq U$ a fixované $x\in U$ přes $i\in I$ s~rovnoměrným 
+    rozdělením je nejvýše
+    $\begin{cases} c\frac {|S|-1}m&\text{\rm\ když }
+    \quad x\in S,\\
+    c\frac {|S|}m&\text{\rm\ když }\quad x\notin S.\end{cases} $ 
+\end{lemma}
 
-\begin{veta}Očekávaný čas operací {\bf MEMBER}, {\bf INSERT }
+\begin{proof}
+    Z předchozích lemmat:
+    
+    $\delta_i(x,S)$ dává odhad na velikost řetězce $
+    h_i(x)$ při 
+    repre\-zentaci množiny $S$ pomocí funkce $h_i$, tedy 
+    očekávaná délka řetězce pro fixovanou množinu  
+    $S\subseteq U$ a fixované $x\in U$ přes $i\in I$ s~rovnoměrným 
+    rozdělením je nejvýše
+    $$\frac 1{|I|}\sum_{i\in I}\delta_i(x,S)\le\begin{cases} c\frac {|S|-1}m&\text{\rm\ když }
+    \quad x\in S,\\
+    c\frac {|S|}m&\text{\rm\ když }\quad x\notin S.\end{cases} $$
+\end{proof}
+
+
+\begin{veta}Očekávaný počet testů při operacích {\bf MEMBER}, {\bf INSERT }
 a {\bf DE\-LETE} při $c$-univerzálním hašování je $
 O(1+c\alpha )$, kde 
 $\alpha$ je faktor napl\-nění (tj. $\alpha =\frac {|S|}m$).
-
+\end{veta}
+\begin{proof}
+    Plyne jednoduše z předchozích lemmat.
+\end{proof}
+\begin{veta}
 Očekávaný čas pro pevnou posloupnost $n$ operací 
 {\bf MEMBER}, {\bf INSERT} a {\bf DELETE} aplikovaných na prázdnou ta\-bulku 
 pro $c$-univerzální hašování je $O((1+\frac c2\alpha 
 )n)$, kde $\alpha =\frac nm$.  
 \end{veta}
+\begin{proof}
+    Já (upravující student) nevidím, proč by to mělo platit :(
+\end{proof}
 
-Význam výsledku:  Vzorec se jen o multiplikativní 
+\zapamatovat{
+Očekávaný počet testů je $O(1+c\alpha )$
+}
+
+\paragraph{Význam výsledku}  Vzorec se jen o multiplikativní 
 konstantu $c$ liší od vzorce pro hašování se separovanými 
 řetězci.  Přitom $c$ může být jen o málo menší než $
 1$ a 
 ve všech známých příkla\-dech je $c\ge 1$.  Takže, co jsme 
-dosáhli?  Rozdíl je v předpokla\-dech.  Zde je předpoklad 3) 
+dosáhli?  
+
+Rozdíl je v předpokla\-dech.  Zde je předpoklad 3) 
 nahrazen předpokladem, že index $i\in I$ je vybrán s~rovnoměrným rozdělením, a není žádný předpoklad na vstupní 
 data.  {\bf Výběr indexu} $i$ {\bf můžeme ov\-liv\-nit, ale výběr 
 vstupních dat nikoliv.}  Můžeme zajistit rovno\-měr\-né 
@@ -2298,11 +2374,15 @@ x\in U$.
 Očeká\-va\-ná velikost $\delta_i(x,S)$ je $\mu$ a $t\ge 
 1$.
 
-Ukážeme pro $t>1$, že pravděpodobnost, že $
+Předpokladejme, že $
+i$ je z $I$ vybráno s~rovnoměrným rozdělením.
+\begin{veta}
+Pro $t>1$ platí: pravděpodobnost, že $
 \delta_i(x,S)\ge t\mu$ 
-pro $i\in I$, je menší než $\frac 1t$ (předpokladáme, že $
-i$ je z $I$ vybráno s~rovnoměrným rozdělením).  
+pro $i\in I$, je menší než $\frac 1t$. .  
+\end{veta}
 
+\begin{proof}
 Označme $I'=\{i\in I\mid\delta_i(x,S)\ge t\mu \}$. Pak platí
 $$\mu =\frac {\sum_{i\in I}\delta_i(x,S)}{|I|}>\frac {\sum_{i\in 
 I'}\delta_i(x,S)}{|I|}\ge\frac {\sum_{i\in I'}t\mu}{|I|}=\frac {|
@@ -2311,20 +2391,24 @@ I'|}{|I|}t\mu$$
 Odtud
 $$|I'|<\frac {|I|}t.$$
 
-Závěr: Pravděpodobnost, že $\delta_i(x,S)\ge 
+Tedy pravděpodobnost, že $\delta_i(x,S)\ge 
 t\mu$, je menší 
-než $\frac 1t$, a odtud plyne požadované tvrzení. 
+než $\frac 1t$.
+\endin{proof}
+
 
 Poznámka: Toto tvrzení platí obecně a nazývá 
 se Markovova nerovnost. Uvedený důkaz 
 ilustruje jednoduché tvrzení pro ko\-neč\-ný případ.
 
-\subsubsection{Problémy}
+\subsubsection{Výběr funkce ze systému}
 
 Hlavní problém: Zajištění rovnoměrného rozdělení 
 výběru $i$ z $I$.
 
-Provedení výběru: Zakódovat indexy z množiny $
+Provedení výběru: Budeme vybírat index z~množiny $I$, budeme ho vybírat jako binární číslo tak, že každou pozici binárního čísla náhodně vybereme. 
+
+Totéž formálněji: Zakódovat indexy z množiny $
 I$ do 
 čísel $0,1,\dots,|I|-1$. Zvolit náhodně číslo $
 i$ z tohoto 
@@ -2343,8 +2427,8 @@ pseudogenerátor.
 Jeho nevýhoda: Čím je $j$ větší, tím je 
 posloupnost pravidelnější (tj. méně náhodná). 
 
-Důsledky: Nalézt co nejmenší $c$-univerzální 
-systémy. Nalézt dolní odhady na jejich velikost.
+Důsledky: Hledáme co nejmenší $c$-univerzální 
+systémy. Nejprve ale nalezneme dolní odhady na jejich velikost obecně. (Velikostí je zde stále myšleno počet funkcí v~$|H|$, vše ostatní -- $c, |S|, m$ -- je fixováno!)
 
 \subsubsection{Dolní odhady na velikost}
 
@@ -2353,6 +2437,12 @@ $H=\{h_i\mid i\in I\}$ je $c$-univerzální systém funkcí hašujících do tab
 $m$. Můžeme předpoklá\-dat, že 
 $$I=\{0,1,\dots,|I|-1\}.$$
 
+\begin{veta}Když $H=\{h_i\mid i\in I\}$ je $c$-univerzální systém pro 
+univerzum $U$ o velikosti $N$ hašující do tabulky s~$m$ řádky, pak 
+$$|I|\ge\frac mc(\lceil\log_mN\rceil -1).$$
+\end{veta}
+
+\begin{proof}
 Indukcí definujme množiny $U_0,U_1,\dots$ tak, že: 
 $U_0=U$.\newline 
 Nechť $U_1$ je největší podmnožina $U_0$ vzhledem k počtu 
@@ -2378,16 +2468,22 @@ N{m^i}>1$. Tedy $U_i$ má
 aspoň dva prvky, zvolme $x,y\in U_i$ taková, že $x\ne y$. Pak 
 $h_j(x)=h_j(y)$ pro $j=0,1,\dots,i-1$. Tedy 
 $$i\le |\{j\in I\mid h_j(x)=h_j(y)\}|\le\frac {c|I|}m.$$
+\end{proof}
 
-\begin{veta}Když $H=\{h_i\mid i\in I\}$ je $c$-univerzální systém pro 
+\zapamatovat{
+Když $H=\{h_i\mid i\in I\}$ je $c$-univerzální systém pro 
 univerzum $U$ o velikosti $N$ hašující do tabulky s~$m$ řádky, pak 
-$$|I|\ge\frac mc(\lceil\log_mN\rceil -1).$$
+$|I|\ge\frac mc(\lceil\log_mN\rceil -1).$
+}
+
+\begin{pozorovani}
 Posloupnosti $0$ a $1$ při náhodné volbě $i$ z $I$ musí mít 
 délku alespoň $\lceil (\log m-\log c+\log\log N-\log\log m)\rceil$ (zde všechny logaritmy 
 jsou o základu $2$).
-\end{veta}
+\end{pozorovani}
 
 \subsubsection{Malý univerzální systém}
+MASEC
 
 Zkonstruujeme $c$-univerzální systém takový, 
 že logaritmus z velikosti jeho indexové množiny pro velká 
