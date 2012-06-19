@@ -382,6 +382,7 @@ Toto jsou standardní elementární odvození druhého momentu
 a rozptylu binomiálního rozdělení.
 
 \subsubsection{Očekávaný nejdelší řetězec}
+\label{tupomlema}
 
 Spočítáme $E(NP)$ očekávanou délku maximálního 
 řetězce ($NP$ jako nejhorší případ :))
@@ -3047,33 +3048,48 @@ nezaručuje splnění požadavků 2), 3) a 4) ze sekce \ref{pozadavky1234}.
 Abychom uspěli, použijeme ideu z metody univerzálního 
 hašování.  
 
-Pozn. studenta -- v~následujících několika kapitolách jsem si dovolil různé funkce, které stavíme, nazvat písmeny $A, B, C, D, E$, abych v~nich sám měl pořádek. Původně šlo o jednu kapitolu, ale ztrácel jsem se v~tom.
+Pozn. studenta -- v~následujících několika kapitolách jsem si dovolil různé funkce, které stavíme, nazvat písmeny $\mathbf{A, B, C, D, E}$, abych v~nich sám měl pořádek. Původně šlo o jednu kapitolu, ale ztrácel jsem se v~tom.
 
-\subsubsection{Konstrukce perfektních hašovacích funkcí A,B}
+\subsubsection{Konstrukce perfektních hašovacích funkcí $\mathbf{A,B}$}
 
 Předpoklady:  $U=\{0,1,\dots,N-1\}$, kde $N$ je 
-prvočíslo.  Mějme $S\subseteq U$ o velikosti $n$.  Budeme 
-uvažovat funkce 
+prvočíslo.  Mějme pevné $S\subseteq U$ o velikosti $n$.  
+
+\begin{definice}
 $$h_k(x)=(kx\bmod N)\bmod m\qquad\text{\rm\ pro }k=1,2,\dots,N-1.$$
+\end{definice}
+
+\begin{definice}
 Pro $i=0,1,\dots,m-1$ a $k=1,2,\dots,N-1$ označme 
 $$b_i^k=|\{x\in S\mid (kx\bmod N)\bmod m=i\}|.$$
+\end{definice}
 
 Význam $b_i^k$: Hodnoty $b_i^k$ lze považovat za 
-veličiny, které ukazují odchylku od perfektnosti. 
-Všimněme si, že 
+veličiny, které ukazují odchylku od perfektnosti. Říkají, kolik prvků koliduje v~$k$-té funkci do $i$-tého slotu.
+
+\begin{pozorovani}
+
 $$\text{\rm když }b_i^k\ge 2,\text{\rm\ pak }(b_i^k)^2-b_i^k\ge 
 2,$$
 
 protože $a^2-a\ge 2$, když $a\ge 2$. Na druhou stranu 
 $$b_i^k\le 1\text{\rm\ implikuje }(b_i^k)^2-b_i^k=0.$$
+\end{pozorovani}
 
-Tedy z $\sum_{i=0}^{m-1}b_i^k=n$ plyne 
-
-\begin{veta}Funkce $h_k$ je perfektní, právě když 
+\begin{lemma}[Podmínka perfektnosti]Funkce $h_k$ je perfektní, právě když 
 $\sum_{i=0}^{m-1}(b_i^k)^2-n<2$.
-\end{veta}
+\end{lemma}
+\begin{proof}
+    Plyne z~$\sum_{i=0}^{m-1}b_i^k=n$.
+\end{proof}
 
-Nyní odhadneme výraz $\sum_{k=1}^{N-1}\big((\sum_{
+\begin{lemma}
+    Existuje $k$ takové, že $\sum_{i=0}^{m-1}(b_i^
+    k)^2\le 2\frac {n(n-1)}m+n$.
+\end{lemma}
+\begin{proof}
+
+Odhadneme výraz $\sum_{k=1}^{N-1}\big((\sum_{
 i=0}^{m-1}(b_i^k)^2)-n\big)$.
 \begin{align*}\sum_{k=1}^{N-1}\big(&(\sum_{i=0}^{m-1}(b_i^k)^2)-n\big)=\\
 &\sum_{k=1}^{N-1}\big((\sum_{i=0}^{m-1}|\{x\in S\mid h_k(x)=i\}|^
@@ -3081,46 +3097,69 @@ i=0}^{m-1}(b_i^k)^2)-n\big)$.
 &\sum_{k=1}^{N-1}|\{(x,y)\mid x,y\in S,\,x\ne y,\,h_k(x)=h_k(y)\}
 |=\\
 &\sum_{x,y\in S,x\ne y}|\{k\mid 1\le k<N,\,h_k(x)=h_k(y)\}|.\end{align*}
-Zvolme $x,y\in S$ taková, že $x\ne y$. Pak $h_k(x)=h_k(y)$, 
+
+První rovnítko je z definice; druhé platí proto, že umocněný výraz je počet všech kolidujících dvojic a $n$ je takových, že se rovnají; třetí je opět přehození sumy.
+
+Teď použijeme podobný \uv{trik} s~modulem, jako předtím.
+
+Zvolme $x,y\in S$ taková, že $x\ne y$. 
+
+Pak $h_k(x)=h_k(y)$, 
 právě když existuje $i=0,1,\dots,m-1$ a $r,s=0,1,\dots,\lfloor\frac 
 Nm\rfloor$ 
-taková, že $kx\equiv i+rm\bmod N$ a $ky\equiv i+sm\bmod N$ a $
-i+rm,i+sm<N$. Odtud dostáváme, že $h_k(x)=h_k(y)$ implikuje $
-kx-ky\equiv (r-s)m\bmod N$.
-Protože $0<k<n$ a $x\ne y$, dostáváme, že $kx-ky\ne 0$, a tedy 
-$h_k(x)=h_k(y)$ implikuje existenci 
-$q=-\lfloor\frac Nm\rfloor ,-\lfloor\frac Nm\rfloor +1,\dots,-1,1
-,2,\dots,\lfloor\frac Nm\rfloor$ takového, že 
-$kx-ky\equiv qm\bmod N$,
-a to je 
-ekvivalentní s~tím, že $k(x-y)\equiv qm\bmod N$ pro nějaké 
-$q=-\lfloor\frac Nm\rfloor ,-\lfloor\frac Nm\rfloor +1,\dots,-1,1
-,2,\dots,\lfloor\frac Nm\rfloor$.
+taková, že 
 
-Pro $x>y$ a pro jedno $q=0,1,\dots,\lfloor\frac Nm\rfloor$ e\-xis\-tuje 
+\begin{align*}(kx&\equiv i+rm)\bmod N\\
+(ky&\equiv i+sm)\bmod N\end{align*}
+
+a $i+rm,i+sm<N$ ($i$ je opět zbytek po modulu).
+
+Odtud odečtením dostáváme, že $h_k(x)=h_k(y)$ implikuje $
+kx-ky\equiv (r-s)m\bmod N$.
+
+
+Protože $0<k<n$ a $x\ne y$, platí, že $kx-ky\ne 0$; tedy 
+$h_k(x)=h_k(y)$ implikuje existenci 
+$$(r-s)=q=-\lfloor\frac Nm\rfloor ,-\lfloor\frac Nm\rfloor +1,\dots,-1,1
+,2,\dots,\lfloor\frac Nm\rfloor$$
+
+takového, že 
+$k(x-y)=kx-ky\equiv qm\bmod N$.
+
+Nechť např. $q>0$; pro $x>y$ a pro jedno $q=1,2,\dots,\lfloor\frac Nm\rfloor$ e\-xis\-tuje 
 právě jedno $k$ takové, že $k(x-y)\equiv qm\bmod N$, protože 
-$\mathbb Z_N$ je těleso (tato rovnice má jediné řešení). 
-Protože pro $q=-\lfloor\frac Nm\rfloor ,\dots,-1,0$ je rovnice $
+$\mathbb Z_N$ je těleso (tato rovnice má jediné řešení -- řešíme $k$, protože $x,y,q,m,N$ jsou zafixovány). 
+
+
+Naopak pro $q=-\lfloor\frac Nm\rfloor ,\dots,-2,-1$ je rovnice $
 k(x-y)\equiv qm\bmod N$ 
-ekvivalentní s~rovnicí $k(x-y)\equiv N+qm\bmod N$, tak 
-dostáváme, že pro $x,y\in S$, $x>y$, existuje nejvýše 
+ekvivalentní s~rovnicí $k(x-y)\equiv N+qm\bmod N$, opět je právě jedno řešení.
+
+Dostáváme, že pro $x,y\in S$, $x>y$, existuje nejvýše 
 $2\lfloor\frac Nm\rfloor =2\lfloor\frac {N-1}m\rfloor$ různých $
-k=1,2,\dots,N-1$, že $h_k(x)=h_k(y)$ (obecně není pravda, že když 
-$k$ splňuje rovnici $k(x-y)\equiv qm\bmod N$ pro nějaké 
-$q=-\lfloor\frac Nm\rfloor ,\dots,-1,1,\dots,\lfloor\frac Nm\rfloor$, 
-pak $h_k(x)=h_k(y)$). Stejný odhad analogicky dostaneme, když $
+k=1,2,\dots,N-1$, že $h_k(x)=h_k(y)$ (jedno $k$ pro každé možné $q$). 
+
+Stejný odhad analogicky dostaneme, když $
 x<y$ 
-(ale dostáváme jiná řešení). Odtud 
+(ale dostáváme jiná řešení). 
+
+Odtud 
 $$\sum_{k=1}^{N-1}\big((\sum_{i=0}^{m-1}(b_i^k)^2)-n\big)\le\sum_{
 x,y\in S,x\ne y}2(\frac {N-1}m)=2(N-1)\frac {n(n-1)}m.$$
 
-Tedy existuje $k$ takové, že $\sum_{i=0}^{m-1}(b_i^
+Tedy platí, že existuje $k$ takové, že $\sum_{i=0}^{m-1}(b_i^
 k)^2\le 2\frac {n(n-1)}m+n$. 
+\end{proof}
 
-Ukážeme, že existuje více než $\frac {N-
+\begin{lemma}
+    Ukážeme, že existuje více než $\frac {N-
 1}4$ takových 
 $k$, že platí
 $$\sum_{i=0}^{m-1}(b_i^k)^2<3\frac {n(n-1)}m+n.$$
+\end{lemma}
+\begin{proof}
+    Sporem.
+    
 V opačném případě dostáváme, že 
 \begin{align*}\sum_{k=1}^{N-1}\big((\sum_{i=0}^{m-1}(b_i^k)^2)-n\big)\ge&\frac {
 3(N-1)}4\frac {3n(n-1)}m=\\
@@ -3130,14 +3169,15 @@ a to je spor s~předchozím výsledkem. Tedy při náhodném rovnoměrném
 výběru $k$ je 
 $$\Prob\{\sum_{i=0}^{m-1}(b_i^k)^2<\frac {3n(n-1)}m+n\mid k\in \{
 1,2,\dots,N-1\}\}\ge\frac 14.$$
+\end{proof}
 
-\begin{tvrzeni}Když $n=m$, pak 
+\begin{veta}Když $n=m$, pak 
 \begin{enumerate}
-\item[(a)]
+\item[(a)] (nazvu funkce $\mathbf{A_D}$)
 existuje deterministický algoritmus, jenž v čase $O(nN)$ 
 nalezne $k$ takové, že 
 $$\sum_{i=0}^{m-1}(b_i^k)^2<3n;$$
-\item[(b)]
+\item[(b)] (nazvu funkce $\mathbf{A_N}$)
 existuje pravděpodobnostní algoritmus, který 
 nalezne v čase $O(n)$ takové $k$, že $\sum_{i=0}^{m-1}(b_
 i^k)^2<4n$ -- očekávaný počet iterací výpočtu je nejvýše $
@@ -3145,19 +3185,27 @@ i^k)^2<4n$ -- očekávaný počet iterací výpočtu je nejvýše $
 \end{enumerate}
 Dále 
 \begin{enumerate}
-\item[(c)]
+\item[(c)] (nazvu funkce $\mathbf{B_D}$)
 existuje deterministický algoritmus, jenž v čase $O(nN)$ pro 
 $m=n(n-1)+1$ nalezne takové $k$, že $h_k$ je 
 perfektní;
-\item[(d)]
+\item[(d)] (nazvu funkce $\mathbf{B_N}$)
 existuje pravděpodobnostní algoritmus, který pro 
 $m=2n(n-1)$ v čase $O(n)$ nalezne $k$ takové, že $h_k$ je 
 perfektní -- očekávaný počet iterací výpočtu 
 je nejvýše $4$.
 \end{enumerate}
-\end{tvrzeni}
+\end{veta}
 
-\begin{proof}Mějme $n=m$. Protože spočítání 
+\begin{proof}
+    
+    Neformálně:
+    
+    Časy jsou jednoduché -- pro deterministické musíme zkusit všechny možné $k$, pro nedeterministické zkusíme v~průměru jen čtyřikrát. Zbytek v podstatě jen dosadíme do předchozích dvou lemmat různé velikosti $m$.
+    
+    Formálně:
+    
+    Mějme $n=m$. Protože spočítání 
 $\sum_{i=0}^{m-1}(b_i^k)^2$ pro pevné $k$ vyžaduje čas $O
 (n)$, prohledáním 
 všech možností nalez\-ne\-me $k$ takové, že 
@@ -3183,48 +3231,89 @@ $m=2n(n-1)$, pak pro náhodně zvolené $k$ platí s~pravděpodobností $\le\fra
 $$\sum_{i=0}^{m-1}(b_i^k)^2\le\frac {3n(n-1)}{2n(n-1)}+n<n+2.$$
 Algoritmus splňující tvrzení d) je stejný jako 
 v případě b) (jen $m=2n(n-1)$).
+
 \end{proof}
 
-Takto zkonstruované perfektní hašovací funkce 
-nesplňují poža\-davek 2) (platí $m=\Theta (n^2)$).  Použijeme následující 
-postup. 
 
-1) Nalezneme $k$ takové, že pro $m=n$ platí 
-$\sum_{i=0}^{m-1}(b_i^k)^2<3n$ (respektive $\sum_{i=0}^{m-1}(b_i^
-k)^2<4n$).  Pro 
+Hašovací funkce $\mathbf{A}$ nejsou perfektní.
+
+Hašovací funkce $\mathbf{B}$ jsou perfektní, ale 
+nesplňují poža\-davek 2) z~\ref{pozadavky1234} (platí $m=\Theta (n^2)$).  Pro ten nalezneme funkci $\mathbf{C}$
+
+\subsubsection{Konstrukce perfektní hašovací funkce $\mathbf{C}$}
+
+Neformálně:
+
+Použiji funkce $\mathbf{A}$, ty mi budou někde kolidovat. Na každé z~kolizních množin pak použiji funkce $\mathbf{B}$, každou extra v extra tabulce a pak je všechny dám za sebe. Počet kolizí v~$\mathbf{A}$ je omezen.
+
+Formálně, deterministická verze:
+
+\begin{enumerate}
+\item Nalezneme $k$ takové, že pro $m=n$ platí 
+$\sum_{i=0}^{m-1}(b_i^k)^2<3n$.  Pro 
 $i=0,1,\dots,m-1$ nalezneme množiny 
-$S_i=\{s\in S\mid h_k(s)=i\}$;\newline 
-2) Pro každé $i=0,1\dots,m-1$ takové, že $S_i\ne\emptyset$, 
-nalezneme pro $m=1+|S_i|(|S_i|-1)$ (respektive $m=1+2|S_i|(|S_i|-
-1)$) 
+$S_i=\{s\in S\mid h_k(s)=i\}$
+\item Pro každé $i=0,1\dots,m-1$ takové, že $S_i\ne\emptyset$, 
+nalezneme pro $m=1+|S_i|(|S_i|-1)$ 
 takové $k_i$, že $h_{k_i}$ je perfektní na $S_i$. Definujme 
-$c_i=1+|S_i|(|S_i|-1)$ (respektive $c_i=2|S_i|(|S_i|-1)$), když 
+$c_i=1+|S_i|(|S_i|-1)$, když 
 $S_i\ne\emptyset$, a $c_i=0$, když 
-$S_i=\emptyset$.\newline 
-3) Pro $i=0,1,\dots,m$ definujme $d_i=\sum_{j=0}^{i-1}c_j$ a pro $
+$S_i=\emptyset$. 
+\item Pro $i=0,1,\dots,m$ definujme $d_i=\sum_{j=0}^{i-1}c_j$ a pro $
 x\in U$ 
 označme $h_k(x)=l$. Pak položíme $g(x)=d_l+h_{k_l}(x)$.
+\end{enumerate}
 
-\begin{veta}Zkonstruovaná funkce $g$ je perfektní, 
-hodnota $g(x)$ se pro každé $x\in U$ spočítá v čase $
-O(1)$, 
-v deterministickém přípa\-dě hašuje do tabulky velikosti 
-$<3n$ a je nalezena v čase $O(nN)$, v pravděpodobnostním 
+Formálně, nedeterministická verze, rozdíly podtrženy:
+
+\begin{enumerate}
+\item Nalezneme $k$ takové, že pro $m=n$ platí 
+$\underline{\sum_{i=0}^{m-1}(b_i^
+k)^2<4n}$.  Pro 
+$i=0,1,\dots,m-1$ nalezneme množiny 
+$S_i=\{s\in S\mid h_k(s)=i\}$ 
+\item Pro každé $i=0,1\dots,m-1$ takové, že $S_i\ne\emptyset$, 
+nalezneme pro $\underline{m=1+2|S_i|(|S_i|-
+1)}$ 
+takové $k_i$, že $h_{k_i}$ je perfektní na $S_i$. Definujme 
+$\underline{c_i=2|S_i|(|S_i|-1)}$, když 
+$S_i\ne\emptyset$, a $c_i=0$, když 
+$S_i=\emptyset$.
+\item Pro $i=0,1,\dots,m$ definujme $d_i=\sum_{j=0}^{i-1}c_j$ a pro $
+x\in U$ 
+označme $h_k(x)=l$. Pak položíme $g(x)=d_l+h_{k_l}(x)$.
+\end{enumerate}
+
+
+
+\begin{veta}
+    \begin{pitemize}
+        \item Zkonstruovaná funkce $g$ je perfektní. 
+\item Hodnota $g(x)$ se pro každé $x\in U$ spočítá v čase $
+O(1)$. 
+\item V deterministickém přípa\-dě hašuje do tabulky velikosti 
+$<3n$ a je nalezena v čase $O(nN)$, v pra\-vdě\-po\-do\-bno\-stním 
 přípa\-dě hašuje do tabulky velikosti $<6n$ a je nalezena 
-v čase $O(n)$. Pro její zakódování jsou třeba hodnoty $
+v čase $O(n)$.
+\item Pro její zakódování jsou třeba hodnoty $
 k$ a 
 $k_i$ pro $i=0,1,\dots,m-1$. Tyto hodnoty jsou v rozmezí 
 $1,2,\dots,N-1$, a tedy vyžadují $O(n\log N)$ paměti.
+    \end{pitemize}
 \end{veta}
 
-\begin{proof}Protože $g(S_i)$ pro $i=0,1,\dots,m-1$ 
+\begin{proof}
+    \begin{pitemize}
+        \item Protože $g(S_i)$ pro $i=0,1,\dots,m-1$ 
 jsou navzájem disjunktní a $h_{k_i}$ je perfektní na $S_
 i$, 
-dostáváme, že $g$ je perfektní. Pro výpočet hodnoty $
+dostáváme, že $g$ je perfektní. 
+ \item Pro výpočet hodnoty $
 g(x)$ 
 jsou třeba dvě násobení, dvojí výpočet zbytku při 
 dělení a jedno sčítání (hodnoty $d_i$ jsou uloženy v 
-paměti). Proto výpočet $g(x)$ vyžaduje čas $O(1)$. Dále 
+paměti). Proto výpočet $g(x)$ vyžaduje čas $O(1)$. 
+ \item Dále 
 $d_m$ je horní odhad na počet řádků v tabulce. 
 Protože pro $S_i\ne\emptyset$ máme $|S_i|(|S_i|-1)+1\le |S_
 i|^2=(b_i^k)^2$, 
@@ -3237,38 +3326,68 @@ $O(nN+\sum_{i=0}^{m-1}|S_i|N)=O(nN+N\sum_{i=0}^{m-1}|S_i|)=O(2nN)
 V pravděpodob\-nostním případě je 
 $$d_m=\sum_{i=0}^{m-1}c_i\le\sum_{i=0}^{m-1}(2|S_i|^2-2|S_i|)=2\sum_{
 i=0}^{m-1}(b_i^k)^2-2\sum_{i=0}^{m-1}b_i^k<8n-2n=6n$$
-(protože $|S_i|=b_i^k$ a $\sum_{i=0}^{m-1}b_i^k=n$). Protože $
+(protože $|S_i|=b_i^k$ a $\sum_{i=0}^{m-1}b_i^k=n$). 
+ \item Protože $
 k$ nalezneme v čase $O(n)$ a $k_i$ v čase $O(|S_i|)$, dostaneme, že 
-že $g$ nalezneme v čase $O(n)$. Zbytek je jasný.
+že $g$ nalezneme v čase $O(n)$. 
+ \item Zbytek je jasný.
+\end{pitemize}
 \end{proof}
 
 Tedy zkonstruovaná hašovací funkce splňuje požadavky 
-1), 2) a 3), ale požadavek 4) není splněn. 
+1), 2) a 3) z~\ref{pozadavky1234}, ale požadavek 4) není splněn. 
+
+\subsubsection{Konstrukce perfektní hašovací funkce $\mathbf{D}$}
+
+\begin{lemma}Nechť $q=$počet prvočísel, která dělí 
+$m$. Pak $q=O(\frac {\log m}{\log\log m})$.
+\end{lemma}
+
+\begin{proof}
 
 Mějme přirozené číslo $m$ a nechť $q$ je počet všech prvočísel 
 dělících $m$ ($p_1,p_2,\dots$ je rostoucí posloupnost všech 
 prvočísel). Pak
 $$m\ge\prod_{i=1}^qp_i>q!=e^{\sum_{i=1}^q\ln i}\ge e^{\int_1^q\ln 
 xdx}=e^{q\ln(\frac qe)+1}\ge (\frac qe)^q.$$
-Proto existuje konstanta $c$, že $q\le c\frac {\ln m}{\ln\ln m}$ (viz Lemma v odstavci Očekávaný 
-nejhorší případ na stránce 6). Platí tedy  
-\begin{veta}Nechť $\delta (m)=$počet prvočísel, která dělí 
-$m$. Pak $\delta (m)=O(\frac {\log m}{\log\log m})$.
+Proto existuje konstanta $c$, že $q\le c\frac {\ln m}{\ln\ln m}$ (viz Pomocné lemma v~sekci \ref{tupomlema}). 
+\end{proof}
+
+
+\begin{veta}Pro každou $n$-prvkovou množinu $S\subseteq 
+U$ 
+existuje prvo\-čís\-lo $p$ o velikosti $O(n^2\ln N)$ takové, že 
+funkce $\phi_p(x)=x\bmod p$ je perfektní pro $S$. (nazvu funkce $\mathbf{D}$)  
 \end{veta}
 
-Mějme $S=\{s_1<s_2<\dots<s_n\}\subseteq U$. Označme 
+\begin{proof}
+
+Mějme opět pevně danou $S=\{s_1<s_2<\dots<s_n\}\subseteq U$. 
+
+Označme 
 $d_{i,j}=s_j-s_i$ pro $1\le i<j\le n$. Pak $s_i\bmod p\ne s_j\bmod 
 p$, 
-právě když $d_{i,j}\ne 0\bmod p$. Označme 
-$D=\prod_{1\le i<j\le n}d_{i,j}\le N^{(n^2)}$. Pak počet prvočíselných 
+právě když $d_{i,j}\ne 0\bmod p$.
+
+ Označme 
+$D=\prod_{1\le i<j\le n}d_{i,j}\le N^{(n^2)}$. 
+
+Pak počet prvočíselných 
 dělitelů čísla $D$ je nejvýše $c\frac {\ln 
-D}{\ln\ln D}$, a tedy mezi 
+D}{\ln\ln D}$ (z minulého lemmatu).
+
+Tedy mezi 
 prvními $1+c\frac {\ln D}{\ln\ln D}$ prvočísly existuje prvočíslo $
 p$ 
 takové, že $s_i\bmod p\ne s_j\bmod p$ pro každé $1\le i
-<j\le n$. 
+<j\le n$. Existuje proto, že jsme vzali o 1 větší než největší možné prvočíslo, které to dělí; nerovná se proto, že to nesmí dělit ani jeden rozdíl.
+
+
 To znamená, že funkce $\phi_p(x)=x\bmod p$ je perfektní pro 
-$S$. Podle věty o velikosti prvočísel $p_t\le 2t\ln t$ pro každé $
+$S$. 
+
+
+Podle věty o velikosti prvočísel $p_t\le 2t\ln t$ pro každé $
 t\ge 6$, tedy
 \begin{align*} p\le&2(1+c\frac {\ln D}{\ln\ln D})\ln(1+c\frac {\ln D}{\ln\ln 
 D})\le\\
@@ -3277,31 +3396,51 @@ D})\le\\
 D}{\ln\ln D})=\\
 &4c\ln D+o(\ln D)=O(\ln D)=O(n^2\ln N).\end{align*}
 
-\begin{veta}Pro každou $n$-prvkovou množinu $S\subseteq 
-U$ 
-existuje prvo\-čís\-lo $p$ o velikosti $O(n^2\ln N)$ takové, že 
-funkce $\phi_p(x)=x\bmod p$ je perfektní pro $S$.  
-\end{veta}
 
+\end{proof}
+
+
+
+\begin{veta}Pro danou množinu $S\subseteq U$ takovou, že 
+$|S|=n$, deterministický algoritmus nalezne prvočíslo 
+$p=O(n^2\log N)$ takové, že $\phi_p(x)=x\bmod p$ je perfektní 
+pro $S$, a pracuje v čase $O(n^3\log n\log N)$.\end{veta}
+
+\begin{proof}
 Test, zda funkce $\phi_p(x)=x\bmod p$ je perfektní 
 pro $S$, 
 vyžaduje čas $O(n\log n)$. Tedy systematické hledání 
 nejmenšího $p$, že $\phi_p$ je perfektní pro $S$, vyžaduje čas 
-$O(n^3\log n\log N)$. Nejmenší $p$ takové, že $\phi_p$ je perfektní 
+$O(n^3\log n\log N)$. 
+\end{proof}
+
+\begin{veta}
+Pravděpodobnostní 
+algoritmus nalezne pr\-vočíslo $p=O(n^2\log N)$ takové, že 
+$\phi_p$ je perfektní, v očekáva\-ném čase 
+$O(n\log n(\log n+\log\log N))$.
+\end{veta}
+
+
+\begin{proof}
+Nejmenší $p$ takové, že $\phi_p$ je perfektní 
 pro $S$, 
 je prvočíslo. Navrhneme pravděpodob\-nostní algoritmus 
-pro nalezení $p$. Pro dostatečně velké $n$ mezi 
+pro nalezení $p$. 
+
+Pro dostatečně velké $n$ mezi 
 prvními $9c\ln D$ čísly je alespoň polovina tako\-vých 
 prvočísel $p$, že $\phi_p$ je perfektní pro $S$. Algoritmus pak 
 opakuje následující krok, dokud nenalezne perfektní funkci
-\begin{enumerate}
+\begin{itemize}
 \item 
 vyberme náhodně číslo $p$ mezi prvními $9cn^2\ln 
 N$ 
 čísly a otestujme, zda $p$ je prvočíslo a $\phi_p$ je perfektní
-\end{enumerate}
+\end{itemize}
 
-Odhad očekávaného počtu neúspěšných kroků.\newline 
+Odhadneme očekávaný počet neúspěšných kroků.
+
 Náhodně zvolené číslo $p\le 9cn^2\ln N$ je prvočíslo s~pravděpo\-dob\-ností $\Theta (\frac 1{\ln(9cn^2\ln N)})$ 
 (použi\-je\-me Rabin-Millerův pravděpdobnostní algoritmus na testovéní prvočísel) a pro prvočíslo $
 p$ je $\phi_p$ 
@@ -3311,21 +3450,33 @@ $\Theta (\frac 1{\ln(9cn^2\ln N)})$, a proto očeká\-va\-ný počet neúspěšn
 testů je $O(\ln(9cn^2\ln N))$. Tedy očeká\-vaný čas 
 algoritmu je $O(n\log n(\log n+\log\log N))$.
 
-\begin{veta}Pro danou množinu $S\subseteq U$ takovou, že 
-$|S|=n$, deterministický algoritmus nalezne prvočíslo 
-$p=O(n^2\log N)$ takové, že $\phi_p(x)=x\bmod p$ je perfektní 
-pro $S$, a pracuje v čase $O(n^3\log n\log N)$. Pravděpodobnostní 
-algoritmus nalezne pr\-vočíslo $p=O(n^2\log N)$ takové, že 
-$\phi_p$ je perfektní, v očekáva\-ném čase 
-$O(n\log n(\log n+\log\log N))$.
-\end{veta}
+\end{proof}
 
-Deterministický algoritmus nalezne nejmenší prvočíslo s~po\-ža\-dovanou vlastností.  Prav\-dě\-podobnostní algoritmus 
+\begin{pozorovani}Deterministický algoritmus nalezne nejmenší prvočíslo s~po\-ža\-dovanou vlastností.  Prav\-dě\-podobnostní algoritmus 
 nalezne prvočíslo, které může být podstatně 
 větší, ale jeho velikost je omezena $9cn^2\log N$. 
+\end{pozorovani}
 
-Nyní navrhneme postup na konstrukci perfektní 
-hašovací funk\-ce pro množinu $S\subseteq U$.
+\subsubsection{Konstrukce perfektní hašovací funkce $\mathbf{E}$}
+
+Neformálně: Nyní všechny funkce $\mathbf{A,B,C,D}$ \uv{zkombinujeme} dohromady.
+
+\begin{enumerate}
+\item První vezmeme funkci $D_D$.
+\item Na zahešované množině najdeme funkci $B_D$ s~nějakým prvočíslem jako velikostí tabulky.
+\item Na zahešované množině najdeme funkci $C_D$.
+\end{enumerate}
+
+Podobně nedeterministicky. Pokud to chápu správně, použijeme $B$ jakoby dvakrát; jednou v $B$ a jednou v $C$.
+
+Všechno jsme to takhle zkombinovali, protože:
+\begin{pitemize}
+\item $C$ se nám líbí, protože je perfektní a má malou tabulku; ale potřebuje moc paměti na uložení. Tak si zmenšíme prostor, ve kterém se pohybujeme.
+\item Pokud si předtím omezíme prostor pomocí $B$, tak je paměť, nutná k $C$, o něco menší, ale zase trvá příliš dlouho nalézt parametr k $B$ a je moc velký
+\item Proto si ještě pomůžu na začátku $D$, která nám prostor zmenší.
+\end{pitemize}
+
+Formálně:
 
 \begin{enumerate}
 \item
@@ -3351,13 +3502,19 @@ funkce je $f$.
 Výsledek: $f$ je perfektní hašovací funkce pro $
 S$, protože 
 složení perfektních hašovacích funkcí je zase perfektní 
-funkce, a tedy požadavek 1) je splněn. \newline 
+funkce, a tedy požadavek 1) je splněn. 
+
+ 
 $f$ hašuje $S$ do tabulky s~méně než $3n$ řádky, a tedy 
-splňuje požadavek 2). \newline 
+splňuje požadavek 2). 
+
+
 Protože každá z funkcí $g$, $h_l$, $\phi_{q_0}$ se vyčíslí v čase $
 O(1)$, 
 i vyčíslení funkce $f$ vyžaduje čas $O(1)$ a požadavek 3) je 
-splněn.\newline 
+splněn.
+
+
 Funkce $\phi_{q_0}$ je jednoznačně určena číslem $
 q_0\in O(n^2\log N)$. 
 Funkce $h_l$ je určena čísly $q_1\in O(n^2)$ a $l\in O(
@@ -4068,11 +4225,14 @@ přesně {\bf MIN} je operace $\bold o\bold r\bold d(1)$ a {\bf MAX} je operace 
 
 \subsection{$(a,b)$-stromy}
 
+\subsubsection{Obecná definice}
 Důležitou datovou strukturou vhodnou pro 
 řešení uspořá\-dané\-ho slovní\-ko\-vé\-ho problému jsou 
 $(a,b)$-stromy. Tuto datovou strukturu lze použít pro interní i 
 pro externí paměť. Je to struktura založená na stromech. 
-Nejobecnější grafová defini\-ce $(a,b)$-stromu je:\newline 
+Nejobecnější grafová defini\-ce $(a,b)$-stromu je:
+
+ 
 Nechť $1\le a<b$ jsou kladná přirozená čísla. Pak kořenový 
 strom $(T,t)$ se nazývá $(a,b)$-\emph{strom}, když 
 \begin{enumerate}
@@ -4083,32 +4243,37 @@ kořene $t$, pak má alespoň $a$ a nejvýše $b$ synů;
 všechny cesty z kořene do libovolného listu mají 
 stejnou délku.
 \end{enumerate}
+
+\subsubsection{Speciální případ -- definice}
 Tato definice je příliš obecná a pro datové struktury se 
-nehodí. Proto používáme její speciální případ. Datová 
+nehodí. Proto používáme její speciální případ (změny podtrženy). 
+
+Datová 
 struktura $(a,b)$-strom je definována jen na těchto stromech: 
-Nechť $a$ a $b$ jsou přirozená čísla taková, že $
+Nechť $a$ a $b$ jsou přirozená čísla \underline{taková, že $
 2\le a$ a 
-$2a-1\le b$. Pak kořenový 
+$2a-1\le b$}. Pak kořenový 
 strom $(T,t)$ nazveme $(a,b)$-\emph{strom}, když platí 
 \begin{enumerate}
 \item
 každý vnitřní vrchol $v$ stromu $T$ různý od 
 kořene $t$ má alespoň $a$ a nejvýše $b$ synů;
 \item
-kořen je buď list nebo má alespoň dva syny a nejvýše $
+\underline{kořen je buď list nebo má alespoň dva syny a nejvýše $
 b$ 
-synů;
+synů;}
 \item
 všechny cesty z kořene do libovolného listu mají 
 stejnou délku.
 \end{enumerate}
 
+\subsubsection{Vlastnosti -- velikost}
 Výhody našich $(a,b)$-stromů:\newline 
 Když má $(a,b)$-strom \emph{výšku} $h>0$ (tj. délka každé 
 cesty z kořene do libovolného listu je $h$), pak 
 strom má alespoň $2a^{h-1}$ listů a nejvýše $b^
 h$ 
-listů.
+listů. Z~toho jednoduše plyne:
 
 \begin{tvrzeni}Mějme přirozená čísla $a$ a $
 b$ taková, 
@@ -4120,6 +4285,8 @@ listů, pak výška stromu je nejvýše $1+\log_a(\frac
 n2)$ a 
 je alespoň $\log_bn$. Tedy výška stromu je $O(\log n)$.
 \end{tvrzeni}
+
+\subsubsection{Vlastnosti -- uspořádání na listech}
 
 Mějme kořenový strom $(T,t)$ takový, že pro každý 
 vnitřní vrchol $v$ platí:\newline 
@@ -4152,23 +4319,26 @@ splňuje $s\le t$ v $U$, právě když $\key^{-1}(s)\le\key^{
 lexikografickém uspořádání na množině listů 
 stromu $T$).  
 
-Struktura vnitřních vrcholů 
-$(a,b)$-stromu $(T,t)$ reprezentující\-ho množinu 
-$S\subseteq U$:\newline 
-$\rho (v)$ -- počet synů vrcholu $v$,\newline 
-$S_v(1..\rho (v))$ -- pole ukazatelů na syny vrcholu $v$ takové, 
+\subsubsection{Jak reprezentujeme množinu?}
+Co je uloženo ve vnitřních vrcholech $(a,b)$-stromu $(T,t)$ reprezentující\-ho množinu 
+$S\subseteq U$?
+\begin{pitemize}
+\item$\rho (v)$ -- počet synů vrcholu $v$, 
+\item$S_v(1..\rho (v))$ -- pole ukazatelů na syny vrcholu $v$ takové, 
 že $S_v(i)$ je $i$-tý syn vrcholu $v$ pro 
-$i=1,2\dots,\rho (v)$,\newline 
-$H_v(1..\rho (v)-1)$ -- pole prvků z $U$ takové, že $
+$i=1,2\dots,\rho (v)$, 
+\item$H_v(1..\rho (v)-1)$ -- pole prvků z $U$ takové, že $
 H_v(i)$ 
 je největší prvek z $S$ reprezentovaný v podstromu 
-$i$-tého syna vrcholu $v$ (alternativa: $H_v(i)$ je prvek z $U$ 
+$i$-tého syna vrcholu $v$ 
+
+alternativa: $H_v(i)$ je prvek z $U$ 
 takový, že největší prvek reprezentovaný v podstromu $
 i$-tého 
 syna vrcholu $v$ je menší nebo roven $H_v(i)$ a to je menší  
 než nejmenší prvek reprezentovaný v podstromu $(i+1)$-ního 
-syna vrcholu $v$).
-
+syna vrcholu $v$
+\end{pitemize}
 Struktura listů:\newline 
 listu $v$ je přiřazen prvek $\key(v)\in S$.
 
@@ -4176,16 +4346,20 @@ Někdy je ve struktuře každého vrcholu $v$
 $(a,b)$-stromu různého od kořene ještě ukazatel 
 $\otec(v)$ na otce vrcholu $v$.
 
+\begin{pozorovani}
 Když $H_v(i)$ jsou prvky z reprezentované 
 množiny, pak pro každý prvek $s\in S$ kromě největšího 
 existuje právě jeden vnitř\-ní vrchol $v$ $(a,b)$-stromu 
 a jedno $i$, že $H_v(i)=s$, a největší prvek v $S$ není prvek 
-$H_v$ pro žádný vrchol $v$. Tento fakt se používá při 
+$H_v$ pro žádný vrchol $v$. 
+\end{pozorovani}
+
+Tento fakt se používá při 
 implementaci, kde se vynechávají listy. Prvky z $S$ jsou 
 reprezentovány v polích $H_v$ vnitř\-ních vrcholů 
 stromu 
 a největší prvek je uložen zvlášť nebo je k množině $S$ přidán 
-formální největší prvek (a ten je pak "uložen" zvlášť). Je to prostorově 
+formální největší prvek (a ten je pak \uv{uložen} zvlášť). Je to prostorově 
 efektivnější reprezentace množiny $S$, ale je technicky 
 nepřehledná. Proto při práci s~$(a,b)$-stromy používám 
 verzi s~listy.
@@ -4196,122 +4370,131 @@ Nyní uvedeme algoritmy pro $(a,b)$-stromy.
 
 Pomocný algoritmus
 
-{\bf Vyhledej$(x)$\newline 
+\algoritmus{{\bf Vyhledej$(x)$\newline 
 $t:=$}kořen stromu $T$, $w:=NIL$\newline 
-{\bf while} $t$ není list {\bf do}\newline 
+{\bf \textsf{while}} $t$ není list {\bf \textsf{do}}\newline 
 \phantom{---}$i:=1$\newline 
-\phantom{---}{\bf while} $H_t(i)<x$ a $i<\rho (t)$ {\bf do} $i:=i+1$ {\bf enddo}\newline 
-\phantom{---}{\bf if} $H_t(i)=x$ {\bf then} $w:=t$ {\bf endif}\newline 
-$t:=S_t(i)$ {\bf enddo Výstup}: $t$ a $w$.
-
+\phantom{---}{\bf \textsf{while}} $H_t(i)<x$ a $i<\rho (t)$ {\bf \textsf{do}} $i:=i+1$ {\bf \textsf{enddo}}\newline 
+\phantom{---}{\bf \textsf{if}} $H_t(i)=x$ {\bf \textsf{then}} $w:=t$ {\bf \textsf{endif}}\newline 
+$t:=S_t(i)$ {\bf \textsf{enddo} Výstup}: $t$ a $w$.
+}
+\algoritmus{
 {\bf MEMBER$(x)$\newline 
 Vyhledej$(x)$\newline 
-if} $\key(t)=x$ {\bf then Výstup}: $x\in S$ {\bf else Výstup}: $x\notin S$ {\bf endif
-
+\textsf{if}} $\key(t)=x$ {\bf \textsf{then} Výstup}: $x\in S$ {\bf \textsf{else} Výstup}: $x\notin S$ {\bf \textsf{endif}
+}}
+\algoritmus{
+{\bf
 INSERT$(x)$\newline
 Vyhledej$(x)$\newline 
-if} $\key(t)\ne x$ {\bf then}\newline 
+\textsf{if}} $\key(t)\ne x$ {\bf \textsf{then}}\newline 
 \phantom{---}vytvoř nový list $t'$, $\key(t'):=x$, $u:=\otec(t)$\newline 
-\phantom{---}{\bf if} $\key(t)<x$ {\bf then}\newline 
+\phantom{---}{\bf \textsf{if}} $\key(t)<x$ {\bf \textsf{then}}\newline 
 (komentář: $x>\max S$)\newline 
 \phantom{------}$S_u(\rho (u)+1):=t'$, $H_u(\rho (u)):=\key(t)$, $\rho (u):=\rho 
 (u)+1$\newline 
-\phantom{---}{\bf else}\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
 \phantom{------}najdi $i$, že $S_u(i)=t$\newline 
 \phantom{------}$S_u(\rho (u)+1):=S(\rho (u))$, $j:=\rho (u)-1$\newline 
-\phantom{------}{\bf while} $j\ge i$ {\bf do\newline 
+\phantom{------}{\bf \textsf{while}} $j\ge i$ {\bf \textsf{do}\newline 
 \phantom{---------}$S_u(j+1):=S_u(j)$}, $H_u(j+1):=H_u(j)$, $j:=j-1$\newline 
-\phantom{------}{\bf enddo\newline 
+\phantom{------}{\bf \textsf{enddo}\newline 
 \phantom{------}$S_u(i):=t'$}, $H_u(i):=x$, $\rho (u):=\rho (u)+1$\newline 
-\phantom{---}{\bf endif}\newline 
+\phantom{---}{\bf \textsf{endif}}\newline 
 \phantom{---}$t:=u$\newline 
-\phantom{---}{\bf while} $\rho (t)>b$ {\bf do Štěpení$(t)$ enddo\newline 
-endif}
-
+\phantom{---}{\bf \textsf{while}} $\rho (t)>b$ {\bf \textsf{do} Štěpení$(t)$ \textsf{enddo}\newline 
+\textsf{endif}}
+}
+\algoritmus{
 {\bf Štěpení$(t)$\newline 
-if} $t$ je kořen stromu {\bf then}\newline 
+\textsf{if}} $t$ je kořen stromu {\bf \textsf{then}}\newline 
 \phantom{---}vytvoř nový kořen $u$ s~jediným synem $t$\newline 
-{\bf endif}\newline 
+{\bf \textsf{endif}}\newline 
 $u:=\otec(t)$, najdi $i$, že $S_u(i)=t$,\newline 
 vytvoř nový vnitřní vrchol $t'$, $j:=1$\newline 
-{\bf while} $j<\lfloor\frac {b+1}2\rfloor$ {\bf do}\newline 
+{\bf \textsf{while}} $j<\lfloor\frac {b+1}2\rfloor$ {\bf \textsf{do}}\newline 
 \phantom{---}$S_{t'}(j):=S_t(j+\lceil\frac {b+1}2\rceil )$, $H_{t'}(j):=H_t(j+\lceil\frac {b+1}2\rceil)$, $j:=j+1$\newline 
-{\bf enddo\newline 
+{\bf \textsf{enddo}\newline 
 $S_{t'}(\lfloor\frac {b+1}2\rfloor ):=S_t(b+1)$}, $\rho (t):=\lceil\frac {
 b+1}2\rceil$, $\rho (t'):=\lfloor\frac {b+1}2\rfloor$,\newline 
-{\bf if} $i<\rho (u)$ {\bf then} $S_u(\rho (u)+1):=S_u(\rho (u))$ {\bf endif\newline}
+{\bf \textsf{if}} $i<\rho (u)$ {\bf \textsf{then}} $S_u(\rho (u)+1):=S_u(\rho (u))$ {\bf \textsf{endif}\newline}
 $j:=\rho (u)-1$, $\rho (u):=\rho (u)+1$,\newline 
-{\bf while} $j>i$ {\bf do}\newline 
+{\bf \textsf{while}} $j>i$ {\bf \textsf{do}}\newline 
 \phantom{---}$S_u(j+1):=S_u(j)$, $H_u(j+1):=H_u(j)$, $j:=j-1$\newline 
-{\bf enddo\newline 
+{\bf \textsf{enddo}\newline 
 $S_u(i+1):=t'$}, $H_u(i+1):=H_u(i)$, $H_u(i):=H_t(\rho (t))$, 
 $t:=u$
-
+}
+\algoritmus{
 {\bf DELETE$(x)$\newline 
 Vyhledej$(x)$\newline 
-if} $\key(t)=x$ {\bf then}\newline 
+\textsf{if}} $\key(t)=x$ {\bf \textsf{then}}\newline 
 \phantom{---}$u:=\otec(t)$, najdi $i$, že $S_u(i)=t$, a $j$, že $H_w(j)=x$, $k:=i$\newline 
-\phantom{---}{\bf if} $w\ne u$ a $w\ne NIL$ {\bf then} $H_w(j):=H_u(\rho (u)-1)$ {\bf endif}\newline 
-\phantom{---}{\bf while} $k<\rho (u)-1$ {\bf do}\newline 
+\phantom{---}{\bf \textsf{if}} $w\ne u$ a $w\ne NIL$ {\bf \textsf{then}} $H_w(j):=H_u(\rho (u)-1)$ {\bf \textsf{endif}}\newline 
+\phantom{---}{\bf \textsf{while}} $k<\rho (u)-1$ {\bf \textsf{do}}\newline 
 \phantom{------}$H_u(k):=H_u(k+1)$, $S_u(k):=S_u(k+1)$, $k:=k+1$ \newline 
-\phantom{---}{\bf enddo}\newline 
-\phantom{---}{\bf if} $i\ne\rho(u)$ {\bf then} $S_u(\rho (u)-1):=S_u(\rho (u))$ {\bf endif}\newline
+\phantom{---}{\bf \textsf{enddo}}\newline 
+\phantom{---}{\bf \textsf{if}} $i\ne\rho(u)$ {\bf \textsf{then}} $S_u(\rho (u)-1):=S_u(\rho (u))$ {\bf \textsf{endif}}\newline
 \phantom{---}$\rho (u):=\rho (u)-1$, odstraň $t$, $t:=u$ \newline 
-\phantom{---}{\bf while} $\rho (t)<a$ a $t$ není kořen {\bf do}\newline 
+\phantom{---}{\bf \textsf{while}} $\rho (t)<a$ a $t$ není kořen {\bf \textsf{do}}\newline 
 \phantom{------}$y$ je bezprostřední bratr $t$\newline 
-\phantom{------}{\bf if} $\rho (y)=a$ {\bf then Spojení$(t,y)$ else Přesun$
-(t,y)$ endif}\newline 
-\phantom{---}{\bf enddo\newline 
-endif}
-
+\phantom{------}{\bf \textsf{if}} $\rho (y)=a$ {\bf \textsf{then} Spojení$(t,y)$ \textsf{else} Přesun$
+(t,y)$ \textsf{endif}}\newline 
+\phantom{---}{\bf \textsf{enddo}\newline 
+\textsf{endif}}}
+\algoritmus{
 {\bf Spojení$(t,y)$\newline 
 $u:=\otec(t)$}, najdi $i$, že $S_u(i)=t$, $j:=1$\newline 
-{\bf if} $S_u(i-1)=y$ {\bf then} vyměň $t$ a $y$, $i:=i-1$ {\bf endif\newline 
-while} $j<\rho (y)$ {\bf do}\newline 
+{\bf \textsf{if}} $S_u(i-1)=y$ {\bf \textsf{then}} vyměň $t$ a $y$, $i:=i-1$ {\bf \textsf{endif}\newline 
+\textsf{while}} $j<\rho (y)$ {\bf \textsf{do}}\newline 
 \phantom{---}$S_t(\rho (t)+j):=S_y(j)$, $H_t(\rho (t)+j):=H_y(j)$, $j:=j+1$\newline 
-{\bf enddo}\newline 
+{\bf \textsf{enddo}}\newline 
 $H_t(\rho (t)):=H_u(i)$, $S_t(\rho (t)+\rho (y)):=S_y(\rho (y))$, $
 \rho (t):=\rho (t)+\rho (y)$, odstraň $y$\newline 
-{\bf while} $i<\rho (u)-1$ {\bf do}\newline 
+{\bf \textsf{while}} $i<\rho (u)-1$ {\bf \textsf{do}}\newline 
 \phantom{---}$S_u(i+1):=S_u(i+2)$, $H_u(i):=H_u(i+1)$, $i:=i+1$\newline 
-{\bf enddo}\newline 
+{\bf \textsf{enddo}}\newline 
 $\rho (u):=\rho (u)-1$\newline 
-{\bf if} $u$ je kořen a $\rho (u)=1$ {\bf then}\newline 
+{\bf \textsf{if}} $u$ je kořen a $\rho (u)=1$ {\bf \textsf{then}}\newline 
 \phantom{---}odstraň $u$\newline 
-{\bf else}\newline 
+{\bf \textsf{else}}\newline 
 \phantom{---}$t:=u$\newline 
-{\bf endif}
-
+{\bf \textsf{endif}}}
+\algoritmus{
 {\bf Přesun$(t,y)$\newline 
 $u:=\otec(t)$}, najdi $i$ takové, že $S_u(i)=t$\newline 
-{\bf if} $S_u(i+1)=y$ {\bf then}\newline 
+{\bf \textsf{if}} $S_u(i+1)=y$ {\bf \textsf{then}}\newline 
 \phantom{---}$S_t(\rho (t)+1):=S_y(1)$, $H_t(\rho (t)):=H_u(i)$,\newline 
 \phantom{---}$H_u(i):=H_y(1)$, $j:=1$\newline 
-\phantom{---}{\bf while} $j<\rho (y)-1$ {\bf do}\newline 
+\phantom{---}{\bf \textsf{while}} $j<\rho (y)-1$ {\bf \textsf{do}}\newline 
 \phantom{------}$S_y(j):=S_y(j+1)$, $H_y(j):=H_y(j+1)$, $j:=j+1$\newline 
-\phantom{---}{\bf enddo}\newline 
+\phantom{---}{\bf \textsf{enddo}}\newline 
 \phantom{---}$S_y(\rho (y)-1):=S_y(\rho (y))$, $\rho (t):=\rho (t)+1$, $\rho 
 (y):=\rho (y)-1$\newline 
-{\bf else}\newline
+{\bf \textsf{else}}\newline
 \phantom{---}$S_t(\rho (t)+1):=S_t(\rho (t))$, $j:=\rho (t)-1$\newline 
-\phantom{---}{\bf while} $j>0$ {\bf do}\newline 
+\phantom{---}{\bf \textsf{while}} $j>0$ {\bf \textsf{do}}\newline 
 \phantom{------}$S_t(j+1):=S_t(j)$, $H_t(j+1):=H_t(j)$, $j:=j-1$\newline 
-\phantom{---}{\bf enddo}\newline 
+\phantom{---}{\bf \textsf{enddo}}\newline 
 \phantom{---}$\rho (t):=\rho (t)+1$, $S_t(1):=S_y(\rho (y))$, $H_t(1):=H_u(i-
 1)$,\newline 
 \phantom{---}$H_u(i-1):=H_y(\rho (y)-1)$, $\rho (y):=\rho (y)-1$\newline 
-{\bf endif}
-
+{\bf \textsf{endif}}
+}
+\algoritmus{
 {\bf MIN\newline 
 $t:=$}kořen stromu\newline 
-{\bf while} $t$ není list {\bf do} $t:=S_t(1)$ {\bf enddo}\newline 
+{\bf \textsf{while}} $t$ není list {\bf \textsf{do}} $t:=S_t(1)$ {\bf \textsf{enddo}}\newline 
 $\key(t)$ je nejmenší prvek $S$
-
+}
+\algoritmus{
 {\bf MAX\newline 
 $t:=$}kořen stromu\newline 
-{\bf while} $t$ není list {\bf do} $t:=S_t(\rho (t))$ {\bf enddo}\newline 
+{\bf \textsf{while}} $t$ není list {\bf \textsf{do}} $t:=S_t(\rho (t))$ {\bf \textsf{enddo}}\newline 
 $\key(t)$ je největší prvek $S$
+}
 
+\algoritmus{
 {\bf JOIN2$(T_1,T_2)$}\newline
 Předpoklad $T_i$ je $(a,b)$-strom reprezentující 
 množinu $S_i$ pro $i=1,2$, které splňují $\max S_1<\min 
@@ -4319,58 +4502,61 @@ S_2$
 (tento předpoklad je silnější než požadavek, že $
 S_1$ a 
 $S_2$ jsou disjunktní, ale algoritmus nekontroluje jeho splnění)\newline 
-{\bf if} výška $T_1$ je větší nebo rovna výšce $T_2$ {\bf then}\newline 
+{\bf \textsf{if}} výška $T_1$ je větší nebo rovna výšce $T_2$ {\bf \textsf{then}}\newline 
 \phantom{---}$t:=$kořen $T_1$, $k:=v(T_1)-v(T_2)$\newline 
-\phantom{---}{\bf while} $k>0$ {\bf do} $t:=S_t(\rho (t))$, $k:=k-1$ {\bf enddo}\newline \phantom{---}{\bf Spojení$(t,$}kořen $T_2)$, $t:=\otec(t)$\newline 
-\phantom{---}{\bf while} $\rho (t)>b$ {\bf do Štěpení$(t)$ enddo\newline 
-else}\newline 
+\phantom{---}{\bf \textsf{while}} $k>0$ {\bf \textsf{do}} $t:=S_t(\rho (t))$, $k:=k-1$ {\bf \textsf{enddo}}\newline \phantom{---}{\bf Spojení$(t,$}kořen $T_2)$, $t:=\otec(t)$\newline 
+\phantom{---}{\bf \textsf{while}} $\rho (t)>b$ {\bf \textsf{do} Štěpení$(t)$ \textsf{enddo}\newline 
+\textsf{else}}\newline 
 \phantom{---}$t:=$kořen $T_2$, $k:=v(T_2)-v(T_1)$ \newline 
-\phantom{---}{\bf while} $k>0$ {\bf do} $t:=S_t(1)$, $k:=k-1$ {\bf enddo}\newline \phantom{---}{\bf Spojení$(t,$}kořen $T_1)$, $t:=\otec(t)$\newline 
-\phantom{---}{\bf while} $\rho (t)>b$ {\bf do Štěpení$(t)$ enddo\newline 
-endif}
+\phantom{---}{\bf \textsf{while}} $k>0$ {\bf \textsf{do}} $t:=S_t(1)$, $k:=k-1$ {\bf \textsf{enddo}}\newline \phantom{---}{\bf Spojení$(t,$}kořen $T_1)$, $t:=\otec(t)$\newline 
+\phantom{---}{\bf \textsf{while}} $\rho (t)>b$ {\bf \textsf{do} Štěpení$(t)$ \textsf{enddo}\newline 
+\textsf{endif}}
+}
 
+\algoritmus{
 {\bf SPLIT$(T,x)$\newline 
 $Z_1$}, $Z_2$ prázdné zásobníky, $t:=$kořen $T$\newline 
-{\bf while} $t$ není list {\bf do}\newline
+{\bf \textsf{while}} $t$ není list {\bf \textsf{do}}\newline
 \phantom{---}$i:=1$\newline 
-\phantom{---}{\bf while} $H_t(i)<x$ a $i<\rho (t)$ {\bf do} $i:=i+1$ {\bf enddo}\newline \phantom{---}$t:=S_t(i)$\newline 
-\phantom{---}{\bf if} $i=2$ {\bf then} vlož podstrom vrcholu $S_t(1)$ do $Z_1$ 
-{\bf endif}\newline 
-\phantom{---}{\bf if} $i>2$ {\bf then}\newline 
+\phantom{---}{\bf \textsf{while}} $H_t(i)<x$ a $i<\rho (t)$ {\bf \textsf{do}} $i:=i+1$ {\bf \textsf{enddo}}\newline \phantom{---}$t:=S_t(i)$\newline 
+\phantom{---}{\bf \textsf{if}} $i=2$ {\bf \textsf{then}} vlož podstrom vrcholu $S_t(1)$ \textsf{do} $Z_1$ 
+{\bf \textsf{endif}}\newline 
+\phantom{---}{\bf \textsf{if}} $i>2$ {\bf \textsf{then}}\newline 
 \phantom{------}vytvoř nový vrchol $t_1$, $\rho (t_1)=i-1$,\newline 
-\phantom{------}{\bf for every} $j=1,2,\dots,i-2$ {\bf do}\newline 
+\phantom{------}{\bf for every} $j=1,2,\\textsf{do}ts,i-2$ {\bf \textsf{do}}\newline 
 \phantom{---------}$S_{t_1}(j):=S_t(j)$, $H_{t_1}(j):=H_t(j)$\newline 
-\phantom{------}{\bf enddo}\newline 
-\phantom{------}$S_{t_1}(i-1):=S_t(i-1)$, vlož podstrom vrcholu $t_1$ do $Z_1$\newline 
-\phantom{---}{\bf endif}\newline 
-\phantom{---}{\bf if} $i=\rho (t)-1$ {\bf then}\newline 
-\phantom{------}vlož podstrom $S_t(\rho (t))$ do $Z_2$ 
-\phantom{---}{\bf endif}\newline 
-\phantom{---}{\bf if} $i<\rho (t)-1$ {\bf then}\newline 
+\phantom{------}{\bf \textsf{enddo}}\newline 
+\phantom{------}$S_{t_1}(i-1):=S_t(i-1)$, vlož podstrom vrcholu $t_1$ \textsf{do} $Z_1$\newline 
+\phantom{---}{\bf \textsf{endif}}\newline 
+\phantom{---}{\bf \textsf{if}} $i=\rho (t)-1$ {\bf \textsf{then}}\newline 
+\phantom{------}vlož podstrom $S_t(\rho (t))$ \textsf{do} $Z_2$ 
+\phantom{---}{\bf \textsf{endif}}\newline 
+\phantom{---}{\bf \textsf{if}} $i<\rho (t)-1$ {\bf \textsf{then}}\newline 
 \phantom{------}vytvoř nový vrchol $t_2$, $\rho (t_2):=\rho (t)-i$\newline 
-\phantom{------}{\bf for every} $j=1,2,\dots,\rho (t)-i-1$ {\bf do}\newline 
+\phantom{------}{\bf for every} $j=1,2,\\textsf{do}ts,\rho (t)-i-1$ {\bf \textsf{do}}\newline 
 \phantom{---------}$S_{t_2}(j):=S_t(i+j)$, $H_{t_2}(j):=H_t(i+j)$\newline 
-\phantom{------}{\bf enddo}\newline 
-\phantom{------}$S_{t_2}(\rho (t)-i):=S_t(\rho (t))$, vlož podstrom $t_2$ do $Z_2$ \newline 
-\phantom{---}{\bf endif\newline 
-enddo\newline 
-if} $\key(t)=x$ {\bf then}\newline 
+\phantom{------}{\bf \textsf{enddo}}\newline 
+\phantom{------}$S_{t_2}(\rho (t)-i):=S_t(\rho (t))$, vlož podstrom $t_2$ \textsf{do} $Z_2$ \newline 
+\phantom{---}{\bf \textsf{endif}\newline 
+\textsf{enddo}\newline 
+\textsf{if}} $\key(t)=x$ {\bf \textsf{then}}\newline 
 \phantom{---}{\bf Výstup}: $x\in S$\newline 
-{\bf else}\newline 
+{\bf \textsf{else}}\newline 
 \phantom{---}{\bf Výstup}: $x\notin S$\newline 
-\phantom{---}{\bf if} $\key(t)<x$ {\bf then}\newline 
-\phantom{------}vlož podstrom vrcholu $t$ do $Z_1$\newline 
-\phantom{---}{\bf else}\newline 
-\phantom{------}vlož podstrom vrcholu $t$ do $Z_2$\newline 
-\phantom{---}{\bf endif\newline 
-endif}\newline 
+\phantom{---}{\bf \textsf{if}} $\key(t)<x$ {\bf \textsf{then}}\newline 
+\phantom{------}vlož podstrom vrcholu $t$ \textsf{do} $Z_1$\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
+\phantom{------}vlož podstrom vrcholu $t$ \textsf{do} $Z_2$\newline 
+\phantom{---}{\bf \textsf{endif}\newline 
+\textsf{endif}}\newline 
 $T_1:=\text{ vrchol }Z_1$, odstraň $T_1$ ze $Z_1$\newline 
-{\bf while} $Z_1\ne\emptyset$ {\bf do}\newline 
-\phantom{---}$T':=$vrchol $Z_1$, odstraň $T'$ ze $Z_1$, $T_1:=${\bf JOIN}$(T',T_1)$\newline enddo\newline 
+{\bf \textsf{while}} $Z_1\ne\emptyset$ {\bf \textsf{do}}\newline 
+\phantom{---}$T':=$vrchol $Z_1$, odstraň $T'$ ze $Z_1$, $T_1:=${\bf JOIN}$(T',T_1)$\newline \textsf{enddo}\newline 
 $T_2:=\text{ vrchol }Z_2$, odstraň $T_2$ ze $Z_2$\newline 
-{\bf while} $Z_2\ne\emptyset$ {\bf do}\newline 
+{\bf \textsf{while}} $Z_2\ne\emptyset$ {\bf \textsf{do}}\newline 
 $T':=\text{ vrchol }Z_2$, odstraň $T'$ ze $Z_2$, $T_2:=${\bf JOIN$(T_2,T')$\newline 
-enddo}
+\textsf{enddo}}
+}
 
 Poznámky k algoritmům. \newline 
 Odkaz na otce vrcholu: buď je v každém vrcholu $v$ 
