@@ -4185,6 +4185,257 @@ n$ je
 třeba, aby $b$ bylo ještě větší.
 
 
+\section{Vyhledávání v uspořádaném poli}
+pozn studenta - tato kapitola byla uprostřed stromů, ale tam mi nedávala smysl, takže jsem si jí dovolil přesunout sem.
+
+\subsection{Zadání úlohy}
+Máme podmnožinu $S$ lineárně 
+uspořádaného univerza a $S$ je uložena v poli 
+$A[1..|S|]$ tak, že pro $i<j$ je $A(i)<A(j)$. Pro dané $x\in 
+U$ 
+máme zjistit, zda $x\in S$ (operace {\bf MEMBER$(x)$}).
+
+\subsection{Metaalgoritmus}
+Pokud $x<A(1)$ nebo $A(|S|)<x$, pak $
+x$ 
+není prvkem $S$. 
+
+ V opačném případě buď $x=
+A(1)$ nebo 
+$x=A(|S|)$ nebo máme dvě hodnoty $d$ 
+a $h$ takové, že $1\le d<d+1<h\le |S|$ a $A(d)<x<A(h)$.  Pak 
+najdeme $n$ takové, že $d<n<h$, a dotazem 
+zjistíme, zda $x=A(n)$ (pak končíme a $x\in S$) nebo 
+$x<A(n)$ (pak položíme $h=n$) nebo $x>A(n)$ (pak 
+položíme $d=n$) a proces opakujeme.  Končíme, když 
+$d+1\ge h$, pak $x\notin S$. Na začátku položíme $d=1$ a $
+h=|S|$.
+Formální zápis algoritmu:
+
+\algoritmus{{\bf MEMBER$(x)$\newline 
+\textsf{if}} $x=A(1)$ {\bf \textsf{then}}\newline 
+\phantom{---}{\bf Výstup}: $x\in S$ {\bf \textsf{stop}}\newline 
+{\bf \textsf{else}}\newline 
+\phantom{---}{\bf \textsf{if}} $x<A(1)$ {\bf \textsf{then}}\newline 
+\phantom{------}{\bf Výstup}: $x\notin S$ {\bf \textsf{stop}}\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
+\phantom{------}$d=1$\newline 
+\phantom{---}{\bf \textsf{endif}\newline
+\bf \textsf{endif}\newline 
+\textsf{if}} $x=A(|S|)$ {\bf \textsf{then}}\newline 
+\phantom{---}{\bf Výstup}: $x\in S$ {\bf \textsf{stop}}\newline 
+{\bf \textsf{else}}\newline 
+\phantom{---}{\bf \textsf{if}} $x>A(|S|)$ {\bf \textsf{then}}\newline 
+\phantom{------}{\bf Výstup}: $x\notin S$ {\bf \textsf{stop}}\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
+\phantom{------}$h=|S|$\newline 
+\phantom{---}{\bf \textsf{endif}\newline
+\textsf{endif}\newline 
+\textsf{while}} $d+1<h$ {\bf \textsf{do}}\newline 
+\phantom{---}$n:=\text{{\bf next}}(d,h)$\newline 
+\phantom{---}{\bf \textsf{if}} $\bold x=A(n)$ {\bf \textsf{then}}\newline 
+\phantom{------}{\bf Výstup}: $\bold x\in S$ {\bf \textsf{stop}}\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
+\phantom{------}{\bf \textsf{if}} $x<A(n)$ {\bf \textsf{then}} $h:=n$ {\bf \textsf{else}} $d:=n$ {\bf \textsf{endif}}\newline 
+\phantom{---}{\bf \textsf{endif}\newline 
+\textsf{enddo}\newline 
+Výstup}: $x\notin S$ {\bf \textsf{stop}}
+}
+
+V tomto metaalgoritmu je {\bf next$(d,h)$} funkce, která 
+nalezne hodnotu $n$ takovou, že $d<n<h$. Korektnost plyne 
+z pozorování, že když $d+1=h$, pak $A(d)<x<A(h)$ 
+implikuje, že neexistuje $i$ takové, že $x=A(i)$, a tedy 
+$x\notin S$. Efektivita algoritmu záleží na fukci {\bf next}. 
+Zpracování dotazu vyžaduje čas $O(1)$ a počet 
+dotazů je 
+počet volání funkce {\bf next}. 
+
+\subsection{Typy funkce {\bf next}}
+
+Unární vyhledávání: {\bf next$(d,h)=d+1$}, pak každý 
+dotaz zvětší $d$ o $1$, a tedy největší počet 
+dotazů je $|S|$. Algoritmus v nej\-horším případě 
+vyžaduje čas $O(|S|)$ a očekávaný počet dotazů při 
+rovnoměrném rozložení množiny $S$ a prvku $x$ je $\frac {
+|S|}2$ 
+(tedy očekávaný čas je $O(|S|)$). 
+
+Poznámka: Duální přístup je, když 
+{\bf next$(d,h)=h-1$}, výsled\-ky se nezmění. Při aplikacích je 
+někdy výhodné použít funkci {\bf next$(d,h)=\min\{d
++c,h-1\}$}, 
+kde $c$ je nějaká konstanta (pak krok není $1$, ale $c$). Jak 
+uvidíme později, jsou situace, kdy je výhodné  
+takovéto unární vyhledávání použít.
+
+Binární vyhledávání: {\bf next$(d,h)=\lceil\frac {
+d+h}2\rceil$}, pak 
+každý dotaz zmenší rozdíl $h-d$ přibližně na polovinu. 
+Počet dotazů je nejvýše $3+\log(|S|-2)$, 
+algoritmus tedy v 
+nejhorším případě vyžaduje čas $O(\log|S|)$ a  
+očekávaný čas při rovnoměrném roz\-ložení množiny $
+S$ a 
+$x\in U$ je také $O(\log|S|)$.
+
+Interpolační vyhledávání: 
+{\bf next$(d,h)=d+\lceil\frac {x-A(d)}{A(h)-A(d)}(h-d)\rceil$}. V nejhorším případě 
+musíme položit více než $\frac {|S|}2$ dotazů, a proto čas 
+v nejhorším případě je $O(|S|)$, ale při rovnoměrném 
+roz\-ložení množiny $S$ a $x\in U$ je očekávaný čas 
+$O(\log\log|S|)$. To je založeno na faktu, že hodnota {\bf next }
+závisí i na velikosti $x$. Když $x$ je velké, tak hodnota 
+{\bf next} je posunuta do větších hodnot, když $x$ je malé, 
+pak je posunuta do menších hodnot.
+
+Poznámka: Když rozložení prvků není 
+rovnoměrné, ale je zná\-mé, pak podle toho můžeme  
+upravit funkci {\bf next} a očekávaný čas algoritmu se 
+nezmění.
+
+Pro následující funkci {\bf next} bude 
+jednodušší spočítat očekáva\-ný počet dotazů než 
+pro interpolační vyhledávání, ale výsledek je 
+asymptoticky stejný.
+
+\subsubsection{Zobecněné kvadratické vyhledávání}
+
+Pozn. studenta: Tohle vůbec nechápu a mám to jako TODO, jestli to stihnu.
+
+Funkce {\bf next }
+je zde definována složitější procedurou, jejíž vý\-sle\-dek 
+závisí i na předcho\-zích situacích a na výsledku dotazu.
+Procedura zadává dotazy v blocích. První dotaz v bloku je 
+interpolační a procedura přitom zjistí velikost kroku a 
+zda $x$ je menší nebo větší než první dotaz v bloku.  
+Pak střídá unární a binární vy\-hledávání. Blok končí, 
+když rozdíl mezi $h$ a $d$ je nejvýše velikost 
+kroku. Krok v následujícím bloku klesne 
+přibližně na odmoc\-ninu velikosti kroku v tomto bloku. 
+Procedura používá boolské pro\-měnné $blok$, $typ$, $
+smer$. 
+Proměnná $blok$ je inicializována hodnotou $false$ a určuje, 
+zda se dotaz zadává v rámci stejného bloku nebo nikoliv. 
+Proměnná $typ$ určuje, zda příští dotaz je unární (když 
+$typ=true$) nebo binární. Proměnná $smer$ určuje, zda 
+dotazy jsou menší než první dotaz v bloku ($smer=tr
+ue$) 
+nebo větší. Dále procedura používá proměnnou $
+krok$ 
+typu integer, která obsahuje velikost kroku v rámci 
+bloku. Hodnoty těchto pro\-měn\-ných se předávají z jednoho 
+volání procedury do dalšího volání (tj. jsou to 
+globální proměnné, které se neinicializují voláním 
+procedury {\bf next}). 
+
+{\bf next$(d,h)$\newline 
+if} $blok$ {\bf then}\newline 
+\phantom{---}{\bf if} $typ$ {\bf then}\newline 
+\phantom{------}{\bf if} $smer$ {\bf then}\newline 
+\phantom{---------}{\bf next}$(d,h):=h-krok$\newline 
+\phantom{---------}{\bf if} $A(\text{{\bf next}}(d,h))<x$ {\bf then}\newline
+\phantom{------------}$blok:=false$\newline 
+\phantom{---------}{\bf endif}\newline 
+\phantom{------}{\bf else}\newline 
+\phantom{---------}{\bf next}$(d,h):=d+krok$\newline 
+\phantom{---------}{\bf if} $A(\text{{\bf next}}(d,h))>x$ {\bf then}\newline \phantom{------------}$blok:=false$\newline 
+\phantom{---------}{\bf endif}\newline 
+\phantom{------}{\bf endif}\newline 
+\phantom{------}$typ:=false$\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}{\bf if} $\min\{h-\lceil\frac {d+h}2\rceil ,\lceil\frac {d+h}2\rceil-d\}<krok$ {\bf then}\newline 
+\phantom{---------}$blok:=false$\newline 
+\phantom{------}{\bf endif}\newline 
+\phantom{------}{\bf next}$(d,h):=\lceil\frac {d+h}2\rceil$, $typ:=true$\newline 
+\phantom{---}{\bf endif\newline 
+else}\newline 
+\phantom{---}$krok:=\lfloor\sqrt {h-d}\rfloor$, 
+{\bf next$(d,h):=d+\lceil\frac {x-A(d)}{A(h)-A(d)}(h-d)\rceil$},\newline 
+\phantom{---}{\bf if} $A(\text{{\bf next}}(d,h))>x$ {\bf then}\newline 
+\phantom{------}$smer:=true$\newline 
+\phantom{---}{\bf else}\newline 
+\phantom{------}$smer:=false$\newline 
+\phantom{---}{\bf endif}\newline 
+\phantom{---}$typ:=true$, $blok:=true$\newline 
+{\bf endif}
+
+Po dvou dotazech klesne $h-d$ buď pod $\sqrt {h-d}$ nebo pod 
+$\frac {h+d}2$. Proto procedura v nejhorším případě použije 
+nejvýše $8+2\log(|S|-1)+2\log\log|S|$ dotazů, a tedy v nejhorším 
+případě vyžaduje čas $O(\log|S|)$.
+
+Nyní spočítáme očekávaný počet dotazů 
+během jednoho bloku za předpokladu rovnoměr\-ného rozdělení dat. Nechť $p_i$ je prav\-dě\-podobnost, že 
+v rámci bloku se položí ales\-poň $i$ dotazů. Pak 
+očekávaný počet dotazů v rámci bloku je 
+$$E(C)=\sum_{i\ge 1}i(p_i-p_{i+1})=\sum_{i\ge 1}p_i.$$
+Nyní odhadneme $p_i$.  Označme $n+d$ argument prvního dotazu 
+(interpolační vyhledávaní) v rámci bloku a nechť $
+krok=k$ 
+v rámci bloku.  Označme $X=|\{i\mid i>d,\,A(i)\le x\}|$ na 
+začátku bloku, pak $X$ je náhodná proměnná závislá na 
+argumentu ope\-race a bloku.  Když se v bloku položí 
+alespoň $i$ dotazů pro $i>2$, pak $|X-n|\ge\lfloor\frac {
+i-2}2\rfloor k$, 
+protože každý unární dotaz, jehož položení  
+nezmění blok, nalezne dalších $k$ hodnot $i$ v rozdílu $|X-n|$. 
+Tedy 
+$$p_i\le\Prob(|X-n|\ge\lfloor\frac {i-2}2\rfloor k).$$
+Použijeme Čebyševovu nerovnost pro náhodnou 
+proměn\-nou $X$. Když $Y$ je náhodná proměnná s~očekávanou 
+(střední) hodnotou $\mu$ a rozptylem $\sigma^2$, pak Čebyševova 
+nerovnost říká, že 
+$$\Prob(|Y-\mu |\ge t)\le\frac {\sigma^2}{t^2}\qquad\text{\rm pro každé }
+t>0.$$
+
+Uvažujme okamžik, kdy jsme na začátku nějakého 
+bloku. Pro\-tože $S$ je vybraná s~rovno\-měr\-ným rozdělením, je 
+pravděpodob\-nost, že $A(i)<x$ pro $d<i<h$, rovna 
+$p=\frac {x-A(d)}{A(h)-A(d)}$, a pak pravděpodobnost, že 
+$X=j$, je $\binom {h-d}jp^j(1-p)^{h-d-j}$. To znamená, že $X$ je náhodná 
+veličina s~binomickým rozdělením s~rozsahem $d-h$ a pravděpodobností $p$, a tedy její očekávaná 
+hodnota je
+$$\mu =\sum_{j=0}^{h-d}j\binom {h-d}jp^j(1-p)^{h-d-j}=p(h-d)$$
+a rozptyl má hodnotu 
+$$\sigma^2=\sum_{j=0}^{h-d}(j-\mu )^2\binom {h-d}jp^j(1-p)^{h-d-j}
+=p(1-p)(h-d).$$
+Když si uvědomíme, že $k=\lfloor\sqrt {h-d}\rfloor$ a $
+n=p(h-d)$, pak dostáváme
+\begin{align*} p_i,p_{i+1}\le&\Prob(|X-n|\ge\lfloor\frac {i-2}2\rfloor k 
+)\le\frac {4p(1-p)(h-d)}{(i-2)^2k^2}\le\\
+&\frac {4p(1-p)}{(i-2)^2}\le\frac 1{(i-2)^2},\end{align*}
+protože pro $0\le p\le 1$ je $p(1-p)\le\frac 14$. Když shrneme tato pozorování, 
+dostává\-me, že 
+\begin{align*} E(C)=&\sum_{i\ge 1}p_i\le 2+2\sum_{i\ge 3}\frac 1{(i-2)^2}=
+2+2\sum_{i\ge 1}\frac 1{i^2}=\\
+&2+2\frac {\pi^2}6=2+\frac {\pi^2}3\approx 5.3\end{align*}
+Závěr: očekávaný počet dotazů v bloku je menší než $
+6$.
+
+Když $E(T(n))$ je očekávaný počet dotazů pro operaci 
+{\bf MEMBER} a když $|S|=n$, pak platí 
+$$E(T(n))\le E(C)+E(T(\sqrt n)).$$
+Protože $E(T(1))=1$ a $E(T(2))\le 2$, dostáváme z rekurentního 
+vzorce, že 
+$$E(T(n))\le 2+E(C)\log\log n\qquad\text{\rm pro }n\ge 2.$$
+
+\begin{veta}Čas operace {\bf MEMBER} v uspořádaném poli délky $
+n$ při 
+zobec\-něném kvadra\-tickém vyhledávání je v nejhorším 
+přípa\-dě $O(\log n)$. Když rozdělení vstupních dat je 
+rovno\-měr\-né, pak očekávaný čas je $O(\log\log n)$. 
+\end{veta}
+
+Nevýhoda této datové struktury 
+spočívá v neexistenci přiroze\-ných efektivních implementací 
+ope\-rací {\bf INSERT}, {\bf DELETE}, {\bf SPLIT} a {\bf JOIN}. Přirozené 
+implementace těchto ope\-rací vyža\-dují čas 
+$O(|S|)$, zhruba řečeno musíme pohybovat s~téměř kaž\-dým prvkem. 
+Pokusem o řešení 
+tohoto problému byl návrh binár\-ních vyhledávacích 
+stromů.
+
 \section{Stromy}
 
 \subsection{Uspořádaný slovníkový problém}
@@ -4867,7 +5118,7 @@ složitost algoritmu $A$-{\bf sort} v závislosti na $n$ a $F$.
     A$-{\bf Insert$(x)$ }
     vyžaduje čas potřebný na nalezení místa, kam vložit $
     x$, plus 
-    $O(\text{\rm počet volání {\bf Štěpení}})$.
+    $O($po\-čet vo\-lá\-ní {\bf Štěpení}$)$.
 \end{pozorovani}
 
 \begin{pozorovani}
@@ -4957,7 +5208,7 @@ $v$ (když neexistuje, tak je to $NIL$),
 \item $\pravy(v)$ ukazuje na nejmenší vrchol (v lexikografic\-kém 
 uspořá\-dá\-ní) ve stejné hladině jako $v$, který je větší než 
 $v$ (když ne\-existuje, tak je to $NIL$).
-\begin{pitemize} 
+\end{pitemize} 
     
 Navíc je dán ukazatel 
 $\Prst$ na některý list. 
@@ -4996,13 +5247,15 @@ $(a,b)$-stromu, viz $A$-{\bf sort}.
 
 \subsubsection{Omezení štěpení, spojování a přesunů}
 
+Pozn. studenta - dost jsem popřesouval pořadí dokazování v~této kapitole tak, aby mi dávalo logický smysl.
 
 Vyvažovací operace {\bf Štěpení, Spojování, Přesun }
 vyžadují čas $O(1)$, ale ve skutečnosti jsou nejpomalejší 
 částí 
 algoritmů pro operace {\bf INSERT} a {\bf DELETE}.  Omezení 
 jejich počtu vedlo k menší složitosti algoritmu $A$-{\bf sort}.  To motivovalo analýzu 
-jejich použití.\newline 
+jejich použití.
+
 Libovolný běh algoritmu {\bf INSERT }
 volá podproceduru {\bf Štěpe\-ní} nejvýše $\log(|
 S|)$-krát a libovolný běh 
@@ -5015,50 +5268,33 @@ $(a,b)$-stromu však amortizovaný počet vyvažovacích
 ope\-rací (začínáme-li s~ 
 pů\-vod\-ně práz\-dným stromem) je konstantní.
 
-Pro pevné $a$ a $b$ označme 
-$$c=\min\{\min\{2a-1,\lceil\frac {b+1}2\rceil \}-a,b-\max\{2a-1,\lfloor\frac {
-b+1}2\rfloor \}\}.$$
 Připomínáme, že \emph{výška} \emph{vrcholu} v kořenovém stromě je 
-maximální délka cesty z něho do některého listu.
+maximální délka cesty z něho do některého listu. (tj. je počítaná odspodu)
 
-\begin{veta}Nechť $b\ge 2a$ a $a\ge 2$. Nechť $\mathcal P$ je 
-posloupnost $n$ operací {\bf INSERT} a {\bf DELETE}, aplikujme ji na 
-prázdný $(a,b)$-strom. Označme\newline 
-$St_h$ -- počet {\bf Štěpení} ve výšce $h$ při aplikaci $
-\mathcal P$, $St=\sum_hSt_h$;\newline 
-$Sp_h$-- počet {\bf Spojení} ve výšce $h$ při aplikaci $
-\mathcal P$, 
-$Sp=\sum_hSp_h$;\newline 
-$P_h$ -- počet {\bf Přesunů} ve výšce $h$ při aplikaci $
-\mathcal P$, 
-$P=\sum_hP_h$.\newline 
-Pak platí
-\begin{enumerate}
-\item
-$$P\le n\quad \text{\rm a}\quad (2c-1)St+cSp\le n+c+\frac {c(n-2)}{a+c-1};$$
-\item
-$$St_h+Sp_h+P_h\le\frac {2(c+2)n}{(c+1)^h}.$$
-\end{enumerate}
-\end{veta}
-
-Z definice plyne, že $c\ge 1$, a protože $a\ge 2$, z 1) dostaneme
-$$St+Sp\le\frac nc+1+\frac {n-2}a\le n+1+\frac {n-2}2\le\frac {3n}
-2.$$
-Amortizovaný počet vyvažovacích operací splňuje tedy 
-$$\frac {P+St+Sp}n\le\frac 52.$$
-
-Důkaz je založen na bankovním principu -- 
+Důkaz omezení počtu štěpení je založen na bankovním principu -- 
 navrhneme kvantitativní ohodnocení $(a,b)$-stromu, 
 nalezneme jeho horní odhad a popíšeme, jak 
 toto ohodnocení mohou změnit vyvažo\-vací ope\-race. Srovnání 
 těchto odhadů dá požadovaný výsledek.
 
-Mějme $(a,b)$-strom $T$, pro vnitřní vrchol 
+Nechť $b\ge 2a$ a $a\ge 2$. 
+
+
+\begin{definice}
+Pro pevné $a$ a $b$ označme 
+$$c=\min\{\min\{2a-1,\lceil\frac {b+1}2\rceil \}-a,b-\max\{2a-1,\lfloor\frac {
+b+1}2\rfloor \}\}.$$
+\end{definice}
+
+\begin{definice}Mějme $(a,b)$-strom $T$, pro vnitřní vrchol 
 $v$ různý od kořene definuj\-me 
 $b(v)=\min\{\rho (v)-a,b-\rho (v),c\}$, pro 
-kořen $r$ definuj\-me $b(r)=\min\{\rho (r)-2,b-\rho (r),c\}$. 
+kořen $r$ definuj\-me $b(r)=\min\{\rho (r)-2,b-\rho (r),c\}$.
+\end{definice}
 
-\begin{pozorovani}Pro vnitřní vrchol stromu $v$  
+$b$ se dá vnímat jako \uv{vzdálenost} počtu synů od krajních hodnot $a$ a $b$, ale s~horním omezením $c$.
+
+\begin{pozorovani}[1]Pro vnitřní vrchol stromu $v$  
 různý od kořene platí
 \begin{enumerate}
 \item
@@ -5080,10 +5316,20 @@ pro kořen $r$ platí $b(r)\le c$.
 \end{enumerate}
 \end{pozorovani}
 
+
+\begin{proof}
+    Důkazy 1,2,3,6 jsou triviální. Důkazy 4 a 5 jsou technické a vyplývají z definice $c$ (pozn. studenta - já to tam nevidím :( )
+\end{proof}
+
+\begin{definice}
 Strom $(T,r)$ ohodnotíme 
 \begin{align*} b_h(T)=&\sum \{b(v)\mid v\ne r\text{\rm\ vnitřní vrchol stromu }\text{\rm\ ve výšce }
 h\}\\
 b(T)=&\sum_{h=1}^{\infty}b_h(T)+b(r).\end{align*}
+\end{definice}
+
+\begin{definice}
+
 Řekneme, že $(T,r,v)$ je \emph{parciální} 
 $(a,b)$-\emph{strom}, když $r$ je kořen stromu, $v$ je vnitřní 
 vrchol $T$ a platí:
@@ -5101,13 +5347,16 @@ $$a\le\rho (t)\le b;$$
 všechny cesty z kořene $r$ do nějakého listu mají stejnou 
 délku.
 \end{itemize}
+\end{definice}
+
+Tj. jde o a,b strom s~jedním \uv{pokaženým} vrcholem.
 
 Nyní rozložíme operace {\bf INSERT} a {\bf DELETE} do 
 jednotlivých akcí se stromem a vyšetří\-me vliv těchto 
 akcí na jeho ohodnocení. Důkazy lemmat jsou 
 založené na následujícím pozorování
 
-\begin{pozorovani}Mějme dva stromy $T$ a $T'$, které mají 
+\begin{pozorovani}[2]Mějme dva stromy $T$ a $T'$, které mají 
 stejnou množinu vrcholů ve výšce $h$. Pak platí:
 \begin{enumerate}
 \item
@@ -5132,6 +5381,10 @@ h>1;\\
 b(T')\ge&b(T)-1.\end{align*}
 \end{lemma_counting}
 
+\begin{proof}
+    Zhoršili jsme $b_1$ v nejspodnější hladině, na nic jiného jsme nešahali, nic jsme neštěpili.
+\end{proof}
+
 \begin{lemma_counting}Nechť $(T,r,v)$ je parciální $(a,b)$-strom, 
 $\rho (v)=b+1$ a $v$ je ve výšce $l\ge 1$. Když $T'$ vznikne z $
 T$ 
@@ -5143,6 +5396,10 @@ b_h(T')=&b_h(T)\text{\rm\ pro }h\ne l,l+1;\quad b(T')\ge b(T)+2c-
 1.\end{align*}
 \end{lemma_counting}
 
+\begin{proof}
+    Nerovnítko o $l$-té hladině platí kvůli bodu 5 z pozorování 1, protože jsme $b$ z~$-1$ změnili na $2c-1$, o $l+1$ hladině to platí proto, protože se zvětšil uzel o jedna (viz pozorování 2). Zbytek stromu je stejný.
+\end{proof}
+
 \begin{lemma_counting}Nechť $(T,r,v)$ je parciální $(a,b)$-strom, 
 $\rho (v)=a-1$, $v$ je ve výšce $l\ge 1$ a $y$ je bezprostřední bratr $v$ takový že $\rho(y)=a$. Když $T'$ vznikne z $T$ operací {\bf Spojení$(v,y)$}, pak $(T',r,\otec(v))$ je parciální $(a,b)$-strom a 
 platí:  
@@ -5150,6 +5407,12 @@ platí:
 (T)-1\\
 b_h(T')=&b_h(T)\text{\rm\ pro }h\ne l,l+1;\quad b(T')\ge b(T)+c.\end{align*}
 \end{lemma_counting}
+\begin{proof}
+    Ve vrstvě $l$ se ze situace v~bodech 2 a 3 z pozorování 1 dostaneme do situace v~bodu 4.
+    
+    Ve vrstvě $l+1$ opět měníme jenom jeden prvek.
+\end{proof}
+
 
 \begin{lemma_counting} Nechť $(T,r,v)$ je parciální $(a,b)$-strom, 
 $\rho (v)=a-1$, $v$ je výšce $l\ge 1$ a $y$ je bezprostřední bratr $v$ takový, že $\rho(y)>a$. 
@@ -5159,8 +5422,36 @@ $$b_l(T')\ge b_l(T)\text{\rm\ a }b_h(T')=b_h(T)\text{\rm\ pro }h\ne
 l;\quad b(T')\ge b(T).$$
 \end{lemma_counting}
 
-Označme $T_k$ $(a,b)$-strom vzniklý provedením posloupnosti 
-$\mathcal P$ na prázdný $(a,b)$-strom. Sečtením předchozích 
+\begin{proof}
+    Nevím, ze kterého pozorování přesně to platí :( ale ... asi to platí, protože pokud jednu vzdálenost zhoršíme, jinou zlepšíme. Nebo tak něco.
+\end{proof}
+
+\begin{definice}
+    Nechť $\mathcal P$ je 
+    posloupnost $n$ operací {\bf INSERT} a {\bf DELETE}, aplikujme ji na 
+    prázdný $(a,b)$-strom. Označme
+    \begin{pitemize} 
+    \item $St_h$ -- počet {\bf Štěpení} ve výšce $h$ při aplikaci $
+    \mathcal P$, $St=\sum_hSt_h$ 
+    \item $Sp_h$-- počet {\bf Spojení} ve výšce $h$ při aplikaci $
+    \mathcal P$, 
+    $Sp=\sum_hSp_h$
+    \item $P_h$ -- počet {\bf Přesunů} ve výšce $h$ při aplikaci $
+    \mathcal P$, 
+    $P=\sum_hP_h$.
+    \end{pitemize}
+\end{definice}
+
+\begin{definice}
+    Položme si  $St_0+Sp_0=\text{\rm počet listů v }T_k\le n$, aby nám vycházely vzorečky dále (v 0 - tj. listové - hladině jinak nic neštěpíme/nespojujeme a $St$ či $Sp$ tam nedává smysl)
+\end{definice}
+
+
+\begin{definice}Označme $T_k(a,b)$-strom vzniklý provedením posloupnosti 
+$\mathcal P$ na prázdný $(a,b)$-strom.
+\end{definice}
+
+ Sečtením předchozích 
 výsledků dostá\-váme
 
 \begin{dusledek_counting}Když položíme 
@@ -5168,20 +5459,21 @@ výsledků dostá\-váme
 ,\quad\text{\rm pak}\\
 b_h(T_k)\ge 2cSt_h+(c+1)Sp_h-St_{h-1}-Sp_{h-1}\text{\rm\ pro }h\ge 
 1.\end{gather*}
+\end{dusledek_counting}
+\begin{proof}
+    Skutečně plyne z~lemmat z~částí pro hladiny, různé operace přispějí různě.
+\end{proof}
+
+\begin{dusledek_counting}
 Dále $b(T_k)\ge (2c-1)St+cSp-n$, kde $n$ je délka posloupnosti $
 \mathcal P$.
 \end{dusledek_counting}
+\begin{proof}
+    Skutečně plyne z~lemmat z~částí pro celé stromy.
+    
+    
+\end{proof}
 
-První výraz upravíme (využíváme, že $
-c\ge 1$):
-\begin{align*} St_h+Sp_h\le&\frac {b_h(T_k)}{c+1}+\frac {St_{h-1}+Sp_{h
--1}}{c+1}\le\\
-&\frac {b_h(T_k)}{c+1}+\frac {b_{h-1}(T_k)}{(c+1)^2}+\frac {St_{h
--2}+Sp_{h-2}}{(c+1)^2}\le\dots\le\\
-&\sum_{i=0}^{h-1}\frac {b_{h-i}(T_k)}{(c+1)^{i+1}}+\frac n{(c+1)^
-h}=\\
-&\frac n{(c+1)^h}+\sum_{l=1}^hb_l(T_k)\frac {(c+1)^l}{(c+1)^{h+1}}
-.\end{align*}
 
 Nyní odhadneme shora $b(T_k)$.
 
@@ -5211,18 +5503,22 @@ a+j-1)m_j\le\\
 a lemma je dokázáno.
 \end{proof}
 
-Nyní dokážeme tvrzení (1) Věty. Protože každá operace 
-{\bf DE\-LETE} použije nejvýše jednu operaci {\bf Přesun} (a operace 
-{\bf INSERT} operaci {\bf Přesun} nepoužívá) dostáváme, že 
-$$P\le\text{\rm počet operací {\bf DELETE}}\le n$$
-a první nerovnost platí. 
-Abychom dokázali druhou nerovnost, spojíme druhé 
-tvrzení v Důsledku 5 a Lemma 6 ($T_k$ má nejvýše 
-$n$ listů) 
-$$(2c-1)St+cSp-n\le b(T_k)\le c+(n-2)\frac c{a+c-1}$$
-Odtud plyne požadovaná nerovnost a (1) je dokázáno.
+\begin{veta}[1]
+    $$P\le n\quad \text{\rm a}\quad (2c-1)St+cSp\le n+c+\frac {c(n-2)}{a+c-1};$$
+\end{veta}
 
-Důkaz (2) využije následující odhad.
+\begin{proof}
+    Protože každá operace 
+    {\bf DE\-LETE} použije nejvýše jednu operaci {\bf Přesun} (a operace 
+    {\bf INSERT} operaci {\bf Přesun} nepoužívá) dostáváme, že 
+    $$P\le\text{\rm počet operací {\bf DELETE}}\le n$$
+    a první nerovnost platí. 
+    Abychom dokázali druhou nerovnost, spojíme druhé 
+    tvrzení v Důsledku 5 a Lemma 7 ($T_k$ má nejvýše 
+    $n$ listů) 
+    $$(2c-1)St+cSp-n\le b(T_k)\le c+(n-2)\frac c{a+c-1}$$
+    Odtud plyne požadovaná nerovnost.
+\end{proof}    
 
 \begin{lemma_counting}Pro každé $h\ge 1$ a pro každý 
 $(a,b)$-strom $T$ s~$m$ listy platí 
@@ -5255,21 +5551,59 @@ tak, aby výrazy $\sum_{j=0}^cm_j(l)$ byly u sebe, a poslední
 nerovnost plyne z toho, že $\frac a{c+1}\ge 1$, a tedy druhý sčítanec 
 v předchozím výrazu není kladný.
 \end{proof}
- 
 
-Zkombinujeme odhad $St_h+Sp_h$ s~Lemmatem 7 a 
-dostaneme
-\begin{align*} St_h+Sp_h\le&\frac n{(c+1)^h}+\sum_{l=1}^hb_l(T_k)\frac {
-(c+1)^l}{(c+1)^{h+1}}\le\\
-&\frac n{(c+1)^h}+\frac {n(c+1)}{(c+1)^{h+1}}=\frac {2n}{(c+1)^h}
-.\end{align*}
-Protože $P_h\le Sp_{h-1}-Sp_h\le St_{h-1}+Sp_{h-1}\le\frac {2n}{
-(c+1)^{h-1}}$ 
-dostáváme, že 
-\begin{align*} St_h+Sp_h+P_h\le&\frac {2n}{(c+1)^h}+\frac {2n}{(c+1)^{h
--1}}=\frac {2n+2n(c+1)}{(c+1)^h}=\\
-&\frac {2n(c+2)}{(c+1)^h}\end{align*}
-a důkaz (2) ve Větě je hotov.
+\begin{lemma_counting}
+    $St_h+Sp_h\le\frac n{(c+1)^h}+\sum_{l=1}^hb_l(T_k)\frac {(c+1)^l}{(c+1)^{h+1}}$
+\end{lemma_counting}
+
+\begin{proof}
+     Výraz z~Důsledku 5 upravíme (využíváme, že $
+    c\ge 1$):
+    \begin{align*} St_h+Sp_h\le&\frac {b_h(T_k)}{c+1}+\frac {St_{h-1}+Sp_{h
+    -1}}{c+1}\le\\
+    &\frac {b_h(T_k)}{c+1}+\frac {b_{h-1}(T_k)}{(c+1)^2}+\frac {St_{h
+    -2}+Sp_{h-2}}{(c+1)^2}\le\dots\le\\
+    &\sum_{i=0}^{h-1}\frac {b_{h-i}(T_k)}{(c+1)^{i+1}}+\frac n{(c+1)^
+    h}=\\
+    &\frac n{(c+1)^h}+\sum_{l=1}^hb_l(T_k)\frac {(c+1)^l}{(c+1)^{h+1}}
+    .\end{align*}
+\end{proof}
+
+\begin{veta}[2]
+    $St_h+Sp_h+P_h\le\frac {2(c+2)n}{(c+1)^h}.$
+\end{veta}
+\begin{proof}
+    Zkombinujeme předchozí dvě lemmata. Dostaneme
+    
+    \begin{align*} St_h+Sp_h\le&\frac n{(c+1)^h}+\sum_{l=1}^hb_l(T_k)\frac {
+    (c+1)^l}{(c+1)^{h+1}}\le\\
+    &\frac n{(c+1)^h}+\frac {n(c+1)}{(c+1)^{h+1}}=\frac {2n}{(c+1)^h}
+    .\end{align*}
+    Protože $P_h\le Sp_{h-1}-Sp_h\le St_{h-1}+Sp_{h-1}\le\frac {2n}{
+    (c+1)^{h-1}}$ 
+    dostáváme, že 
+    \begin{align*} St_h+Sp_h+P_h\le&\frac {2n}{(c+1)^h}+\frac {2n}{(c+1)^{h
+    -1}}=\frac {2n+2n(c+1)}{(c+1)^h}=\\
+    &\frac {2n(c+2)}{(c+1)^h}\end{align*}
+\end{proof}
+
+\begin{dusledek}
+    Amortizovaný počet vyvažovacích operací splňuje 
+    $$\frac {P+St+Sp}n\le\frac 52.$$
+\end{dusledek}
+
+\begin{proof}
+    
+    Z definice plyne, že $c\ge 1$, a protože $a\ge 2$, z~věty (1) dostaneme
+    $$St+Sp\le\frac nc+1+\frac {n-2}a\le n+1+\frac {n-2}2\le\frac {3n}
+    2.$$
+    Amortizovaný počet vyvažovacích operací splňuje tedy 
+    $$\frac {P+St+Sp}n\le\frac 52.$$
+
+\end{proof}
+
+\subsubsection{Omezení štěpení, spojování a přesunů -- diskuze}
+
 
 Věta vysvětluje, proč jsou doporučené hodnoty $
 b\ge 2a$ -- 
@@ -5323,253 +5657,15 @@ bratři vrcholu $t$ mají $b$ synů. Jinak se provádí
 operace {\bf Přesun}. Nevím o žádném seriózním pokusu tyto 
 alternativy porovnat.   
 
-\subsection{Vyhledávání v uspořádaném poli}
 
-Zadání úlohy: Máme podmnožinu $S$ lineárně 
-uspořádaného univerza a $S$ je uložena v poli 
-$A[1..|S|]$ tak, že pro $i<j$ je $A(i)<A(j)$. Pro dané $x\in 
-U$ 
-máme zjistit, zda $x\in S$ (operace {\bf MEMBER$(x)$}).
-
-Řešení:  Pokud $x<A(1)$ nebo $A(|S|)<x$, pak $
-x$ 
-není prvkem $S$.  V opačném případě buď $x=
-A(1)$ nebo 
-$x=A(|S|)$ nebo máme dvě hodnoty $d$ 
-a $h$ takové, že $1\le d<d+1<h\le |S|$ a $A(d)<x<A(h)$.  Pak 
-najdeme $n$ takové, že $d<n<h$, a dotazem 
-zjistíme, zda $x=A(n)$ (pak končíme a $x\in S$) nebo 
-$x<A(n)$ (pak položíme $h=n$) nebo $x>A(n)$ (pak 
-položíme $d=n$) a proces opakujeme.  Končíme, když 
-$d+1\ge h$, pak $x\notin S$. Na začátku položíme $d=1$ a $
-h=|S|$.
-Formální zápis algoritmu:
-
-{\bf MEMBER$(x)$\newline 
-if} $x=A(1)$ {\bf then}\newline 
-\phantom{---}{\bf Výstup}: $x\in S$ stop\newline 
-{\bf else}\newline 
-\phantom{---}{\bf if} $x<A(1)$ {\bf then}\newline 
-\phantom{------}{\bf Výstup}: $x\notin S$ stop\newline 
-\phantom{---}{\bf else}\newline 
-\phantom{------}$d=1$\newline 
-\phantom{---}{\bf endif\newline
-\bf endif\newline 
-if} $x=A(|S|)$ {\bf then}\newline 
-\phantom{---}{\bf Výstup}: $x\in S$ stop\newline 
-{\bf else}\newline 
-\phantom{---}{\bf if} $x>A(|S|)$ {\bf then}\newline 
-\phantom{------}{\bf Výstup}: $x\notin S$ stop\newline 
-\phantom{---}{\bf else}\newline 
-\phantom{------}$h=|S|$\newline 
-\phantom{---}{\bf endif\newline
-endif\newline 
-while} $d+1<h$ {\bf do}\newline 
-\phantom{---}$n:=\text{{\bf next}}(d,h)$\newline 
-\phantom{---}{\bf if} $\bold x=A(n)$ {\bf then}\newline 
-\phantom{------}{\bf Výstup}: $\bold x\in S$ stop\newline 
-\phantom{---}{\bf else}\newline 
-\phantom{------}{\bf if} $x<A(n)$ {\bf then} $h:=n$ {\bf else} $d:=n$ {\bf endif}\newline 
-\phantom{---}{\bf endif\newline 
-enddo\newline 
-Výstup}: $x\notin S$ stop
-
-V tomto metaalgoritmu je {\bf next$(d,h)$} funkce, která 
-nalezne hodnotu $n$ takovou, že $d<n<h$. Korektnost plyne 
-z pozorování, že když $d+1=h$, pak $A(d)<x<A(h)$ 
-implikuje, že neexistuje $i$ takové, že $x=A(i)$, a tedy 
-$x\notin S$. Efektivita algoritmu záleží na fukci {\bf next}. 
-Zpracování dotazu vyžaduje čas $O(1)$ a počet 
-dotazů je 
-počet volání funkce {\bf next}. 
-
-Unární vyhledávání: {\bf next$(d,h)=d+1$}, pak každý 
-dotaz zvětší $d$ o $1$, a tedy největší počet 
-dotazů je $|S|$. Algoritmus v nej\-horším případě 
-vyžaduje čas $O(|S|)$ a očekávaný počet dotazů při 
-rovnoměrném rozložení množiny $S$ a prvku $x$ je $\frac {
-|S|}2$ 
-(tedy očekávaný čas je $O(|S|)$). 
-
-Poznámka: Duální přístup je, když 
-{\bf next$(d,h)=h-1$}, výsled\-ky se nezmění. Při aplikacích je 
-někdy výhodné použít funkci {\bf next$(d,h)=\min\{d
-+c,h-1\}$}, 
-kde $c$ je nějaká konstanta (pak krok není $1$, ale $c$). Jak 
-uvidíme později, jsou situace, kdy je výhodné  
-takovéto unární vyhledávání použít.
-
-Binární vyhledávání: {\bf next$(d,h)=\lceil\frac {
-d+h}2\rceil$}, pak 
-každý dotaz zmenší rozdíl $h-d$ přibližně na polovinu. 
-Počet dotazů je nejvýše $3+\log(|S|-2)$, 
-algoritmus tedy v 
-nejhorším případě vyžaduje čas $O(\log|S|)$ a  
-očekávaný čas při rovnoměrném roz\-ložení množiny $
-S$ a 
-$x\in U$ je také $O(\log|S|)$.
-
-Interpolační vyhledávání: 
-{\bf next$(d,h)=d+\lceil\frac {x-A(d)}{A(h)-A(d)}(h-d)\rceil$}. V nejhorším případě 
-musíme položit více než $\frac {|S|}2$ dotazů, a proto čas 
-v nejhorším případě je $O(|S|)$, ale při rovnoměrném 
-roz\-ložení množiny $S$ a $x\in U$ je očekávaný čas 
-$O(\log\log|S|)$. To je založeno na faktu, že hodnota {\bf next }
-závisí i na velikosti $x$. Když $x$ je velké, tak hodnota 
-{\bf next} je posunuta do větších hodnot, když $x$ je malé, 
-pak je posunuta do menších hodnot.
-
-Poznámka: Když rozložení prvků není 
-rovnoměrné, ale je zná\-mé, pak podle toho můžeme  
-upravit funkci {\bf next} a očekávaný čas algoritmu se 
-nezmění.
-
-Pro následující funkci {\bf next} bude 
-jednodušší spočítat očekáva\-ný počet dotazů než 
-pro interpolační vyhledávání, ale výsledek je 
-asymptoticky stejný.
-
-\subsubsection{Zobecněné kvadratické vyhledávání}
-
-Funkce {\bf next }
-je zde definována složitější procedurou, jejíž vý\-sle\-dek 
-závisí i na předcho\-zích situacích a na výsledku dotazu.
-Procedura zadává dotazy v blocích. První dotaz v bloku je 
-interpolační a procedura přitom zjistí velikost kroku a 
-zda $x$ je menší nebo větší než první dotaz v bloku.  
-Pak střídá unární a binární vy\-hledávání. Blok končí, 
-když rozdíl mezi $h$ a $d$ je nejvýše velikost 
-kroku. Krok v následujícím bloku klesne 
-přibližně na odmoc\-ninu velikosti kroku v tomto bloku. 
-Procedura používá boolské pro\-měnné $blok$, $typ$, $
-smer$. 
-Proměnná $blok$ je inicializována hodnotou $false$ a určuje, 
-zda se dotaz zadává v rámci stejného bloku nebo nikoliv. 
-Proměnná $typ$ určuje, zda příští dotaz je unární (když 
-$typ=true$) nebo binární. Proměnná $smer$ určuje, zda 
-dotazy jsou menší než první dotaz v bloku ($smer=tr
-ue$) 
-nebo větší. Dále procedura používá proměnnou $
-krok$ 
-typu integer, která obsahuje velikost kroku v rámci 
-bloku. Hodnoty těchto pro\-měn\-ných se předávají z jednoho 
-volání procedury do dalšího volání (tj. jsou to 
-globální proměnné, které se neinicializují voláním 
-procedury {\bf next}). 
-
-{\bf next$(d,h)$\newline 
-if} $blok$ {\bf then}\newline 
-\phantom{---}{\bf if} $typ$ {\bf then}\newline 
-\phantom{------}{\bf if} $smer$ {\bf then}\newline 
-\phantom{---------}{\bf next}$(d,h):=h-krok$\newline 
-\phantom{---------}{\bf if} $A(\text{{\bf next}}(d,h))<x$ {\bf then}\newline
-\phantom{------------}$blok:=false$\newline 
-\phantom{---------}{\bf endif}\newline 
-\phantom{------}{\bf else}\newline 
-\phantom{---------}{\bf next}$(d,h):=d+krok$\newline 
-\phantom{---------}{\bf if} $A(\text{{\bf next}}(d,h))>x$ {\bf then}\newline \phantom{------------}$blok:=false$\newline 
-\phantom{---------}{\bf endif}\newline 
-\phantom{------}{\bf endif}\newline 
-\phantom{------}$typ:=false$\newline 
-\phantom{---}{\bf else}\newline 
-\phantom{------}{\bf if} $\min\{h-\lceil\frac {d+h}2\rceil ,\lceil\frac {d+h}2\rceil-d\}<krok$ {\bf then}\newline 
-\phantom{---------}$blok:=false$\newline 
-\phantom{------}{\bf endif}\newline 
-\phantom{------}{\bf next}$(d,h):=\lceil\frac {d+h}2\rceil$, $typ:=true$\newline 
-\phantom{---}{\bf endif\newline 
-else}\newline 
-\phantom{---}$krok:=\lfloor\sqrt {h-d}\rfloor$, 
-{\bf next$(d,h):=d+\lceil\frac {x-A(d)}{A(h)-A(d)}(h-d)\rceil$},\newline 
-\phantom{---}{\bf if} $A(\text{{\bf next}}(d,h))>x$ {\bf then}\newline 
-\phantom{------}$smer:=true$\newline 
-\phantom{---}{\bf else}\newline 
-\phantom{------}$smer:=false$\newline 
-\phantom{---}{\bf endif}\newline 
-\phantom{---}$typ:=true$, $blok:=true$\newline 
-{\bf endif}
-
-Po dvou dotazech klesne $h-d$ buď pod $\sqrt {h-d}$ nebo pod 
-$\frac {h+d}2$. Proto procedura v nejhorším případě použije 
-nejvýše $8+2\log(|S|-1)+2\log\log|S|$ dotazů, a tedy v nejhorším 
-případě vyžaduje čas $O(\log|S|)$.
-
-Nyní spočítáme očekávaný počet dotazů 
-během jednoho bloku za předpokladu rovnoměr\-ného rozdělení dat. Nechť $p_i$ je prav\-dě\-podobnost, že 
-v rámci bloku se položí ales\-poň $i$ dotazů. Pak 
-očekávaný počet dotazů v rámci bloku je 
-$$E(C)=\sum_{i\ge 1}i(p_i-p_{i+1})=\sum_{i\ge 1}p_i.$$
-Nyní odhadneme $p_i$.  Označme $n+d$ argument prvního dotazu 
-(interpolační vyhledávaní) v rámci bloku a nechť $
-krok=k$ 
-v rámci bloku.  Označme $X=|\{i\mid i>d,\,A(i)\le x\}|$ na 
-začátku bloku, pak $X$ je náhodná proměnná závislá na 
-argumentu ope\-race a bloku.  Když se v bloku položí 
-alespoň $i$ dotazů pro $i>2$, pak $|X-n|\ge\lfloor\frac {
-i-2}2\rfloor k$, 
-protože každý unární dotaz, jehož položení  
-nezmění blok, nalezne dalších $k$ hodnot $i$ v rozdílu $|X-n|$. 
-Tedy 
-$$p_i\le\Prob(|X-n|\ge\lfloor\frac {i-2}2\rfloor k).$$
-Použijeme Čebyševovu nerovnost pro náhodnou 
-proměn\-nou $X$. Když $Y$ je náhodná proměnná s~očekávanou 
-(střední) hodnotou $\mu$ a rozptylem $\sigma^2$, pak Čebyševova 
-nerovnost říká, že 
-$$\Prob(|Y-\mu |\ge t)\le\frac {\sigma^2}{t^2}\qquad\text{\rm pro každé }
-t>0.$$
-
-Uvažujme okamžik, kdy jsme na začátku nějakého 
-bloku. Pro\-tože $S$ je vybraná s~rovno\-měr\-ným rozdělením, je 
-pravděpodob\-nost, že $A(i)<x$ pro $d<i<h$, rovna 
-$p=\frac {x-A(d)}{A(h)-A(d)}$, a pak pravděpodobnost, že 
-$X=j$, je $\binom {h-d}jp^j(1-p)^{h-d-j}$. To znamená, že $X$ je náhodná 
-veličina s~binomickým rozdělením s~rozsahem $d-h$ a pravděpodobností $p$, a tedy její očekávaná 
-hodnota je
-$$\mu =\sum_{j=0}^{h-d}j\binom {h-d}jp^j(1-p)^{h-d-j}=p(h-d)$$
-a rozptyl má hodnotu 
-$$\sigma^2=\sum_{j=0}^{h-d}(j-\mu )^2\binom {h-d}jp^j(1-p)^{h-d-j}
-=p(1-p)(h-d).$$
-Když si uvědomíme, že $k=\lfloor\sqrt {h-d}\rfloor$ a $
-n=p(h-d)$, pak dostáváme
-\begin{align*} p_i,p_{i+1}\le&\Prob(|X-n|\ge\lfloor\frac {i-2}2\rfloor k 
-)\le\frac {4p(1-p)(h-d)}{(i-2)^2k^2}\le\\
-&\frac {4p(1-p)}{(i-2)^2}\le\frac 1{(i-2)^2},\end{align*}
-protože pro $0\le p\le 1$ je $p(1-p)\le\frac 14$. Když shrneme tato pozorování, 
-dostává\-me, že 
-\begin{align*} E(C)=&\sum_{i\ge 1}p_i\le 2+2\sum_{i\ge 3}\frac 1{(i-2)^2}=
-2+2\sum_{i\ge 1}\frac 1{i^2}=\\
-&2+2\frac {\pi^2}6=2+\frac {\pi^2}3\approx 5.3\end{align*}
-Závěr: očekávaný počet dotazů v bloku je menší než $
-6$.
-
-Když $E(T(n))$ je očekávaný počet dotazů pro operaci 
-{\bf MEMBER} a když $|S|=n$, pak platí 
-$$E(T(n))\le E(C)+E(T(\sqrt n)).$$
-Protože $E(T(1))=1$ a $E(T(2))\le 2$, dostáváme z rekurentního 
-vzorce, že 
-$$E(T(n))\le 2+E(C)\log\log n\qquad\text{\rm pro }n\ge 2.$$
-
-\begin{veta}Čas operace {\bf MEMBER} v uspořádaném poli délky $
-n$ při 
-zobec\-něném kvadra\-tickém vyhledávání je v nejhorším 
-přípa\-dě $O(\log n)$. Když rozdělení vstupních dat je 
-rovno\-měr\-né, pak očekávaný čas je $O(\log\log n)$. 
-\end{veta}
-
-Nevýhoda této datové struktury 
-spočívá v neexistenci přiroze\-ných efektivních implementací 
-ope\-rací {\bf INSERT}, {\bf DELETE}, {\bf SPLIT} a {\bf JOIN}. Přirozené 
-implementace těchto ope\-rací vyža\-dují čas 
-$O(|S|)$, zhruba řečeno musíme pohybovat s~téměř kaž\-dým prvkem. 
-Pokusem o řešení 
-tohoto problému byl návrh binár\-ních vyhledávacích 
-stromů.
 
 \subsection{Binární vyhledávací stromy}
 
 Binární vyhledávací strom je struktura pro binár\-ní 
-vyhledávání v uspořáda\-ném poli rozta\-ženém do roviny a 
-vyhledávání odpo\-ví\-dá cestě ve stro\-mě. Formální 
-definice:
+vyhledávání v~uspořáda\-ném poli rozta\-ženém do roviny a 
+vyhledávání odpo\-ví\-dá cestě ve stro\-mě.  
+
+\subsubsection{Formální definice}
 
 Předpokládáme, že $U$ je lineárně uspořádané 
 univerzum a $S\subseteq U$.  \emph{Binární} \emph{vyhledávací} 
@@ -5588,11 +5684,13 @@ podstromu pravého syna vrcholu $v$ je přiřazen prvek z $S$
 větší než $s$.
 \end{itemize}
 
-Strukura vnitřního vrcholu $v$:\newline 
-ukazatel $\otec(v)$ na otce vrcholu $v$,\newline 
-ukazatel $\levy(v)$ na levého syna vrcholu $v$,\newline 
-ukazatel $\pravy(v)$ na pravého syna vrcholu $v$,\newline 
-atribut $\key(v)$ -- prvek z $S$ přiřazený vrcholu $v$.
+Strukura vnitřního vrcholu $v$:
+\begin{pitemize}
+\item ukazatel $\otec(v)$ na otce vrcholu $v$
+\item ukazatel $\levy(v)$ na levého syna vrcholu $v$
+\item ukazatel $\pravy(v)$ na pravého syna vrcholu $v$ 
+\item atribut $\key(v)$ -- prvek z $S$ přiřazený vrcholu $v$.
+\end{pitemize}
 Když $v$ je kořen stromu, pak hodnota ukazatele $\otec(v)$ 
 je $NIL$. List má ukazatele pouze na otce.
 
@@ -5619,98 +5717,102 @@ pracovat s~listy (vyhlíží to logičtější). Proto při návrhu
 algoritmů budeme předpokládat, že stromy mají 
 listy reprezentující intervaly.
 
+\subsubsection{Algoritmy}
 Navrhneme algoritmy pro binární vyhledávací stromy 
 rea\-lizují\-cí operace z uspořádaného slovníkového problému.
 
+\algoritmus{
 {\bf Vyhledej$(x)$\newline 
 $t:=$}kořen stromu\newline 
-{\bf while} $t$ není list a $\key(t)\ne x$ {\bf do}\newline 
-\phantom{---}{\bf if} $\key(t)>x$ {\bf then} $t:=\levy(t)$ {\bf else} $t:=\pravy(t)$ {\bf endif\newline 
-enddo
+{\bf \textsf{while}} $t$ není list a $\key(t)\ne x$ {\bf \textsf{do}}\newline 
+\phantom{---}{\bf \textsf{if}} $\key(t)>x$ {\bf \textsf{then}} $t:=\levy(t)$ {\bf \textsf{else}} $t:=\pravy(t)$ {\bf \textsf{endif}\newline 
+\textsf{enddo}
+}}\algoritmus{{\bf
 
 MEMBER$(x)$\newline 
 Vyhledej$(x)$\newline 
-if} $t$ není list {\bf then Výstup}: $x\in S$ {\bf else Výstup}: $
-x\notin S$ {\bf endif
-
+\textsf{if}} $t$ není list {\bf \textsf{then} Výstup}: $x\in S$ {\bf \textsf{else} Výstup}: $
+x\notin S$ {\bf \textsf{endif}
+}}\algoritmus{{\bf
 INSERT$(x)$\newline 
 Vyhledej$(x)$\newline 
-if} $t$ je list {\bf then}\newline 
+\textsf{if}} $t$ je list {\bf \textsf{then}}\newline 
 $t$ se změní na vnitřní vrchol, $\key(t):=x$,\newline 
 $\levy(t)$ a $\pravy(t)$ jsou nové listy, jejichž otcem je $t$\newline 
-{\bf endif
-
+{\bf \textsf{endif}
+}}\algoritmus{{\bf
 DELETE$(x)$\newline 
 Vyhledej$(x)$\newline 
-if} $t$ není list {\bf then}\newline 
-\phantom{---}{\bf if} $\levy(t)$ je list {\bf then\newline}
+\textsf{if}} $t$ není list {\bf \textsf{then}}\newline 
+\phantom{---}{\bf \textsf{if}} $\levy(t)$ je list {\bf \textsf{then}\newline}
 \phantom{------}odstraníme vrchol $\levy(t)$, $\otec(\pravy(t)):=\otec(t)$\newline 
-\phantom{------}{\bf if} $t=\levy(\otec(t))$ {\bf then}\newline
+\phantom{------}{\bf \textsf{if}} $t=\levy(\otec(t))$ {\bf \textsf{then}}\newline
 \phantom{---------}$\levy(\otec(t)):=\pravy(t)$\newline 
-\phantom{------}{\bf else}\newline 
+\phantom{------}{\bf \textsf{else}}\newline 
 \phantom{---------}$\pravy(\otec(t)):=\pravy(t)$\newline 
-\phantom{------}{\bf endif\newline}
+\phantom{------}{\bf \textsf{endif}\newline}
 \phantom{------}odstraníme vrchol $t$\newline 
-\phantom{---}{\bf else}\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
 \phantom{------}$u:=\levy(t)$\newline 
-\phantom{------}{\bf while} $\pravy(u)$ není list {\bf do}\newline \phantom{---------}$u:=\pravy(u)$\newline 
-\phantom{------}{\bf enddo}\newline 
+\phantom{------}{\bf \textsf{while}} $\pravy(u)$ není list {\bf \textsf{do}}\newline \phantom{---------}$u:=\pravy(u)$\newline 
+\phantom{------}{\bf \textsf{enddo}}\newline 
 \phantom{------}$\key(t):=\key(u)$, odstraníme vrchol $\pravy(u)$,\newline 
 \phantom{------}$\otec(\levy(u)):=\otec(u)$\newline 
-\phantom{------}{\bf if} $u=\levy(\otec(u))$ {\bf then}\newline 
+\phantom{------}{\bf \textsf{if}} $u=\levy(\otec(u))$ {\bf \textsf{then}}\newline 
 \phantom{---------}$\levy(\otec(u)):=\levy(u)$\newline 
-\phantom{------}{\bf else}\newline 
+\phantom{------}{\bf \textsf{else}}\newline 
 \phantom{---------}$\pravy(\otec(u)):=\levy(u)$\newline 
-\phantom{------}{\bf endif\newline}
+\phantom{------}{\bf \textsf{endif}\newline}
 \phantom{------}odstraníme vrchol $u$\newline 
-\phantom{---}{\bf endif\newline 
-endif}
-
+\phantom{---}{\bf \textsf{endif}\newline 
+\textsf{endif}}
+}\algoritmus{
 {\bf MIN\newline 
 $t:=$}kořen stromu\newline 
-{\bf while} levý syn $t$ není list {\bf do} $t:=\levy(t)$ {\bf enddo\newline 
+{\bf \textsf{while}} levý syn $t$ není list {\bf \textsf{do}} $t:=\levy(t)$ {\bf \textsf{enddo}\newline 
 Výstup}: prvek reprezentovaný $t$ je nejmenší prvek v $
 S$
-
+}\algoritmus{
 {\bf MAX\newline 
 $t:=$}kořen stromu\newline 
-{\bf while} pravý syn $t$ není list {\bf do} $t:=\pravy(t)$ {\bf enddo\newline 
+{\bf \textsf{while}} pravý syn $t$ není list {\bf \textsf{do}} $t:=\pravy(t)$ {\bf \textsf{enddo}\newline 
 Výstup}: prvek reprezentovaný $t$ je největší prvek v $
 S$
-
+}\algoritmus{
 {\bf SPLIT$(x)$}:\newline 
 $T_1$ a $T_2$ jsou prázdné stromy\newline 
 $u_1:=u_2:=NIL$\newline 
 $t:=\text{\rm kořen stromu }T$\newline 
-{\bf while} $t$ není list a $\key(t)\ne x$ {\bf do\newline}
-\phantom{---}{\bf if} $\key(t)>x$ {\bf then\newline 
+{\bf \textsf{while}} $t$ není list a $\key(t)\ne x$ {\bf \textsf{do}\newline}
+\phantom{---}{\bf \textsf{if}} $\key(t)>x$ {\bf \textsf{then}\newline 
 \phantom{------}$u:=\levy(t)$}, $\levy(t):=NIL$, $\otec(u):=NIL$\newline 
-\phantom{------}{\bf if} $T_2$ je prázdný strom {\bf then}\newline \phantom{---------}$T_2:=\text{\rm podstrom vrcholu }t$\newline
-\phantom{------}{\bf else}\newline 
+\phantom{------}{\bf \textsf{if}} $T_2$ je prázdný strom {\bf \textsf{then}}\newline \phantom{---------}$T_2:=\text{\rm podstrom vrcholu }t$\newline
+\phantom{------}{\bf \textsf{else}}\newline 
 \phantom{---------}$\levy(u_2):=t$, $\otec(t):=u_2$\newline 
-\phantom{------}{\bf endif}\newline
+\phantom{------}{\bf \textsf{endif}}\newline
 \phantom{------}$u_2:=t$\newline 
-\phantom{---}{\bf else}\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
 \phantom{------}$u:=\pravy(t)$, $\pravy(t):=NIL$, $\otec(u):=NIL$\newline
-\phantom{------}{\bf if} $T_1$ je prázdný strom {\bf then}\newline \phantom{---------}$T_1:=\text{\rm podstrom vrcholu }t$\newline
-\phantom{------}{\bf else}\newline 
+\phantom{------}{\bf \textsf{if}} $T_1$ je prázdný strom {\bf \textsf{then}}\newline \phantom{---------}$T_1:=\text{\rm podstrom vrcholu }t$\newline
+\phantom{------}{\bf \textsf{else}}\newline 
 \phantom{---------}$\pravy(u_1):=t$, $\otec(t):=u_1$\newline 
-\phantom{------}{\bf endif}\newline
+\phantom{------}{\bf \textsf{endif}}\newline
 \phantom{------}$u_1:=t$\newline 
-\phantom{---}{\bf endif}\newline 
+\phantom{---}{\bf \textsf{endif}}\newline 
 \phantom{---}$t:=u$\newline 
-{\bf enddo\newline 
-if} $\key(t)=x$ {\bf then}\newline 
+{\bf \textsf{enddo}\newline 
+\textsf{if}} $\key(t)=x$ {\bf \textsf{then}}\newline 
 \phantom{---}$\otec(\levy(t)):=u_1$, $\pravy(u_1):=\levy(t)$\newline 
 \phantom{---}$\otec(\pravy(t)):=u_2$, $\levy(u_2):=\pravy(t)$\newline 
 \phantom{---}$\otec(u_1):=NIL$, $\otec(u_2):=NIL$, {\bf Výstup}: $x\in S$\newline 
-{\bf else}\newline 
+{\bf \textsf{else}}\newline 
 \phantom{---}{\bf Výstup}: $x\notin S$\newline 
-{\bf endif\newline }
+{\bf \textsf{endif}\newline }
 Komentář: $T_1$ je binární vyhledávací strom reprezentující 
 mno\-ži\-nu 
 $\{s\in S\mid s<x\}$ a $T_2$ je binární vyhledávací strom 
 reprezentující množinu $\{s\in S\mid s>x\}$.
+}\algoritmus{
 
 {\bf JOIN3$(T_1,x,T_2)$} -- předpokládáme, že když $
 T_i$ reprezentuje 
@@ -5718,17 +5820,27 @@ množinu $S_i$ pro $i=1,2$, pak $\max S_1<x<\min S_2$\newline
 vytvořme nový vrchol $u$, $\key(u)=x$, $\otec(u):=NIL$, \newline 
 $\otec(\text{kořene }T_1):=u$, $\otec(\text{kořene }T_2):=u$, \newline 
 $\levy(u):=$kořen $T_1$, $\pravy(u):=$kořen $T_2$.
+}
+
+\subsubsection{Korektnost}
 
 Abych dokázali korektnost algoritmu {\bf Vyhledej} -- 
 jedná se o modifikaci vyhledávání v uspořádaném poli --
 popíšeme po\-drobněji vlastnosti binárního vyhledávacího 
-stromu. Nej\-prve rozšíříme universum o dva nové prvky, o nový 
+stromu. 
+
+Nej\-prve rozšíříme universum o dva nové prvky, o nový 
 nejmenší prvek $-\infty$ a o nový největší prvek $+\infty$. 
+
+
 Mějme binární vyhledávací strom $T$ reprezentující 
 množinu $S$, pak pro vrchol $t$ stromu $T$ definujeme indukcí hodnoty $\lambda(t)$ 
 a $\pi(t)$. Když $r$ je kořen, pak $\lambda(r)=-\infty$ a $\pi(r)=+\infty$. 
 Když hodnoty $\lambda(t)$ a $\pi(t)$ jsou pro vrchol $t$ definovány, pak pro levého syna $u$ vrcholu $t$ definujeme $\lambda(u)=\lambda(t)$ a $\pi(u)=\key(y)$
 a pro pravého syna $w$ vrcholu $t$ definujeme $\lambda(w)=\key(t)$ a $\pi(w)=\pi(t)$.
+
+Pozn. studenta - nejspíš Lambda jako Levý, Pi jako Pravý.
+
 Nyní dokážeme
 
 \begin{lemma}Je-li $T'$ podstrom binárního vyhledávacího 
@@ -5752,15 +5864,17 @@ implikuje platnost tvrzení i pro vrcholy $t_l$ a $t_p$.
 
 Korektnost podprocedury {\bf Vyhledej} plyne z 
 následujícího invariantu:
-\begin{itemize}
-\item
+\begin{lemma}
 Když při vyhledávání $x$ vyšetřujeme vrchol $
 t$, pak 
 $$\lambda (t)<x<\pi (t).$$
-\end{itemize}
+\end{lemma}
+
 Toto tvrzení se lehce dokáže indukcí z popisu algoritmu 
 {\bf Vy\-hledej}.  Tedy operace {\bf Vy\-hledej} je korektní a korekt\-nost 
-ope\-rací {\bf MEMBER} a {\bf INSERT} je teď zřejmá. V operaci {\bf DELE\-TE},  
+ope\-rací {\bf MEMBER} a {\bf INSERT} je teď zřejmá. 
+
+V operaci {\bf DELE\-TE},  
 když $\levy(t)$ je list, pak korektnost je zřejmá. Když $\levy
 (t)$ 
 není list, pak algoritmus nalezne list $v$ takový, že $\pi(v)=x$. 
@@ -5772,16 +5886,23 @@ vyhledávací strom reprezentující $S\setminus \{x\}$ a proto operace
 {\bf DELETE} je korektní. 
 
 Korektnost operací {\bf MIN}, {\bf MAX} a {\bf JOIN3} plyne z definice 
-binárního vyhledavacího stromu.  Korektnost operace {\bf SPLIT }
+binárního vyhledavacího stromu.  
+
+Korektnost operace {\bf SPLIT }
 plyne z korektnosti algoritmu {\bf Vyhledej} a z faktu, že $u_
 1$ je otec 
 nej\-pravějšího listu stromu $T_1$ a $u_2$ je otec nejlevějšího listu stromu $T_2$.  
+
+
 Protože ke stromu $T_1$ se přidává část stromu $T$ reprezentující 
 prvky, které jsou větší než prvky reprezentované v $
 T_1$, a ke 
 stromu $T_2$ se přidává část stromu $T$ reprezentující prvky, 
 které jsou menší než prvky reprezentované v $T_2$, korektnost 
 algoritmu pro operaci {\bf SPLIT} je jasná.  
+
+\subsubsection{Časová složitost}
+
 
 Zpracování jednoho vrcholu vyžaduje čas $O(
 1)$ a 
@@ -5795,6 +5916,9 @@ T$ vyžadují
 čas $O(\hloubka(T))$. 
 \end{veta}
 
+\subsubsection{Pořádková statistika}
+
+
 Bohužel ani struktura binárních vyhledávacích 
 stromů nepodporuje efektivní implementaci operace 
 {\bf ord$(k)$}. Pro její efektivní implentaci je vhodné rozšířit 
@@ -5805,20 +5929,20 @@ vrcholem $t$. Po provedení operací {\bf INSERT}, {\bf DELETE}, {\bf JOIN3} a
 vrcholu do kořene. Následující algoritmus pak 
 realizuje operaci {\bf ord}$(k)$.
 
-{\bf ord$(k)$ \newline 
+\algoritmus{{\bf ord$(k)$ \newline 
 $t:=$}kořen stromu \newline 
-{\bf if} $k\ge p(t)$ {\bf then} $k$-tý prvek neexistuje, {\bf stop endif\newline 
-while} true {\bf do}\newline 
-\phantom{---}{\bf if} $k>p(\levy(t))$ {\bf then}\newline 
+{\bf \textsf{if}} $k\ge p(t)$ {\bf \textsf{then}} $k$-tý prvek neexistuje, {\bf \textsf{stop} \textsf{endif}\newline 
+\textsf{while}} true {\bf \textsf{do}}\newline 
+\phantom{---}{\bf \textsf{if}} $k>p(\levy(t))$ {\bf \textsf{then}}\newline 
 \phantom{------}$k:=k-p(\levy(t))$, $t:=\pravy(t)$\newline 
-\phantom{---}{\bf else}\newline 
-\phantom{------}{\bf if} $k<p(\levy(t)$ {\bf then}\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
+\phantom{------}{\bf \textsf{if}} $k<p(\levy(t)$ {\bf \textsf{then}}\newline 
 \phantom{---------}$t:=\levy(t)$\newline 
-\phantom{------}{\bf else}\newline 
-\phantom{---------}$\key(t)$ je $k$-tý prvek reprezentované množiny, stop \newline 
-\phantom{------}{\bf endif}\newline 
-\phantom{---}{\bf endif\newline 
-enddo}
+\phantom{------}{\bf \textsf{else}}\newline 
+\phantom{---------}$\key(t)$ je $k$-tý prvek reprezentované množiny, \textsf{\bf stop} \newline 
+\phantom{------}{\bf \textsf{endif}}\newline 
+\phantom{---}{\bf \textsf{endif}\newline 
+\textsf{enddo}}}
 
 Korektnost algoritmu plyne z následujícího invariantu:  
 Když algoritmus má v daném okamžiku v proměnné $t$ vrchol $
@@ -5830,7 +5954,7 @@ je $v$ kořen stromu a interval je $S$ (a $k'=k$), tak na počátku
 běhu algoritmu invariant platí.  Předpokládejme, že platí v 
 některém kroku.  Nechť $u$ je levý syn $v$, $w$ je pravý syn $
 v$ a 
-$I_a$ je interval reprezovaný podstromem $T$ určeným vrcholem $
+$I_a$ je interval reprezentovaný podstromem $T$ určeným vrcholem $
 a$.  
 Pak $|I_u|=p(u)-1$, $\max I_u<\key(v)<\min I_w$ a 
 $I_v=I_u\cup \{\key(v)\}\cup I_w$.  Odtud plyne, že když $k'
@@ -5853,6 +5977,8 @@ vy\-hledávacích stromech vyžadují čas $O(\hloubka
 (T))$, kde $T$ je 
 reprezentující strom. 
 \end{veta}
+
+\subsubsection{Diskuze}
 
 Tento výsledek motivuje používání binárních 
 vyhledávacích stromů, které splňují další 
@@ -5890,6 +6016,8 @@ známe rozdělení vstupních dat.  Zde se datová struktura
 předem upravuje pro toto rozdělení.  Ukazuje se, že tyto 
 strategie mají úspěch.  Další podrobnosti v letním semestru.  
 
+\subsubsection{Rotace}
+
 Nyní si ukážme dvě operace se stromy, na nichž jsou 
 založeny  vyvažovací operace pro binární vyhledávací 
 stromy. Obě ope\-race vyžadují čas $O(1)$.
@@ -5908,19 +6036,21 @@ znázorněna na obrázku \ref{rotace} a provádí ji následující algoritmus.
   \label{rotace}
 \end{figure}
 
+\algoritmus{
 {\bf Rotace$(v,u)$\newline} 
 $\otec(u):=\otec(v)$,\newline 
-{\bf if} $v=\levy(\otec(v))$ {\bf then}\newline 
+{\bf \textsf{if}} $v=\levy(\otec(v))$ {\bf \textsf{then}}\newline 
 \phantom{---}$\levy(\otec(v)):=u$\newline 
-{\bf else}\newline 
+{\bf \textsf{else}}\newline 
 \phantom{---}$\pravy(\otec(v)):=u$\newline 
-{\bf endif\newline 
+{\bf \textsf{endif}\newline 
 $\otec(v):=u$\newline 
-if} $u=\levy(v)$ {\bf then}\newline 
+\textsf{if}} $u=\levy(v)$ {\bf \textsf{then}}\newline 
 \phantom{---}$\otec(\pravy(u)):=v$, $\levy(v):=\pravy(u)$, $\pravy(u):=v$\newline 
-{\bf else}\newline 
+{\bf \textsf{else}}\newline 
 \phantom{---}$\otec(\levy(u)):=v$, $\pravy(v):=\levy(u)$, $\levy(u):=v$\newline 
-{\bf endif}
+{\bf \textsf{endif}}
+}
 
 Všimněme si, že při {\bf Rotace} můžeme 
 aktualizovat i funkci $p$. Pro vrchol $w\ne u,v$ se její hodnota 
@@ -5941,20 +6071,22 @@ ji následující algoritmus.
   \caption{Dvojita-rotace$(w,v,u)$}
 \end{figure}
 
+\algoritmus{
 {\bf Dvojita}-{\bf rotace$(w,v,u)$\newline 
 $\otec(u):=\otec(w)$\newline 
-if} $w=\levy(\otec(w))$ {\bf then}\newline 
+\textsf{if}} $w=\levy(\otec(w))$ {\bf \textsf{then}}\newline 
 \phantom{---}$\levy(\otec(w)):=u$\newline 
-{\bf else}\newline 
+{\bf \textsf{else}}\newline 
 \phantom{---}$\pravy(\otec(w)):=u$\newline 
-{\bf endif}\newline 
+{\bf \textsf{endif}}\newline 
 $\otec(v):=u$, $\otec(w):=u$\newline 
-{\bf if} $v=\levy(w)$ {\bf then}\newline  
+{\bf \textsf{if}} $v=\levy(w)$ {\bf \textsf{then}}\newline  
 \phantom{---}$\levy(w):=\pravy(u)$, $\otec(\pravy(u)):=w$, $\pravy(v):=\levy(u)$\newline \phantom{---}$\otec(\levy(u)):=v$, $\levy(u):=v$, $\pravy(u):=w$\newline 
-{\bf else}\newline 
+{\bf \textsf{else}}\newline 
 \phantom{---}$\pravy(w):=\levy(u)$, $\otec(\levy(u)):=w$, $\levy(v):=\pravy(u)$\newline 
 \phantom{---}$\otec(\pravy(u)):=v$, $\levy(u):=w$, $\pravy(u):=v$\newline 
-{\bf endif}
+{\bf \textsf{endif}}
+}
 
 Také zde můžeme v čase $O(1)$ spočítat nové hodnoty $
 p$. 
@@ -5965,7 +6097,11 @@ p(v)$
 a $p(w)$ 
 získáme pod\-le stejného vzorce  jako v {\bf Rotace}.
 
+Další kapitoly by technicky měly patřit pod binární stromy, pro přehlednost jsem je ale nechal ve vlastních kapitolách.
+
 \subsection{AVL-stromy}
+
+\subsubsection{Definice}
 
 Binární vyhledávací strom je 
 \emph{AVL}-\emph{strom}, když pro každý vnitř\-ní vrchol 
@@ -5980,16 +6116,18 @@ délku nejdelší cesty z vrcholu $v$ do listu.
  
 
 Struktura vnitřních vrcholů v 
-AVL-stromech je rozšířena o hodnotu $\omega$:\newline 
-$\omega (v)=-1$, když 
+AVL-stromech je rozšířena o hodnotu $\omega$:
+\begin{pitemize} 
+\item $\omega (v)=-1$, když 
 $$\eta (\text{\rm levý syn vrcholu }v)=\eta (\text{\rm pravý syn vrcholu }
 v)+1;$$
-$\omega (v)=0$, když 
+\item $\omega (v)=0$, když 
 $$\eta (\text{\rm levý syn vrcholu }v)=\eta (\text{\rm pravý syn vrcholu }
 v);$$
-$\omega (v)=+1$, když
+\item $\omega (v)=+1$, když
 $$\eta (\text{\rm levý syn vrcholu }v)+1=\eta (\text{\rm pravý syn vrcholu }
 v).$$
+\end{pitemize}
 
 Všimněme si, že hodnota $\eta (v)$ pro vnitřní vrcholy 
 $v$ stromu $T$ není nikde uložena.  Hodnoty $\eta$ jsme schopni 
@@ -5998,46 +6136,84 @@ aktualizačních operacích budeme umět aktualizovat
 hodnoty $\omega$ a upravit binární vy\-hledávací strom tak, 
 aby byl opět AVL-strom.
 
-Odhad velikosti $\eta (\text{\rm kořen }T)$ v závislosti na 
-velikosti reprezentované množiny $S$.\newline 
+\subsubsection{Odhad výšky stromu}
+
+
+Odhad velikosti $\eta (\text{\rm kořen }T)=$výška stromu v závislosti na 
+velikosti reprezentované množiny $S$.
+\begin{pozorovani} 
 Když $T$ je AVL-strom a $v$ je vnitřní vrchol $T$, pak 
 podstrom $T$ určený vrcholem $v$ je opět AVL-strom. 
-Označme\newline 
+\end{pozorovani}
+
+\begin{definice}
+Označme
 $mn(i)$ velikost nejmenší množiny reprezentované 
-AVL-stromem $T$ takovým, že $$\eta (\text{\rm kořen }T)=i,$$ 
-$mx(i)$ velikost největší množiny reprezentované 
+AVL-stromem $T$ takovým, že $$\eta (\text{\rm kořen }T)=i.$$
+\end{definice}
+
+\begin{definice}
+Označme $mx(i)$ velikost největší množiny reprezentované 
 AVL-stromem $T$ takovým, že $$\eta (\text{\rm kořen }T)=i.$$ 
+\end{definice}
+\begin{pozorovani}
 Z definice AVL-stromu plynou rekurze
 \begin{gather*} mn(i)=mn(i-1)+mn(i-2)+1,\,mx(i)=2mx(i-1)+1,\\
 \text{a }mn(1)=mx(1)=1,\quad mn(2)=2,\quad mx(2)=3.\end{gather*}
-Nejprve spočítáme $mx$.
+\end{pozorovani}
 
-Dokážeme, že $mx(i)=2^i-1$. Tento vzorec je 
+\begin{lemma}[1]
+    $mx(i)=2^i-1$
+\end{lemma}
+
+
+\begin{proof}
+    Tento vzorec je 
 splněn pro $i=1,2$. Dále 
 $$mx(i+1)=2mx(i)+1=2(2^i-1)+1=2^{i+1}-1.$$
 Tím je vzorec dokázán. 
+\end{proof}
 
-Abychom spočítali $mn$, připomeneme si definici Fibonacciho čísel. \emph{Fibonacciho} 
-\emph{číslo} $F_i$ je definováno rekurencí
+Abychom spočítali $mn$, připomeneme si definici Fibonacciho čísel. 
+
+\begin{definice}Fibonacciho
+číslo $F_i$ je definováno rekurencí
 $$F_1=F_2=1\text{\rm\ a }F_{i+2}=F_i+F_{i+1}\text{\rm\ pro všechna }
 i\ge 3.$$
-Pak platí vzorec $F_i=\frac {\big(\frac {1+\sqrt 5}2\big)^i-\big
+\end{definice}
+\begin{lemma}
+Platí  $F_i=\frac {\big(\frac {1+\sqrt 5}2\big)^i-\big
 (\frac {1-\sqrt 5}2\big)^i}{\sqrt 5}$ pro všechna $i\ge 1$ 
-(dokážeme si ho v části o haldách). 
+\end{lemma}
+(dokážeme si v části o haldách). 
 
+\begin{lemma}
+    Existují konstanty $0<c_1<c_2$ takové, že 
+    $$c_1(\frac {1+\sqrt 5}2)^i<\sqrt 5F_i<c_2(\frac {1+\sqrt 5}2)^i.$$
+\end{lemma}
+\begin{proof}
 Protože 
 $-1<\frac {1-\sqrt 5}2<0$ a $\frac {1+\sqrt 5}2>1$, dostáváme, že 
 $$\lim_{n\mapsto\infty}F_n\sqrt 5(\frac {1+\sqrt 5}2)^{-n}=1.$$
-Proto existují konstanty $0<c_1<c_2$ takové, že 
-$$c_1(\frac {1+\sqrt 5}2)^i<\sqrt 5F_i<c_2(\frac {1+\sqrt 5}2)^i.$$
+Proto skutečně existují konstanty $0<c_1<c_2$ takové, že 
+$c_1(\frac {1+\sqrt 5}2)^i<\sqrt 5F_i<c_2(\frac {1+\sqrt 5}2)^i.$
+\end{proof}
 
-Dokážeme, že $mn(i)=F_{i+2}-1$. Protože $F_3
+\begin{lemma}[2]
+     $mn(i)=F_{i+2}-1$
+\end{lemma}
+
+\begin{proof}Protože $F_3
 =2$ a 
 $F_4=3$, 
 tvrzení platí pro $i=1$ a $i=2$. Dále 
 \begin{align*} mn(i+2)=&mn(i+1)+mn(i)+1=\\&F_{i+3}-1+F_{i+2}-1+1=F_{i+4}-1.\end{align*}
 Z toho indukcí plyne požadovaný vztah. 
-
+\end{proof}
+\begin{veta}
+$i=\Theta (\log(n))$
+\end{veta}
+\begin{proof}
 Když AVL-strom $T$ o výšce $i$ reprezentuje množinu $
 S$ o 
 velikosti $n$, pak platí 
@@ -6050,12 +6226,19 @@ Protože $\log(\frac {1+\sqrt 5}2)\approx 0.69\approx\frac 1{1.
 44}$ dostáváme, že pro dostatečně velká $n$ 
 platí, že $0.69i<\log(n+1)\le i$. Odtud plyne, že 
 $\log(n+1)\le i\le 1.44\log(n)$, a tedy $i=\Theta (\log(n))$.
+\end{proof}
+\zapamatovat{
+$\eta (\text{\rm kořen }T) = \Theta (\log(n))$
+}
 
+\subsubsection{Algoritmy}
 Operace {\bf MEMBER$(x)$} pro AVL-stromy je stejná jako 
-ope\-race {\bf MEMBER$(x)$} pro nevy\-vá\-žené binární vyhledávací 
+ope\-race {\bf MEMBER$(x)$} pro ne\-vy\-vá\-že\-né binární vyhledávací 
 stro\-my. Aktualizační operace pro AVL-stromy nejprve provedou 
 příslušnou ope\-raci pro nevyvážené binární vyhledávací stromy 
-a pak násle\-du\-je jejich vyvažovací část. Při úspěšně 
+a pak násle\-du\-je jejich vyvažovací část. 
+
+Při úspěšně 
 provedené operaci {\bf IN\-SERT$(x)$} v nevyvážených binárních 
 stromech změníme vhod\-ný list $t$ na vnitřní vrchol 
 stromu reprezentující $x$ a přidáme k $t$ dva syny, kteří 
@@ -6079,87 +6262,118 @@ $t=\levy(v)$ a $\omega (v)$ má ještě původní hodnotu.
 zvětšila a $t$ nebyl listem před operaci, pak po operaci 
 neplatí $\omega (t)=0$.
 \end{lemma}
+\begin{proof}
+    Skutečně, aby se zvětšila, musí se změnit z~nuly na jednu ze stran.
+\end{proof}
 
-Označme $u=\pravy(v)$ a uvažme případy:\newline 
-A) $\omega (v)=1$, pak $\eta (u)=a$ a $\eta (v)=a+1$ se nezměnilo, 
-tedy stačí položit $\omega (v)=0$.\newline 
-B) $\omega (v)=0$, pak $\eta (u)=a-1$ a $\eta (v)=a+1$ se změnilo, 
-tedy musíme položit $\omega (v)=-1$ a zavolat proceduru 
-{\bf Kontrola-INSERT} na vrchol $v$.\newline 
-C) $\omega (v)=-1$, pak $\eta (u)=a-2$ a $\eta (v)=a+1$ se změnilo. 
-Nyní $\omega (v)=-2$ a to je zakázané. Označme $t_1=\levy
+Označme $u=\pravy(v)$ -- tj. $v$ má děti $t$, $u$, $\eta (t)$ jsme právě změnili z $a-1$ na $a$ a jdeme řešit $v$:
+
+\begin{enumerate}
+\item $\omega (v)=1$, tj. předtím byl pravý syn $u$ větší -- $\eta (u)=a$.
+
+Stačí položit $\omega (v)=0$, protože synové jsou stejně velcí, a $\eta (v)=a+1$ se nezměnilo, takže změna se nepropaguje výš.
+
+\item $\omega (v)=0$, tj. předtím byl pravý syn $u$ stejný -- $\eta (u)=a -1$.
+
+Protože jsme zvětšili levou stranu, položíme $\omega (v)=-1$.
+
+Protože jsme zvětšili $\eta (v)=a+1$, musíme zavolat proceduru 
+{\bf Kontrola-INSERT} na vrchol $v$.
+
+\item $\omega (v)=-1$, pak máme problém -- předtím byl levý syn větší a my jsme ho ještě zvětšili (tj. $\eta (u)=a-2$ a $\eta (v)=a+1$ se změnilo).
+
+Takže $\omega (v)=-2$ a to je zakázané. Označme $t_1=\levy
 (t)$, 
-$t_2=\pravy(t)$ ($\omega (t)=0$ nenastane, viz Lemma). 
-\newline 
-C1) $\omega (t)=-1$, pak $\eta (t_1)=a-1$, $\eta (t_2)=a-2$ a provedeme 
-{\bf Rotace$(v,t)$}. Pak $t_2$ je druhý syn $v$ a stačí položit 
-$\omega (v)=\omega (t)=0$.\newline 
-C2) $\omega (t)=1$, pak $\eta (t_1)=a-2$, $\eta (t_2)=a-1$ a provedeme 
-{\bf Dvojita-rotace$(v,t,t_2)$}. Pro $t_3=\levy(t_2)$ a $t_4=\pravy
-(t_2)$ 
-platí:\newline 
-C2i) $\omega (t_2)=1\implies\eta (t_3)=a-3$ a $\eta (t_4)=a-2$ a stačí 
-položit $\omega (t)=-1$, $\omega (v)=\omega (t_2)=0$, protože $
-\eta (t_2)=a$.\newline 
-C2ii) $\omega (t_2)=0\implies\eta (t_3)=\eta (t_4)=a-2$ a stačí položit 
-$\omega (t_2)=\omega (v)=\omega (t)=0$, protože $\eta (t_2)=a$. \newline 
-C2iii) $\omega (t_2)=-1\implies\eta (t_3)=a-2$ a $\eta (t_4)=a-3$ a 
-stačí položit $\omega (v)=1$, $\omega (t_2)=\omega (t)=
-0$, protože $\eta (t_2)=a$.\newline 
-Když $t$ je pravý syn $v$, pak situace je symetrická.\newline 
-Popíšeme proceduru {\bf Kontrola-INSERT}.
+$t_2=\pravy(t)$ ($t$ je naposledy upravovaný vrchol) a podle toho, jaké je $\omega (t)$ budeme postupovat dál ($\omega (t)=0$ nenastane, viz Lemma). 
 
+\begin{enumerate}
+   \item $\omega (t)=-1$, můžeme provést jednoduchou rotaci {\bf Rotace$(v,t)$}, tj. $t$ půjde \uv{nahoru}, levý syn zůstane $t_1$, pravý syn bude $v$, který bude mít za levého syna $t_2$. Pak stačí položit 
+    $\omega (v)=\omega (t)=0$, nic nepropagujeme výš.
+    
+    \item $\omega (t)=1$ -- jednoduchou rotaci neprovedeme, protože by se \uv{levá větev} příliš zkrátila. Uděláme tedy {\bf Dvojita-rotace$(v,t,t_2)$} -- $t_2$ půjde \uv{nahoru}, zavěsí se za něj $v$ a $t$ a rozdělí si jeho \uv{děti}. Musíme udělat analýzu pro všechny tři případy $\omega (t_2)$.
+    \begin{enumerate}
+        \item $\omega (t_2)=1\implies\eta (t_3)=a-3$ a $\eta (t_4)=a-2$ a stačí 
+        položit $\omega (t)=-1$, $\omega (v)=\omega (t_2)=0$, protože $
+        \eta (t_2)=a$.
+        \item  $\omega (t_2)=0\implies\eta (t_3)=\eta (t_4)=a-2$ a stačí položit 
+        $\omega (t_2)=\omega (v)=\omega (t)=0$, protože $\eta (t_2)=a$.
+        \item $\omega (t_2)=-1\implies\eta (t_3)=a-2$ a $\eta (t_4)=a-3$ a 
+        stačí položit $\omega (v)=1$, $\omega (t_2)=\omega (t)=
+        0$, protože $\eta (t_2)=a$.
+    \end{enumerate}
+\end{enumerate}
+\end{enumerate}
+
+Když $t$ je pravý syn $v$, pak situace je symetrická.\newline 
+Popíšeme proceduru {\bf Kontrola-INSERT} (vychází z~analýzy výše)
+
+
+\algoritmus{
 {\bf Kontrola-INSERT$(t)$\newline 
 $v:=\otec(t)$\newline 
-if} $t=\levy(v)$ {\bf then}\newline 
-\phantom{---}{\bf if} $\omega (v)=1$ {\bf then}\newline 
-\phantom{------}$\omega (v):=0$ \newline 
-\phantom{---}{\bf else}\newline 
-\phantom{------}{\bf if} $\omega (v)=0$ {\bf then}\newline 
-\phantom{---------}$\omega (v):=-1$, $t:=v$, {\bf Kontrola-INSERT}$(t)$\newline 
-\phantom{------}{\bf else}\newline
-\phantom{---------}{\bf if} $\omega (t)=-1$ {\bf then}\newline 
-\phantom{------------}{\bf Rotace$(v,t)$}, $\omega (v):=0$, $\omega (t):=0$\newline 
-\phantom{---------}{\bf else}\newline 
-\phantom{------------}$w:=\pravy(t)$, {\bf Dvojita-rotace$(v,t,w)$},\newline 
-\phantom{------------}{\bf if} $\omega (w)=0$ {\bf then}\newline 
-\phantom{---------------}$\omega (t):=0$, $\omega (v):=0$\newline 
-\phantom{------------}{\bf else}\newline 
-\phantom{---------------}{\bf if} $\omega (w)=1$ {\bf then}\newline 
-\phantom{------------------}$\omega (v):=0$, $\omega (t):=-1$\newline 
-\phantom{---------------}{\bf else}\newline 
-\phantom{------------------}$\omega (v):=1$, $\omega (t):=0$\newline 
-\phantom{---------------}{\bf endif}\newline 
-\phantom{------------}{\bf endif}\newline 
-\phantom{------------}$\omega (w):=0$\newline 
-\phantom{---------}{\bf endif}\newline
-\phantom{------}{\bf endif}\newline 
-\phantom{---}{\bf endif\newline 
-else}\newline 
-\phantom{---}{\bf if} $\omega (v)=-1$ {\bf then}\newline 
-\phantom{------}$\omega (v):=0$\newline 
-\phantom{---}{\bf else}\newline 
-\phantom{------}{\bf if} $\omega (v)=0$ {\bf then}\newline 
-\phantom{---------}$\omega (v):=1$, $t:=v$, {\bf Kontrola-INSERT}$(t)$\newline 
-\phantom{------}{\bf else}\newline 
-\phantom{---------}{\bf if} $\omega (t)=1$ {\bf then}\newline 
-\phantom{------------}{\bf Rotace$(v,t)$}, $\omega (v):=0$, $\omega (t):=0$\newline 
-\phantom{---------}{\bf else}\newline 
-\phantom{------------}$w:=\levy(t)$, {\bf Dvojita-rotace$(v,t,w)$},\newline 
-\phantom{------------}{\bf if} $\omega (w)=0$ {\bf then}\newline 
-\phantom{---------------}$\omega (t):=0$, $\omega (v):=0$\newline 
-\phantom{------------}{\bf else}\newline 
-\phantom{---------------}{\bf if} $\omega (w)=1$ {\bf then}\newline 
-\phantom{------------------}$\omega (v):=0$, $\omega(t):=-1$\newline 
-\phantom{---------------}{\bf else}\newline 
-\phantom{------------------}$\omega (v):=1$, $\omega (t):=0$\newline 
-\phantom{---------------}{\bf endif}\newline 
-\phantom{------------}{\bf endif}\newline 
-\phantom{------------}$\omega (w):=0$\newline 
-\phantom{---------}{\bf endif}\newline 
-\phantom{------}{\bf endif}\newline 
-\phantom{---}{\bf endif\newline 
-endif}
+\textsf{if}} $t=\levy(v)$ {\bf \textsf{then}}\newline 
+\phantom{---}{\bf Leva-Kontrola-INSERT$(t)$\newline 
+\textsf{else}}\newline 
+\phantom{---}{\bf Prava-Kontrola-INSERT$(t)$\newline 
+\textsf{endif}}
+}
+
+
+\algoritmus{
+{\bf Leva-Kontrola-INSERT$(t)$}\newline 
+{\bf \textsf{if}} $\omega (v)=1$ {\bf \textsf{then}}\newline 
+\phantom{---}$\omega (v):=0$ \newline 
+{\bf \textsf{else}}\newline 
+\phantom{---}{\bf \textsf{if}} $\omega (v)=0$ {\bf \textsf{then}}\newline 
+\phantom{------}$\omega (v):=-1$, $t:=v$, {\bf Kontrola-INSERT}$(t)$\newline 
+\phantom{---}{\bf \textsf{else}}\newline
+\phantom{------}{\bf \textsf{if}} $\omega (t)=-1$ {\bf \textsf{then}}\newline 
+\phantom{---------}{\bf Rotace$(v,t)$}, $\omega (v):=0$, $\omega (t):=0$\newline 
+\phantom{------}{\bf \textsf{else}}\newline 
+\phantom{---------}$w:=\pravy(t)$, {\bf Dvojita-rotace$(v,t,w)$},\newline 
+\phantom{---------}{\bf \textsf{if}} $\omega (w)=0$ {\bf \textsf{then}}\newline 
+\phantom{------------}$\omega (t):=0$, $\omega (v):=0$\newline 
+\phantom{---------}{\bf \textsf{else}}\newline 
+\phantom{------------}{\bf \textsf{if}} $\omega (w)=1$ {\bf \textsf{then}}\newline 
+\phantom{---------------}$\omega (v):=0$, $\omega (t):=-1$\newline 
+\phantom{------------}{\bf \textsf{else}}\newline 
+\phantom{---------------}$\omega (v):=1$, $\omega (t):=0$\newline 
+\phantom{------------}{\bf \textsf{endif}}\newline 
+\phantom{---------}{\bf \textsf{endif}}\newline 
+\phantom{---------}$\omega (w):=0$\newline 
+\phantom{------}{\bf \textsf{endif}}\newline
+\phantom{---}{\bf \textsf{endif}}\newline 
+{\bf \textsf{endif}\newline}
+}
+
+\algoritmus{
+{\bf Prava-Kontrola-INSERT$(t)$}\newline 
+{\bf \textsf{if}} $\omega (v)=-1$ {\bf \textsf{then}}\newline 
+\phantom{---}$\omega (v):=0$\newline 
+{\bf \textsf{else}}\newline 
+\phantom{---}{\bf \textsf{if}} $\omega (v)=0$ {\bf \textsf{then}}\newline 
+\phantom{------}$\omega (v):=1$, $t:=v$, {\bf Kontrola-INSERT}$(t)$\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
+\phantom{------}{\bf \textsf{if}} $\omega (t)=1$ {\bf \textsf{then}}\newline 
+\phantom{---------}{\bf Rotace$(v,t)$}, $\omega (v):=0$, $\omega (t):=0$\newline 
+\phantom{------}{\bf \textsf{else}}\newline 
+\phantom{---------}$w:=\levy(t)$, {\bf Dvojita-rotace$(v,t,w)$},\newline 
+\phantom{---------}{\bf \textsf{if}} $\omega (w)=0$ {\bf \textsf{then}}\newline 
+\phantom{------------}$\omega (t):=0$, $\omega (v):=0$\newline 
+\phantom{---------}{\bf \textsf{else}}\newline 
+\phantom{------------}{\bf \textsf{if}} $\omega (w)=1$ {\bf \textsf{then}}\newline 
+\phantom{---------------}$\omega (v):=0$, $\omega(t):=-1$\newline 
+\phantom{------------}{\bf \textsf{else}}\newline 
+\phantom{---------------}$\omega (v):=1$, $\omega (t):=0$\newline 
+\phantom{------------}{\bf \textsf{endif}}\newline 
+\phantom{---------}{\bf \textsf{endif}}\newline 
+\phantom{---------}$\omega (w):=0$\newline 
+\phantom{------}{\bf \textsf{endif}}\newline 
+\phantom{---}{\bf \textsf{endif}}\newline 
+{\bf \textsf{endif}\newline}
+}
+
+
 
 Všimněme si, že po provedení {\bf Rotace} nebo
 {\bf Dvojita-rotace} vyvažování v operaci {\bf INSERT} končí. Tedy 
@@ -6167,9 +6381,7 @@ operace {\bf INSERT} provádí nejvýše jednu proceduru {\bf Rotace }
 nebo {\bf Dvojita-rota\-ce}. Korektnost vyvažovací operace je 
 založena na faktu, že když se zvětší hodnota $
 \eta (t)$, pak 
-nemůže být $\omega (t)=0$. Tento fakt se využívá  v 
-{\bf if}-příkazu na 5-tém a 6-tém řádku a na 13-tém a 14-tém  
-řádku programu.
+nemůže být $\omega (t)=0$. 
 
 Popíšeme vyvažovací operaci pro operaci 
 {\bf DELETE}.  Před\-po\-kládejme, že $t$ je vrchol, jehož otec se 
@@ -6192,106 +6404,137 @@ Dán vrchol $t$, jehož hodnota $\eta (t)$ se zmenšila (o $
 podstromu určeném vrcholem $t$ jsou hodnoty $\omega$ aktualizovány, 
 $v=\otec(t)$ a $\omega (v)$ je původní.  Předpokládejme 
 $t=\levy(v)$, $u=\pravy(v)$ a $\eta (t)=a$ ($a$ je neznámé).  Nastávají 
-případy:\newline 
-A) když $\omega (v)=1$, pak $\eta (u)=a+2$ a $\eta (v)=a+3$ (původně 
-bylo $\eta (t)=a+1$).  Označme $u_1=\levy(u)$, $u_2=\pravy(u)$.\newline 
-A1) $\omega (u)=1\implies\eta (u_1)=a,\,\eta (u_2)=a+1$.  Provedeme 
-{\bf Rotace$(v,u)$}.  
-Vrchol $u_1$ je druhým synem $v$ a platí $\eta (t)=\eta (u_
-1)=a$, 
-$\eta (v)=\eta (u_2)=a+1$ a $\eta (u)=a+2$.  Tedy položme $\omega 
-(v)=\omega (u)=0$ a 
-zavolejme {\bf Kontrola-DELETE} na vrchol $u$.\newline 
-A2) $\omega (u)=0\implies\eta (u_1)=\eta (u_2)=a+1$. Provedeme 
-{\bf Rotace$(v,u)$}. Vrchol $u_1$ je druhým synem $v$ a platí 
-$\eta (t)=a$, $\eta (u_1)=a+1=\eta (u_2)$, $\eta (v)=a+2$, $\eta 
-(u)=a+3$. Položme 
-$\omega (v)=1$, $\omega (u)=-1$ a končíme.
+případy:
 
- 
 
-A3) $\omega (u)=-1\implies\eta (u_1)=a+1,\,\eta (u_2)=a$.  Provedeme 
-{\bf Dvojita-rotace$(v,u,u_1)$}.  Pro $u_3=\levy(u_1)$, 
-$u_4=\pravy(u_1)$ nastanou případy:\newline 
-A3i) $\omega (u_1)=-1\implies\eta (u_3)=a,\,\eta (u_4)=a-1$ a tedy 
-$\eta (v)=\eta (u)=a+1$ a $\eta (u_1)=a+2$. Proto položíme 
-$\omega (v)=\omega (u_1)=0$, $\omega (u)=1$ a zavoláme proceduru {\bf Kontrola-DELETE }
-na vrchol $u_1$.\newline 
-A3ii) $\omega (u_1)=0\implies\eta (u_3)=\eta (u_4)=a$ a tedy 
-$\eta (v)=\eta (u)=a+1$ a $\eta (u_1)=a+2$. Proto položíme 
-$\omega (v)=\omega (u_1)=\omega (u)=0$ a zavoláme proceduru {\bf Kontrola-DELETE }
-na vrchol $u_1$.\newline 
-A3iii) $\omega (u_1)=1\implies\eta (u_3)=a-1,\,\eta (u_4)=a$ a tedy 
-$\eta (v)=\eta (u)=a+1$ a $\eta (u_1)=a+2$. Proto položíme 
-$\omega (u)=\omega (u_1)=0$, $\omega (v)=-1$ a zavoláme proceduru {\bf Kontrola-DELETE }
-na vrchol $u_1$.\newline 
-B) když $\omega (v)=0$, pak $\eta (u)=a+1$ a $\eta (v)=a+2$. 
-Stačí položit $\omega (v)=1$ a skončit.\newline 
-C) když $\omega (v)=-1$, pak $\eta (u)=a$ a $\eta (v)=a+2$. 
-Nyní položíme $\omega (v)=0$ a 
-zavoláme proceduru {\bf Kontrola-DELETE} na vrchol $v$.
+\begin{enumerate}
+    \item  když $\omega (v)=0$, tak jsme jen z~\uv{vyváženého} vrcholu udělali nevyvážený, tedy $\eta (u)=a+1$ a $\eta (v)=a+2$. 
+    
+    Stačí položit $\omega (v)=1$ a skončit.
+    \item Když $\omega (v)=-1,$ tak jsme strom, \uv{vychýlený} doleva \uv{narovnali} - tj. změníme číslo a propagujeme výš.
+    
+    Tedy  $\eta (u)=a$ a $\eta (v)=a+2$. 
+    Nyní položíme $\omega (v)=0$ a 
+    zavoláme proceduru {\bf Kontrola-DELETE} na vrchol $v$.
+    
+    \item Když $\omega (v)=1$, máme problém - ubíráme na už kratším konci. Opět vezmeme $u_1=\levy(u)$, $u_2=\pravy(u)$ a opět se podle $\omega (u)$ rozhodneme, co budeme dělat.
+    \begin{enumerate}
+        \item $\omega (u)=1\implies\eta (u_1)=a,\,\eta (u_2)=a+1$.  Provedeme 
+        {\bf Rotace$(v,u)$}.  
+        
+        Vrchol $u_1$ je druhým synem $v$ a platí $\eta (t)=\eta (u_
+        1)=a$, 
+        $\eta (v)=\eta (u_2)=a+1$ a $\eta (u)=a+2$.  Tedy položme $\omega 
+        (v)=\omega (u)=0$ a 
+        zavolejme {\bf Kontrola-DELETE} na vrchol $u$.
+        
+        \item $\omega (u)=0\implies\eta (u_1)=\eta (u_2)=a+1$. Provedeme 
+        {\bf Rotace$(v,u)$}. 
+        
+        Vrchol $u_1$ je druhým synem $v$ a platí 
+        $\eta (t)=a$, $\eta (u_1)=a+1=\eta (u_2)$, $\eta (v)=a+2$, $\eta 
+        (u)=a+3$. Položme 
+        $\omega (v)=1$, $\omega (u)=-1$ a končíme.
+        \item $\omega (u)=-1\implies\eta (u_1)=a+1,\,\eta (u_2)=a$.  Provedeme 
+        {\bf Dvojita-rotace$(v,u,u_1)$}. Opět řešíme více případů podle $\omega (u)=1$
+        
+        $u_3=\levy(u_1)$, 
+        $u_4=\pravy(u_1)$
+        
+        \begin{enumerate}
+            \item $\omega (u_1)=-1\implies\eta (u_3)=a,\,\eta (u_4)=a-1$ a tedy 
+            $\eta (v)=\eta (u)=a+1$ a $\eta (u_1)=a+2$. Proto položíme 
+            $\omega (v)=\omega (u_1)=0$, $\omega (u)=1$ a zavoláme proceduru {\bf Kontrola-DELETE }
+            na vrchol $u_1$.
+            
+            \item $\omega (u_1)=0\implies\eta (u_3)=\eta (u_4)=a$ a tedy 
+            $\eta (v)=\eta (u)=a+1$ a $\eta (u_1)=a+2$. Proto položíme 
+            $\omega (v)=\omega (u_1)=\omega (u)=0$ a zavoláme proceduru {\bf Kontrola-DELETE }
+            na vrchol $u_1$.
+            
+            \item $\omega (u_1)=1\implies\eta (u_3)=a-1,\,\eta (u_4)=a$ a tedy 
+            $\eta (v)=\eta (u)=a+1$ a $\eta (u_1)=a+2$. Proto položíme 
+            $\omega (u)=\omega (u_1)=0$, $\omega (v)=-1$ a zavoláme proceduru {\bf Kontrola-DELETE }
+            na vrchol $u_1$.
+            
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
+
+
+\algoritmus{
 
 {\bf Kontrola-DELETE$(t)$\newline 
 $v:=\otec(t)$\newline 
-if} $t=\levy(v)$ {\bf then}\newline 
-\phantom{---}{\bf if} $\omega (v)=1$ {\bf then}\newline 
-\phantom{------}$u:=\pravy(v)$\newline 
-\phantom{------}{\bf if} $\omega (u)\ge 0$ {\bf then}\newline 
-\phantom{---------}{\bf Rotace$(v,u)$}\newline 
-\phantom{---------}{\bf if} $\omega (v)=0$ {\bf then}\newline 
-\phantom{------------}$\omega (v):=1$, $\omega (u):=-1$\newline 
-\phantom{---------}{\bf else}\newline 
-\phantom{------------}$\omega (u):=\omega (v):=0$, $t:=u$, {\bf Kontrola-DELETE}$(t)$\newline 
-\phantom{---------}{\bf endif}\newline 
-\phantom{------}{\bf else}\newline 
-\phantom{---------}$w:=\levy(u)$, {\bf Dvojita-rotace}$(v,u,w)$\newline 
-\phantom{---------}{\bf if} $\omega (w)=1$ {\bf then}\newline 
-\phantom{------------}$\omega (u):=0$, $\omega (v):=-1$\newline 
-\phantom{---------}{\bf else}\newline 
-\phantom{------------}{\bf if} $\omega (w):=0$ {\bf then}\newline 
-\phantom{---------------}$\omega (u):=0$, $\omega(v):=0$\newline 
-\phantom{------------}{\bf else}\newline 
-\phantom{---------------}$\omega (u):=1$, $\omega (v):=0$\newline 
-\phantom{------------}{\bf endif}\newline 
-\phantom{---------}{\bf endif}\newline 
-\phantom{---------}$\omega (w):=0$, $t:=w$, {\bf Kontrola-Delete}$(t)$\newline 
-\phantom{------}{\bf endif}\newline 
-\phantom{---}{\bf endif\newline 
-else}\newline 
-\phantom{---}{\bf if} $\omega (v)=0$ {\bf then}\newline 
+\textsf{if}} $t=\levy(v)$ {\bf \textsf{then}}\newline 
+\phantom{---}{\bf Leva-Kontrola-DELETE \newline 
+\textsf{else}}\newline
+\phantom{---}{\bf Leva-Kontrola-DELETE \newline 
+\textsf{endif}}}
+
+\algoritmus{
+{\bf Leva-Kontrola-DELETE$(t)$}\newline 
+{\bf \textsf{if}} $\omega (v)=1$ {\bf \textsf{then}}\newline 
+\phantom{---}$u:=\pravy(v)$\newline 
+\phantom{---}{\bf \textsf{if}} $\omega (u)\ge 0$ {\bf \textsf{then}}\newline 
+\phantom{------}{\bf Rotace$(v,u)$}\newline 
+\phantom{------}{\bf \textsf{if}} $\omega (v)=0$ {\bf \textsf{then}}\newline 
+\phantom{---------}$\omega (v):=1$, $\omega (u):=-1$\newline 
+\phantom{------}{\bf \textsf{else}}\newline 
+\phantom{---------}$\omega (u):=\omega (v):=0$, $t:=u$, {\bf Kontrola-DELETE}$(t)$\newline 
+\phantom{------}{\bf \textsf{endif}}\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
+\phantom{------}$w:=\levy(u)$, {\bf Dvojita-rotace}$(v,u,w)$\newline 
+\phantom{------}{\bf \textsf{if}} $\omega (w)=1$ {\bf \textsf{then}}\newline 
+\phantom{---------}$\omega (u):=0$, $\omega (v):=-1$\newline 
+\phantom{------}{\bf \textsf{else}}\newline 
+\phantom{---------}{\bf \textsf{if}} $\omega (w):=0$ {\bf \textsf{then}}\newline 
+\phantom{------------}$\omega (u):=0$, $\omega(v):=0$\newline 
+\phantom{---------}{\bf \textsf{else}}\newline 
+\phantom{------------}$\omega (u):=1$, $\omega (v):=0$\newline 
+\phantom{---------}{\bf \textsf{endif}}\newline 
+\phantom{------}{\bf \textsf{endif}}\newline 
+\phantom{------}$\omega (w):=0$, $t:=w$, {\bf Kontrola-Delete}$(t)$\newline 
+\phantom{---}{\bf \textsf{endif}}\newline 
+{\bf \textsf{else}}\newline 
+\phantom{---}{\bf \textsf{if}} $\omega (v)=0$ {\bf \textsf{then}}\newline 
 \phantom{------}$\omega (v):=1$\newline 
-\phantom{---}{\bf else}\newline 
-\phantom{------}$\omega (v):=0$, $t:=v$, {\bf Kontrola-DELETE}$(t)$\newline \phantom{---}{\bf endif\newline 
-else}\newline 
-\phantom{---}{\bf if} $\omega (v)=-1$ {\bf then}\newline 
-\phantom{------}$u:=\levy(v)$\newline 
-\phantom{------}{\bf if} $\omega (u)\le 0$ {\bf then}\newline 
-\phantom{---------}{\bf Rotace}$(v,u)$\newline 
-\phantom{---------}{\bf if} $\omega (u)=0$ {\bf then}\newline 
-\phantom{------------}$\omega (v):=-1$, $\omega (u):=1$\newline 
-\phantom{---------}{\bf else}\newline 
-\phantom{------------}$\omega (u):=\omega (v):=0$, $t:=u$, {\bf Kontrola-DELETE}$(t)$\newline 
-\phantom{---------}{\bf endif}\newline 
-\phantom{------}{\bf else}\newline 
-\phantom{---------}$w:=\pravy(u)$, {\bf Dvojita-rotace$(v,u,w)$}\newline 
-\phantom{---------}{\bf if} $\omega (w)=1$ {\bf then}\newline 
-\phantom{------------}$\omega (u):=-1$, $\omega (v):=0$\newline 
-\phantom{---------}{\bf else}\newline 
-\phantom{------------}{\bf if} $\omega (w):=0$ {\bf then}\newline 
-\phantom{---------------}$\omega (u):=0$, $\omega(v):=0$\newline 
-\phantom{------------}{\bf else}\newline 
-\phantom{---------------}$\omega (u):=0$, $\omega (v):=1$\newline 
-\phantom{------------}{\bf endif}\newline 
-\phantom{---------}{\bf endif}\newline 
-\phantom{---------}$\omega (w):=0$, $t:=w$, {\bf Kontrola-Delete}$(t)$\newline
-\phantom{------}{\bf endif}\newline 
-\phantom{---}{\bf else}\newline 
-\phantom{------}{\bf if} $\omega (v)=0$ {\bf then}\newline 
-\phantom{---------}$\omega (v):=-1$\newline 
-\phantom{------}{\bf else}\newline 
-\phantom{---------}$\omega (v):=0$, $t:=v$, {\bf Kontrola-DELETE}$(t)$\newline \phantom{------}{\bf endif}\newline 
-\phantom{---}{\bf endif\newline 
-endif}
+\phantom{---}{\bf \textsf{else}}\newline 
+\phantom{------}$\omega (v):=0$, $t:=v$, {\bf Kontrola-DELETE}$(t)$\newline \phantom{---}{\bf \textsf{endif}\newline }
+}
+
+\algoritmus{
+{\bf Prava-Kontrola-DELETE$(t)$}\newline 
+{\bf \textsf{if}} $\omega (v)=-1$ {\bf \textsf{then}}\newline 
+\phantom{---}$u:=\levy(v)$\newline 
+\phantom{---}{\bf \textsf{if}} $\omega (u)\le 0$ {\bf \textsf{then}}\newline 
+\phantom{------}{\bf Rotace}$(v,u)$\newline 
+\phantom{------}{\bf \textsf{if}} $\omega (u)=0$ {\bf \textsf{then}}\newline 
+\phantom{---------}$\omega (v):=-1$, $\omega (u):=1$\newline 
+\phantom{------}{\bf \textsf{else}}\newline 
+\phantom{---------}$\omega (u):=\omega (v):=0$, $t:=u$, {\bf Kontrola-DELETE}$(t)$\newline 
+\phantom{------}{\bf \textsf{endif}}\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
+\phantom{------}$w:=\pravy(u)$, {\bf Dvojita-rotace$(v,u,w)$}\newline 
+\phantom{------}{\bf \textsf{if}} $\omega (w)=1$ {\bf \textsf{then}}\newline 
+\phantom{---------}$\omega (u):=-1$, $\omega (v):=0$\newline 
+\phantom{------}{\bf \textsf{else}}\newline 
+\phantom{---------}{\bf \textsf{if}} $\omega (w):=0$ {\bf \textsf{then}}\newline 
+\phantom{------------}$\omega (u):=0$, $\omega(v):=0$\newline 
+\phantom{---------}{\bf \textsf{else}}\newline 
+\phantom{------------}$\omega (u):=0$, $\omega (v):=1$\newline 
+\phantom{---------}{\bf \textsf{endif}}\newline 
+\phantom{------}{\bf \textsf{endif}}\newline 
+\phantom{------}$\omega (w):=0$, $t:=w$, {\bf Kontrola-Delete}$(t)$\newline
+\phantom{---}{\bf \textsf{endif}}\newline 
+{\bf \textsf{else}}\newline 
+\phantom{---}{\bf \textsf{if}} $\omega (v)=0$ {\bf \textsf{then}}\newline 
+\phantom{------}$\omega (v):=-1$\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
+\phantom{------}$\omega (v):=0$, $t:=v$, {\bf Kontrola-DELETE}$(t)$\newline \phantom{---}{\bf \textsf{endif}}\newline 
+{\bf \textsf{endif}\newline }
+}
+
 
 V operaci {\bf DELETE} se může stát, že procedury 
 {\bf Rotace} nebo {\bf Dvojita-rotace} jsou volány až $\log(
@@ -6308,8 +6551,9 @@ S$ je
 reprezentovaná množina).  Ope\-race {\bf INSERT} zavolá 
 nejvýše jednu proceduru {\bf Rotace} nebo {\bf Dvo\-ji\-ta-rotace}.  
 \end{veta}
-
 \subsection{Červeno-černé stromy}
+
+\subsubsection{Definice}
 
 Binární vyhledávací strom $T$ reprezentující 
 množinu $S$, jehož vrcholy jsou obarveny červeně nebo 
@@ -6327,8 +6571,15 @@ počet čer\-ných vrcholů
 \end{itemize}
 se nazývá \emph{červeno}-\emph{černý} \emph{strom}. 
 
+\subsubsection{Vyváženost}
 Nejprve ukážeme, že červeno-černé stromy jsou 
 vyvážené stro\-my, tj. $$\hloubka(T)=O(\log(|S|).$$
+
+\begin{veta}Když červeno-černý strom $T$ 
+reprezentuje množinu $S$, pak $$\hloubka(T)\le 2\log(2|S|+2)=1+\log(|S|+1).$$
+\end{veta}
+\begin{proof}
+
 Předpokládejme, že $T$ je červeno-černý strom, který má 
 na cestě z kořene do listu právě $k$ černých 
 vrcholů. Pak pro počet vrcholů $\#T$ 
@@ -6345,11 +6596,13 @@ Protože velikost $S$ je počet vnitřních vrcholů,
 dostáváme, že $\#T=2|S|+1$. Z vlastností červeno-černých 
 stromů plyne, že 
 $$k\le\hloubka(T)\le 2k.$$
-Tedy
 
-\begin{tvrzeni}Když červeno-černý strom $T$ 
-reprezentuje množinu $S$, pak $$\hloubka(T)\le 2\log(2|S|+2)=1+\log(|S|+1).$$
-\end{tvrzeni}
+\end{proof}
+
+
+
+
+
 
 Pro červeno-černé stromy navrhneme algoritmy 
 realizující ope\-race z uspořádaného slovní\-ko\-vého problému.  
