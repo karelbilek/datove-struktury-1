@@ -4523,7 +4523,7 @@ $Z_1$}, $Z_2$ prázdné zásobníky, $t:=$kořen $T$\newline
 {\bf \textsf{endif}}\newline 
 \phantom{---}{\bf \textsf{if}} $i>2$ {\bf \textsf{then}}\newline 
 \phantom{------}vytvoř nový vrchol $t_1$, $\rho (t_1)=i-1$,\newline 
-\phantom{------}{\bf for every} $j=1,2,\\textsf{do}ts,i-2$ {\bf \textsf{do}}\newline 
+\phantom{------}{\bf \textsf{for every}} $j=1,2,\dots,i-2$ {\bf \textsf{do}}\newline 
 \phantom{---------}$S_{t_1}(j):=S_t(j)$, $H_{t_1}(j):=H_t(j)$\newline 
 \phantom{------}{\bf \textsf{enddo}}\newline 
 \phantom{------}$S_{t_1}(i-1):=S_t(i-1)$, vlož podstrom vrcholu $t_1$ \textsf{do} $Z_1$\newline 
@@ -4533,7 +4533,7 @@ $Z_1$}, $Z_2$ prázdné zásobníky, $t:=$kořen $T$\newline
 \phantom{---}{\bf \textsf{endif}}\newline 
 \phantom{---}{\bf \textsf{if}} $i<\rho (t)-1$ {\bf \textsf{then}}\newline 
 \phantom{------}vytvoř nový vrchol $t_2$, $\rho (t_2):=\rho (t)-i$\newline 
-\phantom{------}{\bf for every} $j=1,2,\\textsf{do}ts,\rho (t)-i-1$ {\bf \textsf{do}}\newline 
+\phantom{------}{\bf \textsf{for every}} $j=1,2,\dots,\rho (t)-i-1$ {\bf \textsf{do}}\newline 
 \phantom{---------}$S_{t_2}(j):=S_t(i+j)$, $H_{t_2}(j):=H_t(i+j)$\newline 
 \phantom{------}{\bf \textsf{enddo}}\newline 
 \phantom{------}$S_{t_2}(\rho (t)-i):=S_t(\rho (t))$, vlož podstrom $t_2$ \textsf{do} $Z_2$ \newline 
@@ -4558,7 +4558,8 @@ $T':=\text{ vrchol }Z_2$, odstraň $T'$ ze $Z_2$, $T_2:=${\bf JOIN$(T_2,T')$\new
 \textsf{enddo}}
 }
 
-Poznámky k algoritmům. \newline 
+\subsubsection{Korektnost algoritmů}
+
 Odkaz na otce vrcholu: buď je v každém vrcholu $v$ 
 stromu $T$ přímo odkaz na $\otec(v)$, nebo se v proceduře 
 {\bf Vyhledej} vkláda\-jí vrcholy do zásobníku a $\otec
@@ -4590,6 +4591,9 @@ následující strom v zásobníku $Z_j$ má ostře menší výšku.
 Toto plyne z první fáze algoritmu operace {\bf SPLIT} a zajišťuje 
 korektnost druhé fáze algoritmu. 
 
+\subsubsection{Časová analýza}
+
+
 Dále si všimněme, že podprocedury {\bf Štěpení}, {\bf Spojení} a {\bf Pře\-sun }
 vyžadují čas $O(1)$, a proto algoritmy pro operace {\bf MEMBER}, 
 {\bf INSERT}, {\bf DELETE}, {\bf MIN}, {\bf MAX}, {\bf JOIN2} a pro první fázi algoritmu 
@@ -4605,11 +4609,15 @@ re\-pre\-zen\-tovaná množina.
 \end{veta}
 
 Je třeba ještě odhadnout spotřebovaný čas ve druhé fázi 
-algoritmu pro operaci {\bf SPLIT}. Nejprve si všimněme, že 
+algoritmu pro operaci {\bf SPLIT}. 
+
+Nejprve si všimněme, že 
 algoritmus {\bf JOIN2$(T_1,T_2)$} vyžaduje ve skutečnosti jen čas 
 rovný 
 $O(\text{\rm rozdíl výšek stromů }T_1\text{\rm \ a }
-T_2)$. Když po naplnění 
+T_2)$. 
+
+Když po naplnění 
 zásobník $Z_j$ pro $j=1,2$ obsahuje stromy $U_1,U_2,\dots,U_
 k$ v tomto 
 pořadí, pak $k\le 2\log_a|S|$ a vyprázdnění zásobníku $
@@ -4620,6 +4628,9 @@ U_i$ pro
 $i=1,2,\dots,k$. Protože výška stromu $U_1$ je nejvýše rovna výšce 
 stromu $T$, dostáváme, že druhá fáze algoritmu {\bf SPLIT} vyžaduje 
 čas $O(\log_a|S|)$ a důkaz je kompletní. 
+
+\subsubsection{Pořádková statistika}
+
 
 Nyní popíšeme algoritmus pro operaci {\bf ord$
 (k)$}. Tato 
@@ -4637,18 +4648,18 @@ pro\-vedení aktualizační operace projít cestu z vrcholu do koře\-ne
 a aktualizovat pole $P$. Uvedeme algoritmus pro 
 naleze\-ní $k$-té pořádkové statistiky.
 
-{\bf ord$(k)$\newline 
-if} $k>|S|$ {\bf then} neexistuje $k$-tý nejmenší prvek, konec 
-{\bf endif\newline 
+\algoritmus{{\bf ord$(k)$\newline 
+\textsf{if}} $k>|S|$ {\bf \textsf{then}} neexistuje $k$-tý nejmenší prvek, konec 
+{\bf \textsf{endif}\newline 
 $t:=$}kořen stromu\newline 
-{\bf while} $t$ není list {\bf do}\newline 
+{\bf \textsf{while}} $t$ není list {\bf \textsf{do}}\newline 
 \phantom{---}$i:=1$\newline 
-\phantom{---}{\bf while} $k>P_t(i)$ a $i<\rho (t)$ {\bf do}\newline 
+\phantom{---}{\bf \textsf{while}} $k>P_t(i)$ a $i<\rho (t)$ {\bf \textsf{do}}\newline 
 \phantom{------}$k:=k-P_t(i)$, $i:=i+1$\newline 
-\phantom{---}{\bf enddo}\newline 
+\phantom{---}{\bf \textsf{enddo}}\newline 
 \phantom{---}$t:=S_t(i)$\newline 
-{\bf enddo}\newline 
-$\key(t)$ je hledaný $k$-tý nejmenší prvek
+{\bf \textsf{enddo}}\newline 
+$\key(t)$ je hledaný $k$-tý nejmenší prvek}
 
 Invariant algoritmu: V každém okamžiku platí, 
 že původní $k$ se rovná aktuální $k+$počet prvků z 
@@ -4665,6 +4676,9 @@ nejhorším pří\-pa\-dě čas $O(\log|S|)$, kde $S$ je reprezentovaná
 množina.  
 \end{veta}
 
+\subsubsection{Hodnoty $a,b$}
+
+
 $(a,b)$-stromy se používají jak v interní tak v 
 externí paměti. Jaké hodnoty $a$ a $b$ je vhodné 
 používat?\newline 
@@ -4675,6 +4689,9 @@ Pro externí paměť jsou doporučené hodnoty $a\approx
 100$, 
 $b=2a$.
 
+\subsubsection{Paralelní verze}
+
+
 Když je množina reprezentovaná $(a,b)$-stromem 
 uložena na serveru a má k ní přístup více 
 uživatelů, vzniká problém s~aktualizačními 
@@ -4684,7 +4701,6 @@ může ztratit. Tento problém se dá
 řešit tak, že při aktu\-alizačních operacích 
 se uzavře celý strom.
 
- 
 
 Nevýhoda: ostatní uživatelé  
 do něho nemají přístup a nemohou pracovat. Tzv. paralelní 
@@ -4722,6 +4738,8 @@ se doporučuje $a=2$, $b=6$.
 Operace {\bf JOIN2} lze také paralelizovat, ale operaci {\bf SPLIT  }
 paralelizovat nelze.
 
+\subsubsection{$A$-{\bf sort}}
+
 $(a,b)$-stromy dávají také zajímavé aplikace pro 
 třídicí 
 algoritmy. Použití $(a,b)$-stromů pro setřídění 
@@ -4749,58 +4767,61 @@ lexikografickém pořadí (ukazatel na následující prvek je
 $\Nasl$) a je dána cesta z prvního listu do kořene (to 
 znamená, že na cestě z prvního listu do kořene známe 
 pro každý vrchol $v$ jeho otce). Nyní uvedeme algoritmus 
-$A$-{\bf sort}. 
-
+$A$-{\bf sort}.
+ 
+\algoritmus{
 $A$-{\bf sort$(x_1,x_2,\dots,x_n)$\newline 
-$i:=n-1$}, vytvoř jednoprvkovy strom s~vrcholem $t$\newline 
+$i:=n-1$}, vytvoř jednoprvkový strom s~vrcholem $t$\newline 
 $\key(t):=x_n$, $\Prv:=t$\newline 
-{\bf while} $i\ge 1$ {\bf do $A$-Insert$(x_i)$}, $i:=i-1$ {\bf enddo}\newline 
+{\bf \textsf{while}} $i\ge 1$ {\bf \textsf{do} $A$-Insert$(x_i)$}, $i:=i-1$ {\bf \textsf{enddo}}\newline 
 $y_1:=\key(\Prv)$\newline 
-{\bf while} $i\le n$ {\bf do\newline 
+{\bf \textsf{while}} $i\le n$ {\bf \textsf{do}\newline 
 \phantom{---}$y_i:=\key(t)$}, $i:=i+1$, $t:=\Nasl(t)$\newline 
-{\bf enddo\newline 
+{\bf \textsf{enddo}\newline 
 Výstup}: $(y_1,y_2,\dots,y_n)$ setříděná posloupnost $
 (x_1,x_2,\dots,x_n)$
+}
 
+\algoritmus{
 $A$-{\bf Insert$(x)$\newline 
 $t:=\Prv$\newline
-while} $t\ne\text{\rm kořen }T$ a $H_t(1)<x$ {\bf do $t:=\otec(t)$ enddo\newline 
-while} $t\ne\text{\rm list}$ {\bf do}\newline 
+\textsf{while}} $t\ne\text{\rm kořen }T$ a $H_t(1)<x$ {\bf \textsf{do} $t:=\otec(t)$ \textsf{enddo}\newline 
+\textsf{while}} $t\ne\text{\rm list}$ {\bf \textsf{do}}\newline 
 \phantom{---}$i:=1$\newline 
-\phantom{---}{\bf while} $H_t(i)<x$ a $i<\rho (t)$ {\bf do} $i:=i+1$ {\bf enddo}\newline 
-\phantom{---}{\bf if} $i>1$ {\bf then} $v:=S_t(i-1)$ {\bf else} $v:=S_t(\rho (t))$ {\bf endif}\newline 
+\phantom{---}{\bf \textsf{while}} $H_t(i)<x$ a $i<\rho (t)$ {\bf \textsf{do}} $i:=i+1$ {\bf \textsf{enddo}}\newline 
+\phantom{---}{\bf \textsf{if}} $i>1$ {\bf \textsf{then}} $v:=S_t(i-1)$ {\bf \textsf{else}} $v:=S_t(\rho (t))$ {\bf \textsf{endif}}\newline 
 \phantom{---}$t:=S_t(i)$\newline 
-{\bf enddo\newline 
-if} $\key(t)\ne x$ {\bf then\newline }
+{\bf \textsf{enddo}\newline 
+\textsf{if}} $\key(t)\ne x$ {\bf \textsf{then}\newline }
 \phantom{---}vytvoř nový list $t'$, $\key(t')=x$,\newline
-\phantom{---}{\bf if} $t$ je kořen {\bf then}\newline 
+\phantom{---}{\bf \textsf{if}} $t$ je kořen {\bf \textsf{then}}\newline 
 \phantom{------}vytvoř nový kořen $u$, $\rho (u):=2$\newline 
-\phantom{------}{\bf if} $\key(t)>x$ {\bf then}\newline 
+\phantom{------}{\bf \textsf{if}} $\key(t)>x$ {\bf \textsf{then}}\newline 
 \phantom{---------}$H_u(1):=x,$ $S_u(1):=t'$, $S_u(2):=t$,\newline
 \phantom{---------}$\Prv:=t'$, $\Nasl(t'):=t$, $\Nasl(t):=NIL$\newline 
-\phantom{------}{\bf else}\newline 
+\phantom{------}{\bf \textsf{else}}\newline 
 \phantom{---------}$H_u(1):=\key(t)$, $S_u(1):=t$, $S_u(2):=t'$\newline
 \phantom{---------}$\Prv:=t$, $\Nasl(t):=t'$, $\Nasl(t'):=NIL$\newline 
-\phantom{------}{\bf endif}\newline 
-\phantom{---}{\bf else}\newline 
+\phantom{------}{\bf \textsf{endif}}\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
 \phantom{------}$u:=\otec(t)$\newline 
-\phantom{------}{\bf if} $\key(t)<x$ {\bf then}\newline  
+\phantom{------}{\bf \textsf{if}} $\key(t)<x$ {\bf \textsf{then}}\newline  
 (komentář: $x>\max S$)\newline 
 \phantom{---------}$S_u(\rho (u)+1):=t'$, $H_u(\rho(u)):=\key(t)$, $\rho(u):=\rho(u)+1$\newline 
 \phantom{---------}$\Nasl(t):=t'$, $\Nasl(t'):=NIL$\newline 
-\phantom{------}{\bf else}\newline 
+\phantom{------}{\bf \textsf{else}}\newline 
 \phantom{---------}najdi $i$, že $S_u(i)=t$, $S_u(\rho(u)+1):=S(\rho(u))$,\newline 
 \phantom{---------}$j:=\rho (u)-1$, $\Nasl(v):=t'$, $\Nasl(t'):=t$\newline 
-\phantom{---------}{\bf while} $j\ge i$ {\bf do\newline 
+\phantom{---------}{\bf \textsf{while}} $j\ge i$ {\bf \textsf{do}\newline 
 \phantom{------------}$S_u(j+1):=S_u(j)$}, $H_u(j+1):=H_u(j)$, $j:=j-1$\newline 
-\phantom{---------}{\bf enddo}\newline 
+\phantom{---------}{\bf \textsf{enddo}}\newline 
 \phantom{---------}$S_u(i):=t'$, $H_u(i):=x$, $\rho (u):=\rho (u)+1$,\newline 
-\phantom{---------}{\bf if} $t=\Prv$ {\bf then} $\Prv:=t'$ {\bf endif}\newline 
-\phantom{------}{\bf endif}\newline 
+\phantom{---------}{\bf \textsf{if}} $t=\Prv$ {\bf \textsf{then}} $\Prv:=t'$ {\bf \textsf{endif}}\newline 
+\phantom{------}{\bf \textsf{endif}}\newline 
 \phantom{------}$t:=u$\newline 
-\phantom{------}{\bf while} $\rho (t)>b$ {\bf do Štěpení$(t)$ enddo}\newline 
-\phantom{---}{\bf endif\newline 
-endif}
+\phantom{------}{\bf \textsf{while}} $\rho (t)>b$ {\bf \textsf{do} Štěpení$(t)$ \textsf{enddo}}\newline 
+\phantom{---}{\bf \textsf{endif}\newline 
+\textsf{endif}}}
 
 Korektnost algoritmu plyne z faktu, že $\key$ je 
 izomorfismus uspo\-řá\-dání a seznam listů je v 
@@ -4810,43 +4831,95 @@ U\-ka\-zatel $\otec(t)$ je dán na cestě z vrcholu $\Prv$ do
 kořene, pro ostatní vrcholy se řeší stejným 
 způsobem jako pro $(a,b)$-stromy.
 
-Složitost algoritmu: Algoritmus $A$-{\bf sort} vyžaduje více 
+\subsubsection{$A$-{\bf sort} -- složitost}
+
+Algoritmus $A$-{\bf sort} vyžaduje více 
 času i více paměti než klasické třídicí algoritmy, ale jejich 
 asymptotická složitost je stejná. Jeho výhoda je v použití 
-na před\-tří\-děné posloupnosti. Mějme posloupnost $
-(x_1,x_2,\dots,x_n)$ 
-prvků z to\-tálně uspořádaného univerza $U$ a definujme 
-$$F=|\{(i,j)\mid i<j,\,x_j<x_i\}|.$$
-Zřejmě $F=0$, právě když posloupnost 
-$(x_1,x_2,\dots,x_n)$ je setří\-děná. Dále $0\le F\le\binom 
-n2$ a $F=\binom n2$, právě 
-když je posloupnost $(x_1,x_2,\dots,x_n)$ klesající. To vede k tomu 
-brát $F$ jako míru předtříděnosti posloupnosti. Spočítáme 
-složitost algoritmu $A$-{\bf sort} v závislosti na $n$ a $F$
+na před\-tří\-děné posloupnosti.
 
-Zřejmě algoritmus $A$-{\bf sort v} nejhorším případě vyžaduje čas, 
-který potřebuje $A$-{\bf Insert}, plus $O(n)$.  Algoritmus $
-A$-{\bf Insert$(x)$ }
-vyžaduje čas potřebný na nalezení místa, kam vložit $
-x$, plus 
-$O(\text{\rm počet volání {\bf Štěpení}})$.  Protože každý běh procedury 
-{\bf Ště\-pení} vytvořil jeden vnitřní vrchol $
-(a,b)$-stromu a protože $a\ge 2$ 
-a $(a,b)$-strom po skončení volání $A$-{\bf Insert} má $
-n$ listů, 
-je vnitřních vrcholů $(a,b)$-stromu $<n$.  Proto všechny 
+
+\begin{definice}
+    Pro posloupnost $
+    (x_1,x_2,\dots,x_n)$ 
+    prvků z to\-tálně uspořádaného univerza $U$ definujme $$F=|\{(i,j)\mid i<j,\,x_j<x_i\}|.$$
+\end{definice}
+
+
+Zřejmě $F=0$, právě když posloupnost 
+$(x_1,x_2,\dots,x_n)$ je setří\-děná. 
+
+Dále $0\le F\le\binom 
+n2$ a $F=\binom n2$, právě 
+když je posloupnost $(x_1,x_2,\dots,x_n)$ klesající. 
+
+To vede k tomu 
+brát $F$ jako míru předtříděnosti posloupnosti. Spočítáme 
+složitost algoritmu $A$-{\bf sort} v závislosti na $n$ a $F$.
+
+\begin{pozorovani}
+    Algoritmus $A$-{\bf sort} v nejhorším případě vyžaduje čas, 
+    který potřebuje $A$-{\bf Insert}, plus $O(n)$.
+\end{pozorovani}
+
+\begin{pozorovani}
+    Algoritmus $
+    A$-{\bf Insert$(x)$ }
+    vyžaduje čas potřebný na nalezení místa, kam vložit $
+    x$, plus 
+    $O(\text{\rm počet volání {\bf Štěpení}})$.
+\end{pozorovani}
+
+\begin{pozorovani}
+    Protože každý běh procedury 
+    {\bf Ště\-pení} vytvořil jeden vnitřní vrchol $
+    (a,b)$-stromu a protože $a\ge 2$ 
+    a $(a,b)$-strom po skončení volání $A$-{\bf Insert} má $
+    n$ listů, 
+    je vnitřních vrcholů $(a,b)$-stromu $<n$.
+\end{pozorovani}
+
+\begin{pozorovani}[Plyne z minulého]
+    Všechny 
 běhy procedury $A$-{\bf Insert} vyžadují čas na nalezení míst 
-jednotlivých prvků plus $O(n)$.  Když procedura 
-$A$-{\bf Insert$(x)$} při hledání místa pro prvek $x$ skončila ve výšce $
-h$ 
-(tj.  první cyklus se $h$-krát opakoval), pak nalezení místa pro 
-prvek $x$ vyžadovalo čas $O(h)$.  Všechny prvky reprezentované 
-$(a,b)$-stromem pod prvním vrcholem ve výšce $h-1$ jsou menší 
-než $x$ a je jich alespoň $a^{h-1}$.  Když $x=x_i$, pak počet 
+jednotlivých prvků plus $O(n)$.
+\end{pozorovani}
+
+\begin{pozorovani}
+    Když procedura 
+    $A$-{\bf Insert$(x)$} při hledání místa pro prvek $x$ skončila ve výšce $
+    h$ 
+    (tj.  první cyklus se $h$-krát opakoval), pak nalezení místa pro 
+    prvek $x$ vyžadovalo čas $O(h)$.
+\end{pozorovani}
+
+\begin{pozorovani}
+    Všechny prvky reprezentované 
+    $(a,b)$-stromem pod prvním vrcholem ve výšce $h-1$ jsou menší 
+    než $x$ a je jich alespoň $a^{h-1}$.
+\end{pozorovani}
+
+\begin{pozorovani}
+    Když $x=x_i$, pak počet 
 prvků reprezentovaných $(a,b)$-stromem při běhu 
 procedury $A$-{\bf Insert$(x)$}, které jsou menší než $
-x$, je počet $j$ takových, že $i<j$ a $x_j<x_i$.
-Označme $f_i$ tento počet. Pak platí 
+x$, je počet $j$ takových, že $i<j$ a $x_j<x_i$. (Plyne z~toho, v jakém pořadí vkládáme.)
+\end{pozorovani}
+
+\begin{definice}
+    Označme $f_i$ počet $j$ takových, že $i<j$ a $x_j<x_i$.
+\end{definice}
+
+\begin{veta}Algoritmus $A$-{\bf sort} na setřídění $
+n$-členné 
+posloupnosti vyžaduje v nejhorším případě čas 
+$O(n+n\log\frac Fn)$, kde $F$ je míra setříděnosti vstupní 
+posloupnosti.
+\end{veta}
+
+\begin{proof}
+
+Z pozorování platí 
 $$a^{h-1}\le f_i\implies h-1\le\log_af_i\implies h\in O(\log f_i).$$
 
 Proto v nejhorším případě čas potřebný pro nalezení 
@@ -4860,13 +4933,7 @@ průměru, a odtud dostáváme
 \begin{align*}\sum_{i=1}^n\log f_i=&\log\prod_{i=1}^nf_i=n\log(\prod_{i
 =1}^nf_i)^{\frac 1n}\le\\
 &n\log\frac {\sum_{i=1}^nf_i}n=n\log\frac Fn.\end{align*}
-
-\begin{veta}Algoritmus $A$-{\bf sort} na setřídění $
-n$-členné 
-posloupnosti vyžaduje v nejhorším případě čas 
-$O(n+n\log\frac Fn)$, kde $F$ je míra setříděnosti vstupní 
-posloupnosti.
-\end{veta}
+\end{proof}
 
 Zhodnocení: Protože $A$-{\bf sort} nepoužívá operaci 
 {\bf DELETE}, doporučuje se použít $(2,3)$-stromy. Když se 
@@ -4882,14 +4949,17 @@ algoritmus {\bf Quicksort}.
 \emph{prstem} je $(a,b)$-strom, kde struktura vnitřního 
 vrcholu různého od kořene je 
 rozšířena (proti klasickému $(a,b)$-stromu) o 
-ukazatele:\newline 
-$\otec(v)$, $\levy(v)$, $\pravy(v)$, kde\newline 
-$\levy(v)$ ukazuje na největší vrchol (v lexikografic\-kém 
+ukazatele $\otec(v)$, $\levy(v)$, $\pravy(v)$, kde:
+\begin{pitemize} 
+\newline 
+\item $\levy(v)$ ukazuje na největší vrchol (v lexikografic\-kém 
 uspořá\-dá\-ní) ve stejné hladině jako $v$, který je menší než 
 $v$ (když neexistuje, tak je to $NIL$),\newline 
-$\pravy(v)$ ukazuje na nejmenší vrchol (v lexikografic\-kém 
+\item $\pravy(v)$ ukazuje na nejmenší vrchol (v lexikografic\-kém 
 uspořá\-dá\-ní) ve stejné hladině jako $v$, který je větší než 
-$v$ (když ne\-existuje, tak je to $NIL$).\newline 
+$v$ (když ne\-existuje, tak je to $NIL$).
+\begin{pitemize} 
+    
 Navíc je dán ukazatel 
 $\Prst$ na některý list. 
 
@@ -4924,6 +4994,9 @@ Použití: Tato struktura je velmi výhodná pro
 pracuje v blízkém okolí něja\-ké\-ho $x\in U$. Pak 
 vyhledání prvku je rychlejší než v klasickém 
 $(a,b)$-stromu, viz $A$-{\bf sort}.
+
+\subsubsection{Omezení štěpení, spojování a přesunů}
+
 
 Vyvažovací operace {\bf Štěpení, Spojování, Přesun }
 vyžadují čas $O(1)$, ale ve skutečnosti jsou nejpomalejší 
