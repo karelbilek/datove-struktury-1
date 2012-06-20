@@ -3721,7 +3721,7 @@ S_j$ {\bf do}\newline
 \phantom{------------}zvolíme náhodně funkci $h_j
 \in \mathcal H_{m(j)^2}$\newline 
 \phantom{---------}{\bf enddo}\newline 
-\phantom{---------}{\bf for every} $y\in S_j$ {\bf do} vložíme $
+\phantom{---------}{\bf \textsf{for every}} $y\in S_j$ {\bf do} vložíme $
 y$ do $T_j$ na pozici $h_j(y)$ {\bf enddo}\newline 
 \phantom{------}{\bf else}\newline 
 \phantom{---------}$m(j):=2m(j)$\newline 
@@ -3742,7 +3742,7 @@ S_j$ {\bf do}\newline
 \phantom{---------------}zvolíme náhodně funkci $
 h_j\in \mathcal H_{m(j)^2}$\newline 
 \phantom{------------}{\bf enddo}\newline 
-\phantom{------------}{\bf for every} $y\in S_j$ {\bf do} vložíme $
+\phantom{------------}{\bf \textsf{for every}} $y\in S_j$ {\bf do} vložíme $
 y$ do $T_j$ na pozici $h_j(y)$ {\bf enddo}\newline 
 \phantom{---------}{\bf endif}\newline 
 \phantom{------}{\bf endif}\newline 
@@ -3757,17 +3757,17 @@ projdeme tabulku $T$ a tabulky $T_i$ a vytvoříme seznam
 prvků z množiny $S$\newline 
 $s:=\sigma(n)$\newline 
 zvolme náhodně $h\in \mathcal H_s$ \newline 
-{\bf for every} $i=0,1,\dots,s-1$ {\bf do} $S_i:=\{x\in 
+{\bf \textsf{for every}} $i=0,1,\dots,s-1$ {\bf do} $S_i:=\{x\in 
 S\mid h(x)=i\}$ {\bf enddo\newline 
 while} $\sum_{i=0}^{s-1}2(|S_i|)^2>\frac {8n^2}s+2n$ {\bf do}\newline 
 \phantom{---}zvolme náhodně $h\in \mathcal H_s$ \newline 
-\phantom{---}{\bf for every} $i=0,1,\dots,s-1$ {\bf do} $
+\phantom{---}{\bf \textsf{for every}} $i=0,1,\dots,s-1$ {\bf do} $
 S_i:=\{x\in S\mid h(x)=i\}$ {\bf enddo}\newline 
 {\bf enddo}\newline
 Komentář: zde $S_i$ jsou množiny vytvořené náhodně zvolenou 
 funkcí $h$ \newline 
 $n:=0$ \newline 
-{\bf for every} $i=0,1,\dots,s-1$ {\bf do}\newline 
+{\bf \textsf{for every}} $i=0,1,\dots,s-1$ {\bf do}\newline 
 \phantom{---}$m(i):=2|S_i|$\newline 
 \phantom{---}zvolíme náhodně $h_i\in \mathcal H_{m(i
 )^2}$\newline 
@@ -3776,7 +3776,7 @@ S_i$ {\bf do}\newline
 \phantom{------}zvolíme náhodně $h_i\in \mathcal H_{m(i)^2}$\newline 
 \phantom{---}{\bf enddo\newline 
 enddo\newline 
-for every} $x\in S$ {\bf do INSERT$(x)$ enddo}
+\textsf{for every}} $x\in S$ {\bf do INSERT$(x)$ enddo}
 
 
 {\bf DELETE$(x)$}:\newline 
@@ -7609,12 +7609,12 @@ $c$-ohodnocení hran na cestě.
 
 \algoritmus{{\bf Dijkstrův algoritmus}:\newline 
 $d(z):=0$, $U:=\{z\}$\newline 
-{\bf for every} $x\in X\setminus \{z\}$ {\bf \textsf{do}} $d(x):=+\infty$ {\bf \textsf{enddo}\newline 
+{\bf \textsf{for every}} $x\in X\setminus \{z\}$ {\bf \textsf{do}} $d(x):=+\infty$ {\bf \textsf{enddo}\newline 
 \textsf{while}} $U\ne\emptyset$ {\bf \textsf{do}\newline 
 \phantom{{\rm ---}}}najdi vrchol $u\in U$ s~nejmenší hodnotou $
 d(u)$\newline 
 \phantom{---}odstraň $u$ z $U$\newline 
-\phantom{---}{\bf for every} $(u,v)\in R$ {\bf \textsf{do} \newline 
+\phantom{---}{\bf \textsf{for every}} $(u,v)\in R$ {\bf \textsf{do} \newline 
 \phantom{{\rm ------}}\textsf{if}} $d(u)+c(u,v)<d(v)$ {\bf \textsf{then}\newline 
 \phantom{{\rm ---------}}\textsf{if}} $d(v)=+\infty$ {\bf \textsf{then}} vlož $v$ \textsf{do} $
 U$ {\bf \textsf{endif}\newline 
@@ -7764,9 +7764,9 @@ $T_2:=$podstrom pravého syna kořene $T$\newline
 
 MAKEHEAP$(S,f)$}:\newline 
 $Q:=$prázdná fronta\newline 
-{\bf for every} $s\in S$ {\bf \textsf{do}\newline 
+{\bf \textsf{for every}} $s\in S$ {\bf \textsf{do}\newline 
 \phantom{{\rm ---}}}vlož leftist haldu $T_s$ reprezentující $
-\{s\}$ \textsf{do} $Q$\newline 
+\{s\}$ do $Q$\newline 
 {\bf \textsf{enddo}\newline 
 \textsf{while}} $|Q|>1$ {\bf \textsf{do}\newline 
 \phantom{{\rm ---}}}vezmi haldy $T_1$ a $T_2$ z vrcholu $Q$ 
@@ -7788,23 +7788,39 @@ kde $S_i$ je množina reprezentovaná haldou $T_i$ pro $i=1,2$.
 Odtud dále plyne, že čas algoritmů {\bf INSERT} a 
 {\bf DELETE\-MIN} je v 
 nejhorším případě $O(\log(|S|))$. Operace {\bf MIN} vyžaduje 
-čas $O(1)$. Pro odhad složitosti {\bf MA\-KEHEAP} budeme 
+čas $O(1)$. 
+
+\begin{veta}
+    {\bf MA\-KEHEAP} má časovou složitost $O(|S|)$
+\end{veta}
+
+\begin{proof}
+Budeme 
 uvažovat, že na začátku algoritmu je na vrcholu fronty 
 speciální znak, který se jen přenese na konec fronty. 
+
 Odhadneme čas, který spotřebují {\bf while-}cykly mezi dvě\-ma 
 přeneseními speciálního znaku. Předpokládejme, že se 
-spe\-ciál\-ní znak přenesl po $k$-té. V tomto okamžiku 
+spe\-ciál\-ní znak přenesl po $k$-té.
+
+V tomto okamžiku 
 mají všechny haldy ve frontě až na jednu velikost $2^{
 k-1}$. 
+
 Proto ve frontě $Q$ je $\big\lceil \frac {|S|}{2^{k-1}}\big\rceil $ hald a jelikož jedna operace 
 {\bf MERGE} vyžadu\-je $O(k)$ času, tak {\bf while}-cykly vyžadují 
-čas $O(k\frac {|S|}{2^{k-1}})$. Můžeme tedy shrnout, že operace 
+čas $O(k\frac {|S|}{2^{k-1}})$. 
+
+Můžeme tedy shrnout, že operace 
 {\bf MAKEHEAP} potřebuje čas 
 $$O(\sum_{k=1}^{\infty}k\frac {|S|}{2^{k-1}})=O(|S|\sum_{k=1}^{\infty}\frac 
-k{2^{k-1}})=O(|S|).$$
+k{2^{k-1}}).$$
 Řada $\sum_{k=1}^{\infty}$$\frac k{2^{k-1}}$ konverguje např. podle podílového d'Alambertova 
 kritéria a lze jednoduše spočítat (např. stejnou metodou 
-jako pro regulární haldy), že součet je $4$.
+jako pro regulární haldy), že součet je $4$, tedy čas je $O(|S|)$.
+\end{proof}
+
+\subsubsection{Efektivní {\bf DECREASE} a {\bf INCREASE}}
 
 Implementace operací {\bf DECREASE} a {\bf INCREASE} pomocí 
 operací {\bf UP} a {\bf DOWN} jako v $d$-regulárních haldách není 
@@ -7820,18 +7836,19 @@ T'$ vzniklého z
 leftist haldy $T$ odtržením podstromu s~kořenem ve vrcholu $
 v$.
 
-{\bf Oprav$(T,v)$}:\newline 
+\algoritmus{{\bf Oprav$(T,v)$}:\newline 
 $t:=\otec(v)$, $\npl(t):=0$\newline 
-{\bf if} $\pravy(t)\ne v$ {\bf then} $\levy(t):=\pravy(t)$ {\bf endif\newline 
+{\bf \textsf{if}} $\pravy(t)\ne v$ {\bf \textsf{then}} $\levy(t):=\pravy(t)$ {\bf \textsf{endif}\newline 
 $\pravy(t):=NIL$\newline 
-while} se zmenšilo $\npl(t)$ a $t$ není kořen {\bf do\newline 
+\textsf{while}} se zmenšilo $\npl(t)$ a $t$ není kořen {\bf \textsf{do}\newline 
 \phantom{{\rm ---}}$t:=\otec(t)$\newline 
-\phantom{{\rm ---}}if} $\npl(\pravy(t))>\npl(\levy(t))$ {\bf then\newline 
+\phantom{{\rm ---}}\textsf{if}} $\npl(\pravy(t))>\npl(\levy(t))$ {\bf \textsf{then}\newline 
 \phantom{{\rm ------}}}vyměň $\levy(t)$ a $\pravy(t)$\newline 
-\phantom{---}{\bf endif\newline 
+\phantom{---}{\bf \textsf{endif}\newline 
 \phantom{{\rm ---}}$\npl(t):=\npl(\pravy(t))+1$\newline 
-enddo
-}
+\textsf{enddo}
+}}
+
 Po provedení operace {\bf Oprav} mají všechny vrcholy 
 správné číslo $\npl$ a podmínky kladené na leftist 
 haldu jsou splněny. Tedy po provedení {\bf Oprav }
@@ -7844,10 +7861,12 @@ běh {\bf while}-cyklu vyžadoval čas $O(1)$. Proto algoritmus
 
 Popíšeme ostatní algoritmy.
 
+\algoritmus{
 {\bf DECREASE$(s,a)$}:\newline 
 $v:=$prvek reprezentující $s$\newline 
 $T_1$$:=$podstrom $T$ určený vrcholem $v$, $f(v):=f(v)-a$\newline 
 $T_2:=${\bf Oprav$(T,v)$}, $T:=${\bf MERGE$(T_1,T_2)$
+}}\algoritmus{{\bf
 
 INCREASE$(s,a)$}:\newline 
 $v:=$prvek reprezentující $s$\newline 
@@ -7857,6 +7876,7 @@ $T_3:=$leftist halda reprezentující prvek $s$\newline
 $f(v):=f(v)+a$, $T_4:=${\bf Oprav$(T,v)$}, $T_1:=${\bf MERGE$(T_1
 ,T_3)$\newline 
 $T_2:=$MERGE$(T_2,T_4)$}, $T:=${\bf MERGE$(T_1,T_2)$
+}}\algoritmus{{\bf
 
 DELETE$(s,a)$}:\newline 
 $v:=$prvek reprezentující $s$\newline 
@@ -7864,7 +7884,8 @@ $T_1:=$podstrom $T$ určený vrcholem $\levy(v)$\newline
 $T_2:=$podstrom $T$ určený  vrcholem $\pravy(v)$\newline 
 $T_3:=${\bf MERGE$(T_1,T_2)$}, $T_4:=${\bf Oprav$(T,v)$\newline 
 $T:=$MERGE$(T_3,T_4)$
-}
+}}
+
 Protože algoritmy {\bf MERGE} a {\bf Oprav} vyžadují čas 
 $O(\log(|S|)$ a protože zbylé části algoritmů pro operace 
 {\bf DECREASE}, {\bf INCREASE} a {\bf DELETE} vyžadují $O(
@@ -7880,11 +7901,22 @@ pří\-pa\-dě čas $O(\log(|S|))$, a implementace operace {\bf MAKE\-HEAP},
 která vyžaduje čas $O(|S|)$, kde $S$ je reprezentovaná množina.
 \end{veta}
 
-\subsection{{Amortizovaná složitost}}
+\subsection{Amortizovaná složitost}
 
-Popíšeme bankovní paradigma pro počítání s~amortizovanou složitostí. Předpokládejme, že máme funkci $
+Popíšeme bankovní paradigma pro počítání s~amortizovanou složitostí. 
+
+\subsubsection{Idea}
+
+
+Idea je taková, že si nějak ohodnotíme stavy (představa: účet v bance) a budeme dělat odhad upravené složitosti, ke které buď přičteme to, co si do účtu chceme nastřádat (tj. podle definice dále $h(D') > h(D), \mbox{spoření}=h(D')-h(D)>0,am(o)=t(o)+\mbox{spoření}$), nebo naopak odečteme to, co jsme si nastřádali a chceme utratit (tj. $h(D') < h(D), \mbox{utrácení}=h(D)-h(D')>0,am(o)=t(o)-\mbox{utrácení}$).
+
+Odhad téhle upravené složitosti je pak i odhadem klasické složitosti.
+
+\subsubsection{Definice}
+
+Předpokládejme, že máme funkci $
 h$, 
-která ohodnucuje konfigurace a kvantitativně vystihuje 
+která ohodnocuje konfigurace a kvantitativně vystihuje 
 jejich vhodnost pro provedení operace $o$. 
 Když na konfiguraci $D$ aplikujeme operaci $o$ 
 a dostaneme konfiguraci $D'$, pak amortizovaná složitost 
@@ -7896,6 +7928,13 @@ t(o)$ je
 že chceme provést posloupnost operací $o_1,o_2,\dots,o_n$ na 
 konfiguraci $D_0$. Znázorníme si to takto:
 $$D_0\to^{o_1}D_1\to^{o_2}D_2\to^{o_3}\dots\to^{o_n}D_n.$$
+
+\begin{veta}
+    Odhad amortizované složitosti je odhadem složitosti.
+\end{veta}
+
+\begin{proof}
+
 Předpokládejme, že pro každé $i=1,2,\dots,n$ máme odhad 
 $c(o_i)$ amortizované složitos\-ti operace $o_i$, tj. $am(o_
 i)\le c(o_i)$ 
@@ -7911,6 +7950,9 @@ pro všechny konfigurace $D$. Když $h(D)\ge 0$, pak
 $$\sum_{i=1}^nt(o_i)\le\sum_{i=1}^nc(o_i)+h(D_0),$$
 když $h(D)\le 0$, pak 
 $$\sum_{i=1}^nt(o_i)\le\sum_{i=1}^nc(o_i)-h(D_n).$$
+
+\end{proof}
+
 To znamená, že odhad amortizované složitosti dává také odhad 
 na časovou složitost posloupnosti operací, který bývá lepší než odhad složitosti v 
 nejhorším případě.  Tato skutečnost vysvětluje řadu 
@@ -9229,7 +9271,7 @@ hladového algoritmu pro náš problém.
 {\bf Optim$(x_1,x_2,\dots x_n)$}:\newline 
 $V$ je množina $n$ jednoprvkových stromů\newline 
 $\phi$ je bijekce mezi $\{1,2,\dots,n\}$ a množinou $V$\newline 
-{\bf for every} $v\in V$ {\bf do} $c(v):=x_{\phi^{-1}(v)}$ {\bf enddo\newline 
+{\bf \textsf{for every}} $v\in V$ {\bf do} $c(v):=x_{\phi^{-1}(v)}$ {\bf enddo\newline 
 while} $|V|>1$ {\bf do\newline 
 \phantom{{\rm---}}}vezmi z $V$ dva stromy $v_1$ a $v_2$ s~nejmenším ohodnocením\newline 
 \phantom{---}odstraň je z $V$\newline 
@@ -9590,8 +9632,8 @@ Algoritmus {\bf BUCKETSORT} třídí posloupnost přirozených
 čísel $a_1,a_2,\dots,a_n$ z intervalu $<0,m>$.
 
 {\bf BUCKETSORT$(a_1,a_2,\dots,a_n,m)$}:\newline 
-{\bf for every} $i=0,1,\dots,m$ {\bf do} $Q_i=\emptyset$ {\bf enddo\newline 
-for every} $i=1,2,\dots,n$ {\bf do\newline 
+{\bf \textsf{for every}} $i=0,1,\dots,m$ {\bf do} $Q_i=\emptyset$ {\bf enddo\newline 
+\textsf{for every}} $i=1,2,\dots,n$ {\bf do\newline 
 \phantom{{\rm ---}}$a_i$} vlož na konec seznamu $Q_{a_i}$\newline 
 {\bf enddo\newline 
 $i:=0$}, $P:=\emptyset$\newline 
@@ -9624,8 +9666,8 @@ reálné číslo.
 
 {\bf HYBRIDSORT$(a_1,a_2,\dots,a_n)$}:\newline 
 $k:=\alpha n$\newline 
-{\bf for every} $i=0,1,\dots,k$ {\bf do} $Q_i=\emptyset$ {\bf enddo\newline 
-for every} $i=1,2,\dots,n$ {\bf do\newline 
+{\bf \textsf{for every}} $i=0,1,\dots,k$ {\bf do} $Q_i=\emptyset$ {\bf enddo\newline 
+\textsf{for every}} $i=1,2,\dots,n$ {\bf do\newline 
 \phantom{{\rm ---}}$a_i$} vlož na konec seznamu $Q_{\lceil ka_
 i\rceil}$\newline 
 {\bf enddo\newline 
@@ -9689,11 +9731,11 @@ a_i^{l(i)}$, kde
 $a_i^j\in\Sigma$ a $l(i)$ je délka $i$-tého slova $a_i$.
 
 {\bf WORDSORT$(a_1,a_2,\dots,a_n)$}:\newline 
-{\bf for every} $i=1,2,\dots,n$ {\bf do} $l(i):=$délka slova $a_
+{\bf \textsf{for every}} $i=1,2,\dots,n$ {\bf do} $l(i):=$délka slova $a_
 i$ {\bf enddo\newline 
 $l=\max\{l(i)\mid i=1,2,\dots,n\}$\newline 
-for every} $i=1,2,\dots,l$ {\bf do} $L_i=\emptyset$ {\bf enddo\newline 
-for every} $i=1,2,\dots,n$ {\bf do\newline 
+\textsf{for every}} $i=1,2,\dots,l$ {\bf do} $L_i=\emptyset$ {\bf enddo\newline 
+\textsf{for every}} $i=1,2,\dots,n$ {\bf do\newline 
 \phantom{{\rm---}}$a_i$} vlož do $L_{l(i)}$\newline 
 {\bf enddo\newline}
 Komentář: Pro každé $i$ obsahuje $L_i$ všechna slova z množiny 
@@ -9701,7 +9743,7 @@ $\{a_1,a_2,\dots,a_n\}$ délky $i$.\newline
 $P_{}:=\{(j,a_i^j)\mid 1\le i\le n,\,1\le j\le l(i)\}$\newline 
 $P_1:=${\bf BUCKETSORT$(P)$} podle druhé komponenty\newline 
 $P_2:=${\bf BUCKETSORT$(P_1)$} podle první komponenty\newline 
-{\bf for every} $i=1,2,\dots,l$ {\bf do} $S_i=\emptyset$ {\bf enddo\newline 
+{\bf \textsf{for every}} $i=1,2,\dots,l$ {\bf do} $S_i=\emptyset$ {\bf enddo\newline 
 $(i,x):=$}první prvek $P_2$\newline 
 {\bf while} $(i,x)\ne NIL$ {\bf do\newline 
 \phantom{{\rm---}}$(i,x)$} vlož do $S_i$\newline 
@@ -9715,7 +9757,7 @@ x$
 je $i$-tým písmenem některého vstupního slova a když $
 x<y$, pak 
 $(i,x)$ je před $(i,y)$.\newline 
-{\bf for every} $s\in\Sigma$ {\bf do} $T_s:=\emptyset$ {\bf enddo\newline 
+{\bf \textsf{for every}} $s\in\Sigma$ {\bf do} $T_s:=\emptyset$ {\bf enddo\newline 
 $T:=\emptyset$}, $i:=l$\newline 
 {\bf while} $i>0$ {\bf do\newline 
 \phantom{{\rm---}}$T:=$} konkatenace $L_i$ a $T$, $a:=$první slovo v $
@@ -9884,7 +9926,7 @@ prvek $M$\newline
 \phantom{{\rm---}}}rozděl $M$ do navzájem disjunktních 
 pětiprvkových podmnožin $A_1,A_2,\dots,A_{\lceil\frac n5\rceil}$\newline 
 \phantom{---}(poslední z podmnožin může mít méně než 5 prvků).\newline 
-\phantom{---}{\bf for every} $j=1,2,\dots,\lceil\frac n5\rceil$ {\bf do\newline 
+\phantom{---}{\bf \textsf{for every}} $j=1,2,\dots,\lceil\frac n5\rceil$ {\bf do\newline 
 \phantom{{\rm------}}}najdi medián $m_j$ množiny $A_j$\newline 
 \phantom{---}{\bf enddo\newline 
 \phantom{{\rm ---}}$\bar {m}:=$SELECT$(\{m_j\mid j=1,2,\dots,\lceil\frac 
