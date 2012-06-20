@@ -6571,6 +6571,8 @@ počet čer\-ných vrcholů
 \end{itemize}
 se nazývá \emph{červeno}-\emph{černý} \emph{strom}. 
 
+Pozn studenta -- já sám to vždycky chápu tak, že červené vrcholy jsou \uv{špatné} a ukazují nám odchylku od perfektní vyváženosti, takže jich tam nesmí být moc.
+
 \subsubsection{Vyváženost}
 Nejprve ukážeme, že červeno-černé stromy jsou 
 vyvážené stro\-my, tj. $$\hloubka(T)=O(\log(|S|).$$
@@ -6600,27 +6602,33 @@ $$k\le\hloubka(T)\le 2k.$$
 \end{proof}
 
 
-
-
-
+\subsubsection{Popis algoritmů (kromě vyvažování)}
 
 Pro červeno-černé stromy navrhneme algoritmy 
 realizující ope\-race z uspořádaného slovní\-ko\-vého problému.  
+
 Operace {\bf MEMBER} pro červeno-černé stromy je stejná jako pro 
-nevyvážené binární vyhledávací stromy. Operace 
+nevyvážené binární vyhledávací stromy. 
+
+Operace 
 {\bf IN\-SERT} a {\bf DELETE} mají dvě části:  nejprve se provede 
 ope\-race {\bf INSERT} nebo {\bf DELETE} pro nevyvážené binární 
 vy\-hledávací stromy a pak následují vyvažovací operace, které 
 zajistí, že výsledný strom splňuje pod\-mín\-ky pro červeno-černé 
-stromy (stejné schéma jako pro AVL-stromy). Schéma operací 
+stromy (stejné schéma jako pro AVL-stromy). 
+
+Schéma operací 
 {\bf JOIN} a {\bf SPLIT} bude vycházet z jejich realizací v $
 (a,b)$-stromech. 
+
 V operaci {\bf JOIN} prohledáváním nalezneme místo, kde se 
 stromy  
 dají spojit (a aplikujeme operaci {\bf JOIN} pro 
 nevyvážené 
 binární vyhledá\-va\-cí stromy), a pak použijeme 
-vyvažovací operace. Algoritmus ope\-race {\bf SPLIT} rozdělí červeno-černý strom 
+vyvažovací operace. 
+
+Algoritmus ope\-race {\bf SPLIT} rozdělí červeno-černý strom 
 do několika menších podle cesty vyhledávající $
 x$ (podobně jako 
 v $(a,b)$-stromech) a na tyto stromy pak aplikuje operaci {\bf JOIN }
@@ -6628,7 +6636,10 @@ a zkonstruuje hledané červeno-černé stromy. Algoritmy pro
 ope\-race {\bf MIN} a {\bf MAX} jsou stejné jako pro nevyvážené binární 
 vyhledávací stromy.
 
-Nejprve popíšeme vyvažovací operace. 
+\subsubsection{Vyvažovací operace}
+Nejprve popíšeme vyvažovací operace.
+
+\begin{definice} 
 Dvojice $(T,v)$ se nazývá 2-\emph{parciální}
 \emph{červeno}-\emph{černý} \emph{strom}, když $T$ je 
 binární vyhledávací strom, každý vrchol je obarven 
@@ -6644,6 +6655,9 @@ stromu nebo $t=v$ nebo jeho otec je obarven černě,
 všechny cesty z kořene do listů mají stejný 
 počet čer\-ných vrcholů.
 \end{itemize}
+\end{definice}
+
+Tj. jde opět o \uv{o 1 špatný} červeno-černý strom.
 
 Vyvažování 2-parciálního červeno-černého stromu $(T',v)$ 
 pro\-vá\-dí procedura {\bf Vyvaz-IN\-SERT$(v)$}.  Po jejím 
@@ -6655,38 +6669,15 @@ v'$ je děd $v$
 (tj.  je o dvě hladiny blíž ke kořeni než vrchol $
 v$). 
 
-Obarvení je realizováno rozšířením struktury vrcholu $v$ 
-o boolskou proměnnou $b(v)$, kde $b(v)=0$ znamená, že $v$ je obarven 
-červeně, a $b(v)=1$ znamená, že $v$ je obarven černě.
+\begin{definice}
+    Obarvení je realizováno rozšířením struktury vrcholu $v$ 
+    o boolskou proměnnou $b(v)$, kde $b(v)=0$ znamená, že $v$ je obarven 
+    červeně, a $b(v)=1$ znamená, že $v$ je obarven černě.
+\end{definice}
 
-Popíšeme proceduru {\bf Vyvaz-INSERT$(v)$} (předpokládáme, že 
-$v$ je obarven červeně). Pro zjednodušení $s(v
-)=levy$, když $v=\levy(\otec(v))$, a $s(v)=pravy$ pro  
-$v=\pravy(\otec(v))$.
 
-{\bf Vyvaz-INSERT$(v)$}.\newline 
-{\bf if} $v$ není kořen $T'$ a $b(\otec(v))=0$ {\bf then}\newline 
-\phantom{---}{\bf if} $otec(v)$ je kořen {\bf then}\newline 
-\phantom{------}$b(\otec(v)):=1$\newline 
-\phantom{---}{\bf else}\newline 
-\phantom{------}$w:=\otec(v)$, $u:=\bratr(w)$\newline 
-\phantom{------}{\bf if} $b(u)=0$ {\bf then}\newline 
-\phantom{---------}$v:=\otec(w)$, $b(w):=1$, $b(u):=1$\newline 
-\phantom{---------}$b(v):=0$, {\bf Vyvaz-INSERT$(v)$} (Viz Obrázek \ref{fig3})\newline 
-\phantom{------}{\bf else}\newline 
-\phantom{---------}$t:=\otec(w)$\newline 
-\phantom{---------}{\bf if} $s(w)=s(v)$ {\bf then}\newline 
-\phantom{------------}{\bf Rotace$(t,w)$}, $b(t):=0$, $b(w):=1$ (Viz Obrázek \ref{fig4})\newline 
-\phantom{---------}{\bf else}\newline 
-\phantom{------------}{\bf Dvojita-rotace$(t,w,v)$}, $b(t):=0$, $b(v):=1$ (Viz Obrázek \ref{fig5})\newline 
-\phantom{---------}{\bf endif}\newline 
-\phantom{------}{\bf endif}\newline 
-\phantom{---}{\bf endif\newline 
-endif}
-
-Na obrázku $b$ značí černou barvu a $r$ značí červenou 
-barvu. Otec vrcholu $w$ je označen $t$. 
-
+Rozebereme případy. Na obrázku $b$ značí černou barvu a $r$ značí červenou 
+barvu. Otec vrcholu $w$ je označen $t$.
 
 \begin{figure}[h!]
   \centerline{
@@ -6712,6 +6703,42 @@ barvu. Otec vrcholu $w$ je označen $t$.
   \caption{}
   \label{fig5}
 \end{figure}
+
+\begin{enumerate}
+    \item Pokud je otec černý, nic neřeším.
+    \item Pokud je otec kořen, nemusíme nic řešit a změníme otcovi barvu.
+    \item Tedy otec je určitě červený a není kořen. 
+    \item Pokud je strýc také červený, přebarvíme otce i strýce (\uv{celou generaci}), ale kvůli počtům musíme přebarvit i děda a propagovat výše. (Viz obrázek \ref{fig3})
+    \item Pokud je strýc červený, přebarvit generaci nemůžeme -- místo toho uděláme rotaci. Pokud $t-w-v$ je \uv{rovná}, uděláme jednoduchou rotaci (obrázek \ref{fig4}), pokud je \uv{lomená}, uděláme dvojitou rotaci (obrázek \ref{fig5}); potom přebarvíme tak, aby v~žádné cestě nepřibyl černý uzel.
+\end{enumerate}
+
+Popíšeme formálně proceduru {\bf Vyvaz-INSERT$(v)$} (předpokládáme, že 
+$v$ je obarven červeně). Pro zjednodušení $s(v
+)=levy$, když $v=\levy(\otec(v))$, a $s(v)=pravy$ pro  
+$v=\pravy(\otec(v))$.
+
+\algoritmus{
+{\bf Vyvaz-INSERT$(v)$}.\newline 
+{\bf \textsf{if}} $v$ není kořen $T'$ a $b(\otec(v))=0$ {\bf \textsf{then}}\newline 
+\phantom{---}{\bf \textsf{if}} $otec(v)$ je kořen {\bf \textsf{then}}\newline 
+\phantom{------}$b(\otec(v)):=1$\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
+\phantom{------}$w:=\otec(v)$, $u:=\bratr(w)$\newline 
+\phantom{------}{\bf \textsf{if}} $b(u)=0$ {\bf \textsf{then}}\newline 
+\phantom{---------}$v:=\otec(w)$, $b(w):=1$, $b(u):=1$\newline 
+\phantom{---------}$b(v):=0$, {\bf Vyvaz-INSERT$(v)$} (Viz Obrázek \ref{fig3})\newline 
+\phantom{------}{\bf \textsf{else}}\newline 
+\phantom{---------}$t:=\otec(w)$\newline 
+\phantom{---------}{\bf \textsf{if}} $s(w)=s(v)$ {\bf \textsf{then}}\newline 
+\phantom{------------}{\bf Rotace$(t,w)$}, $b(t):=0$, $b(w):=1$ (Viz Obrázek \ref{fig4})\newline 
+\phantom{---------}{\bf \textsf{else}}\newline 
+\phantom{------------}{\bf Dvojita-rotace$(t,w,v)$}, $b(t):=0$, $b(v):=1$ (Viz Obrázek \ref{fig5})\newline 
+\phantom{---------}{\bf \textsf{endif}}\newline 
+\phantom{------}{\bf \textsf{endif}}\newline 
+\phantom{---}{\bf \textsf{endif}\newline 
+\textsf{endif}}
+}
+
 
 
 $2$-parciální červeno-černé stromy vznikají při 
@@ -6740,48 +6767,15 @@ k-1$ černých
 vrcholů.
 \end{itemize}
 
-Popíšeme proceduru {\bf Vyvaz-DELETE$(v)$}, která se 
-použije na 3-parciální červeno-černý strom $(T,v)$, když $
-v$ není jeho 
-kořen.  Výsledkem procedury bude buď červeno-černý strom 
-nebo zavolání procedury {\bf Vyvaz-DELE\-TE$(v')$}, kde $v'$ je otcem 
-vrcholu $v$.  Z faktu, že když $(T,v)$ je 3-parciální červeno-černý 
-strom a $v$ je jeho kořen, pak $T$ je červeno-černý strom, plyne, 
-že aplikací {\bf Vyvaz-DELETE$(v)$} na 3-parciální červeno-černý strom 
-$(T,v)$ dostaneme červeno-černý strom.  
+Rozdíl je v tom, že u 2-parciálních jsme \uv{slevili} na následnosti červených, naopak tady slevujeme na stejném počtu černých vrcholů.
 
-{\bf Vyvaz-DELETE$(v)$\newline 
-$u:=\bratr(v)$}, $t:=\otec(v)$\newline 
-{\bf if} $b(u)=0$ {\bf then}\newline 
-\phantom{---}{\bf Rotace}$(t,u)$, $b(u):=1$, $b(t):=0$, $u:=\bratr(v)$\newline 
-{\bf endif\newline}
-(Viz Obr. \ref{fig6}, Komentář: nyní $b(u)=1$)\newline 
-$w_1$ je syn $u$ takový, že $s(v)=s(w_1)$, $w_2:=\bratr(w_1)$\newline 
-{\bf if} $b(w_1)=b(w_2)=1$ {\bf then}\newline 
-\phantom{---}$b(u):=0$\newline 
-\phantom{---}{\bf if} $b(t):=0$ {\bf then}\newline 
-\phantom{------}$b(t):=1$\newline 
-\phantom{---}{\bf else}\newline 
-\phantom{------}{\bf if} $t$ není kořen stromu {\bf then}\newline \phantom{---------}$v:=t$, {\bf Vyvaz-DELETE}$(v)$\newline 
-\phantom{------}{\bf endif}\newline 
-\phantom{---}{\bf endif} (Viz Obr. \ref{fig7})\newline 
-{\bf else}\newline 
-\phantom{---}{\bf if} $b(w_1)=1$ {\bf then}\newline 
-(Komentář: $b(w_2)=0$)\newline 
-\phantom{------}{\bf Rotace$(t,u)$}, $b(w_2):=1$, $b(u):=b(t)$, $b(t):=1$ (Viz Obr. \ref{fig8})\newline 
-\phantom{---}{\bf else}\newline 
-\phantom{------}{\bf Dvojita-rotace}$(t,u,w_1)$, $b(w_1):=b(t)$, $b(t):=1$ (Viz Obr. \ref{fig9})\newline
-\phantom{---}{\bf endif\newline 
-endif}
-
-V následujících obrázcích jsou vrcholy, které 
+Rozebereme případy. V následujících obrázcích jsou vrcholy, které 
 nemají specifikovanou barvu (mohou být jak červené tak černé).
 Tyto barvy budeme označovat $a$, $a'$. Důvod je, že se 
 tato barva může přenést do cílového stromu, ale 
 i na jiný vrchol. V tomto smyslu jsou tyto barvy určeny vstupním 
 stromem a specifikují tyto barvy v cílovém stromě. V Obr. \ref{fig7} 
 se barva $a$ v cílovém stromě neobjevuje.
-
 
 \begin{figure}[h!]
   \centerline{
@@ -6815,6 +6809,58 @@ se barva $a$ v cílovém stromě neobjevuje.
   \caption{}
   \label{fig9}
 \end{figure}
+
+\begin{enumerate}
+    \item pokud máme červeného bratra, uděláme rotaci, abychom ho měli černého (algoritmus ale nekončí). Obr. \ref{fig6}
+    \item tedy bratr je černý. Pokud oba synovce černé, můžu bratra přebarvit na červeno (Obr. \ref{fig7}) a:
+    \begin{enumerate}
+        \item Pokud je otec červený, přebarvíme ho na černo a problémů jsme se zbavili: v~cestách v~podstromu $v$ je o jednoho černého víc, kdežto v~cestách jeho bratra nic nepřibylo.
+        \item Pokud je otec černý, problémů jsme se nezbavili, ale naopak jsme je přidali i do cest v~bratru, tedy můžeme je delegovat o stupeň výš.
+    \end{enumerate}
+    \item Pokud nejsou oba synovce černé, ale synovec blíž \uv{ke mě} černý je, udělám takovou rotaci, aby se stal mým bratrem, a přebarvíme tak, aby se jednak problémy vyřešily, ale aby \uv{vršek} všeho zůstal stejný. (Obr. \ref{fig8})
+    \item Pokud nejsou oba synovce černé a synovec blíž \uv{ke mě} je červený, udělám takovou rotaci, aby byl \uv{nahoře}, a takové přebarvení, aby se problém vyřešil, ale \uv{vršek} byl pořád stejný. (Obr. \ref{fig9})
+\end{enumerate}
+
+
+Formálně opíšeme proceduru {\bf Vyvaz-DELETE$(v)$}, která se 
+použije na 3-parciální červeno-černý strom $(T,v)$, když $
+v$ není jeho 
+kořen.  Výsledkem procedury bude buď červeno-černý strom 
+nebo zavolání procedury {\bf Vyvaz-DELE\-TE$(v')$}, kde $v'$ je otcem 
+vrcholu $v$.  Z faktu, že když $(T,v)$ je 3-parciální červeno-černý 
+strom a $v$ je jeho kořen, pak $T$ je červeno-černý strom, plyne, 
+že aplikací {\bf Vyvaz-DELETE$(v)$} na 3-parciální červeno-černý strom 
+$(T,v)$ dostaneme červeno-černý strom.  
+
+\algoritmus{
+{\bf Vyvaz-DELETE$(v)$\newline 
+$u:=\bratr(v)$}, $t:=\otec(v)$\newline 
+{\bf \textsf{if}} $b(u)=0$ {\bf \textsf{then}}\newline 
+\phantom{---}{\bf Rotace}$(t,u)$, $b(u):=1$, $b(t):=0$, $u:=\bratr(v)$\newline 
+{\bf \textsf{endif}\newline}
+(Viz Obr. \ref{fig6}, Komentář: nyní $b(u)=1$)\newline 
+$w_1$ je syn $u$ takový, že $s(v)=s(w_1)$, $w_2:=\bratr(w_1)$\newline 
+{\bf \textsf{if}} $b(w_1)=b(w_2)=1$ {\bf \textsf{then}}\newline 
+\phantom{---}$b(u):=0$\newline 
+\phantom{---}{\bf \textsf{if}} $b(t):=0$ {\bf \textsf{then}}\newline 
+\phantom{------}$b(t):=1$\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
+\phantom{------}{\bf \textsf{if}} $t$ není kořen stromu {\bf \textsf{then}}\newline \phantom{---------}$v:=t$, {\bf Vyvaz-DELETE}$(v)$\newline 
+\phantom{------}{\bf \textsf{endif}}\newline 
+\phantom{---}{\bf \textsf{endif}} (Viz Obr. \ref{fig7})\newline 
+{\bf \textsf{else}}\newline 
+\phantom{---}{\bf \textsf{if}} $b(w_1)=1$ {\bf \textsf{then}}\newline 
+(Komentář: $b(w_2)=0$)\newline 
+\phantom{------}{\bf Rotace$(t,u)$}, $b(w_2):=1$, $b(u):=b(t)$, $b(t):=1$ (Viz Obr. \ref{fig8})\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
+\phantom{------}{\bf Dvojita-rotace}$(t,u,w_1)$, $b(w_1):=b(t)$, $b(t):=1$ (Viz Obr. \ref{fig9})\newline
+\phantom{---}{\bf \textsf{endif}\newline 
+\textsf{endif}}}
+
+
+
+
+
 
 Nyní popíšeme algoritmy realizující operace {\bf INSERT}, 
 {\bf DE\-LE\-TE}, {\bf JOIN3} a {\bf SPLIT} pro červeno-černé stromy.  
