@@ -6957,100 +6957,100 @@ endif
 
 DELETE$(x)$\newline 
 Vyhledej$(x)$\newline 
-if} $t$ není list {\bf then}\newline 
+\textsf{if}} $t$ není list {\bf \textsf{then}}\newline 
 \phantom{---}$vyv:=false$ \newline 
-\phantom{---}{\bf if} $\levy(t)$ je list {\bf then}\newline 
+\phantom{---}{\bf \textsf{if}} $\levy(t)$ je list {\bf \textsf{then}}\newline 
 \phantom{------}$v:=\pravy(t)$\newline 
-\phantom{------}{\bf if} $b(t)=1$ a $b(v)=1$ {\bf then}\newline 
+\phantom{------}{\bf \textsf{if}} $b(t)=1$ a $b(v)=1$ {\bf \textsf{then}}\newline 
 \phantom{---------}$vyv:=true$\newline 
-\phantom{------}{\bf endif}\newline 
+\phantom{------}{\bf \textsf{endif}}\newline 
 \phantom{------}odstraníme vrchol $\levy(t)$, $\otec(v):=\otec(t)$\newline 
-\phantom{------}{\bf if} $t=\levy(\otec(t))$ {\bf then}\newline 
+\phantom{------}{\bf \textsf{if}} $t=\levy(\otec(t))$ {\bf \textsf{then}}\newline 
 \phantom{---------}$\levy(\otec(t)):=v$\newline 
-\phantom{------}{\bf else}\newline 
+\phantom{------}{\bf \textsf{else}}\newline 
 \phantom{---------}$\pravy(\otec(t)):=v$\newline 
-\phantom{------}{\bf endif}\newline 
+\phantom{------}{\bf \textsf{endif}}\newline 
 \phantom{------}$b(v):=1$, odstraníme vrchol $t$\newline 
-\phantom{---}{\bf else}\newline 
+\phantom{---}{\bf \textsf{else}}\newline 
 \phantom{------}$u:=\levy(t)$\newline 
-\phantom{------}{\bf while} $\pravy(u)$ není list {\bf do} $u:=\pravy(u)$ {\bf enddo}\newline 
+\phantom{------}{\bf \textsf{while}} $\pravy(u)$ není list {\bf \textsf{do}} $u:=\pravy(u)$ {\bf \textsf{enddo}}\newline 
 \phantom{------}$\key(t):=\key(u)$, $v:=\levy(u)$ \newline 
-\phantom{------}{\bf if} $b(u)=1$ a $b(v)=1$ {\bf then}\newline 
+\phantom{------}{\bf \textsf{if}} $b(u)=1$ a $b(v)=1$ {\bf \textsf{then}}\newline 
 \phantom{---------}$vyv:=true$\newline 
-\phantom{------}{\bf endif}\newline 
+\phantom{------}{\bf \textsf{endif}}\newline 
 \phantom{------}odstraníme vrchol $\pravy(u)$, $\otec(v):=\otec(u)$\newline
-\phantom{------}{\bf if} $u=\levy(\otec(u))$ {\bf then}\newline 
+\phantom{------}{\bf \textsf{if}} $u=\levy(\otec(u))$ {\bf \textsf{then}}\newline 
 \phantom{---------}$\levy(\otec(u)):=v$\newline 
-\phantom{------}{\bf else}\newline 
+\phantom{------}{\bf \textsf{else}}\newline 
 \phantom{---------}$\pravy(\otec(u)):=v$\newline 
-\phantom{------}{\bf endif}\newline 
+\phantom{------}{\bf \textsf{endif}}\newline 
 \phantom{------}$b(v):=1$, odstraníme vrchol $u$\newline 
-\phantom{---}{\bf endif} \newline 
-\phantom{---}{\bf if} $vyv$ {\bf then Vyvaz-DELETE$(v)$ endif\newline 
-endif}
+\phantom{---}{\bf \textsf{endif}} \newline 
+\phantom{---}{\bf \textsf{if}} $vyv$ {\bf \textsf{then} Vyvaz-DELETE$(v)$ \textsf{endif}\newline 
+\textsf{endif}}
 
 }\algoritmus{
 
 
 {\bf JOIN3$(T_1,x,T_2)$\newline 
-if} $b(\text{kořen }T_1)=0$ {\bf then} $b(\text{kořen }T_1)
-:=1$ {\bf endif\newline 
-if} $b(\text{kořen }T_2)=0$ {\bf then} $b(\text{kořen }T_2)
-:=1$ {\bf endif}\newline 
-$k_1$ je počet černých vrcholů v $T_1$ z kořene do listů \newline 
-$k_2$ je počet černých vrcholů v $T_2$ z kořene do listů \newline 
-{\bf if} $k_1\ge k_2$ {\bf then}\newline 
+\textsf{if}} $b(\text{kořen }T_1)=0$ {\bf \textsf{then}} $b(\text{kořen }T_1)
+:=1$ {\bf \textsf{endif}\newline 
+\textsf{if}} $b(\text{kořen }T_2)=0$ {\bf \textsf{then}} $b(\text{kořen }T_2)
+:=1$ {\bf \textsf{endif}}\newline 
+$k_1$ je počet černých vrcholů v $T_1$ z kořene \textsf{do} listů \newline 
+$k_2$ je počet černých vrcholů v $T_2$ z kořene \textsf{do} listů \newline 
+{\bf \textsf{if}} $k_1\ge k_2$ {\bf \textsf{then}}\newline 
 \phantom{---}$t:=\text{ kořen }T_1$, $i:=k_1-k_2$ \newline 
-\phantom{---}{\bf while} $i>0$ {\bf do}\newline 
+\phantom{---}{\bf \textsf{while}} $i>0$ {\bf \textsf{do}}\newline 
 \phantom{------}$t:=\pravy(t)$\newline 
-\phantom{------}{\bf if} $b(t)=1$ {\bf then} $i:=i-1$ {\bf endif}\newline 
-\phantom{---}{\bf enddo}\newline 
+\phantom{------}{\bf \textsf{if}} $b(t)=1$ {\bf \textsf{then}} $i:=i-1$ {\bf \textsf{endif}}\newline 
+\phantom{---}{\bf \textsf{enddo}}\newline 
 \phantom{---}vytvoř vrchol $u$, $b(u):=0$, $\key(u):=x$\newline 
-\phantom{---}{\bf if} $t$ není kořen $T_1$ {\bf then}\newline 
+\phantom{---}{\bf \textsf{if}} $t$ není kořen $T_1$ {\bf \textsf{then}}\newline 
 \phantom{------}$\otec(u):=\otec(t)$, $\pravy(\otec(t)):=u$\newline 
-\phantom{---}{\bf endif}\newline 
+\phantom{---}{\bf \textsf{endif}}\newline 
 \phantom{---}$\otec(t):=u$, $\otec(\text{kořen }T_2):=u$ \newline 
 \phantom{---}$\pravy(u):=\text{ kořen }T_2$, $\levy(u):=t$, {\bf Vyvaz-INSERT$(T_1,u)$\newline 
-else}\newline 
+\textsf{else}}\newline 
 \phantom{---}$t:=\text{kořen }T_2$, $i:=k_2-k_1$ \newline 
-\phantom{---}{\bf while} $i>0$ {\bf do}\newline 
+\phantom{---}{\bf \textsf{while}} $i>0$ {\bf \textsf{do}}\newline 
 \phantom{------}$t:=\levy(t)$\newline 
-\phantom{------}{\bf if} $b(t)=1$ {\bf then} $i:=i-1$ {\bf endif}\newline 
-\phantom{---}{\bf enddo}\newline 
+\phantom{------}{\bf \textsf{if}} $b(t)=1$ {\bf \textsf{then}} $i:=i-1$ {\bf \textsf{endif}}\newline 
+\phantom{---}{\bf \textsf{enddo}}\newline 
 \phantom{---}vytvoř vrchol $u$, $b(u):=0$, $\key(u):=x$ \newline 
 \phantom{---}$\otec(u):=\otec(t)$, $\levy(\otec(t)):=u$, $\otec(t):=u$ \newline 
 \phantom{---}$\otec(\text{kořen }T_1):=u$, $\levy(u):=\text{ kořen }T_1$ \newline 
 \phantom{---}$\pravy(u):=t$, {\bf Vyvaz-INSERT}$(T_2,u)$\newline 
-{\bf endif}
+{\bf \textsf{endif}}
 
 }\algoritmus{
 
 
 {\bf SPLIT$(x)$\newline 
 $Z_1$} a $Z_2$ jsou prázdné zásobníky, $t:=\text{ kořen }T$\newline 
-{\bf while} $\key(t)\ne x$ a $t$ není list {\bf do}\newline 
-\phantom{---}{\bf if} $\key(t)>x$ {\bf then}\newline 
-\phantom{------}vlož $(\key(t),\pravy(t))$ do $Z_2$, $t:=\levy(t)$ \newline 
-\phantom{---}{\bf else}\newline 
-\phantom{------}vlož $(\levy(t),\key(t))$ do $Z_1$, $t:=\pravy(t)$ \newline 
-\phantom{---}{\bf endif\newline 
-enddo \newline 
-if} $\key(t)=x$ {\bf then}\newline 
+{\bf \textsf{while}} $\key(t)\ne x$ a $t$ není list {\bf \textsf{do}}\newline 
+\phantom{---}{\bf \textsf{if}} $\key(t)>x$ {\bf \textsf{then}}\newline 
+\phantom{------}vlož $(\key(t),\pravy(t))$ \textsf{do} $Z_2$, $t:=\levy(t)$ \newline 
+\phantom{---}{\bf \textsf{else}}\newline 
+\phantom{------}vlož $(\levy(t),\key(t))$ \textsf{do} $Z_1$, $t:=\pravy(t)$ \newline 
+\phantom{---}{\bf \textsf{endif}\newline 
+\textsf{enddo} \newline 
+\textsf{if}} $\key(t)=x$ {\bf \textsf{then}}\newline 
 \phantom{---}{\bf Výstup}: $x\in S$, $T_1$ je podstrom $T$ určený $\levy(t)$ \newline 
 \phantom{---}$T_2$ je podstrom $T$ určený $\pravy(t)$ \newline 
-{\bf else}\newline 
+{\bf \textsf{else}}\newline 
 \phantom{---}{\bf Výstup}: $x\notin S$, $T_1$ a $T_2$ jsou jednoprvkové stromy\newline 
-{\bf endif \newline 
-while} $Z_1\ne\emptyset$ {\bf do}\newline 
+{\bf \textsf{endif} \newline 
+\textsf{while}} $Z_1\ne\emptyset$ {\bf \textsf{do}}\newline 
 \phantom{---}$(t,x)$ je na vrcholu $Z_1$, odstraň $(t,x)$ ze $Z_1$ \newline 
 \phantom{---}$T'$ je podstrom $T$ určený $t$, $T_1:=${\bf JOIN3$(T',x,T_1
 )$ \newline 
-enddo\newline 
-while} $Z_2\ne\emptyset$ {\bf do}\newline 
+\textsf{enddo}\newline 
+\textsf{while}} $Z_2\ne\emptyset$ {\bf \textsf{do}}\newline 
 \phantom{---}$(x,t)$ je na vrcholu $Z_2$, odstraň $(x,t)$ ze $Z_1$ \newline 
 \phantom{---}$T'$ je podstrom $T$ určený $t$, $T_2:=${\bf JOIN3$(T_2,x,T'
 )$ \newline 
-enddo}
+\textsf{enddo}}
 }
 
 \subsubsection{Korektnost a složitost}
@@ -7202,7 +7202,8 @@ jejim hojném používání, i když červeno-černé stromy
 jsou efektivnější.
 
 \section{Haldy}
-\subsection{Úvod}
+\subsection{Úvodní definice}
+\subsubsection{Motivace}
 
 V praxi se často setkáváme s~následujícím 
 problémem, který vzniká na uspořádaném univerzu, jehož 
@@ -7219,6 +7220,8 @@ použitém systému a hardwaru. Přesto je při použití
 následujících struktur dobré mít realistickou představu o 
 skutečných rychlostech operací a podle toho si vybrat 
 vhodnou strukturu. 
+
+\subsubsection{Zadání}
 
 Zadání problému: Nechť $U$ je univerzum. Je dána množina 
 $S\subseteq U$ a funkce $f:S\to\mathbb R$, kde $\mathbb R$ jsou reálná čísla (tato 
@@ -7246,8 +7249,12 @@ předpoklad operace {\bf INSERT} neověřuje. Při operacích {\bf DE\-LE\-TE$
 {\bf DECREASE$(s,a)$ a INCREASE$(s,a)$} se před\-pokládá, že $
 s\in S$, 
 a operace navíc dostává informaci, jak najít  
-prvek $s$ v reprezentaci $S$ a $f$. Haldy jsou typ 
+prvek $s$ v reprezentaci $S$ a $f$. 
+
+Haldy jsou typ 
 struktury, která se používá pro řešení tohoto problému. 
+
+\subsubsection{Definice haldy}
 
 \emph{Halda} je stromová struktura, kde vrcholy 
 reprezentují prvky z $S$ a splňují lokální podmínku na 
@@ -7283,6 +7290,8 @@ První použité haldy byly binární neboli $
 Tyto haldy jsou velmi oblíbené pro svou jednoduchost a 
 názornost a pro velmi efektivní implementaci.
 
+\subsubsection{$d$-regulární strom}
+
 Předpokládejme, že $d>1$ je přirozené číslo. 
 $d$-\emph{regulární} \emph{strom} je kořenový strom 
 $(T,r)$, pro který existuje pořadí synů 
@@ -7302,39 +7311,59 @@ vrcholy s~většími čísly jsou listy.
 Toto očíslování se nazývá \emph{přirozené} 
 \emph{očíslování} $d$-regulárního stromu. 
 
-\begin{tvrzeni}Každý $d$-regulární strom má nejvýše jeden 
-vrchol, který není list a má méně než $d$ synů. Když 
-$d$-regulární strom má $n$ vrcholů, pak jeho 
-výška je $\lceil\log_d(n(d-1)+1)\rceil$. Nechť $o$ je přirozené očíslování 
-vrcholů $d$-regulárního stromu. Když pro vrchol 
-$v$ je $o(v)=k$, pak vrchol $w$ je syn vrcholu $v$, právě 
-když $o(w)\in \{(k-1)d+2,(k-1)d+3,\dots,kd+1\}$, a vrchol $u$ je 
-otcem vrcholu $v$, právě když $o(u)=1+\lfloor\frac {k-2}d
-\rfloor$. 
+\subsubsection{Výška}
+\begin{tvrzeni}
+    Každý $d$-regulární strom má nejvýše jeden 
+    vrchol, který není list a má méně než $d$ synů.
 \end{tvrzeni}
-
-\begin{proof}První část tvrzení plyne přímo z požadavku 2) na 
-$d$-regulární strom. Má-li $d$-regulární strom výšku $
-k$, 
-pak má alespoň $\Sigma_{i=0}^{k-1}d^i+1$ a nejvýše $\Sigma_{
-i=0}^kd^i$ 
-vrcholů. Proto
-$$\frac {d^k-1}{d-1}<n\le\frac {d^{k+1}}{d-1}\quad ,\quad d^k-1<n
-(d-1)\le d^{k+1}-1$$
-a zlogaritmováním dostaneme
-$$k<\log_d(n(d-1)+1)\le k+1.$$
-Odtud plyne 
-druhá část tvrzení.  Třetí část pro čísla synů dokážeme 
-indukcí podle očíslová\-ní.  Synové kořene mají čísla 
-$2,3,\dots$,$d+1$,  protože kořen má číslo $1$.  Když tvrzení platí 
-pro vrchol s~číslem $k$, pak synové vrcholu s~číslem $
-k+1$ 
-mají čísla $kd+2,kd+3,\dots,kd+d+1$, což odpovídá 
-číslům $(k+1-1)d+2,(k+1-1)d+3,\dots,(k+1)d+1$, a tedy 
-tvrzení platí. Poslední část pak plyne z toho, že když $
-i\in \{(k-1)d+2,(k-1)d+3,\dots,kd+1\}$, pak 
-$1+\lfloor\frac {i-2}d\rfloor =k$. \qed
+\begin{proof}
+    Plyne přímo z požadavku 2) na 
+    $d$-regulární strom.
 \end{proof}
+
+\begin{tvrzeni}
+    Když 
+    $d$-regulární strom má $n$ vrcholů, pak jeho 
+    výška je $\lceil\log_d(n(d-1)+1)\rceil$.
+\end{tvrzeni}
+\begin{proof}
+    Má-li $d$-regulární strom výšku $
+    k$, 
+    pak má alespoň $\Sigma_{i=0}^{k-1}d^i+1$ a nejvýše $\Sigma_{
+    i=0}^kd^i$ 
+    vrcholů. Proto
+    $$\frac {d^k-1}{d-1}<n\le\frac {d^{k+1}}{d-1}\quad ,\quad d^k-1<n
+    (d-1)\le d^{k+1}-1$$
+    a zlogaritmováním dostaneme
+    $$k<\log_d(n(d-1)+1)\le k+1.$$
+    Odtud již plyne.
+\end{proof}
+
+\subsubsection{Reprezentace pomocí pole}
+
+\begin{tvrzeni}
+    Nechť $o$ je přirozené očíslování 
+    vrcholů $d$-regulárního stromu. Když pro vrchol 
+    $v$ je $o(v)=k$, pak vrchol $w$ je syn vrcholu $v$, právě 
+    když $o(w)\in \{(k-1)d+2,(k-1)d+3,\dots,kd+1\}$, a vrchol $u$ je 
+    otcem vrcholu $v$, právě když $o(u)=1+\lfloor\frac {k-2}d
+    \rfloor$.
+\end{tvrzeni}
+\begin{proof}
+    Dokážeme indukcí podle očíslování.
+    
+    Synové kořene mají čísla 
+    $2,3,\dots$,$d+1$,  protože kořen má číslo $1$.  Když tvrzení platí 
+    pro vrchol s~číslem $k$, pak synové vrcholu s~číslem $
+    k+1$ 
+    mají čísla $kd+2,kd+3,\dots,kd+d+1$, což odpovídá 
+    číslům $(k+1-1)d+2,(k+1-1)d+3,\dots,(k+1)d+1$, a tedy 
+    tvrzení platí. Poslední část pak plyne z toho, že když $
+    i\in \{(k-1)d+2,(k-1)d+3,\dots,kd+1\}$, pak 
+    $1+\lfloor\frac {i-2}d\rfloor =k$.
+\end{proof}
+
+
 
 Všimněme si, že speciálně pro $d=2$ mají synové vrcholu s~číslem $
 k$ 
@@ -7380,12 +7409,13 @@ dokud vrchol reprezentující prvek $s$ nesplňu\-je podmínku
 \thetag{usp}.  Operace {\bf DOWN$(v)$} je symetrická.  
 
  
-
+\algoritmus{
 {\bf UP$(v)$}:\newline 
 {\bf while} $v$ není kořen a $f(v)<f(\otec(v))$ {\bf do\newline 
 \phantom{{\rm ---}}}vyměň $\key(v)$ a $\key(\otec(v))$\newline 
 \phantom{---}$v:=\otec(v)$\newline 
 {\bf enddo
+}}\algoritmus{{\bf
 
 DOWN$(v)$}:\newline 
 {\bf if} $v$ není list {\bf then\newline 
@@ -7397,17 +7427,24 @@ hodnotou $f(w)$\newline
 hodnotou $f(w)$\newline 
 \phantom{---}{\bf enddo\newline 
 endif
+}}\algoritmus{{\bf
 
 INSERT$(s)$}:\newline 
 $v:=$nový poslední list, $\key(v):=s$, {\bf UP$(v)$
+}}\algoritmus{{\bf
 
 MIN}:\newline 
 {\bf Výstup} $\key(\text{\rm kořen}(T))$
+
+}\algoritmus{
+
 
 {\bf DELETEMIN}:\newline 
 $v:=$poslední list, $r:=$kořen, $\key(r):=\key(v)$\newline 
 odstraň $v$\newline 
 {\bf DOWN$(r)$
+
+}}\algoritmus{{\bf
 
 DELETE$(s)$}:\newline 
 $v:=$vrchol reprezentující $s$\newline 
@@ -7415,13 +7452,18 @@ $w:=$poslední list\newline
 $t:=\key(w),$ $\key(v):=t,$ odstraň $w$\newline 
 {\bf if} $f(t)<f(s)$ {\bf then UP$(v)$ else DOWN$(v)$ endif
 
+}}\algoritmus{{\bf
+
 DECREASE$(s,a)$}:\newline 
 $v:=$vrchol reprezentující $s$\newline 
 $f(s):=f(s)-a$, {\bf UP$(v)$
 
+}}\algoritmus{{\bf
+
 INCREASE$(s,a)$}:\newline 
 $v:=$vrchol reprezentující $s$\newline 
 $f(s):=f(s)+a$, {\bf DOWN$(v)$
+}}\algoritmus{{\bf
 
 MAKEHEAP$(S,f)$}:\newline 
 $T:=d$-regulární strom s~$|S|$ vrcholy\newline 
@@ -7432,7 +7474,8 @@ $v:=$poslední vrchol, který není list\newline
 \phantom{{\rm ---}}$v:=$}vrchol předcházející 
 vrcholu $v$\newline 
 {\bf enddo
-}
+}}
+\subsubsection{Korektnost}
 Ověříme korektnost algoritmů.  Je zřejmé, že 
 pomocné operace jsou korektní -- skončí, když podmínku 
 \thetag{usp} splňuje prvek $s$, který byl původně 
@@ -7451,7 +7494,7 @@ opět zajistí operace {\bf UP }
 resp. {\bf DOWN}.  Pro operaci {\bf MAKEHEAP }
 budeme uvažovat duální formulaci podmínky \thetag{usp}:  
 \begin{enumerate}
-\item"{(d-usp)}"
+\item[{(d-usp)}]
 když $s$ je prvek reprezentovaný vrcholem $v$, pak 
 $f(s)\le f(t)$ pro všechny prvky reprezentované syny 
 vrcholu $v$. 
