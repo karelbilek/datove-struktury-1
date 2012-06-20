@@ -6857,13 +6857,13 @@ $w_1$ je syn $u$ takový, že $s(v)=s(w_1)$, $w_2:=\bratr(w_1)$\newline
 \phantom{---}{\bf \textsf{endif}\newline 
 \textsf{endif}}}
 
-
-
-
+\subsubsection{Popis nevyvažovacích operací}
 
 
 Nyní popíšeme algoritmy realizující operace {\bf INSERT}, 
-{\bf DE\-LE\-TE}, {\bf JOIN3} a {\bf SPLIT} pro červeno-černé stromy.  
+{\bf DE\-LE\-TE}, {\bf JOIN3} a {\bf SPLIT} pro červeno-černé stromy.
+
+  
 Před\-po\-klá\-dejme, že $T$ je červeno-černý strom reprezentující 
 množinu $S$ a pro\-vá\-dí\-me operaci {\bf INSERT$(x)$} pro $
 x\notin S$.  Když 
@@ -6881,7 +6881,8 @@ provede nejvýše jednu rotaci nebo dvojitou rotaci.
 Operace {\bf DELETE} je řešena stejným způsobem 
 jako ope\-race {\bf INSERT}, ale při operaci {\bf DELETE} je porušena třetí 
 pod\-mín\-ka v definici červeno-černých stro\-mů a 
-vyvažování je technicky náročnější.  
+vyvažování je technicky náročnější. 
+ 
 Předpokádejme, že $T$ je červeno-černý strom. Když chceme 
 provést operaci {\bf DELETE}, pak nejprve provedeme algoritmus {\bf DELETE} 
 pro nevyvážené 
@@ -6902,7 +6903,8 @@ Analýza poskytuje rychlý test na to, zda
 vznikne červeno-černý strom nebo 3-parciální 
 červeno-černý strom (pak $v$ je list). 
 
-Mějme červeno-černé stromy $T_1$ a $T_2$ reprezentující 
+Popišme {\bf JOIN3$
+(T_1,x,T_2)$ }. Mějme červeno-černé stromy $T_1$ a $T_2$ reprezentující 
 množiny $S_1$ a $S_2$ a mějme prvek $x\in U$ takový, že 
 $\max S_1<x<\min S_2$.  Nejprve zajistíme, že kořeny $T_
 1$ i $T_2$ jsou 
@@ -6944,13 +6946,14 @@ dostaneme strom $T_2$.
 
 Nyní popíšeme algoritmy pro tyto operace.
 
-{\bf INSERT$(x)$\newline 
+\algoritmus{{\bf INSERT$(x)$\newline 
 Vyhledej$(x)$\newline 
 if} $t$ je list {\bf then}\newline 
 \phantom{---}$t$ se změní na vnitřní vrchol, $\key(t):=x$\newline 
 \phantom{---}pro vrchol $t$ vytvořme syny $\levy(t)$ a $\pravy(t)$\newline 
 \phantom{---}$b(t):=0$, $b(\levy(t)):=1$, $b(\pravy(t)):=1$, {\bf Vyvaz-INSERT$(t)$\newline
 endif
+}}\algoritmus{{\bf
 
 DELETE$(x)$\newline 
 Vyhledej$(x)$\newline 
@@ -6986,6 +6989,9 @@ if} $t$ není list {\bf then}\newline
 \phantom{---}{\bf if} $vyv$ {\bf then Vyvaz-DELETE$(v)$ endif\newline 
 endif}
 
+}\algoritmus{
+
+
 {\bf JOIN3$(T_1,x,T_2)$\newline 
 if} $b(\text{kořen }T_1)=0$ {\bf then} $b(\text{kořen }T_1)
 :=1$ {\bf endif\newline 
@@ -7017,6 +7023,9 @@ else}\newline
 \phantom{---}$\pravy(u):=t$, {\bf Vyvaz-INSERT}$(T_2,u)$\newline 
 {\bf endif}
 
+}\algoritmus{
+
+
 {\bf SPLIT$(x)$\newline 
 $Z_1$} a $Z_2$ jsou prázdné zásobníky, $t:=\text{ kořen }T$\newline 
 {\bf while} $\key(t)\ne x$ a $t$ není list {\bf do}\newline 
@@ -7042,6 +7051,9 @@ while} $Z_2\ne\emptyset$ {\bf do}\newline
 \phantom{---}$T'$ je podstrom $T$ určený $t$, $T_2:=${\bf JOIN3$(T_2,x,T'
 )$ \newline 
 enddo}
+}
+
+\subsubsection{Korektnost a složitost}
 
 Korektnost algoritmů je vidět z 
 obrázků. Všimněme si při ope\-raci {\bf DELETE}, že když $
