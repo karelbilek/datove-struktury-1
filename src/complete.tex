@@ -7962,27 +7962,33 @@ složitost posloupnosti operací v nejhorším případě je často podstatně
 menší než součet složitostí v nejhorším případě pro 
 jednotlivé operace.  
 
-\subsection{{Binomiální haldy}}
+\subsection{Binomiální haldy}
+\subsubsection{Motivace}
 
-Další typ hald je motivován sčítaním přirozených čísel.  
+Další typ hald je motivován sčítáním přirozených čísel.  
 Binomiální halda reprezentující $n-$prvkovou množinu se 
 totiž chová 
 podobně jako číslo $n$.  Tento typ hald je také po zobecnění v jistém 
 smyslu vzorem pro Fibonacciho haldy.  
+
+\subsubsection{Definice binomiálního stromu}
 
 Pro $i=0,1,\dots$ definujeme rekurentně binomiální 
 stromy $H_i$.  Jsou to kořenové stromy takové, že $H_0$ je 
 jednoprvkový strom a  strom $H_{i+1}$ vznikne ze dvou 
 disjunktních stromů $H_i$, kde kořen jednoho stromu  
 se stane dalším synem (nejlevějším nebo nejpravějším) kořene druhého stromu.  Viz 
-Obrázek. 
+obrázek. 
 
 \begin{figure}[h!]
   \centerline{
     \input fig10.tex
     }
-  \caption{Binomiální haldy}
+  \caption{Binomiální stromy}
 \end{figure}
+
+\subsubsection{Vlastnosti binomiálního stromu}
+
 
 Nejprve uvedeme základní vlastnosti těchto 
 stromů.
@@ -8016,12 +8022,15 @@ $H_{i+1}$, je izomorfní s~$H_i$ a jinak se nic neměnilo, je
 důkaz kompletní. \qed
 \end{proof}
 
+\subsubsection{Definice binomiální haldy}
+
+\begin{definice}
 \emph{Binomiální} \emph{halda} $\mathcal H$ reprezentující 
 množinu $S$ je soubor (seznam) stromů $\{T_1,T_2,\dots
 ,T_k\}$ 
 takový, že 
 \begin{enumerate}
-\item"{}"
+\item
 celkový počet vrcholů v těchto stromech je 
 roven velikosti $S$ a 
 existuje a je dáno jednoznačné přiřazení prvků 
@@ -8029,12 +8038,13 @@ z $S$ vrcholům stromů takové, že platí
 podmínka \thetag{usp} -- toto přiřazení je realizováno 
 funkcí 
 $\key,$ která vrcholu stromu přiřazuje prvek jím reprezentovaný;
-\item"{}"
+\item
 každý strom $T_i$ je izomorfní s~nějakým stromem $H_
 j$;
-\item"{}"
+\item
 $T_i$ není izomorfní s~žádným $T_j$ pro $i\ne j$.
 \end{enumerate}
+\end{definice}
 
 Z binárního zápisu přirozených čísel plyne, že 
 pro každé přiro\-ze\-né číslo $n>0$ existuje prostá 
@@ -8046,73 +8056,79 @@ Tato halda obsahuje strom izomorfní s~$H_i$, právě když v
 binárním zápise čísla $|S|$ je na $i$-tém místě zprava $
 1$.
 
-\subsubsection{Algoritmy a složitost operací}
+\subsubsection{Algoritmy, korektnost}
 
 Operace pro binomiální haldy jsou  
 stejně jako pro leftist haldy založeny na ope\-raci {\bf MER\-GE}. Ope\-race 
 {\bf MERGE} pro binomiální haldy je analogií sčítání 
 přirozených čísel v binár\-ním zápise.
 
-{\bf MERGE$(\mathcal H_1,\mathcal H_2)$}:\newline 
+\algoritmus{{\bf MERGE$(\mathcal H_1,\mathcal H_2)$}:\newline 
 (komentář: $\mathcal H_i$ reprezentuje množinu $S_i$ pro $i=1
 ,2$ a $S_1\cap S_2=\emptyset$)\newline 
 $i:=0$, $T:=$prázdný strom, $\mathcal H:=\emptyset$\newline 
-{\bf while} $i<\log(|S_1|+|S_2|)$ {\bf do\newline 
-\phantom{{\rm ---}}if} existuje $U\in \mathcal H_1$ izomorfní s~$
-H_i$ {\bf then\newline 
+{\bf \textsf{while}} $i<\log(|S_1|+|S_2|)$ {\bf \textsf{do}\newline 
+\phantom{{\rm ---}}\textsf{if}} existuje $U\in \mathcal H_1$ izomorfní s~$
+H_i$ {\bf \textsf{then}\newline 
 \phantom{{\rm ------}}$U_1:=U$\newline 
-\phantom{{\rm ---}}else\newline 
+\phantom{{\rm ---}}\textsf{else}\newline 
 \phantom{{\rm ------}}$U_1:=$}prázdný strom\newline 
-\phantom{---}{\bf endif\newline 
-\phantom{{\rm ---}}if} existuje $U\in \mathcal H_2$ izomorfní s~$
-H_i$ {\bf then\newline 
+\phantom{---}{\bf \textsf{endif}\newline 
+\phantom{{\rm ---}}\textsf{if}} existuje $U\in \mathcal H_2$ izomorfní s~$
+H_i$ {\bf \textsf{then}\newline 
 \phantom{{\rm ------}}$U_2:=U$\newline 
-\phantom{{\rm ---}}else\newline 
+\phantom{{\rm ---}}\textsf{else}\newline 
 \phantom{{\rm ------}}$U_2:=$}prázdný strom\newline 
-\phantom{---}{\bf endif\newline 
-\phantom{{\rm ---}}case\newline 
+\phantom{---}{\bf \textsf{endif}\newline 
+\phantom{{\rm ---}}\textsf{case}\newline 
 \phantom{{\rm ------}}}(existuje právě jeden neprázdný strom 
-$V\in \{T,U_1,U_2\}$) {\bf do}:\newline 
-\phantom{---------}vlož $V$ do $\mathcal H$, $T:=$prázdný strom\newline 
+$V\in \{T,U_1,U_2\}$) {\bf \textsf{do}}:\newline 
+\phantom{---------}vlož $V$ {do} $\mathcal H$, $T:=$prázdný strom\newline 
 \phantom{------}(existují právě dva neprázdné stromy 
-$V_1,V_2\in \{T,U_1,U_2\})$ {\bf do}:\newline 
+$V_1,V_2\in \{T,U_1,U_2\})$ {\bf \textsf{do}}:\newline 
 \phantom{---------}$T:=${\bf spoj$(V_1,V_2)$\newline 
-\phantom{{\rm ------}}}(všechny stromy $T$, $U_1$ a $U_2$ jsou neprázdné) {\bf do}:\newline 
-\phantom{---------}vlož $T$ do $\mathcal H$, $T:=${\bf spoj$(U_1,U_
+\phantom{{\rm ------}}}(všechny stromy $T$, $U_1$ a $U_2$ jsou neprázdné) {\bf \textsf{do}}:\newline 
+\phantom{---------}vlož $T$ \textsf{do} $\mathcal H$, $T:=${\bf spoj$(U_1,U_
 2)$\newline 
-\phantom{{\rm ---}}endcase\newline 
+\phantom{{\rm ---}}\textsf{endcase}\newline 
 \phantom{{\rm ---}}$i:=i+1$\newline 
-enddo\newline 
-if} $T\ne$prázdný strom {\bf then} vlož $T$ do $\mathcal H$ {\bf endif\newline 
-Výstup}:$\mathcal H$
+\textsf{enddo}\newline 
+\textsf{if}} $T\ne$prázdný strom {\bf \textsf{then}} vlož $T$ {do} $\mathcal H$ {\bf \textsf{endif}\newline 
+Výstup}:$\mathcal H$}
 
-{\bf spoj$(T_1,T_2)$}:\newline 
-{\bf if} $f(\text{\rm kořen }T_1)>f(\text{\rm kořen }T_2)$ {\bf then\newline 
+\algoritmus{{\bf spoj$(T_1,T_2)$}:\newline 
+{\bf \textsf{if}} $f(\text{\rm kořen }T_1)>f(\text{\rm kořen }T_2)$ {\bf \textsf{then}\newline 
 \phantom{{\rm ---}}}vyměň stromy $T_1$ a $T_2$\newline 
-{\bf endif\newline }
+{\bf \textsf{endif}\newline }
 vytvoř nového  syna $v$ kořene $T_1$\newline 
-$v:=$kořen $T_2$
+$v:=$kořen $T_2$}
 
 Je vidět, že když oba stromy $T_1$ a $T_2$ jsou izomorfní 
 s $H_i$, pak výsledný strom operace {\bf spoj} je izomorfní 
-s $H_{i+1}$. Korektnost ope\-race {\bf MERGE} plyne z tohoto 
+s $H_{i+1}$. 
+
+Korektnost ope\-race {\bf MERGE} plyne z tohoto 
 pozorování a z faktu, že $\mathcal H_j$ obsahuje strom izomorfní s~$H_i$, právě když v binárním zápise čísla $
 |S_j|$ je na $i$-tém 
 místě zprava $1$, a že $T$ je neprázdný strom, když se 
-provádí posun řádu při sčítání. Protože každý běh 
-cyklu vyžaduje čas $O(1)$, algoritmus {\bf MER\-GE} vyžaduje čas 
-$O(\log(|S_1|+|S_2|))$. Implementace dalších algoritmů 
+provádí posun řádu při sčítání. 
+
+Implementace dalších algoritmů 
 je podobná jako pro leftist haldy. 
 
+\algoritmus{
 {\bf INSERT$(x)$}:\newline 
 Vytvoř haldu $\mathcal H_1$ reprezentující $\{x\}$\newline 
 $\bold M\bold E\bold R\bold G\bold E(\mathcal H,\mathcal H_1)$
 
+}\algoritmus{
 {\bf MIN}:\newline 
 Prohledej prvky reprezentované kořeny všech stromů 
 v $\mathcal H$\newline 
 {\bf Výstup}: nejmenší z těchto prvků  
+}
 
+\algoritmus{
 {\bf DELETEMIN}:\newline 
 Prohledej prvky reprezentované kořeny všech stromů 
 v $\mathcal H$\newline 
@@ -8122,26 +8138,49 @@ $\mathcal H_2:=$ halda tvořená podstromy $T$ určenými syny kořene $
 T$\newline 
 {\bf MERGE$(\mathcal H_1,\mathcal H_2)$
 }
+}
+
 Z podmínky \thetag{usp} je zřejmé, že 
 nejmenší prvek v $S$ je reprezentován v kořeni nějakého  
 stromu haldy. Tím je dána korekt\-nost operace {\bf MIN}.
+
 Z úvodního tvrzení plyne, že $\mathcal H_2$ v operaci {\bf DELE\-TE\-MIN} je 
 binomiální halda, a odtud plyne korekt\-nost ope\-race 
-{\bf DE\-LE\-TEMIN}. Operace {\bf DECREASE} se implementuje pomocí 
+{\bf DE\-LE\-TEMIN}. 
+
+Operace {\bf DECREASE} se implementuje pomocí 
 ope\-race {\bf UP} a ope\-race {\bf INCREASE} pomocí 
 operace {\bf DOWN} stejně jako v regulárních haldách. 
+
+
 Struktura binomiální haldy nepodporuje přímo operaci 
 {\bf DELETE} -- ta se dá realizovat jedině jako posloupnost 
 operací {\bf DECREASE$(s,\infty )$} a {\bf DELETEMIN}.  
 Operace {\bf MAKEHEAP} se provádí opakováním operace {\bf INSERT}.
 
+\subsubsection{Složitost}
+
 Výpočet časové složitosti operací pro binomiální haldy 
-využívá několik známých faktů.  Ope\-race {\bf MERGE }
+využívá několik známých faktů.
+
+\begin{veta}
+    Pro binomiální haldy algoritmy operací 
+{\bf IN\-SERT}, {\bf MIN}, {\bf DELETEMIN}, {\bf DECREASE} a {\bf MERGE  }
+vy\-ža\-dují čas $O(\log(|S|))$, algoritmus operace {\bf INCRE\-ASE }
+vy\-ža\-duje čas $O(\log^2(|S|))$ a algoritmus operace {\bf MAKEHEAP }čas $O(|S|)$.
+\end{veta}
+\begin{proof}
+  Ope\-race {\bf MERGE }
 simuluje sčítání přirozených čísel v binárním zápise a má 
-tedy stejnou složitost.  Odhad složitosti vytváření haldy využívá 
-známého faktu, že amortizovaná složitost přičítání $
-1$  
+tedy stejnou složitost. Protože každý běh 
+cyklu vyžaduje čas $O(1)$, algoritmus {\bf MER\-GE} vyžaduje čas 
+$O(\log(|S_1|+|S_2|))$.
+
+Odhad složitosti vytváření haldy {\bf MAKEHEAP } využívá 
+známého faktu, že amortizovaná složitost přičítání $1$  
 k binárnímu číslu je $O(1)$.  
+
+
 Odhad složitosti operací {\bf MIN} a {\bf DELETEMIN} je založen na 
 pozorování, že binomiální halda reprezentující množinu $
 S$ má 
@@ -8154,13 +8193,9 @@ binomiální haldě je $\le\log(|S|)$ a počet synů
 kořene každého stromu je 
 také $\le\log(|S|)$, přičemž tento odhad se nedá zlepšit. Odtud 
 dostáváme složitost operací {\bf DECREASE} a {\bf INCREASE} v nejhorším 
-případě. Můžeme tedy shrnout:
+případě. 
 
-\begin{veta}Pro binomiální haldy algoritmy operací 
-{\bf IN\-SERT}, {\bf MIN}, {\bf DELETEMIN}, {\bf DECREASE} a {\bf MERGE  }
-vy\-ža\-dují čas $O(\log(|S|))$, algoritmus operace {\bf INCRE\-ASE }
-vy\-ža\-duje čas $O(\log^2(|S|))$ a algoritmus operace {\bf MAKEHEAP }čas $O(|S|)$.
-\end{veta}
+\end{proof}
 
 Z těchto výsledků je vidět, že předchozí 
 typy hald mají efektivnější chování než binomiální haldy. 
@@ -8170,10 +8205,10 @@ haldy) a že na nich lze krásně
 ilustrovat princip, že s~řadou úprav je výhodné počkat 
 a neprovádět je okamžitě.
 
-\subsubsection{Líná implentace operací}
+\subsubsection{Líná binomiální halda}
 
 Následující algoritmy jsou založeny na ideji, že 
-`vyvažování' stačí provádět jen při operacích {\bf MIN} a 
+\uv{vyvažování} stačí provádět jen při operacích {\bf MIN} a 
 {\bf DELETEMIN}, kdy je stejně zapotřebí prohledat všechny 
 stromy. Z tohoto důvodu zeslabíme podmínky na 
 binomiální haldy.
@@ -8182,14 +8217,14 @@ binomiální haldy.
 reprezentující množinu $S$ je seznam stromů 
 $\{T_1,T_2,\dots,T_k\}$ takový, že  
 \begin{enumerate}
-\item"{}"
+\item
 celkový počet vrcholů v těchto stromech je 
 roven velikosti $S$ a 
 existuje jednoznačné přiřazení prvků množiny 
 $S$ vrcholům stromů, které splňuje 
 podmínku \thetag{usp} -- toto přiřazení je jako obvykle 
 realizováno funkcí $\key$;
-\item"{}"
+\item
 každý strom $T_i$ je izomorfní s~nějakým stromem $H_
 j$.
 \end{enumerate}
@@ -8198,9 +8233,10 @@ V líné binomiální haldě je vynechán předpoklad
 neizo\-morf\-nosti stromů tvořících haldu. Tento fakt se 
 projeví ve velmi jednoduchém algoritmu pro operaci 
 {\bf MERGE}.
-
+\algoritmus{
 {\bf MERGE$(\mathcal H_1,\mathcal H_2)$}:\newline 
 Proveď konkatenaci seznamů $\mathcal H_1$ a $\mathcal H_2$
+}
 
 Samotný algoritmus pro operaci {\bf INSERT} se nezmění, jen 
 provede tuto implementaci ope\-race {\bf MER\-GE}.  Ope\-race 
@@ -8211,7 +8247,7 @@ obsahuje jen stromy izomorfní se stromem $H_i$.
 Procedura {\bf vyvaz} pak z těchto stromů vytvoří 
 klasickou binomiální hal\-du. 
 
-{\bf vyvaz$(\{O_i\mid i=0,1,\dots,k\})$}:\newline 
+\algoritmus{{\bf vyvaz$(\{O_i\mid i=0,1,\dots,k\})$}:\newline 
 $i:=0$, $\mathcal H:=\emptyset$\newline 
 {\bf while} existuje $O_i\ne\emptyset$ {\bf do\newline 
 \phantom{{\rm ---}}while} $|O_i|>1$ {\bf do\newline 
@@ -8227,17 +8263,18 @@ $O_i$\newline
 \phantom{---}{\bf endif},\newline 
 \phantom{---}$i:=i+1$\newline 
 {\bf enddo\newline 
-Výstup}: $\mathcal H$
+Výstup}: $\mathcal H$}
 
-{\bf MIN}:\newline 
+\algoritmus{{\bf MIN}:\newline 
 Prohledej prvky reprezentované kořeny všech 
 stromů  
 v $\mathcal H$\newline 
 {\bf Výstup}: nejmenší z těchto prvků\newline 
 stromy rozděl do množin $O_i=\{$všechny stromy v 
 $\mathcal H$ izomorfní s~$H_i\}$\newline 
-{\bf vyvaz$(\{O_i\mid i=0,1,\dots,\lfloor\log(|S|)\rfloor \})$
+{\bf vyvaz$(\{O_i\mid i=0,1,\dots,\lfloor\log(|S|)\rfloor \})$}}
 
+\algoritmus{{\bf
 DELETEMIN}:\newline 
 Prohledej prvky reprezentované kořeny všech 
 stromů v $\mathcal H$\newline 
@@ -8248,7 +8285,9 @@ $\mathcal H$ izomorfní s~$H_i$ různé od $T\}\cup \{$podstrom $
 T$ určený nějakým synem kořene $T$ 
 izomorfní s~$H_i\}$\newline 
 {\bf vyvaz$(\{O_i\mid i=0,1,\dots,\lfloor\log(|S|)\rfloor \})$
-}Časová složitost operací {\bf INSERT} a {\bf MER\-GE} při líné 
+}}
+
+Časová složitost operací {\bf INSERT} a {\bf MER\-GE} při líné 
 implementaci je $O(1)$, ale časová složitost operací {\bf MIN} a 
 {\bf DELETEMIN} je v nejhorším případě $O(|S|)$. Tento odhad je 
 velmi špatný, ale ukážeme, že amortizovaná složitost má rozumné 
@@ -8256,8 +8295,10 @@ hodnoty.
 Připomínáme, že amortizovaná složi\-tost je čas operace plus 
 ohodnocení výsledné struktury minus ohodnocení 
 počáteční struktury. 
+
 Konfiguraci ohodnotíme počtem stromů v 
 haldě. 
+
 Protože ope\-race {\bf MERGE} nemění počet stromů a 
 protože operace {\bf INSERT} přidá jen jeden strom, je 
 amortizovaná složitost operací {\bf MERGE} a {\bf INSERT} stále $
