@@ -7523,43 +7523,66 @@ Haldu můžeme
 vytvořit iterací operace {\bf INSERT}, což 
 vyžaduje čas $O(|S|\log_d(|S|))$.  Ukáže\-me, že složitost operace 
 {\bf MAKEHEAP} je menší, ale pro malé haldy je výhodnější 
-provádět opakovaně operaci {\bf INSERT}.  Operace {\bf DOWN$
+provádět opakovaně operaci {\bf INSERT}.  
+
+\begin{veta}
+    {\bf MAKEHEAP} vyžaduje v nejhorším případě jen čas 
+    $O(d^2|S|)$.
+\end{veta}
+
+\begin{proof}
+Operace {\bf DOWN$
 (v)$} na vrchol 
 ve výšce $h$ vyžaduje v nej\-horším případě čas $
 O(hd)$.  
+
 Vrcholů v hloubce $i$ je nejvýše $d^i$.  
+
+
 Před\-pok\-lá\-dejme, že strom má výšku $k$, pak vrchol v 
-hloubce $i$ má výšku nejvýše $k-i$.  Tedy operace {\bf MAKEHEAP }
-vyžaduje čas $O(\sum_{i=0}^{k-1}d^i(k-i)d)=O(\sum_{i=0}^{k-
-1}d^{i+1}(k-i))$.  Oz\-nač\-me 
+hloubce $i$ má výšku nejvýše $k-i$.  
+
+Tedy operace {\bf MAKEHEAP }
+vyžaduje čas $$O(\sum_{i=0}^{k-1}d^i(k-i)d)=O(\sum_{i=0}^{k-
+1}d^{i+1}(k-i)).$$
+
+ Oz\-nač\-me 
 $A=\sum_{i=0}^{k-1}d^{i+1}(k-i)$, pak 
 \begin{align*} dA-A=&\sum_{i=0}^{k-1}d^{i+2}(k-i)-\sum_{i=0}^{k-1}d^{i+
 1}(k-i)=\sum_{i=2}^{k+1}d^i(k-i+2)-\sum_{i=1}^kd^i(k-i+1)=\\
 &d^{k+1}+\sum_{i=2}^kd^i(k-i+2-k+i-1)-dk=d^{k+1}+\sum_{i=2}^kd^i-
 dk=\\
 &d^{k+1}+d^2\frac {d^{k-1}-1}{d-1}-dk.\end{align*}
-Tedy $A=\frac {d^{k+1}}{d-1}+\frac {d^{k+1}-d^2}{(d-1)^2}-\frac {
-dk}{d-1}$. Protože 
+
+Tedy $$A=\frac {d^{k+1}}{d-1}+\frac {d^{k+1}-d^2}{(d-1)^2}-\frac {
+dk}{d-1}.$$
+
+ Protože 
 $k=\lceil\log_d(|S|(d-1)+1)\rceil$, 
 dostáváme, že $d^{k+1}\le d^2((d-1)|S|+1)$, a proto $A\le 
-2d^2|S|$. Tedy 
+2d^2|S|$.
+
+ Tedy 
 {\bf MAKEHEAP} vyžaduje v nejhorším případě jen čas 
 $O(d^2|S|)$. 
+\end{proof}
 
-\subsubsection{Aplikace }
+\subsubsection{Aplikace -- heapsort}
 
 Třídění: prostou posloupnost 
 čísel $x_1,x_2,\dots,x_n$ lze setřídit následujícím 
 algoritmem použí\-vajícím haldu ($f$ bude v tomto případě 
 identická funkce).
 
-$d${\bf -HEAPSORT$(x_1,x_2,\dots,x_n)$}:\newline 
-{\bf MAKEHEAP$(\{x_i\mid i=1,2,\dots,n\},f)$\newline 
+\algoritmus{
+$d${\bf -HEAPSORT$(x_1,x_2,\\textsf{do}ts,x_n)$}:\newline 
+{\bf MAKEHEAP$(\{x_i\mid i=1,2,\\textsf{do}ts,n\},f)$\newline 
 $i=1$\newline 
-while} $i\le n$ {\bf do\newline 
+\textsf{while}} $i\le n$ {\bf \textsf{do}\newline 
 \phantom{{\rm ---}}$y_i:=$MIN}, {\bf DELETEMIN}, $i:=i+1$\newline 
-{\bf enddo\newline 
-Výstup}: $y_1,y_2,\dots,y_n$
+{\bf \textsf{enddo}\newline 
+Výstup}: $y_1,y_2,\\textsf{do}ts,y_n$
+}
 
 Teoreticky lze ukázat, že použití $d$-regulárních hald v 
 algoritmu {\bf HEAPSORT} pro $d=3$ a $d=4$ je výhodnější 
@@ -7571,8 +7594,12 @@ výměn prvků).
 Pro delší posloupnosti se optimální 
 hodnota $d$ může zmenšit.
 
+\subsubsection{Aplikace -- Dijkstra}
+
+
 Dalším příkladem je nalezení nejkratších cest v grafu z daného 
-bodu. Řešme následující úlohu: \newline 
+bodu. Řešme následující úlohu:
+
 Vstup: orientovaný ohodnocený graf $(X,R,c)$, kde $c$ je funkce z $
 R$ do množiny kladných 
 reálných čísel, a vrchol $z\in X$.\newline 
@@ -7580,22 +7607,24 @@ reálných čísel, a vrchol $z\in X$.\newline
 nejkratší cestu ze $z$ do $x$, kde délka cesty je součet 
 $c$-ohodnocení hran na cestě.
 
-{\bf Dijkstrův algoritmus}:\newline 
+\algoritmus{{\bf Dijkstrův algoritmus}:\newline 
 $d(z):=0$, $U:=\{z\}$\newline 
-{\bf for every} $x\in X\setminus \{z\}$ {\bf do} $d(x):=+\infty$ {\bf enddo\newline 
-while} $U\ne\emptyset$ {\bf do\newline 
+{\bf for every} $x\in X\setminus \{z\}$ {\bf \textsf{do}} $d(x):=+\infty$ {\bf \textsf{enddo}\newline 
+\textsf{while}} $U\ne\emptyset$ {\bf \textsf{do}\newline 
 \phantom{{\rm ---}}}najdi vrchol $u\in U$ s~nejmenší hodnotou $
 d(u)$\newline 
 \phantom{---}odstraň $u$ z $U$\newline 
-\phantom{---}{\bf for every} $(u,v)\in R$ {\bf do \newline 
-\phantom{{\rm ------}}if} $d(u)+c(u,v)<d(v)$ {\bf then\newline 
-\phantom{{\rm ---------}}if} $d(v)=+\infty$ {\bf then} vlož $v$ do $
-U$ {\bf endif\newline 
+\phantom{---}{\bf for every} $(u,v)\in R$ {\bf \textsf{do} \newline 
+\phantom{{\rm ------}}\textsf{if}} $d(u)+c(u,v)<d(v)$ {\bf \textsf{then}\newline 
+\phantom{{\rm ---------}}\textsf{if}} $d(v)=+\infty$ {\bf \textsf{then}} vlož $v$ \textsf{do} $
+U$ {\bf \textsf{endif}\newline 
 \phantom{{\rm ---------}}$d(v):=d(u)+c(u,v)$\newline 
-\phantom{{\rm ------}}endif\newline 
-\phantom{{\rm ---}}enddo\newline 
-enddo
+\phantom{{\rm ------}}\textsf{endif}\newline 
+\phantom{{\rm ---}}\textsf{enddo}\newline 
+\textsf{enddo}
 }
+}
+
 Korektnost algoritmu je založena na kombinatorickém 
 lemmatu, které říká, že když odstra\-ňuje\-me z $
 U$ prvek $x$ s~nejmenší hodnotou $d(x)$, pak vzdálenost ze $z$ do $x$ je právě 
@@ -7603,7 +7632,9 @@ $d(x)$. Proto když $U=\emptyset$, pak $d(x)$ jsou délky nejkratších cest ze
 $z$ do $x$ pro všechna $x\in X$. Tedy práce s~množinou $U$ vyžaduje 
 nejvýše $|X|$ operací {\bf INSERT}, {\bf MIN} a {\bf DELETEMIN} a $
 |R|$ operací 
-{\bf DECREASE} a vždy platí $|U|\le |X|$. Vypočteme časovou složitost 
+{\bf DECREASE} a vždy platí $|U|\le |X|$. 
+
+Vypočteme časovou složitost 
 {\bf Dijkstrova algoritmu} za předpokladu, že $U$ reprezentujeme jako $
 d$-regulární 
 haldu. Když $d=2$, pak dostáváme, že algoritmus vyžaduje čas 
@@ -7616,8 +7647,9 @@ tj. $|R|>|X|^{1+\varepsilon}$ pro $\varepsilon >0$, pak $\log_d|X
 je lineární (tj. vyžaduje čas $O(|R|)$).
 
  
-\subsection{{Leftist haldy}}
+\subsection{Leftist haldy}
 
+\subsubsection{Úvod}
 Dalším typem hald, se kterými se seznámíme, jsou lefist 
 haldy (neznáme vhodný český překlad, proto zůstáváme 
 u anglického názvu). Je to velmi elegantní a jednoduchý typ 
@@ -7630,6 +7662,8 @@ Operace {\bf MERGE} využívá speciálních vlastností leftist
 hald a idea operace {\bf DECREASE} je stejná jako ve 
 Fibonacciho haldách. Nejprve formálně popíšeme strukturu 
 leftist hald. 
+
+\subsubsection{Defince}
 
 Mějme binární kořenový strom $(T,r)$ (to znamená, že $
 r$ je kořen, 
@@ -7667,6 +7701,8 @@ $\npl(v)$ -- proměnná s~hodnotou $\npl(v)$,\newline
 $\key(v)$ -- prvek reprezentovaný vrcholem $v$,\newline 
 $f(v)$ -- proměnná obsahující hodnotu $f(\key(v))$.
 
+\subsubsection{Základní vlastnost}
+
 Uvedeme základní vlastnost leftist haldy, která 
 umožňuje efektivní implementace operací. 
 Posloupnost vrcholů $v_0,v_1,\dots,v_k$ se nazývá 
@@ -7682,58 +7718,68 @@ délka pravé cesty z každého vrcholu $v$ nejvýše rovna
 $$\log(\text{\rm velikost podstromu určeného vrcholem }v).$$
 \end{tvrzeni}
 
-\subsubsection{Algoritmy a složitost operací}
+\subsubsection{Algoritmy}
 
 Základní operací pro leftist haldy je {\bf MERGE}. Tato 
 operace je definována rekurzivně a hloubka rekurze je omezena 
 právě délkami pravých cest.
 
+\algoritmus{
 {\bf MERGE$(T_1,T_2)$}:\newline 
-{\bf if} $T_1=\emptyset$ {\bf then Výstup$=T_2$} konec {\bf endif\newline 
-if} $T_2=\emptyset$ {\bf then Výstup$=T_1$} konec {\bf endif\newline 
-if} $\key(\text{\rm kořen }T_1)>\key(\text{\rm kořen }T_2)$ {\bf then\newline 
+{\bf \textsf{if}} $T_1=\emptyset$ {\bf \textsf{then} Výstup$=T_2$} \textsf{stop} {\bf \textsf{endif}\newline 
+\textsf{if}} $T_2=\emptyset$ {\bf \textsf{then} Výstup$=T_1$} \textsf{stop} {\bf \textsf{endif}\newline 
+\textsf{if}} $\key(\text{\rm kořen }T_1)>\key(\text{\rm kořen }T_2)$ {\bf \textsf{then}\newline 
 \phantom{{\rm ---}}}zaměň $T_1$ a $T_2$\newline 
-{\bf endif\newline 
+{\bf \textsf{endif}\newline 
 $T':=$MERGE$(\text{{{\rm podstrom pravého syna kořene }}}T_1
 ,T_2)$\newline 
 $\pravy(\text{\rm{{\rm kořen }}}T_1):=\text{\rm{{\rm kořen }}}
 T'$\newline 
 $\otec(\text{\rm {\rm kořen }}T'):=\text{\rm {\rm kořen }}T_
 1$\newline 
-if} $\npl(\pravy(\text{\rm kořen }T_1))>\npl(\levy(\text{\rm kořen }
-T_1))$ {\bf then\newline 
+\textsf{if}} $\npl(\pravy(\text{\rm kořen }T_1))>\npl(\levy(\text{\rm kořen }
+T_1))$ {\bf \textsf{then}\newline 
 \phantom{{\rm ---}}}vyměň levého a pravého syna kořene $
 T_1$\newline 
-{\bf endif\newline 
+{\bf \textsf{endif}\newline 
 $\npl(\text{{\rm {\rm kořen }}}T_1):=\npl(\pravy(\text{{\rm {\rm kořen }}}
 T_1)+1$
+}}\algoritmus{{\bf
 
 INSERT$(x)$}:\newline 
 Vytvoř haldu $T_1$ reprezentující $\{x\}$\newline 
 $\bold M\bold E\bold R\bold G\bold E(T,T_1)$
+}\algoritmus{
 
 {\bf MIN}:\newline 
 {\bf Výstup}: $\key(\text{\rm kořen }T)$
+}\algoritmus{
 
 {\bf DELETEMIN}:\newline 
 $T_1:=$podstrom levého syna kořene $T$\newline 
 $T_2:=$podstrom pravého syna kořene $T$\newline 
 {\bf MERGE$(T_1,T_2)$
 
+}}\algoritmus{{\bf
+
 MAKEHEAP$(S,f)$}:\newline 
 $Q:=$prázdná fronta\newline 
-{\bf for every} $s\in S$ {\bf do\newline 
+{\bf for every} $s\in S$ {\bf \textsf{do}\newline 
 \phantom{{\rm ---}}}vlož leftist haldu $T_s$ reprezentující $
-\{s\}$ do $Q$\newline 
-{\bf enddo\newline 
-while} $|Q|>1$ {\bf do\newline 
+\{s\}$ \textsf{do} $Q$\newline 
+{\bf \textsf{enddo}\newline 
+\textsf{while}} $|Q|>1$ {\bf \textsf{do}\newline 
 \phantom{{\rm ---}}}vezmi haldy $T_1$ a $T_2$ z vrcholu $Q$ 
 (odstraň je)\newline 
 \phantom{---}{\bf MERGE$(T_1,T_2)$} vlož do $Q$\newline 
-{\bf enddo
-}
+{\bf \textsf{enddo}
+}}
+
+\subsubsection{Časová složitost}
 Vypočteme časovou složitost předchozích 
-algoritmů. Každý běh 
+algoritmů. 
+
+Každý běh 
 algoritmu {\bf MERGE} (bez rekurzivního volání) vyžaduje čas 
 $O(1)$. Počet rekurzivních volání je součet délek pravých 
 cest, proto algoritmus {\bf MERGE} vyžaduje čas $O(\log(|S_
