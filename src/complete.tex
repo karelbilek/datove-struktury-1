@@ -27,6 +27,19 @@
  }{\end{itemize}}
  
 
+ \newenvironment{myproof}{
+  \begin{proof}
+    
+  }{
+  \end{proof}
+  \begin{center}
+   \line(1,0){250}
+   \end{center}
+  }
+
+ 
+
+
  
  \DeclareMathOperator*{\Prob}{Prob}
  \DeclareMathOperator*{\countop}{count}
@@ -328,7 +341,7 @@ hodnotou $\frac 1m$.
     Očekávaná délka řetězců je $\frac{n}{m}$.
 \end{veta}
 
-\begin{proof}
+\begin{myproof}
 
 \begin{align*} E(l)=&\sum_{l=0}^nlp_{n,l}=\sum_{l=0}^nl\binom nl(\frac 
 1m)^l(1-\frac 1m)^{n-l}=\\
@@ -342,13 +355,13 @@ hodnotou $\frac 1m$.
 &\frac nm(\frac 1m+1-\frac 1m)^{n-1}=\frac nm.\end{align*}
 Toto je standardní elementární výpočet 
 očekávané hodnoty binomiálního rozdělení.  
-\end{proof}
+\end{myproof}
 
 
 \begin{lemma}[Druhý moment]
     $E(l^2)=\frac nm(1+\frac {n-1}m)$
 \end{lemma}
-\begin{proof}
+\begin{myproof}
 \begin{align*} E(l^2)=&E(l(l-1))+E(l),\\
 E(l(l-1&))=\sum_{l=0}^nl(l-1)\binom nl(\frac 1m)^l(1-\frac 1m)^{n
 -l}=\\
@@ -358,18 +371,18 @@ E(l(l-1&))=\sum_{l=0}^nl(l-1)\binom nl(\frac 1m)^l(1-\frac 1m)^{n
 1m)^{n-2-l}=\\
 &\frac {n(n-1)}{m^2},\\
 E(l^2)=&\frac {n(n-1)}{m^2}+\frac nm=\frac nm(1+\frac {n-1}m).\end{align*}
-\end{proof}
+\end{myproof}
 
 
 \begin{veta}
     Rozptyl řetězců je $nm(1-\frac 1m)$.
 \end{veta}
 
-\begin{proof}
+\begin{myproof}
 \begin{align*}\var(l)=&E(l-E(l))^2=E(l^2)-(E(l))^2=\\
 &\frac nm(1+\frac {n-1}m)-(\frac nm)^2=\frac nm(1-\frac 1m).\end{align*}
 
-\end{proof}
+\end{myproof}
 
 Shrneme výsledky:\newline 
 
@@ -391,7 +404,7 @@ Spočítáme $E(NP)$ očekávanou délku maximálního
     $E(NP) = \sum_j\Prob(\max_i\ell (i)\ge j)$, kde $\ell(i)$ je délka $i$-tého řetězce.
 \end{lemma}
 
-\begin{proof}
+\begin{myproof}
 Platí, že
 $$\Prob(\max_i\ell (i)=j)=\Prob(\max_i\ell (i)\ge j)-\Prob(\max_i
 \ell (i)\ge j+1).$$
@@ -411,14 +424,14 @@ index, přes který sčítáme, o $1$, v páté rovnosti se k sobě
 daly koeficienty při stejných pravděpodobnostech ve dvou 
 sumách. 
 
-\end{proof}
+\end{myproof}
 
 \begin{lemma}
 $\Prob(\max_i(\ell (i))\ge j)\le\min\{1,n(\frac nm)^{j-1}\frac 1{
 j!}\}.$
 \end{lemma}
 
-\begin{proof}
+\begin{myproof}
 \begin{align*}\Prob(\max_i&(\ell (i))\ge j)=\\
 &\Prob(\ell (1)\ge j\vee\ell (2)\ge j\vee\dots\vee\ell (m-1)\ge j
 )\le\\
@@ -436,7 +449,7 @@ tohoto jevu je $(\frac 1m)^j$). Protože pravděpodobnost je pro všechna $i$ st
 
 Že pravděpodobnost je menší než 1 je triviální.
 
-\end{proof}
+\end{myproof}
 
 \begin{lemma}[Stirlingův vzorec pro faktoriály (bez důkazu)]
     $j!=\sqrt{2j\pi}\left(\frac je\right)^j\left(1+\frac 1{12j}+\frac 1{288j^2}+O(j^{-3})\right)$
@@ -446,13 +459,13 @@ tohoto jevu je $(\frac 1m)^j$). Protože pravděpodobnost je pro všechna $i$ st
     Když $(\frac qe)^q\le n$, pak $q\le(1+o(1))\frac{\ln n}{\ln\ln n}$.
 \end{lemma}
 
-\begin{proof}Všimněme si nejdřív, že platí
+\begin{myproof}Všimněme si nejdřív, že platí
 \begin{align*}\left((\ln(\frac{\ln n}{\ln\ln n})-1\right)\frac{\ln n}{\ln\ln n}=&(\ln\ln n-\ln\ln\ln n-1)\frac{\ln n}{\ln\ln n}=\\&
 \ln n-\frac{\ln n(\ln\ln\ln n)}{\ln\ln n}-\frac{\ln n}{\ln\ln n}=\\&\ln n(1-\frac{\ln\ln\ln n}{\ln\ln n}-
 \frac 1{\ln\ln n})=(1+o(1))\ln n,\end{align*}
 protože $\lim_{n\mapsto\infty}\frac{\ln\ln\ln n}{\ln\ln n}=0=\lim_{n\mapsto\infty}\frac 1{\ln\ln n}$. 
 Odtud plyne $$\lim_{n\mapsto\infty}\left(\frac{\frac{\ln n}{\ln\ln n}}e\right)=e^{(1+o(1))\ln n}=n.$$ Protože $(\frac qe)^q$ je rostoucí funkce, tak dostáváme, že $q\le(1+o(1))(\frac{\ln n}{\ln\ln n})$.
-\end{proof}
+\end{myproof}
 
 Označme si $j_0 = \min\{j\mid n(\frac nm)^{j-1}\frac 1{j!}\le 1\}$
 
@@ -460,19 +473,19 @@ Označme si $j_0 = \min\{j\mid n(\frac nm)^{j-1}\frac 1{j!}\le 1\}$
     Pokud  $\alpha =\frac nm\le 1$, pak $j_0\le\frac {(1+o(1))\log n}{\log\log n}$
 \end{lemma}
 
-\begin{proof}
+\begin{myproof}
     $$j_0=\min\{j\mid n(\frac nm)^{j-1}\frac 1{j!}\le 1\}\le\min\{j\mid n\le j!\}\le\min\{j\mid n\le
     (\frac je)^j\}\le(1+o(1))\frac{\ln n}{\ln\ln n}.$$
     
     První nerovnost je jen převedení na druhou stranu a ignorování zlomku menšího než 1, druhá nerovnost plyne ze Stirlingova vzorce, třetí plyne z pomocného lemmatu.
-\end{proof}
+\end{myproof}
 
 \begin{veta}
     Pokud  $\alpha =\frac nm\le 1$, horní odhad odhad očekávané délky 
     maximálního ře\-těz\-ce je $O(\frac {\log n}{\log\log n})$
 \end{veta}
  
-\begin{proof}
+\begin{myproof}
 \begin{align*} E(NP)=&\sum_j\Prob(\max_i(\ell (i))\ge j)\le\\
 &\sum_j\min\{1,n(\frac nm)^{j-1}\frac 1{j!}\}=\\
 &\sum_{j=1}^{j_0}1+\sum_{j=j_0+1}^{\infty}\big(n(\frac nm)^{j-1}\frac 
@@ -487,7 +500,7 @@ při třetí nerovnosti jsme použili, že $\frac n{j_
 0!}\le 1$ a 
 $$\frac {j_0!}{j!}=\frac 1{\prod_{k=j_0+1}^jk}\le (\frac 1{j_0+
 1})^{j-j_0}.$$
-\end{proof}
+\end{myproof}
 
 \begin{veta}[bez důkazu]
     Když $0.5\le\alpha\le 1$, je $O(\frac {\log n}{\log\log n})$ zároveň i dolní odhad $E(NP)$.
@@ -522,7 +535,7 @@ operace není mezi prv\-ky reprezentované mno\-žiny.
     vy\-hledávaní přibližně $e^{-\alpha}+\alpha$
 \end{veta}
 
-\begin{proof}
+\begin{myproof}
 Očekávaný počet testů:
 \begin{align*} E(T)=&\Prob(\ell (i)=0)+\sum_ll\Prob(\ell (i)=l)=\\
 &p_{n,0}+\sum_llp_{n,l}=\\
@@ -535,7 +548,7 @@ Protože pravděpodobnosti jsou stejné pro všechny
 vyšetřujeme, stačí psát obecně $i$. $\sum_llp_{
 n,l}$ jsme spočítali 
 při výpočtu očekávané délky řetězce.
-\end{proof}
+\end{myproof}
 
 
 \begin{veta}[Úspěšné vyhledávání]
@@ -544,7 +557,7 @@ při výpočtu očekávané délky řetězce.
     vy\-hledávaní přibližně $1+\frac{\alpha}{2}$
 \end{veta}
 
-\begin{proof}
+\begin{myproof}
 Zvolme jeden řetězec prvků o délce $l$. 
 Počet testů při vyhledání všech prvků 
 v tomto řetězci je
@@ -566,10 +579,10 @@ vyhledání jednoho prvku je
 )=\\
 &\frac m{2n}(\frac {n(n-1)}{m^2}+\frac {2n}m)=\frac {n-1}{2m}+1\approx\\
 &1+\frac {\alpha}2.\end{align*}
-\end{proof}
+\end{myproof}
 
 Jiný postup.
-\begin{proof}
+\begin{myproof}
     Předpokládejme, že počet testů při úspěšném 
 vyhledávání prvku $x\in S$ je $1+$počet porovnání 
 klíčů při neúspěšném vyhledávání $
@@ -582,7 +595,7 @@ $1+$očekávaná délka řetězce v okamžiku vkládání $
 x$, neboli 
 $$\frac 1n\sum_{i=0}^{n-1}(1+\frac im)=1+\frac {n-1}{2m}.$$
 
-\end{proof}
+\end{myproof}
 
 \zapamatovat{
 
@@ -1155,11 +1168,11 @@ testů pro zjiš\-tění, že $s_{n+1}\notin S$ -- tj. to, co chceme spočítat,
     ,a_{n+1}} C(a_1,a_2,\dots,a_n;a_{n+1})}{m^{n+1}}$$   
 \end{lemma}
 
-\begin{proof}
+\begin{myproof}
     Sčítá se přes všechny posloupnosti $a_1,a_2,\dots
     ,a_{n+1}$ -- 
     a těch je $m^{n+1}$.
-\end{proof}
+\end{myproof}
 
 \begin{definice}
 Řetězec délky $l$ v množině $S$ je maximální posloupnost 
@@ -1172,10 +1185,10 @@ $i=1,2,\dots,l-1$. Existence řetězce je dána posloupností $a$ (při jiném p
     $\sum C(a_1,a_2,\dots,a_n;a_{n+1})$ počtem testů $1+2+\dots+l=l+\binom l2$.
 \end{lemma}
 
-\begin{proof}
+\begin{myproof}
 Když v~množině $\{a_n\}$ tento řetězec existuje a adresa $a_{n+1}$ je $i$-tý prvek v řetězci, pak počet 
 testů je $l-i+1$ -- počet testů znamená \uv{projet} kompletní zbytek řetězce.
-\end{proof}
+\end{myproof}
 
 
 \begin{definice}
@@ -1190,7 +1203,7 @@ ukládaní prvků).
     $\sum C(a_1,a_2,\dots,a_n;a_{n+1})=c_n(0)+\sum_{l=1}^nlc_n(l)+\sum_{l=1}^n\binom l2c_n(l)$
 \end{lemma}
 
-\begin{proof}
+\begin{myproof}
 \begin{align*}\sum C(a_1,a_2,&\dots,a_n;a_{n+1})=c_n(0)+\sum_{l=1}^n(l+\binom 
 l2)c_n(l)\\
 &=c_n(0)+\sum_{l=1}^nlc_n(l)+\sum_{l=1}^n\binom l2c_n(l),\end{align*}
@@ -1201,36 +1214,36 @@ $c_n(0)$ je zde proto, že test na prázdnost je $O(1)$.\footnote{poznámka stud
 
 Sčítáme všechny možné $C$ jako součet přes všechny možné řetězce \emph{vůbec}, ve všech množinách.
 
-\end{proof}
+\end{myproof}
 
 \begin{lemma}
     $c_n(0)=(m-n)m^n$
 \end{lemma}
 
-\begin{proof}
+\begin{myproof}
 Reprezentace $S$ má $m-n$ prázdných řádků, 
 všech posloupností $n$-adres je $m^n$, proto 
 $$c_n(0)=(m-n)m^n.$$
 
 (pozor, opravdu počítáme všechny možné prázdné řetězce vůbec)
-\end{proof}
+\end{myproof}
 
 \begin{lemma}
     $\sum_{l=1}^nlc_n(l)=nm^n$
 \end{lemma}
 
-\begin{proof}
+\begin{myproof}
 
 $\sum_{l=1}^nlc_n(l)$ je celková délka všech řetězců ve 
 všech tabulkách reprezentujících všechny $n$-prvkové 
 množiny, a proto 
 $$\sum_{l=1}^nlc_n(l)=nm^n.$$
-\end{proof}
+\end{myproof}
     
 \begin{lemma}[Rekurentní vztah pro $c_n(l)$]
    $c_{n+1}(l)=(m-l)c_n(l)+(l-1)c_n(l-1).$ 
 \end{lemma}
-\begin{proof}
+\begin{myproof}
     Přidáváme prvek s~adresou $a_{n+1}$.  Pak řetězec 
     délky $l$ v reprezentaci $S$ zůstal stejný, když 
     adresa $a_{n+1}$ neležela v tomto řetězci, v opačném případě 
@@ -1242,18 +1255,18 @@ $$\sum_{l=1}^nlc_n(l)=nm^n.$$
     Vysčítáním přes všechny $n$-prvkové posloupnosti adres 
     dostáváme 
     $$c_{n+1}(l)=(m-l)c_n(l)+(l-1)c_n(l-1).$$
-\end{proof}
+\end{myproof}
 
 \begin{lemma}[součet binomických hodnot]
     $(m-l)\binom l2+l\binom {l+1}2 = (m+2)\binom l2+l$
 \end{lemma}
-\begin{proof}
+\begin{myproof}
     \begin{align*}(m-l)\binom l2+l\binom {l+1}2=&\frac 12(l^2m-lm-l^3+l^2+l^
     3+l^2)=\\
     &\frac 12(l^2m-lm+2l^2)=\\
     &\frac 12(l^2m-lm+2(l^2-l))+l=\\
     &(m+2)\binom l2+l.\end{align*}
-\end{proof}
+\end{myproof}
 
 Označme $S_n=\sum_{l=1}^n\binom l2c_n(l)$ poslední sčítanec.
 
@@ -1261,7 +1274,7 @@ Označme $S_n=\sum_{l=1}^n\binom l2c_n(l)$ poslední sčítanec.
     $S_n = (m+2)S_{n-1}+(n-1)m^{n-1}$
 \end{lemma}
 
-\begin{proof}
+\begin{myproof}
 \begin{align*} S_n=&\sum_{l=1}^n\binom l2c_n(l)=\\
 &\sum_{l=1}^n\big(\binom l2(m-l)c_{n-1}(l)+\binom l2(l-1)c_{n-1}(
 l-1)\big)=\\
@@ -1274,13 +1287,13 @@ n-1}\binom {l+1}2lc_{n-1}(l)\big)=\\
 (l)=\\
 &(m+2)S_{n-1}+(n-1)m^{n-1},\end{align*}
 kde jsme použili, že $c_{n-1}(n)=0$ a lemma o součtu binomických hodnot.
-\end{proof}
+\end{myproof}
 
 \begin{lemma}[První vztah pro $S_n$]
     $S_n = (m+2)^{n-1}\sum_{i=1}^{n-1}i\big(\frac m{m+2}\big)^i$
 \end{lemma}
 
-\begin{proof}
+\begin{myproof}
 Rekurence pro $S_n$ dává 
 \begin{align*} S_n=&(m+2)S_{n-1}+(n-1)m^{n-1}=\\
 &(m+2)^2S_{n-2}+(m+2)(n-2)m^{n-2}+(n-1)m^{n-1}=\\
@@ -1291,7 +1304,7 @@ Rekurence pro $S_n$ dává
 =\\
 &(m+2)^{n-1}\sum_{i=1}^{n-1}i\big(\frac m{m+2}\big)^i,\end{align*}
 kde jsme využili, že $S_0=0$. 
-\end{proof}
+\end{myproof}
 
 \begin{definice}
     $T_c^n=\sum_{i=1}^nic^i$ pro $n=1,2,\dots$ a $c\ne 1$
@@ -1301,7 +1314,7 @@ kde jsme využili, že $S_0=0$.
     $$T_c^n = \frac {nc^{n+2}-(n+1)c^{n+1}+c}{c-1}$$
 \end{lemma}
 
-\begin{proof}
+\begin{myproof}
 Z $cT_c^n=\sum_{i=1}^nic^{i+1}$ plyne 
 \begin{align*}(c-1)T_c^n=&cT_c^n-T_c^n=\sum_{i=2}^{n+1}(i-1)c^i-\sum_{i
 =1}^nic^i=\\
@@ -1312,13 +1325,13 @@ Z $cT_c^n=\sum_{i=1}^nic^{i+1}$ plyne
 
 Tedy platí 
 $$T_c^n=\frac {nc^{n+2}-(n+1)c^{n+1}+c}{(c-1)^2}.$$
-\end{proof}
+\end{myproof}
 
 \begin{lemma}[Druhý vztah pro $S_n$]
     $S_n = \frac 14\big(m(m+2)^n-m^{n+1}-2nm^n\big)$
 \end{lemma}
 
-\begin{proof}
+\begin{myproof}
 Protože $\frac m{m+2}\ne 1$, dostáváme dosazením vztahu pro $T_c^n$ do prvního vztahu pro $S_n$, že 
 
 \begin{align*} S_n=&(m+2)^{n-1}\frac {(n-1)\big(\frac m{m+2}\big)^{n+1}
@@ -1328,14 +1341,14 @@ Protože $\frac m{m+2}\ne 1$, dostáváme dosazením vztahu pro $T_c^n$ do prvn�
 m{m+2}\big)^n+\frac m{m+2}\big]=\\
 &\frac 14\big[(n-1)m^{n+1}-n(m+2)m^n+m(m+2)^n\big]=\\
 &\frac 14\big(m(m+2)^n-m^{n+1}-2nm^n\big).\end{align*}
-\end{proof}
+\end{myproof}
 
 \begin{veta}[Odhad nejhoršího případu]
     Očekávaný počet testů při neúspěšném 
     vyhledávání je $\frac 14(e^{2\alpha}-1-2\alpha )$
 \end{veta}
 
-\begin{proof}
+\begin{myproof}
     Z předchozích lemmat
 \begin{align*}&\frac {\sum_{a_1,a_2,\dots
        ,a_{n+1}} C(a_1,a_2,\dots,a_n;a_{n+1})}{m^{n+1}}=\\
@@ -1345,7 +1358,7 @@ m{m+2}\big)^n+\frac m{m+2}\big]=\\
 =\\
 &1+\frac 14\big((1+\frac 2m)^n-1-\frac {2n}m\big)\sim 1+\frac 14(
 e^{2\alpha}-1-2\alpha ).\end{align*}
-\end{proof}
+\end{myproof}
 
 Tento odhad je stejný pro obě metody -- LISCH i EISCH, 
 protože mají stejné posloupnosti adres (liší se jen pořadím 
@@ -1367,9 +1380,9 @@ Pro úspěšné vyhledání prvku
 $s_{j}\in S$ je počet testů roven $1+$počet porovnání 
 klíčů při neúspěšném vyhledávání při operaci {\bf INSERT$(s_{j})$.} 
 \end{lemma}
-\begin{proof}
+\begin{myproof}
      Při úspěšném vyhledávání procházím stejné prvky, jako při vkládání. Jednička je za poslední porovnání $s_{j}$, které jsem při vkládání dělat nemusel.
-\end{proof}
+\end{myproof}
 
 \begin{lemma}[verze 0]
 Když $
@@ -1377,9 +1390,9 @@ s_{j}$ je vložen
 na místo $h(s_{j})$, nebyl porovnáván žádný klíč a test pro úspěšné vyhledávání bude $
 1$.
 \end{lemma}
-\begin{proof}
+\begin{myproof}
      Plyne jednoduše z předchozího lemmatu. Pozor, v~předchozí části jsem měl 1 test na prázdnost, zde beru v~úvahu pouze porovnání klíčů.\footnote{poznámka studenta - toto mi opět není jasné}
-\end{proof}
+\end{myproof}
 
 \begin{lemma}[verze $>0$]
 Když $h(s_{j})$ byl na na $i$-tém místě v řetězci délky $
@@ -1387,21 +1400,21 @@ l$, pak bylo
 při operaci {\bf INSERT$(s_{j})$} použito $l-i+1$ porovnání klíčů
 a teď se použije $l-i+2$ testů.
 \end{lemma}
-\begin{proof}
+\begin{myproof}
     Při neúspěšném vyhledávání jsem musel projet celý zbytek řetězce.
-\end{proof}
+\end{myproof}
 
 \begin{lemma}
     Očekávaný počet 
     porovnání klíčů při neúspěšném vyhledávání je pro $i$-prvkovou množinu $\frac 14\big((1+\frac 2m)^i-1+\frac {2i}m\big)$.
 \end{lemma}
-\begin{proof}
+\begin{myproof}
     Stejně, jako v~předchozí sekci (s tím rozdílem, že u prázdných řádků nepočítám 1\footnote{jak píšu výše, není mi jasné proč}) dostaneme, že očekávaný počet 
 porovnání klíčů při neúspěšném vyhledávání je 
 \begin{align*}&\frac 1{m^{i+1}}(\sum_{l=1}^i(l+\binom l2)c_i(l))=\\
 &\frac 1{m^{i+1}}(im^i+\frac 14\big(m(m+2)^i-m^{i+1}-2im^i\big))=\\
 &\frac 14\big((1+\frac 2m)^i-1+\frac {2i}m\big).\end{align*}
-\end{proof}
+\end{myproof}
 
 \begin{lemma}
 Tedy očekávaný počet testů při úspěšném 
@@ -1411,9 +1424,9 @@ klíčů při neúspěšném vy\-hledávání v~$
 i$-prvkové 
 množině, kde $i$ probíhá čísla $0,1,\dots,n-1$.
 \end{lemma}
-\begin{proof}
+\begin{myproof}
     Skutečně, každý prvek z~$n$-prvkové množiny, podle kterých průměruji úspěšné vyhledávání, tam musel být vložen, tj. $$\frac{\sum_{i=0}^{n-1}1+\mbox{očekávaný počet testů v i-prvkové množině}}{n}$$ a jedničku můžu strčit dopředu.
-\end{proof}
+\end{myproof}
 
 \begin{lemma}
     Součet očekávaných počtů porovnání 
@@ -1421,24 +1434,24 @@ množině, kde $i$ probíhá čísla $0,1,\dots,n-1$.
     i$-prvkové 
     množině, kde $i$ probíhá čísla $0,1,\dots,n-1$, je $$\frac m8\big((1+\frac 2m)^n-1-\frac {2n}m\big)+\frac {n^2-n}{4m}$$.
 \end{lemma}
-\begin{proof} 
+\begin{myproof} 
 \begin{align*}\sum_{i=0}^{n-1}\frac 14\big[(1+\frac 2m)^i-&1+\frac {2i}
 m\big]=\frac 14\frac {(1+\frac 2m)^n-1}{1+\frac 2m-1}-\frac n4+\frac {\binom 
 n2}{2m}=\\
 &\frac m8\big((1+\frac 2m)^n-1-\frac {2n}m\big)+\frac {n^2-n}{4m}
 .\end{align*}
-\end{proof}
+\end{myproof}
 
 \begin{veta}
 Očekávaný počet testů v úspěšném 
 případě pro $n$-prvko\-vou množinu je $$1+\frac 1{8\alpha}(e^{2\alpha}-1-2\alpha )+\frac {\alpha} 4$$
 \end{veta}
-\begin{proof}
+\begin{myproof}
 
 $$1+\frac m{8n}\big((1+\frac 2m)^n-1-\frac {2n}m\big)+\frac {n-1}{
 4m}\sim 1+\frac 1{8\alpha}(e^{2\alpha}-1-2\alpha )+\frac {\alpha}
 4.$$
-\end{proof}
+\end{myproof}
 
 \zapamatovat{
 Pro LISCH očekávaný počet testů v úspěšném 
@@ -1814,28 +1827,28 @@ pravděpodobnost, že pro každé $j=0,1,\dots,i-1$ je
 
 \begin{pozorovani} $q_0(n,m)=1$
 \end{pozorovani}
-\begin{proof}
+\begin{myproof}
     Krajní případ - je určitě obsazen pro $j=0 \dots -1$
-\end{proof}
+\end{myproof}
 
 \begin{pozorovani} $q_1(n,m)=\frac nm$
 \end{pozorovani}
-\begin{proof}
+\begin{myproof}
     Bez druhé hešovací funkce, tj. zkusím jen jednou.
-\end{proof}
+\end{myproof}
 
 \begin{pozorovani} $q_2(n,m)=\frac {n(n-1)}{m(m-1)}$
 \end{pozorovani}
-\begin{proof}
+\begin{myproof}
     První hešovací funkce se nestrefí, druhá také ne (a druhá funkce je nesoudělná s~$m$ a je náhodná)
-\end{proof}
+\end{myproof}
 
 \begin{lemma} [Obecný odhad $q_i$]
     Obecně platí $$q_i(n,m)=\frac {\prod_{j=0}^{i-1}(n-j)}{\prod_{j=0}^{i-1}(m-j)}$$
 \end{lemma}
-\begin{proof}
+\begin{myproof}
 Zobecnění předchozích pozorování.
-\end{proof}
+\end{myproof}
 
 \begin{definice}
 $C(n,m)$ -- očekávaný počet testů v neúspěšném 
@@ -1847,45 +1860,45 @@ je obsazeno (tj. to, co chci spočítat)
 \begin{lemma}
     $C(n,m)=\sum_{j=0}^n(j+1)(q_j(n,m)-q_{j+1}(n,m))$
 \end{lemma}
-\begin{proof}
+\begin{myproof}
     Pro každé $j$ vezmu pravděpodobnost, že jen pro $i\le j$ je $h_1(x)+jh_2(x)$ obsazen, pro všechny další je volný; pro každé takové $j$ je počet testů $j+1$ 
-\end{proof}
+\end{myproof}
 
 \begin{lemma}
     $C(n,m)=\sum_{j=0}^{n}q_j(n,m)$
 \end{lemma}
-\begin{proof}
+\begin{myproof}
     Předchozí lemma + úprava indexů
-\end{proof}
+\end{myproof}
 
 \begin{lemma}
     $C(0,m)=1$ pro každé $m$
 \end{lemma}
-\begin{proof}
+\begin{myproof}
      Vyplývá z předchozího lemmatu + $q_0(0,m)=1$
-\end{proof}   
+\end{myproof}   
 
 \begin{lemma}
     $q_j(n,m)=\frac nmq_{j-1}(n-1,m-1)$ pro všechna $j,n>0$ a $m>1$
 \end{lemma}
-\begin{proof}
+\begin{myproof}
      Z obecného odhadu $q_i$ $$q_i(n,m)=\frac {\prod_{j=0}^{i-1}(n-j)}{\prod_{j=0}^{i-1}(m-j)} = \frac {n\prod_{j=0}^{i-1}((n-1)-j)}{m\prod_{j=0}^{i-1}((m-1)-j)}=\frac nmq_{j-1}(n-1,m-1)$$
-\end{proof}
+\end{myproof}
 
 \begin{lemma}
     $C(n,m)=1+\frac nmC(n-1,m-1)$
 \end{lemma}
-\begin{proof}
+\begin{myproof}
     $$C(n,m)=\sum_{j=0}^nq_j(n,m)=1+\frac nm(\sum_{j=0}^{n-1}q_j(n-1,
     m-1))=1+\frac nmC(n-1,m-1).$$
-\end{proof}
+\end{myproof}
 
 \begin{lemma}
     Očekávaný počet dotazů při neúspěšném 
     vyhledávání v tabulce s~$m$ řádky, z nichž $n$ je obsazeno, je $C(n,m)=\frac {m+1}{m-n
     +1}$
 \end{lemma}
-\begin{proof}
+\begin{myproof}
 Indukcí. 
 
 Když $n=0$, pak 
@@ -1897,15 +1910,15 @@ pro $n$ a $m\ge n$. Platí
 \begin{align*} C(n,m)=&1+\frac nmC(n-1,m-1)=\\
 &1+\frac {n((m-1)+1)}{m((m-1)-(n-1)+1)}=\\
 &1+\frac n{m-n+1}=\frac {m+1}{m-n+1}.\end{align*}
-\end{proof}
+\end{myproof}
 
 \begin{veta}
     Očekávaný počet dotazů při neúspěšném 
     vyhledávání je přibližně $\frac 1{1-\alpha}$
 \end{veta}
-\begin{proof}
+\begin{myproof}
     Z předchozího lemmatu $C(n,m) = \frac {m+1}{m-n+1} \sim \frac 1{1-\alpha}$.
-\end{proof}
+\end{myproof}
 
 \zapamatovat{Očekávaný počet dotazů při neúspěšném 
 vyhledávání je přibližně $\frac 1{1-\alpha}$.
@@ -1920,7 +1933,7 @@ Použijeme opět stejnou metodu ze separujících řetězců, proto jen stručn�
     vyhledávání je přibližně $\frac 1{\alpha}\ln(\frac 
     1{1-\alpha})$
 \end{veta}
-\begin{proof}
+\begin{myproof}
  
 Počet dotazů při vyhledávání $x$ pro $x\in 
 S$ je 
@@ -1936,7 +1949,7 @@ m+1}{m-i+1}=\\
 1j\big)\approx\\
 &\frac 1{\alpha}\ln(\frac {m+1}{m-n+1})\approx\frac 1{\alpha}\ln(\frac 
 1{1-\alpha}).\end{align*}
-\end{proof}
+\end{myproof}
 
 \zapamatovat{Očekávaný počet dotazů při úspěšném 
 vyhledávání je přibližně $\frac 1{\alpha}\ln(\frac 
@@ -2212,7 +2225,7 @@ vyčíslit. Nevýhoda: indexová množina je velikost univerza na druhou.
     ,b)\in U\times U$ takových, že 
     $h_{a,b}(x)=h_{a,b}(y)$.
 \end{lemma}
-\begin{proof}
+\begin{myproof}
 Zvolme $x,y\in U$ taková, že $x\ne y$. Chceme nalézt 
 $(a,b)\in U\times U$ takové, že $h_{a,b}(x)=h_{a,b}(y)$. 
 
@@ -2239,19 +2252,19 @@ Závěr: pro každá $x,y\in U$ taková, že
 $x\ne y$, existuje maximálně $m\big(\lceil\frac Nm\rceil\big)^2$ dvojic $(a
 ,b)\in U\times U$ takových, že 
 $h_{a,b}(x)=h_{a,b}(y)$.
-\end{proof}
+\end{myproof}
 
 \begin{veta}Množina $H$ je $c$-univerzální pro 
 $$c=\frac {\big(\lceil\frac Nm\rceil\big)^2}{\big(\frac Nm\big)^2}
 .$$
 \end{veta}
-\begin{proof}
+\begin{myproof}
 Skutečně, pro každé $x,y\in U$, $x\ne y$, je počet 
 $(a,b)\in U\times U$ takových, že $h_{a,b}(x)=h_{a,b}(y)$, nejvýše roven
 $$m\big(\lceil\frac Nm\rceil\big)^2=\frac {\big(\lceil\frac Nm\rceil\big
 )^2}{\big(\frac Nm\big)^2}\frac {N^2}m=\frac {\big(\lceil\frac Nm
 \rceil\big)^2}{\big(\frac Nm\big)^2}\frac {|I|}m.$$
-\end{proof}
+\end{myproof}
 \begin{pozorovani}
 Dokázali jsme existenci $c$-univerzálních 
 systémů pro $c$ blízké $1$. 
@@ -2278,16 +2291,16 @@ $\delta_i(x,S)$ tedy říká, s kolika prvky v $S$ $x$ koliduje při použití f
 \begin{lemma}
     $\frac 1{|I|}\sum_{i\in I}\delta_i(x,S)$ je očekávaná délka řetězce při pevném $S$ při náhodném výběru $i$. 
 \end{lemma}
-\begin{proof}
+\begin{myproof}
     Plyne jednoduše z definice.
-\end{proof}
+\end{myproof}
 
 \begin{lemma}
     Očekávaný počet testů u operací{\bf MEMBER}, {\bf INSERT} a {\bf DELETE} je $O(1+\mbox{očekávané délka řetězce})$
 \end{lemma}
-\begin{proof}
+\begin{myproof}
     Není mi zcela jasná +1, jinak ale opravdu musíme projet celý řetězec.
-\end{proof}
+\end{myproof}
 
 \begin{lemma}
     Pro fixovanou množinu $S\subseteq U$ a pro fixované $
@@ -2295,7 +2308,7 @@ $\delta_i(x,S)$ tedy říká, s kolika prvky v $S$ $x$ koliduje při použití f
     x\in S,\\
     |S|c\frac {|I|}m&\text{\rm\ když }x\notin S.\end{cases}$
 \end{lemma}
-\begin{proof}
+\begin{myproof}
     V důkazu \uv{vtipně} přehodíme, přes co vlastně sčítáme, a použijeme definici $c$-univerzálního systému.
     
 Sečteme
@@ -2306,7 +2319,7 @@ i(x,y)=\sum_{y\in S}\sum_{i\in I}\delta_i(x,y)=\\
 &\sum_{y\in S,y\ne x}c\frac {|I|}m=\begin{cases} (|S|-1)c\frac {|I|}m&\text{\rm\ když }
 x\in S,\\
 |S|c\frac {|I|}m&\text{\rm\ když }x\notin S.\end{cases} \end{align*}
-\end{proof}
+\end{myproof}
 
 \begin{lemma}
     Očekávaná délka řetězce pro fixovanou množinu  
@@ -2317,7 +2330,7 @@ x\in S,\\
     c\frac {|S|}m&\text{\rm\ když }\quad x\notin S.\end{cases} $ 
 \end{lemma}
 
-\begin{proof}
+\begin{myproof}
     Z předchozích lemmat:
     
     $\delta_i(x,S)$ dává odhad na velikost řetězce $
@@ -2329,7 +2342,7 @@ x\in S,\\
     $$\frac 1{|I|}\sum_{i\in I}\delta_i(x,S)\le\begin{cases} c\frac {|S|-1}m&\text{\rm\ když }
     \quad x\in S,\\
     c\frac {|S|}m&\text{\rm\ když }\quad x\notin S.\end{cases} $$
-\end{proof}
+\end{myproof}
 
 
 \begin{veta}Očekávaný počet testů při operacích {\bf MEMBER}, {\bf INSERT }
@@ -2337,18 +2350,18 @@ a {\bf DE\-LETE} při $c$-univerzálním hašování je $
 O(1+c\alpha )$, kde 
 $\alpha$ je faktor napl\-nění (tj. $\alpha =\frac {|S|}m$).
 \end{veta}
-\begin{proof}
+\begin{myproof}
     Plyne jednoduše z předchozích lemmat.
-\end{proof}
+\end{myproof}
 \begin{veta}
 Očekávaný čas pro pevnou posloupnost $n$ operací 
 {\bf MEMBER}, {\bf INSERT} a {\bf DELETE} aplikovaných na prázdnou ta\-bulku 
 pro $c$-univerzální hašování je $O((1+\frac c2\alpha 
 )n)$, kde $\alpha =\frac nm$.  
 \end{veta}
-\begin{proof}
+\begin{myproof}
     Já (upravující student) nevidím, proč by to mělo platit :(
-\end{proof}
+\end{myproof}
 
 \zapamatovat{
 Očekávaný počet testů je $O(1+c\alpha )$
@@ -2383,7 +2396,7 @@ Pro $t>1$ platí: pravděpodobnost, že $
 pro $i\in I$, je menší než $\frac 1t$. .  
 \end{veta}
 
-\begin{proof}
+\begin{myproof}
 Označme $I'=\{i\in I\mid\delta_i(x,S)\ge t\mu \}$. Pak platí
 $$\mu =\frac {\sum_{i\in I}\delta_i(x,S)}{|I|}>\frac {\sum_{i\in 
 I'}\delta_i(x,S)}{|I|}\ge\frac {\sum_{i\in I'}t\mu}{|I|}=\frac {|
@@ -2395,7 +2408,7 @@ $$|I'|<\frac {|I|}t.$$
 Tedy pravděpodobnost, že $\delta_i(x,S)\ge 
 t\mu$, je menší 
 než $\frac 1t$.
-\end{proof}
+\end{myproof}
 
 
 Poznámka: Toto tvrzení platí obecně a nazývá 
@@ -2443,7 +2456,7 @@ univerzum $U$ o velikosti $N$ hašující do tabulky s~$m$ řádky, pak
 $$|I|\ge\frac mc(\lceil\log_mN\rceil -1).$$
 \end{veta}
 
-\begin{proof}
+\begin{myproof}
 Indukcí definujme množiny $U_0,U_1,\dots$ tak, že: 
 $U_0=U$.\newline 
 Nechť $U_1$ je největší podmnožina $U_0$ vzhledem k počtu 
@@ -2469,7 +2482,7 @@ N{m^i}>1$. Tedy $U_i$ má
 aspoň dva prvky, zvolme $x,y\in U_i$ taková, že $x\ne y$. Pak 
 $h_j(x)=h_j(y)$ pro $j=0,1,\dots,i-1$. Tedy 
 $$i\le |\{j\in I\mid h_j(x)=h_j(y)\}|\le\frac {c|I|}m.$$
-\end{proof}
+\end{myproof}
 
 \zapamatovat{
 Když $H=\{h_i\mid i\in I\}$ je $c$-univerzální systém pro 
@@ -2506,9 +2519,9 @@ nejmenší číslo takové, že $t\ln p_t\ge m\ln N$.
 
 \begin{lemma} $t < m\ln N$, když $p_t>3$.
 \end{lemma}
-\begin{proof}
+\begin{myproof}
     Pokud $p_t>3$, je $\ln p_t \ge 1$.
-\end{proof}
+\end{myproof}
 
 \begin{definice} Definujme 
 $$H_1=\{g_{c,d}(h_{\ell})\mid t<\ell\le 2t,\,c,d\in \{0,1,\dots,p_{
@@ -2535,7 +2548,7 @@ Pro $i\ge 6$ platí $p_i<2i\ln i$. (z~do\-sa\-ze\-ní do věty o velikosti prvo�
 \begin{veta}
     $|I|<16 m^4 \log^4N$ pro dostatečně velké $t$.
 \end{veta}
-\begin{proof}
+\begin{myproof}
     (pozn. studenta - díky logaritmům je tento důkaz dost nepřehledný :( logaritmy jsou dvojkové)
     
 Indexová množina $
@@ -2553,7 +2566,7 @@ t$, tj. $t\ge 16$)\footnote{Nejsem si jist, proč platí, ale asi ano} platí,
 $t\le m\ln N$, když $p_t\ge 3$ (viz výše).
 
 Po dosazení $\log(|I|)\le 4+4(\log m+\log\log N)$, což už upravíme na požadovanou nerovnost. 
-\end{proof}
+\end{myproof}
 
 \begin{pozorovani}
     Logaritmus z~důkazu, tj. $\log(|I|)\le 4+4(\log m+\log\log N)$, nám dává horní omezení velikosti binárního zápisu funkce, tj. počet nutných náhodných výběrů.
@@ -2576,7 +2589,7 @@ Budeme odhadovat $G_1, G_2$.
 \begin{veta}
     $G_1\le\frac {|I|}m(1+\frac m{p_{2t}})^2$
 \end{veta} 
-\begin{proof}
+\begin{myproof}
 Použijeme podobný trik, jako v~kapitole s~důkazem existence univerzálních systémů.
 
     Když $(c,d,\ell )\in G_1$, pak 
@@ -2592,13 +2605,13 @@ i$, $r$ a $s$
 existuje právě jedna taková dvojice $(c,d)$ (připomínáme, že $\mathbb Z/\bmod p_{2t}$ je těleso). Proto 
 $$|G_1|\le tm(\lceil\frac {p_{2t}}m\rceil )^2\le\frac {tp_{2t}^2}
 m(1+\frac m{p_{2t}})^2=\frac {|I|}m(1+\frac m{p_{2t}})^2.$$
-\end{proof}
+\end{myproof}
 
 \begin{veta}
     $G_2\le\frac {|I|}m$
 \end{veta}
 
-\begin{proof}
+\begin{myproof}
     Označme 
 $L=\{\ell\mid t<\ell\le 2t,\,x\bmod p_{\ell}=y\bmod p_{\ell}\}$ a $
 P=\prod_{\ell\in L}p_{\ell}$. 
@@ -2609,13 +2622,13 @@ $|L|\le\frac {\ln N}{\ln p_t}\le\frac tm$ z definice $t$. Protože $
 (c,d,\ell )\in G_2$, právě 
 když $\ell\in L$ a $c,d\in \{0,1,\dots,p_{2t}-1\}$, shrneme, že 
 $$|G_2|\le |L|p_{2t}^2\le\frac {tp_{2t}^2}m=\frac {|I|}m.$$
-\end{proof}
+\end{myproof}
 
 \begin{lemma}[Pomocné lemma]Když $t\ge 6$ a $m(\ln m+\ln\ln m)<N$, pak $m<\frac {
 p_t}{\ln t}$.
 \end{lemma}
 
-\begin{proof}Předpokládejme, že tvrzení neplatí. Pak $
+\begin{myproof}Předpokládejme, že tvrzení neplatí. Pak $
 m\ge\frac {p_t}{\ln t}$. Z Věty o velikosti 
 prvo\-čí\-sel plyne $m\ge\frac {p_t}{\ln t}>\frac {t\ln 
 t}{\ln t}=t$. Když použijeme, že 
@@ -2625,7 +2638,7 @@ a odtud plyne, že
 $$t\ln p_t<t\ln(t(\ln t+\ln\ln t))\le m(\ln m+\ln(\ln m+\ln\ln m)
 )<m\ln N$$
 a to je spor s~definicí $t$. Tedy $m<\frac {p_t}{\ln t}$.
-\end{proof}
+\end{myproof}
 
 \begin{pozorovani}
 $\ln2t\ge\ln t\ge\ln\ln t\qquad\text{pro všechna }t\ge 1$
@@ -2634,7 +2647,7 @@ $\ln2t\ge\ln t\ge\ln\ln t\qquad\text{pro všechna }t\ge 1$
 \begin{lemma}
     $\frac m{p_{2t}}$ je menší, než $\frac 12$, a pokud $t$ konverguje k~$+\infty$, tak konverguje k~$0$.
 \end{lemma}
-\begin{proof}
+\begin{myproof}
 Zkombinujeme Větu o odhadu velikosti prvočísel, 
 Pomocné lemma a předchozí pozorování 
 a dostaneme, že
@@ -2645,24 +2658,24 @@ Je zřejmé, že tento výraz je menší než $\frac
 12$, 
 a když $t$ konverguje k $+\infty$, pak tento výraz konverguje k $
 0$.
-\end{proof}
+\end{myproof}
 
 \begin{lemma}
     $(1+\frac m{p_{2t}})^2\le 1.5^2=2.25$
 \end{lemma} 
-\begin{proof}
+\begin{myproof}
     Plyne jednoduše z~přechozího lemmatu.
-\end{proof}
+\end{myproof}
 
 \begin{veta}
     $H_1$ je 3.25-univerzální
 \end{veta}
-\begin{proof}
+\begin{myproof}
     Z předchozího plyne:
     \begin{align*}|\{i\in I&\mid h_i(x)=h_i(y)\}|=|G_1|+|G_2|\le\\
     &\frac {|I|}m(1+\frac m{p_{2t}})^2+\frac {|I|}m\le\frac {|I|}m(1+
     2.25)=3.25\frac {|I|}m.\end{align*}
-\end{proof}
+\end{myproof}
 
 \zapamatovat{
 Když $t\ge 6$ a $m\ln m\ln\ln m<N$, pak $
@@ -2681,7 +2694,7 @@ nechť $b=\sum_{i=0}^{m-1}b_i$. Pak
 $$\sum_{i=0}^{m-1}b_i(b_i-1)\ge b(\frac bm-1).$$
 \end{lemma}
 
-\begin{proof}Z Cauchyho-Schwarzovy nerovnosti 
+\begin{myproof}Z Cauchyho-Schwarzovy nerovnosti 
 $$(\sum_{i=0}^{m-1}x_iy_i)^2\le (\sum_{i=0}^{m-1}x^2_i)(\sum_{i=0}^{
 m-1}y_i^2)$$
 plyne $(\sum_{i=0}^{m-1}b_i)^2=b^2\le m(\sum_{i=0}^{m-1}b_i^2)$, stačí položit 
@@ -2689,13 +2702,13 @@ $x_i=b_i$ a $y_i=1$, a tedy $\frac {b^2}m\le\sum_{i=0}^{m-1}b_i^2$. Odtud
 $$\sum_{i=0}^{m-1}b_i(b_i-1)=\sum_{i=0}^{m-1}b_i^2-\sum_{i=0}^{m-
 1}b_i=\sum_{i=0}^{m-1}b_i^2-b\ge\frac {b^2}m-b=b(\frac bm-1)$$
 a lemma je dokázáno.
-\end{proof}
+\end{myproof}
 
 \begin{lemma}[O obecné funkci]
     Pokud $f:U\to T$ je libovolná hašovací funkce (tj. ne z $H$), počet dvojic $u,v$ takových, že $u\ne v$ a $
     f(u)=f(v)$ (tj. kolidující dvojice) je větší, než $N(\frac {N-m}m)$, kde $N$ je velikost $U$ a $m$ je velikost $T$.
 \end{lemma}
-\begin{proof}
+\begin{myproof}
     Když pro $t\in T$ označíme $k_t=|f^{-1}(t)|$, pak $|A|=
     \sum_{t\in T}k_t(k_t-1)$.
     Z lemmatu plyne, že 
@@ -2703,7 +2716,7 @@ a lemma je dokázáno.
     protože $\sum_{t\in T}k_t=N$.
     
     Nerovnítko plyne z~technického lemmatu.
-\end{proof}
+\end{myproof}
 
 \begin{veta}Když $H$ je $c$-univerzální 
 systém univerza $U$ o velikosti $N$ hašující do tabulky s~$
@@ -2712,7 +2725,7 @@ pak $c\ge 1-\frac mN$.
 \end{veta}
 
 
-\begin{proof}
+\begin{myproof}
 
 Použijeme předchozí lemma o obecné funkci a při sčítání si \uv{vtipně} přehodíme, přes co vlastně sčítáme, a poté využijeme toho, že $H$ je $c$-univerzální.
 
@@ -2729,7 +2742,7 @@ lemmatu dostáváme
 m.\end{align*}
 Odtud plyne, že $N-m\le c(N-1)$, a tedy 
 $$c\ge\frac {N-m}{N-1}>\frac {N-m}N=1-\frac mN.$$
-\end{proof}
+\end{myproof}
 
 \zapamatovat{
 Když $H$ je $c$-univerzální, $c\ge 1-\frac mN$.
@@ -2869,7 +2882,7 @@ odhady na velikost $|H|$.
     1\}$ je perfektní pro maximálně $\binom 
     mn(\frac Nm)^n$ množin.
 \end{lemma}
-\begin{proof}
+\begin{myproof}
     Ještě jednou -- zjišťujeme počet množin $S\subseteq U$ takových, že  
     $h$ je perfektní funkce pro $S$ a $|S|=n$.
     
@@ -2890,16 +2903,16 @@ odhady na velikost $|H|$.
     i)|=\frac Nm$ pro každé $i$. Posloupností $i$ je $\binom mn$, tedy $h$ může být perfektní nejvýše pro $\binom 
     mn(\frac Nm)^n$ 
     množin.
-\end{proof}
+\end{myproof}
     
 \begin{veta}
     $$|H|\ge\frac {\binom Nn}{\binom mn(\frac Nm)^n}.$$
 \end{veta}
-\begin{proof}
+\begin{myproof}
     Víme, že $n$-prvkových 
 podmnožin universa je $\binom Nn$, a každá z~funkcí v $H$ je perfektní pro maximálně $\binom 
     mn(\frac Nm)^n$ množin, tedy skutečně $|H|\ge\frac {\binom Nn}{\binom mn(\frac Nm)^n}.$
-\end{proof}
+\end{myproof}
     
 Jiný odhad velikosti $(N,m,n)$-perfektního souboru.
 
@@ -2907,7 +2920,7 @@ Jiný odhad velikosti $(N,m,n)$-perfektního souboru.
     $$|H|\ge\frac {\log N}{\log m}$$
 \end{veta}
 
-\begin{proof}
+\begin{myproof}
 Velikost souboru funkcí nazvěme $t$, $H=\{h_1,\dots,h_t\}$. 
 
 Definujme indukcí 
@@ -2936,7 +2949,7 @@ N{m^t}\le 1$.
 
 Proto 
 $t\ge\frac {\log N}{\log m}$.    
-\end{proof}
+\end{myproof}
 
 Z obou vět potom platí:
 
@@ -2967,7 +2980,7 @@ hodnota $h_i(x)$.
     Pro pevnou množinu $S=\{s_1,s_2,\dots,s_n\}\subseteq U$ je matic \emph{bez} perfektní funkce nejvýše $$(m^n-\prod_{i=0}^{n-1}(m-i))^tm^{(N-n)t}.$$
 \end{lemma}
 
-\begin{proof}
+\begin{myproof}
     Žádná funkce z $H$ 
     není perfektní pro množinu $S=\{s_1,s_2,\dots,s_n\}\subseteq 
     U$, 
@@ -2985,7 +2998,7 @@ hodnota $h_i(x)$.
     $(m^n-\prod_{i=0}^{n-1}(m-i))^t$.  Tyto podmatice můžeme 
     libovolně doplnit na matici typu $N\times n$ a pro každou 
     matici je těchto doplnění $m^{(N-n)t}$.
-\end{proof}
+\end{myproof}
 
 \begin{lemma}
     Počet matic, které nereprezentují $(N,m,n)$-perfektní systém, je 
@@ -2993,12 +3006,12 @@ hodnota $h_i(x)$.
     $$\binom Nn(m^n-\prod_{i=0}^{n-1}(m-i))^tm^{(N-n)t}.$$
 \end{lemma}
 
-\begin{proof}
+\begin{myproof}
 Podmnožin $U$ velikosti $n$ je $\binom Nn$, tedy počet všech 
 matic, které nereprezentují $(N,m,n)$-perfektní systém, je 
 menší nebo roven  
 $\binom Nn(m^n-\prod_{i=0}^{n-1}(m-i))^tm^{(N-n)t}$ (podle posledního lemmatu)
-\end{proof}
+\end{myproof}
 
 \begin{lemma}[Postačující podmínka]
     Když 
@@ -3007,15 +3020,15 @@ $\binom Nn(m^n-\prod_{i=0}^{n-1}(m-i))^tm^{(N-n)t}$ (podle posledního lemmatu)
     pak nutně existuje $(N,m,n)$-perfektní systém.
 \end{lemma}
 
-\begin{proof}
+\begin{myproof}
 Všech matic je $m^{Nt},$ a tedy  když $\binom Nn(m^n-\prod_{i=0}^{n-1}(m-i))^tm^{(N-n)t}<m^{Nt},$ pak nutně existuje $(N,m,n)$-perfektní systém, protože nějaká matice, co ho reprezentuje, se \uv{najde}.
-\end{proof}
+\end{myproof}
 
 \begin{veta}
     Pokud $t\ge n(\ln N)e^{\frac {n^2}m}$, tak existuje $(N,m,n)$-perfektní soubor funkcí. 
 \end{veta}
 
-\begin{proof}
+\begin{myproof}
 
 Následující vý\-ra\-zy jsou ekvivalentní s~postačující podmínkou:
 
@@ -3040,7 +3053,7 @@ Horní odhad zlomku je tedy $n(\ln N)e^{\frac {n^2}m}$.
 
 Odtud dostáváme, že když $t\ge n(\ln N)e^{\frac {n^2}m}$, pak platí postačující podmínka, a tedy 
 existuje $(N,m,n)$-perfektní soubor funkcí. 
-\end{proof}
+\end{myproof}
 
 Existence $(N,m,n)$-perfektního souboru funkcí ale 
 nezaručuje splnění požadavků 2), 3) a 4) ze sekce \ref{pozadavky1234}.
@@ -3079,15 +3092,15 @@ $$b_i^k\le 1\text{\rm\ implikuje }(b_i^k)^2-b_i^k=0.$$
 \begin{lemma}[Podmínka perfektnosti]Funkce $h_k$ je perfektní, právě když 
 $\sum_{i=0}^{m-1}(b_i^k)^2-n<2$.
 \end{lemma}
-\begin{proof}
+\begin{myproof}
     Plyne z~$\sum_{i=0}^{m-1}b_i^k=n$.
-\end{proof}
+\end{myproof}
 
 \begin{lemma}
     Existuje $k$ takové, že $\sum_{i=0}^{m-1}(b_i^
     k)^2\le 2\frac {n(n-1)}m+n$.
 \end{lemma}
-\begin{proof}
+\begin{myproof}
 
 Odhadneme výraz $\sum_{k=1}^{N-1}\big((\sum_{
 i=0}^{m-1}(b_i^k)^2)-n\big)$.
@@ -3149,7 +3162,7 @@ x,y\in S,x\ne y}2(\frac {N-1}m)=2(N-1)\frac {n(n-1)}m.$$
 
 Tedy platí, že existuje $k$ takové, že $\sum_{i=0}^{m-1}(b_i^
 k)^2\le 2\frac {n(n-1)}m+n$. 
-\end{proof}
+\end{myproof}
 
 \begin{lemma}
     Ukážeme, že existuje více než $\frac {N-
@@ -3157,7 +3170,7 @@ k)^2\le 2\frac {n(n-1)}m+n$.
 $k$, že platí
 $$\sum_{i=0}^{m-1}(b_i^k)^2<3\frac {n(n-1)}m+n.$$
 \end{lemma}
-\begin{proof}
+\begin{myproof}
     Sporem.
     
 V opačném případě dostáváme, že 
@@ -3169,7 +3182,7 @@ a to je spor s~předchozím výsledkem. Tedy při náhodném rovnoměrném
 výběru $k$ je 
 $$\Prob\{\sum_{i=0}^{m-1}(b_i^k)^2<\frac {3n(n-1)}m+n\mid k\in \{
 1,2,\dots,N-1\}\}\ge\frac 14.$$
-\end{proof}
+\end{myproof}
 
 \begin{veta}Když $n=m$, pak 
 \begin{enumerate}
@@ -3197,7 +3210,7 @@ je nejvýše $4$.
 \end{enumerate}
 \end{veta}
 
-\begin{proof}
+\begin{myproof}
     
     Neformálně:
     
@@ -3232,7 +3245,7 @@ $$\sum_{i=0}^{m-1}(b_i^k)^2\le\frac {3n(n-1)}{2n(n-1)}+n<n+2.$$
 Algoritmus splňující tvrzení d) je stejný jako 
 v případě b) (jen $m=2n(n-1)$).
 
-\end{proof}
+\end{myproof}
 
 
 Hašovací funkce $\mathbf{A}$ nejsou perfektní.
@@ -3302,7 +3315,7 @@ $1,2,\dots,N-1$, a tedy vyžadují $O(n\log N)$ paměti.
     \end{pitemize}
 \end{veta}
 
-\begin{proof}
+\begin{myproof}
     \begin{pitemize}
         \item Protože $g(S_i)$ pro $i=0,1,\dots,m-1$ 
 jsou navzájem disjunktní a $h_{k_i}$ je perfektní na $S_
@@ -3332,7 +3345,7 @@ k$ nalezneme v čase $O(n)$ a $k_i$ v čase $O(|S_i|)$, dostaneme, že
 že $g$ nalezneme v čase $O(n)$. 
  \item Zbytek je jasný.
 \end{pitemize}
-\end{proof}
+\end{myproof}
 
 Tedy zkonstruovaná hašovací funkce splňuje požadavky 
 1), 2) a 3) z~\ref{pozadavky1234}, ale požadavek 4) není splněn. 
@@ -3343,7 +3356,7 @@ Tedy zkonstruovaná hašovací funkce splňuje požadavky
 $m$. Pak $q=O(\frac {\log m}{\log\log m})$.
 \end{lemma}
 
-\begin{proof}
+\begin{myproof}
 
 Mějme přirozené číslo $m$ a nechť $q$ je počet všech prvočísel 
 dělících $m$ ($p_1,p_2,\dots$ je rostoucí posloupnost všech 
@@ -3351,7 +3364,7 @@ prvočísel). Pak
 $$m\ge\prod_{i=1}^qp_i>q!=e^{\sum_{i=1}^q\ln i}\ge e^{\int_1^q\ln 
 xdx}=e^{q\ln(\frac qe)+1}\ge (\frac qe)^q.$$
 Proto existuje konstanta $c$, že $q\le c\frac {\ln m}{\ln\ln m}$ (viz Pomocné lemma v~sekci \ref{tupomlema}). 
-\end{proof}
+\end{myproof}
 
 
 \begin{veta}Pro každou $n$-prvkovou množinu $S\subseteq 
@@ -3360,7 +3373,7 @@ existuje prvo\-čís\-lo $p$ o velikosti $O(n^2\ln N)$ takové, že
 funkce $\phi_p(x)=x\bmod p$ je perfektní pro $S$. (nazvu funkce $\mathbf{D}$)  
 \end{veta}
 
-\begin{proof}
+\begin{myproof}
 
 Mějme opět pevně danou $S=\{s_1<s_2<\dots<s_n\}\subseteq U$. 
 
@@ -3397,7 +3410,7 @@ D}{\ln\ln D})=\\
 &4c\ln D+o(\ln D)=O(\ln D)=O(n^2\ln N).\end{align*}
 
 
-\end{proof}
+\end{myproof}
 
 
 
@@ -3406,13 +3419,13 @@ $|S|=n$, deterministický algoritmus nalezne prvočíslo
 $p=O(n^2\log N)$ takové, že $\phi_p(x)=x\bmod p$ je perfektní 
 pro $S$, a pracuje v čase $O(n^3\log n\log N)$.\end{veta}
 
-\begin{proof}
+\begin{myproof}
 Test, zda funkce $\phi_p(x)=x\bmod p$ je perfektní 
 pro $S$, 
 vyžaduje čas $O(n\log n)$. Tedy systematické hledání 
 nejmenšího $p$, že $\phi_p$ je perfektní pro $S$, vyžaduje čas 
 $O(n^3\log n\log N)$. 
-\end{proof}
+\end{myproof}
 
 \begin{veta}
 Pravděpodobnostní 
@@ -3422,7 +3435,7 @@ $O(n\log n(\log n+\log\log N))$.
 \end{veta}
 
 
-\begin{proof}
+\begin{myproof}
 Nejmenší $p$ takové, že $\phi_p$ je perfektní 
 pro $S$, 
 je prvočíslo. Navrhneme pravděpodob\-nostní algoritmus 
@@ -3450,7 +3463,7 @@ $\Theta (\frac 1{\ln(9cn^2\ln N)})$, a proto očeká\-va\-ný počet neúspěšn
 testů je $O(\ln(9cn^2\ln N))$. Tedy očeká\-vaný čas 
 algoritmu je $O(n\log n(\log n+\log\log N))$.
 
-\end{proof}
+\end{myproof}
 
 \begin{pozorovani}Deterministický algoritmus nalezne nejmenší prvočíslo s~po\-ža\-dovanou vlastností.  Prav\-dě\-podobnostní algoritmus 
 nalezne prvočíslo, které může být podstatně 
@@ -3617,7 +3630,7 @@ funkci $h\in \mathcal H_m$ pro množinu $S$ v čase $O(n)$ a očekávaný počet
 iterací je menší než $\frac {c+a}a$.  
 \end{tvrzeni}
 
-\begin{proof}Když $n=m$, pak v čase $O(n)$ pro  
+\begin{myproof}Když $n=m$, pak v čase $O(n)$ pro  
 hašovací funkci ověříme, zda $\sum_{j=0}^{m-1}(b^
 i_j)^2\le c(n-1)+n$, respektive 
 $\sum_{j=0}^{m-1}(b^i_j)^2\le (c+a)(n-1)+n$.  V prvním případě víme, že taková 
@@ -3649,7 +3662,7 @@ $$\sum_{j=0}^{m-1}(b^i_j)^2\le\frac {(c+a)n(n-1)}{\frac {(c+a)n(n
 Z důsledku plyne, že $h_i$ je perfektní.  Analýza 
 očekávaného počtu iterací je stejná jako u předchozího tvrzení 
 pro pravděpodobnostní algoritmus. 
-\end{proof}
+\end{myproof}
 
 Další postup konstrukce perfektní hašovací funkce už 
 nesouvisí s~$c$-univerzálními systémy. 
@@ -5168,7 +5181,7 @@ $O(n+n\log\frac Fn)$, kde $F$ je míra setříděnosti vstupní
 posloupnosti.
 \end{veta}
 
-\begin{proof}
+\begin{myproof}
 
 Z pozorování platí 
 $$a^{h-1}\le f_i\implies h-1\le\log_af_i\implies h\in O(\log f_i).$$
@@ -5184,7 +5197,7 @@ průměru, a odtud dostáváme
 \begin{align*}\sum_{i=1}^n\log f_i=&\log\prod_{i=1}^nf_i=n\log(\prod_{i
 =1}^nf_i)^{\frac 1n}\le\\
 &n\log\frac {\sum_{i=1}^nf_i}n=n\log\frac Fn.\end{align*}
-\end{proof}
+\end{myproof}
 
 Zhodnocení: Protože $A$-{\bf sort} nepoužívá operaci 
 {\bf DELETE}, doporučuje se použít $(2,3)$-stromy. Když se 
@@ -5317,9 +5330,9 @@ pro kořen $r$ platí $b(r)\le c$.
 \end{pozorovani}
 
 
-\begin{proof}
+\begin{myproof}
     Důkazy 1,2,3,6 jsou triviální. Důkazy 4 a 5 jsou technické a vyplývají z definice $c$ (pozn. studenta - já to tam nevidím :( )
-\end{proof}
+\end{myproof}
 
 \begin{definice}
 Strom $(T,r)$ ohodnotíme 
@@ -5381,9 +5394,9 @@ h>1;\\
 b(T')\ge&b(T)-1.\end{align*}
 \end{lemma_counting}
 
-\begin{proof}
+\begin{myproof}
     Zhoršili jsme $b_1$ v nejspodnější hladině, na nic jiného jsme nešahali, nic jsme neštěpili.
-\end{proof}
+\end{myproof}
 
 \begin{lemma_counting}Nechť $(T,r,v)$ je parciální $(a,b)$-strom, 
 $\rho (v)=b+1$ a $v$ je ve výšce $l\ge 1$. Když $T'$ vznikne z $
@@ -5396,9 +5409,9 @@ b_h(T')=&b_h(T)\text{\rm\ pro }h\ne l,l+1;\quad b(T')\ge b(T)+2c-
 1.\end{align*}
 \end{lemma_counting}
 
-\begin{proof}
+\begin{myproof}
     Nerovnítko o $l$-té hladině platí kvůli bodu 5 z pozorování 1, protože jsme $b$ z~$-1$ změnili na $2c-1$, o $l+1$ hladině to platí proto, protože se zvětšil uzel o jedna (viz pozorování 2). Zbytek stromu je stejný.
-\end{proof}
+\end{myproof}
 
 \begin{lemma_counting}Nechť $(T,r,v)$ je parciální $(a,b)$-strom, 
 $\rho (v)=a-1$, $v$ je ve výšce $l\ge 1$ a $y$ je bezprostřední bratr $v$ takový že $\rho(y)=a$. Když $T'$ vznikne z $T$ operací {\bf Spojení$(v,y)$}, pak $(T',r,\otec(v))$ je parciální $(a,b)$-strom a 
@@ -5407,11 +5420,11 @@ platí:
 (T)-1\\
 b_h(T')=&b_h(T)\text{\rm\ pro }h\ne l,l+1;\quad b(T')\ge b(T)+c.\end{align*}
 \end{lemma_counting}
-\begin{proof}
+\begin{myproof}
     Ve vrstvě $l$ se ze situace v~bodech 2 a 3 z pozorování 1 dostaneme do situace v~bodu 4.
     
     Ve vrstvě $l+1$ opět měníme jenom jeden prvek.
-\end{proof}
+\end{myproof}
 
 
 \begin{lemma_counting} Nechť $(T,r,v)$ je parciální $(a,b)$-strom, 
@@ -5422,9 +5435,9 @@ $$b_l(T')\ge b_l(T)\text{\rm\ a }b_h(T')=b_h(T)\text{\rm\ pro }h\ne
 l;\quad b(T')\ge b(T).$$
 \end{lemma_counting}
 
-\begin{proof}
+\begin{myproof}
     Nevím, ze kterého pozorování přesně to platí :( ale ... asi to platí, protože pokud jednu vzdálenost zhoršíme, jinou zlepšíme. Nebo tak něco.
-\end{proof}
+\end{myproof}
 
 \begin{definice}
     Nechť $\mathcal P$ je 
@@ -5460,19 +5473,19 @@ výsledků dostá\-váme
 b_h(T_k)\ge 2cSt_h+(c+1)Sp_h-St_{h-1}-Sp_{h-1}\text{\rm\ pro }h\ge 
 1.\end{gather*}
 \end{dusledek_counting}
-\begin{proof}
+\begin{myproof}
     Skutečně plyne z~lemmat z~částí pro hladiny, různé operace přispějí různě.
-\end{proof}
+\end{myproof}
 
 \begin{dusledek_counting}
 Dále $b(T_k)\ge (2c-1)St+cSp-n$, kde $n$ je délka posloupnosti $
 \mathcal P$.
 \end{dusledek_counting}
-\begin{proof}
+\begin{myproof}
     Skutečně plyne z~lemmat z~částí pro celé stromy.
     
     
-\end{proof}
+\end{myproof}
 
 
 Nyní odhadneme shora $b(T_k)$.
@@ -5481,7 +5494,7 @@ Nyní odhadneme shora $b(T_k)$.
 $0\le b(T)\le c+(m-2)\frac c{a+c-1}$.
 \end{lemma_counting}
 
-\begin{proof}Pro $0\le j<c$ označme $m_j$ počet 
+\begin{myproof}Pro $0\le j<c$ označme $m_j$ počet 
 vnitřních vrcholů různých od kořene, 
 které mají přesně $a+j$ synů, a $m_c$ označme 
 počet vnitřních vrcholů různých od 
@@ -5501,13 +5514,13 @@ dostáváme
 a+j-1)m_j\le\\
 &c+\frac c{a+c-1}(m-2)\end{align*}
 a lemma je dokázáno.
-\end{proof}
+\end{myproof}
 
 \begin{veta}[1]
     $$P\le n\quad \text{\rm a}\quad (2c-1)St+cSp\le n+c+\frac {c(n-2)}{a+c-1};$$
 \end{veta}
 
-\begin{proof}
+\begin{myproof}
     Protože každá operace 
     {\bf DE\-LETE} použije nejvýše jednu operaci {\bf Přesun} (a operace 
     {\bf INSERT} operaci {\bf Přesun} nepoužívá) dostáváme, že 
@@ -5518,14 +5531,14 @@ a lemma je dokázáno.
     $n$ listů) 
     $$(2c-1)St+cSp-n\le b(T_k)\le c+(n-2)\frac c{a+c-1}$$
     Odtud plyne požadovaná nerovnost.
-\end{proof}    
+\end{myproof}    
 
 \begin{lemma_counting}Pro každé $h\ge 1$ a pro každý 
 $(a,b)$-strom $T$ s~$m$ listy platí 
 $$\sum_{l=1}^hb_l(T)(c+1)^l\le (c+1)m.$$
 \end{lemma_counting}
 
-\begin{proof}Pro $0\le j<c$ a pro libovolné $h$ 
+\begin{myproof}Pro $0\le j<c$ a pro libovolné $h$ 
 označme $m_j(h)$ počet vrcholů ve výšce $h$ 
 různých od kořene, které mají přesně $a
 +j$ 
@@ -5550,13 +5563,13 @@ kde rovnost jsme získali přerovnáním sčítanců
 tak, aby výrazy $\sum_{j=0}^cm_j(l)$ byly u sebe, a poslední 
 nerovnost plyne z toho, že $\frac a{c+1}\ge 1$, a tedy druhý sčítanec 
 v předchozím výrazu není kladný.
-\end{proof}
+\end{myproof}
 
 \begin{lemma_counting}
     $St_h+Sp_h\le\frac n{(c+1)^h}+\sum_{l=1}^hb_l(T_k)\frac {(c+1)^l}{(c+1)^{h+1}}$
 \end{lemma_counting}
 
-\begin{proof}
+\begin{myproof}
      Výraz z~Důsledku 5 upravíme (využíváme, že $
     c\ge 1$):
     \begin{align*} St_h+Sp_h\le&\frac {b_h(T_k)}{c+1}+\frac {St_{h-1}+Sp_{h
@@ -5567,12 +5580,12 @@ v předchozím výrazu není kladný.
     h}=\\
     &\frac n{(c+1)^h}+\sum_{l=1}^hb_l(T_k)\frac {(c+1)^l}{(c+1)^{h+1}}
     .\end{align*}
-\end{proof}
+\end{myproof}
 
 \begin{veta}[2]
     $St_h+Sp_h+P_h\le\frac {2(c+2)n}{(c+1)^h}.$
 \end{veta}
-\begin{proof}
+\begin{myproof}
     Zkombinujeme předchozí dvě lemmata. Dostaneme
     
     \begin{align*} St_h+Sp_h\le&\frac n{(c+1)^h}+\sum_{l=1}^hb_l(T_k)\frac {
@@ -5585,14 +5598,14 @@ v předchozím výrazu není kladný.
     \begin{align*} St_h+Sp_h+P_h\le&\frac {2n}{(c+1)^h}+\frac {2n}{(c+1)^{h
     -1}}=\frac {2n+2n(c+1)}{(c+1)^h}=\\
     &\frac {2n(c+2)}{(c+1)^h}\end{align*}
-\end{proof}
+\end{myproof}
 
 \begin{dusledek}
     Amortizovaný počet vyvažovacích operací splňuje 
     $$\frac {P+St+Sp}n\le\frac 52.$$
 \end{dusledek}
 
-\begin{proof}
+\begin{myproof}
     
     Z definice plyne, že $c\ge 1$, a protože $a\ge 2$, z~věty (1) dostaneme
     $$St+Sp\le\frac nc+1+\frac {n-2}a\le n+1+\frac {n-2}2\le\frac {3n}
@@ -5600,7 +5613,7 @@ v předchozím výrazu není kladný.
     Amortizovaný počet vyvažovacích operací splňuje tedy 
     $$\frac {P+St+Sp}n\le\frac 52.$$
 
-\end{proof}
+\end{myproof}
 
 \subsubsection{Omezení štěpení, spojování a přesunů -- diskuze}
 
@@ -5851,7 +5864,7 @@ který obsahuje jenom prvky z $S$, které jsou reprezentovány
 vrcholy podstromu $T'$. Navíc, když $t$ je list, pak $<\lambda(t),\pi(t)>$ je interval repreyentovaný listem $t$.
 \end{lemma}
 
-\begin{proof}Tvrzení dokážeme indukcí.  Zřejmě platí, 
+\begin{myproof}Tvrzení dokážeme indukcí.  Zřejmě platí, 
 když $t$ je kořen stromu $T$.  Předpokládej\-me, že platí pro vrchol 
 $t$ a doká\-že\-me ho pro syny vrcholu $t$.  Označme $t_l$ levého syna 
 vrcholu $t$, $t_p$ pravého syna vrcholu $t$.  Z definice binárního 
@@ -5860,7 +5873,7 @@ vrchol v podstromu $T$ určeném vrcholem $t_l$ a když $v$ je vnitřní
 vrchol v podstromu $T$ určeném vrcholem $t_p$, pak 
 $\key(u)<\key(t)<\key(v)$.  Nyní platnost tvrzení pro $t$ 
 implikuje platnost tvrzení i pro vrcholy $t_l$ a $t_p$. 
-\end{proof}
+\end{myproof}
 
 Korektnost podprocedury {\bf Vyhledej} plyne z 
 následujícího invariantu:
@@ -6167,12 +6180,12 @@ Z definice AVL-stromu plynou rekurze
 \end{lemma}
 
 
-\begin{proof}
+\begin{myproof}
     Tento vzorec je 
 splněn pro $i=1,2$. Dále 
 $$mx(i+1)=2mx(i)+1=2(2^i-1)+1=2^{i+1}-1.$$
 Tím je vzorec dokázán. 
-\end{proof}
+\end{myproof}
 
 Abychom spočítali $mn$, připomeneme si definici Fibonacciho čísel. 
 
@@ -6191,29 +6204,29 @@ Platí  $F_i=\frac {\big(\frac {1+\sqrt 5}2\big)^i-\big
     Existují konstanty $0<c_1<c_2$ takové, že 
     $$c_1(\frac {1+\sqrt 5}2)^i<\sqrt 5F_i<c_2(\frac {1+\sqrt 5}2)^i.$$
 \end{lemma}
-\begin{proof}
+\begin{myproof}
 Protože 
 $-1<\frac {1-\sqrt 5}2<0$ a $\frac {1+\sqrt 5}2>1$, dostáváme, že 
 $$\lim_{n\mapsto\infty}F_n\sqrt 5(\frac {1+\sqrt 5}2)^{-n}=1.$$
 Proto skutečně existují konstanty $0<c_1<c_2$ takové, že 
 $c_1(\frac {1+\sqrt 5}2)^i<\sqrt 5F_i<c_2(\frac {1+\sqrt 5}2)^i.$
-\end{proof}
+\end{myproof}
 
 \begin{lemma}[2]
      $mn(i)=F_{i+2}-1$
 \end{lemma}
 
-\begin{proof}Protože $F_3
+\begin{myproof}Protože $F_3
 =2$ a 
 $F_4=3$, 
 tvrzení platí pro $i=1$ a $i=2$. Dále 
 \begin{align*} mn(i+2)=&mn(i+1)+mn(i)+1=\\&F_{i+3}-1+F_{i+2}-1+1=F_{i+4}-1.\end{align*}
 Z toho indukcí plyne požadovaný vztah. 
-\end{proof}
+\end{myproof}
 \begin{veta}
 $i=\Theta (\log(n))$
 \end{veta}
-\begin{proof}
+\begin{myproof}
 Když AVL-strom $T$ o výšce $i$ reprezentuje množinu $
 S$ o 
 velikosti $n$, pak platí 
@@ -6226,7 +6239,7 @@ Protože $\log(\frac {1+\sqrt 5}2)\approx 0.69\approx\frac 1{1.
 44}$ dostáváme, že pro dostatečně velká $n$ 
 platí, že $0.69i<\log(n+1)\le i$. Odtud plyne, že 
 $\log(n+1)\le i\le 1.44\log(n)$, a tedy $i=\Theta (\log(n))$.
-\end{proof}
+\end{myproof}
 \zapamatovat{
 $\eta (\text{\rm kořen }T) = \Theta (\log(n))$
 }
@@ -6262,9 +6275,9 @@ $t=\levy(v)$ a $\omega (v)$ má ještě původní hodnotu.
 zvětšila a $t$ nebyl listem před operaci, pak po operaci 
 neplatí $\omega (t)=0$.
 \end{lemma}
-\begin{proof}
+\begin{myproof}
     Skutečně, aby se zvětšila, musí se změnit z~nuly na jednu ze stran.
-\end{proof}
+\end{myproof}
 
 Označme $u=\pravy(v)$ -- tj. $v$ má děti $t$, $u$, $\eta (t)$ jsme právě změnili z $a-1$ na $a$ a jdeme řešit $v$:
 
@@ -6580,7 +6593,7 @@ vyvážené stro\-my, tj. $$\hloubka(T)=O(\log(|S|).$$
 \begin{veta}Když červeno-černý strom $T$ 
 reprezentuje množinu $S$, pak $$\hloubka(T)\le 2\log(2|S|+2)=1+\log(|S|+1).$$
 \end{veta}
-\begin{proof}
+\begin{myproof}
 
 Předpokládejme, že $T$ je červeno-černý strom, který má 
 na cestě z kořene do listu právě $k$ černých 
@@ -6599,7 +6612,7 @@ dostáváme, že $\#T=2|S|+1$. Z vlastností červeno-černých
 stromů plyne, že 
 $$k\le\hloubka(T)\le 2k.$$
 
-\end{proof}
+\end{myproof}
 
 
 \subsubsection{Popis algoritmů (kromě vyvažování)}
@@ -7316,17 +7329,17 @@ Toto očíslování se nazývá \emph{přirozené}
     Každý $d$-regulární strom má nejvýše jeden 
     vrchol, který není list a má méně než $d$ synů.
 \end{tvrzeni}
-\begin{proof}
+\begin{myproof}
     Plyne přímo z požadavku 2) na 
     $d$-regulární strom.
-\end{proof}
+\end{myproof}
 
 \begin{tvrzeni}
     Když 
     $d$-regulární strom má $n$ vrcholů, pak jeho 
     výška je $\lceil\log_d(n(d-1)+1)\rceil$.
 \end{tvrzeni}
-\begin{proof}
+\begin{myproof}
     Má-li $d$-regulární strom výšku $
     k$, 
     pak má alespoň $\Sigma_{i=0}^{k-1}d^i+1$ a nejvýše $\Sigma_{
@@ -7337,7 +7350,7 @@ Toto očíslování se nazývá \emph{přirozené}
     a zlogaritmováním dostaneme
     $$k<\log_d(n(d-1)+1)\le k+1.$$
     Odtud již plyne.
-\end{proof}
+\end{myproof}
 
 \subsubsection{Reprezentace pomocí pole}
 
@@ -7349,7 +7362,7 @@ Toto očíslování se nazývá \emph{přirozené}
     otcem vrcholu $v$, právě když $o(u)=1+\lfloor\frac {k-2}d
     \rfloor$.
 \end{tvrzeni}
-\begin{proof}
+\begin{myproof}
     Dokážeme indukcí podle očíslování.
     
     Synové kořene mají čísla 
@@ -7361,7 +7374,7 @@ Toto očíslování se nazývá \emph{přirozené}
     tvrzení platí. Poslední část pak plyne z toho, že když $
     i\in \{(k-1)d+2,(k-1)d+3,\dots,kd+1\}$, pak 
     $1+\lfloor\frac {i-2}d\rfloor =k$.
-\end{proof}
+\end{myproof}
 
 
 
@@ -7530,7 +7543,7 @@ provádět opakovaně operaci {\bf INSERT}.
     $O(d^2|S|)$.
 \end{veta}
 
-\begin{proof}
+\begin{myproof}
 Operace {\bf DOWN$
 (v)$} na vrchol 
 ve výšce $h$ vyžaduje v nej\-horším případě čas $
@@ -7565,7 +7578,7 @@ dostáváme, že $d^{k+1}\le d^2((d-1)|S|+1)$, a proto $A\le
  Tedy 
 {\bf MAKEHEAP} vyžaduje v nejhorším případě jen čas 
 $O(d^2|S|)$. 
-\end{proof}
+\end{myproof}
 
 \subsubsection{Aplikace -- heapsort}
 
@@ -7794,7 +7807,7 @@ nejhorším případě $O(\log(|S|))$. Operace {\bf MIN} vyžaduje
     {\bf MA\-KEHEAP} má časovou složitost $O(|S|)$
 \end{veta}
 
-\begin{proof}
+\begin{myproof}
 Budeme 
 uvažovat, že na začátku algoritmu je na vrcholu fronty 
 speciální znak, který se jen přenese na konec fronty. 
@@ -7818,7 +7831,7 @@ k{2^{k-1}}).$$
 Řada $\sum_{k=1}^{\infty}$$\frac k{2^{k-1}}$ konverguje např. podle podílového d'Alambertova 
 kritéria a lze jednoduše spočítat (např. stejnou metodou 
 jako pro regulární haldy), že součet je $4$, tedy čas je $O(|S|)$.
-\end{proof}
+\end{myproof}
 
 \subsubsection{Efektivní {\bf DECREASE} a {\bf INCREASE}}
 
@@ -7933,7 +7946,7 @@ $$D_0\to^{o_1}D_1\to^{o_2}D_2\to^{o_3}\dots\to^{o_n}D_n.$$
     Odhad amortizované složitosti je odhadem složitosti.
 \end{veta}
 
-\begin{proof}
+\begin{myproof}
 
 Předpokládejme, že pro každé $i=1,2,\dots,n$ máme odhad 
 $c(o_i)$ amortizované složitos\-ti operace $o_i$, tj. $am(o_
@@ -7951,7 +7964,7 @@ $$\sum_{i=1}^nt(o_i)\le\sum_{i=1}^nc(o_i)+h(D_0),$$
 když $h(D)\le 0$, pak 
 $$\sum_{i=1}^nt(o_i)\le\sum_{i=1}^nc(o_i)-h(D_n).$$
 
-\end{proof}
+\end{myproof}
 
 To znamená, že odhad amortizované složitosti dává také odhad 
 na časovou složitost posloupnosti operací, který bývá lepší než odhad složitosti v 
@@ -7988,7 +8001,7 @@ obrázek.
 \end{figure}
 
 \subsubsection{Vlastnosti binomiálního stromu}
-
+\label{vlasnostibinom}
 
 Nejprve uvedeme základní vlastnosti těchto 
 stromů.
@@ -8010,7 +8023,7 @@ se stromy $H_0,H_1,\dots,H_{i-1}$.
 \end{enumerate}
 \end{tvrzeni}
 
-\begin{proof}Tvrzení platí pro strom $H_0$ a 
+\begin{myproof}Tvrzení platí pro strom $H_0$ a 
 jednoduchou indukcí se dokáže i pro další stromy. 
 Skutečně, když $H_i$ má $2^i$ vrcholů, pak $H_{
 i+1}$ má 
@@ -8020,7 +8033,7 @@ syna více než kořen stromu $H_i$ a nejdelší cesta do listu je o $
 delší. Protože podstrom syna, který přibyl kořeni stromu 
 $H_{i+1}$, je izomorfní s~$H_i$ a jinak se nic neměnilo, je 
 důkaz kompletní. \qed
-\end{proof}
+\end{myproof}
 
 \subsubsection{Definice binomiální haldy}
 
@@ -8169,7 +8182,7 @@ využívá několik známých faktů.
 vy\-ža\-dují čas $O(\log(|S|))$, algoritmus operace {\bf INCRE\-ASE }
 vy\-ža\-duje čas $O(\log^2(|S|))$ a algoritmus operace {\bf MAKEHEAP }čas $O(|S|)$.
 \end{veta}
-\begin{proof}
+\begin{myproof}
   Ope\-race {\bf MERGE }
 simuluje sčítání přirozených čísel v binárním zápise a má 
 tedy stejnou složitost. Protože každý běh 
@@ -8195,7 +8208,7 @@ také $\le\log(|S|)$, přičemž tento odhad se nedá zlepšit. Odtud
 dostáváme složitost operací {\bf DECREASE} a {\bf INCREASE} v nejhorším 
 případě. 
 
-\end{proof}
+\end{myproof}
 
 Z těchto výsledků je vidět, že předchozí 
 typy hald mají efektivnější chování než binomiální haldy. 
@@ -8299,39 +8312,72 @@ počáteční struktury.
 Konfiguraci ohodnotíme počtem stromů v 
 haldě. 
 
+\begin{tvrzeni}
+    Amortizovaná složitost operací {\bf MERGE} a {\bf INSERT} je $
+    O(1)$.
+\end{tvrzeni}
+
+\begin{myproof}
 Protože ope\-race {\bf MERGE} nemění počet stromů a 
 protože operace {\bf INSERT} přidá jen jeden strom, je 
 amortizovaná složitost operací {\bf MERGE} a {\bf INSERT} stále $
-O(1)$.
+O(1)$.\end{myproof}
+
+\begin{lemma}
+Ope\-ra\-ce {\bf vyvaz} vyžaduje čas $O(k+\sum_{i=0}^k|O_i|
+)$
+\end{lemma}
+\begin{myproof}
+    Platí, protože každý běh 
+    vnitřního {\bf while}-cyklu v operaci {\bf vyvaz} vyžaduje čas $
+    O(1)$ 
+    a zmenší počet stromů v seznamech $O_i$ o $1$.
+\end{myproof}
+
+\begin{pozorovani}
+    Ope\-ra\-ce {\bf MIN}
+    bez podprocedury {\bf vyvaz} vyžaduje čas $O(|\mathcal H|)$ a operace 
+    {\bf DELETEMIN} bez podprocedury {\bf vyvaz }čas $O(\mathcal H+i)$ pro 
+    takové $i$, že $T$ je izomorfní s~$H_i$.
+\end{pozorovani}
+
 Ukážeme, že amortizovaná složitost operací {\bf MIN} a {\bf DELETEMIN }
 při líné implementaci binomiálních hald je $O(\log
 (|S|)$. 
-Protože každý běh 
-vnitřního {\bf while}-cyklu v operaci {\bf vyvaz} vyžaduje čas $
-O(1)$ 
-a zmenší počet stromů v seznamech $O_i$ o $1$, 
-ope\-ra\-ce {\bf vyvaz} vyžaduje čas $O(k+\sum_{i=0}^k|O_i|
-)$. Ope\-ra\-ce {\bf MIN}
-bez podprocedury {\bf vyvaz} vyžaduje čas $O(|\mathcal H|)$ a operace 
-{\bf DELETEMIN} bez podprocedury {\bf vyvaz }čas $O(\mathcal H+i)$ pro 
-takové $i$, že $T$ je izomorfní s~$H_i$. Podle tvrzení je $
-i\le\log(|S|)$, a 
-tedy ope\-ra\-ce {\bf MIN} vyžaduje čas $O(|\mathcal H|)$ a ope\-race 
-{\bf DELETEMIN }čas $O(|\mathcal H|+\log(|S|))$. Protože  
-ohodnocení klasické binomiální haldy je nejvýše $\log
+\begin{lemma}
+    Ope\-ra\-ce {\bf MIN} vyžaduje čas $O(|\mathcal H|)$ a ope\-race 
+    {\bf DELETEMIN }čas $O(|\mathcal H|+\log(|S|))$
+\end{lemma}
+\begin{myproof}
+    Podle tvrzení v části \ref{vlasnostibinom} je $i\le\log(|S|)$, dále plyne z~předchozího.
+\end{myproof}
+
+\begin{veta}
+    Amortizovaná složitost ope\-race {\bf MIN} a {\bf DELETEMIN} je $O(\log(|S|))$.
+\end{veta}
+\begin{myproof}
+
+Ohodnocení klasické binomiální haldy je nejvýše $\log
 (|S|)$ 
 (obsahuje tolik stromů, kolik je $1$ v binárním zápise 
-čísla $|S|$), dostáváme, že amortizovaná složitost ope\-race {\bf MIN} je 
-$O(|\mathcal H|-|\mathcal H|+\log(|S|))=O(\log(|S|))$ a amortizovaná složitost 
+čísla $|S|$).
+
+Z toho dostáváme, že amortizovaná složitost ope\-race {\bf MIN} je 
+$O(|\mathcal H|-|\mathcal H|+\log(|S|))=O(\log(|S|))$.
+
+Také amortizovaná složitost 
 operace {\bf DELETEMIN} je $O(|\mathcal H|+\log(|S|)-|\mathcal H|+\log(|S
 |))=O(\log(|S|))$.
+\end{myproof}
 
 Protože si funkci ohodnocení volíme, 
 můžeme použít takové multiplikativní 
 koeficienty, aby jednotka času odpovídala jednotce v 
 amortizované složitosti. Proto lze $|\mathcal H|$ od sebe odečíst.
 
-\subsection{{Fibonacciho haldy}}
+\subsection{Fibonacciho haldy}
+
+\subsubsection{Motivace}
 
 Význam Fibonacciho hald určuje fakt, že amortizovaná 
 složitost operací {\bf INSERT} a {\bf DECREASE} v těchto haldách je 
@@ -8348,12 +8394,15 @@ haldy lepší než třeba $d$-regulární haldy,
 ani nevíme, do jaké míry je to jen teoretický 
 výsledek a do jaké míry jsou opravdu prakticky použitelné. 
 
+\subsubsection{Neformální definice}
 Neformálně řečeno, je Fibonacciho halda množina 
 stromů, jejichž některé vrcholy různé od 
 kořenů jsou označeny, a kde existuje 
 jednoznačná korepondence mezi prvky $S$ a vrcholy 
 stromů (realizována funkcí $\key$), která splňuje 
-podmínku \thetag{usp}.  Toto je však jen přibliž\-né 
+podmínku \thetag{usp}.  
+
+Toto je však jen přibliž\-né 
 vyjádření.  Existují totiž struktury, na které se tento 
 popis hodí, ale 
 nevznikly z prázd\-né Fibonacciho haldy aplikací 
@@ -8361,9 +8410,11 @@ posloupnosti haldových
 operací.  Přitom důkaz efekti\-vity Fibonacciho hald se 
 dosti výrazně opírá o fakt, že halda vznikla z prázdné 
 haldy aplikací algoritmů pro Fibonacciho 
-haldy. Proto nejprve popíšeme algoritmy pro tyto 
+haldy. 
+
+Proto nejprve popíšeme algoritmy pro tyto 
 ope\-race, a pak budeme
-definovat \emph{Fibonacciho} \emph{haldy} jako struktury 
+definovat \emph{Fibonacciho} \emph{haldy} jako \underline{ty struktury} 
 vzniklé z prázdné haldy aplikací posloupnosti 
 těchto algoritmů.
 
@@ -8588,14 +8639,14 @@ Fibonacciho haldě a nechť $u$ je $i$-tý nejstarší syn
 vrcholu $v$. Pak $u$ má aspoň $i-2$ synů.
 \end{lemma}
 
-\begin{proof}V momentě, kdy se $u$ stával synem $v$, se 
+\begin{myproof}V momentě, kdy se $u$ stával synem $v$, se 
 aplikovala operace {\bf spoj}, $u$ a $v$ byly kořeny 
 stromů a měly stejný počet synů. 
 Podle předpokladů měl vrchol $v$ alespoň $i-1$ 
 synů (jinak by $u$ nebyl $i$-tý nejstarší syn), a 
 protože se od $u$ mohl odtrhnout jen jeden syn, 
 dostáváme, že $u$ musí mít alespoň $i-2$ synů. \qed
-\end{proof}
+\end{myproof}
 
 \begin{tvrzeni}Nechť $v$ je vrchol stromu ve 
 Fibonacciho haldě, kte\-rý má právě $i$ synů. Pak 
@@ -8603,7 +8654,7 @@ podstrom určený vrcholem $v$ má aspoň $F_{i+2}$
 vrcholů.
 \end{tvrzeni}
 
-\begin{proof}Tvrzení dokážeme indukcí 
+\begin{myproof}Tvrzení dokážeme indukcí 
 podle maximální délky cesty z vrcholu $v$ do některého 
 listu.  Tato délka je $0$, právě když $v$ je list.  V tom 
 případě $v$ nemá syna a podstrom určený vrcholem $
@@ -8637,7 +8688,7 @@ $$1+\sum_{i=1}^nF_i=1+\sum_{i=1}^{n-1}F_i+F_n=F_{n+1}+F_n=F_{n+2}
 Když shrneme tato fakta, dostáváme, že podstrom 
 určený vrcholem $v$ má alespoň $F_{i+2}$ vrcholů, a 
 tvrzení je dokázáno. \qed
-\end{proof}
+\end{myproof}
 
 Vezměme nyní nejmenší $i$ takové, že $
 n<F_i$. Protože 
@@ -9334,7 +9385,7 @@ $(x_1,x_2,\dots,x_n)$ neklesající, pak vyža\-du\-je čase
 $O(n)$.  
 \end{veta}
 
-\begin{proof}Důkaz má dvě části. V 
+\begin{myproof}Důkaz má dvě části. V 
 první dokážeme korektnost algoritmu a ve druhé popíšeme 
 reprezentaci množiny $V$ a vypočteme časovou složitost.
 
@@ -9439,7 +9490,7 @@ ohodnocením. Můžeme tedy shrnout, že algoritmus
 {\bf Optim} konstruuje optimální stromy v čase $O(n)$, kde $
 n$ je počet 
 zadaných čísel $x_i$. \qed
-\end{proof}
+\end{myproof}
 
 Pro aplikaci na naši původní úlohu je 
 třeba  
@@ -9728,7 +9779,7 @@ mají rovnoměrné rozložení a jsou na sobě nezá\-vislé,
 pak očekávaný čas je $O(n)$.
 \end{veta}
 
-\begin{proof}První dva cykly v algoritmu 
+\begin{myproof}První dva cykly v algoritmu 
 vyžadují čas $O(n)$, $i$-tý běh třetího cyklu vyžaduje 
 nejvýše čas $O(1+|Q_i|\log|Q_i|)$. Proto čas celého třetího cyklu je 
 $$O(\sum_{i=0}^k(1+|Q_i|\log|Q_i|)=O(\sum_{i=0}^k(1+|Q_i|\log n)=
@@ -9749,7 +9800,7 @@ $$q^2\binom nq=(q(q-1)+q)\binom nq=n(n-1)\binom {n-2}{q-2}+n\binom {
 n-1}{q-1}.$$
 (Jedná se vlastně o známý výpočet 2. momentu 
 binomického rozdělení). \qed
-\end{proof}
+\end{myproof}
 
 Poznámka: V důkazu jsme použili odhad 
 $q\log q\le q^2$ a důsledkem toho je, že jsme 
@@ -9995,7 +10046,7 @@ lemma.
 11}$.
 \end{lemma}
 
-\begin{proof} Pro $j\le\lfloor\frac n5\rfloor$ platí, že když $
+\begin{myproof} Pro $j\le\lfloor\frac n5\rfloor$ platí, že když $
 m_j<\bar {m}$, pak 
 $|A_j\cap M_1|\ge 3$, když $m_j>\bar {m}$, pak $|A_j\cap M_2|\ge 
 3$, když $m_j=\bar {m}$, 
@@ -10008,7 +10059,7 @@ dostáváme, že $|M_1|,|M_2|\ge\lfloor\frac {3n}{10}\rfloor
 $M_1\cup M_2=M\setminus \{\bar {m}\}$ a protože $\frac {8n}{11}
 +\lfloor\frac {3n}{10}\rfloor -1\ge\frac {113n}{110}-2\ge n$ 
 když $n>100$, dostáváme požadovaný odhad. \qed
-\end{proof}
+\end{myproof}
 
 Maximální čas vyžadovaný algoritmem  
 {\bf SELECT$(M,i)$} pro $|M|=n$ označme $T(n)$.  Když $n\le 
