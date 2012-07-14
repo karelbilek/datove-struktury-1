@@ -8394,7 +8394,13 @@ haldy lepší než třeba $d$-regulární haldy,
 ani nevíme, do jaké míry je to jen teoretický 
 výsledek a do jaké míry jsou opravdu prakticky použitelné. 
 
-\subsubsection{Neformální definice}
+\subsubsection{Velmi neformální definice}
+Fibonacciho halda je opět kolekce stromů. Jde tu ale o to, že ve Fibonacciho haldě je v~každém stromě s~$k$ syny alespoň
+$F_{k+2}$ prvků -- toho dosáhneme tak, že se halda strašně \uv{často} rozpadá
+-- každému vrcholu můžeme odebrat maximálně jednoho syna. Jakmile bychom mu
+chtěli odebrat dalšího, tak ho místo toho useknem a dáme jako další strom.
+
+\subsubsection{Méně neformální definice}
 Neformálně řečeno, je Fibonacciho halda množina 
 stromů, jejichž některé vrcholy různé od 
 kořenů jsou označeny, a kde existuje 
@@ -8514,8 +8520,8 @@ v$ {\bf \textsf{endif}\newline
 \phantom{{\rm ---}}}vlož $T'$ {do} $\mathcal H$\newline 
 {\bf \textsf{endif}\newline 
 $f(v):=f(v)-a$
-}
-\algoritmus{
+}}
+\algoritmus{{\bf
 INCREASE$(s,a)$}:\newline 
 $T:=$strom v $\mathcal H$, který obsahuje vrchol reprezentující $
 s$\newline 
@@ -8572,7 +8578,7 @@ nejvýše $c\log(\sqrt 5|S|+1)$. Jen tak zajistíme, aby výsledná
 halda reprezentovala $S$, res\-pektive 
 $S\setminus \{\text{\rm prvek s~nejmenší hodnotou }f\}$. 
 
- Operace {\bf vyvaz1 }
+ Operace {\bf vyvaz2 }
 zajišťuje, že od každého vrcholu stromu různého 
 od kořene byl v tomto stromě odtržen podstrom nejvýše 
 jednoho syna -- v tom případě je tento prvek označen a 

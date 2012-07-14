@@ -1,5 +1,5 @@
 %.pdf: %.tex
-	mkdir ../tmp
+	mkdir -p ../tmp
 	pdflatex -output-format=dvi -output-directory=../tmp $<
 	pdflatex -output-format=dvi -output-directory=../tmp $<
 	pdflatex -output-format=dvi -output-directory=../tmp $<
