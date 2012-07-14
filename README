@@ -1,22 +1,12 @@
-Skripta prof. Koubka k datovým strukturám 1, co nám dal k dispozici na úpravy a povolil jejich
-šíření.
+Skripta prof. Koubka k datovým strukturám 1, co nám dal k dispozici na úpravy a povolil jejich šíření.
 
-Při učení na zkoušku jsem si je trochu upravoval, abych je lépe chápal a abych
-lépe viděl "tok" důkazů, který mi v původních skriptech nepřišel příliš jasný,
-proto jsem spoustu z nich přepsal na formu definice-věta-důkaz.
+Při učení na zkoušku jsem si je trochu upravoval, abych je lépe chápal a abych lépe viděl "tok" důkazů, který mi v původních skriptech nepřišel příliš jasný, proto jsem spoustu z nich přepsal na formu definice-věta-důkaz.
 
-Bohužel jsem to nestihnul u všeho, tj. je velmi poznat, kde jsem na to "sáhnul" a
-kde ne. Každopádně, kdokoliv se do toho můžete pustit mimo mě.
+Bohužel jsem to nestihnul u všeho, tj. je velmi poznat, kde jsem na to "sáhnul" a kde ne. Každopádně, kdokoliv se do toho můžete pustit mimo mě.
 
-PDF se mi nechce do githubu strkat; jde ho zkompilovat přes "make all", nebo
-nejpozdější verze je na http://karelbilek.com/complete.pdf 
+PDF se mi nechce do githubu strkat; jde ho zkompilovat přes "make all", nebo nejpozdější verze je na http://karelbilek.com/complete.pdf 
 
-Co je, bohužel, poznat, je, že původně byly skripta v opravdu čistém AMS-TeXu
-- což by ještě šlo - ale kromě toho byly obrázky v jakémsi pseudo-postskriptu,
-  který se přepisoval na legální postscript pomocí temných technik, které už v
-  latexu nefungují. Musel jsem je převést na legální postscript poloručně, což
-  znamená jednak duplicitu kódu (chtěl jsem vyřešit shel scriptem, nestihnul)
-  a jednak zvláštně posunuté obrázky. Tak za to se omlouvám.
+Co je, bohužel, poznat, je, že původně byly skripta v opravdu čistém AMS-TeXu - což by ještě šlo - ale kromě toho byly obrázky v jakémsi pseudo-postskriptu, který se přepisoval na legální postscript pomocí temných technik, které už v latexu nefungují. Musel jsem je převést na legální postscript poloručně, což znamená jednak duplicitu kódu (chtěl jsem vyřešit shel scriptem, nestihnul) a jednak zvláštně posunuté obrázky. Tak za to se omlouvám.
 
-  Karel Bílek (ve spolupráci s Markem Vašutem a Evou Peškovou), originální
-  skripta Václav Koubek, 2012
+
+Karel Bílek (ve spolupráci s Markem Vašutem a Evou Peškovou), originální skripta Václav Koubek, 2012
